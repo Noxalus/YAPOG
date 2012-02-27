@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "tmp/Client.hpp"
-#include "tmp/HelloWorld.hpp"
+#include "YAPOG/tmp/HelloWorld.hpp"
 
 int main ()
 {

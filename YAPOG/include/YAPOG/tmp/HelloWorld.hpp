@@ -1,6 +1,8 @@
 #ifndef HELLOWORLD_HPP
 # define HELLOWORLD_HPP
 
-void HelloWorld ();
+# include "YAPOG/Export.hpp"
+
+YAPOG_LIB void HelloWorld ();
 
 #endif /// !HELLOWORLD_HPP
