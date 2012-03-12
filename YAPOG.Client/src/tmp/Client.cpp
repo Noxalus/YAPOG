@@ -4,6 +4,8 @@
 #include "YAPOG/tmp/HelloWorld.hpp"
 #include "YAPOG/Event/Event.hpp"
 #include "YAPOG/Collection/Array.hpp"
+#include "YAPOG/Collection/PtrArray.hpp"
+#include "YAPOG/Collection/List.hpp"
 #include "YAPOG/Vector2.hpp"
 #include "YAPOG/World/Map/Physics/ICollidable.hpp"
 
@@ -56,6 +58,21 @@ void perso_OnMove (const Perso& p, const sf::Vector2f& offset)
 
 int main ()
 {
+  yap::List<float> floats1;
+  floats1.Add (66.6f);
+
+  yap::List<float> floats2;
+  floats1.Add (floats2);
+
+  floats1.AddFront (22.f);
+
+  if (floats1.Contains (22.f))
+    ;
+
+  floats1.Clear ();
+
+  floats1.Remove (22.f);
+
   yap::Array<int> arr;
   arr.Add (42);
   arr.Add (666);
@@ -63,8 +80,25 @@ int main ()
     std::cout << i << std::endl;
 
   yap::Array<int> arr2;
-  arr2.Add (3);
+
+  yap::PtrArray<int> parr1;
+  yap::PtrArray<int>::DataType int001 (new int (42));
+  parr1.Add (int001);
+  parr1.Remove (int001);
+
+  std::cout << parr1.Count () << " SIZE" << std::endl;
+
   arr2.Add (arr);
+  arr2.Add (3);
+  arr2.RemoveBack ();
+
+  arr2.Remove (667);
+
+  if (arr2.Contains (666))
+    std::cout << "CONTAINS 666" << std::endl;
+
+  if (arr2.Contains (arr))
+    ;
 
   for (const int& i : arr2)
     std::cout << i << std::endl;

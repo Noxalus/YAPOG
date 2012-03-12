@@ -7,8 +7,6 @@
 
 namespace yap
 {
-  /// @class Event
-  /// @brief Provides a way to handle asynchronous event notification.
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType = void>
@@ -19,20 +17,12 @@ namespace yap
 
     public:
 
-      /// @brief Constructs the event by default.
       Event ();
-      /// @brief Destructor of the event.
       ~Event ();
 
-      /// @brief Makes the handler subscribe to this event.
-      /// @param handler Handler to make subscribe to this event.
       Event& operator+= (const Handler handler);
-      /// @brief Stops the subscription of the handler to this event.
-      /// @param handler Handler to unmake subscribe to this event.
       Event& operator-= (const Handler handler);
-      /// @brief Notifies every handler that subscribed to this event.
-      /// @param sender Source of this event.
-      /// @param args Arguments of this event.
+
       ReturnType operator() (SenderType sender, ArgsType args);
 
     private:

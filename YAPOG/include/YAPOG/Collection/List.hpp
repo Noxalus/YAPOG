@@ -1,28 +1,28 @@
-#ifndef YAPOG_ARRAY_HPP
-# define YAPOG_ARRAY_HPP
+#ifndef YAPOG_LIST_HPP
+# define YAPOG_LIST_HPP
 
-# include <vector>
+# include <list>
 
 # include "YAPOG/Export.hpp"
 
 namespace yap
 {
   template <typename T>
-  class YAPOG_LIB Array
+  class YAPOG_LIB List
   {
     public:
 
       typedef T DataType;
-      typedef std::vector<DataType> InnerType;
+      typedef std::list<DataType> InnerType;
       typedef typename InnerType::size_type SizeType;
       typedef typename InnerType::iterator ItType;
       typedef typename InnerType::const_iterator ConstItType;
 
-      Array ();
-      virtual ~Array ();
+      List ();
+      virtual ~List ();
 
-      Array (const Array<T>& copy);
-      Array& operator= (const Array<T>& copy);
+      List (const List<T>& copy);
+      List& operator= (const List<T>& copy);
 
       ItType begin ();
       ConstItType begin () const;
@@ -35,12 +35,15 @@ namespace yap
       ConstItType End () const;
 
       void Add (const T& data);
-      void Add (const Array<T>& data);
+      void Add (const List<T>& data);
+      void AddFront (const T& data);
+      void AddFront (const List<T>& data);
 
       bool Contains (const T& data) const;
-      bool Contains (const Array<T>& data) const;
+      bool Contains (const List<T>& data) const;
 
       void Remove (const T& data);
+      void RemoveFront ();
       void RemoveBack ();
 
       void Clear ();
@@ -48,15 +51,12 @@ namespace yap
       bool IsEmpty () const;
       SizeType Count () const;
 
-      const T& operator[] (SizeType index) const;
-      T& operator[] (SizeType index);
-
     private:
 
       InnerType data_;
   };
 } /// namespace yap
 
-# include "YAPOG/Collection/Array.hxx"
+# include "YAPOG/Collection/List.hxx"
 
-#endif /// !YAPOG_ARRAY_HPP
+#endif /// !YAPOG_LIST_HPP

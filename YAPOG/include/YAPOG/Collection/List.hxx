@@ -1,27 +1,27 @@
-#ifndef ARRAY_HXX
-# define ARRAY_HXX
+#ifndef YAPOG_LIST_HXX
+# define YAPOG_LIST_HXX
 
 namespace yap
 {
   template <typename T>
-  Array<T>::Array ()
+  List<T>::List ()
     : data_ ()
   {
   }
 
   template <typename T>
-  Array<T>::~Array ()
+  List<T>::~List ()
   {
   }
 
   template <typename T>
-  Array<T>::Array (const Array<T>& copy)
+  List<T>::List (const List<T>& copy)
     : data_ (copy)
   {
   }
 
   template <typename T>
-  Array<T>& Array<T>::operator= (const Array<T>& copy)
+  List<T>& List<T>::operator= (const List<T>& copy)
   {
     if (&copy == this)
       return *this;
@@ -32,73 +32,85 @@ namespace yap
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::begin ()
+  typename List<T>::ItType List<T>::begin ()
   {
     return data_.begin ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::begin () const
+  typename List<T>::ConstItType List<T>::begin () const
   {
     return data_.begin ();
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::Begin ()
+  typename List<T>::ItType List<T>::Begin ()
   {
     return begin ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::Begin () const
+  typename List<T>::ConstItType List<T>::Begin () const
   {
     return begin ();
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::end ()
+  typename List<T>::ItType List<T>::end ()
   {
     return data_.end ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::end () const
+  typename List<T>::ConstItType List<T>::end () const
   {
     return data_.end ();
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::End ()
+  typename List<T>::ItType List<T>::End ()
   {
     return end ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::End () const
+  typename List<T>::ConstItType List<T>::End () const
   {
     return end ();
   }
 
   template <typename T>
-  void Array<T>::Add (const T& data)
+  void List<T>::Add (const T& data)
   {
     data_.push_back (data);
   }
 
   template <typename T>
-  void Array<T>::Add (const Array<T>& data)
+  void List<T>::Add (const List<T>& data)
   {
     data_.insert (End (), data.Begin (), data.End ());
   }
 
   template <typename T>
-  bool Array<T>::Contains (const T& data) const
+  void List<T>::AddFront (const T& data)
+  {
+    data_.push_front (data);
+  }
+
+  template <typename T>
+  void List<T>::AddFront (const List<T>& data)
+  {
+    data_.insert (Begin (), data.Begin (), data.End ());
+  }
+
+  template <typename T>
+  bool List<T>::Contains (const T& data) const
   {
     return std::find (Begin (), End (), data) != End ();
   }
 
   template <typename T>
-  bool Array<T>::Contains (const Array<T>& data) const
+  bool List<T>::Contains (const List<T>& data) const
   {
     for (const T& t : *this)
       if (Contains (t))
@@ -108,18 +120,22 @@ namespace yap
   }
 
   template <typename T>
-  void Array<T>::Remove (const T& data)
+  void List<T>::Remove (const T& data)
   {
-    ItType toRemove = std::find (Begin (), End (), data);
-
-    if (toRemove == End ())
-      return;
-
-    data_.erase (toRemove);
+    data_.remove (data);
   }
 
   template <typename T>
-  void Array<T>::RemoveBack ()
+  void List<T>::RemoveFront ()
+  {
+    if (IsEmpty ())
+      return;
+
+    data_.pop_front ();
+  }
+
+  template <typename T>
+  void List<T>::RemoveBack ()
   {
     if (IsEmpty ())
       return;
@@ -128,34 +144,22 @@ namespace yap
   }
 
   template <typename T>
-  void Array<T>::Clear ()
+  void List<T>::Clear ()
   {
     data_.clear ();
   }
 
   template <typename T>
-  bool Array<T>::IsEmpty () const
+  bool List<T>::IsEmpty () const
   {
     return data_.empty ();
   }
 
   template <typename T>
-  typename Array<T>::SizeType Array<T>::Count () const
+  typename List<T>::SizeType List<T>::Count () const
   {
     return data_.size ();
   }
-
-  template <typename T>
-  const T& Array<T>::operator[] (Array<T>::SizeType index) const
-  {
-    return data_[index];
-  }
-
-  template <typename T>
-  T& Array<T>::operator[] (Array<T>::SizeType index)
-  {
-    return data_[index];
-  }
 } /// namespace yap
 
-#endif /// !ARRAY_HXX
+#endif /// !YAPOG_LIST_HXX

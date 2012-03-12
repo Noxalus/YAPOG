@@ -1,5 +1,5 @@
-#ifndef EVENT_HXX_
-# define EVENT_HXX_
+#ifndef YAPOG_EVENT_HXX
+# define YAPOG_EVENT_HXX
 
 namespace yap
 {
@@ -51,4 +51,4 @@ namespace yap
   }
 } /// namespace yap
 
-#endif /* !EVENT_HXX_ */
+#endif /// !YAPOG_EVENT_HXX
