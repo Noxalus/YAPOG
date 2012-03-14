@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "tmp/Client.hpp"
 #include "YAPOG/tmp/HelloWorld.hpp"
@@ -8,6 +9,7 @@
 #include "YAPOG/Vector2.hpp"
 #include "YAPOG/World/Map/Physics/ICollidable.hpp"
 #include "YAPOG/World/Map/IMap.hpp"
+#include "YAPOG/Misc/State.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -48,6 +50,22 @@ void perso_OnMove (const Perso& p, const sf::Vector2f& offset)
 
 int main ()
 {
+  yap::State<std::string> stt ("toto");
+  std::string str ("toto");
+
+  std::cout << (stt == str ? "true" : "false");
+  std::cout << (str == stt ? "true" : "false");
+
+  stt = str;
+
+  stt = std::string ("tata");
+
+  yap::List<yap::State<std::string>> states;
+  states.Add (std::string ("titi"));
+
+  yap::Array<yap::State<std::string>> states2;
+  states.Add (std::string ("titi"));
+
   sf::Clock c;
   while (c.GetElapsedTime ().AsSeconds () < 0)
   {

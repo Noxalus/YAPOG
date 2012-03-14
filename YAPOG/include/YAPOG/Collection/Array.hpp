@@ -7,6 +7,9 @@
 
 namespace yap
 {
+  /// @class Array
+  /// @brief Wrapper for std::vector.
+  /// To use in case of frequent back add/deletion or frequent single access.
   template <typename T>
   class YAPOG_LIB Array
   {

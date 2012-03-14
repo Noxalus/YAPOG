@@ -7,6 +7,9 @@
 
 namespace yap
 {
+  /// @class List
+  /// @brief Wrapper for std::list.
+  /// To use in case of frequent insertion/deletion
   template <typename T>
   class YAPOG_LIB List
   {

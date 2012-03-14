@@ -4,24 +4,24 @@
 namespace yap
 {
   template <typename T>
-  Array<T>::Array ()
+  inline Array<T>::Array ()
     : data_ ()
   {
   }
 
   template <typename T>
-  Array<T>::~Array ()
+  inline Array<T>::~Array ()
   {
   }
 
   template <typename T>
-  Array<T>::Array (const Array<T>& copy)
+  inline Array<T>::Array (const Array<T>& copy)
     : data_ (copy)
   {
   }
 
   template <typename T>
-  Array<T>& Array<T>::operator= (const Array<T>& copy)
+  inline Array<T>& Array<T>::operator= (const Array<T>& copy)
   {
     if (&copy == this)
       return *this;
@@ -32,73 +32,73 @@ namespace yap
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::begin ()
+  inline typename Array<T>::ItType Array<T>::begin ()
   {
     return data_.begin ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::begin () const
+  inline typename Array<T>::ConstItType Array<T>::begin () const
   {
     return data_.begin ();
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::Begin ()
+  inline typename Array<T>::ItType Array<T>::Begin ()
   {
     return begin ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::Begin () const
+  inline typename Array<T>::ConstItType Array<T>::Begin () const
   {
     return begin ();
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::end ()
+  inline typename Array<T>::ItType Array<T>::end ()
   {
     return data_.end ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::end () const
+  inline typename Array<T>::ConstItType Array<T>::end () const
   {
     return data_.end ();
   }
 
   template <typename T>
-  typename Array<T>::ItType Array<T>::End ()
+  inline typename Array<T>::ItType Array<T>::End ()
   {
     return end ();
   }
 
   template <typename T>
-  typename Array<T>::ConstItType Array<T>::End () const
+  inline typename Array<T>::ConstItType Array<T>::End () const
   {
     return end ();
   }
 
   template <typename T>
-  void Array<T>::Add (const T& data)
+  inline void Array<T>::Add (const T& data)
   {
     data_.push_back (data);
   }
 
   template <typename T>
-  void Array<T>::Add (const Array<T>& data)
+  inline void Array<T>::Add (const Array<T>& data)
   {
     data_.insert (End (), data.Begin (), data.End ());
   }
 
   template <typename T>
-  bool Array<T>::Contains (const T& data) const
+  inline bool Array<T>::Contains (const T& data) const
   {
     return std::find (Begin (), End (), data) != End ();
   }
 
   template <typename T>
-  bool Array<T>::Contains (const Array<T>& data) const
+  inline bool Array<T>::Contains (const Array<T>& data) const
   {
     for (const T& t : *this)
       if (Contains (t))
@@ -108,7 +108,7 @@ namespace yap
   }
 
   template <typename T>
-  void Array<T>::Remove (const T& data)
+  inline void Array<T>::Remove (const T& data)
   {
     ItType toRemove = std::find (Begin (), End (), data);
 
@@ -119,7 +119,7 @@ namespace yap
   }
 
   template <typename T>
-  void Array<T>::RemoveBack ()
+  inline void Array<T>::RemoveBack ()
   {
     if (IsEmpty ())
       return;
@@ -128,31 +128,31 @@ namespace yap
   }
 
   template <typename T>
-  void Array<T>::Clear ()
+  inline void Array<T>::Clear ()
   {
     data_.clear ();
   }
 
   template <typename T>
-  bool Array<T>::IsEmpty () const
+  inline bool Array<T>::IsEmpty () const
   {
     return data_.empty ();
   }
 
   template <typename T>
-  typename Array<T>::SizeType Array<T>::Count () const
+  inline typename Array<T>::SizeType Array<T>::Count () const
   {
     return data_.size ();
   }
 
   template <typename T>
-  const T& Array<T>::operator[] (Array<T>::SizeType index) const
+  inline const T& Array<T>::operator[] (Array<T>::SizeType index) const
   {
     return data_[index];
   }
 
   template <typename T>
-  T& Array<T>::operator[] (Array<T>::SizeType index)
+  inline T& Array<T>::operator[] (Array<T>::SizeType index)
   {
     return data_[index];
   }
