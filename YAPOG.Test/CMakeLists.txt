@@ -1,12 +1,8 @@
-PROJECT( YAPOG.Server )
+macro( gen_test target )
+
+PROJECT( ${target} )
 
 SET( EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE} )
-
-INCLUDE_DIRECTORIES(
-        include
-        ${sfml_include_dir}
-        ${CMAKE_SOURCE_DIR}/${LIB_NAME}/include
-)
 
 INCLUDE_DIRECTORIES(
         include
@@ -19,19 +15,17 @@ LINK_DIRECTORIES(
         ${CMAKE_SOURCE_DIR}/${LIB_NAME}/bin
 )
 
-FILE(
-        GLOB_RECURSE
-        source_files
-        src/*
-        include/*
-)
-
 ADD_EXECUTABLE(
         ${PROJECT_NAME}
-        ${source_files}
+        ${PROJECT_NAME}.cpp
 )
 
 TARGET_LINK_LIBRARIES(
         ${PROJECT_NAME}
         ${LIB_NAME}
 )
+
+endmacro()
+
+gen_test( test_array )
+gen_test( test_list )

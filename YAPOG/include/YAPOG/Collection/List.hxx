@@ -1,6 +1,8 @@
 #ifndef YAPOG_LIST_HXX
 # define YAPOG_LIST_HXX
 
+# include <algorithm>
+
 namespace yap
 {
   template <typename T>

@@ -1,5 +1,7 @@
-#ifndef ARRAY_HXX
-# define ARRAY_HXX
+#ifndef YAPOG_ARRAY_HXX
+# define YAPOG_ARRAY_HXX
+
+# include <algorithm>
 
 namespace yap
 {
@@ -158,4 +160,4 @@ namespace yap
   }
 } /// namespace yap
 
-#endif /// !ARRAY_HXX
+#endif /// !YAPOG_ARRAY_HXX
