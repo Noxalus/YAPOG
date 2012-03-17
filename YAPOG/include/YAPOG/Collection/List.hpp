@@ -9,7 +9,6 @@ namespace yap
 {
   /// @class List
   /// @brief Wrapper for std::list.
-  /// To use in case of frequent insertion/deletion
   template <typename T>
   class YAPOG_LIB List
   {
@@ -22,7 +21,7 @@ namespace yap
       typedef typename InnerType::const_iterator ConstItType;
 
       List ();
-      virtual ~List ();
+      ~List ();
 
       List (const List<T>& copy);
       List& operator= (const List<T>& copy);

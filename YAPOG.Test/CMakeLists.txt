@@ -29,3 +29,4 @@ endmacro()
 
 gen_test( test_array )
 gen_test( test_list )
+gen_test( test_map )

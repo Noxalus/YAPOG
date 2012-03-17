@@ -18,7 +18,7 @@ namespace yap
 
   template <typename T>
   inline List<T>::List (const List<T>& copy)
-    : data_ (copy)
+    : data_ (copy.data_)
   {
   }
 
