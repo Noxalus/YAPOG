@@ -5,27 +5,18 @@ namespace yap
 {
   XmlReader::XmlReader (IStream& iStream, const String& rootName)
     : IReader ()
-    , rootData_ ()
-    , data_ (nullptr)
+    , data_ ()
   {
-    CreateRootData (iStream, rootName);
+    data_.CreateFromStream (iStream, rootName);
   }
 
   XmlReader::~XmlReader ()
   {
   }
 
-  void XmlReader::CreateRootData (IStream& iStream, const String& rootName)
-  {
-    boost::property_tree::ptree data;
-    read_xml (iStream, rootData_);
-
-    ChangeRoot (rootName);
-  }
-
   void XmlReader::ChangeRoot (const String& rootName)
   {
-    data_ = &rootData_.get_child (rootName);
+    data_.ChangeRoot (rootName);
   }
 
   String XmlReader::ReadString ()
@@ -35,7 +26,7 @@ namespace yap
 
   String XmlReader::ReadString (const String& name)
   {
-    return Get<String> (name);
+    return data_.Get<String> (name);
   }
 
   int XmlReader::ReadInt ()
@@ -45,7 +36,7 @@ namespace yap
 
   int XmlReader::ReadInt (const String& name)
   {
-    return Get<int> (name);
+    return data_.Get<int> (name);
   }
 
   unsigned int XmlReader::ReadUnsignedInt ()
@@ -55,7 +46,7 @@ namespace yap
 
   unsigned int XmlReader::ReadUnsignedInt (const String& name)
   {
-    return Get<unsigned int> (name);
+    return data_.Get<unsigned int> (name);
   }
 
   float XmlReader::ReadFloat ()
@@ -65,7 +56,7 @@ namespace yap
 
   float XmlReader::ReadFloat (const String& name)
   {
-    return Get<float> (name);
+    return data_.Get<float> (name);
   }
 
   double XmlReader::ReadDouble ()
@@ -75,7 +66,7 @@ namespace yap
 
   double XmlReader::ReadDouble (const String& name)
   {
-    return Get<double> (name);
+    return data_.Get<double> (name);
   }
 
   long double XmlReader::ReadLongDouble ()
@@ -85,7 +76,7 @@ namespace yap
 
   long double XmlReader::ReadLongDouble (const String& name)
   {
-    return Get<long double> (name);
+    return data_.Get<long double> (name);
   }
 
   char XmlReader::ReadChar ()
@@ -95,7 +86,7 @@ namespace yap
 
   char XmlReader::ReadChar (const String& name)
   {
-    return Get<char> (name);
+    return data_.Get<char> (name);
   }
 
   unsigned char XmlReader::ReadUnsignedChar ()
@@ -105,7 +96,7 @@ namespace yap
 
   unsigned char XmlReader::ReadUnsignedChar (const String& name)
   {
-    return Get<unsigned char> (name);
+    return data_.Get<unsigned char> (name);
   }
 
   bool XmlReader::ReadBool ()
@@ -115,7 +106,7 @@ namespace yap
 
   bool XmlReader::ReadBool (const String& name)
   {
-    return Get<bool> (name);
+    return data_.Get<bool> (name);
   }
 
   long int XmlReader::ReadLongInt ()
@@ -125,7 +116,7 @@ namespace yap
 
   long int XmlReader::ReadLongInt (const String& name)
   {
-    return Get<long int> (name);
+    return data_.Get<long int> (name);
   }
 
   unsigned long int XmlReader::ReadUnsignedLongInt ()
@@ -135,7 +126,7 @@ namespace yap
 
   unsigned long int XmlReader::ReadUnsignedLongInt (const String& name)
   {
-    return Get<unsigned long int> (name);
+    return data_.Get<unsigned long int> (name);
   }
 
   short int XmlReader::ReadShortInt ()
@@ -145,7 +136,7 @@ namespace yap
 
   short int XmlReader::ReadShortInt (const String& name)
   {
-    return Get<short int> (name);
+    return data_.Get<short int> (name);
   }
 
   unsigned short int XmlReader::ReadUnsignedShortInt ()
@@ -155,6 +146,6 @@ namespace yap
 
   unsigned short int XmlReader::ReadUnsignedShortInt (const String& name)
   {
-    return Get<unsigned short int> (name);
+    return data_.Get<unsigned short int> (name);
   }
 } /// namespace yap

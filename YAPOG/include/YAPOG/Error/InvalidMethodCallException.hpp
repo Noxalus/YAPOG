@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class InvalidMethodCallException : public Exception
+  class YAPOG_LIB InvalidMethodCallException : public Exception
   {
 
   };

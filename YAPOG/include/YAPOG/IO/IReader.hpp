@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  struct IReader
+  struct YAPOG_LIB IReader
   {
       virtual ~IReader () {}
 

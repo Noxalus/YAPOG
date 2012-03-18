@@ -1,17 +1,15 @@
 #ifndef YAPOG_XMLREADER_HPP
 # define YAPOG_XMLREADER_HPP
 
-# include <boost/property_tree/xml_parser.hpp>
-# include <boost/property_tree/ptree.hpp>
-
 # include "YAPOG/Export.hpp"
 # include "YAPOG/Misc/String.hpp"
 # include "YAPOG/Misc/IOStream.hpp"
 # include "YAPOG/IO/IReader.hpp"
+# include "YAPOG/IO/Xml/XmlTree.hpp"
 
 namespace yap
 {
-  class XmlReader : public IReader
+  class YAPOG_LIB XmlReader : public IReader
   {
     public:
 
@@ -64,16 +62,8 @@ namespace yap
 
     private:
 
-      template <typename T>
-      const T Get (const String& name) const;
-
-      void CreateRootData (IStream& iStream, const String& rootName);
-
-      boost::property_tree::ptree rootData_;
-      boost::property_tree::ptree* data_;
+      XmlTree data_;
   };
 } /// namespace yap
-
-# include "YAPOG/IO/Xml/XmlReader.hxx"
 
 #endif /// !YAPOG_XMLREADER_HPP

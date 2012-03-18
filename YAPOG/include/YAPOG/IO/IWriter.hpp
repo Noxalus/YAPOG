@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  struct IWriter
+  struct YAPOG_LIB IWriter
   {
       virtual ~IWriter () {}
 

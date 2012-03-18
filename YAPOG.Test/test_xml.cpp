@@ -1,5 +1,6 @@
 #include <iostream>
 #include "YAPOG/IO/Xml/XmlReader.hpp"
+#include "YAPOG/IO/Xml/XmlWriter.hpp"
 
 using namespace yap;
 int main ()
@@ -23,4 +24,17 @@ int main ()
 
   xmlR.ChangeRoot ("map");
   std::cout << xmlR.ReadString ("object2.name") << std::endl;
+
+  OFStream output ("data/output.xml");
+  XmlWriter xmlW (output, "map");
+  xmlW.ChangeRoot ("map");
+  xmlW.Write ("object1", String ());
+  xmlW.ChangeRoot ("map.object1");
+  xmlW.Write ("name", String ("key"));
+  xmlW.ChangeRoot ("map");
+  xmlW.Write ("object2", String ());
+  xmlW.ChangeRoot ("map.object2");
+  xmlW.Write ("name", String ("flask"));
+
+  xmlW.Dump ();
 }
