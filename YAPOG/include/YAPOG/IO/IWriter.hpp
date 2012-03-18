@@ -1,6 +1,7 @@
 #ifndef YAPOG_IWRITER_HPP
 # define YAPOG_IWRITER_HPP
 
+# include "YAPOG/Export.hpp"
 # include "YAPOG/Misc/String.hpp"
 
 namespace yap

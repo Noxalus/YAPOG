@@ -12,6 +12,10 @@
 #include "YAPOG/Misc/State.hpp"
 #include "YAPOG/IO/IWriter.hpp"
 #include "YAPOG/Collection/Map.hpp"
+#include "YAPOG/IO/Xml/XmlWriter.hpp"
+#include "YAPOG/IO/IReader.hpp"
+#include "YAPOG/IO/Xml/XmlReader.hpp"
+#include "YAPOG/Misc/IOStream.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -52,37 +56,6 @@ void perso_OnMove (const Perso& p, const sf::Vector2f& offset)
 
 int main ()
 {
-  yap::State<std::string> stt ("toto");
-  std::string str ("toto");
-
-  std::cout << (stt == str ? "true" : "false");
-  std::cout << (str == stt ? "true" : "false");
-
-  stt = str;
-
-  stt = std::string ("tata");
-
-  yap::Map<yap::String, int> map1;
-  map1.Add ("toto", 3);
-
-  map1.Add (map1);
-
-  if (map1.Contains ("toto"))
-//    return 1;
-    ;
-
-  map1.Clear ();
-  if (map1.IsEmpty ())
-    return 2;
-
-  yap::List<yap::State<std::string>> states;
-  states.Add (std::string ("titi"));
-
-  yap::Array<yap::State<std::string>> states2;
-  states.Add (std::string ("titi"));
-
-  yap::List<yap::State<yap::String>> states3 (states);
-
   sf::Clock c;
   while (c.GetElapsedTime ().AsSeconds () < 0)
   {
