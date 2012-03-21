@@ -2,7 +2,7 @@
 # define YAPOG_INVALIDMETHODCALLEXCEPTION_HPP
 
 # include "YAPOG/Export.hpp"
-# include "YAPOG/Error/Exception.hpp"
+# include "YAPOG/System/Error/Exception.hpp"
 
 namespace yap
 {

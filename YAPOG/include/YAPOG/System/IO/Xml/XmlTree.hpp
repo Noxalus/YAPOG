@@ -5,8 +5,8 @@
 # include <boost/property_tree/ptree.hpp>
 
 # include "YAPOG/Export.hpp"
-# include "YAPOG/Misc/String.hpp"
-# include "YAPOG/Misc/IOStream.hpp"
+# include "YAPOG/System/String.hpp"
+# include "YAPOG/System/IOStream.hpp"
 
 namespace yap
 {
@@ -35,6 +35,6 @@ namespace yap
   };
 } /// namespace yap
 
-# include "YAPOG/IO/Xml/XmlTree.hxx"
+# include "YAPOG/System/IO/Xml/XmlTree.hxx"
 
 #endif /// !YAPOG_XMLTREE_HPP

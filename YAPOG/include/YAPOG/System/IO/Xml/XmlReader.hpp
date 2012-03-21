@@ -2,10 +2,10 @@
 # define YAPOG_XMLREADER_HPP
 
 # include "YAPOG/Export.hpp"
-# include "YAPOG/Misc/String.hpp"
-# include "YAPOG/Misc/IOStream.hpp"
-# include "YAPOG/IO/IReader.hpp"
-# include "YAPOG/IO/Xml/XmlTree.hpp"
+# include "YAPOG/System/String.hpp"
+# include "YAPOG/System/IOStream.hpp"
+# include "YAPOG/System/IO/IReader.hpp"
+# include "YAPOG/System/IO/Xml/XmlTree.hpp"
 
 namespace yap
 {

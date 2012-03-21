@@ -7,8 +7,6 @@
 
 namespace yap
 {
-  /// @class Array
-  /// @brief Wrapper for std::vector.
   template <typename T>
   class YAPOG_LIB Array
   {
@@ -21,7 +19,6 @@ namespace yap
       typedef typename InnerType::const_iterator ConstItType;
 
       Array ();
-      ~Array ();
 
       Array (const Array<T>& copy);
       Array& operator= (const Array<T>& copy);

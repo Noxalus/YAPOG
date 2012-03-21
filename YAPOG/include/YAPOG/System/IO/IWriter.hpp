@@ -2,7 +2,7 @@
 # define YAPOG_IWRITER_HPP
 
 # include "YAPOG/Export.hpp"
-# include "YAPOG/Misc/String.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yap
 {

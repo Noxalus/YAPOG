@@ -7,8 +7,6 @@
 
 namespace yap
 {
-  /// @class Map
-  /// @brief Wrapper for std::map.
   template <typename K, typename V>
   class Map
   {
@@ -23,7 +21,6 @@ namespace yap
       typedef typename InnerType::const_iterator ConstItType;
 
       Map ();
-      ~Map ();
 
       Map (const Map<K,V>& copy);
       Map& operator= (const Map<K,V>& copy);

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "YAPOG/IO/Xml/XmlReader.hpp"
-#include "YAPOG/IO/Xml/XmlWriter.hpp"
+#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/System/IO/Xml/XmlWriter.hpp"
 
 using namespace yap;
 int main ()

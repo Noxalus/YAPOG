@@ -1,5 +1,5 @@
-#include "YAPOG/IO/Xml/XmlReader.hpp"
-#include "YAPOG/Error/InvalidMethodCallException.hpp"
+#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/System/Error/InvalidMethodCallException.hpp"
 
 namespace yap
 {

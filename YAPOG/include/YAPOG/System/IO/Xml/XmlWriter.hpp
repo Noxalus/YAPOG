@@ -2,10 +2,10 @@
 # define YAPOG_XMLWRITER_HPP
 
 # include "YAPOG/Export.hpp"
-# include "YAPOG/IO/IWriter.hpp"
-# include "YAPOG/Misc/String.hpp"
-# include "YAPOG/Misc/IOStream.hpp"
-# include "YAPOG/IO/Xml/XmlTree.hpp"
+# include "YAPOG/System/IO/IWriter.hpp"
+# include "YAPOG/System/String.hpp"
+# include "YAPOG/System/IOStream.hpp"
+# include "YAPOG/System/IO/Xml/XmlTree.hpp"
 
 namespace yap
 {

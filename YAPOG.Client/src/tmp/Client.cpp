@@ -9,13 +9,16 @@
 #include "YAPOG/Vector2.hpp"
 #include "YAPOG/World/Map/Physics/ICollidable.hpp"
 #include "YAPOG/World/Map/IMap.hpp"
-#include "YAPOG/Misc/State.hpp"
-#include "YAPOG/IO/IWriter.hpp"
+#include "YAPOG/System/IO/IWriter.hpp"
 #include "YAPOG/Collection/Map.hpp"
-#include "YAPOG/IO/Xml/XmlWriter.hpp"
-#include "YAPOG/IO/IReader.hpp"
-#include "YAPOG/IO/Xml/XmlReader.hpp"
-#include "YAPOG/Misc/IOStream.hpp"
+#include "YAPOG/System/IO/Xml/XmlWriter.hpp"
+#include "YAPOG/System/IO/IReader.hpp"
+#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/System/IOStream.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
+#include "YAPOG/Collection/Queue.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -23,39 +26,27 @@
 
 #include <list>
 
-struct Perso
-{
-    yap::Event<const Perso&, const sf::Vector2f&> OnMove;
-
-    Perso (std::string name) : _name (name) {}
-
-    void Move (const sf::Vector2f& offset)
-    {
-      _position += offset;
-
-      OnMove (*this, offset);
-    }
-
-    const std::string& GetName () const { return _name; }
-
-  private:
-    sf::Vector2f _position;
-    std::string _name;
-};
-
-void perso_OnMove (const Perso& p, const sf::Vector2f& offset)
-{
-  std::cout << p.GetName ()
-            << " is moved by the offset: ( "
-            << offset.x
-            << ", "
-            << offset.y
-            << " )."
-            << std::endl;
-}
-
+using namespace std;
+using namespace yap;
+using namespace sf;
 int main ()
 {
+  Queue<shared_ptr<Clock>> qi;
+
+  shared_ptr<Clock> spc (new Clock ());
+  qi.Enqueue (spc);
+
+//  sf::Sleep (sf::Seconds (1.f));
+
+  shared_ptr<Clock> cl;
+  std::cout << qi.Dequeue (cl)->GetElapsedTime ().AsSeconds () << std::endl;
+
+  KeyboardGameInputEntry::PtrType inputE (
+    new KeyboardGameInputEntry (Key::Return));
+
+  GameInput* inpt = new GameInput (GameInputType::Action,
+                                  inputE);
+
   sf::Clock c;
   while (c.GetElapsedTime ().AsSeconds () < 0)
   {
@@ -66,15 +57,6 @@ int main ()
   HelloWorld ();
   std::cout << "[from client]"
             << std::endl;
-
-  Perso p ("Toto");
-  Perso p2 ("Titi");
-
-  p.OnMove += perso_OnMove;
-  p2.OnMove += perso_OnMove;
-
-  p.Move (sf::Vector2f (42.f, 3.f));
-  p2.Move (sf::Vector2f (333.f, 666.f));
 
   sf::Image i;
   i.Create (32, 32, sf::Color::Red);
@@ -105,10 +87,14 @@ int main ()
 
   while (window.IsOpen ())
   {
-    sf::Event evt;
+    GuiEvent evt;
+
+    inpt->BeginUpdate ();
 
     while (window.PollEvent (evt))
     {
+      inpt->Update (evt);
+
       switch (evt.Type)
       {
         case sf::Event::Closed:
@@ -127,19 +113,30 @@ int main ()
           }
           break;
 
+        case GuiEventType::KeyReleased:
+          std::cout << "released..." << std::endl;
+          break;
+
         default:
           break;
       }
     }
 
+    inpt->EndUpdate ();
+
+    if (inpt->IsTriggered ())
+      std::cout << "TRIGGERED" << std::endl;
+    else if (inpt->IsActive ())
+      std::cout << "ACTIVE" << std::endl;
+
     window.Clear ();
 
-    window.Draw (s);
+//    window.Draw (s);
 
     for (int i=0;i<COUNT; ++i)
     {
       spr = &sprs[i];
-      window.Draw (*spr);
+//      window.Draw (*spr);
 
       spr->SetPosition (spr->GetPosition ()
                            + sf::Vector2f (i*i * 0.08f, 0.0f));
@@ -147,6 +144,4 @@ int main ()
 
     window.Display ();
   }
-
-  p.Move (sf::Vector2f ());
 }
