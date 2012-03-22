@@ -3,7 +3,7 @@
 
 # include <list>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
@@ -19,6 +19,7 @@ namespace yap
       typedef typename InnerType::const_iterator ConstItType;
 
       List ();
+      virtual ~List ();
 
       List (const List<T>& copy);
       List& operator= (const List<T>& copy);
@@ -50,12 +51,12 @@ namespace yap
       bool IsEmpty () const;
       SizeType Count () const;
 
-    private:
+    protected:
 
       InnerType data_;
   };
-} /// namespace yap
+} // namespace yap
 
 # include "YAPOG/Collection/List.hxx"
 
-#endif /// !YAPOG_LIST_HPP
+#endif // YAPOG_LIST_HPP

@@ -1,16 +1,16 @@
 #ifndef YAPOG_KEYBOARDGAMEINPUTENTRY_HPP
 # define YAPOG_KEYBOARDGAMEINPUTENTRY_HPP
 
-# include <SFML/Window.hpp>
+# include <SFML/Window/Keyboard.hpp>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInputEntry.hpp"
 
 namespace yap
 {
   typedef sf::Keyboard::Key Key;
 
-  class KeyboardGameInputEntry : public GameInputEntry
+  class YAPOG_LIB KeyboardGameInputEntry : public GameInputEntry
   {
     public:
 
@@ -23,6 +23,6 @@ namespace yap
 
       Key key_;
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_KEYBOARDGAMEINPUTENTRY_HPP
+#endif // YAPOG_KEYBOARDGAMEINPUTENTRY_HPP

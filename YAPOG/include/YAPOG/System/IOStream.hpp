@@ -11,6 +11,6 @@ namespace yap
 
   typedef std::ifstream IFStream;
   typedef std::ofstream OFStream;
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_IOSTREAM_HPP
+#endif // YAPOG_IOSTREAM_HPP

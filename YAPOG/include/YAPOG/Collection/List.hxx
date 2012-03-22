@@ -12,6 +12,11 @@ namespace yap
   }
 
   template <typename T>
+  inline List<T>::~List ()
+  {
+  }
+
+  template <typename T>
   inline List<T>::List (const List<T>& copy)
   {
     *this = copy;
@@ -157,6 +162,6 @@ namespace yap
   {
     return data_.size ();
   }
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_LIST_HXX
+#endif // YAPOG_LIST_HXX

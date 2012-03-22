@@ -1,7 +1,7 @@
 #ifndef YAPOG_IREADER_HPP
 # define YAPOG_IREADER_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
@@ -49,6 +49,6 @@ namespace yap
       virtual unsigned short int ReadUnsignedShortInt () = 0;
       virtual unsigned short int ReadUnsignedShortInt (const String& name) = 0;
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_IREADER_HPP
+#endif // YAPOG_IREADER_HPP

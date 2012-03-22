@@ -1,7 +1,7 @@
 #ifndef YAPOG_XMLREADER_HPP
 # define YAPOG_XMLREADER_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IOStream.hpp"
 # include "YAPOG/System/IO/IReader.hpp"
@@ -64,6 +64,6 @@ namespace yap
 
       XmlTree data_;
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_XMLREADER_HPP
+#endif // YAPOG_XMLREADER_HPP

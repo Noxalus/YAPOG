@@ -155,4 +155,4 @@ namespace yap
   {
     data_.Add (name, value);
   }
-} /// namespace yap
+} // namespace yap

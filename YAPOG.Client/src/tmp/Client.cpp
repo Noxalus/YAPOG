@@ -2,7 +2,6 @@
 #include <string>
 
 #include "tmp/Client.hpp"
-#include "YAPOG/tmp/HelloWorld.hpp"
 #include "YAPOG/Event/Event.hpp"
 #include "YAPOG/Collection/Array.hpp"
 #include "YAPOG/Collection/List.hpp"
@@ -19,6 +18,12 @@
 #include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
 #include "YAPOG/Collection/Queue.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
+#include "YAPOG/Collection/PtrArray.hpp"
+#include "YAPOG/Collection/PtrList.hpp"
+#include "YAPOG/Collection/PtrQueue.hpp"
+#include "YAPOG/Collection/PtrMap.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/MouseGameInputEntry.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -31,69 +36,27 @@ using namespace yap;
 using namespace sf;
 int main ()
 {
-  Queue<shared_ptr<Clock>> qi;
+  GameInputManager::Instance ().AddGameInput (
+    new GameInput (
+      GameInputType::Action,
+      new KeyboardGameInputEntry (Key::Return)));
 
-  shared_ptr<Clock> spc (new Clock ());
-  qi.Enqueue (spc);
-
-//  sf::Sleep (sf::Seconds (1.f));
-
-  shared_ptr<Clock> cl;
-  std::cout << qi.Dequeue (cl)->GetElapsedTime ().AsSeconds () << std::endl;
-
-  KeyboardGameInputEntry::PtrType inputE (
-    new KeyboardGameInputEntry (Key::Return));
-
-  GameInput* inpt = new GameInput (GameInputType::Action,
-                                  inputE);
-
-  sf::Clock c;
-  while (c.GetElapsedTime ().AsSeconds () < 0)
-  {
-    sf::Sleep (sf::Seconds (1.f));
-    std::cout << "waiting..." << std::endl;
-  }
-
-  HelloWorld ();
-  std::cout << "[from client]"
-            << std::endl;
-
-  sf::Image i;
-  i.Create (32, 32, sf::Color::Red);
-  sf::Texture t;
-  t.LoadFromImage (i);
-  sf::Sprite s (t);
-
-  sf::Texture img;
+  GameInputManager::Instance ().AddGameInput (
+    new GameInput (
+      GameInputType::Misc,
+      new MouseGameInputEntry (MouseButton::Left)));
 
   sf::RenderWindow window (sf::VideoMode (800, 600), "YAPOG");
-
-  if (!img.LoadFromFile ("../../boo.jpg"))
-    return 1;
-
-  const int COUNT = 1;
-  yap::Array<sf::Sprite> sprs;
-  for (int i=0;i<COUNT;++i)
-  {
-    sf::Sprite spr (img);
-    spr.SetPosition (sf::Vector2f (i * 200.f, 0.f));
-    spr.SetScale (sf::Vector2f (0.1f, 0.1f));
-    sprs.Add (sf::Sprite (img));
-
-    std::cout << "sprs count is: " << sprs.Count () << std::endl;
-  }
-
-  sf::Sprite* spr = nullptr;
 
   while (window.IsOpen ())
   {
     GuiEvent evt;
 
-    inpt->BeginUpdate ();
+    GameInputManager::Instance ().BeginUpdate ();
 
     while (window.PollEvent (evt))
     {
-      inpt->Update (evt);
+      GameInputManager::Instance ().Update (evt);
 
       switch (evt.Type)
       {
@@ -113,34 +76,34 @@ int main ()
           }
           break;
 
-        case GuiEventType::KeyReleased:
-          std::cout << "released..." << std::endl;
-          break;
-
         default:
           break;
       }
     }
 
-    inpt->EndUpdate ();
+    GameInputManager::Instance ().EndUpdate ();
 
-    if (inpt->IsTriggered ())
-      std::cout << "TRIGGERED" << std::endl;
-    else if (inpt->IsActive ())
-      std::cout << "ACTIVE" << std::endl;
+    if (GameInputManager::Instance ().GameInputIsActivated (
+          GameInputType::Action))
+      std::cout << "[Action]TRIGGERED" << std::endl;
+    else if (GameInputManager::Instance ().GameInputIsActive (
+               GameInputType::Action))
+      std::cout << "[Action]ACTIVE" << std::endl;
+    else if (GameInputManager::Instance ().GameInputIsDeactivated (
+               GameInputType::Action))
+      std::cout << "[Action]DEACTIVATED" << std::endl;
+
+    if (GameInputManager::Instance ().GameInputIsActivated (
+          GameInputType::Misc))
+      std::cout << "[Misc]TRIGGERED" << std::endl;
+    else if (GameInputManager::Instance ().GameInputIsActive (
+               GameInputType::Misc))
+      std::cout << "[Misc]ACTIVE" << std::endl;
+    else if (GameInputManager::Instance ().GameInputIsDeactivated (
+               GameInputType::Misc))
+      std::cout << "[Misc]DEACTIVATED" << std::endl;
 
     window.Clear ();
-
-//    window.Draw (s);
-
-    for (int i=0;i<COUNT; ++i)
-    {
-      spr = &sprs[i];
-//      window.Draw (*spr);
-
-      spr->SetPosition (spr->GetPosition ()
-                           + sf::Vector2f (i*i * 0.08f, 0.0f));
-    }
 
     window.Display ();
   }

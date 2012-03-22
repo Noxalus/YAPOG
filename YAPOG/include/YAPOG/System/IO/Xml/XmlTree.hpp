@@ -4,7 +4,7 @@
 # include <boost/property_tree/xml_parser.hpp>
 # include <boost/property_tree/ptree.hpp>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IOStream.hpp"
 
@@ -33,8 +33,8 @@ namespace yap
       boost::property_tree::ptree rootData_;
       boost::property_tree::ptree* data_;
   };
-} /// namespace yap
+} // namespace yap
 
 # include "YAPOG/System/IO/Xml/XmlTree.hxx"
 
-#endif /// !YAPOG_XMLTREE_HPP
+#endif // YAPOG_XMLTREE_HPP

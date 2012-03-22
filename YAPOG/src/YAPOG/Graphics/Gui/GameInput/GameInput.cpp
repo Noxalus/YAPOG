@@ -2,31 +2,40 @@
 
 namespace yap
 {
-  GameInput::GameInput (GameInputType type, GameInputEntry::PtrType& entry)
+  GameInput::GameInput (GameInputType type, GameInputEntry* entry)
     : type_ (type)
     , entries_ ()
   {
     AddEntry (entry);
   }
 
-  void GameInput::AddEntry (GameInputEntry::PtrType& entry)
+  void GameInput::AddEntry (GameInputEntry* entry)
   {
     entries_.Add (entry);
   }
 
   bool GameInput::IsActive () const
   {
-    for (const GameInputEntry::PtrType& entry : entries_)
-      if (entry->IsActive ())
+    for (const auto& it : entries_)
+      if (it->IsActive ())
         return true;
 
     return false;
   }
 
-  bool GameInput::IsTriggered () const
+  bool GameInput::IsActivated () const
   {
-    for (const GameInputEntry::PtrType& entry : entries_)
-      if (entry->IsTriggered ())
+    for (const auto& it : entries_)
+      if (it->IsActivated ())
+        return true;
+
+    return false;
+  }
+
+  bool GameInput::IsDeactivated () const
+  {
+    for (const auto& it : entries_)
+      if (it->IsDeactivated ())
         return true;
 
     return false;
@@ -34,19 +43,24 @@ namespace yap
 
   void GameInput::BeginUpdate ()
   {
-    for (const GameInputEntry::PtrType& entry : entries_)
-      entry->BeginUpdate ();
+    for (const auto& it : entries_)
+      it->BeginUpdate ();
   }
 
   void GameInput::Update (const GuiEvent& guiEvent)
   {
-    for (const GameInputEntry::PtrType& entry : entries_)
-      entry->Update (guiEvent);
+    for (const auto& it : entries_)
+      it->Update (guiEvent);
   }
 
   void GameInput::EndUpdate ()
   {
-    for (const GameInputEntry::PtrType& entry : entries_)
-      entry->EndUpdate ();
+    for (const auto& it : entries_)
+      it->EndUpdate ();
   }
-} /// namespace yap
+
+  GameInputType GameInput::GetType () const
+  {
+    return type_;
+  }
+} // namespace yap

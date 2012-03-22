@@ -1,7 +1,7 @@
 #ifndef YAPOG_XMLWRITER_HPP
 # define YAPOG_XMLWRITER_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IO/IWriter.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IOStream.hpp"
@@ -67,6 +67,6 @@ namespace yap
       XmlTree data_;
       OStream& oStream_;
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_XMLWRITER_HPP
+#endif // YAPOG_XMLWRITER_HPP

@@ -3,7 +3,7 @@
 
 # include <boost/signal.hpp>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
@@ -29,8 +29,8 @@ namespace yap
 
       Signal sig_;
   };
-} /// namespace yap
+} // namespace yap
 
 # include "YAPOG/Event/Event.hxx"
 
-#endif /// !YAPOG_EVENT_HPP
+#endif // YAPOG_EVENT_HPP

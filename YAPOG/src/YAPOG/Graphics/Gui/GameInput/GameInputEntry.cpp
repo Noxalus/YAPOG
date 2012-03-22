@@ -24,19 +24,27 @@ namespace yap
     return isActive_;
   }
 
-  bool GameInputEntry::IsTriggered () const
+  bool GameInputEntry::IsActivated () const
   {
     return isActive_ && !previousIsActive_;
   }
 
+  bool GameInputEntry::IsDeactivated () const
+  {
+    return !isActive_ && previousIsActive_;
+  }
+
   void GameInputEntry::BeginUpdate ()
   {
-    if (IsTriggered ())
+    if (IsActivated ())
       previousIsActive_ = true;
+    else if (IsDeactivated ())
+      previousIsActive_ = false;
   }
 
   void GameInputEntry::EndUpdate ()
   {
-
+//    if (IsDeactivated ())
+//      previousIsActive_ = true;
   }
-} /// namespace yap
+} // namespace yap

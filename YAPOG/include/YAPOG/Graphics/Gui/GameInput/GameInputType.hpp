@@ -1,7 +1,7 @@
 #ifndef YAPOG_GAMEINPUTTYPE_HPP
 # define YAPOG_GAMEINPUTTYPE_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
@@ -34,6 +34,6 @@ namespace yap
     Special8,
     Special9
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_GAMEINPUTTYPE_HPP
+#endif // YAPOG_GAMEINPUTTYPE_HPP

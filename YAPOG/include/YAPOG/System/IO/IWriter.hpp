@@ -1,7 +1,7 @@
 #ifndef YAPOG_IWRITER_HPP
 # define YAPOG_IWRITER_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
@@ -50,6 +50,6 @@ namespace yap
       virtual void Write (const unsigned short int& value) = 0;
       virtual void Write (const String& name, unsigned short int& value) = 0;
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_IWRITER_HPP
+#endif // YAPOG_IWRITER_HPP

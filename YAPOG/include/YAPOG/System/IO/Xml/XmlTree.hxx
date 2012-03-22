@@ -14,6 +14,6 @@ namespace yap
   {
     data_->put (name, value);
   }
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_XMLTREE_HXX
+#endif // YAPOG_XMLTREE_HXX

@@ -1,7 +1,7 @@
 #ifndef YAPOG_IMAP_HPP
 # define YAPOG_IMAP_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/World/Map/Physics/ICollidable.hpp"
 
 namespace yap
@@ -10,6 +10,6 @@ namespace yap
   {
       virtual ~IMap () {}
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_IMAP_HPP
+#endif // YAPOG_IMAP_HPP

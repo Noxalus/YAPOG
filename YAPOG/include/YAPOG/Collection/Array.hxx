@@ -12,6 +12,11 @@ namespace yap
   }
 
   template <typename T>
+  inline Array<T>::~Array ()
+  {
+  }
+
+  template <typename T>
   inline Array<T>::Array (const Array<T>& copy)
   {
     *this = copy;
@@ -153,6 +158,6 @@ namespace yap
   {
     return data_[index];
   }
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_ARRAY_HXX
+#endif // YAPOG_ARRAY_HXX

@@ -1,34 +1,40 @@
 #ifndef YAPOG_GAMEINPUT_HPP
 # define YAPOG_GAMEINPUT_HPP
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInputEntry.hpp"
-# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/PtrList.hpp"
 
 namespace yap
 {
-  class GameInput
+  class YAPOG_LIB GameInput
   {
     public:
 
-      GameInput (GameInputType type, GameInputEntry::PtrType& entry);
+      DECLARE_PTR_TYPE(GameInput);
+      DISALLOW_COPY(GameInput);
 
-      void AddEntry (GameInputEntry::PtrType& entry);
+      GameInput (GameInputType type, GameInputEntry* entry);
+
+      void AddEntry (GameInputEntry* entry);
 
       bool IsActive () const;
-      bool IsTriggered () const;
+      bool IsActivated () const;
+      bool IsDeactivated () const;
 
       void BeginUpdate ();
       void Update (const GuiEvent& guiEvent);
       void EndUpdate ();
 
+      GameInputType GetType () const;
+
     private:
 
       GameInputType type_;
 
-      List<GameInputEntry::PtrType> entries_;
+      PtrList<GameInputEntry> entries_;
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_GAMEINPUT_HPP
+#endif // YAPOG_GAMEINPUT_HPP

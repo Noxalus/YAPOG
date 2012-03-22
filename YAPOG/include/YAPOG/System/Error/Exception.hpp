@@ -3,13 +3,13 @@
 
 # include <exception>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
   class YAPOG_LIB Exception : public std::exception
   {
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_EXCEPTION_HPP
+#endif // YAPOG_EXCEPTION_HPP

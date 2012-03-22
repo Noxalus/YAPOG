@@ -38,4 +38,4 @@ namespace yap
         break;
     }
   }
-} /// namespace yap
+} // namespace yap

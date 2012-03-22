@@ -49,6 +49,6 @@ namespace yap
   {
     return sig_ (sender, args);
   }
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_EVENT_HXX
+#endif // YAPOG_EVENT_HXX

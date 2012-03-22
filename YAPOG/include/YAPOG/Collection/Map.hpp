@@ -3,12 +3,12 @@
 
 # include <map>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
   template <typename K, typename V>
-  class Map
+  class YAPOG_LIB Map
   {
     public:
 
@@ -21,9 +21,10 @@ namespace yap
       typedef typename InnerType::const_iterator ConstItType;
 
       Map ();
+      virtual ~Map ();
 
-      Map (const Map<K,V>& copy);
-      Map& operator= (const Map<K,V>& copy);
+      Map (const Map<K, V>& copy);
+      Map& operator= (const Map<K, V>& copy);
 
       ItType begin ();
       ConstItType begin () const;
@@ -36,7 +37,7 @@ namespace yap
       ConstItType End () const;
 
       void Add (const K& key, const V& value);
-      void Add (const Map<K,V>& data);
+      void Add (const Map<K, V>& data);
 
       bool Contains (const K& key) const;
 
@@ -50,12 +51,12 @@ namespace yap
       V& operator[] (const K& key);
       const V& operator[] (const K& key) const;
 
-    private:
+    protected:
 
       InnerType data_;
   };
-} /// namespace yap
+} // namespace yap
 
 # include "YAPOG/Collection/Map.hxx"
 
-#endif /// !YAPOG_MAP_HPP
+#endif // YAPOG_MAP_HPP

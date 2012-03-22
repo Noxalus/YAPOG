@@ -3,12 +3,12 @@
 
 # include <queue>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
   template <typename T>
-  class Queue
+  class YAPOG_LIB Queue
   {
     public:
 
@@ -17,6 +17,7 @@ namespace yap
       typedef typename InnerType::size_type SizeType;
 
       Queue ();
+      virtual ~Queue ();
 
       Queue (const Queue& copy);
       Queue& operator= (const Queue<T>& copy);
@@ -27,12 +28,12 @@ namespace yap
       bool IsEmpty () const;
       SizeType Count () const;
 
-    private:
+    protected:
 
       InnerType data_;
   };
-} /// namespace yap
+} // namespace yap
 
 # include "YAPOG/Collection/Queue.hxx"
 
-#endif /// !YAPOG_QUEUE_HPP
+#endif // YAPOG_QUEUE_HPP

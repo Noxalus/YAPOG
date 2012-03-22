@@ -10,6 +10,11 @@ namespace yap
   }
 
   template <typename T>
+  inline Queue<T>::~Queue ()
+  {
+  }
+
+  template <typename T>
   inline Queue<T>::Queue (const Queue<T>& copy)
   {
     *this = copy;
@@ -53,6 +58,6 @@ namespace yap
   {
     return data_.size ();
   }
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_QUEUE_HXX
+#endif // YAPOG_QUEUE_HXX

@@ -3,7 +3,7 @@
 
 # include <vector>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
@@ -19,6 +19,7 @@ namespace yap
       typedef typename InnerType::const_iterator ConstItType;
 
       Array ();
+      virtual ~Array ();
 
       Array (const Array<T>& copy);
       Array& operator= (const Array<T>& copy);
@@ -50,12 +51,12 @@ namespace yap
       const T& operator[] (SizeType index) const;
       T& operator[] (SizeType index);
 
-    private:
+    protected:
 
       InnerType data_;
   };
-} /// namespace yap
+} // namespace yap
 
 # include "YAPOG/Collection/Array.hxx"
 
-#endif /// !YAPOG_ARRAY_HPP
+#endif // YAPOG_ARRAY_HPP

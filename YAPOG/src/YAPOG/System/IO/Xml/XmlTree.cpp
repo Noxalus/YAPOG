@@ -33,4 +33,4 @@ namespace yap
   {
     data_ = &rootData_.get_child (rootName);
   }
-} /// namespace yap
+} // namespace yap

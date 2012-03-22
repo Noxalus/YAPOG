@@ -1,17 +1,17 @@
 #ifndef YAPOG_GUIEVENT_HPP
 # define YAPOG_GUIEVENT_HPP
 
-# include <SFML/Window.hpp>
+# include <SFML/Window/Event.hpp>
 
-# include "YAPOG/Export.hpp"
+# include "YAPOG/Macros.hpp"
 
 namespace yap
 {
   typedef sf::Event GuiEventType;
 
-  class GuiEvent : public sf::Event
+  class YAPOG_LIB GuiEvent : public sf::Event
   {
   };
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_GUIEVENT_HPP
+#endif // YAPOG_GUIEVENT_HPP

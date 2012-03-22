@@ -148,4 +148,4 @@ namespace yap
   {
     return data_.Get<unsigned short int> (name);
   }
-} /// namespace yap
+} // namespace yap

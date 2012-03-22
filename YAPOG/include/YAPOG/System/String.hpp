@@ -6,6 +6,6 @@
 namespace yap
 {
   typedef std::string String;
-} /// namespace yap
+} // namespace yap
 
-#endif /// !YAPOG_STRING_HPP
+#endif // YAPOG_STRING_HPP
