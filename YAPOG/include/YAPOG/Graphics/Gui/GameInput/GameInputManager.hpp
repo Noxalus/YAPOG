@@ -2,8 +2,8 @@
 # define YAPOG_GAMEINPUTMANAGER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Collection/PtrMap.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
+# include "YAPOG/Collection/Map.hpp"
 
 namespace yap
 {
@@ -29,8 +29,9 @@ namespace yap
     private:
 
       GameInputManager ();
+      ~GameInputManager ();
 
-      PtrMap<GameInputType, GameInput> gameInputs_;
+      Map<GameInputType, GameInput*> gameInputs_;
   };
 } // namespace yap
 

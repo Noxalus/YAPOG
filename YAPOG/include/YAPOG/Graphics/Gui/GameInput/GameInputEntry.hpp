@@ -10,7 +10,6 @@ namespace yap
   {
     public:
 
-      DECLARE_PTR_TYPE(GameInputEntry);
       DISALLOW_COPY(GameInputEntry);
 
       GameInputEntry ();

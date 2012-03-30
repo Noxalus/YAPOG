@@ -9,6 +9,12 @@ namespace yap
     AddEntry (entry);
   }
 
+  GameInput::~GameInput ()
+  {
+    for (const auto it : entries_)
+      delete it;
+  }
+
   void GameInput::AddEntry (GameInputEntry* entry)
   {
     entries_.Add (entry);
@@ -16,7 +22,7 @@ namespace yap
 
   bool GameInput::IsActive () const
   {
-    for (const auto& it : entries_)
+    for (const auto it : entries_)
       if (it->IsActive ())
         return true;
 
@@ -25,7 +31,7 @@ namespace yap
 
   bool GameInput::IsActivated () const
   {
-    for (const auto& it : entries_)
+    for (const auto it : entries_)
       if (it->IsActivated ())
         return true;
 
@@ -34,7 +40,7 @@ namespace yap
 
   bool GameInput::IsDeactivated () const
   {
-    for (const auto& it : entries_)
+    for (const auto it : entries_)
       if (it->IsDeactivated ())
         return true;
 
@@ -43,19 +49,19 @@ namespace yap
 
   void GameInput::BeginUpdate ()
   {
-    for (const auto& it : entries_)
+    for (const auto it : entries_)
       it->BeginUpdate ();
   }
 
   void GameInput::Update (const GuiEvent& guiEvent)
   {
-    for (const auto& it : entries_)
+    for (const auto it : entries_)
       it->Update (guiEvent);
   }
 
   void GameInput::EndUpdate ()
   {
-    for (const auto& it : entries_)
+    for (const auto it : entries_)
       it->EndUpdate ();
   }
 

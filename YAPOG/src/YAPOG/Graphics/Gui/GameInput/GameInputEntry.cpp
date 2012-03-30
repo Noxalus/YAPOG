@@ -44,7 +44,5 @@ namespace yap
 
   void GameInputEntry::EndUpdate ()
   {
-//    if (IsDeactivated ())
-//      previousIsActive_ = true;
   }
 } // namespace yap

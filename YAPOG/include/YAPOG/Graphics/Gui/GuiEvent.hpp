@@ -7,7 +7,8 @@
 
 namespace yap
 {
-  typedef sf::Event GuiEventType;
+  /// SFML Event.
+  typedef sf::Event::EventType GuiEventType;
 
   class YAPOG_LIB GuiEvent : public sf::Event
   {

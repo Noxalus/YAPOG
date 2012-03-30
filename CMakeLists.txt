@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 
-SET( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -g -Wall" )
+SET( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -ggdb -Wall" )
 
 SET( LIB_NAME YAPOG )
 

@@ -1,23 +1,20 @@
-#ifndef YAPOG_XMLWRITER_HPP
-# define YAPOG_XMLWRITER_HPP
+#ifndef YAPOG_LOGGER_HPP
+# define YAPOG_LOGGER_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IO/IWriter.hpp"
-# include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IOStream.hpp"
-# include "YAPOG/System/IO/Xml/XmlTree.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB XmlWriter : public IWriter
+  class Logger : public IWriter
   {
     public:
 
-      XmlWriter (OStream& oStream, const String& rootName);
-      virtual ~XmlWriter ();
+      DISALLOW_COPY (Logger);
 
-      void ChangeRoot (const String& rootName);
-      void Dump ();
+      Logger (OStream& oStream);
+      virtual ~Logger ();
 
       /// @name IWriter members.
       /// @{
@@ -62,11 +59,26 @@ namespace yap
       virtual void Write (const String& name, unsigned short int& value);
       /// @}
 
+      template <typename T>
+      Logger& Log (const T& value);
+
+      template <typename T>
+      Logger& LogLine (const T& value);
+
+    protected:
+
+      void Activate (bool isActive);
+
     private:
 
-      XmlTree data_;
-      OStream& oStream_;
+      template <typename T>
+      void WriteValue (const T& value);
+
+      OStream* oStream_;
+      bool isActive_;
   };
 } // namespace yap
 
-#endif // YAPOG_XMLWRITER_HPP
+# include "YAPOG/System/IO/Log/Logger.hxx"
+
+#endif // YAPOG_LOGGER_HPP

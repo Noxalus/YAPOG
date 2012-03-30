@@ -7,6 +7,7 @@
 
 namespace yap
 {
+  /// @brief Wrapper for std::vector.
   template <typename T>
   class YAPOG_LIB Array
   {
@@ -18,10 +19,17 @@ namespace yap
       typedef typename InnerType::iterator ItType;
       typedef typename InnerType::const_iterator ConstItType;
 
+      /// @brief Constructs an empty Array.
       Array ();
+      /// @brief Destroys the Array calling destructor of each element.
       virtual ~Array ();
 
+      /// @brief Constructs an Array from another one with the same size
+      /// and a copy of each element of the source Array.
+      /// @param copy Source Array for the copy.
       Array (const Array<T>& copy);
+      /// @brief Copies the source Array to this Array.
+      /// @param copy Source Array for the copy.
       Array& operator= (const Array<T>& copy);
 
       ItType begin ();

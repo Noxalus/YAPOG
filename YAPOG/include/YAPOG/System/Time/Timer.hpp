@@ -19,7 +19,7 @@ namespace yap
       void Reset (const Time& init);
 
       Time GetCurrentTime () const;
-      int DelayIsComplete (const Time& delay, bool reset = true);
+      int DelayIsComplete (const Time& delay, bool reset);
 
     private:
 

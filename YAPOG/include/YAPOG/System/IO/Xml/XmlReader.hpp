@@ -18,8 +18,8 @@ namespace yap
 
       void ChangeRoot (const String& rootName);
 
-      /// \name IReader implementation.
-      /// \{
+      /// @name IReader members.
+      /// @{
       virtual String ReadString ();
       virtual String ReadString (const String& name);
 
@@ -58,7 +58,7 @@ namespace yap
 
       virtual unsigned short int ReadUnsignedShortInt ();
       virtual unsigned short int ReadUnsignedShortInt (const String& name);
-      /// \}
+      /// @}
 
     private:
 

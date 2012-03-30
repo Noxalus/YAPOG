@@ -4,18 +4,19 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInputEntry.hpp"
-# include "YAPOG/Collection/PtrList.hpp"
+# include "YAPOG/Collection/List.hpp"
 
 namespace yap
 {
+  /// @brief Represents a game input action of the player.
   class YAPOG_LIB GameInput
   {
     public:
 
-      DECLARE_PTR_TYPE(GameInput);
       DISALLOW_COPY(GameInput);
 
       GameInput (GameInputType type, GameInputEntry* entry);
+      ~GameInput ();
 
       void AddEntry (GameInputEntry* entry);
 
@@ -33,7 +34,7 @@ namespace yap
 
       GameInputType type_;
 
-      PtrList<GameInputEntry> entries_;
+      List<GameInputEntry*> entries_;
   };
 } // namespace yap
 
