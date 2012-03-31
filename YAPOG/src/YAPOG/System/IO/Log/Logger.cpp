@@ -6,11 +6,14 @@ namespace yap
   Logger::Logger (OStream& oStream)
     : oStream_ (&oStream)
     , isActive_ (true)
+    , modes_ ()
   {
   }
 
   Logger::~Logger ()
   {
+    for (const auto& it : modes_)
+      delete it;
   }
 
   void Logger::Activate (bool isActive)
@@ -18,9 +21,19 @@ namespace yap
     isActive_ = isActive;
   }
 
+  void Logger::AddMode (LoggerMode* mode)
+  {
+    modes_.Add (mode);
+  }
+
+  void Logger::RemoveMode (LoggerMode* mode)
+  {
+    modes_.Remove (mode);
+  }
+
   void Logger::Write (const String& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const String& value)
@@ -31,7 +44,7 @@ namespace yap
 
   void Logger::Write (const int& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const int& value)
@@ -42,7 +55,7 @@ namespace yap
 
   void Logger::Write (const unsigned int& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const unsigned int& value)
@@ -53,7 +66,7 @@ namespace yap
 
   void Logger::Write (const float& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const float& value)
@@ -64,7 +77,7 @@ namespace yap
 
   void Logger::Write (const double& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const double& value)
@@ -75,7 +88,7 @@ namespace yap
 
   void Logger::Write (const long double& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const long double& value)
@@ -86,7 +99,7 @@ namespace yap
 
   void Logger::Write (const char& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const char& value)
@@ -97,7 +110,7 @@ namespace yap
 
   void Logger::Write (const unsigned char& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const unsigned char& value)
@@ -108,7 +121,7 @@ namespace yap
 
   void Logger::Write (const bool& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const bool& value)
@@ -119,7 +132,7 @@ namespace yap
 
   void Logger::Write (const long int& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const long int& value)
@@ -130,7 +143,7 @@ namespace yap
 
   void Logger::Write (const unsigned long int& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (
@@ -143,7 +156,7 @@ namespace yap
 
   void Logger::Write (const short int& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const short int& value)
@@ -154,7 +167,7 @@ namespace yap
 
   void Logger::Write (const unsigned short int& value)
   {
-    WriteValue (value);
+    Log (value);
   }
 
   void Logger::Write (const String& name, const unsigned short int& value)

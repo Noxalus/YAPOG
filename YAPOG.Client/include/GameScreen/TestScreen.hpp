@@ -11,6 +11,7 @@ class TestScreen : public yap::GameScreen
   public:
 
     TestScreen ();
+    virtual ~TestScreen ();
 
     virtual const yap::ScreenType& HandleRun (
       const yap::Time& dt,
@@ -26,6 +27,7 @@ class TestScreen : public yap::GameScreen
   private:
 
     yap::collection::List<yap::Texture*> textures_;
+    yap::collection::List<yap::Texture*> backTextures_;
 };
 
 #endif // YAPOG_TESTSCREEN_HPP

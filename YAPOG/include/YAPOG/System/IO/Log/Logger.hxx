@@ -9,7 +9,13 @@ namespace yap
     if (!isActive_)
       return *this;
 
-    WriteValue (value);
+    for (const auto& it : modes_)
+      it->GetPrefix (*oStream_);
+
+    *oStream_ << value;
+
+    for (const auto& it : modes_)
+      it->GetSuffix (*oStream_);
 
     return *this;
   }
@@ -20,19 +26,17 @@ namespace yap
     if (!isActive_)
       return *this;
 
-    WriteValue (value);
+    for (const auto& it : modes_)
+      it->GetPrefix (*oStream_);
+
+    *oStream_ << value;
+
+    for (const auto& it : modes_)
+      it->GetSuffix (*oStream_);
+
     *oStream_ << std::endl;
 
     return *this;
-  }
-
-  template <typename T>
-  inline void Logger::WriteValue (const T& value)
-  {
-    if (!isActive_)
-      return;
-
-    *oStream_ << value;
   }
 } // namespace yap
 

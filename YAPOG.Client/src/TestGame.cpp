@@ -5,6 +5,9 @@
 #include "GameScreen/TestScreen.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
+#include "YAPOG/System/IO/Log/CountLoggerMode.hpp"
+#include "YAPOG/System/IO/Log/TimeLoggerMode.hpp"
 
 TestGame::TestGame (const yap::String& name)
   : yap::Game (name)
@@ -19,6 +22,9 @@ void TestGame::HandleInit ()
 {
   yap::ContentManager::Instance ().Init ("../Content/");
 
+  yap::DebugLogger::Instance ().AddMode (new yap::CountLoggerMode ());
+  yap::DebugLogger::Instance ().AddMode (new yap::TimeLoggerMode ());
+
   // initialization of the drawing context
   yap::DrawingContext* drawingContext = new yap::DrawingContext (
     yap::Vector2 (800, 600), name_);
@@ -27,6 +33,9 @@ void TestGame::HandleInit ()
   // add of the world camera to the drawing context
   drawingContext_->AddCamera (
     "World", new yap::Camera (yap::Vector2 (),  yap::Vector2 (800, 600)));
+  drawingContext_->AddCamera (
+    "Background World",
+    new yap::Camera (yap::Vector2 (),  yap::Vector2 (800, 600)));
 
   // add of the GUI camera to the drawing context
   drawingContext_->AddCamera (

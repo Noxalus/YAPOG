@@ -4,6 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IO/IWriter.hpp"
 # include "YAPOG/System/IOStream.hpp"
+# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/System/IO/Log/LoggerMode.hpp"
 
 namespace yap
 {
@@ -65,17 +67,19 @@ namespace yap
       template <typename T>
       Logger& LogLine (const T& value);
 
+      void AddMode (LoggerMode* mode);
+      void RemoveMode (LoggerMode* mode);
+
     protected:
 
       void Activate (bool isActive);
 
     private:
 
-      template <typename T>
-      void WriteValue (const T& value);
-
       OStream* oStream_;
       bool isActive_;
+
+      collection::List<LoggerMode*> modes_;
   };
 } // namespace yap
 
