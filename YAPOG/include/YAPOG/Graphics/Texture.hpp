@@ -28,7 +28,7 @@ namespace yap
 
       void SetTextureRect (const sf::IntRect& rect);
 
-      /// @name IDrawable members.
+      /// @name ISpatial members.
       /// @{
       virtual const Vector2& GetPosition () const;
       virtual const Vector2& GetSize () const;
@@ -41,15 +41,27 @@ namespace yap
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);
+      /// @}
 
+      /// @name IDrawable members.
+      /// @{
       virtual void Draw (IDrawingContext& context);
+
+      virtual bool IsVisible () const;
+      virtual void Show (bool isVisible);
+
+      virtual void ChangeColor (const sf::Color color);
       /// @}
 
     private:
 
+      static const bool DEFAULT_VISIBLE_STATE;
+
       SpatialInfo spatialInfo_;
       sf::Texture* innerTexture_;
       sf::Sprite sprite_;
+
+      bool isVisible_;
   };
 } // namespace yap
 

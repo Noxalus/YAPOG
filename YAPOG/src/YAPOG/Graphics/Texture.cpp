@@ -4,10 +4,13 @@
 
 namespace yap
 {
+  const bool Texture::DEFAULT_VISIBLE_STATE = true;
+
   Texture::Texture ()
     : spatialInfo_ ()
     , innerTexture_ (nullptr)
     , sprite_ ()
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
   {
   }
 
@@ -15,6 +18,7 @@ namespace yap
     : spatialInfo_ ()
     , innerTexture_ (nullptr)
     , sprite_ ()
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
   {
     LoadFromFile (name);
   }
@@ -23,6 +27,7 @@ namespace yap
     : spatialInfo_ ()
     , innerTexture_ (nullptr)
     , sprite_ ()
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
   {
     LoadFromFile (name);
     SetTextureRect (rect);
@@ -98,6 +103,24 @@ namespace yap
 
   void Texture::Draw (IDrawingContext& context)
   {
+    if (!isVisible_)
+      return;
+
     context.Draw (sprite_);
+  }
+
+  bool Texture::IsVisible () const
+  {
+    return isVisible_;
+  }
+
+  void Texture::Show (bool isVisible)
+  {
+    isVisible_ = isVisible;
+  }
+
+  void Texture::ChangeColor (const sf::Color color)
+  {
+    sprite_.SetColor (color);
   }
 } // namespace yap

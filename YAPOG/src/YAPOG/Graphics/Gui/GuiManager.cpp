@@ -2,8 +2,11 @@
 
 namespace yap
 {
+  const bool GuiManager::DEFAULT_VISIBLE_STATE = true;
+
   GuiManager::GuiManager ()
     : spatialInfo_ ()
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
   {
   }
 
@@ -12,6 +15,22 @@ namespace yap
   }
 
   void GuiManager::Draw (IDrawingContext& context)
+  {
+    if (!isVisible_)
+      return;
+  }
+
+  bool GuiManager::IsVisible () const
+  {
+    return isVisible_;
+  }
+
+  void GuiManager::Show (bool isVisible)
+  {
+    isVisible_ = isVisible;
+  }
+
+  void GuiManager::ChangeColor (const sf::Color color)
   {
   }
 

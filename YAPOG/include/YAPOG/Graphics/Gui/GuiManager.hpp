@@ -7,6 +7,9 @@
 
 namespace yap
 {
+  /// @brief Common implementation of root widget manager.
+  /// @todo Implementation of the list of IWidgets
+  /// and methods that maintain it.
   class GuiManager : public IGuiManager
   {
     public:
@@ -17,6 +20,11 @@ namespace yap
       /// @name IDrawable members.
       /// @{
       virtual void Draw (IDrawingContext& context);
+
+      virtual bool IsVisible () const;
+      virtual void Show (bool isVisible);
+
+      virtual void ChangeColor (const sf::Color color);
       /// @}
 
       /// @name IEventHandler members.
@@ -46,7 +54,10 @@ namespace yap
 
     private:
 
+      static const bool DEFAULT_VISIBLE_STATE;
+
       SpatialInfo spatialInfo_;
+      bool isVisible_;
   };
 } // namespace yap
 
