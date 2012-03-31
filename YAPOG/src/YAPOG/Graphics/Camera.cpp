@@ -79,7 +79,7 @@ namespace yap
     return localPoint + GetPosition ();
   }
 
-  const View& Camera::GetInnerView () const
+  const sf::View& Camera::GetInnerView () const
   {
     return view_;
   }

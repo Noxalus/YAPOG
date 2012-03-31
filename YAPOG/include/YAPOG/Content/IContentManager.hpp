@@ -12,7 +12,7 @@
 
 namespace yap
 {
-  struct IContentManager
+  struct YAPOG_LIB IContentManager
   {
       virtual ~IContentManager () {}
 

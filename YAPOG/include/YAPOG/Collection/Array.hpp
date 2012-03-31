@@ -7,11 +7,13 @@
 
 namespace yap
 {
-  /// @brief Wrapper for std::vector.
-  template <typename T>
-  class YAPOG_LIB Array
+  namespace collection
   {
-    public:
+    /// @brief Wrapper for std::vector.
+    template <typename T>
+    class YAPOG_LIB Array
+    {
+      public:
 
       typedef T DataType;
       typedef std::vector<DataType> InnerType;
@@ -59,10 +61,11 @@ namespace yap
       const T& operator[] (SizeType index) const;
       T& operator[] (SizeType index);
 
-    protected:
+      protected:
 
       InnerType data_;
-  };
+    };
+  } // namespace collection
 } // namespace yap
 
 # include "YAPOG/Collection/Array.hxx"

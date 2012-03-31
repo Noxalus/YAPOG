@@ -34,7 +34,7 @@ namespace yap
 
       GameInputType type_;
 
-      List<GameInputEntry*> entries_;
+      collection::List<GameInputEntry*> entries_;
   };
 } // namespace yap
 

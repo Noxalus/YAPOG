@@ -38,7 +38,7 @@ namespace yap
       /// The IGameScreen currently run.
       /// MUST NOT be deleted from here.
       IGameScreen* currentScreen_;
-      Map<ScreenType, IGameScreen*> screens_;
+      collection::Map<ScreenType, IGameScreen*> screens_;
   };
 } // namespace yap
 

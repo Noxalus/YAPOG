@@ -21,7 +21,7 @@ namespace yap
 
   String XmlReader::ReadString ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadString ()");
   }
 
   String XmlReader::ReadString (const String& name)
@@ -31,7 +31,7 @@ namespace yap
 
   int XmlReader::ReadInt ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadInt ()");
   }
 
   int XmlReader::ReadInt (const String& name)
@@ -41,7 +41,7 @@ namespace yap
 
   unsigned int XmlReader::ReadUnsignedInt ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadUnsignedInt ()");
   }
 
   unsigned int XmlReader::ReadUnsignedInt (const String& name)
@@ -51,7 +51,7 @@ namespace yap
 
   float XmlReader::ReadFloat ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadFloat ()");
   }
 
   float XmlReader::ReadFloat (const String& name)
@@ -61,7 +61,7 @@ namespace yap
 
   double XmlReader::ReadDouble ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadDouble ()");
   }
 
   double XmlReader::ReadDouble (const String& name)
@@ -71,7 +71,7 @@ namespace yap
 
   long double XmlReader::ReadLongDouble ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadLongDouble ()");
   }
 
   long double XmlReader::ReadLongDouble (const String& name)
@@ -81,7 +81,7 @@ namespace yap
 
   char XmlReader::ReadChar ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadChar ()");
   }
 
   char XmlReader::ReadChar (const String& name)
@@ -91,7 +91,7 @@ namespace yap
 
   unsigned char XmlReader::ReadUnsignedChar ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadUnsignedChar ()");
   }
 
   unsigned char XmlReader::ReadUnsignedChar (const String& name)
@@ -101,7 +101,7 @@ namespace yap
 
   bool XmlReader::ReadBool ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadBool ()");
   }
 
   bool XmlReader::ReadBool (const String& name)
@@ -111,7 +111,7 @@ namespace yap
 
   long int XmlReader::ReadLongInt ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadLongInt ()");
   }
 
   long int XmlReader::ReadLongInt (const String& name)
@@ -121,7 +121,7 @@ namespace yap
 
   unsigned long int XmlReader::ReadUnsignedLongInt ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadUnsignedLongInt ()");
   }
 
   unsigned long int XmlReader::ReadUnsignedLongInt (const String& name)
@@ -131,7 +131,7 @@ namespace yap
 
   short int XmlReader::ReadShortInt ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadShortInt ()");
   }
 
   short int XmlReader::ReadShortInt (const String& name)
@@ -141,7 +141,7 @@ namespace yap
 
   unsigned short int XmlReader::ReadUnsignedShortInt ()
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlReader::ReadUnsignedShortInt ()");
   }
 
   unsigned short int XmlReader::ReadUnsignedShortInt (const String& name)

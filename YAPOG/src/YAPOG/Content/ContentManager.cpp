@@ -1,4 +1,5 @@
 #include "YAPOG/Content/ContentManager.hpp"
+#include "YAPOG/System/Error/ContentLoadingFailException.hpp"
 
 namespace yap
 {
@@ -60,7 +61,8 @@ namespace yap
       return *images_[name];
 
     sf::Image* image = new sf::Image;
-    image->LoadFromFile (rootPath_ + imagePath_ + name);
+    if (!image->LoadFromFile (rootPath_ + imagePath_ + name))
+      throw ContentLoadingFailException (rootPath_ + imagePath_ + name);
 
     images_.Add (name, image);
 
@@ -73,7 +75,8 @@ namespace yap
       return *textures_[name];
 
     sf::Texture* texture = new sf::Texture;
-    texture->LoadFromFile (rootPath_ + texturePath_ + name);
+    if (!texture->LoadFromFile (rootPath_ + texturePath_ + name))
+      throw ContentLoadingFailException (rootPath_ + texturePath_ + name);
 
     textures_.Add (name, texture);
 
@@ -86,7 +89,8 @@ namespace yap
       return *fonts_[name];
 
     sf::Font* font = new sf::Font;
-    font->LoadFromFile (rootPath_ + fontPath_ + name);
+    if (!font->LoadFromFile (rootPath_ + fontPath_ + name))
+      throw ContentLoadingFailException (rootPath_ + fontPath_ + name);
 
     fonts_.Add (name, font);
 
@@ -99,7 +103,8 @@ namespace yap
       return *soundBuffers_[name];
 
     sf::SoundBuffer* soundBuffer = new sf::SoundBuffer;
-    soundBuffer->LoadFromFile (rootPath_ + soundBufferPath_ + name);
+    if (!soundBuffer->LoadFromFile (rootPath_ + soundBufferPath_ + name))
+      throw ContentLoadingFailException (rootPath_ + soundBufferPath_ + name);
 
     soundBuffers_.Add (name, soundBuffer);
 
@@ -112,7 +117,8 @@ namespace yap
       return *musics_[name];
 
     sf::Music* music = new sf::Music;
-    music->OpenFromFile (rootPath_ + musicPath_ + name);
+    if (!music->OpenFromFile (rootPath_ + musicPath_ + name))
+      throw ContentLoadingFailException (rootPath_ + musicPath_ + name);
 
     musics_.Add (name, music);
 

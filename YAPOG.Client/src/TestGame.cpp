@@ -19,7 +19,7 @@ void TestGame::HandleInit ()
 {
   yap::ContentManager::Instance ().Init ("../Content/");
 
- // initialization of the drawing context
+  // initialization of the drawing context
   yap::DrawingContext* drawingContext = new yap::DrawingContext (
     yap::Vector2 (800, 600), name_);
   drawingContext_ = drawingContext;

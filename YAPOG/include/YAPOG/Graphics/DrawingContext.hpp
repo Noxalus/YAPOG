@@ -50,7 +50,7 @@ namespace yap
       sf::RenderWindow window_;
       CameraMode currentMode_;
       CameraMode defaultMode_;
-      Map<CameraMode, ICamera*> cameras_;
+      collection::Map<CameraMode, ICamera*> cameras_;
   };
 } // namespace yap
 

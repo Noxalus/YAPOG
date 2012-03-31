@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class Logger : public IWriter
+  class YAPOG_LIB Logger : public IWriter
   {
     public:
 
@@ -56,7 +56,7 @@ namespace yap
       virtual void Write (const String& name, const short int& value);
 
       virtual void Write (const unsigned short int& value);
-      virtual void Write (const String& name, unsigned short int& value);
+      virtual void Write (const String& name, const unsigned short int& value);
       /// @}
 
       template <typename T>

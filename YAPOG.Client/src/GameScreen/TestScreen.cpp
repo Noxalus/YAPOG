@@ -3,9 +3,14 @@
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
-  , texture_ ()
+  , textures_ ()
 {
-  texture_.LoadFromFile ("boo.jpg");
+  for (int i = 0; i < 200; ++i)
+  {
+    yap::Texture* texture = new yap::Texture ();
+    texture->LoadFromFile ("boo.jpg");
+    textures_.Add (texture);
+  }
 }
 
 const yap::ScreenType& TestScreen::HandleRun (
@@ -14,8 +19,8 @@ const yap::ScreenType& TestScreen::HandleRun (
 {
   yap::DebugLogger::Instance ().LogLine (1.0f / dt.GetValue ());
 
-  texture_.Draw (context);
-  texture_.Move (yap::Vector2 (150.0f * dt.GetValue (), 0.0f));
+  for (auto it : textures_)
+    it->Draw (context);
 
   return nextScreen_;
 }

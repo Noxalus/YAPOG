@@ -9,7 +9,7 @@ namespace yap
 {
   typedef String Path;
 
-  class ContentManager : public IContentManager
+  class YAPOG_LIB ContentManager : public IContentManager
   {
     public:
 
@@ -55,11 +55,11 @@ namespace yap
       Path soundBufferPath_;
       Path musicPath_;
 
-      Map<String, sf::Image*> images_;
-      Map<String, sf::Texture*> textures_;
-      Map<String, sf::Font*> fonts_;
-      Map<String, sf::SoundBuffer*> soundBuffers_;
-      Map<String, sf::Music*> musics_;
+      collection::Map<String, sf::Image*> images_;
+      collection::Map<String, sf::Texture*> textures_;
+      collection::Map<String, sf::Font*> fonts_;
+      collection::Map<String, sf::SoundBuffer*> soundBuffers_;
+      collection::Map<String, sf::Music*> musics_;
   };
 } // namespace yap
 

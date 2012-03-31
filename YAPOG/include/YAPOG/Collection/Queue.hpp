@@ -7,10 +7,12 @@
 
 namespace yap
 {
-  template <typename T>
-  class YAPOG_LIB Queue
+  namespace collection
   {
-    public:
+    template <typename T>
+    class YAPOG_LIB Queue
+    {
+      public:
 
       typedef T DataType;
       typedef std::queue<DataType> InnerType;
@@ -28,10 +30,11 @@ namespace yap
       bool IsEmpty () const;
       SizeType Count () const;
 
-    protected:
+      protected:
 
       InnerType data_;
-  };
+    };
+  } // namespace collection
 } // namespace yap
 
 # include "YAPOG/Collection/Queue.hxx"

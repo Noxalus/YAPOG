@@ -31,7 +31,7 @@ namespace yap
       GameInputManager ();
       ~GameInputManager ();
 
-      Map<GameInputType, GameInput*> gameInputs_;
+      collection::Map<GameInputType, GameInput*> gameInputs_;
   };
 } // namespace yap
 

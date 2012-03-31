@@ -13,7 +13,7 @@
 
 namespace yap
 {
-  class Texture : public IDrawable
+  class YAPOG_LIB Texture : public IDrawable
   {
     public:
 

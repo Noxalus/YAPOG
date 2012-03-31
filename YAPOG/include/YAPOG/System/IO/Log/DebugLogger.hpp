@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class DebugLogger : public Logger
+  class YAPOG_LIB DebugLogger : public Logger
   {
     public:
 

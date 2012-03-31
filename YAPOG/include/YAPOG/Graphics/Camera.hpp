@@ -19,7 +19,7 @@ namespace yap
       Camera (const Vector2& position, const Vector2& size);
       virtual ~Camera ();
 
-      /// @name ICamera members.
+      /// @name ISpatial members.
       /// @{
       virtual const Vector2& GetPosition () const;
       virtual const Vector2& GetSize () const;
@@ -32,20 +32,23 @@ namespace yap
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);
+      /// @}
 
+      /// @name ICamera members.
+      /// @{
       virtual bool IsInView (const Vector2& point) const;
       virtual bool IsInView (const Vector2& point, const Vector2& size) const;
 
       virtual Vector2 ToLocal (const Vector2& globalPoint) const;
       virtual Vector2 ToGlobal (const Vector2& localPoint) const;
 
-      virtual const View& GetInnerView () const;
+      virtual const sf::View& GetInnerView () const;
       /// @}
 
     private:
 
       SpatialInfo spatialInfo_;
-      View view_;
+      sf::View view_;
   };
 } // namespace yap
 

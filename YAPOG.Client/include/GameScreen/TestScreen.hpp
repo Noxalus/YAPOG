@@ -4,6 +4,7 @@
 # include "YAPOG/Graphics/Game/GameScreen.hpp"
 # include "YAPOG/Graphics/Gui/GuiManager.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
+# include "YAPOG/Collection/List.hpp"
 
 class TestScreen : public yap::GameScreen
 {
@@ -24,7 +25,7 @@ class TestScreen : public yap::GameScreen
 
   private:
 
-    yap::Texture texture_;
+    yap::collection::List<yap::Texture*> textures_;
 };
 
 #endif // YAPOG_TESTSCREEN_HPP

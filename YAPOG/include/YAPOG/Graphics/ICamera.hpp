@@ -10,9 +10,6 @@
 
 namespace yap
 {
-  /// SFML View.
-  typedef sf::View View;
-
   /// @brief Source area for a rendering entity.
   struct YAPOG_LIB ICamera : public ISpatial
   {
@@ -25,7 +22,7 @@ namespace yap
       virtual Vector2 ToLocal (const Vector2& globalPoint) const = 0;
       virtual Vector2 ToGlobal (const Vector2& localPoint) const = 0;
 
-      virtual const View& GetInnerView () const = 0;
+      virtual const sf::View& GetInnerView () const = 0;
   };
 } // namespace yap
 

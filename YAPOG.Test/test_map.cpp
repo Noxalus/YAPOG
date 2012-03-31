@@ -2,6 +2,7 @@
 #include "YAPOG/Collection/Map.hpp"
 
 using namespace yap;
+using namespace yap::collection;
 int main ()
 {
   Map<int, double> v;

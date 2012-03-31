@@ -25,7 +25,8 @@ namespace yap
 
   void Logger::Write (const String& name, const String& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const String&)");
   }
 
   void Logger::Write (const int& value)
@@ -35,7 +36,8 @@ namespace yap
 
   void Logger::Write (const String& name, const int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const int&)");
   }
 
   void Logger::Write (const unsigned int& value)
@@ -45,7 +47,8 @@ namespace yap
 
   void Logger::Write (const String& name, const unsigned int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const unsigned int&)");
   }
 
   void Logger::Write (const float& value)
@@ -55,7 +58,8 @@ namespace yap
 
   void Logger::Write (const String& name, const float& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const float&)");
   }
 
   void Logger::Write (const double& value)
@@ -65,7 +69,8 @@ namespace yap
 
   void Logger::Write (const String& name, const double& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const double&)");
   }
 
   void Logger::Write (const long double& value)
@@ -75,7 +80,8 @@ namespace yap
 
   void Logger::Write (const String& name, const long double& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const long double&)");
   }
 
   void Logger::Write (const char& value)
@@ -85,7 +91,8 @@ namespace yap
 
   void Logger::Write (const String& name, const char& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const char&)");
   }
 
   void Logger::Write (const unsigned char& value)
@@ -95,7 +102,8 @@ namespace yap
 
   void Logger::Write (const String& name, const unsigned char& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const unsigned char&)");
   }
 
   void Logger::Write (const bool& value)
@@ -105,7 +113,8 @@ namespace yap
 
   void Logger::Write (const String& name, const bool& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const bool&)");
   }
 
   void Logger::Write (const long int& value)
@@ -115,7 +124,8 @@ namespace yap
 
   void Logger::Write (const String& name, const long int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const long int&)");
   }
 
   void Logger::Write (const unsigned long int& value)
@@ -123,10 +133,12 @@ namespace yap
     WriteValue (value);
   }
 
-  void Logger::Write (const String& name,
-              const unsigned long int& value)
+  void Logger::Write (
+    const String& name,
+    const unsigned long int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const unsigned long int&)");
   }
 
   void Logger::Write (const short int& value)
@@ -136,7 +148,8 @@ namespace yap
 
   void Logger::Write (const String& name, const short int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const short int&)");
   }
 
   void Logger::Write (const unsigned short int& value)
@@ -144,8 +157,9 @@ namespace yap
     WriteValue (value);
   }
 
-  void Logger::Write (const String& name, unsigned short int& value)
+  void Logger::Write (const String& name, const unsigned short int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const unsigned short int&)");
   }
 } // namespace yap

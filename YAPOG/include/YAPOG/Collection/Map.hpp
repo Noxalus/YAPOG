@@ -7,10 +7,12 @@
 
 namespace yap
 {
-  template <typename K, typename V>
-  class YAPOG_LIB Map
+  namespace collection
   {
-    public:
+    template <typename K, typename V>
+    class YAPOG_LIB Map
+    {
+      public:
 
       typedef K KeyType;
       typedef V ValueType;
@@ -51,10 +53,11 @@ namespace yap
       V& operator[] (const K& key);
       const V& operator[] (const K& key) const;
 
-    protected:
+      protected:
 
       InnerType data_;
-  };
+    };
+  } // namespace collection
 } // namespace yap
 
 # include "YAPOG/Collection/Map.hxx"
