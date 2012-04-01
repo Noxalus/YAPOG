@@ -13,7 +13,7 @@ namespace yap
 #  define YAPOG_LIB __declspec (dllexport)
 # else
 #  define YAPOG_LIB
-# endif
+# endif // _WIN32
 } // namespace yap
 
 #endif // YAPOG_MACROS_HPP
