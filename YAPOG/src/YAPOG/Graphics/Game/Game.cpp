@@ -44,7 +44,7 @@ namespace yap
 
       GameInputManager::Instance ().BeginUpdate ();
 
-      while (window_->PollEvent (guiEvent))
+      while (window_->pollEvent (guiEvent))
       {
         GameInputManager::Instance ().Update (guiEvent);
 
@@ -54,13 +54,13 @@ namespace yap
 
       GameInputManager::Instance ().EndUpdate ();
 
-      window_->Clear ();
+      window_->clear ();
 
       HandleRun (dt, *drawingContext_);
 
-      isRunning_ = window_->IsOpen ();
+      isRunning_ = window_->isOpen ();
 
-      window_->Display ();
+      window_->display ();
     }
   }
 

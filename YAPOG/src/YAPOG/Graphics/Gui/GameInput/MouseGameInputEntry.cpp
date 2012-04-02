@@ -14,11 +14,11 @@ namespace yap
 
   void MouseGameInputEntry::Update (const GuiEvent& guiEvent)
   {
-    switch (guiEvent.Type)
+    switch (guiEvent.type)
     {
       case GuiEventType::MouseButtonPressed:
 
-        if (button_ != guiEvent.MouseButton.Button)
+        if (button_ != guiEvent.mouseButton.button)
           break;
 
         Activate (true);
@@ -27,7 +27,7 @@ namespace yap
 
       case GuiEventType::MouseButtonReleased:
 
-        if (button_ != guiEvent.MouseButton.Button)
+        if (button_ != guiEvent.mouseButton.button)
           break;
 
         Activate (false);

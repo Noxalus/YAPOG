@@ -53,21 +53,21 @@ void TestGame::HandleInit ()
 
 bool TestGame::HandleOnEvent (const yap::GuiEvent& guiEvent)
 {
-  switch (guiEvent.Type)
+  switch (guiEvent.type)
   {
     case yap::GuiEventType::Closed:
 
-      window_->Close ();
+      window_->close ();
 
       return true;
 
     case yap::GuiEventType::KeyPressed:
 
-      switch (guiEvent.Key.Code)
+      switch (guiEvent.key.code)
       {
         case yap::Key::Escape:
 
-          window_->Close ();
+          window_->close ();
 
           return true;
 

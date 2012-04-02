@@ -8,7 +8,7 @@ namespace yap
   }
 
   Time::Time (float seconds)
-    : value_ (sf::Seconds (seconds))
+    : value_ (sf::seconds (seconds))
   {
   }
 
@@ -63,6 +63,6 @@ namespace yap
 
   float Time::GetValue () const
   {
-    return value_.AsSeconds ();
+    return value_.asSeconds ();
   }
 } // namespace yap

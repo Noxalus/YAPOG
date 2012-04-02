@@ -63,7 +63,7 @@ namespace yap
     sf::Image* image = new sf::Image;
 
     const String& path = (rootPath_ + imagePath_ + name).Value ();
-    if (!image->LoadFromFile (path))
+    if (!image->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
     images_.Add (name, image);
@@ -79,7 +79,7 @@ namespace yap
     sf::Texture* texture = new sf::Texture;
 
     const String& path = (rootPath_ + texturePath_ + name).Value ();
-    if (!texture->LoadFromFile (path))
+    if (!texture->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
     textures_.Add (name, texture);
@@ -95,7 +95,7 @@ namespace yap
     sf::Font* font = new sf::Font;
 
     const String& path = (rootPath_ + fontPath_ + name).Value ();
-    if (!font->LoadFromFile (path))
+    if (!font->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
     fonts_.Add (name, font);
@@ -111,7 +111,7 @@ namespace yap
     sf::SoundBuffer* soundBuffer = new sf::SoundBuffer;
 
     const String& path = (rootPath_ + soundBufferPath_ + name).Value ();
-    if (!soundBuffer->LoadFromFile (path))
+    if (!soundBuffer->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
     soundBuffers_.Add (name, soundBuffer);
@@ -127,7 +127,7 @@ namespace yap
     sf::Music* music = new sf::Music;
 
     const String& path = (rootPath_ + musicPath_ + name).Value ();
-    if (!music->OpenFromFile (path))
+    if (!music->openFromFile (path))
       throw ContentLoadingFailException (path);
 
     musics_.Add (name, music);

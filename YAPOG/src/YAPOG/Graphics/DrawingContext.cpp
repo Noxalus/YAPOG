@@ -81,14 +81,14 @@ namespace yap
 
   void DrawingContext::Draw (const sf::Drawable& drawable)
   {
-    GetRenderTarget ().Draw (drawable);
+    GetRenderTarget ().draw (drawable);
   }
 
   void DrawingContext::SetCurrentMode (const CameraMode& mode)
   {
     currentMode_ = mode;
 
-    GetRenderTarget ().SetView (GetCamera ().GetInnerView ());
+    GetRenderTarget ().setView (GetCamera ().GetInnerView ());
   }
 
   sf::RenderWindow& DrawingContext::GetWindow ()

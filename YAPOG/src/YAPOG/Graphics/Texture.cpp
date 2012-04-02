@@ -40,18 +40,16 @@ namespace yap
   void Texture::LoadFromFile (const String& name)
   {
     innerTexture_ = &ContentManager::Instance ().LoadTexture (name);
-    sprite_.SetTexture (*innerTexture_);
+    sprite_.setTexture (*innerTexture_);
 
-    spatialInfo_.SetSize (
-      Vector2 (innerTexture_->GetWidth (),
-               innerTexture_->GetHeight ()));
+    spatialInfo_.SetSize (Vector2FromVector2u (innerTexture_->getSize ()));
   }
 
   void Texture::SetTextureRect (const sf::IntRect& rect)
   {
-    spatialInfo_.SetSize (Vector2 (rect.Width, rect.Height));
+    spatialInfo_.SetSize (Vector2 (rect.width, rect.height));
 
-    sprite_.SetTextureRect (rect);
+    sprite_.setTextureRect (rect);
   }
 
   const Vector2& Texture::GetPosition () const
@@ -88,7 +86,7 @@ namespace yap
   {
     spatialInfo_.SetPosition (GetPosition () + offset);
 
-    sprite_.SetPosition (GetPosition ());
+    sprite_.setPosition (GetPosition ());
   }
 
   void Texture::Scale (const Vector2& factor)
@@ -98,7 +96,7 @@ namespace yap
         GetSize ().x * factor.x,
         GetSize ().y * factor.y));
 
-    sprite_.SetScale (factor);
+    sprite_.setScale (factor);
   }
 
   void Texture::Draw (IDrawingContext& context)
@@ -121,6 +119,6 @@ namespace yap
 
   void Texture::ChangeColor (const sf::Color color)
   {
-    sprite_.SetColor (color);
+    sprite_.setColor (color);
   }
 } // namespace yap
