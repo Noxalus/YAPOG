@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class ID
+  class YAPOG_LIB ID
   {
     public:
 
@@ -15,8 +15,11 @@ namespace yap
       ID ();
       explicit ID (ValueType value);
 
-      const ValueType& Value () const;
-      void ChangeValue (ValueType value);
+      ID (const ID& copy);
+      ID& operator= (const ID& copy);
+
+      const ValueType& GetValue () const;
+      void SetValue (ValueType value);
 
       bool operator== (const ID& right);
       bool operator!= (const ID& right);

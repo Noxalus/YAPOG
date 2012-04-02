@@ -14,9 +14,9 @@ namespace yap
   /// @brief A common implementation of an IDrawingContext.
   class YAPOG_LIB DrawingContext : public IDrawingContext
   {
-    public:
-
       DISALLOW_COPY(DrawingContext);
+
+    public:
 
       DrawingContext (const Vector2& size, const String& name);
       virtual ~DrawingContext ();

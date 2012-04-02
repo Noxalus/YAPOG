@@ -3,6 +3,11 @@
 
 namespace yap
 {
+  TimeLoggerMode::TimeLoggerMode ()
+    : LoggerMode ()
+  {
+  }
+
   TimeLoggerMode::~TimeLoggerMode ()
   {
   }

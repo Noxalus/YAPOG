@@ -10,8 +10,8 @@ namespace yap
   }
 
   Path::Path (const Path& copy)
+    : value_ (copy.value_)
   {
-    *this = copy;
   }
 
   Path& Path::operator= (const Path& copy)

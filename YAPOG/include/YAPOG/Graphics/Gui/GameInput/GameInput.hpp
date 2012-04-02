@@ -11,9 +11,9 @@ namespace yap
   /// @brief Represents a game input action of the player.
   class YAPOG_LIB GameInput
   {
-    public:
-
       DISALLOW_COPY(GameInput);
+
+    public:
 
       GameInput (GameInputType type, GameInputEntry* entry);
       ~GameInput ();

@@ -15,14 +15,14 @@ namespace yap
   class Time;
   class GuiEvent;
 
-  class Game : public IGame
+  class YAPOG_LIB Game : public IGame
   {
-    public:
-
       DISALLOW_COPY(Game);
 
+    public:
+
       /// @brief Initializes a Game with the name @a name.
-      Game (const String& name);
+      explicit Game (const String& name);
       virtual ~Game ();
 
       /// @name IGame members.

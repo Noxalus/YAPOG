@@ -8,9 +8,9 @@ namespace yap
 {
   class YAPOG_LIB GameInputEntry
   {
-    public:
-
       DISALLOW_COPY(GameInputEntry);
+
+    public:
 
       GameInputEntry ();
       virtual ~GameInputEntry ();

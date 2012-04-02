@@ -8,13 +8,15 @@
 namespace yap
 {
   /// @brief A basic implementation of IGameScreen, a game phase.
-  class GameScreen : public IGameScreen
+  class YAPOG_LIB GameScreen : public IGameScreen
   {
+      DISALLOW_COPY(GameScreen);
+
     public:
 
       /// @brief Initializes a GameScreen with the ScreenType @a type.
       /// @param type ScreenType of this GameScreen.
-      GameScreen (const ScreenType& type);
+      explicit GameScreen (const ScreenType& type);
       virtual ~GameScreen ();
 
       /// @name IGameScreen members.

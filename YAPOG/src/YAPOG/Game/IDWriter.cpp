@@ -16,11 +16,11 @@ namespace yap
 
   void IDWriter::Visit (XmlWriter& visitable)
   {
-    visitable.Write ("ID", id_.Value ());
+    visitable.Write ("ID", id_.GetValue ());
   }
 
   void IDWriter::Visit (DebugLogger& visitable)
   {
-    visitable.Write (id_.Value ());
+    visitable.Write (id_.GetValue ());
   }
 } // namespace yap

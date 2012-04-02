@@ -10,11 +10,12 @@ namespace yap
   {
     public:
 
-      ContentLoadingFailException (const String& contentName);
-      ContentLoadingFailException (
-        const String& contentName,
-        const Exception& innerException);
+      explicit ContentLoadingFailException (const String& contentName);
       virtual ~ContentLoadingFailException () throw ();
+
+      ContentLoadingFailException (const ContentLoadingFailException& copy);
+      ContentLoadingFailException& operator= (
+        const ContentLoadingFailException& copy);
 
     private:
 

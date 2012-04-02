@@ -10,11 +10,12 @@ namespace yap
   {
     public:
 
-      InvalidMethodCallException (const String& methodName);
-      InvalidMethodCallException (
-        const String& methodName,
-        const Exception& innerException);
+      explicit InvalidMethodCallException (const String& methodName);
       virtual ~InvalidMethodCallException () throw ();
+
+      InvalidMethodCallException (const InvalidMethodCallException& copy);
+      InvalidMethodCallException& operator= (
+        const InvalidMethodCallException& copy);
 
     private:
 

@@ -10,8 +10,10 @@ namespace yap
   /// @brief Common implementation of root widget manager.
   /// @todo Implementation of the list of IWidgets
   /// and methods that maintain it.
-  class GuiManager : public IGuiManager
+  class YAPOG_LIB GuiManager : public IGuiManager
   {
+      DISALLOW_COPY(GuiManager);
+
     public:
 
       GuiManager ();

@@ -11,6 +11,8 @@ namespace yap
 {
   class YAPOG_LIB XmlReader : public IReader
   {
+      DISALLOW_COPY(XmlReader);
+
     public:
 
       XmlReader (IStream& iStream, const String& rootName);

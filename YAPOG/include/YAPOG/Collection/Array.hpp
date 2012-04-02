@@ -15,55 +15,53 @@ namespace yap
     {
       public:
 
-      typedef T DataType;
-      typedef std::vector<DataType> InnerType;
-      typedef typename InnerType::size_type SizeType;
-      typedef typename InnerType::iterator ItType;
-      typedef typename InnerType::const_iterator ConstItType;
+        typedef T DataType;
+        typedef std::vector<DataType> InnerType;
+        typedef typename InnerType::size_type SizeType;
+        typedef typename InnerType::iterator ItType;
+        typedef typename InnerType::const_iterator ConstItType;
 
-      /// @brief Constructs an empty Array.
-      Array ();
-      /// @brief Destroys the Array calling destructor of each element.
-      virtual ~Array ();
+        /// @brief Constructs an empty Array.
+        Array ();
 
-      /// @brief Constructs an Array from another one with the same size
-      /// and a copy of each element of the source Array.
-      /// @param copy Source Array for the copy.
-      Array (const Array<T>& copy);
-      /// @brief Copies the source Array to this Array.
-      /// @param copy Source Array for the copy.
-      Array& operator= (const Array<T>& copy);
+        /// @brief Constructs an Array from another one with the same size
+        /// and a copy of each element of the source Array.
+        /// @param copy Source Array for the copy.
+        Array (const Array<T>& copy);
+        /// @brief Copies the source Array to this Array.
+        /// @param copy Source Array for the copy.
+        Array& operator= (const Array<T>& copy);
 
-      ItType begin ();
-      ConstItType begin () const;
-      ItType Begin ();
-      ConstItType Begin () const;
+        ItType begin ();
+        ConstItType begin () const;
+        ItType Begin ();
+        ConstItType Begin () const;
 
-      ItType end ();
-      ConstItType end () const;
-      ItType End ();
-      ConstItType End () const;
+        ItType end ();
+        ConstItType end () const;
+        ItType End ();
+        ConstItType End () const;
 
-      void Add (const T& data);
-      void Add (const Array<T>& data);
+        void Add (const T& data);
+        void Add (const Array<T>& data);
 
-      bool Contains (const T& data) const;
-      bool Contains (const Array<T>& data) const;
+        bool Contains (const T& data) const;
+        bool Contains (const Array<T>& data) const;
 
-      void Remove (const T& data);
-      void RemoveBack ();
+        void Remove (const T& data);
+        void RemoveBack ();
 
-      void Clear ();
+        void Clear ();
 
-      bool IsEmpty () const;
-      SizeType Count () const;
+        bool IsEmpty () const;
+        SizeType Count () const;
 
-      const T& operator[] (SizeType index) const;
-      T& operator[] (SizeType index);
+        const T& operator[] (SizeType index) const;
+        T& operator[] (SizeType index);
 
-      protected:
+      private:
 
-      InnerType data_;
+        InnerType data_;
     };
   } // namespace collection
 } // namespace yap

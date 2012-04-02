@@ -8,8 +8,10 @@ namespace yap
 {
   class ID;
 
-  class IDReader : public IReaderVisitor
+  class YAPOG_LIB IDReader : public IReaderVisitor
   {
+      DISALLOW_COPY(IDReader);
+
     public:
 
       IDReader (ID& id);

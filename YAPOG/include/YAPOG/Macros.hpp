@@ -5,8 +5,9 @@ namespace yap
 {
 /// Disallowing copy
 # define DISALLOW_COPY(TYPE)                    \
-  TYPE (const TYPE&) = delete;                  \
-  TYPE& operator= (const TYPE&) = delete
+  private:                                      \
+  TYPE (const TYPE&);                           \
+  TYPE& operator= (const TYPE&)
 
 /// WIN32 dll export
 # if defined (_WIN32)

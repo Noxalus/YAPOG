@@ -9,8 +9,6 @@ class Map : public yap::Map
 
     Map ();
     virtual ~Map ();
-
-    virtual yap::IClonable* Clone () const;
 };
 
 #endif // YAPOG_CLIENT_MAP_HPP

@@ -14,12 +14,27 @@ namespace yap
   {
   }
 
-  const ID::ValueType& ID::Value () const
+  ID::ID (const ID& copy)
+  {
+    *this = copy;
+  }
+
+  ID& ID::operator= (const ID& copy)
+  {
+    if (this == &copy)
+      return *this;
+
+    value_ = copy.value_;
+
+    return *this;
+  }
+
+  const ID::ValueType& ID::GetValue () const
   {
     return value_;
   }
 
-  void ID::ChangeValue (ValueType value)
+  void ID::SetValue (ValueType value)
   {
     value_ = value;
   }

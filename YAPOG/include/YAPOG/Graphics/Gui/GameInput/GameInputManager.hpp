@@ -9,9 +9,9 @@ namespace yap
 {
   class YAPOG_LIB GameInputManager
   {
-    public:
-
       DISALLOW_COPY(GameInputManager);
+
+    public:
 
       static GameInputManager& Instance ();
 

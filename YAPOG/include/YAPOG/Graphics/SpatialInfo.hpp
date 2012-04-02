@@ -10,11 +10,11 @@ namespace yap
 {
   class YAPOG_LIB SpatialInfo
   {
-    public:
-
       DISALLOW_COPY(SpatialInfo);
 
-      SpatialInfo () = default;
+    public:
+
+      SpatialInfo ();
       SpatialInfo (const Vector2& position, const Vector2& size);
 
       const Vector2& GetPosition () const;

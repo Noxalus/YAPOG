@@ -15,17 +15,24 @@ namespace yap
   {
   }
 
-  ContentLoadingFailException::ContentLoadingFailException (
-    const String& contentName,
-    const Exception& innerException)
-    : Exception (DEFAULT_MESSAGE_PREFIX +
-                 contentName +
-                 DEFAULT_MESSAGE_SUFFIX,
-                 innerException)
+  ContentLoadingFailException::~ContentLoadingFailException () throw ()
   {
   }
 
-  ContentLoadingFailException::~ContentLoadingFailException () throw ()
+  ContentLoadingFailException::ContentLoadingFailException (
+    const ContentLoadingFailException& copy)
+    : Exception (copy)
   {
+  }
+
+  ContentLoadingFailException& ContentLoadingFailException::operator= (
+    const ContentLoadingFailException& copy)
+  {
+    if (this == &copy)
+      return *this;
+
+    Exception::operator= (copy);
+
+    return *this;
   }
 } // namespace yap

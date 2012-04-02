@@ -2,6 +2,11 @@
 
 namespace yap
 {
+  SpatialInfo::SpatialInfo ()
+  {
+    Init (DEFAULT_POSITION, DEFAULT_SIZE);
+  }
+
   SpatialInfo::SpatialInfo (const Vector2& position, const Vector2& size)
   {
     Init (position, size);

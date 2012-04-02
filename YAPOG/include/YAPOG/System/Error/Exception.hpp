@@ -13,19 +13,17 @@ namespace yap
   {
     public:
 
-      Exception ();
-      Exception (const String& message);
-      Exception (const Exception& innerException);
-      Exception (const String& message, const Exception& innerException);
-
+      explicit Exception (const String& message);
       virtual ~Exception () throw ();
+
+      Exception (const Exception& copy);
+      Exception& operator= (const Exception& copy);
 
       OStream& GetMessage (OStream& oStream) const throw ();
 
     private:
 
-      const String message_;
-      const Exception* innerException_;
+      String message_;
   };
 } // namespace yap
 

@@ -14,11 +14,6 @@ namespace yap
     }
 
     template <typename T>
-    inline List<T>::~List ()
-    {
-    }
-
-    template <typename T>
     inline List<T>::List (const List<T>& copy)
     {
       *this = copy;

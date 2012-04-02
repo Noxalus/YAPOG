@@ -15,17 +15,24 @@ namespace yap
   {
   }
 
-  InvalidMethodCallException::InvalidMethodCallException (
-    const String& methodName,
-    const Exception& innerException)
-    : Exception (DEFAULT_MESSAGE_PREFIX +
-                 methodName +
-                 DEFAULT_MESSAGE_SUFFIX,
-                 innerException)
+  InvalidMethodCallException::~InvalidMethodCallException () throw ()
   {
   }
 
-  InvalidMethodCallException::~InvalidMethodCallException () throw ()
+  InvalidMethodCallException::InvalidMethodCallException (
+    const InvalidMethodCallException& copy)
+    : Exception (copy)
   {
+  }
+
+  InvalidMethodCallException& InvalidMethodCallException::operator= (
+    const InvalidMethodCallException& copy)
+  {
+    if (this == &copy)
+      return *this;
+
+    Exception::operator= (copy);
+
+    return *this;
   }
 } // namespace yap

@@ -9,9 +9,9 @@ namespace yap
 {
   class YAPOG_LIB GameScreenManager : public IGameScreenManager
   {
-    public:
-
       DISALLOW_COPY(GameScreenManager);
+
+    public:
 
       GameScreenManager ();
       virtual ~GameScreenManager ();

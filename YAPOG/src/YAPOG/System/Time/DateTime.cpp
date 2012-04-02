@@ -8,8 +8,8 @@ namespace yap
   }
 
   DateTime::DateTime (const DateTime& copy)
+    : time_ (copy.time_)
   {
-    *this = copy;
   }
 
   DateTime& DateTime::operator= (const DateTime& copy)

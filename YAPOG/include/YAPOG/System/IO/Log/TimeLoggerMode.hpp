@@ -6,10 +6,13 @@
 
 namespace yap
 {
-  class TimeLoggerMode : public LoggerMode
+  class YAPOG_LIB TimeLoggerMode : public LoggerMode
   {
+      DISALLOW_COPY(TimeLoggerMode);
+
     public:
 
+      TimeLoggerMode ();
       virtual ~TimeLoggerMode ();
 
       virtual OStream& GetPrefix (OStream& oStream);

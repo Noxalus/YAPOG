@@ -12,6 +12,12 @@ namespace yap
 
   class YAPOG_LIB GuiEvent : public sf::Event
   {
+      DISALLOW_COPY(GuiEvent);
+
+    public:
+
+      GuiEvent ();
+      virtual ~GuiEvent ();
   };
 } // namespace yap
 

@@ -2,6 +2,10 @@
 
 namespace yap
 {
+  LoggerMode::LoggerMode ()
+  {
+  }
+
   LoggerMode::~LoggerMode ()
   {
   }

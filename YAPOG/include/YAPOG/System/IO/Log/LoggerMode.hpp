@@ -6,10 +6,13 @@
 
 namespace yap
 {
-  class LoggerMode
+  class YAPOG_LIB LoggerMode
   {
+      DISALLOW_COPY(LoggerMode);
+
     public:
 
+      LoggerMode ();
       virtual ~LoggerMode ();
 
       virtual OStream& GetPrefix (OStream& oStream) = 0;

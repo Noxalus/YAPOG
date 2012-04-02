@@ -11,11 +11,11 @@ namespace yap
 {
   class YAPOG_LIB Logger : public IWriter
   {
-    public:
-
       DISALLOW_COPY (Logger);
 
-      Logger (OStream& oStream);
+    public:
+
+      explicit Logger (OStream& oStream);
       virtual ~Logger ();
 
       /// @name IWriter members.

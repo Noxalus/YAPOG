@@ -12,6 +12,8 @@ namespace yap
             typename ReturnType = void>
   class YAPOG_LIB Event
   {
+      DISALLOW_COPY(Event);
+
       typedef boost::signal2<ReturnType, SenderType, ArgsType> SignalType;
       typedef ReturnType (*HandlerType) (SenderType, ArgsType);
 

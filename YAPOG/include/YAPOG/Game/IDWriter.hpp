@@ -8,8 +8,10 @@ namespace yap
 {
   class ID;
 
-  class IDWriter : public IWriterVisitor
+  class YAPOG_LIB IDWriter : public IWriterVisitor
   {
+      DISALLOW_COPY(IDWriter);
+
     public:
 
       IDWriter (const ID& id);

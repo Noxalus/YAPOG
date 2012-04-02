@@ -12,11 +12,6 @@ namespace yap
     }
 
     template <typename T>
-    inline Queue<T>::~Queue ()
-    {
-    }
-
-    template <typename T>
     inline Queue<T>::Queue (const Queue<T>& copy)
     {
       *this = copy;

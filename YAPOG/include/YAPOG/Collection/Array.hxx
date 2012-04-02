@@ -14,11 +14,6 @@ namespace yap
     }
 
     template <typename T>
-    inline Array<T>::~Array ()
-    {
-    }
-
-    template <typename T>
     inline Array<T>::Array (const Array<T>& copy)
     {
       *this = copy;

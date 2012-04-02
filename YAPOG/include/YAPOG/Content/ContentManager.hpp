@@ -16,9 +16,9 @@ namespace yap
 {
   class YAPOG_LIB ContentManager
   {
-    public:
-
       DISALLOW_COPY(ContentManager);
+
+    public:
 
       static ContentManager& Instance ();
 

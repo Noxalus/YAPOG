@@ -8,9 +8,9 @@ namespace yap
 {
   class YAPOG_LIB DebugLogger : public Logger
   {
-    public:
-
       DISALLOW_COPY(DebugLogger);
+
+    public:
 
       static DebugLogger& Instance ();
 

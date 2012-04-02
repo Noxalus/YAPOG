@@ -11,6 +11,8 @@ namespace yap
 {
   class YAPOG_LIB XmlWriter : public IWriter
   {
+      DISALLOW_COPY(XmlWriter);
+
     public:
 
       XmlWriter (OStream& oStream, const String& rootName);

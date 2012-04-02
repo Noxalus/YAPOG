@@ -12,9 +12,9 @@ namespace yap
   /// @brief Common implementation of an ICamera.
   class YAPOG_LIB Camera : public ICamera
   {
-    public:
-
       DISALLOW_COPY(Camera);
+
+    public:
 
       Camera (const Vector2& position, const Vector2& size);
       virtual ~Camera ();

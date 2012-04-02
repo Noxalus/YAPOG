@@ -2,18 +2,17 @@
 # define YAPOG_MAP_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/IClonable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   /// @brief Base Map class for both client and server.
-  class Map : public IClonable
+  class YAPOG_LIB Map
   {
-    public:
-
       DISALLOW_COPY(Map);
+
+    public:
 
       Map ();
       virtual ~Map ();

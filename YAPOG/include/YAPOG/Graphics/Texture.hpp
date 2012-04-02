@@ -15,12 +15,12 @@ namespace yap
 {
   class YAPOG_LIB Texture : public IDrawable
   {
-    public:
-
       DISALLOW_COPY(Texture);
 
+    public:
+
       Texture ();
-      Texture (const String& name);
+      explicit Texture (const String& name);
       Texture (const String& name, const sf::IntRect& rect);
       virtual ~Texture ();
 

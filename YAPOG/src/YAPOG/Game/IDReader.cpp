@@ -15,6 +15,6 @@ namespace yap
 
   void IDReader::Visit (XmlReader& visitable)
   {
-    id_.ChangeValue (visitable.ReadUInt64 ("ID"));
+    id_.SetValue (visitable.ReadUInt64 ("ID"));
   }
 } // namespace yap

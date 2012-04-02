@@ -6,16 +6,21 @@
 
 namespace yap
 {
-  class CountLoggerMode : public LoggerMode
+  class YAPOG_LIB CountLoggerMode : public LoggerMode
   {
+      DISALLOW_COPY(CountLoggerMode);
+
     public:
 
+      CountLoggerMode ();
       virtual ~CountLoggerMode ();
 
       virtual OStream& GetPrefix (OStream& oStream);
       virtual OStream& GetSuffix (OStream& oStream);
 
     private:
+
+      static const int DEFAULT_COUNT;
 
       int currentCount_;
   };

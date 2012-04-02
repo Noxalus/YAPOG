@@ -12,11 +12,6 @@ namespace yap
     }
 
     template <typename K, typename V>
-    inline Map<K, V>::~Map ()
-    {
-    }
-
-    template <typename K, typename V>
     inline Map<K, V>::Map (const Map<K, V>& copy)
     {
       *this = copy;
