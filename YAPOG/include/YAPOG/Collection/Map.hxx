@@ -1,5 +1,5 @@
-#ifndef YAPOG_MAP_HXX
-# define YAPOG_MAP_HXX
+#ifndef YAPOG_COLLECTION_MAP_HXX
+# define YAPOG_COLLECTION_MAP_HXX
 
 namespace yap
 {
@@ -137,4 +137,4 @@ namespace yap
   } // namespace collection
 } // namespace yap
 
-#endif // YAPOG_MAP_HXX
+#endif // YAPOG_COLLECTION_MAP_HXX

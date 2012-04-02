@@ -1,4 +1,6 @@
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
+#include "YAPOG/System/IO/IWriterVisitor.hpp"
+#include "YAPOG/System/IO/IWriterConstVisitor.hpp"
 
 namespace yap
 {
@@ -21,5 +23,15 @@ namespace yap
     static DebugLogger instance;
 
     return instance;
+  }
+
+  void DebugLogger::Accept (IWriterVisitor& visitor)
+  {
+    visitor.Visit (*this);
+  }
+
+  void DebugLogger::Accept (IWriterConstVisitor& visitor) const
+  {
+    visitor.Visit (*this);
   }
 } // namespace yap

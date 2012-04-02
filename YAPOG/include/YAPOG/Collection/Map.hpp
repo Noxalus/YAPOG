@@ -1,5 +1,5 @@
-#ifndef YAPOG_MAP_HPP
-# define YAPOG_MAP_HPP
+#ifndef YAPOG_COLLECTION_MAP_HPP
+# define YAPOG_COLLECTION_MAP_HPP
 
 # include <map>
 
@@ -62,4 +62,4 @@ namespace yap
 
 # include "YAPOG/Collection/Map.hxx"
 
-#endif // YAPOG_MAP_HPP
+#endif // YAPOG_COLLECTION_MAP_HPP

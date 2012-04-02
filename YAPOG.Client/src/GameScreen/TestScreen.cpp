@@ -41,7 +41,7 @@ const yap::ScreenType& TestScreen::HandleRun (
   const yap::Time& dt,
   yap::IDrawingContext& context)
 {
-  yap::DebugLogger::Instance ().LogLine (1.0f / dt.GetValue ());
+//  yap::DebugLogger::Instance ().LogLine (1.0f / dt.GetValue ());
 
   context.GetCamera ("Background World").Move (
     yap::Vector2 (140.0f * dt.GetValue (), 0.0f));

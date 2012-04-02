@@ -42,6 +42,61 @@ namespace yap
       "Logger::Write (const String&, const String&)");
   }
 
+  void Logger::Write (const bool& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const bool& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const bool&)");
+  }
+
+  void Logger::Write (const char& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const char& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const char&)");
+  }
+
+  void Logger::Write (const uchar& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const uchar& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const uchar&)");
+  }
+
+  void Logger::Write (const Int16& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const Int16& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const Int16&)");
+  }
+
+  void Logger::Write (const UInt16& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const UInt16& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const UInt16&)");
+  }
+
   void Logger::Write (const int& value)
   {
     Log (value);
@@ -53,15 +108,37 @@ namespace yap
       "Logger::Write (const String&, const int&)");
   }
 
-  void Logger::Write (const unsigned int& value)
+  void Logger::Write (const uint& value)
   {
     Log (value);
   }
 
-  void Logger::Write (const String& name, const unsigned int& value)
+  void Logger::Write (const String& name, const uint& value)
   {
     throw InvalidMethodCallException (
-      "Logger::Write (const String&, const unsigned int&)");
+      "Logger::Write (const String&, const uint&)");
+  }
+
+  void Logger::Write (const Int64& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const Int64& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const Int64&)");
+  }
+
+  void Logger::Write (const UInt64& value)
+  {
+    Log (value);
+  }
+
+  void Logger::Write (const String& name, const UInt64& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const UInt64&)");
   }
 
   void Logger::Write (const float& value)
@@ -86,93 +163,18 @@ namespace yap
       "Logger::Write (const String&, const double&)");
   }
 
-  void Logger::Write (const long double& value)
+  void Logger::Write (const Vector2& value)
   {
-    Log (value);
+    Log ("( ").
+      Log (value.x).
+      Log (", ").
+      Log (value.y).
+      Log (" )");
   }
 
-  void Logger::Write (const String& name, const long double& value)
+  void Logger::Write (const String& name, const Vector2& value)
   {
     throw InvalidMethodCallException (
-      "Logger::Write (const String&, const long double&)");
-  }
-
-  void Logger::Write (const char& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (const String& name, const char& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const char&)");
-  }
-
-  void Logger::Write (const unsigned char& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (const String& name, const unsigned char& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const unsigned char&)");
-  }
-
-  void Logger::Write (const bool& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (const String& name, const bool& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const bool&)");
-  }
-
-  void Logger::Write (const long int& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (const String& name, const long int& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const long int&)");
-  }
-
-  void Logger::Write (const unsigned long int& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (
-    const String& name,
-    const unsigned long int& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const unsigned long int&)");
-  }
-
-  void Logger::Write (const short int& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (const String& name, const short int& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const short int&)");
-  }
-
-  void Logger::Write (const unsigned short int& value)
-  {
-    Log (value);
-  }
-
-  void Logger::Write (const String& name, const unsigned short int& value)
-  {
-    throw InvalidMethodCallException (
-      "Logger::Write (const String&, const unsigned short int&)");
+      "Logger::Write (const String&, const Vector2&)");
   }
 } // namespace yap

@@ -1,5 +1,7 @@
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/Error/InvalidMethodCallException.hpp"
+#include "YAPOG/System/IO/IReaderVisitor.hpp"
+#include "YAPOG/System/IO/IReaderConstVisitor.hpp"
 
 namespace yap
 {
@@ -19,6 +21,16 @@ namespace yap
     data_.ChangeRoot (rootName);
   }
 
+  void XmlReader::Accept (IReaderVisitor& visitor)
+  {
+    visitor.Visit (*this);
+  }
+
+  void XmlReader::Accept (IReaderConstVisitor& visitor) const
+  {
+    visitor.Visit (*this);
+  }
+
   String XmlReader::ReadString ()
   {
     throw InvalidMethodCallException ("XmlReader::ReadString ()");
@@ -27,6 +39,56 @@ namespace yap
   String XmlReader::ReadString (const String& name)
   {
     return data_.Get<String> (name);
+  }
+
+  bool XmlReader::ReadBool ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadBool ()");
+  }
+
+  bool XmlReader::ReadBool (const String& name)
+  {
+    return data_.Get<bool> (name);
+  }
+
+  char XmlReader::ReadChar ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadChar ()");
+  }
+
+  char XmlReader::ReadChar (const String& name)
+  {
+    return data_.Get<char> (name);
+  }
+
+  uchar XmlReader::ReadUChar ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadUChar ()");
+  }
+
+  uchar XmlReader::ReadUChar (const String& name)
+  {
+    return data_.Get<uchar> (name);
+  }
+
+  Int16 XmlReader::ReadInt16 ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadInt16 ()");
+  }
+
+  Int16 XmlReader::ReadInt16 (const String& name)
+  {
+    return data_.Get<Int16> (name);
+  }
+
+  UInt16 XmlReader::ReadUInt16 ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadUInt16 ()");
+  }
+
+  UInt16 XmlReader::ReadUInt16 (const String& name)
+  {
+    return data_.Get<UInt16> (name);
   }
 
   int XmlReader::ReadInt ()
@@ -39,14 +101,34 @@ namespace yap
     return data_.Get<int> (name);
   }
 
-  unsigned int XmlReader::ReadUnsignedInt ()
+  uint XmlReader::ReadUInt ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadUnsignedInt ()");
+    throw InvalidMethodCallException ("XmlReader::ReadUInt ()");
   }
 
-  unsigned int XmlReader::ReadUnsignedInt (const String& name)
+  uint XmlReader::ReadUInt (const String& name)
   {
-    return data_.Get<unsigned int> (name);
+    return data_.Get<uint> (name);
+  }
+
+  Int64 XmlReader::ReadInt64 ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadInt64 ()");
+  }
+
+  Int64 XmlReader::ReadInt64 (const String& name)
+  {
+    return data_.Get<Int64> (name);
+  }
+
+  UInt64 XmlReader::ReadUInt64 ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadUInt64 ()");
+  }
+
+  UInt64 XmlReader::ReadUInt64 (const String& name)
+  {
+    return data_.Get<UInt64> (name);
   }
 
   float XmlReader::ReadFloat ()
@@ -69,83 +151,14 @@ namespace yap
     return data_.Get<double> (name);
   }
 
-  long double XmlReader::ReadLongDouble ()
+  Vector2 XmlReader::ReadVector2 ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadLongDouble ()");
+    throw InvalidMethodCallException ("XmlReader::ReadVector2 ()");
   }
 
-  long double XmlReader::ReadLongDouble (const String& name)
+  Vector2 XmlReader::ReadVector2 (const String& name)
   {
-    return data_.Get<long double> (name);
-  }
-
-  char XmlReader::ReadChar ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadChar ()");
-  }
-
-  char XmlReader::ReadChar (const String& name)
-  {
-    return data_.Get<char> (name);
-  }
-
-  unsigned char XmlReader::ReadUnsignedChar ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadUnsignedChar ()");
-  }
-
-  unsigned char XmlReader::ReadUnsignedChar (const String& name)
-  {
-    return data_.Get<unsigned char> (name);
-  }
-
-  bool XmlReader::ReadBool ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadBool ()");
-  }
-
-  bool XmlReader::ReadBool (const String& name)
-  {
-    return data_.Get<bool> (name);
-  }
-
-  long int XmlReader::ReadLongInt ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadLongInt ()");
-  }
-
-  long int XmlReader::ReadLongInt (const String& name)
-  {
-    return data_.Get<long int> (name);
-  }
-
-  unsigned long int XmlReader::ReadUnsignedLongInt ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadUnsignedLongInt ()");
-  }
-
-  unsigned long int XmlReader::ReadUnsignedLongInt (const String& name)
-  {
-    return data_.Get<unsigned long int> (name);
-  }
-
-  short int XmlReader::ReadShortInt ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadShortInt ()");
-  }
-
-  short int XmlReader::ReadShortInt (const String& name)
-  {
-    return data_.Get<short int> (name);
-  }
-
-  unsigned short int XmlReader::ReadUnsignedShortInt ()
-  {
-    throw InvalidMethodCallException ("XmlReader::ReadUnsignedShortInt ()");
-  }
-
-  unsigned short int XmlReader::ReadUnsignedShortInt (const String& name)
-  {
-    return data_.Get<unsigned short int> (name);
+    /// @todo
+    return ReadVector2 ();
   }
 } // namespace yap

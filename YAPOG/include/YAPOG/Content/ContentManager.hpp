@@ -1,15 +1,20 @@
 #ifndef YAPOG_CONTENTMANAGER_HPP
 # define YAPOG_CONTENTMANAGER_HPP
 
+# include <SFML/Graphics/Image.hpp>
+# include <SFML/Graphics/Texture.hpp>
+# include <SFML/Graphics/Font.hpp>
+# include <SFML/Audio/SoundBuffer.hpp>
+# include <SFML/Audio/Music.hpp>
+
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Content/IContentManager.hpp"
+# include "YAPOG/System/String.hpp"
 # include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/System/Path.hpp"
 
 namespace yap
 {
-  typedef String Path;
-
-  class YAPOG_LIB ContentManager : public IContentManager
+  class YAPOG_LIB ContentManager
   {
     public:
 
@@ -17,28 +22,24 @@ namespace yap
 
       static ContentManager& Instance ();
 
-      void Init ();
       void Init (const Path& rootPath);
 
-      /// @name IContentManager members.
-      /// @{
-      virtual sf::Image& LoadImage (const String& name);
-      virtual sf::Texture& LoadTexture (const String& name);
-      virtual sf::Font& LoadFont (const String& name);
-      virtual sf::SoundBuffer& LoadSoundBuffer (const String& name);
-      virtual sf::Music& LoadMusic (const String& name);
+      sf::Image& LoadImage (const String& name);
+      sf::Texture& LoadTexture (const String& name);
+      sf::Font& LoadFont (const String& name);
+      sf::SoundBuffer& LoadSoundBuffer (const String& name);
+      sf::Music& LoadMusic (const String& name);
 
-      virtual void UnloadImage (const String& name);
-      virtual void UnloadTexture (const String& name);
-      virtual void UnloadFont (const String& name);
-      virtual void UnloadSoundBuffer (const String& name);
-      virtual void UnloadMusic (const String& name);
-      /// @}
+      void UnloadImage (const String& name);
+      void UnloadTexture (const String& name);
+      void UnloadFont (const String& name);
+      void UnloadSoundBuffer (const String& name);
+      void UnloadMusic (const String& name);
 
     private:
 
       ContentManager (const Path& rootPath);
-      virtual ~ContentManager ();
+      ~ContentManager ();
 
       static const Path DEFAULT_ROOT_PATH;
       static const Path DEFAULT_IMAGE_PATH;

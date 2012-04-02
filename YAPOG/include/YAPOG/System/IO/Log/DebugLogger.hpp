@@ -14,6 +14,9 @@ namespace yap
 
       static DebugLogger& Instance ();
 
+      virtual void Accept (IWriterVisitor& visitor);
+      virtual void Accept (IWriterConstVisitor& visitor) const;
+
     private:
 
       DebugLogger ();

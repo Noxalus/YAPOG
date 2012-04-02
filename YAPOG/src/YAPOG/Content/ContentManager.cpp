@@ -3,12 +3,12 @@
 
 namespace yap
 {
-  const Path ContentManager::DEFAULT_ROOT_PATH = "Content/";
-  const Path ContentManager::DEFAULT_IMAGE_PATH = "Image/";
-  const Path ContentManager::DEFAULT_TEXTURE_PATH = "Image/";
-  const Path ContentManager::DEFAULT_FONT_PATH = "Font/";
-  const Path ContentManager::DEFAULT_SOUND_BUFFER_PATH = "Sound/";
-  const Path ContentManager::DEFAULT_MUSIC_PATH = "Sound/";
+  const Path ContentManager::DEFAULT_ROOT_PATH = Path ("Content/");
+  const Path ContentManager::DEFAULT_IMAGE_PATH = Path ("Image/");
+  const Path ContentManager::DEFAULT_TEXTURE_PATH = Path ("Image/");
+  const Path ContentManager::DEFAULT_FONT_PATH = Path ("Font/");
+  const Path ContentManager::DEFAULT_SOUND_BUFFER_PATH = Path ("Sound/");
+  const Path ContentManager::DEFAULT_MUSIC_PATH = Path ("Sound/");
 
   ContentManager::ContentManager (const Path& rootPath)
     : rootPath_ (rootPath)
@@ -61,8 +61,10 @@ namespace yap
       return *images_[name];
 
     sf::Image* image = new sf::Image;
-    if (!image->LoadFromFile (rootPath_ + imagePath_ + name))
-      throw ContentLoadingFailException (rootPath_ + imagePath_ + name);
+
+    const String& path = (rootPath_ + imagePath_ + name).Value ();
+    if (!image->LoadFromFile (path))
+      throw ContentLoadingFailException (path);
 
     images_.Add (name, image);
 
@@ -75,8 +77,10 @@ namespace yap
       return *textures_[name];
 
     sf::Texture* texture = new sf::Texture;
-    if (!texture->LoadFromFile (rootPath_ + texturePath_ + name))
-      throw ContentLoadingFailException (rootPath_ + texturePath_ + name);
+
+    const String& path = (rootPath_ + texturePath_ + name).Value ();
+    if (!texture->LoadFromFile (path))
+      throw ContentLoadingFailException (path);
 
     textures_.Add (name, texture);
 
@@ -89,8 +93,10 @@ namespace yap
       return *fonts_[name];
 
     sf::Font* font = new sf::Font;
-    if (!font->LoadFromFile (rootPath_ + fontPath_ + name))
-      throw ContentLoadingFailException (rootPath_ + fontPath_ + name);
+
+    const String& path = (rootPath_ + fontPath_ + name).Value ();
+    if (!font->LoadFromFile (path))
+      throw ContentLoadingFailException (path);
 
     fonts_.Add (name, font);
 
@@ -103,8 +109,10 @@ namespace yap
       return *soundBuffers_[name];
 
     sf::SoundBuffer* soundBuffer = new sf::SoundBuffer;
-    if (!soundBuffer->LoadFromFile (rootPath_ + soundBufferPath_ + name))
-      throw ContentLoadingFailException (rootPath_ + soundBufferPath_ + name);
+
+    const String& path = (rootPath_ + soundBufferPath_ + name).Value ();
+    if (!soundBuffer->LoadFromFile (path))
+      throw ContentLoadingFailException (path);
 
     soundBuffers_.Add (name, soundBuffer);
 
@@ -117,8 +125,10 @@ namespace yap
       return *musics_[name];
 
     sf::Music* music = new sf::Music;
-    if (!music->OpenFromFile (rootPath_ + musicPath_ + name))
-      throw ContentLoadingFailException (rootPath_ + musicPath_ + name);
+
+    const String& path = (rootPath_ + musicPath_ + name).Value ();
+    if (!music->OpenFromFile (path))
+      throw ContentLoadingFailException (path);
 
     musics_.Add (name, music);
 
