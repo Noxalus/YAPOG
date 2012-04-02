@@ -17,7 +17,7 @@ namespace yap
     return id_;
   }
 
-  void Map::ChangeID (const ID& id)
+  void Map::SetID (const ID& id)
   {
     id_ = id;
   }

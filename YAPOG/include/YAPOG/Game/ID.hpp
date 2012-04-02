@@ -3,7 +3,6 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IntTypes.hpp"
-# include "YAPOG/System/String.hpp"
 
 namespace yap
 {

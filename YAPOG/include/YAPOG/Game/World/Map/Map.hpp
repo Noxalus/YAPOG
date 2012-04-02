@@ -19,7 +19,7 @@ namespace yap
       virtual ~Map ();
 
       const ID& GetID () const;
-      void ChangeID (const ID& id);
+      void SetID (const ID& id);
 
       const String& GetName () const;
       void SetName (const String& name);

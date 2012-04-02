@@ -10,5 +10,10 @@ Map::~Map ()
 
 yap::IClonable* Map::Clone () const
 {
-  return new Map ();
+  Map* clone = new Map ();
+
+  clone->SetID (GetID ());
+  clone->SetName (GetName ());
+
+  return clone;
 }
