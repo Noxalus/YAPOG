@@ -7,31 +7,33 @@
 
 namespace yap
 {
-  template <typename T>
-  class YAPOG_LIB Queue
+  namespace collection
   {
-    public:
+    template <typename T>
+    class YAPOG_LIB Queue
+    {
+      public:
 
-      typedef T DataType;
-      typedef std::queue<DataType> InnerType;
-      typedef typename InnerType::size_type SizeType;
+        typedef T DataType;
+        typedef std::queue<DataType> InnerType;
+        typedef typename InnerType::size_type SizeType;
 
-      Queue ();
-      virtual ~Queue ();
+        Queue ();
 
-      Queue (const Queue& copy);
-      Queue& operator= (const Queue<T>& copy);
+        Queue (const Queue& copy);
+        Queue& operator= (const Queue<T>& copy);
 
-      void Enqueue (const T& data);
-      T& Dequeue (T& data);
+        void Enqueue (const T& data);
+        T& Dequeue (T& data);
 
-      bool IsEmpty () const;
-      SizeType Count () const;
+        bool IsEmpty () const;
+        SizeType Count () const;
 
-    protected:
+      private:
 
-      InnerType data_;
-  };
+        InnerType data_;
+    };
+  } // namespace collection
 } // namespace yap
 
 # include "YAPOG/Collection/Queue.hxx"

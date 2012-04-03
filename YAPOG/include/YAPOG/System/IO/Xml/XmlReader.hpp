@@ -11,6 +11,8 @@ namespace yap
 {
   class YAPOG_LIB XmlReader : public IReader
   {
+      DISALLOW_COPY(XmlReader);
+
     public:
 
       XmlReader (IStream& iStream, const String& rootName);
@@ -18,16 +20,40 @@ namespace yap
 
       void ChangeRoot (const String& rootName);
 
-      /// \name IReader implementation.
-      /// \{
+      /// @name IReader members.
+      /// @{
+      virtual void Accept (IReaderVisitor& visitor);
+      virtual void Accept (IReaderConstVisitor& visitor) const;
+
       virtual String ReadString ();
       virtual String ReadString (const String& name);
+
+      virtual bool ReadBool ();
+      virtual bool ReadBool (const String& name);
+
+      virtual char ReadChar ();
+      virtual char ReadChar (const String& name);
+
+      virtual uchar ReadUChar ();
+      virtual uchar ReadUChar (const String& name);
+
+      virtual Int16 ReadInt16 ();
+      virtual Int16 ReadInt16 (const String& name);
+
+      virtual UInt16 ReadUInt16 ();
+      virtual UInt16 ReadUInt16 (const String& name);
 
       virtual int ReadInt ();
       virtual int ReadInt (const String& name);
 
-      virtual unsigned int ReadUnsignedInt ();
-      virtual unsigned int ReadUnsignedInt (const String& name);
+      virtual uint ReadUInt ();
+      virtual uint ReadUInt (const String& name);
+
+      virtual Int64 ReadInt64 ();
+      virtual Int64 ReadInt64 (const String& name);
+
+      virtual UInt64 ReadUInt64 ();
+      virtual UInt64 ReadUInt64 (const String& name);
 
       virtual float ReadFloat ();
       virtual float ReadFloat (const String& name);
@@ -35,30 +61,10 @@ namespace yap
       virtual double ReadDouble ();
       virtual double ReadDouble (const String& name);
 
-      virtual long double ReadLongDouble ();
-      virtual long double ReadLongDouble (const String& name);
-
-      virtual char ReadChar ();
-      virtual char ReadChar (const String& name);
-
-      virtual unsigned char ReadUnsignedChar ();
-      virtual unsigned char ReadUnsignedChar (const String& name);
-
-      virtual bool ReadBool ();
-      virtual bool ReadBool (const String& name);
-
-      virtual long int ReadLongInt ();
-      virtual long int ReadLongInt (const String& name);
-
-      virtual unsigned long int ReadUnsignedLongInt ();
-      virtual unsigned long int ReadUnsignedLongInt (const String& name);
-
-      virtual short int ReadShortInt ();
-      virtual short int ReadShortInt (const String& name);
-
-      virtual unsigned short int ReadUnsignedShortInt ();
-      virtual unsigned short int ReadUnsignedShortInt (const String& name);
-      /// \}
+      virtual Vector2 ReadVector2 ();
+      /// @todo Determine representation of Vector2 in XML.
+      virtual Vector2 ReadVector2 (const String& name);
+      /// @}
 
     private:
 

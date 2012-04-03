@@ -12,6 +12,8 @@ namespace yap
 {
   class YAPOG_LIB XmlTree
   {
+      DISALLOW_COPY(XmlTree);
+
     public:
 
       XmlTree ();

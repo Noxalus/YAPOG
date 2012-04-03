@@ -12,9 +12,11 @@ namespace yap
 
   class YAPOG_LIB MouseGameInputEntry : public GameInputEntry
   {
+      DISALLOW_COPY(MouseGameInputEntry);
+
     public:
 
-      MouseGameInputEntry (MouseButton button);
+      explicit MouseGameInputEntry (MouseButton button);
       virtual ~MouseGameInputEntry ();
 
       virtual void Update (const GuiEvent& guiEvent);

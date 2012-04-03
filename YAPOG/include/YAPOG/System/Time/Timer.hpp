@@ -10,16 +10,18 @@ namespace yap
 {
   class YAPOG_LIB Timer
   {
+      DISALLOW_COPY(Timer);
+
     public:
 
       Timer ();
-      Timer (const Time& init);
+      explicit Timer (const Time& init);
 
       void Reset ();
       void Reset (const Time& init);
 
       Time GetCurrentTime () const;
-      int DelayIsComplete (const Time& delay, bool reset = true);
+      int DelayIsComplete (const Time& delay, bool reset);
 
     private:
 

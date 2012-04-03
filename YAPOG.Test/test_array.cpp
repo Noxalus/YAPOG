@@ -2,6 +2,7 @@
 #include "YAPOG/Collection/Array.hpp"
 
 using namespace yap;
+using namespace yap::collection;
 int main ()
 {
   Array<int> intArr;
