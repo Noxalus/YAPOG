@@ -7,7 +7,7 @@ class Map : public yap::Map
 {
   public:
 
-    Map ();
+    Map (const yap::ID& id);
     virtual ~Map ();
 };
 

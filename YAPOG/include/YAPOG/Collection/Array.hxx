@@ -145,13 +145,15 @@ namespace yap
     }
 
     template <typename T>
-    inline const T& Array<T>::operator[] (Array<T>::SizeType index) const
+    inline const T& Array<T>::operator[] (
+      typename Array<T>::SizeType index) const
     {
       return data_[index];
     }
 
     template <typename T>
-    inline T& Array<T>::operator[] (Array<T>::SizeType index)
+    inline T& Array<T>::operator[] (
+      typename Array<T>::SizeType index)
     {
       return data_[index];
     }

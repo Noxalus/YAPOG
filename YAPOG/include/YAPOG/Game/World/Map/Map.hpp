@@ -14,7 +14,7 @@ namespace yap
 
     public:
 
-      Map ();
+      Map (const ID& id);
       virtual ~Map ();
 
       const ID& GetID () const;
@@ -24,6 +24,8 @@ namespace yap
       void SetName (const String& name);
 
     private:
+
+      static const String DEFAULT_NAME;
 
       ID id_;
       String name_;

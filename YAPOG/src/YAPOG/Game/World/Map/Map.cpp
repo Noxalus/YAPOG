@@ -2,9 +2,11 @@
 
 namespace yap
 {
-  Map::Map ()
-    : id_ ()
-    , name_ ()
+  const String Map::DEFAULT_NAME = "Map";
+
+  Map::Map (const ID& id)
+    : id_ (id)
+    , name_ (DEFAULT_NAME)
   {
   }
 
