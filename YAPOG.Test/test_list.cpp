@@ -2,6 +2,7 @@
 #include "YAPOG/Collection/List.hpp"
 
 using namespace yap;
+using namespace yap::collection;
 int main ()
 {
   List<int> intList;

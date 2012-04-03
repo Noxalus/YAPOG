@@ -7,6 +7,12 @@ namespace yap
   {
   }
 
+  GameInputManager::~GameInputManager ()
+  {
+    for (const auto it : gameInputs_)
+      delete it.second;
+  }
+
   GameInputManager& GameInputManager::Instance ()
   {
     static GameInputManager instance;
