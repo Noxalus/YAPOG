@@ -8,7 +8,19 @@ namespace yap
 {
   class YAPOG_LIB InvalidMethodCallException : public Exception
   {
+    public:
 
+      explicit InvalidMethodCallException (const String& methodName);
+      virtual ~InvalidMethodCallException () throw ();
+
+      InvalidMethodCallException (const InvalidMethodCallException& copy);
+      InvalidMethodCallException& operator= (
+        const InvalidMethodCallException& copy);
+
+    private:
+
+      static const String DEFAULT_MESSAGE_PREFIX;
+      static const String DEFAULT_MESSAGE_SUFFIX;
   };
 } // namespace yap
 

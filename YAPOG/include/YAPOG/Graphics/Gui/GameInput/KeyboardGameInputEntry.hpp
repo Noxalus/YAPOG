@@ -12,9 +12,11 @@ namespace yap
 
   class YAPOG_LIB KeyboardGameInputEntry : public GameInputEntry
   {
+      DISALLOW_COPY(KeyboardGameInputEntry);
+
     public:
 
-      KeyboardGameInputEntry (Key key);
+      explicit KeyboardGameInputEntry (Key key);
       virtual ~KeyboardGameInputEntry ();
 
       virtual void Update (const GuiEvent& guiEvent);

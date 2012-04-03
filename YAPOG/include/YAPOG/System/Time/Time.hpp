@@ -12,8 +12,11 @@ namespace yap
     public:
 
       Time ();
-      Time (float seconds);
-      Time (const sf::Time& copy);
+      explicit Time (float seconds);
+      explicit Time (const sf::Time& copy);
+
+      Time (const Time& copy);
+      Time& operator= (const Time& copy);
 
       Time operator+ (const Time& rhs);
       Time operator+ (float rhs);
