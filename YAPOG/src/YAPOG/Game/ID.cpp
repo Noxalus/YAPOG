@@ -15,8 +15,8 @@ namespace yap
   }
 
   ID::ID (const ID& copy)
+    : value_ (copy.value_)
   {
-    *this = copy;
   }
 
   ID& ID::operator= (const ID& copy)
