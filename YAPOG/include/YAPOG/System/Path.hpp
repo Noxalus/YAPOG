@@ -7,7 +7,7 @@
 namespace yap
 {
   /// @brief Hanles string paths.
-  class Path
+  class YAPOG_LIB Path
   {
     public:
 
