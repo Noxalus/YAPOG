@@ -1,5 +1,7 @@
 #include "YAPOG/System/IO/Xml/XmlWriter.hpp"
 #include "YAPOG/System/Error/InvalidMethodCallException.hpp"
+#include "YAPOG/System/IO/IWriterVisitor.hpp"
+#include "YAPOG/System/IO/IWriterConstVisitor.hpp"
 
 namespace yap
 {
@@ -25,9 +27,19 @@ namespace yap
     data_.Dump (oStream_);
   }
 
+  void XmlWriter::Accept (IWriterVisitor& visitor)
+  {
+    visitor.Visit (*this);
+  }
+
+  void XmlWriter::Accept (IWriterConstVisitor& visitor) const
+  {
+    visitor.Visit (*this);
+  }
+
   void XmlWriter::Write (const String& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlWriter::Write (const String&)");
   }
 
   void XmlWriter::Write (const String& name, const String& value)
@@ -35,9 +47,59 @@ namespace yap
     data_.Add (name, value);
   }
 
+  void XmlWriter::Write (const bool& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const bool&)");
+  }
+
+  void XmlWriter::Write (const String& name, const bool& value)
+  {
+    data_.Add (name, value);
+  }
+
+  void XmlWriter::Write (const char& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const char&)");
+  }
+
+  void XmlWriter::Write (const String& name, const char& value)
+  {
+    data_.Add (name, value);
+  }
+
+  void XmlWriter::Write (const uchar& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const uchar&)");
+  }
+
+  void XmlWriter::Write (const String& name, const uchar& value)
+  {
+    data_.Add (name, value);
+  }
+
+  void XmlWriter::Write (const Int16& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const Int16&)");
+  }
+
+  void XmlWriter::Write (const String& name, const Int16& value)
+  {
+    data_.Add (name, value);
+  }
+
+  void XmlWriter::Write (const UInt16& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const UInt16&)");
+  }
+
+  void XmlWriter::Write (const String& name, const UInt16& value)
+  {
+    data_.Add (name, value);
+  }
+
   void XmlWriter::Write (const int& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlWriter::Write (const int&)");
   }
 
   void XmlWriter::Write (const String& name, const int& value)
@@ -45,19 +107,39 @@ namespace yap
     data_.Add (name, value);
   }
 
-  void XmlWriter::Write (const unsigned int& value)
+  void XmlWriter::Write (const uint& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlWriter::Write (const uint&)");
   }
 
-  void XmlWriter::Write (const String& name, const unsigned int& value)
+  void XmlWriter::Write (const String& name, const uint& value)
+  {
+    data_.Add (name, value);
+  }
+
+  void XmlWriter::Write (const Int64& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const Int64&)");
+  }
+
+  void XmlWriter::Write (const String& name, const Int64& value)
+  {
+    data_.Add (name, value);
+  }
+
+  void XmlWriter::Write (const UInt64& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const UInt64&)");
+  }
+
+  void XmlWriter::Write (const String& name, const UInt64& value)
   {
     data_.Add (name, value);
   }
 
   void XmlWriter::Write (const float& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlWriter::Write (const float&)");
   }
 
   void XmlWriter::Write (const String& name, const float& value)
@@ -67,7 +149,7 @@ namespace yap
 
   void XmlWriter::Write (const double& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlWriter::Write (const double&)");
   }
 
   void XmlWriter::Write (const String& name, const double& value)
@@ -75,84 +157,14 @@ namespace yap
     data_.Add (name, value);
   }
 
-  void XmlWriter::Write (const long double& value)
+  void XmlWriter::Write (const Vector2& value)
   {
-    throw InvalidMethodCallException ();
+    throw InvalidMethodCallException ("XmlWriter::Write (const Vector2&)");
   }
 
-  void XmlWriter::Write (const String& name, const long double& value)
+  void XmlWriter::Write (const String& name, const Vector2& value)
   {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const char& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name, const char& value)
-  {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const unsigned char& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name, const unsigned char& value)
-  {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const bool& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name, const bool& value)
-  {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const long int& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name, const long int& value)
-  {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const unsigned long int& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name,
-                         const unsigned long int& value)
-  {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const short int& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name, const short int& value)
-  {
-    data_.Add (name, value);
-  }
-
-  void XmlWriter::Write (const unsigned short int& value)
-  {
-    throw InvalidMethodCallException ();
-  }
-
-  void XmlWriter::Write (const String& name, unsigned short int& value)
-  {
-    data_.Add (name, value);
+    /// @todo
+    Write (value);
   }
 } // namespace yap

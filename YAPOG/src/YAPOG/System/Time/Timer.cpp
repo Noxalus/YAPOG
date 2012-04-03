@@ -23,12 +23,12 @@ namespace yap
   {
     init_ = init;
 
-    clock_.Restart ();
+    clock_.restart ();
   }
 
   Time Timer::GetCurrentTime () const
   {
-    return Time (clock_.GetElapsedTime ()) + init_;
+    return Time (clock_.getElapsedTime ()) + init_;
   }
 
   int Timer::DelayIsComplete (const Time& delay, bool reset)

@@ -8,10 +8,9 @@ namespace yap
 {
   class YAPOG_LIB GameInputEntry
   {
-    public:
-
-      DECLARE_PTR_TYPE(GameInputEntry);
       DISALLOW_COPY(GameInputEntry);
+
+    public:
 
       GameInputEntry ();
       virtual ~GameInputEntry ();

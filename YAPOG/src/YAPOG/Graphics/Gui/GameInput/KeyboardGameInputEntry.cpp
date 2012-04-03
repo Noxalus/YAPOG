@@ -14,11 +14,11 @@ namespace yap
 
   void KeyboardGameInputEntry::Update (const GuiEvent& guiEvent)
   {
-    switch (guiEvent.Type)
+    switch (guiEvent.type)
     {
       case GuiEventType::KeyPressed:
 
-        if (key_ != guiEvent.Key.Code)
+        if (key_ != guiEvent.key.code)
           break;
 
         Activate (true);
@@ -27,7 +27,7 @@ namespace yap
 
       case GuiEventType::KeyReleased:
 
-        if (key_ != guiEvent.Key.Code)
+        if (key_ != guiEvent.key.code)
           break;
 
         Activate (false);

@@ -11,6 +11,8 @@ namespace yap
 {
   class YAPOG_LIB XmlWriter : public IWriter
   {
+      DISALLOW_COPY(XmlWriter);
+
     public:
 
       XmlWriter (OStream& oStream, const String& rootName);
@@ -19,16 +21,40 @@ namespace yap
       void ChangeRoot (const String& rootName);
       void Dump ();
 
-      /// \name IWriter implementation.
-      /// \{
+      /// @name IWriter members.
+      /// @{
+      virtual void Accept (IWriterVisitor& visitor);
+      virtual void Accept (IWriterConstVisitor& visitor) const;
+
       virtual void Write (const String& value);
       virtual void Write (const String& name, const String& value);
+
+      virtual void Write (const bool& value);
+      virtual void Write (const String& name, const bool& value);
+
+      virtual void Write (const char& value);
+      virtual void Write (const String& name, const char& value);
+
+      virtual void Write (const uchar& value);
+      virtual void Write (const String& name, const uchar& value);
+
+      virtual void Write (const Int16& value);
+      virtual void Write (const String& name, const Int16& value);
+
+      virtual void Write (const UInt16& value);
+      virtual void Write (const String& name, const UInt16& value);
 
       virtual void Write (const int& value);
       virtual void Write (const String& name, const int& value);
 
-      virtual void Write (const unsigned int& value);
-      virtual void Write (const String& name, const unsigned int& value);
+      virtual void Write (const uint& value);
+      virtual void Write (const String& name, const uint& value);
+
+      virtual void Write (const Int64& value);
+      virtual void Write (const String& name, const Int64& value);
+
+      virtual void Write (const UInt64& value);
+      virtual void Write (const String& name, const UInt64& value);
 
       virtual void Write (const float& value);
       virtual void Write (const String& name, const float& value);
@@ -36,31 +62,10 @@ namespace yap
       virtual void Write (const double& value);
       virtual void Write (const String& name, const double& value);
 
-      virtual void Write (const long double& value);
-      virtual void Write (const String& name, const long double& value);
-
-      virtual void Write (const char& value);
-      virtual void Write (const String& name, const char& value);
-
-      virtual void Write (const unsigned char& value);
-      virtual void Write (const String& name, const unsigned char& value);
-
-      virtual void Write (const bool& value);
-      virtual void Write (const String& name, const bool& value);
-
-      virtual void Write (const long int& value);
-      virtual void Write (const String& name, const long int& value);
-
-      virtual void Write (const unsigned long int& value);
-      virtual void Write (const String& name,
-                          const unsigned long int& value);
-
-      virtual void Write (const short int& value);
-      virtual void Write (const String& name, const short int& value);
-
-      virtual void Write (const unsigned short int& value);
-      virtual void Write (const String& name, unsigned short int& value);
-      /// \}
+      virtual void Write (const Vector2& value);
+      /// @todo Determine representation of Vector2 in XML.
+      virtual void Write (const String& name, const Vector2& value);
+      /// @}
 
     private:
 
