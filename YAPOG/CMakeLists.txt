@@ -6,11 +6,13 @@ INCLUDE_DIRECTORIES(
         include
         ${sfml_include_dir}
         ${boost_include_dir}
+		${pgsql_include_dir}
 )
 
 LINK_DIRECTORIES(
         ${sfml_lib_dir}
         ${boost_lib_dir}
+		${pgsql_lib_dir}
 )
 
 FILE(

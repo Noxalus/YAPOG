@@ -29,10 +29,12 @@ if( WIN32 )
 
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
+	
+	SET( pgsql_include_dir "D:/Logiciels/PostgreSQL/9.1/include" CACHE STRING "PostgreSQL include directory." FORCE )
+	SET( pgsql_lib_dir "D:/Logiciels/PostgreSQL/9.1/lib" CACHE STRING "PostgreSQL lib directory." FORCE )
 endif()
 
 if( UNIX )
-
 	SET( sfml_include_dir "" CACHE STRING "SFML include directory." )
 	SET( sfml_lib_dir "" CACHE STRING "SFML lib directory." )
 
@@ -44,6 +46,9 @@ if( UNIX )
 
 	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
 	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
+	
+	SET( pgsql_include_dir "" CACHE STRING "PostgreSQL include directory." )
+	SET( pgsql_lib_dir "" CACHE STRING "PostgreSQL lib directory." )
 endif()
 
 SET( sfml_system_lib_debug_name sfml-system-d )
@@ -63,8 +68,12 @@ SET( sfml_window_lib debug ${sfml_window_lib_debug_name} optimized ${sfml_window
 SET( sfml_graphics_lib debug ${sfml_graphics_lib_debug_name} optimized ${sfml_graphics_lib_release_name} )
 SET( sfml_network_lib debug ${sfml_network_lib_debug_name} optimized ${sfml_network_lib_release_name} )
 SET( sfml_audio_lib debug ${sfml_audio_lib_debug_name} optimized ${sfml_audio_lib_release_name} )
+
 SET( boost_signals_lib debug ${boost_signals_lib_debug_name} optimized ${boost_signals_lib_release_name} )
 SET( boost_date_time_lib debug ${boost_date_time_lib_debug_name} optimized ${boost_date_time_lib_release_name} )
+
+SET( pgsql_lib debug libpq optimized libpq )
+
 SET(
         link_lib
         ${sfml_system_lib}
@@ -74,8 +83,8 @@ SET(
         ${sfml_audio_lib}
         ${boost_signals_lib}
         ${boost_date_time_lib}
+		${pgsql_lib}
 )
-
 ADD_SUBDIRECTORY( YAPOG )
 ADD_SUBDIRECTORY( YAPOG.Client )
 ADD_SUBDIRECTORY( YAPOG.Server )

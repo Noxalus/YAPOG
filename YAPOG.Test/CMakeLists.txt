@@ -8,12 +8,14 @@ INCLUDE_DIRECTORIES(
         include
         ${sfml_include_dir}
         ${boost_include_dir}
+		${pgsql_include_dir}
         ${CMAKE_SOURCE_DIR}/${LIB_NAME}/include
 )
 
 LINK_DIRECTORIES(
         ${sfml_lib_dir}
         ${boost_lib_dir}
+		${pgsql_lib_dir}
         ${CMAKE_SOURCE_DIR}/${LIB_NAME}/${BIN_PATH}
 )
 
@@ -34,3 +36,4 @@ gen_test( test_array )
 gen_test( test_list )
 gen_test( test_map )
 gen_test( test_xml )
+gen_test( test_db )
