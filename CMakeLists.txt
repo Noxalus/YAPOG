@@ -17,8 +17,34 @@ if( UNIX )
 	endif()
 endif()
 
-SET( sfml_include_dir "C:/sfml/sfml2/include" CACHE STRING "SFML include directory." FORCE )
-SET( sfml_lib_dir "C:/sfml/sfml2/lib" CACHE STRING "SFML lib directory." FORCE)
+if( WIN32 )
+	SET( sfml_include_dir "C:/sfml/sfml2/include" CACHE STRING "SFML include directory." FORCE )
+	SET( sfml_lib_dir "C:/sfml/sfml2/lib" CACHE STRING "SFML lib directory." FORCE )
+
+	SET( boost_include_dir "C:/boost/boost_1_49_0" CACHE STRING "Boost include directory." FORCE )
+	SET( boost_lib_dir "C:/boost/boost_1_49_0/stage/lib" CACHE STRING "Boost lib directory." FORCE )
+
+	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
+	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
+
+	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
+	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
+endif()
+
+if( UNIX )
+
+	SET( sfml_include_dir "" CACHE STRING "SFML include directory." )
+	SET( sfml_lib_dir "" CACHE STRING "SFML lib directory." )
+
+	SET( boost_include_dir "" CACHE STRING "Boost include directory." )
+	SET( boost_lib_dir "" CACHE STRING "Boost lib directory." )
+
+	SET( boost_signals_lib_debug_name "boost_signals" CACHE STRING "Boost signals lib debug." )
+	SET( boost_date_time_lib_debug_name "boost_date_time" CACHE STRING "Boost date_time lib debug." )
+
+	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
+	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
+endif()
 
 SET( sfml_system_lib_debug_name sfml-system-d )
 SET( sfml_window_lib_debug_name sfml-window-d )
@@ -31,25 +57,6 @@ SET( sfml_window_lib_release_name sfml-window )
 SET( sfml_graphics_lib_release_name sfml-graphics )
 SET( sfml_network_lib_release_name sfml-network )
 SET( sfml_audio_lib_release_name sfml-audio )
-
-SET( boost_include_dir "C:/boost/boost_1_49_0" CACHE STRING "Boost include directory." FORCE)
-SET( boost_lib_dir "C:/boost/boost_1_49_0/stage/lib" CACHE STRING "Boost lib directory." FORCE	)
-
-if( WIN32 )
-	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
-	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
-
-	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
-	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
-endif()
-
-if( UNIX )
-	SET( boost_signals_lib_debug_name "boost_signals" CACHE STRING "Boost signals lib debug." )
-	SET( boost_date_time_lib_debug_name "boost_date_time" CACHE STRING "Boost date_time lib debug." )
-
-	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
-	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
-endif()
 
 SET( sfml_system_lib debug ${sfml_system_lib_debug_name} optimized ${sfml_system_lib_release_name} )
 SET( sfml_window_lib debug ${sfml_window_lib_debug_name} optimized ${sfml_window_lib_release_name} )
