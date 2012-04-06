@@ -85,7 +85,7 @@ SET(
         ${sfml_audio_lib}
         ${boost_signals_lib}
         ${boost_date_time_lib}
-		${pgsql_lib}
+        ${pgsql_lib}
 )
 ADD_SUBDIRECTORY( YAPOG )
 ADD_SUBDIRECTORY( YAPOG.Client )

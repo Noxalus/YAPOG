@@ -9,9 +9,9 @@ namespace yap
 {
   typedef String ScreenType;
 
-  struct Time;
+  class Time;
   struct IDrawingContext;
-  struct GuiManager;
+  class GuiManager;
 
   /// @brief Represents a phase of the game client.
   struct YAPOG_LIB IGameScreen : public IEventHandler
