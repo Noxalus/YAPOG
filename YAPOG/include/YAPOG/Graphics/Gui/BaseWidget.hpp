@@ -7,14 +7,14 @@
 
 namespace yap
 {
-  class YAPOG_LIB WidgetBase : public IWidget
+  class YAPOG_LIB BaseWidget : public IWidget
   {
-      DISALLOW_COPY(WidgetBase);
+      DISALLOW_COPY(BaseWidget);
 
     public:
 
-      WidgetBase ();
-      virtual ~WidgetBase ();
+      BaseWidget ();
+      virtual ~BaseWidget ();
 
       /// @name ISpatial members.
       /// @{

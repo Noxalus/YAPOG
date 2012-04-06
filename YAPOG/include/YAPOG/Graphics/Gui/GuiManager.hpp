@@ -2,14 +2,14 @@
 # define YAPOG_GUIMANAGER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Gui/WidgetBase.hpp"
+# include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 
 namespace yap
 {
   /// @brief Common implementation of root widget manager.
   /// @todo Implementation of the list of IWidgets
   /// and methods that maintain it.
-  class YAPOG_LIB GuiManager : public WidgetBase
+  class YAPOG_LIB GuiManager : public BaseWidget
   {
       DISALLOW_COPY(GuiManager);
 

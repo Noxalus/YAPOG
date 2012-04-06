@@ -3,7 +3,7 @@
 namespace yap
 {
   GuiManager::GuiManager ()
-    : WidgetBase ()
+    : BaseWidget ()
   {
   }
 
