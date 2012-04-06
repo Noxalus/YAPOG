@@ -59,6 +59,19 @@ namespace yap
     view_.setSize (spatialInfo_.GetSize ());
   }
 
+  void Camera::SetPosition (const Vector2& position)
+  {
+    Move (position - GetPosition ());
+  }
+
+  void Camera::SetSize (const Vector2& size)
+  {
+    Scale (
+      Vector2 (
+        size.x / GetSize ().x,
+        size.y / GetSize ().y));
+  }
+
   bool Camera::IsInView (const Vector2& point) const
   {
     return IsInView (point, DEFAULT_SIZE);

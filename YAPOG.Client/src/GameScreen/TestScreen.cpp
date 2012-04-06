@@ -2,12 +2,35 @@
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/ICamera.hpp"
+#include "World/Map/MapReader.hpp"
+#include "World/Map/Map.hpp"
+#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
+#include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
+#include "YAPOG/Graphics/Game/Sprite/AnimatedSprite.hpp"
+#include "YAPOG/Graphics/Game/Sprite/SquareComposedSprite.hpp"
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
   , textures_ ()
   , backTextures_ ()
 {
+  yap::IFStream input ("../Content/Map/1.xml");
+  yap::XmlReader xmlR (input, "Map");
+
+  Map map (yap::ID (1));
+  MapReader mapReader (map);
+
+  xmlR.Accept (mapReader);
+
+  yap::DebugLogger::Instance ()
+    .LogLine ("MAP::ID=[" +
+              yap::StringHelper::ToString (map.GetID ().GetValue ()) +
+              "]")
+    .LogLine ("MAP::NAME=[" + map.GetName () + "]");
+
+
   for (int i = 0; i < 2000; ++i)
   {
     yap::Vector2 scaleFactor (0.7f, 0.7f);

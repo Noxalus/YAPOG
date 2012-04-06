@@ -4,8 +4,17 @@
 
 namespace yap
 {
+  const String IDReader::DEFAULT_XML_ROOT_NODE_NAME = "ID";
+
   IDReader::IDReader (ID& id)
     : id_ (id)
+    , xmlRootNodeName_ (DEFAULT_XML_ROOT_NODE_NAME)
+  {
+  }
+
+  IDReader::IDReader (ID& id, const String& xmlRootNodeName)
+    : id_ (id)
+    , xmlRootNodeName_ (xmlRootNodeName)
   {
   }
 
@@ -15,6 +24,6 @@ namespace yap
 
   void IDReader::Visit (XmlReader& visitable)
   {
-    id_.SetValue (visitable.ReadUInt64 ("ID"));
+    id_.SetValue (visitable.ReadUInt64 (xmlRootNodeName_));
   }
 } // namespace yap

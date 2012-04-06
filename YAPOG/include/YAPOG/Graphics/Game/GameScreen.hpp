@@ -3,7 +3,6 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/IGameScreen.hpp"
-# include "YAPOG/Graphics/Gui/IGuiManager.hpp"
 
 namespace yap
 {
@@ -27,8 +26,8 @@ namespace yap
 
       virtual const ScreenType& Run (const Time& dt, IDrawingContext& context);
 
-      virtual const IGuiManager& GetGuiManager () const;
-      virtual IGuiManager& GetGuiManager ();
+      virtual const GuiManager& GetGuiManager () const;
+      virtual GuiManager& GetGuiManager ();
 
       virtual const ScreenType& GetType () const;
       /// @}
@@ -43,7 +42,7 @@ namespace yap
       /// Type of the Screen to be executed on next frame.
       ScreenType nextScreen_;
       /// Root widget if this GameScreen.
-      IGuiManager* guiManager_;
+      GuiManager* guiManager_;
 
     private:
 

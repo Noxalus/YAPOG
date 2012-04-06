@@ -4,14 +4,14 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Graphics/Gui/IEventHandler.hpp"
-# include "YAPOG/Game/IUpdatable.hpp"
+# include "YAPOG/Game/IUpdateable.hpp"
 
 namespace yap
 {
   /// @brief Base element of the graphical user interface.
   struct YAPOG_LIB IWidget : public IDrawable,
                              public IEventHandler,
-                             public IUpdatable
+                             public IUpdateable
   {
       virtual ~IWidget () {}
   };

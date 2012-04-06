@@ -86,7 +86,7 @@ namespace yap
   {
     spatialInfo_.SetPosition (GetPosition () + offset);
 
-    sprite_.setPosition (GetPosition ());
+    sprite_.move (offset);
   }
 
   void Texture::Scale (const Vector2& factor)
@@ -96,7 +96,20 @@ namespace yap
         GetSize ().x * factor.x,
         GetSize ().y * factor.y));
 
-    sprite_.setScale (factor);
+    sprite_.scale (factor);
+  }
+
+  void Texture::SetPosition (const Vector2& position)
+  {
+    Move (position - GetPosition ());
+  }
+
+  void Texture::SetSize (const Vector2& size)
+  {
+    Scale (
+      Vector2 (
+        size.x / GetSize ().x,
+        size.y / GetSize ().y));
   }
 
   void Texture::Draw (IDrawingContext& context)
@@ -117,7 +130,7 @@ namespace yap
     isVisible_ = isVisible;
   }
 
-  void Texture::ChangeColor (const sf::Color color)
+  void Texture::ChangeColor (const sf::Color& color)
   {
     sprite_.setColor (color);
   }

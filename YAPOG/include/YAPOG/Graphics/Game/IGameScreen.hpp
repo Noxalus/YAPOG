@@ -11,7 +11,7 @@ namespace yap
 
   struct Time;
   struct IDrawingContext;
-  struct IGuiManager;
+  struct GuiManager;
 
   /// @brief Represents a phase of the game client.
   struct YAPOG_LIB IGameScreen : public IEventHandler
@@ -36,10 +36,10 @@ namespace yap
 
       /// @brief Gets the root widget of this Screen.
       /// @return A constant reference to the root widget of this Screen.
-      virtual const IGuiManager& GetGuiManager () const = 0;
+      virtual const GuiManager& GetGuiManager () const = 0;
       /// @brief Gets the root widget of this Screen.
       /// @return A non-constant reference to the root widget of this Screen.
-      virtual IGuiManager& GetGuiManager () = 0;
+      virtual GuiManager& GetGuiManager () = 0;
 
       /// @brief Gets the unique type name of this Screen.
       virtual const ScreenType& GetType () const = 0;
