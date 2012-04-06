@@ -29,9 +29,11 @@ if( WIN32 )
 
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
-	
+
 	SET( pgsql_include_dir "D:/Logiciels/PostgreSQL/9.1/include" CACHE STRING "PostgreSQL include directory." )
 	SET( pgsql_lib_dir "D:/Logiciels/PostgreSQL/9.1/lib" CACHE STRING "PostgreSQL lib directory." )
+
+        SET( pgsql_lib debug libpq optimized libpq )
 endif()
 
 if( UNIX )
@@ -46,9 +48,11 @@ if( UNIX )
 
 	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
 	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
-	
+
 	SET( pgsql_include_dir "" CACHE STRING "PostgreSQL include directory." )
 	SET( pgsql_lib_dir "" CACHE STRING "PostgreSQL lib directory." )
+
+        SET( pgsql_lib debug pq optimized pq )
 endif()
 
 SET( sfml_system_lib_debug_name sfml-system-d )
@@ -71,8 +75,6 @@ SET( sfml_audio_lib debug ${sfml_audio_lib_debug_name} optimized ${sfml_audio_li
 
 SET( boost_signals_lib debug ${boost_signals_lib_debug_name} optimized ${boost_signals_lib_release_name} )
 SET( boost_date_time_lib debug ${boost_date_time_lib_debug_name} optimized ${boost_date_time_lib_release_name} )
-
-SET( pgsql_lib debug libpq optimized libpq )
 
 SET(
         link_lib
