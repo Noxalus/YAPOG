@@ -7,7 +7,7 @@ namespace yap
 {
   class XmlReader;
 
-  struct IReaderVisitor
+  struct YAPOG_LIB IReaderVisitor
   {
       virtual ~IReaderVisitor () {}
 

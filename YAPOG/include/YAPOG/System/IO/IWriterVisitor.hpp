@@ -8,7 +8,7 @@ namespace yap
   class XmlWriter;
   class DebugLogger;
 
-  struct IWriterVisitor
+  struct YAPOG_LIB IWriterVisitor
   {
     public:
 
