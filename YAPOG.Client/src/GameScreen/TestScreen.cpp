@@ -26,7 +26,6 @@ TestScreen::TestScreen ()
               "]")
     .LogLine ("MAP::NAME=[" + map.GetName () + "]");
 
-
   for (int i = 0; i < 2000; ++i)
   {
     yap::Vector2 scaleFactor (0.7f, 0.7f);
