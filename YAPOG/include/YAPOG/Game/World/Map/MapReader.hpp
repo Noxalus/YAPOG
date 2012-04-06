@@ -9,7 +9,7 @@ namespace yap
 {
   class Map;
 
-  class MapReader : public IReaderVisitor
+  class YAPOG_LIB MapReader : public IReaderVisitor
   {
     public:
 
