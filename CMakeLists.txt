@@ -18,11 +18,11 @@ if( UNIX )
 endif()
 
 if( WIN32 )
-	SET( sfml_include_dir "C:/sfml/sfml2/include" CACHE STRING "SFML include directory." FORCE )
-	SET( sfml_lib_dir "C:/sfml/sfml2/lib" CACHE STRING "SFML lib directory." FORCE )
+	SET( sfml_include_dir "C:/sfml/sfml2/include" CACHE STRING "SFML include directory." )
+	SET( sfml_lib_dir "C:/sfml/sfml2/lib" CACHE STRING "SFML lib directory." )
 
-	SET( boost_include_dir "C:/boost/boost_1_49_0" CACHE STRING "Boost include directory." FORCE )
-	SET( boost_lib_dir "C:/boost/boost_1_49_0/stage/lib" CACHE STRING "Boost lib directory." FORCE )
+	SET( boost_include_dir "C:/boost/boost_1_49_0" CACHE STRING "Boost include directory." )
+	SET( boost_lib_dir "C:/boost/boost_1_49_0/stage/lib" CACHE STRING "Boost lib directory." )
 
 	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
 	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
@@ -30,8 +30,8 @@ if( WIN32 )
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
 	
-	SET( pgsql_include_dir "D:/Logiciels/PostgreSQL/9.1/include" CACHE STRING "PostgreSQL include directory." FORCE )
-	SET( pgsql_lib_dir "D:/Logiciels/PostgreSQL/9.1/lib" CACHE STRING "PostgreSQL lib directory." FORCE )
+	SET( pgsql_include_dir "D:/Logiciels/PostgreSQL/9.1/include" CACHE STRING "PostgreSQL include directory." )
+	SET( pgsql_lib_dir "D:/Logiciels/PostgreSQL/9.1/lib" CACHE STRING "PostgreSQL lib directory." )
 endif()
 
 if( UNIX )
