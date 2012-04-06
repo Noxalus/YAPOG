@@ -6,10 +6,6 @@
 #include "World/Map/Map.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/StringHelper.hpp"
-#include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
-#include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
-#include "YAPOG/Graphics/Game/Sprite/AnimatedSprite.hpp"
-#include "YAPOG/Graphics/Game/Sprite/SquareComposedSprite.hpp"
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
