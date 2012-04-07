@@ -6,12 +6,25 @@
 #include "World/Map/Map.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
+#include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
+#include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
+#include "YAPOG/Graphics/Game/Sprite/ComposedSprite.hpp"
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
   , textures_ ()
   , backTextures_ ()
 {
+  yap::DirectionalSpriteSet dss;
+  dss.AddSprite (yap::Direction::North, new yap::Sprite ());
+
+  yap::ComposedSprite* cs = nullptr;
+
+  dss.RemoveSprite (yap::Direction::North);
+  dss.RemoveSprite (yap::Direction::North);
+  dss.RemoveSprite (yap::Direction::North);
+
   yap::IFStream input ("../Content/Map/1.xml");
   yap::XmlReader xmlR (input, "Map");
 

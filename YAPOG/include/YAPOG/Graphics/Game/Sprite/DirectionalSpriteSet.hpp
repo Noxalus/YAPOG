@@ -13,6 +13,7 @@ namespace yap
 
     public:
 
+      DirectionalSpriteSet ();
       virtual ~DirectionalSpriteSet ();
   };
 } // namespace yap

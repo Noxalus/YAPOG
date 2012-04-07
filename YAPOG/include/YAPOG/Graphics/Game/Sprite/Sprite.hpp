@@ -2,13 +2,13 @@
 # define YAPOG_SPRITE_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Game/Sprite/SpriteBase.hpp"
+# include "YAPOG/Graphics/Game/Sprite/BaseSprite.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
 
 namespace yap
 {
   /// @brief A simple static ISprite that holds a Texture.
-  class Sprite : public SpriteBase
+  class Sprite : public BaseSprite
   {
       DISALLOW_COPY(Sprite);
 

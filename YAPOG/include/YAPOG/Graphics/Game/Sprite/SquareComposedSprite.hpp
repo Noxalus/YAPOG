@@ -12,7 +12,18 @@ namespace yap
 
     public:
 
+      SquareComposedSprite (
+        ISprite* topLeft,
+        ISprite* topRight,
+        ISprite* bottomLeft,
+        ISprite* bottomRight);
       virtual ~SquareComposedSprite ();
+
+    private:
+
+      virtual Vector2 HandleGetSize () const;
+
+      virtual void UpdatePosition ();
   };
 } // namespace yap
 

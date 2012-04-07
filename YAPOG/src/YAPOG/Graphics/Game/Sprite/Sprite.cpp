@@ -3,19 +3,19 @@
 namespace yap
 {
   Sprite::Sprite ()
-    : SpriteBase ()
+    : BaseSprite ()
     , texture_ ()
   {
   }
 
   Sprite::Sprite (const String& textureName)
-    : SpriteBase ()
+    : BaseSprite ()
     , texture_ (textureName)
   {
   }
 
   Sprite::Sprite (const String& textureName, const sf::IntRect& textureRect)
-    : SpriteBase ()
+    : BaseSprite ()
     , texture_ (textureName, textureRect)
   {
   }
