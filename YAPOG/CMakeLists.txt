@@ -3,19 +3,140 @@ PROJECT( ${LIB_NAME} )
 SET( LIBRARY_OUTPUT_PATH ${BIN_PATH}/${CMAKE_BUILD_TYPE} )
 
 INCLUDE_DIRECTORIES(
-	include
-    ${EXT_INCLUDE_DIR}
+        include
+        ${EXT_INCLUDE_DIR}
 )
 
 LINK_DIRECTORIES(
-    ${EXT_LINK_DIR}
+    ${EXT_LIB_DIR}
 )
 
-FILE(
-	GLOB_RECURSE
-	source_files
-	src/${PROJECT_NAME}/*
-	include/${PROJECT_NAME}/*
+SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/YAPOG )
+SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/YAPOG )
+SET(
+source_files
+${inc_root}/Collection/Array.hpp
+${inc_root}/Collection/Array.hxx
+${inc_root}/Collection/List.hpp
+${inc_root}/Collection/List.hxx
+${inc_root}/Collection/Map.hpp
+${inc_root}/Collection/Map.hxx
+${inc_root}/Collection/Queue.hpp
+${inc_root}/Collection/Queue.hxx
+
+${inc_root}/Content/ContentManager.hpp
+${src_root}/Content/ContentManager.cpp
+
+${inc_root}/Game/ID.hpp
+${src_root}/Game/ID.cpp
+${inc_root}/Game/IDReader.hpp
+${src_root}/Game/IDReader.cpp
+${inc_root}/Game/IDWriter.hpp
+${src_root}/Game/IDWriter.cpp
+${inc_root}/Game/IUpdateable.hpp
+${inc_root}/Game/World/Map/Direction.hpp
+${inc_root}/Game/World/Map/Map.hpp
+${src_root}/Game/World/Map/Map.cpp
+${inc_root}/Game/World/Map/MapReader.hpp
+${src_root}/Game/World/Map/MapReader.cpp
+${inc_root}/Game/World/Map/Physics/ICollidable.hpp
+
+${inc_root}/Graphics/Camera.hpp
+${src_root}/Graphics/Camera.cpp
+${inc_root}/Graphics/DrawingContext.hpp
+${src_root}/Graphics/DrawingContext.cpp
+${inc_root}/Graphics/Game/Game.hpp
+${src_root}/Graphics/Game/Game.cpp
+${inc_root}/Graphics/Game/GameScreen.hpp
+${src_root}/Graphics/Game/GameScreen.cpp
+${inc_root}/Graphics/Game/GameScreenManager.hpp
+${src_root}/Graphics/Game/GameScreenManager.cpp
+${inc_root}/Graphics/Game/IGame.hpp
+${inc_root}/Graphics/Game/IGameScreen.hpp
+${inc_root}/Graphics/Game/IGameScreenManager.hpp
+${inc_root}/Graphics/Gui/BaseWidget.hpp
+${src_root}/Graphics/Gui/BaseWidget.cpp
+${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp
+${src_root}/Graphics/Gui/GameInput/GameInputEntry.cpp
+${inc_root}/Graphics/Gui/GameInput/GameInput.hpp
+${src_root}/Graphics/Gui/GameInput/GameInput.cpp
+${inc_root}/Graphics/Gui/GameInput/GameInputManager.hpp
+${src_root}/Graphics/Gui/GameInput/GameInputManager.cpp
+${inc_root}/Graphics/Gui/GameInput/GameInputType.hpp
+${inc_root}/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp
+${src_root}/Graphics/Gui/GameInput/KeyboardGameInputEntry.cpp
+${inc_root}/Graphics/Gui/GameInput/MouseGameInputEntry.hpp
+${src_root}/Graphics/Gui/GameInput/MouseGameInputEntry.cpp
+${inc_root}/Graphics/Gui/GuiEvent.hpp
+${src_root}/Graphics/Gui/GuiEvent.cpp
+${inc_root}/Graphics/Gui/GuiManager.hpp
+${src_root}/Graphics/Gui/GuiManager.cpp
+${inc_root}/Graphics/Gui/IEventHandler.hpp
+${inc_root}/Graphics/Gui/IWidget.hpp
+${inc_root}/Graphics/ICamera.hpp
+${inc_root}/Graphics/IDrawable.hpp
+${inc_root}/Graphics/IDrawingContext.hpp
+${inc_root}/Graphics/ISpatial.hpp
+${inc_root}/Graphics/SpatialInfo.hpp
+${src_root}/Graphics/SpatialInfo.cpp
+${inc_root}/Graphics/Texture.hpp
+${src_root}/Graphics/Texture.cpp
+${inc_root}/Graphics/Vector2.hpp
+${src_root}/Graphics/Vector2.cpp
+
+${inc_root}/Macros.hpp
+
+${inc_root}/System/Error/ContentLoadingFailException.hpp
+${src_root}/System/Error/ContentLoadingFailException.cpp
+${inc_root}/System/Error/Exception.hpp
+${src_root}/System/Error/Exception.cpp
+${inc_root}/System/Error/InvalidMethodCallException.hpp
+${src_root}/System/Error/InvalidMethodCallException.cpp
+${inc_root}/System/Event/Event.hpp
+${inc_root}/System/Event/Event.hxx
+${inc_root}/System/IntTypes.hpp
+${inc_root}/System/IO/IReaderConstVisitor.hpp
+${inc_root}/System/IO/IReader.hpp
+${inc_root}/System/IO/IReaderVisitor.hpp
+${inc_root}/System/IO/IWriterConstVisitor.hpp
+${inc_root}/System/IO/IWriter.hpp
+${inc_root}/System/IO/IWriterVisitor.hpp
+${inc_root}/System/IO/Log/CountLoggerMode.hpp
+${src_root}/System/IO/Log/CountLoggerMode.cpp
+${inc_root}/System/IO/Log/DebugLogger.hpp
+${src_root}/System/IO/Log/DebugLogger.cpp
+${inc_root}/System/IO/Log/Logger.hpp
+${inc_root}/System/IO/Log/Logger.hxx
+${src_root}/System/IO/Log/Logger.cpp
+${inc_root}/System/IO/Log/LoggerMode.hpp
+${src_root}/System/IO/Log/LoggerMode.cpp
+${inc_root}/System/IO/Log/TimeLoggerMode.hpp
+${src_root}/System/IO/Log/TimeLoggerMode.cpp
+${inc_root}/System/IO/Xml/XmlReader.hpp
+${src_root}/System/IO/Xml/XmlReader.cpp
+${inc_root}/System/IO/Xml/XmlTree.hpp
+${inc_root}/System/IO/Xml/XmlTree.hxx
+${src_root}/System/IO/Xml/XmlTree.cpp
+${inc_root}/System/IO/Xml/XmlWriter.hpp
+${src_root}/System/IO/Xml/XmlWriter.cpp
+${inc_root}/System/IOStream.hpp
+${inc_root}/System/MathHelper.hpp
+${inc_root}/System/MathHelper.hxx
+${inc_root}/System/Path.hpp
+${src_root}/System/Path.cpp
+${inc_root}/System/StringHelper.hpp
+${inc_root}/System/StringHelper.hxx
+${inc_root}/System/String.hpp
+${inc_root}/System/Time/DateTimeHelper.hpp
+${src_root}/System/Time/DateTimeHelper.cpp
+${inc_root}/System/Time/DateTime.hpp
+${src_root}/System/Time/DateTime.cpp
+${inc_root}/System/Time/Time.hpp
+${src_root}/System/Time/Time.cpp
+${inc_root}/System/Time/Timer.hpp
+${src_root}/System/Time/Timer.cpp
+${inc_root}/System/Time/UpdateableTimer.hpp
+${src_root}/System/Time/UpdateableTimer.cpp
 )
 
 ADD_LIBRARY(
