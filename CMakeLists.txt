@@ -17,42 +17,38 @@ if( UNIX )
 	endif()
 endif()
 
+SET( EXT_LINK_DIR
+	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Debug" #SFML debug lib directory.
+	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Release" #SFML release lib directory.
+	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/postgresql" #PostgreSQL lib directory.
+	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Debug" #Boost debug lib directory.
+	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Release"  #Boost release lib directory.
+)
+
+SET( EXT_INCLUDE_DIR
+	"${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2" #SFML include directory.
+	"${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql" #PostgreSQL include directory.
+	"${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0" #Boost include directory.
+)
+
 if( WIN32 )
-	SET( sfml_include_dir "C:/sfml/sfml2/include" CACHE STRING "SFML include directory." )
-	SET( sfml_lib_dir "C:/sfml/sfml2/lib" CACHE STRING "SFML lib directory." )
-
-	SET( boost_include_dir "C:/boost/boost_1_49_0" CACHE STRING "Boost include directory." )
-	SET( boost_lib_dir "C:/boost/boost_1_49_0/stage/lib" CACHE STRING "Boost lib directory." )
-
 	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
 	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
 
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
 
-	SET( pgsql_include_dir "D:/Logiciels/PostgreSQL/9.1/include" CACHE STRING "PostgreSQL include directory." )
-	SET( pgsql_lib_dir "D:/Logiciels/PostgreSQL/9.1/lib" CACHE STRING "PostgreSQL lib directory." )
-
-        SET( pgsql_lib debug libpq optimized libpq )
+    SET( pgsql_lib debug libpq optimized libpq )
 endif()
 
 if( UNIX )
-	SET( sfml_include_dir "" CACHE STRING "SFML include directory." )
-	SET( sfml_lib_dir "" CACHE STRING "SFML lib directory." )
-
-	SET( boost_include_dir "" CACHE STRING "Boost include directory." )
-	SET( boost_lib_dir "" CACHE STRING "Boost lib directory." )
-
 	SET( boost_signals_lib_debug_name "boost_signals" CACHE STRING "Boost signals lib debug." )
 	SET( boost_date_time_lib_debug_name "boost_date_time" CACHE STRING "Boost date_time lib debug." )
 
 	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
 	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
 
-	SET( pgsql_include_dir "" CACHE STRING "PostgreSQL include directory." )
-	SET( pgsql_lib_dir "" CACHE STRING "PostgreSQL lib directory." )
-
-        SET( pgsql_lib debug pq optimized pq )
+	SET( pgsql_lib debug pq optimized pq )
 endif()
 
 SET( sfml_system_lib_debug_name sfml-system-d )
@@ -77,16 +73,17 @@ SET( boost_signals_lib debug ${boost_signals_lib_debug_name} optimized ${boost_s
 SET( boost_date_time_lib debug ${boost_date_time_lib_debug_name} optimized ${boost_date_time_lib_release_name} )
 
 SET(
-        link_lib
-        ${sfml_system_lib}
-        ${sfml_window_lib}
-        ${sfml_graphics_lib}
-        ${sfml_network_lib}
-        ${sfml_audio_lib}
-        ${boost_signals_lib}
-        ${boost_date_time_lib}
-        ${pgsql_lib}
+	link_lib
+	${sfml_system_lib}
+	${sfml_window_lib}
+	${sfml_graphics_lib}
+	${sfml_network_lib}
+	${sfml_audio_lib}
+	${boost_signals_lib}
+	${boost_date_time_lib}
+	${pgsql_lib}
 )
+
 ADD_SUBDIRECTORY( YAPOG )
 ADD_SUBDIRECTORY( YAPOG.Client )
 ADD_SUBDIRECTORY( YAPOG.Server )

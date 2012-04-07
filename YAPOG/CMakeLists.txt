@@ -3,32 +3,28 @@ PROJECT( ${LIB_NAME} )
 SET( LIBRARY_OUTPUT_PATH ${BIN_PATH}/${CMAKE_BUILD_TYPE} )
 
 INCLUDE_DIRECTORIES(
-        include
-        ${sfml_include_dir}
-        ${boost_include_dir}
-	${pgsql_include_dir}
+	include
+    ${EXT_INCLUDE_DIR}
 )
 
 LINK_DIRECTORIES(
-        ${sfml_lib_dir}
-        ${boost_lib_dir}
-	${pgsql_lib_dir}
+    ${EXT_LINK_DIR}
 )
 
 FILE(
-        GLOB_RECURSE
-        source_files
-        src/${PROJECT_NAME}/*
-        include/${PROJECT_NAME}/*
+	GLOB_RECURSE
+	source_files
+	src/${PROJECT_NAME}/*
+	include/${PROJECT_NAME}/*
 )
 
 ADD_LIBRARY(
-        ${PROJECT_NAME}
-        SHARED
-        ${source_files}
+	${PROJECT_NAME}
+	SHARED
+	${source_files}
 )
 
 TARGET_LINK_LIBRARIES(
-        ${PROJECT_NAME}
-        ${link_lib}
+	${PROJECT_NAME}
+	${link_lib}
 )
