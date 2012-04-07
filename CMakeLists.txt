@@ -1,11 +1,13 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 
+# projects name
 SET( LIB_NAME YAPOG )
 SET( CLIENT_NAME YAPOG.Client )
 SET( SERVER_NAME YAPOG.Server )
 
 SET( BIN_PATH bin )
 
+# additional flags
 if( WIN32 )
     SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc" )
 endif()
@@ -17,19 +19,28 @@ if( UNIX )
 	endif()
 endif()
 
-SET( EXT_LINK_DIR
-	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Debug" #SFML debug lib directory.
-	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Release" #SFML release lib directory.
-	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/postgresql" #PostgreSQL lib directory.
-	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Debug" #Boost debug lib directory.
-	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Release"  #Boost release lib directory.
+# external libs
+if( WIN32 )
+    SET( EXT_LIB_DIR
+    	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Debug" #SFML debug lib directory.
+        	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Release" #SFML release lib directory.
+                	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/postgresql" #PostgreSQL lib directory.
+                        	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Debug" #Boost debug lib directory.
+                                	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Release"  #Boost release lib directory.
 )
 
 SET( EXT_INCLUDE_DIR
-	"${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2" #SFML include directory.
-	"${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql" #PostgreSQL include directory.
-	"${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0" #Boost include directory.
+     "${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2" #SFML include directory.
+     "${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql" #PostgreSQL include directory.
+     "${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0" #Boost include directory.
 )
+
+endif()
+
+if( UNIX )
+    SET( EXT_LIB_DIR ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2/release )
+    SET( EXT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2/unix )
+endif()
 
 if( WIN32 )
 	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
