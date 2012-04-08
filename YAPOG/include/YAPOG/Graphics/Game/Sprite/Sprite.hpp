@@ -15,9 +15,12 @@ namespace yap
     public:
 
       Sprite ();
+      explicit Sprite (Texture* texture);
       explicit Sprite (const String& textureName);
       Sprite (const String& textureName, const sf::IntRect& textureRect);
       virtual ~Sprite ();
+
+      void SetTexture (Texture* texture);
 
     private:
 
@@ -31,7 +34,7 @@ namespace yap
 
       virtual void HandleUpdate (const Time& dt);
 
-      Texture texture_;
+      Texture* texture_;
   };
 } // namespace yap
 

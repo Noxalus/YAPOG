@@ -4,7 +4,7 @@
 namespace yap
 {
   const AnimatedSprite::PlayState AnimatedSprite::DEFAULT_PLAY_STATE =
-    PlayState::Once;
+    PlayState::None;
   const AnimatedSprite::IndexType AnimatedSprite::DEFAULT_DEFAULT_INDEX = 0;
 
   AnimatedSprite::AnimatedSprite ()
@@ -79,6 +79,9 @@ namespace yap
 
   void AnimatedSprite::HandleDraw (IDrawingContext& context)
   {
+    if (currentFrame_ == nullptr)
+      return;
+
     currentFrame_->Draw (context);
   }
 
@@ -94,6 +97,9 @@ namespace yap
 
   void AnimatedSprite::HandleUpdate (const Time& dt)
   {
+    if (currentFrame_ != nullptr)
+      currentFrame_->Update (dt);
+
     int switchedFrameCount = frameSwitcher_->FrameIsOver (dt);
 
     if (currentState_ == PlayState::None)
@@ -101,7 +107,15 @@ namespace yap
 
     IndexType frameCount = sprites_.Count ();
 
-    /// @todo
-    SetCurrentFrame (currentIndex_ + frameCount);
+    if (currentIndex_ + switchedFrameCount < frameCount)
+    {
+      SetCurrentFrame (currentIndex_ + switchedFrameCount);
+      return;
+    }
+
+    SetCurrentFrame ((currentIndex_ + switchedFrameCount) % frameCount);
+
+    if (currentState_ == PlayState::Once)
+      ChangeState (PlayState::None);
   }
 } // namespace yap
