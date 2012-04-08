@@ -38,7 +38,10 @@ SET( EXT_INCLUDE_DIR
 endif()
 
 if( UNIX )
-    SET( EXT_LIB_DIR ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2/release )
+    SET( EXT_LIB_DIR
+         ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2/debug
+         ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2/release
+    )
     SET( EXT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2 )
 endif()
 

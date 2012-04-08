@@ -23,13 +23,16 @@ namespace yap
   template <typename K>
   inline void SpriteSet<K>::AddSprite (const KeyType& key, ISprite* sprite)
   {
-    if (sprites_.IsEmpty ())
-    {
-      SetDefaultKey (key);
-      SetDefaultSprite ();
-    }
+    bool isEmpty = sprites_.IsEmpty ();
 
     sprites_.Add (key, sprite);
+
+    if (!isEmpty)
+      return;
+
+    SetDefaultKey (key);
+    SetDefaultSprite ();
+
   }
 
   template <typename K>
