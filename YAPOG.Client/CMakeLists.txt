@@ -30,3 +30,23 @@ TARGET_LINK_LIBRARIES(
 	${link_lib}
 	${LIB_NAME}
 )
+
+if( WIN32 )
+#Replace / by \ for the source path
+STRING(
+	REGEX
+	REPLACE
+	"/"
+	"\\\\"
+	CMAKE_SOURCE_DIR_VS
+	"${CMAKE_SOURCE_DIR}"
+)
+
+ADD_CUSTOM_COMMAND(
+	TARGET
+	${PROJECT_NAME}
+	PRE_BUILD
+	COMMAND xcopy ARGS /s ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) \$\(OutDir\)
+	COMMENT "Copy the SFML2 DLL files in the good directory !"
+)
+endif()
