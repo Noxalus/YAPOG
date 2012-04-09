@@ -14,6 +14,7 @@
 #include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
+#include "YAPOG/Content/ContentManager.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -23,6 +24,7 @@ using namespace yap;
 
 DirectionalSpriteSet dss1;
 GameInputManager& gim = yap::GameInputManager::Instance ();
+ContentManager& cm = ContentManager::Instance ();
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
@@ -39,7 +41,8 @@ TestScreen::TestScreen ()
       GameInputType::Misc,
       new KeyboardGameInputEntry (Key::M)));
 
-  yap::IFStream input ("../Content/Map/1.xml");
+  yap::IFStream input;
+  cm.LoadFile ("Map/1.xml", input);
   yap::XmlReader xmlR (input, "Map");
 
   yap::Map map (yap::ID (1));
@@ -147,9 +150,9 @@ void TestScreen::HandleDeactivate ()
 
 bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
 {
-  if (gim.GameInputIsDeactivated (yap::GameInputType::Action, guiEvent))
+  if (gim.GameInputIsActivated (yap::GameInputType::Action, guiEvent))
     dss1.SetCurrentSprite (yap::Direction::North);
-  if (gim.GameInputIsDeactivated (yap::GameInputType::Misc, guiEvent))
+  if (gim.GameInputIsActivated (yap::GameInputType::Misc, guiEvent))
     dss1.SetCurrentSprite (yap::Direction::South);
 
   return false;

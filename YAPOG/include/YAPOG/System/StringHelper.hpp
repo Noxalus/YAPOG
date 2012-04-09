@@ -8,10 +8,17 @@ namespace yap
 {
   class StringHelper
   {
+      DISALLOW_COPY(StringHelper);
+
     public:
 
       template <typename T>
       static String ToString (const T& value);
+
+    private:
+
+      StringHelper ();
+      ~StringHelper ();
   };
 } // namespace yap
 

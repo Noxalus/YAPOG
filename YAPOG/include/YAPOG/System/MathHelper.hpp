@@ -5,13 +5,22 @@
 
 namespace yap
 {
-  struct MathHelper
+  class MathHelper
   {
+      DISALLOW_COPY(MathHelper);
+
+    public:
+
       template <typename T>
       static bool Max (const T& left, const T& right);
 
       template <typename T>
       static bool Min (const T& left, const T& right);
+
+    private:
+
+      MathHelper ();
+      ~MathHelper ();
   };
 } // namespace yap
 

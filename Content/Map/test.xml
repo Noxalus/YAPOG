@@ -1,0 +1,12 @@
+<Map testattr="Boo">
+  <ID>0</ID>
+  <name>test</name>
+
+  <object>
+    <ID>3</ID>
+  </object>
+  <object>
+    <ID>4</ID>
+  </object>
+
+</Map>

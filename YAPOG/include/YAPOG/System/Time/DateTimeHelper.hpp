@@ -8,9 +8,16 @@ namespace yap
 {
   class DateTimeHelper
   {
+      DISALLOW_COPY(DateTimeHelper);
+
     public:
 
       static DateTime Now ();
+
+    private:
+
+      DateTimeHelper ();
+      ~DateTimeHelper ();
   };
 } // namespace yap
 

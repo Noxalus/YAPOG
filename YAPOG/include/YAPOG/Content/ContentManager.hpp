@@ -11,6 +11,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/System/Path.hpp"
+# include "YAPOG/System/IOStream.hpp"
 
 namespace yap
 {
@@ -23,6 +24,7 @@ namespace yap
       static ContentManager& Instance ();
 
       void Init (const Path& rootPath);
+      const Path& GetContentPath () const;
 
       sf::Image& LoadImage (const String& name);
       sf::Texture& LoadTexture (const String& name);
@@ -35,6 +37,8 @@ namespace yap
       void UnloadFont (const String& name);
       void UnloadSoundBuffer (const String& name);
       void UnloadMusic (const String& name);
+
+      IFStream& LoadFile (const String& name, IFStream& iFStream);
 
     private:
 

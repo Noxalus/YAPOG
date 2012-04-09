@@ -2,12 +2,12 @@
 #include "YAPOG/System/Error/InvalidMethodCallException.hpp"
 #include "YAPOG/System/IO/IReaderVisitor.hpp"
 #include "YAPOG/System/IO/IReaderConstVisitor.hpp"
+#include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
 
 namespace yap
 {
   XmlReader::XmlReader (IStream& iStream, const String& rootName)
-    : IReader ()
-    , data_ ()
+    : data_ ()
   {
     data_.CreateFromStream (iStream, rootName);
   }
@@ -19,6 +19,23 @@ namespace yap
   void XmlReader::ChangeRoot (const String& rootName)
   {
     data_.ChangeRoot (rootName);
+  }
+
+  XmlReaderCollection& XmlReader::ReadNodes (
+    const String& name,
+    XmlReaderCollection& xmlReaderCollection)
+  {
+    for (auto& it : *data_.GetRootRawData ())
+    {
+      if (it.first != name)
+        continue;
+
+      XmlTree data;
+      data.CreateFromRawData (&it.second);
+      xmlReaderCollection.Add (XmlReaderPtrType (new XmlReader (data)));
+    }
+
+    return xmlReaderCollection;
   }
 
   void XmlReader::Accept (IReaderVisitor& visitor)
@@ -160,5 +177,11 @@ namespace yap
   {
     /// @todo
     return ReadVector2 ();
+  }
+
+  XmlReader::XmlReader (const XmlTree& data)
+    : data_ ()
+  {
+    data_.CreateFromXmlTree (data);
   }
 } // namespace yap

@@ -79,7 +79,7 @@ namespace yap
     return result;
   }
 
-  const String& Path::Value () const
+  const String& Path::GetValue () const
   {
     return value_;
   }

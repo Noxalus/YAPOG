@@ -22,6 +22,16 @@ namespace yap
     ChangeRoot (rootName);
   }
 
+  void XmlTree::CreateFromXmlTree (const XmlTree& copy)
+  {
+    CreateFromRawData (copy.data_);
+  }
+
+  void XmlTree::CreateFromRawData (DataType* data)
+  {
+    data_ = data;
+  }
+
   void XmlTree::Dump (OStream& oStream)
   {
     boost::property_tree::xml_writer_settings<char> w (' ', 2);
@@ -32,5 +42,10 @@ namespace yap
   void XmlTree::ChangeRoot (const String& rootName)
   {
     data_ = &rootData_.get_child (rootName);
+  }
+
+  XmlTree::DataType* XmlTree::GetRootRawData () const
+  {
+    return data_;
   }
 } // namespace yap

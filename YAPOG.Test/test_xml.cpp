@@ -2,12 +2,37 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/IO/Xml/XmlWriter.hpp"
+#include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
+#include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 
 using namespace yap;
+using namespace std;
 int main ()
 {
   try
   {
+    IFStream input ("../Content/Map/test.xml");
+    XmlReader xmlR (input, "Map");
+
+    cout << "MAP" << endl;
+
+    cout << "|--" << xmlR.ReadString ("name") << endl;
+    cout << "|--" << xmlR.ReadString ("ID") << endl;
+    cout << "|--" << xmlR.ReadString (XmlHelper::GetAttrNodeName ("testattr"))
+         << endl;
+
+    cout << "|--OBJECTS" << endl;
+
+    XmlReaderCollection objects;
+    for (const auto& it : xmlR.ReadNodes ("object", objects))
+    {
+      cout << "|  |--" << it->ReadString ("ID") << endl;
+    }
+
+    cout << "----------" << endl;
+
+#if false
+
     IFStream input ("data/input.xml");
     XmlReader xmlR (input, "map");
 
@@ -41,6 +66,7 @@ int main ()
     xmlW.Write ("name", String ("flask"));
 
     xmlW.Dump ();
+#endif
   }
   catch (yap::Exception& ex)
   {

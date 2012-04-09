@@ -89,6 +89,8 @@ ${inc_root}/Graphics/Gui/GameInput/GameInput.hpp
 ${src_root}/Graphics/Gui/GameInput/GameInput.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputManager.hpp
 ${src_root}/Graphics/Gui/GameInput/GameInputManager.cpp
+${inc_root}/Graphics/Gui/GameInput/GameInputReader.hpp
+${src_root}/Graphics/Gui/GameInput/GameInputReader.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputType.hpp
 ${inc_root}/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp
 ${src_root}/Graphics/Gui/GameInput/KeyboardGameInputEntry.cpp
@@ -139,8 +141,14 @@ ${inc_root}/System/IO/Log/LoggerMode.hpp
 ${src_root}/System/IO/Log/LoggerMode.cpp
 ${inc_root}/System/IO/Log/TimeLoggerMode.hpp
 ${src_root}/System/IO/Log/TimeLoggerMode.cpp
+${inc_root}/System/IO/Xml/XmlHelper.hpp
+${src_root}/System/IO/Xml/XmlHelper.cpp
+${inc_root}/System/IO/Xml/XmlReaderCollection.hpp
+${src_root}/System/IO/Xml/XmlReaderCollection.cpp
 ${inc_root}/System/IO/Xml/XmlReader.hpp
 ${src_root}/System/IO/Xml/XmlReader.cpp
+${inc_root}/System/IO/Xml/XmlReaderVisitor.hpp
+${src_root}/System/IO/Xml/XmlReaderVisitor.cpp
 ${inc_root}/System/IO/Xml/XmlTree.hpp
 ${inc_root}/System/IO/Xml/XmlTree.hxx
 ${src_root}/System/IO/Xml/XmlTree.cpp
