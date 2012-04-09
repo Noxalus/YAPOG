@@ -12,10 +12,10 @@ namespace yap
     public:
 
       template <typename T>
-      static bool Max (const T& left, const T& right);
+      static const T& Max (const T& left, const T& right);
 
       template <typename T>
-      static bool Min (const T& left, const T& right);
+      static const T& Min (const T& left, const T& right);
 
     private:
 

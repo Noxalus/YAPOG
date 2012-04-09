@@ -34,7 +34,7 @@ int main ()
 
     cout << "----------" << endl;
 
-#if false
+#if 0
     IFStream input ("data/input.xml");
     XmlReader xmlR (input, "map");
 
