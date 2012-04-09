@@ -16,13 +16,16 @@ int main ()
 
     cout << "MAP" << endl;
 
+    /// reading of "name" node from "Map" root node
     cout << "|--" << xmlR.ReadString ("name") << endl;
     cout << "|--" << xmlR.ReadString ("ID") << endl;
+    /// reading of attribute "testattr" of "Map" node
     cout << "|--" << xmlR.ReadString (XmlHelper::GetAttrNodeName ("testattr"))
          << endl;
 
     cout << "|--OBJECTS" << endl;
 
+    /// reading of all nodes whose name is "object"
     XmlReaderCollection objects;
     for (const auto& it : xmlR.ReadNodes ("object", objects))
     {
@@ -32,7 +35,6 @@ int main ()
     cout << "----------" << endl;
 
 #if false
-
     IFStream input ("data/input.xml");
     XmlReader xmlR (input, "map");
 

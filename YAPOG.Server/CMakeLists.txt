@@ -13,11 +13,12 @@ LINK_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/${LIB_NAME}/${BIN_PATH}
 )
 
-FILE(
-	GLOB_RECURSE
-	source_files
-	src/*
-	include/*
+SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
+SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
+SET(
+source_files
+${inc_root}/tmp/Server.hpp
+${src_root}/tmp/Server.cpp
 )
 
 ADD_EXECUTABLE(

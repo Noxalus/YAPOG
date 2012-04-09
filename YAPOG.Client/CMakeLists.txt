@@ -13,12 +13,20 @@ LINK_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/${LIB_NAME}/${BIN_PATH}
 )
 
-FILE(
-	GLOB_RECURSE
-	source_files
-	src/*
-	include/*
-	)
+SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
+SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
+SET(
+source_files
+${src_root}/Client.cpp
+${inc_root}/GameScreen/TestScreen.hpp
+${src_root}/GameScreen/TestScreen.cpp
+${inc_root}/TestGame.hpp
+${src_root}/TestGame.cpp
+${inc_root}/World/Map/Map.hpp
+${src_root}/World/Map/Map.cpp
+${inc_root}/World/Map/MapReader.hpp
+${src_root}/World/Map/MapReader.cpp
+)
 
 ADD_EXECUTABLE(
 	${PROJECT_NAME}

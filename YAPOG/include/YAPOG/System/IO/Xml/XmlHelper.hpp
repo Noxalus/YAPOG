@@ -19,7 +19,7 @@ namespace yap
       XmlHelper();
       ~XmlHelper ();
 
-      static const String XMLATTR_NODE_NAME_SUFFIX;
+      static const String XMLATTR_NODE_NAME_PREFIX;
   };
 } // namespace yap
 

@@ -30,7 +30,7 @@ TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
   , textures_ ()
   , backTextures_ ()
-  , anim1_ (1)
+  , anim1_ (100)
 {
   gim.AddGameInput (
     new GameInput (
@@ -71,8 +71,8 @@ TestScreen::TestScreen ()
 
     if (animFlag++ < 2)
     {
-      dss1.AddSprite (yap::Direction::North, new yap::Sprite (texture));
-//      anim1_.AddFrame (new yap::Sprite (texture));
+//      dss1.AddSprite (yap::Direction::North, new yap::Sprite (texture));
+      anim1_.AddFrame (new yap::Sprite (texture));
 //      spr1_.SetTexture (texture);
     }
 
@@ -85,8 +85,8 @@ TestScreen::TestScreen ()
 
     if (animFlag++ < 2)
     {
-      dss1.AddSprite (yap::Direction::South, new yap::Sprite (texture));
-//      anim1_.AddFrame (new yap::Sprite (texture));
+//      dss1.AddSprite (yap::Direction::South, new yap::Sprite (texture));
+      anim1_.AddFrame (new yap::Sprite (texture));
     }
   }
 
@@ -129,7 +129,7 @@ const yap::ScreenType& TestScreen::HandleRun (
 
   anim1_.Update (dt);
   anim1_.Draw (context);
-  dss1.Draw (context);
+//  dss1.Draw (context);
 //  spr1_.Draw (context);
 
   return nextScreen_;
@@ -152,6 +152,7 @@ bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
 {
   if (gim.GameInputIsActivated (yap::GameInputType::Action, guiEvent))
     dss1.SetCurrentSprite (yap::Direction::North);
+
   if (gim.GameInputIsActivated (yap::GameInputType::Misc, guiEvent))
     dss1.SetCurrentSprite (yap::Direction::South);
 

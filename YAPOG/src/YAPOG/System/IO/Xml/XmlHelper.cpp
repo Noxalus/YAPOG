@@ -2,10 +2,10 @@
 
 namespace yap
 {
-  const String XmlHelper::XMLATTR_NODE_NAME_SUFFIX = "<xmlattr>.";
+  const String XmlHelper::XMLATTR_NODE_NAME_PREFIX = "<xmlattr>.";
 
   String XmlHelper::GetAttrNodeName (const String& name)
   {
-    return XMLATTR_NODE_NAME_SUFFIX + name;
+    return XMLATTR_NODE_NAME_PREFIX + name;
   }
 } // namespace yap
