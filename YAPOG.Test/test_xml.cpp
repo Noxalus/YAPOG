@@ -34,7 +34,7 @@ int main ()
 
     cout << "----------" << endl;
 
-#if 0
+/*
     IFStream input ("data/input.xml");
     XmlReader xmlR (input, "map");
 
@@ -68,7 +68,7 @@ int main ()
     xmlW.Write ("name", String ("flask"));
 
     xmlW.Dump ();
-#endif
+*/
   }
   catch (yap::Exception& ex)
   {
