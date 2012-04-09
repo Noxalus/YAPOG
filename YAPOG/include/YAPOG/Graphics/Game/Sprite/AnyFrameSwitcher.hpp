@@ -7,7 +7,7 @@
 namespace yap
 {
   /// @brief Switches to the next frame at each game loop cycle.
-  class AnyFrameSwitcher : public FrameSwitcher
+  class YAPOG_LIB AnyFrameSwitcher : public FrameSwitcher
   {
     public:
 

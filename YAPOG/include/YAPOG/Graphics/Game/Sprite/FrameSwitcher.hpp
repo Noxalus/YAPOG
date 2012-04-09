@@ -7,7 +7,7 @@ namespace yap
 {
   class Time;
 
-  class FrameSwitcher
+  class YAPOG_LIB FrameSwitcher
   {
       DISALLOW_COPY(FrameSwitcher);
 

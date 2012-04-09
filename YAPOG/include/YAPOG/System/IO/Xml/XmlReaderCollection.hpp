@@ -11,7 +11,7 @@ namespace yap
 {
   typedef std::shared_ptr<XmlReader> XmlReaderPtrType;
 
-  class XmlReaderCollection
+  class YAPOG_LIB XmlReaderCollection
   {
       DISALLOW_COPY(XmlReaderCollection);
 

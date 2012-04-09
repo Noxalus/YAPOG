@@ -11,7 +11,7 @@ namespace yap
 
   /// @brief An ISprite that automatically evolves over time,
   /// playing predetertmined ISprite.
-  class AnimatedSprite : public BaseSprite
+  class YAPOG_LIB AnimatedSprite : public BaseSprite
   {
       DISALLOW_COPY(AnimatedSprite);
 

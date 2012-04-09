@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class StringHelper
+  class YAPOG_LIB StringHelper
   {
       DISALLOW_COPY(StringHelper);
 

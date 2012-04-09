@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class DateTimeHelper
+  class YAPOG_LIB DateTimeHelper
   {
       DISALLOW_COPY(DateTimeHelper);
 

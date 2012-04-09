@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class VerticalComposedSprite : public ComposedSprite
+  class YAPOG_LIB VerticalComposedSprite : public ComposedSprite
   {
       DISALLOW_COPY(VerticalComposedSprite);
 

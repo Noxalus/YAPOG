@@ -56,6 +56,8 @@ namespace yap
 
     private:
 
+      virtual Vector2 HandleGetSize () const;
+
       virtual void HandleMove (const Vector2& offset) = 0;
       virtual void HandleScale (const Vector2& factor) = 0;
 
@@ -71,7 +73,7 @@ namespace yap
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;
 
-      SpatialInfo spatialInfo_;
+      mutable SpatialInfo spatialInfo_;
       bool isVisible_;
       sf::Color color_;
   };

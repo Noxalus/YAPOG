@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class XmlHelper
+  class YAPOG_LIB XmlHelper
   {
       DISALLOW_COPY(XmlHelper);
 

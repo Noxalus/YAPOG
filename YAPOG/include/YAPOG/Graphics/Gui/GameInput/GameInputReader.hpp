@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class GameInputReader : public XmlReaderVisitor
+  class YAPOG_LIB GameInputReader : public XmlReaderVisitor
   {
       DISALLOW_COPY(GameInputReader);
 

@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class BaseSprite : public ISprite
+  class YAPOG_LIB BaseSprite : public ISprite
   {
       DISALLOW_COPY(BaseSprite);
 

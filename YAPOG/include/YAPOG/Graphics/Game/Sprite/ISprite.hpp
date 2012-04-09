@@ -8,7 +8,7 @@
 namespace yap
 {
   /// @brief Interface for a static or dynamic graphical element of the game.
-  struct ISprite :
+  struct YAPOG_LIB ISprite :
       public IDrawable,
       public IUpdateable
   {

@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class ComposedSprite : public BaseSprite
+  class YAPOG_LIB ComposedSprite : public BaseSprite
   {
       DISALLOW_COPY(ComposedSprite);
 

@@ -9,7 +9,7 @@
 
 namespace yap
 {
-  class DateTime
+  class YAPOG_LIB DateTime
   {
     public:
 

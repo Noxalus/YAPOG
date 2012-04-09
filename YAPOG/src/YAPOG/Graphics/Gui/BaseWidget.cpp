@@ -23,6 +23,8 @@ namespace yap
 
   const Vector2& BaseWidget::GetSize () const
   {
+    spatialInfo_.SetSize (HandleGetSize ());
+
     return spatialInfo_.GetSize ();
   }
 
@@ -111,5 +113,10 @@ namespace yap
   void BaseWidget::Update (const Time& dt)
   {
     HandleUpdate (dt);
+  }
+
+  Vector2 BaseWidget::HandleGetSize () const
+  {
+    return spatialInfo_.GetSize ();
   }
 } // namespace yap

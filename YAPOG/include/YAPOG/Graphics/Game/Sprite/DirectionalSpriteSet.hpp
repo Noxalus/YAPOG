@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class DirectionalSpriteSet : public SpriteSet<Direction>
+  class YAPOG_LIB DirectionalSpriteSet : public SpriteSet<Direction>
   {
       DISALLOW_COPY(DirectionalSpriteSet);
 

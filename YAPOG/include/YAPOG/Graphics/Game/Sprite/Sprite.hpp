@@ -8,7 +8,7 @@
 namespace yap
 {
   /// @brief A simple static ISprite that holds a Texture.
-  class Sprite : public BaseSprite
+  class YAPOG_LIB Sprite : public BaseSprite
   {
       DISALLOW_COPY(Sprite);
 

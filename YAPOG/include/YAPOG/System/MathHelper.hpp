@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  class MathHelper
+  class YAPOG_LIB MathHelper
   {
       DISALLOW_COPY(MathHelper);
 

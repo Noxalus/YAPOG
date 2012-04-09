@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class XmlReaderVisitor : public IReaderVisitor
+  class YAPOG_LIB XmlReaderVisitor : public IReaderVisitor
   {
       DISALLOW_COPY(XmlReaderVisitor);
 

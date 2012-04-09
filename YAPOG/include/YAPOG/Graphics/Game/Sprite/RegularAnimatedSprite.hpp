@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class RegularAnimatedSprite : public AnimatedSprite
+  class YAPOG_LIB RegularAnimatedSprite : public AnimatedSprite
   {
       DISALLOW_COPY(RegularAnimatedSprite);
 

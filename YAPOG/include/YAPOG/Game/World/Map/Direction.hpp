@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  enum class Direction
+  enum class YAPOG_LIB Direction
   {
       North = 0,
       NorthEast = 1,

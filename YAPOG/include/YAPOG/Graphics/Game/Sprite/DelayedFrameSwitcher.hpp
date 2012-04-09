@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class DelayedFrameSwitcher : public FrameSwitcher
+  class YAPOG_LIB DelayedFrameSwitcher : public FrameSwitcher
   {
       DISALLOW_COPY(DelayedFrameSwitcher);
 

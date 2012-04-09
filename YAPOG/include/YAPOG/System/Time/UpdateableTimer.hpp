@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class UpdateableTimer
+  class YAPOG_LIB UpdateableTimer
   {
       DISALLOW_COPY(UpdateableTimer);
 
