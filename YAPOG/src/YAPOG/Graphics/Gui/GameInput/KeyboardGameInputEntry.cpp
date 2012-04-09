@@ -12,14 +12,6 @@ namespace yap
   {
   }
 
-  bool KeyboardGameInputEntry::IsActive (const GuiEvent& guiEvent) const
-  {
-    return
-      (guiEvent.type == GuiEventType::KeyPressed ||
-       guiEvent.type == GuiEventType::KeyReleased) &&
-      guiEvent.key.code == key_;
-  }
-
   void KeyboardGameInputEntry::Update (const GuiEvent& guiEvent)
   {
     switch (guiEvent.type)
@@ -45,5 +37,14 @@ namespace yap
       default:
         break;
     }
+  }
+
+  bool KeyboardGameInputEntry::GuiEventIsCompatible (
+    const GuiEvent& guiEvent) const
+  {
+    return
+      (guiEvent.type == GuiEventType::KeyPressed ||
+       guiEvent.type == GuiEventType::KeyReleased) &&
+      guiEvent.key.code == key_;
   }
 } // namespace yap

@@ -25,6 +25,8 @@ namespace yap
       bool IsDeactivated () const;
 
       bool IsActive (const GuiEvent& guiEvent) const;
+      bool IsActivated (const GuiEvent& guiEvent) const;
+      bool IsDeactivated (const GuiEvent& guiEvent) const;
 
       void BeginUpdate ();
       void Update (const GuiEvent& guiEvent);

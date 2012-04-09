@@ -11,7 +11,7 @@ namespace yap
 
   GameInput::~GameInput ()
   {
-    for (const auto it : entries_)
+    for (const GameInputEntry* it : entries_)
       delete it;
   }
 
@@ -22,7 +22,7 @@ namespace yap
 
   bool GameInput::IsActive () const
   {
-    for (const auto it : entries_)
+    for (const GameInputEntry* it : entries_)
       if (it->IsActive ())
         return true;
 
@@ -31,7 +31,7 @@ namespace yap
 
   bool GameInput::IsActivated () const
   {
-    for (const auto it : entries_)
+    for (const GameInputEntry* it : entries_)
       if (it->IsActivated ())
         return true;
 
@@ -40,7 +40,7 @@ namespace yap
 
   bool GameInput::IsDeactivated () const
   {
-    for (const auto it : entries_)
+    for (const GameInputEntry* it : entries_)
       if (it->IsDeactivated ())
         return true;
 
@@ -49,8 +49,26 @@ namespace yap
 
   bool GameInput::IsActive (const GuiEvent& guiEvent) const
   {
-    for (const auto it : entries_)
+    for (const GameInputEntry* it : entries_)
       if (it->IsActive (guiEvent))
+        return true;
+
+    return false;
+  }
+
+  bool GameInput::IsActivated (const GuiEvent& guiEvent) const
+  {
+    for (const GameInputEntry* it : entries_)
+      if (it->IsActivated (guiEvent))
+        return true;
+
+    return false;
+  }
+
+  bool GameInput::IsDeactivated (const GuiEvent& guiEvent) const
+  {
+    for (const GameInputEntry* it : entries_)
+      if (it->IsDeactivated (guiEvent))
         return true;
 
     return false;
@@ -58,19 +76,19 @@ namespace yap
 
   void GameInput::BeginUpdate ()
   {
-    for (const auto it : entries_)
+    for (GameInputEntry* it : entries_)
       it->BeginUpdate ();
   }
 
   void GameInput::Update (const GuiEvent& guiEvent)
   {
-    for (const auto it : entries_)
+    for (GameInputEntry* it : entries_)
       it->Update (guiEvent);
   }
 
   void GameInput::EndUpdate ()
   {
-    for (const auto it : entries_)
+    for (GameInputEntry* it : entries_)
       it->EndUpdate ();
   }
 

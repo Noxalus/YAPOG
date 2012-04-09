@@ -15,6 +15,10 @@
 #include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
 
+///////////////////////////////
+/// Just some ugly tests... ///
+///////////////////////////////
+
 using namespace yap;
 
 DirectionalSpriteSet dss1;
@@ -143,9 +147,9 @@ void TestScreen::HandleDeactivate ()
 
 bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
 {
-  if (gim.GameInputIsActive (yap::GameInputType::Action, guiEvent))
+  if (gim.GameInputIsDeactivated (yap::GameInputType::Action, guiEvent))
     dss1.SetCurrentSprite (yap::Direction::North);
-  if (gim.GameInputIsActive (yap::GameInputType::Misc, guiEvent))
+  if (gim.GameInputIsDeactivated (yap::GameInputType::Misc, guiEvent))
     dss1.SetCurrentSprite (yap::Direction::South);
 
   return false;

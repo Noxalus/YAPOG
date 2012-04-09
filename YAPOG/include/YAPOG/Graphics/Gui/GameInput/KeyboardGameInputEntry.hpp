@@ -19,11 +19,11 @@ namespace yap
       explicit KeyboardGameInputEntry (Key key);
       virtual ~KeyboardGameInputEntry ();
 
-      virtual bool IsActive (const GuiEvent& guiEvent) const;
-
       virtual void Update (const GuiEvent& guiEvent);
 
     private:
+
+      virtual bool GuiEventIsCompatible (const GuiEvent& guiEvent) const;
 
       Key key_;
   };

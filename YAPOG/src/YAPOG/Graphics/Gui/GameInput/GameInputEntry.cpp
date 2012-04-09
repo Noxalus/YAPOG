@@ -34,6 +34,21 @@ namespace yap
     return !isActive_ && previousIsActive_;
   }
 
+  bool GameInputEntry::IsActive (const GuiEvent& guiEvent) const
+  {
+    return IsActive () && GuiEventIsCompatible (guiEvent);
+  }
+
+  bool GameInputEntry::IsActivated (const GuiEvent& guiEvent) const
+  {
+    return IsActivated () && GuiEventIsCompatible (guiEvent);
+  }
+
+  bool GameInputEntry::IsDeactivated (const GuiEvent& guiEvent) const
+  {
+    return IsDeactivated () && GuiEventIsCompatible (guiEvent);
+  }
+
   void GameInputEntry::BeginUpdate ()
   {
     if (IsActivated ())

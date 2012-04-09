@@ -12,15 +12,6 @@ namespace yap
   {
   }
 
-
-  bool MouseGameInputEntry::IsActive (const GuiEvent& guiEvent) const
-  {
-    return
-      (guiEvent.type == GuiEventType::MouseButtonPressed ||
-       guiEvent.type == GuiEventType::MouseButtonReleased) &&
-      guiEvent.mouseButton.button == button_;
-  }
-
   void MouseGameInputEntry::Update (const GuiEvent& guiEvent)
   {
     switch (guiEvent.type)
@@ -46,5 +37,14 @@ namespace yap
       default:
         break;
     }
+  }
+
+  bool MouseGameInputEntry::GuiEventIsCompatible (
+    const GuiEvent& guiEvent) const
+  {
+    return
+      (guiEvent.type == GuiEventType::MouseButtonPressed ||
+       guiEvent.type == GuiEventType::MouseButtonReleased) &&
+      guiEvent.mouseButton.button == button_;
   }
 } // namespace yap
