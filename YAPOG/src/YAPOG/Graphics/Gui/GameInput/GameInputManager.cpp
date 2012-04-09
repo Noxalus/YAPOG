@@ -64,4 +64,11 @@ namespace yap
   {
     return gameInputs_[gameInputType]->IsDeactivated ();
   }
+
+  bool GameInputManager::GameInputIsActive (
+    GameInputType gameInputType,
+    const GuiEvent& guiEvent) const
+  {
+    return gameInputs_[gameInputType]->IsActive (guiEvent);
+  }
 } // namespace yap

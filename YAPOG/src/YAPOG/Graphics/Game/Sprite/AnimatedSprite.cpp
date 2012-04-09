@@ -22,7 +22,7 @@ namespace yap
   {
     delete frameSwitcher_;
 
-    for (const auto& it : sprites_)
+    for (const ISprite* it : sprites_)
       delete it;
   }
 
@@ -67,13 +67,13 @@ namespace yap
 
   void AnimatedSprite::HandleMove (const Vector2& offset)
   {
-    for (const auto& it : sprites_)
+    for (ISprite* it : sprites_)
       it->Move (offset);
   }
 
   void AnimatedSprite::HandleScale (const Vector2& factor)
   {
-    for (const auto& it : sprites_)
+    for (ISprite* it : sprites_)
       it->Scale (factor);
   }
 
@@ -91,12 +91,15 @@ namespace yap
 
   void AnimatedSprite::HandleChangeColor (const sf::Color& color)
   {
-    for (const auto& it : sprites_)
+    for (ISprite* it : sprites_)
       it->ChangeColor (color);
   }
 
   void AnimatedSprite::HandleUpdate (const Time& dt)
   {
+    if (sprites_.IsEmpty ())
+      return;
+
     if (currentFrame_ != nullptr)
       currentFrame_->Update (dt);
 

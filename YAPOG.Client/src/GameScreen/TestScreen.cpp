@@ -10,6 +10,15 @@
 #include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
 #include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
 #include "YAPOG/Graphics/Game/Sprite/ComposedSprite.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
+#include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
+
+using namespace yap;
+
+DirectionalSpriteSet dss1;
+GameInputManager& gim = yap::GameInputManager::Instance ();
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
@@ -17,11 +26,20 @@ TestScreen::TestScreen ()
   , backTextures_ ()
   , anim1_ (1)
 {
+  gim.AddGameInput (
+    new GameInput (
+      GameInputType::Action,
+      new KeyboardGameInputEntry (Key::Return)));
+  gim.AddGameInput (
+    new GameInput (
+      GameInputType::Misc,
+      new KeyboardGameInputEntry (Key::M)));
+
   yap::IFStream input ("../Content/Map/1.xml");
   yap::XmlReader xmlR (input, "Map");
 
-  Map map (yap::ID (1));
-  MapReader mapReader (map);
+  yap::Map map (yap::ID (1));
+  yap::MapReader mapReader (map);
 
   xmlR.Accept (mapReader);
 
@@ -46,7 +64,8 @@ TestScreen::TestScreen ()
 
     if (animFlag++ < 2)
     {
-      anim1_.AddFrame (new yap::Sprite (texture));
+      dss1.AddSprite (yap::Direction::North, new yap::Sprite (texture));
+//      anim1_.AddFrame (new yap::Sprite (texture));
 //      spr1_.SetTexture (texture);
     }
 
@@ -59,7 +78,8 @@ TestScreen::TestScreen ()
 
     if (animFlag++ < 2)
     {
-      anim1_.AddFrame (new yap::Sprite (texture));
+      dss1.AddSprite (yap::Direction::South, new yap::Sprite (texture));
+//      anim1_.AddFrame (new yap::Sprite (texture));
     }
   }
 
@@ -102,6 +122,7 @@ const yap::ScreenType& TestScreen::HandleRun (
 
   anim1_.Update (dt);
   anim1_.Draw (context);
+  dss1.Draw (context);
 //  spr1_.Draw (context);
 
   return nextScreen_;
@@ -122,5 +143,10 @@ void TestScreen::HandleDeactivate ()
 
 bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
 {
+  if (gim.GameInputIsActive (yap::GameInputType::Action, guiEvent))
+    dss1.SetCurrentSprite (yap::Direction::North);
+  if (gim.GameInputIsActive (yap::GameInputType::Misc, guiEvent))
+    dss1.SetCurrentSprite (yap::Direction::South);
+
   return false;
 }

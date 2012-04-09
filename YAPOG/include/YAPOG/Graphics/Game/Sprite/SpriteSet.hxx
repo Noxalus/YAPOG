@@ -75,14 +75,14 @@ namespace yap
   template <typename K>
   inline void SpriteSet<K>::HandleMove (const Vector2& offset)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it.second->Move (offset);
   }
 
   template <typename K>
   inline void SpriteSet<K>::HandleScale (const Vector2& factor)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it.second->Scale (factor);
   }
 
@@ -100,7 +100,7 @@ namespace yap
   template <typename K>
   inline void SpriteSet<K>::HandleChangeColor (const sf::Color& color)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it.second->ChangeColor (color);
   }
 

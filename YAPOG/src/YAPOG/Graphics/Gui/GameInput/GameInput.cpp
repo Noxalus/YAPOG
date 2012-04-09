@@ -47,6 +47,15 @@ namespace yap
     return false;
   }
 
+  bool GameInput::IsActive (const GuiEvent& guiEvent) const
+  {
+    for (const auto it : entries_)
+      if (it->IsActive (guiEvent))
+        return true;
+
+    return false;
+  }
+
   void GameInput::BeginUpdate ()
   {
     for (const auto it : entries_)

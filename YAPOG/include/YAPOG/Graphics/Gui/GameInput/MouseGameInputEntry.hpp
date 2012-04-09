@@ -19,6 +19,8 @@ namespace yap
       explicit MouseGameInputEntry (MouseButton button);
       virtual ~MouseGameInputEntry ();
 
+      virtual bool IsActive (const GuiEvent& guiEvent) const;
+
       virtual void Update (const GuiEvent& guiEvent);
 
     private:

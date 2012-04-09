@@ -19,6 +19,10 @@ namespace yap
       bool IsActivated () const;
       bool IsDeactivated () const;
 
+      /// @brief Specifies if the event parameters (key, mouse button...)
+      /// correpond to this game input entry.
+      virtual bool IsActive (const GuiEvent& guiEvent) const = 0;
+
       void BeginUpdate ();
       virtual void Update (const GuiEvent& guiEvent) = 0;
       void EndUpdate ();
