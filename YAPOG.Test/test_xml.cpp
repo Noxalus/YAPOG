@@ -9,6 +9,7 @@ using namespace yap;
 using namespace std;
 int main ()
 {
+
   try
   {
     IFStream input ("../Content/Map/test.xml");
@@ -24,17 +25,16 @@ int main ()
          << endl;
 
     cout << "|--OBJECTS" << endl;
-
+	/*
     /// reading of all nodes whose name is "object"
     XmlReaderCollection objects;
     for (const auto& it : xmlR.ReadNodes ("object", objects))
     {
       cout << "|  |--" << it->ReadString ("ID") << endl;
     }
-
+	/*
     cout << "----------" << endl;
 
-/*
     IFStream input ("data/input.xml");
     XmlReader xmlR (input, "map");
 
@@ -68,10 +68,11 @@ int main ()
     xmlW.Write ("name", String ("flask"));
 
     xmlW.Dump ();
-*/
+	*/
   }
   catch (yap::Exception& ex)
   {
     ex.GetMessage (std::cout) << std::endl;
   }
+  
 }

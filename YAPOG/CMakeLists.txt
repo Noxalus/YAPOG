@@ -13,6 +13,8 @@ LINK_DIRECTORIES(
 
 SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/YAPOG )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/YAPOG )
+SET( pgstream_inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/pgstream )
+SET( pgstream_src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/pgstream )
 SET(
 source_files
 ${inc_root}/Collection/Array.hpp
@@ -172,6 +174,8 @@ ${inc_root}/System/Time/Timer.hpp
 ${src_root}/System/Time/Timer.cpp
 ${inc_root}/System/Time/UpdateableTimer.hpp
 ${src_root}/System/Time/UpdateableTimer.cpp
+${pgstream_inc_root}/pgstream.hpp
+${pgstream_src_root}/pgstream.cpp
 )
 
 ADD_LIBRARY(
@@ -183,4 +187,14 @@ ADD_LIBRARY(
 TARGET_LINK_LIBRARIES(
 	${PROJECT_NAME}
 	${link_lib}
+)
+
+ADD_CUSTOM_COMMAND(
+	TARGET 
+	${PROJECT_NAME}
+	POST_BUILD
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+	COMMENT "Copy the YAPOG DLL file in the good directory !"
 )

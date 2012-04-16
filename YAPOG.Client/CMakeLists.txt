@@ -57,4 +57,12 @@ ADD_CUSTOM_COMMAND(
 	COMMAND xcopy ARGS /s ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) \$\(OutDir\)
 	COMMENT "Copy the SFML2 DLL files in the good directory !"
 )
+
+ADD_CUSTOM_COMMAND(
+	TARGET
+	${PROJECT_NAME}
+	PRE_BUILD
+	COMMAND xcopy ARGS /s ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql \$\(OutDir\)
+	COMMENT "Copy the SFML2 DLL files in the good directory !"
+)
 endif()
