@@ -189,8 +189,9 @@ TARGET_LINK_LIBRARIES(
 	${link_lib}
 )
 
+if( WIN32 )
 ADD_CUSTOM_COMMAND(
-	TARGET 
+	TARGET
 	${PROJECT_NAME}
 	POST_BUILD
 	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
@@ -198,3 +199,4 @@ ADD_CUSTOM_COMMAND(
 	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the YAPOG DLL file in the good directory !"
 )
+endif()

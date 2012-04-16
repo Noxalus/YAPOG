@@ -39,10 +39,12 @@ endif()
 
 if( UNIX )
     SET( EXT_LIB_DIR
-         ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2/debug
-         ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2/release
+         ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2
+         ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/postgresql
     )
-    SET( EXT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2 )
+    SET( EXT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2
+                         ${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql
+    )
 endif()
 
 if( WIN32 )
@@ -52,7 +54,7 @@ if( WIN32 )
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
 
-    SET( pgsql_lib debug libpq optimized libpq )
+    SET( pgsql_lib debug pq optimized pq )
 endif()
 
 if( UNIX )
