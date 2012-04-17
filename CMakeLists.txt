@@ -54,7 +54,7 @@ if( WIN32 )
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
 
-    SET( pgsql_lib debug pq optimized pq )
+    SET( pgsql_lib debug libpq optimized libpq )
 endif()
 
 if( UNIX )

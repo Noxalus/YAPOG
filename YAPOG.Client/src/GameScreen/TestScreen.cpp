@@ -131,6 +131,7 @@ const yap::ScreenType& TestScreen::HandleRun (
   anim1_.Draw (context);
 //  dss1.Draw (context);
 //  spr1_.Draw (context);
+  DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
   return nextScreen_;
 }
