@@ -47,6 +47,7 @@ namespace yap
       /// @name IEventHandler members.
       /// @{
       virtual bool OnEvent (const GuiEvent& guiEvent);
+      virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
       /// @}
 
       /// @name IUpdateable members.
@@ -67,6 +68,7 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color) = 0;
 
       virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
 
       virtual void HandleUpdate (const Time& dt) = 0;
 

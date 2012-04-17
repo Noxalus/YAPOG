@@ -35,6 +35,7 @@ namespace yap
       /// @name IEventHandler members.
       /// @{
       virtual bool OnEvent (const GuiEvent& guiEvent);
+      virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
       /// @}
 
     protected:
@@ -58,6 +59,8 @@ namespace yap
       virtual void HandleDeactivate () = 0;
       /// @brief Behavior of OnEvent.
       virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+      /// @brief Behavior of OnPriorityEvent.
+      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
 
       /// Type of this GameScreen.
       ScreenType type_;

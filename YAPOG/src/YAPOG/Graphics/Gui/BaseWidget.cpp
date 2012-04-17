@@ -110,6 +110,11 @@ namespace yap
     return HandleOnEvent (guiEvent);
   }
 
+  bool BaseWidget::OnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    return HandleOnPriorityEvent (guiEvent);
+  }
+
   void BaseWidget::Update (const Time& dt)
   {
     HandleUpdate (dt);

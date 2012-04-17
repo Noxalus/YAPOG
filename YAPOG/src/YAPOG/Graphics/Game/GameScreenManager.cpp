@@ -20,6 +20,11 @@ namespace yap
     return currentScreen_->OnEvent (guiEvent);
   }
 
+  bool GameScreenManager::OnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    return currentScreen_->OnPriorityEvent (guiEvent);
+  }
+
   void GameScreenManager::Init (const ScreenType& screenType)
   {
     for (const auto& it : screens_)

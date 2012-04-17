@@ -25,6 +25,7 @@ class TestScreen : public yap::GameScreen
     virtual void HandleDeactivate ();
 
     virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+    virtual bool HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
 
   private:
 

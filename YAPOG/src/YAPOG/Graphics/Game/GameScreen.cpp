@@ -68,4 +68,12 @@ namespace yap
 
     return HandleOnEvent (guiEvent);
   }
+
+  bool GameScreen::OnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    if (guiManager_->OnPriorityEvent (guiEvent))
+      return true;
+
+    return HandleOnPriorityEvent (guiEvent);
+  }
 } // namespace yap

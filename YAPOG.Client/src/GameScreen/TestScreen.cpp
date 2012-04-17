@@ -159,3 +159,8 @@ bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
 
   return false;
 }
+
+bool TestScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
+{
+  return false;
+}
