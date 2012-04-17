@@ -2,7 +2,7 @@
 
 namespace yap
 {
-  const String Map::DEFAULT_NAME = "Map";
+  const String Map::DEFAULT_NAME = "<ANONYMOUS_MAP>";
 
   Map::Map (const ID& id)
     : id_ (id)

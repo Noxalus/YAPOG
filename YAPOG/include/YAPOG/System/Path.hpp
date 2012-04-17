@@ -48,7 +48,7 @@ namespace yap
 
       /// @brief Gets the underlying String value of this Path.
       /// @return Underlying value of this Path.
-      const String& Value () const;
+      const String& GetValue () const;
 
     private:
 

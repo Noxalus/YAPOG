@@ -19,6 +19,10 @@ namespace yap
       bool IsActivated () const;
       bool IsDeactivated () const;
 
+      bool IsActive (const GuiEvent& guiEvent) const;
+      bool IsActivated (const GuiEvent& guiEvent) const;
+      bool IsDeactivated (const GuiEvent& guiEvent) const;
+
       void BeginUpdate ();
       virtual void Update (const GuiEvent& guiEvent) = 0;
       void EndUpdate ();
@@ -28,6 +32,10 @@ namespace yap
       void Activate (bool isActive);
 
     private:
+
+      /// @brief Checks that the event parameters (key, mouse button...)
+      /// correpond to this game input entry.
+      virtual bool GuiEventIsCompatible (const GuiEvent& guiEvent) const = 0;
 
       bool isActive_;
       bool previousIsActive_;

@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yap
 {
@@ -15,13 +16,17 @@ namespace yap
     public:
 
       IDReader (ID& id);
+      IDReader (ID& id, const String& xmlRootNodeName);
       virtual ~IDReader ();
 
       virtual void Visit (XmlReader& visitable);
 
     private:
 
+      static const String DEFAULT_XML_ROOT_NODE_NAME;
+
       ID& id_;
+      String xmlRootNodeName_;
   };
 } // namespace yap
 

@@ -1,6 +1,6 @@
 #include "YAPOG/Graphics/Game/GameScreen.hpp"
-#include "YAPOG/Graphics/Gui/IGuiManager.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
+#include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 namespace yap
 {
@@ -46,12 +46,12 @@ namespace yap
     return nextScreen_;
   }
 
-  const IGuiManager& GameScreen::GetGuiManager () const
+  const GuiManager& GameScreen::GetGuiManager () const
   {
     return *guiManager_;
   }
 
-  IGuiManager& GameScreen::GetGuiManager ()
+  GuiManager& GameScreen::GetGuiManager ()
   {
     return *guiManager_;
   }
@@ -67,5 +67,13 @@ namespace yap
       return true;
 
     return HandleOnEvent (guiEvent);
+  }
+
+  bool GameScreen::OnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    if (guiManager_->OnPriorityEvent (guiEvent))
+      return true;
+
+    return HandleOnPriorityEvent (guiEvent);
   }
 } // namespace yap

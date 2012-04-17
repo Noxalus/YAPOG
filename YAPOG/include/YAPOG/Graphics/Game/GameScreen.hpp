@@ -3,7 +3,6 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/IGameScreen.hpp"
-# include "YAPOG/Graphics/Gui/IGuiManager.hpp"
 
 namespace yap
 {
@@ -27,8 +26,8 @@ namespace yap
 
       virtual const ScreenType& Run (const Time& dt, IDrawingContext& context);
 
-      virtual const IGuiManager& GetGuiManager () const;
-      virtual IGuiManager& GetGuiManager ();
+      virtual const GuiManager& GetGuiManager () const;
+      virtual GuiManager& GetGuiManager ();
 
       virtual const ScreenType& GetType () const;
       /// @}
@@ -36,6 +35,7 @@ namespace yap
       /// @name IEventHandler members.
       /// @{
       virtual bool OnEvent (const GuiEvent& guiEvent);
+      virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
       /// @}
 
     protected:
@@ -43,7 +43,7 @@ namespace yap
       /// Type of the Screen to be executed on next frame.
       ScreenType nextScreen_;
       /// Root widget if this GameScreen.
-      IGuiManager* guiManager_;
+      GuiManager* guiManager_;
 
     private:
 
@@ -59,6 +59,8 @@ namespace yap
       virtual void HandleDeactivate () = 0;
       /// @brief Behavior of OnEvent.
       virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+      /// @brief Behavior of OnPriorityEvent.
+      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
 
       /// Type of this GameScreen.
       ScreenType type_;

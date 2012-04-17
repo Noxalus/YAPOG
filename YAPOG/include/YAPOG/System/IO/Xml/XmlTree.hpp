@@ -16,6 +16,8 @@ namespace yap
 
     public:
 
+      typedef boost::property_tree::ptree DataType;
+
       XmlTree ();
 
       template <typename T>
@@ -26,14 +28,21 @@ namespace yap
 
       void Create (const String& rootName);
       void CreateFromStream (IStream& iStream, const String& rootName);
+
+      void CreateFromXmlTree (const XmlTree& copy);
+      void CreateFromRawData (DataType* data);
+
+      /// @todo Enhance writing settings management.
       void Dump (OStream& oStream);
 
       void ChangeRoot (const String& rootName);
 
+      DataType* GetRootRawData () const;
+
     private:
 
-      boost::property_tree::ptree rootData_;
-      boost::property_tree::ptree* data_;
+      DataType rootData_;
+      DataType* data_;
   };
 } // namespace yap
 
