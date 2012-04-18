@@ -15,8 +15,8 @@ namespace yap
 
     template <typename T>
     inline Array<T>::Array (const Array<T>& copy)
+      : data_ (copy.data_)
     {
-      *this = copy;
     }
 
     template <typename T>
