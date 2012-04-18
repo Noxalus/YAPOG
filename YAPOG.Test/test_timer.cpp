@@ -27,4 +27,5 @@ int main ()
 
   cout << timer.GetCurrentTime ().GetValue () << std::endl;
   cout << utimer.GetCurrentTime ().GetValue () << std::endl;
+  getchar();
 }

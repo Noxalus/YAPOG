@@ -7,4 +7,5 @@ using namespace sf;
 int main ()
 {
   RegularAnimatedSprite anim1 (10);
+  getchar;
 }
