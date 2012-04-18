@@ -26,6 +26,16 @@ namespace yap
       bool GameInputIsActivated (GameInputType gameInputType) const;
       bool GameInputIsDeactivated (GameInputType gameInputType) const;
 
+      bool GameInputIsActive (
+        GameInputType gameInputType,
+        const GuiEvent& guiEvent) const;
+      bool GameInputIsActivated (
+        GameInputType gameInputType,
+        const GuiEvent& guiEvent) const;
+      bool GameInputIsDeactivated (
+        GameInputType gameInputType,
+        const GuiEvent& guiEvent) const;
+
     private:
 
       GameInputManager ();

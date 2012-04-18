@@ -23,6 +23,8 @@ namespace yap
 
     private:
 
+      virtual bool GuiEventIsCompatible (const GuiEvent& guiEvent) const;
+
       Key key_;
   };
 } // namespace yap

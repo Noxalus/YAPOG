@@ -13,8 +13,8 @@ namespace yap
 
     template <typename T>
     inline Queue<T>::Queue (const Queue<T>& copy)
+      : data_ (copy.data_)
     {
-      *this = copy;
     }
 
     template <typename T>

@@ -19,6 +19,7 @@ namespace yap
       /// @name IEventHandler members.
       /// @{
       virtual bool OnEvent (const GuiEvent& guiEvent);
+      virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
       /// @}
 
       /// @name IGameScreenManager members.

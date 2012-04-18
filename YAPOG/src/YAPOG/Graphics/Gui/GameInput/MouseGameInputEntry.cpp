@@ -38,4 +38,13 @@ namespace yap
         break;
     }
   }
+
+  bool MouseGameInputEntry::GuiEventIsCompatible (
+    const GuiEvent& guiEvent) const
+  {
+    return
+      (guiEvent.type == GuiEventType::MouseButtonPressed ||
+       guiEvent.type == GuiEventType::MouseButtonReleased) &&
+      guiEvent.mouseButton.button == button_;
+  }
 } // namespace yap

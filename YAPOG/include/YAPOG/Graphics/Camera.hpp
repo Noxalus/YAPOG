@@ -32,6 +32,9 @@ namespace yap
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);
+
+      virtual void SetPosition (const Vector2& position);
+      virtual void SetSize (const Vector2& size);
       /// @}
 
       /// @name ICamera members.

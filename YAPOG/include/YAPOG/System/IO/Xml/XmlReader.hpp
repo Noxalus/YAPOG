@@ -9,6 +9,8 @@
 
 namespace yap
 {
+  class XmlReaderCollection;
+
   class YAPOG_LIB XmlReader : public IReader
   {
       DISALLOW_COPY(XmlReader);
@@ -19,6 +21,10 @@ namespace yap
       virtual ~XmlReader ();
 
       void ChangeRoot (const String& rootName);
+
+      XmlReaderCollection& ReadNodes (
+        const String& name,
+        XmlReaderCollection& xmlReaderCollection);
 
       /// @name IReader members.
       /// @{
@@ -67,6 +73,8 @@ namespace yap
       /// @}
 
     private:
+
+      XmlReader (const XmlTree& data);
 
       XmlTree data_;
   };
