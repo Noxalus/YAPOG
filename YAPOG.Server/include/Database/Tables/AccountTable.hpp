@@ -28,10 +28,10 @@ public:
 
 	/// @name ISpatial members.
 	/// @{
-	virtual yap::ID Add (yap::DatabaseManager dM) const;
+	virtual yap::ID& Add (yap::DatabaseManager dM) const;
 	virtual bool Remove (yap::DatabaseManager dM) const;
 	virtual int GetInt (yap::DatabaseManager dM, const yap::String& columnName) const;
-	virtual yap::DateTime GetDate (yap::DatabaseManager dM, const yap::String& columnName) const;
+	virtual yap::DateTime& GetDate (yap::DatabaseManager dM, const yap::String& columnName) const;
 	/// @}
 private:
 	yap::ID id_;

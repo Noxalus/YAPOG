@@ -7,7 +7,7 @@ namespace yap
 	{
 		try
 		{
-			connexion_.connect("dbname=yapog user=postgres password=COUCOU");
+			connexion_.connect("dbname=yapog user=postgres password=COUCOU port=5432");
 		}
 		catch (pg_excpt e)
 		{

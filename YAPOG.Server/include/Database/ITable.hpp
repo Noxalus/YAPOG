@@ -15,11 +15,11 @@ struct ITable
 {
 	virtual ~ITable () {};
 
-	virtual yap::ID Add (yap::DatabaseManager dM) const = 0;
+	virtual yap::ID& Add (yap::DatabaseManager dM) const = 0;
 	virtual bool Remove (yap::DatabaseManager dM) const = 0;
 
 	virtual int GetInt (yap::DatabaseManager dM, const yap::String& columnName) const = 0;
-	virtual yap::DateTime GetDate (yap::DatabaseManager dM, const yap::String& columnName) const = 0;
+	virtual yap::DateTime& GetDate (yap::DatabaseManager dM, const yap::String& columnName) const = 0;
 };
 
 #endif // YAPOG_ITABLE_HPP

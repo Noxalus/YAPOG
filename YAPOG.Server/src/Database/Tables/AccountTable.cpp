@@ -29,14 +29,16 @@ AccountTable::~AccountTable ()
 {
 }
 
-yap::ID AccountTable::Add (yap::DatabaseManager dM) const
+yap::ID& AccountTable::Add (yap::DatabaseManager dM) const
 {
 	try
 	{
-		pg_stream query ("INSERT INTO account (account_id, account_name, account_password) VALUES (1, :name, 'test')", dM.GetConnexion ());
+		pg_stream query ("INSERT INTO account (account_name, account_password) VALUES (:name, 'test')", dM.GetConnexion ());
 		query << name_;
 
-		int id = query.eos ();
+		
+		int id = 0;
+		query >> id;
 		std::cout << "ID: " << id;
 	}
 	catch (pg_excpt e)
@@ -57,7 +59,7 @@ int AccountTable::GetInt (yap::DatabaseManager dM, const yap::String& columnName
 	return -1;
 }
 
-yap::DateTime AccountTable::GetDate (yap::DatabaseManager dM, const yap::String& columnName) const
+yap::DateTime& AccountTable::GetDate (yap::DatabaseManager dM, const yap::String& columnName) const
 {
 	return yap::DateTime (yap::DateTime::InnerTimeType ());
 }
