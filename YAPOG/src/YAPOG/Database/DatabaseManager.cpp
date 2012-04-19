@@ -19,7 +19,7 @@ namespace yap
 	{
 	}
 
-	pg_cnx DatabaseManager::GetConnexion ()
+	pg_cnx& DatabaseManager::GetConnexion ()
 	{
 		return connexion_;
 	}

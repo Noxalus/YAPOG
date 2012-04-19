@@ -12,7 +12,7 @@ namespace yap
 		DatabaseManager ();
 		~DatabaseManager ();
 
-		pg_cnx GetConnexion ();
+		pg_cnx& GetConnexion ();
 	private:
 		pg_cnx connexion_;
 	};

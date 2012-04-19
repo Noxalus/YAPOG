@@ -33,8 +33,7 @@ yap::ID AccountTable::Add (yap::DatabaseManager dM) const
 {
 	try
 	{
-		pg_cnx cnx = dM.GetConnexion ();
-		pg_stream query ("INSERT INTO account (account_id, account_name, account_password) VALUES (1, :name, 'test')", cnx);
+		pg_stream query ("INSERT INTO account (account_id, account_name, account_password) VALUES (1, :name, 'test')", dM.GetConnexion ());
 		query << name_;
 
 		int id = query.eos ();

@@ -13,12 +13,9 @@ int main ()
 	{
 		yap::DatabaseManager dM;
 		AccountTable at;
-		//pg_cnx cnx = dM.GetConnexion ();
 		pg_stream s ("TRUNCATE account", dM.GetConnexion ());
-		/*
 		at.SetName ("COUCOU");
 		at.Add (dM);
-		*/
 		getchar();
 	}
 	catch (std::exception e)
