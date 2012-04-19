@@ -23,6 +23,9 @@ namespace yap
 
       virtual void Move (const Vector2& offset) = 0;
       virtual void Scale (const Vector2& factor) = 0;
+
+      virtual void SetPosition (const Vector2& position) = 0;
+      virtual void SetSize (const Vector2& size) = 0;
   };
 } // namespace yap
 

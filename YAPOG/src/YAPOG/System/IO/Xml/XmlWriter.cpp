@@ -6,8 +6,7 @@
 namespace yap
 {
   XmlWriter::XmlWriter (OStream& oStream, const String& rootName)
-    : IWriter ()
-    , data_ ()
+    : data_ ()
     , oStream_ (oStream)
   {
     data_.Create (rootName);

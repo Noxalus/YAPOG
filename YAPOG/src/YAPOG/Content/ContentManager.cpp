@@ -55,6 +55,11 @@ namespace yap
     rootPath_ = rootPath;
   }
 
+  const Path& ContentManager::GetContentPath () const
+  {
+    return rootPath_;
+  }
+
   sf::Image& ContentManager::LoadImage (const String& name)
   {
     if (images_.Contains (name))
@@ -62,7 +67,7 @@ namespace yap
 
     sf::Image* image = new sf::Image;
 
-    String path = (rootPath_ + imagePath_ + Path (name)).Value ();
+    String path = (rootPath_ + imagePath_ + Path (name)).GetValue ();
     if (!image->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
@@ -78,7 +83,7 @@ namespace yap
 
     sf::Texture* texture = new sf::Texture;
 
-    String path = (rootPath_ + texturePath_ + Path (name)).Value ();
+    String path = (rootPath_ + texturePath_ + Path (name)).GetValue ();
     if (!texture->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
@@ -94,7 +99,7 @@ namespace yap
 
     sf::Font* font = new sf::Font;
 
-    String path = (rootPath_ + fontPath_ + Path (name)).Value ();
+    String path = (rootPath_ + fontPath_ + Path (name)).GetValue ();
     if (!font->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
@@ -110,7 +115,7 @@ namespace yap
 
     sf::SoundBuffer* soundBuffer = new sf::SoundBuffer;
 
-    String path = (rootPath_ + soundBufferPath_ + Path (name)).Value ();
+    String path = (rootPath_ + soundBufferPath_ + Path (name)).GetValue ();
     if (!soundBuffer->loadFromFile (path))
       throw ContentLoadingFailException (path);
 
@@ -126,7 +131,7 @@ namespace yap
 
     sf::Music* music = new sf::Music;
 
-    String path = (rootPath_ + musicPath_ + Path (name)).Value ();
+    String path = (rootPath_ + musicPath_ + Path (name)).GetValue ();
     if (!music->openFromFile (path))
       throw ContentLoadingFailException (path);
 
@@ -163,5 +168,17 @@ namespace yap
   {
     delete musics_[name];
     musics_.Remove (name);
+  }
+
+  IFStream& ContentManager::LoadFile (const String& name, IFStream& iFStream)
+  {
+    String path = (rootPath_ + Path (name)).GetValue ();
+
+    iFStream.open (path);
+
+    if (!iFStream.is_open ())
+      throw ContentLoadingFailException (path);
+
+    return iFStream;
   }
 } // namespace yap

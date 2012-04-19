@@ -13,6 +13,8 @@
 
 namespace yap
 {
+  /// @brief Base graphical element.
+  /// Overlay of SFML Sprite.
   class YAPOG_LIB Texture : public IDrawable
   {
       DISALLOW_COPY(Texture);
@@ -41,6 +43,9 @@ namespace yap
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);
+
+      virtual void SetPosition (const Vector2& position);
+      virtual void SetSize (const Vector2& size);
       /// @}
 
       /// @name IDrawable members.
@@ -50,7 +55,7 @@ namespace yap
       virtual bool IsVisible () const;
       virtual void Show (bool isVisible);
 
-      virtual void ChangeColor (const sf::Color color);
+      virtual void ChangeColor (const sf::Color& color);
       /// @}
 
     private:

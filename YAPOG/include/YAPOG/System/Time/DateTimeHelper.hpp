@@ -6,11 +6,18 @@
 
 namespace yap
 {
-  class DateTimeHelper
+  class YAPOG_LIB DateTimeHelper
   {
+      DISALLOW_COPY(DateTimeHelper);
+
     public:
 
       static DateTime Now ();
+
+    private:
+
+      DateTimeHelper ();
+      ~DateTimeHelper ();
   };
 } // namespace yap
 

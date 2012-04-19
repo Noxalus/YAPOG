@@ -10,7 +10,7 @@ namespace yap
 {
   struct IDrawingContext;
 
-  struct YAPOG_LIB IDrawable : public ISpatial
+  struct YAPOG_LIB IDrawable
   {
       virtual ~IDrawable () {}
 
@@ -19,7 +19,7 @@ namespace yap
       virtual bool IsVisible () const = 0;
       virtual void Show (bool isVisible) = 0;
 
-      virtual void ChangeColor (const sf::Color color) = 0;
+      virtual void ChangeColor (const sf::Color& color) = 0;
   };
 } // namespace yap
 

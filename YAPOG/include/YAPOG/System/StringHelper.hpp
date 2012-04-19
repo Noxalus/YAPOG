@@ -6,12 +6,19 @@
 
 namespace yap
 {
-  class StringHelper
+  class YAPOG_LIB StringHelper
   {
+      DISALLOW_COPY(StringHelper);
+
     public:
 
       template <typename T>
       static String ToString (const T& value);
+
+    private:
+
+      StringHelper ();
+      ~StringHelper ();
   };
 } // namespace yap
 

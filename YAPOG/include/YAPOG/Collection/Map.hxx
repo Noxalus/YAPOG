@@ -13,8 +13,8 @@ namespace yap
 
     template <typename K, typename V>
     inline Map<K, V>::Map (const Map<K, V>& copy)
+      : data_ (copy.data_)
     {
-      *this = copy;
     }
 
     template <typename K, typename V>
@@ -121,7 +121,7 @@ namespace yap
     template <typename K, typename V>
     inline V& Map<K, V>::operator[] (const K& key)
     {
-      return data_.find (key)->second;
+      return data_[key];
     }
 
     template <typename K, typename V>
