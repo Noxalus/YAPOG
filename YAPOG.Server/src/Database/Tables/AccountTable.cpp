@@ -1,5 +1,9 @@
 #include "Database/Tables/AccountTable.hpp"
 
+AccountTable::AccountTable ()
+{
+}
+
 AccountTable::AccountTable (const yap::ID& id,
 														const yap::String& name,
 														const yap::String& email,
@@ -25,22 +29,36 @@ AccountTable::~AccountTable ()
 {
 }
 
-yap::ID AccountTable::Add () const
+yap::ID AccountTable::Add (yap::DatabaseManager dM) const
 {
+	try
+	{
+		pg_cnx cnx = dM.GetConnexion ();
+		pg_stream query ("INSERT INTO account (account_id, account_name, account_password) VALUES (1, :name, 'test')", cnx);
+		query << name_;
+
+		int id = query.eos ();
+		std::cout << "ID: " << id;
+	}
+	catch (pg_excpt e)
+	{
+		std::cerr << e.errmsg ();
+	}
+
 	return yap::ID ();
 }
 
-bool AccountTable::Remove () const
+bool AccountTable::Remove (yap::DatabaseManager dM) const
 {
 	return false;
 }
 
-int AccountTable::GetInt (const yap::String& columnName) const
+int AccountTable::GetInt (yap::DatabaseManager dM, const yap::String& columnName) const
 {
 	return -1;
 }
 
-yap::DateTime AccountTable::GetDate (const yap::String& columnName) const
+yap::DateTime AccountTable::GetDate (yap::DatabaseManager dM, const yap::String& columnName) const
 {
 	return yap::DateTime (yap::DateTime::InnerTimeType ());
 }

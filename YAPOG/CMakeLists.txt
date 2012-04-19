@@ -176,6 +176,8 @@ ${inc_root}/System/Time/UpdateableTimer.hpp
 ${src_root}/System/Time/UpdateableTimer.cpp
 ${pgstream_inc_root}/pgstream.hpp
 ${pgstream_src_root}/pgstream.cpp
+${inc_root}/Database/DatabaseManager.hpp
+${src_root}/Database/DatabaseManager.cpp
 )
 
 ADD_LIBRARY(

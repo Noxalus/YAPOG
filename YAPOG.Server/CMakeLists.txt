@@ -22,6 +22,8 @@ ${src_root}/tmp/Server.cpp
 ${inc_root}/Database/ITable.hpp
 ${inc_root}/Database/Tables/AccountTable.hpp
 ${src_root}/Database/Tables/AccountTable.cpp
+${inc_root}/Account/AccountManager.hpp
+${src_root}/Account/AccountManager.cpp
 )
 
 ADD_EXECUTABLE(

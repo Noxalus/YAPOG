@@ -12,6 +12,7 @@ class AccountTable : public ITable
 	DISALLOW_COPY(AccountTable);
 
 public:
+	AccountTable ();
 	AccountTable(const yap::ID& id,
 		const yap::String& name,
 		const yap::String& email,
@@ -23,12 +24,14 @@ public:
 		const yap::String& currentIp);
 	virtual ~AccountTable();
 
+	void SetName(yap::String name) { name_ = name; }
+
 	/// @name ISpatial members.
 	/// @{
-	virtual yap::ID Add () const;
-	virtual bool Remove () const;
-	virtual int GetInt (const yap::String& columnName) const;
-	virtual yap::DateTime GetDate (const yap::String& columnName) const;
+	virtual yap::ID Add (yap::DatabaseManager dM) const;
+	virtual bool Remove (yap::DatabaseManager dM) const;
+	virtual int GetInt (yap::DatabaseManager dM, const yap::String& columnName) const;
+	virtual yap::DateTime GetDate (yap::DatabaseManager dM, const yap::String& columnName) const;
 	/// @}
 private:
 	yap::ID id_;
