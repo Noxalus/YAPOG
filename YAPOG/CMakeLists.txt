@@ -85,6 +85,14 @@ ${inc_root}/Graphics/Game/Sprite/VerticalComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/VerticalComposedSprite.cpp
 ${inc_root}/Graphics/Gui/BaseWidget.hpp
 ${src_root}/Graphics/Gui/BaseWidget.cpp
+${inc_root}/Graphics/Gui/Label.hpp
+${src_root}/Graphics/Gui/Label.cpp
+${inc_root}/Graphics/Gui/LayoutBox.hpp
+${inc_root}/Graphics/Gui/PictureBox.hpp
+${inc_root}/Graphics/Gui/Menu.hpp
+${inc_root}/Graphics/Gui/WidgetBackgroud.hpp
+${inc_root}/Graphics/Gui/WidgetBorder.hpp
+${inc_root}/Graphics/Gui/Padding.hpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp
 ${src_root}/Graphics/Gui/GameInput/GameInputEntry.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInput.hpp

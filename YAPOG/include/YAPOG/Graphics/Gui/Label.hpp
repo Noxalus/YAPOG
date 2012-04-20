@@ -2,9 +2,11 @@
 # define YAPOG_LABEL_HPP
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG\System\String.hpp"
 
 namespace yap
 {
+  class sf::Text;
   class YAPOG_LIB Label : public BaseWidget
   {
     DISALLOW_COPY(Label);
@@ -12,6 +14,9 @@ namespace yap
   public:
     Label ();
     virtual ~Label ();
+
+    void SetText (String& content);
+    String GetText () const;
 
   private:
     virtual void HandleMove (const Vector2& offset);
@@ -26,8 +31,10 @@ namespace yap
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 
     virtual void HandleUpdate (const Time& dt);
-  private:
-
+ 
+    
+    String textContent_;
+    sf::Text drawableText_;
   };
 } // namespace yap
 

@@ -61,14 +61,14 @@ namespace yap
 
     virtual void AddDrawable (IDrawable& drawable);
     virtual void AddChild (IWidget& child);
-    virtual IWidget& GetRoot ();
+    virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
-    virtual void SetPadding (Padding padding);
+    virtual void SetPadding (Padding* padding);
     virtual void SetBackground (WidgetBackground& background);
     virtual void SetBorder  (WidgetBorder& border);
 
 
-  private:
+  protected:
 
     virtual Vector2 HandleGetSize () const;
 
@@ -98,7 +98,7 @@ namespace yap
     IWidget* root_;
     IWidget* parent_;
     IWidget* focusedChildren_;
-    Padding padding_;
+    Padding* padding_;
     WidgetBackground* background_;
     WidgetBorder* border_;
 

@@ -15,7 +15,7 @@ namespace yap
     , root_ (nullptr)
     , parent_ (nullptr)
     , focusedChildren_ (nullptr)
-    , padding_ (nullptr)
+    , padding_ ()
     , background_ (nullptr)
     , border_ (nullptr)
   {
@@ -132,5 +132,40 @@ namespace yap
   Vector2 BaseWidget::HandleGetSize () const
   {
     return spatialInfo_.GetSize ();
+  }
+
+  void BaseWidget::AddDrawable (IDrawable& drawable)
+  {
+    drawables_.Add (&drawable);
+  }
+
+  void BaseWidget::AddChild (IWidget& child)
+  {
+    childen_.Add (&child);
+  }
+
+  IWidget& BaseWidget::GetRoot () const
+  {
+    return *root_;
+  }
+
+  void BaseWidget::SetParent (IWidget& parent)
+  {
+    parent_ = &parent;
+  }
+
+  void BaseWidget::SetPadding (Padding* padding)
+  {
+    padding_ = padding;
+  }
+
+  void BaseWidget::SetBackground (WidgetBackground& background)
+  {
+    background_= &background;
+  }
+
+  void BaseWidget::SetBorder (WidgetBorder& border)
+  {
+    border_ = &border;
   }
 } // namespace yap
