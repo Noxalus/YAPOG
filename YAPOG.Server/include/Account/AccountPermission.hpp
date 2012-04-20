@@ -1,5 +1,5 @@
-﻿enum AccountPermission
+﻿enum class AccountPermission
 {
-   AP_NORMAL,
-	 AP_ADMIN
+  Normal,
+	Admin
 };

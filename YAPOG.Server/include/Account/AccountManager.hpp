@@ -15,12 +15,9 @@ public:
 	AccountManager (yap::DatabaseManager& dm);
 	~AccountManager ();
 
-	void CreateNewAccount (
-		const yap::String& name,
-		const yap::String& password,
-		const yap::String& email,
-		const yap::String& creationIp);
-	yap::ID GetAccountId (const yap::String& name, const yap::String& password);
+	void CreateNewAccount (const yap::String& name, const yap::String& password, 
+		const yap::String& email, const yap::String& creationIp);
+	yap::ID Login (const yap::String& name, const yap::String& password, const yap::String& current_ip);
 private:
 	yap::DatabaseManager& databaseManager_;
 };

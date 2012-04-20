@@ -7,7 +7,7 @@ InsertAccount::InsertAccount (const yap::String& name,
 														: name_ (name),
 														email_ (email),
 														password_ (password),
-														permissions_ (AccountPermission::AP_NORMAL),
+														permissions_ (static_cast<yap::Int16>(AccountPermission::Normal)),
 														creationIp_ (creationIp)
 {
 }
@@ -32,6 +32,6 @@ void InsertAccount::Add (yap::DatabaseManager& dM) const
 	}
 	catch (pg_excpt e)
 	{
-		std::cerr << e.errmsg ();
+		std::cerr << "This username already exists !" << std::endl;
 	}
 }
