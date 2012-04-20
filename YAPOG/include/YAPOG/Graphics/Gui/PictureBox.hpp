@@ -3,6 +3,7 @@
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
+# include "YAPOG\Graphics\Gui\"
 
 namespace yap
 {
@@ -29,6 +30,7 @@ namespace yap
     virtual void HandleUpdate (const Time& dt);
 
     Texture picture_;
+    WidgetBorder border_;
   };
 } // namespace yap
 

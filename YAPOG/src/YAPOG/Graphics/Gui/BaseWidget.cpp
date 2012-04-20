@@ -9,6 +9,15 @@ namespace yap
     : spatialInfo_ ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , drawables_ ()
+    , eventHandlers_ ()
+    , childen_ ()
+    , root_ (nullptr)
+    , parent_ (nullptr)
+    , focusedChildren_ (nullptr)
+    , padding_ (nullptr)
+    , background_ (nullptr)
+    , border_ (nullptr)
   {
   }
 

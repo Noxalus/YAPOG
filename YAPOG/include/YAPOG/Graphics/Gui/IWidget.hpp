@@ -14,7 +14,6 @@ namespace yap
                              public IUpdateable
   {
       virtual ~IWidget () {}
-      virtual 
   };
 } // namespace yap
 

@@ -4,80 +4,104 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/IWidget.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
+# include "YAPOG\Collection\List.hpp"
+# include "YAPOG\Graphics\Gui\Padding.hpp"
+# include "YAPOG\Graphics\Gui\WidgetBackground.hpp"
+# include "YAPOG\Graphics\Gui\WidgetBorder.hpp"
 
 namespace yap
 {
   class YAPOG_LIB BaseWidget : public IWidget
   {
-      DISALLOW_COPY(BaseWidget);
+    DISALLOW_COPY(BaseWidget);
 
-    public:
+  public:
 
-      BaseWidget ();
-      virtual ~BaseWidget ();
+    BaseWidget ();
+    virtual ~BaseWidget ();
 
-      /// @name ISpatial members.
-      /// @{
-      virtual const Vector2& GetPosition () const;
-      virtual const Vector2& GetSize () const;
+    /// @name ISpatial members.
+    /// @{
+    virtual const Vector2& GetPosition () const;
+    virtual const Vector2& GetSize () const;
 
-      virtual const Vector2& GetTopLeft () const;
-      virtual const Vector2& GetBottomRight () const;
-      virtual const Vector2& GetCenter () const;
+    virtual const Vector2& GetTopLeft () const;
+    virtual const Vector2& GetBottomRight () const;
+    virtual const Vector2& GetCenter () const;
 
-      virtual const sf::FloatRect& GetRectangle () const;
+    virtual const sf::FloatRect& GetRectangle () const;
 
-      virtual void Move (const Vector2& offset);
-      virtual void Scale (const Vector2& factor);
+    virtual void Move (const Vector2& offset);
+    virtual void Scale (const Vector2& factor);
 
-      virtual void SetPosition (const Vector2& position);
-      virtual void SetSize (const Vector2& size);
-      /// @}
+    virtual void SetPosition (const Vector2& position);
+    virtual void SetSize (const Vector2& size);
+    /// @}
 
-      /// @name IDrawable members.
-      /// @{
-      virtual void Draw (IDrawingContext& context);
+    /// @name IDrawable members.
+    /// @{
+    virtual void Draw (IDrawingContext& context);
 
-      virtual bool IsVisible () const;
-      virtual void Show (bool isVisible);
+    virtual bool IsVisible () const;
+    virtual void Show (bool isVisible);
 
-      virtual void ChangeColor (const sf::Color& color);
-      /// @}
+    virtual void ChangeColor (const sf::Color& color);
+    /// @}
 
-      /// @name IEventHandler members.
-      /// @{
-      virtual bool OnEvent (const GuiEvent& guiEvent);
-      virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
-      /// @}
+    /// @name IEventHandler members.
+    /// @{
+    virtual bool OnEvent (const GuiEvent& guiEvent);
+    virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
+    /// @}
 
-      /// @name IUpdateable members.
-      /// @{
-      virtual void Update (const Time& dt);
-      /// @}
+    /// @name IUpdateable members.
+    /// @{
+    virtual void Update (const Time& dt);
+    /// @}
 
-    private:
+    virtual void AddDrawable (IDrawable& drawable);
+    virtual void AddChild (IWidget& child);
+    virtual IWidget& GetRoot ();
+    virtual void SetParent (IWidget& parent);
+    virtual void SetPadding (Padding padding);
+    virtual void SetBackground (WidgetBackground& background);
+    virtual void SetBorder  (WidgetBorder& border);
 
-      virtual Vector2 HandleGetSize () const;
 
-      virtual void HandleMove (const Vector2& offset) = 0;
-      virtual void HandleScale (const Vector2& factor) = 0;
+  private:
 
-      virtual void HandleDraw (IDrawingContext& context) = 0;
+    virtual Vector2 HandleGetSize () const;
 
-      virtual void HandleShow (bool isVisible) = 0;
-      virtual void HandleChangeColor (const sf::Color& color) = 0;
+    virtual void HandleMove (const Vector2& offset) = 0;
+    virtual void HandleScale (const Vector2& factor) = 0;
 
-      virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
-      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
+    virtual void HandleDraw (IDrawingContext& context) = 0;
 
-      virtual void HandleUpdate (const Time& dt) = 0;
+    virtual void HandleShow (bool isVisible) = 0;
+    virtual void HandleChangeColor (const sf::Color& color) = 0;
 
-      static const bool DEFAULT_VISIBLE_STATE;
-      static const sf::Color DEFAULT_COLOR;
+    virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
 
-      mutable SpatialInfo spatialInfo_;
-      bool isVisible_;
-      sf::Color color_;
+    virtual void HandleUpdate (const Time& dt) = 0;
+
+    static const bool DEFAULT_VISIBLE_STATE;
+    static const sf::Color DEFAULT_COLOR;
+
+    mutable SpatialInfo spatialInfo_;
+    bool isVisible_;
+    bool isEnable;
+    sf::Color color_;
+    collection::List<IDrawable*> drawables_;
+    collection::List<IEventHandler*> eventHandlers_;
+    collection::List<IWidget*> childen_;
+    IWidget* root_;
+    IWidget* parent_;
+    IWidget* focusedChildren_;
+    Padding padding_;
+    WidgetBackground* background_;
+    WidgetBorder* border_;
+
   };
 } // namespace yap
 
