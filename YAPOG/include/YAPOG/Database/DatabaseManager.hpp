@@ -8,6 +8,7 @@ namespace yap
 {
 	class YAPOG_LIB DatabaseManager
 	{
+		DISALLOW_COPY(DatabaseManager);
 	public:
 		DatabaseManager ();
 		~DatabaseManager ();

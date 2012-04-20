@@ -23,4 +23,5 @@ namespace yap
 	{
 		return connexion_;
 	}
+
 } // namespace yap
