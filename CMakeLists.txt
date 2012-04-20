@@ -49,10 +49,13 @@ endif()
 
 if( WIN32 )
 	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
-	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
-
 	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
+
+	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
 	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
+
+	SET( boost_filesystem_lib_debug_name libboost_filesystem-vc110-mt-gd-1_49 )
+	SET( boost_filesystem_lib_release_name libboost_filesystem-vc110-mt-1_49 )
 
     SET( pgsql_lib debug libpq optimized libpq )
 endif()
@@ -63,6 +66,9 @@ if( UNIX )
 
 	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
 	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
+
+	SET( boost_filesystem_lib_debug_name "boost_filesystem" CACHE STRING "Boost filesystem lib debug." )
+	SET( boost_filesystem_lib_debug_name "boost_filesystem" CACHE STRING "Boost filesystem lib debug." )
 
 	SET( pgsql_lib debug pq optimized pq )
 endif()
@@ -87,6 +93,7 @@ SET( sfml_audio_lib debug ${sfml_audio_lib_debug_name} optimized ${sfml_audio_li
 
 SET( boost_signals_lib debug ${boost_signals_lib_debug_name} optimized ${boost_signals_lib_release_name} )
 SET( boost_date_time_lib debug ${boost_date_time_lib_debug_name} optimized ${boost_date_time_lib_release_name} )
+SET( boost_filesystem_lib debug ${boost_filesystem_lib_debug_name} optimized ${boost_filesystem_lib_release_name} )
 
 SET(
 	link_lib
@@ -97,6 +104,7 @@ SET(
 	${sfml_audio_lib}
 	${boost_signals_lib}
 	${boost_date_time_lib}
+        ${boost_filesystem_lib}
 	${pgsql_lib}
 )
 
