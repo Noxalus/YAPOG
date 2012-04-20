@@ -126,6 +126,11 @@ namespace yap
 
   void BaseWidget::Update (const Time& dt)
   {
+    for each (IWidget* child in childen_)
+    {
+      child->Update (dt);
+    }
+
     HandleUpdate (dt);
   }
 

@@ -1,6 +1,7 @@
+#include <SFML\Graphics\Text.hpp>
+
 #include "YAPOG\Graphics\Gui\Label.hpp"
 #include "YAPOG\Graphics\IDrawingContext.hpp"
-#include <SFML\Graphics\Text.hpp>
 
 namespace yap
 {
@@ -19,6 +20,17 @@ namespace yap
     return textContent_;
   }
 
+  void Label::HandleMove (const Vector2& offset)
+  {
+    drawableText_.setPosition (offset);
+  }
+
+  void Label::HandleScale (const Vector2& factor)
+  {
+    drawableText_.setScale (factor);
+  }
+
+
   void Label::SetText (String& content)
   {
     if (content.empty)
@@ -28,14 +40,12 @@ namespace yap
 
     textContent_ = content;
     drawableText_.setString (content);
+
+    OnTextChanged (*this, EventArgs (content));
   }
 
   void Label::HandleUpdate (const Time& dt)
   {
-    for each (IWidget* child in childen_)
-    {
-      child->Update (dt);
-    }
   }
 
   void Label::HandleChangeColor (const sf::Color& color)

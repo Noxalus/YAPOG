@@ -95,6 +95,7 @@ namespace yap
     collection::List<IDrawable*> drawables_;
     collection::List<IEventHandler*> eventHandlers_;
     collection::List<IWidget*> childen_;
+    collection::List<IWidget*> updatables_;
     IWidget* root_;
     IWidget* parent_;
     IWidget* focusedChildren_;
