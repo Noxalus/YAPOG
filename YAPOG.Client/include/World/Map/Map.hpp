@@ -9,6 +9,16 @@ class Map : public yap::Map
 
     Map (const yap::ID& id);
     virtual ~Map ();
+
+    virtual Map* Clone () const;
+
+  private:
+
+    /// @brief Copy constructor for Clone member.
+    Map (const Map& copy);
+
+    /// @brief Disabled.
+    Map& operator= (const Map& copy);
 };
 
 #endif // YAPOG_CLIENT_MAP_HPP

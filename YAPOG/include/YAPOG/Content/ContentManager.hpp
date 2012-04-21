@@ -58,6 +58,8 @@ namespace yap
       static const Path DEFAULT_SOUND_BUFFER_PATH;
       static const Path DEFAULT_MUSIC_PATH;
 
+      static const String DEFAULT_DATA_RESOURCE_FILE_EXTENSION;
+
       Path rootPath_;
 
       Path imagePath_;

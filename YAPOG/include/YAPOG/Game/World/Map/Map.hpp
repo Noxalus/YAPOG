@@ -2,16 +2,15 @@
 # define YAPOG_MAP_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   /// @brief Base Map class for both client and server.
-  class YAPOG_LIB Map
+  class YAPOG_LIB Map : public ILoadable
   {
-      DISALLOW_COPY(Map);
-
     public:
 
       Map (const ID& id);
@@ -23,7 +22,15 @@ namespace yap
       const String& GetName () const;
       void SetName (const String& name);
 
+    protected:
+
+      /// @brief Copy constructor for Clone member.
+      Map (const Map& copy);
+
     private:
+
+      /// @brief Disabled.
+      Map& operator= (const Map& copy);
 
       static const String DEFAULT_NAME;
 

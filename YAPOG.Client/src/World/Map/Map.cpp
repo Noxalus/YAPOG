@@ -8,3 +8,13 @@ Map::Map (const yap::ID& id)
 Map::~Map ()
 {
 }
+
+Map::Map (const Map& copy)
+  : yap::Map (copy)
+{
+}
+
+Map* Map::Clone () const
+{
+  return new Map (*this);
+}

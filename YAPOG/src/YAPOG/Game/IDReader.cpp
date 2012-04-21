@@ -4,7 +4,7 @@
 
 namespace yap
 {
-  const String IDReader::DEFAULT_XML_ROOT_NODE_NAME = "ID";
+  const String IDReader::DEFAULT_XML_ROOT_NODE_NAME = "id";
 
   IDReader::IDReader (ID& id)
     : id_ (id)

@@ -3,11 +3,11 @@
 
 namespace yap
 {
-  template <typename T>
-  inline XmlLoader::XmlLoader (
-    const Path& pathRoot,
+  template <typename T, typename TXmlReader>
+  inline XmlLoader<T, TXmlReader>::XmlLoader (
+    const Path& rootPath,
     const String& rootNodeName)
-    : pathRoot_ (pathRoot)
+    : rootPath_ (rootPath)
     , rootNodeName_ (rootNodeName)
     , objects_ ()
     , currentID_ ()
@@ -15,27 +15,34 @@ namespace yap
   {
   }
 
-  template <typename T>
-  inline XmlLoader::~XmlLoader ()
+  template <typename T, typename TXmlReader>
+  inline XmlLoader<T, TXmlReader>::~XmlLoader ()
   {
     for (const auto& it : objects_)
       delete it.second;
   }
 
-  template <typename T>
-  inline T* XmlLoader::Load (const ID& id)
+  template <typename T, typename TXmlReader>
+  inline T* XmlLoader<T, TXmlReader>::Load (const ID& id)
   {
     if (objects_.Contains (id))
       return objects_[id];
 
-    T* object = HandleLoad (id);
+    T* object = new T (id);
     objects_.Add (id, object);
+
+    IFStream file;
+    ContentManager::Instance ().LoadFile (rootPath_, id, file);
+
+    XmlReader xmlReader (file, rootNodeName_);
+    TXmlReader objectReader (GetObject (id));
+    xmlReader.Accept (objectReader);
 
     return object;
   }
 
-  template <typename T>
-  inline T& XmlLoader::GetObject (const ID& id)
+  template <typename T, typename TXmlReader>
+  inline T& XmlLoader<T, TXmlReader>::GetObject (const ID& id)
   {
     if (currentID_ != id)
     {

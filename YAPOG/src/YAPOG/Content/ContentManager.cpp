@@ -12,6 +12,9 @@ namespace yap
   const Path ContentManager::DEFAULT_SOUND_BUFFER_PATH = Path ("Sound/");
   const Path ContentManager::DEFAULT_MUSIC_PATH = Path ("Sound/");
 
+  const String ContentManager::DEFAULT_DATA_RESOURCE_FILE_EXTENSION =
+    ".xml";
+
   ContentManager::ContentManager (const Path& rootPath)
     : rootPath_ (rootPath)
     , imagePath_ (DEFAULT_IMAGE_PATH)
@@ -190,7 +193,9 @@ namespace yap
     IFStream& iFStream)
   {
     return LoadFile (
-      (rootPath + Path (StringHelper::ToString (id.GetValue ()))).GetValue (),
+      (rootPath +
+       Path (StringHelper::ToString (id.GetValue ())) +
+       DEFAULT_DATA_RESOURCE_FILE_EXTENSION).GetValue (),
       iFStream);
   }
 } // namespace yap

@@ -29,6 +29,15 @@ ${inc_root}/Collection/Queue.hxx
 ${inc_root}/Content/ContentManager.hpp
 ${src_root}/Content/ContentManager.cpp
 
+${inc_root}/Game/Factory/ICloneable.hpp
+${inc_root}/Game/Factory/IGenLoader.hpp
+${inc_root}/Game/Factory/ILoadable.hpp
+${inc_root}/Game/Factory/ILoader.hpp
+${inc_root}/Game/Factory/ObjectFactory.hpp
+${inc_root}/Game/Factory/ObjectFactory.hxx
+${src_root}/Game/Factory/ObjectFactory.cpp
+${inc_root}/Game/Factory/XmlLoader.hpp
+${inc_root}/Game/Factory/XmlLoader.hxx
 ${inc_root}/Game/ID.hpp
 ${src_root}/Game/ID.cpp
 ${inc_root}/Game/IDReader.hpp
@@ -224,11 +233,11 @@ ADD_CUSTOM_COMMAND(
 	TARGET
 	${PROJECT_NAME}
 	PRE_BUILD
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) 
+	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
 							\$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) 
+	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
 							\$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) 
+	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
 							\$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the SFML2 DLL files in the good directory !"
 )

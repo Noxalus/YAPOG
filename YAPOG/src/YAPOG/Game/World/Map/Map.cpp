@@ -14,6 +14,12 @@ namespace yap
   {
   }
 
+  Map::Map (const Map& copy)
+    : id_ (copy.id_)
+    , name_ (copy.name_)
+  {
+  }
+
   const ID& Map::GetID () const
   {
     return id_;

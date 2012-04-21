@@ -16,6 +16,10 @@ class MapReader : public yap::MapReader
     virtual ~MapReader ();
 
     virtual void Visit (yap::XmlReader& visitable);
+
+  private:
+
+    Map& map_;
 };
 
 #endif // YAPOG_CLIENT_MAP_READER_HPP

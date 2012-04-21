@@ -5,14 +5,15 @@
 
 namespace yap
 {
+  struct ILoadable;
+
   class ID;
 
-  template <typename T>
   struct ILoader
   {
       virtual ~ILoader () {}
 
-      T* Load (const ID& id);
+      virtual ILoadable* Load (const ID& id) = 0;
   };
 } // namespace yap
 

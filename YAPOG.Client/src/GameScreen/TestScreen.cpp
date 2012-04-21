@@ -15,55 +15,22 @@
 #include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/System/String.hpp"
+#include "YAPOG/Game/Factory/XmlLoader.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
 ///////////////////////////////
-
-class Base
-{
-  public:
-
-    virtual Base* Clone () const = 0;
-    void CopyFrom (const Base& copy)
-    {
-
-    }
-
-    Base* operator= (const Base& copy)
-    {
-      delete base;
-
-      *base = *copy.base;
-
-      return *this;
-    }
-
-    Base* base;
-};
-
-class Sub : public Base
-{
-  public:
-    virtual Sub* Clone () const
-    {
-      Sub* sub = new Sub;
-      sub->CopyFrom (*this);
-      return sub;
-    }
-    Sub* CopyFrom (const Sub& copy)
-    {
-      return this;
-    }
-};
-
-Sub sub;
 
 using namespace yap;
 
 DirectionalSpriteSet dss1;
 GameInputManager& gim = yap::GameInputManager::Instance ();
 ContentManager& cm = ContentManager::Instance ();
+DebugLogger& dl = DebugLogger::Instance ();
+
+ObjectFactory& of = ObjectFactory::Instance ();
 
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
@@ -71,8 +38,17 @@ TestScreen::TestScreen ()
   , backTextures_ ()
   , anim1_ (100)
 {
-  Sub* s2 = sub.Clone ();
-  Sub* s3 = s2->Clone ();
+  // loadable types are registered
+  of.RegisterLoader ("Map", new XmlLoader< ::Map, ::MapReader> (
+                       Path ("Map"), "Map"));
+
+  ::Map* map42 = of.Create< ::Map> ("Map", yap::ID (42));
+  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));
+  dl.LogLine ("MAP_NAME=" + map42->GetName ());
+
+  ::Map* map1 = of.Create< ::Map> ("Map", yap::ID (1));
+  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map1->GetID ().GetValue ()));
+  dl.LogLine ("MAP_NAME=" + map1->GetName ());
 
   gim.AddGameInput (
     new GameInput (
@@ -82,21 +58,6 @@ TestScreen::TestScreen ()
     new GameInput (
       GameInputType::Misc,
       new KeyboardGameInputEntry (Key::M)));
-
-  yap::IFStream input;
-  cm.LoadFile ("Map/1.xml", input);
-  yap::XmlReader xmlR (input, "Map");
-
-  yap::Map map (yap::ID (1));
-  yap::MapReader mapReader (map);
-
-  xmlR.Accept (mapReader);
-
-  yap::DebugLogger::Instance ()
-    .LogLine ("MAP::ID=[" +
-              yap::StringHelper::ToString (map.GetID ().GetValue ()) +
-              "]")
-    .LogLine ("MAP::NAME=[" + map.GetName () + "]");
 
   int animFlag = 0;
 

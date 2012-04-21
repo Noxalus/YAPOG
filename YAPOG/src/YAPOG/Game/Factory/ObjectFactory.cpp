@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
 
 namespace yap
 {
@@ -22,6 +23,10 @@ namespace yap
 
   void ObjectFactory::RegisterLoader (const String& typeName, ILoader* loader)
   {
+    if (loaders_.Contains (typeName))
+      throw Exception (
+        "Loader `" + typeName + "' already added to the factory.");
+
     loaders_.Add (typeName, loader);
   }
 } // namespace yap
