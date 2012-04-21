@@ -11,7 +11,13 @@ namespace yap
 
     public:
 
+      virtual ~TileLayoutHandler ();
+
       void Execute ();
+
+    protected:
+
+      TileLayoutHandler ();
 
     private:
 

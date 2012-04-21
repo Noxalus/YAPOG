@@ -63,12 +63,11 @@ endif()
 if( UNIX )
 	SET( boost_signals_lib_debug_name "boost_signals" CACHE STRING "Boost signals lib debug." )
 	SET( boost_date_time_lib_debug_name "boost_date_time" CACHE STRING "Boost date_time lib debug." )
+	SET( boost_filesystem_lib_debug_name "boost_filesystem" CACHE STRING "Boost filesystem lib debug." )
 
 	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
 	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
-
-	SET( boost_filesystem_lib_debug_name "boost_filesystem" CACHE STRING "Boost filesystem lib debug." )
-	SET( boost_filesystem_lib_debug_name "boost_filesystem" CACHE STRING "Boost filesystem lib debug." )
+	SET( boost_filesystem_lib_release_name "boost_filesystem" CACHE STRING "Boost filesystem lib release." )
 
 	SET( pgsql_lib debug pq optimized pq )
 endif()

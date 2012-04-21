@@ -1,5 +1,7 @@
 #include "YAPOG/Content/ContentManager.hpp"
 #include "YAPOG/System/Error/ContentLoadingFailException.hpp"
+#include "YAPOG/Game/ID.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -180,5 +182,15 @@ namespace yap
       throw ContentLoadingFailException (path);
 
     return iFStream;
+  }
+
+  IFStream& ContentManager::LoadFile (
+    const Path& rootPath,
+    const ID& id,
+    IFStream& iFStream)
+  {
+    return LoadFile (
+      (rootPath + Path (StringHelper::ToString (id.GetValue ()))).GetValue (),
+      iFStream);
   }
 } // namespace yap

@@ -9,7 +9,7 @@ namespace yap
 {
   class TileFamily
   {
-      DISABLE_COPY(TileFamily);
+      DISALLOW_COPY(TileFamily);
 
     public:
 

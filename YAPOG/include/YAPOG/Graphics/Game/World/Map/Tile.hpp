@@ -1,20 +1,31 @@
 #ifndef YAPOG_TILE_HPP
 # define YAPOG_TILE_HPP
 
+# include <SFML/Graphics/Color.hpp>
+
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Graphics/ISpatial.hpp"
+# include "YAPOG/Graphics/IDrawable.hpp"
+# include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Game/ID.hpp"
+# include "YAPOG/Graphics/SpatialInfo.hpp"
 
 namespace yap
 {
   struct ISprite;
+
   class TileFamily;
 
-  class Tile : public IDrawable,
+  class Tile : public ISpatial,
+               public IDrawable,
                public IUpdateable
   {
-      DISABLE_COPY(Tile);
+      DISALLOW_COPY(Tile);
 
     public:
+
+      static const UInt32 DEFAULT_SIZE;
 
       Tile (const ID& id);
       virtual ~Tile ();
@@ -54,10 +65,17 @@ namespace yap
 
     private:
 
+      static const bool DEFAULT_VISIBLE_STATE;
+      static const sf::Color DEFAULT_COLOR;
+
       ID id_;
 
       ISprite* sprite_;
       TileFamily* family_;
+
+      SpatialInfo spatialInfo_;
+      bool isVisible_;
+      sf::Color color_;
   };
 } // namespace yap
 

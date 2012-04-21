@@ -15,6 +15,8 @@
 
 namespace yap
 {
+  class ID;
+
   class YAPOG_LIB ContentManager
   {
       DISALLOW_COPY(ContentManager);
@@ -39,6 +41,10 @@ namespace yap
       void UnloadMusic (const String& name);
 
       IFStream& LoadFile (const String& name, IFStream& iFStream);
+      IFStream& LoadFile (
+        const Path& rootPath,
+        const ID& id,
+        IFStream& iFStream);
 
     private:
 

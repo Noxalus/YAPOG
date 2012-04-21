@@ -83,6 +83,16 @@ ${inc_root}/Graphics/Game/Sprite/SquareComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/SquareComposedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/VerticalComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/VerticalComposedSprite.cpp
+${inc_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/TileFamily.hpp
+${src_root}/Graphics/Game/World/Map/TileFamily.cpp
+${inc_root}/Graphics/Game/World/Map/Tile.hpp
+${src_root}/Graphics/Game/World/Map/Tile.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayer.hpp
+${src_root}/Graphics/Game/World/Map/TileLayer.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/TileLayoutHandler.cpp
 ${inc_root}/Graphics/Gui/BaseWidget.hpp
 ${src_root}/Graphics/Gui/BaseWidget.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp

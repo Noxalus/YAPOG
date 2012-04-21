@@ -2,10 +2,17 @@
 # define YAPOG_TILELAYER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Collection.hpp"
+# include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Graphics/IDrawable.hpp"
+# include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/Graphics/SpatialInfo.hpp"
 
 namespace yap
 {
+  class TileLayoutHandler;
+  class Tile;
+
   class TileLayer : public IDrawable,
                     public IUpdateable
   {
@@ -16,25 +23,13 @@ namespace yap
       TileLayer (UInt32 width, UInt32 height);
       virtual ~TileLayer ();
 
+      const Tile& GetTile (UInt32 x, UInt32 y) const;
+      Tile& GetTile (UInt32 x, UInt32 y);
+
+      void SetTile (UInt32 x, UInt32 y, Tile* tile);
+
       void SetLayoutHandler (TileLayoutHandler* layoutHandler);
-
-      /// @name ISpatial members.
-      /// @{
-      virtual const Vector2& GetPosition () const;
-      virtual const Vector2& GetSize () const;
-
-      virtual const Vector2& GetTopLeft () const;
-      virtual const Vector2& GetBottomRight () const;
-      virtual const Vector2& GetCenter () const;
-
-      virtual const sf::FloatRect& GetRectangle () const;
-
-      virtual void Move (const Vector2& offset);
-      virtual void Scale (const Vector2& factor);
-
-      virtual void SetPosition (const Vector2& position);
-      virtual void SetSize (const Vector2& size);
-      /// @}
+      void PerformLayout ();
 
       /// @name IDrawable members.
       /// @{
@@ -53,12 +48,18 @@ namespace yap
 
     private:
 
+      static const bool DEFAULT_VISIBLE_STATE;
+      static const sf::Color DEFAULT_COLOR;
+
       UInt32 width_;
       UInt32 height_;
 
-      collection::Array<collection::Array<Tile*>> tiles_;
+      collection::Array<Tile*> tiles_;
 
       TileLayoutHandler* layoutHandler_;
+
+      bool isVisible_;
+      sf::Color color_;
   };
 } // namespace yap
 

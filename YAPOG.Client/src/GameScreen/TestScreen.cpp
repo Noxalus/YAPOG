@@ -20,6 +20,45 @@
 /// Just some ugly tests... ///
 ///////////////////////////////
 
+class Base
+{
+  public:
+
+    virtual Base* Clone () const = 0;
+    void CopyFrom (const Base& copy)
+    {
+
+    }
+
+    Base* operator= (const Base& copy)
+    {
+      delete base;
+
+      *base = *copy.base;
+
+      return *this;
+    }
+
+    Base* base;
+};
+
+class Sub : public Base
+{
+  public:
+    virtual Sub* Clone () const
+    {
+      Sub* sub = new Sub;
+      sub->CopyFrom (*this);
+      return sub;
+    }
+    Sub* CopyFrom (const Sub& copy)
+    {
+      return this;
+    }
+};
+
+Sub sub;
+
 using namespace yap;
 
 DirectionalSpriteSet dss1;
@@ -32,6 +71,9 @@ TestScreen::TestScreen ()
   , backTextures_ ()
   , anim1_ (100)
 {
+  Sub* s2 = sub.Clone ();
+  Sub* s3 = s2->Clone ();
+
   gim.AddGameInput (
     new GameInput (
       GameInputType::Action,
