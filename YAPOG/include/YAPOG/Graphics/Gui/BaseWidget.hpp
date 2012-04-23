@@ -75,16 +75,13 @@ namespace yap
 
     virtual void HandleMove (const Vector2& offset) = 0;
     virtual void HandleScale (const Vector2& factor) = 0;
-
     virtual void HandleDraw (IDrawingContext& context) = 0;
-
     virtual void HandleShow (bool isVisible) = 0;
     virtual void HandleChangeColor (const sf::Color& color) = 0;
-
-    virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
-    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
-
     virtual void HandleUpdate (const Time& dt) = 0;
+
+    virtual bool HandleOnEvent (const GuiEvent& guiEvent);
+    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 
     static const bool DEFAULT_VISIBLE_STATE;
     static const sf::Color DEFAULT_COLOR;

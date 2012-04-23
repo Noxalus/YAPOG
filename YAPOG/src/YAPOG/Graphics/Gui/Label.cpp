@@ -15,13 +15,6 @@ namespace yap
   {
   }
 
-  void Label::HandleMove (const Vector2& offset)
-  {
-  }
-  void Label::HandleScale (const Vector2& offset)
-  {
-  }
-
   void Label::HandleDraw (IDrawingContext& context)
   {
     context.Draw (drawableText_);
@@ -39,28 +32,6 @@ namespace yap
   void Label::HandleScale (const Vector2& factor)
   {
     drawableText_.setScale (factor);
-  }
-
-
-  void Label::SetText (String& content)
-  {
-    
-    textContent_ = content;
-    drawableText_.setString (content);
-
-    OnTextChanged (*this, EventArgs (content));
-
-  }
-
-  bool Label::HandleOnEvent (const GuiEvent& guiEvent)
-
-  {
-    return false;
-  }
-
-  bool Label::HandleOnPriorityEvent (const GuiEvent& guiEvent)
-  {
-    return false;
   }
 
   void Label::HandleUpdate (const Time& dt)
@@ -81,7 +52,7 @@ namespace yap
   {
     if (content.empty())
       return;
-    else if (content.compare (textContent_))
+    else if (content == textContent_)
       return;
 
     textContent_ = content;

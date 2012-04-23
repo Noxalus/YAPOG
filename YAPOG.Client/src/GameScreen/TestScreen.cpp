@@ -16,6 +16,8 @@
 #include "YAPOG/Graphics/Gui/GameInput/GameInput.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
 
+#include "YAPOG/Graphics/Gui/Label.hpp"
+
 ///////////////////////////////
 /// Just some ugly tests... ///
 ///////////////////////////////
@@ -31,15 +33,16 @@ TestScreen::TestScreen ()
   , textures_ ()
   , backTextures_ ()
   , anim1_ (100)
+  , mover_ (0, 0)
 {
   gim.AddGameInput (
     new GameInput (
-      GameInputType::Action,
-      new KeyboardGameInputEntry (Key::Return)));
+    GameInputType::Action,
+    new KeyboardGameInputEntry (Key::Return)));
   gim.AddGameInput (
     new GameInput (
-      GameInputType::Misc,
-      new KeyboardGameInputEntry (Key::M)));
+    GameInputType::Misc,
+    new KeyboardGameInputEntry (Key::M)));
 
   yap::IFStream input;
   cm.LoadFile ("Map/1.xml", input);
@@ -52,8 +55,8 @@ TestScreen::TestScreen ()
 
   yap::DebugLogger::Instance ()
     .LogLine ("MAP::ID=[" +
-              yap::StringHelper::ToString (map.GetID ().GetValue ()) +
-              "]")
+    yap::StringHelper::ToString (map.GetID ().GetValue ()) +
+    "]")
     .LogLine ("MAP::NAME=[" + map.GetName () + "]");
 
   int animFlag = 0;
@@ -63,43 +66,43 @@ TestScreen::TestScreen ()
     yap::Vector2 scaleFactor (0.7f, 0.7f);
 
     yap::Texture* texture = new yap::Texture ();
+
     texture->LoadFromFile ("boo.png");
-//    texture->Move (yap::Vector2 (i * 400.0f, 0.0f));
+    //    texture->Move (yap::Vector2 (i * 400.0f, 0.0f));
     texture->Scale (scaleFactor);
     texture->ChangeColor (sf::Color (255, 90, 128, 128));
     textures_.Add (texture);
 
     if (animFlag++ < 2)
     {
-//      dss1.AddSprite (yap::Direction::North, new yap::Sprite (texture));
+      //      dss1.AddSprite (yap::Direction::North, new yap::Sprite (texture));
       anim1_.AddFrame (new yap::Sprite (texture));
-//      spr1_.SetTexture (texture);
+      //      spr1_.SetTexture (texture);
     }
 
     texture = new yap::Texture ();
     texture->LoadFromFile ("boo.png");
-//    texture->Move (yap::Vector2 (i * 400.0f + 200.0f, 0.0f));
+    //    texture->Move (yap::Vector2 (i * 400.0f + 200.0f, 0.0f));
     texture->ChangeColor (sf::Color (128, 255, 128, 128));
     texture->Scale (scaleFactor);
     backTextures_.Add (texture);
-
     if (animFlag++ < 2)
     {
-//      dss1.AddSprite (yap::Direction::South, new yap::Sprite (texture));
+      //      dss1.AddSprite (yap::Direction::South, new yap::Sprite (texture));
       anim1_.AddFrame (new yap::Sprite (texture));
     }
   }
 
-//  anim1_.Move (yap::Vector2 (100.0f, 100.0f));
+  //  anim1_.Move (yap::Vector2 (100.0f, 100.0f));
 
   anim1_.ChangeState (yap::AnimatedSprite::PlayState::Loop);
-//  anim1_.ChangeColor (sf::Color::Blue);
+  //  anim1_.ChangeColor (sf::Color::Blue);
 }
 
 TestScreen::~TestScreen ()
 {
-/*  for (const auto& it : textures_)
-    delete it;
+  /*  for (const auto& it : textures_)
+  delete it;
 
   for (const auto& it : backTextures_)
   delete it;*/
@@ -109,28 +112,37 @@ const yap::ScreenType& TestScreen::HandleRun (
   const yap::Time& dt,
   yap::IDrawingContext& context)
 {
-//  yap::DebugLogger::Instance ().LogLine (1.0f / dt.GetValue ());
+  //  yap::DebugLogger::Instance ().LogLine (1.0f / dt.GetValue ());
 
-//  context.GetCamera ("Background World").Move (
-//    yap::Vector2 (140.0f * dt.GetValue (), 0.0f));
+  //  context.GetCamera ("Background World").Move (
+  //    yap::Vector2 (140.0f * dt.GetValue (), 0.0f));
 
   context.SetMode ("Background World");
 
-//  for (auto it : backTextures_)
-//    it->Draw (context);
+  //  for (auto it : backTextures_)
+  //    it->Draw (context);
 
   context.SetDefaultCamera ();
 
-//  context.GetCamera ("World").Move (
-//    yap::Vector2 (300.0f * dt.GetValue (), 0.0f));
+  //  context.GetCamera ("World").Move (
+  //    yap::Vector2 (300.0f * dt.GetValue (), 0.0f));
 
-//  for (auto it : textures_)
-//    it->Draw (context);
+  //  for (auto it : textures_)
+  //    it->Draw (context);
 
-  anim1_.Update (dt);
-  anim1_.Draw (context);
-//  dss1.Draw (context);
-//  spr1_.Draw (context);
+  //anim1_.Update (dt);
+
+
+  //anim1_.Draw (context);
+  //  dss1.Draw (context);
+  //  spr1_.Draw (context);
+
+  mover_.x += 0.1f;
+  mover_.y += 0.1f;
+
+  guiManager_->Move (mover_);
+  guiManager_->Update (dt);
+  guiManager_->Draw (context);
   DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
   return nextScreen_;
@@ -139,6 +151,13 @@ const yap::ScreenType& TestScreen::HandleRun (
 void TestScreen::HandleInit ()
 {
   guiManager_ = new yap::GuiManager ();
+
+  yap::Label* label = new yap::Label ();
+
+  label->SetText (String("ALL YOUR DIVINITYZ BELONG TO ME."));
+  label->Scale (Vector2 (1, 1));
+  label->ChangeColor (sf::Color (90, 255, 128, 128));
+  guiManager_->AddChild (*label);
 }
 
 void TestScreen::HandleActivate ()

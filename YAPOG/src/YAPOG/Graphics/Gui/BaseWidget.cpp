@@ -59,6 +59,10 @@ namespace yap
 
   void BaseWidget::Move (const Vector2& offset)
   {
+    for (IWidget* child : childen_)
+    {
+      child->Move (offset);
+    }
     spatialInfo_.SetPosition (GetPosition () + offset);
 
     HandleMove (offset);
@@ -66,31 +70,51 @@ namespace yap
 
   void BaseWidget::Scale (const Vector2& factor)
   {
+    for (IWidget* child : childen_)
+    {
+      child->Scale (factor);
+    }
+
     spatialInfo_.SetSize (
       Vector2 (
-        GetSize ().x * factor.x,
-        GetSize ().y * factor.y));
+      GetSize ().x * factor.x,
+      GetSize ().y * factor.y));
 
     HandleScale (factor);
   }
 
   void BaseWidget::SetPosition (const Vector2& position)
   {
+    for (IWidget* child : childen_)
+    {
+      child->SetPosition (position);
+    }
+
     Move (position - GetPosition ());
   }
 
   void BaseWidget::SetSize (const Vector2& size)
   {
+    for (IWidget* child : childen_)
+    {
+      child->SetSize (size);
+    }
+
     Scale (
       Vector2 (
-        size.x / GetSize ().x,
-        size.y / GetSize ().y));
+      size.x / GetSize ().x,
+      size.y / GetSize ().y));
   }
 
   void BaseWidget::Draw (IDrawingContext& context)
   {
     if (!isVisible_)
       return;
+
+    for (IWidget* child : childen_)
+    {
+      child->Draw (context);
+    }
 
     HandleDraw (context);
   }
@@ -102,6 +126,11 @@ namespace yap
 
   void BaseWidget::Show (bool isVisible)
   {
+    for (IWidget* child : childen_)
+    {
+      child->Show (isVisible);
+    }
+
     isVisible_ = isVisible;
 
     HandleShow (isVisible);
@@ -109,6 +138,11 @@ namespace yap
 
   void BaseWidget::ChangeColor (const sf::Color& color)
   {
+    for (IWidget* child : childen_)
+    {
+      child->ChangeColor (color);
+    }
+
     color_ = color;
 
     HandleChangeColor (color);
@@ -116,17 +150,27 @@ namespace yap
 
   bool BaseWidget::OnEvent (const GuiEvent& guiEvent)
   {
+    for (IWidget* child : childen_)
+    {
+      child->OnEvent (guiEvent);
+    }
+
     return HandleOnEvent (guiEvent);
   }
 
   bool BaseWidget::OnPriorityEvent (const GuiEvent& guiEvent)
   {
+    for (IWidget* child : childen_)
+    {
+      child->OnPriorityEvent (guiEvent);
+    }
+
     return HandleOnPriorityEvent (guiEvent);
   }
 
   void BaseWidget::Update (const Time& dt)
   {
-    for each (IWidget* child in childen_)
+    for (IWidget* child : childen_)
     {
       child->Update (dt);
     }
@@ -172,5 +216,15 @@ namespace yap
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
     border_ = &border;
+  }
+
+  bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)
+  {
+    return false;
+  }
+
+  bool BaseWidget::HandleOnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    return false;
   }
 } // namespace yap

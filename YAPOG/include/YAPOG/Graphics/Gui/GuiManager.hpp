@@ -28,9 +28,6 @@ namespace yap
       virtual void HandleShow (bool isVisible);
       virtual void HandleChangeColor (const sf::Color& color);
 
-      virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-
       virtual void HandleUpdate (const Time& dt);
   };
 } // namespace yap

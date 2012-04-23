@@ -31,16 +31,6 @@ namespace yap
   {
   }
 
-  bool GuiManager::HandleOnEvent (const GuiEvent& guiEvent)
-  {
-    return false;
-  }
-
-  bool GuiManager::HandleOnPriorityEvent (const GuiEvent& guiEvent)
-  {
-    return false;
-  }
-
   void GuiManager::HandleUpdate (const Time& dt)
   {
   }
