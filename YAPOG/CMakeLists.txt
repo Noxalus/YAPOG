@@ -174,6 +174,10 @@ ${inc_root}/System/Time/Timer.hpp
 ${src_root}/System/Time/Timer.cpp
 ${inc_root}/System/Time/UpdateableTimer.hpp
 ${src_root}/System/Time/UpdateableTimer.cpp
+${inc_root}/System/Hash/FileChecker.hpp
+${src_root}/System/Hash/FileChecker.cpp
+${inc_root}/System/Hash/Md5.hpp
+${src_root}/System/Hash/Md5.cpp
 ${pgstream_inc_root}/pgstream.hpp
 ${pgstream_src_root}/pgstream.cpp
 )
