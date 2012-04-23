@@ -68,4 +68,5 @@ namespace yap
   {
     return !(*this > right);
   }
+
 } // namespace yap

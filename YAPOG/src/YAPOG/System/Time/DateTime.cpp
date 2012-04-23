@@ -2,6 +2,11 @@
 
 namespace yap
 {
+	DateTime::DateTime ()
+		: time_ ()
+  {
+  }
+
   DateTime::DateTime (const InnerTimeType& time)
     : time_ (time)
   {

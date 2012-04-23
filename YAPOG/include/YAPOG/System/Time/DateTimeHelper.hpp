@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Time/DateTime.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yap
 {
@@ -13,6 +14,7 @@ namespace yap
     public:
 
       static DateTime Now ();
+			static DateTime Parse (const yap::String& date);
 
     private:
 
