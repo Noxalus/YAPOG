@@ -41,6 +41,7 @@ void SelectAccount::DisplayData ()
 		<< "Email: " << email_ << std::endl
 		<< "Permission: " << static_cast<yap::UInt16> (permissions_) << std::endl
 		<< "Creation Date: " << creationDate_ << std::endl
+		<< "Last Login Date: " << lastLoginDate_ << std::endl
 		<< "Creation IP: " << creationIp_ << std::endl
 		<< "Current IP: " << currentIp_ << std::endl;
 }

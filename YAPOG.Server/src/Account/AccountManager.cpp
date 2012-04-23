@@ -42,7 +42,9 @@ void AccountManager::Login (const yap::String& name, const yap::String& password
 
 	// Record the login IP
 	sa->SetCurrentIp (current_ip);
-	yap::String queryString = "UPDATE account SET account_current_ip = :currentIp WHERE account_name = :name";
+	yap::String queryString = "UPDATE account SET "
+		"account_current_ip = :currentIp, account_last_login_date = NOW () "
+		" WHERE account_name = :name";
 	pg_stream queryUpdateCurrentIp (queryString, databaseManager_.GetConnection ());
 	queryUpdateCurrentIp << current_ip << name;
 	std::cout << "This account is now in use for the server and the database !" << std::endl;
@@ -105,6 +107,10 @@ void AccountManager::Disconnect (const yap::String& name)
 {
 	if (!accounts_.Contains (name))
 		throw yap::Exception ("This account doesn't log in !");
+
+	yap::String queryString = "UPDATE account SET account_current_ip = NULL WHERE account_name = :name";
+	pg_stream update (queryString, databaseManager_.GetConnection ());
+	update << name;
 
 	accounts_.Remove (name);
 	std::cout << name << " is now disconnected !" << std::endl;

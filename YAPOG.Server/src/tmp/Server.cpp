@@ -103,6 +103,7 @@ int main ()
 	{
 		std::cerr << e.errmsg () << std::endl;
 		getchar ();
+		getchar ();
 	}
 
 	return 0;
