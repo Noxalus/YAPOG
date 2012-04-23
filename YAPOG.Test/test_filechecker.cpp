@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include <boost/filesystem.hpp>
+#include <SFML/Network.hpp>
 #include "YAPOG/System/Hash/FileChecker.hpp"
 
 int main()
@@ -13,14 +15,14 @@ int main()
 	boost::filesystem::path client("D:\\git\\YAPOG_try2");
 	yap::FileChecker fc (client);
 	
+	// List of name file needed to be download by the client
 	yap::FileChecker::t_vs vc = fs.sendfiletodownload(fc);
-	//yap::FileChecker::t_vf vc = fc.getv();
+	fc.update(vc);
+	/*
 	yap::FileChecker::t_vs::const_iterator it(vc.begin());
 	yap::FileChecker::t_vs::const_iterator it_end(vc.end());
-	for (; it != it_end; it++)
-	{
-		std::cout << (*it) << std::endl;
-	}
+	*/
+	// Network test
 	
 	getchar();
 	return 0;

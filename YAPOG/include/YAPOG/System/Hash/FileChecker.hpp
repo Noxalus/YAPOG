@@ -6,6 +6,7 @@
 # include <string>
 # include <vector>
 # include <boost/filesystem.hpp>
+# include <SFML/Network.hpp>
 # include "YAPOG/System/Hash/Md5.hpp"
 # include "YAPOG/Macros.hpp"
 
@@ -18,9 +19,11 @@ namespace yap
 		typedef std::vector<boost::filesystem::path> t_vp;
 		typedef std::vector<FileChecker*> t_vf;
 		typedef std::vector<std::string> t_vs;
+
 		FileChecker(boost::filesystem::path path);
 		FileChecker(std::string filename);
 		FileChecker(std::string filename, std::string md5);
+		~FileChecker();
 
 		void		setfilename(std::string filename);
 		void		setmd5(std::string md5);
@@ -28,8 +31,8 @@ namespace yap
 		std::string	getmd5();
 		t_vf		getv();
 		
-		t_vs		filechecking(t_vf vc);
 		t_vs		sendfiletodownload(FileChecker& fc);
+		bool		update(t_vs vs);
 
 	private:
 		// Server checking.
@@ -38,6 +41,7 @@ namespace yap
 		std::string	vectorfind(t_vf vp, FileChecker* p);
 
 		t_vf		v_;
+		t_vs		vs_;
 		boost::filesystem::path path_;
 		std::string filename_;
 		std::string md5_;

@@ -24,6 +24,15 @@ namespace yap
 		md5_ = md5;
 	}
 
+	FileChecker::~FileChecker()
+	{
+		t_vf::iterator it(v_.begin());
+		t_vf::iterator it_end(v_.end());
+
+		for (; it != it_end; it++)
+			delete(*it);
+	}
+
 	void FileChecker::setfilename(std::string filename)
 	{
 		filename_ = filename;
@@ -53,30 +62,6 @@ namespace yap
 	{
 		return (c->getfilename() == s->getfilename()
 			&& c->getmd5() == s->getmd5());
-	}
-
-	FileChecker::t_vs FileChecker::filechecking(t_vf vc)
-	{
-		t_vs vf;
-		t_vf::const_iterator itvs(v_.begin());
-		t_vf::const_iterator itvs_end(v_.end());
-		t_vf::const_iterator itvc(vc.begin());
-		t_vf::const_iterator itvc_end(vc.end());
-
-		for (; itvs != itvs_end; itvs++)
-		{
-			for (itvc = vc.begin(); itvc != itvc_end; itvc++)
-			{
-				if ((*itvc)->getfilename() == (*itvs)->getfilename())
-				{
-					if (!compare ((*itvc), (*itvs)))
-						vf.push_back((*itvs)->getfilename());
-					break;
-				}
-			}
-		}
-
-		return vf;
 	}
 
 	void FileChecker::getfiletodownload()
@@ -111,6 +96,7 @@ namespace yap
 							substr(path_.string().length() + 1, i),
 							mymd5)
 							);
+						f.close();
 					}
 					if (boost::filesystem::is_directory((*it)))
 					{
@@ -136,16 +122,24 @@ namespace yap
 	{
 		t_vf::iterator it(vc.begin());
 		t_vf::iterator it_end(vc.end());
+		std::string name;
+
 		for (; it != it_end; it++)
 		{
-			if ((*it)->getfilename() == elt->getfilename())
+			name = (*it)->getfilename();
+			if (name == elt->getfilename())
 				if ((*it)->getmd5() != elt->getmd5())
-					return (*it)->getfilename();
+				{
+					std::replace(name.begin(), name.end(), '\\', '/');
+					return ((*it)->getmd5().compare("0") == 0 ? name + "0" : name);
+				}
 				else
 					return "";
 		}
-
-		return elt->getfilename();
+		
+		name = elt->getfilename();
+		std::replace(name.begin(), name.end(), '\\', '/');
+		return (elt->getmd5().compare("0") == 0 ? name + "0" : name);
 	}
 
 	FileChecker::t_vs FileChecker::sendfiletodownload(FileChecker& fc)
@@ -172,7 +166,64 @@ namespace yap
 			std::cout << ex.what() << std::endl;
 		}
 
-
 		return vbis;
+	}
+
+	bool FileChecker::update(FileChecker::t_vs vs)
+	{
+		sf::Ftp server;
+		FileChecker::t_vs::const_iterator it(vs.begin());
+		FileChecker::t_vs::const_iterator it_end(vs.end());
+		std::string path = "D:\\git\\YAPOG_downloadtest";
+
+		std::replace(path.begin(), path.end(), '\\', '/');
+		
+		if (server.connect("ftpperso.free.fr").isOk())
+		{
+			if (server.login("yapog", "COUCOU").isOk())
+			{
+				server.changeDirectory("test");
+				server.keepAlive();
+				for (; it != it_end; it++)
+				{
+					std::string n = (*it);
+					std::replace (n.begin(), n.end(), '\\', '/');
+					std::string newpath = "";
+					
+					int i = n.rfind('/');
+					bool dl = true;
+					std::string name = n;
+					server.keepAlive();
+					if (n[n.size() - 1] == '0')
+					{
+						dl = false;
+						name = n.substr(0, n.size() - 1);
+						boost::filesystem::create_directory(path + "/" + name);
+					}
+					else
+					{
+						if (i != std::string::npos)
+						{
+							name.assign(n, i + 1, n.size());
+							newpath.assign(n, 0, i);
+						}
+					}
+					if (dl)
+					{
+						server.download(
+						(newpath.empty() ? name : (newpath + "/" + name)).c_str(),
+						(newpath.empty() ? path : (path + "/" + newpath)).c_str(), sf::Ftp::Binary);
+					}
+				}
+			}
+			server.disconnect();
+		}
+		else
+		{
+			std::cout << "Failed to connect" << std::endl;
+			return false;
+		}
+
+		return true;
 	}
 }
