@@ -1,6 +1,7 @@
 #ifndef YAPOG_LABEL_HPP
 # define YAPOG_LABEL_HPP
 
+# include <SFML\Graphics\Color.hpp>
 # include <SFML\Graphics\Text.hpp>
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
@@ -9,7 +10,6 @@
 
 namespace yap
 {
-  class sf::Text;
   class YAPOG_LIB Label : public BaseWidget
   {
     DISALLOW_COPY(Label);

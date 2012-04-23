@@ -5,12 +5,13 @@
 # include "YAPOG/Graphics/Gui/IWidget.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 # include "YAPOG\Collection\List.hpp"
-# include "YAPOG\Graphics\Gui\Padding.hpp"
-# include "YAPOG\Graphics\Gui\WidgetBackground.hpp"
-# include "YAPOG\Graphics\Gui\WidgetBorder.hpp"
 
 namespace yap
 {
+  class Padding;
+  class WidgetBackground;
+  class WidgetBorder;
+
   class YAPOG_LIB BaseWidget : public IWidget
   {
     DISALLOW_COPY(BaseWidget);
