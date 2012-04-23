@@ -17,6 +17,7 @@
 #include "YAPOG/Content/ContentManager.hpp"
 
 #include "YAPOG/Graphics/Gui/Label.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -153,11 +154,17 @@ void TestScreen::HandleInit ()
   guiManager_ = new yap::GuiManager ();
 
   yap::Label* label = new yap::Label ();
-
   label->SetText (String("ALL YOUR DIVINITYZ BELONG TO ME."));
   label->Scale (Vector2 (1, 1));
   label->ChangeColor (sf::Color (90, 255, 128, 128));
+  
+  yap::PictureBox* pb = new PictureBox ();
+  pb->SetPicture (String("jarri_j.jpg"));
+  pb->Scale (Vector2 (1, 1));
+
+  guiManager_->AddChild (*pb);
   guiManager_->AddChild (*label);
+ 
 }
 
 void TestScreen::HandleActivate ()

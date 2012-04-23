@@ -64,7 +64,7 @@ namespace yap
       child->Move (offset);
     }
     spatialInfo_.SetPosition (GetPosition () + offset);
-
+    OnMoved (*this, EventArgs (offset));
     HandleMove (offset);
   }
 
@@ -78,8 +78,9 @@ namespace yap
     spatialInfo_.SetSize (
       Vector2 (
       GetSize ().x * factor.x,
-      GetSize ().y * factor.y));
+       GetSize ().y * factor.y));
 
+    OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
   }
 
@@ -90,6 +91,7 @@ namespace yap
       child->SetPosition (position);
     }
 
+    OnPositionSet (*this, EventArgs (position));
     Move (position - GetPosition ());
   }
 
@@ -104,6 +106,7 @@ namespace yap
       Vector2 (
       size.x / GetSize ().x,
       size.y / GetSize ().y));
+    OnSizeSet (*this, EventArgs (size));
   }
 
   void BaseWidget::Draw (IDrawingContext& context)
@@ -116,6 +119,7 @@ namespace yap
       child->Draw (context);
     }
 
+    OnDraw (*this, EventArgsDraw (context));
     HandleDraw (context);
   }
 
@@ -144,7 +148,7 @@ namespace yap
     }
 
     color_ = color;
-
+    OnColorChanged (*this, EventArgsColor (color));
     HandleChangeColor (color);
   }
 
@@ -152,7 +156,8 @@ namespace yap
   {
     for (IWidget* child : childen_)
     {
-      child->OnEvent (guiEvent);
+      if (child->OnEvent (guiEvent))
+        return true;
     }
 
     return HandleOnEvent (guiEvent);
@@ -162,7 +167,8 @@ namespace yap
   {
     for (IWidget* child : childen_)
     {
-      child->OnPriorityEvent (guiEvent);
+      if (child->OnPriorityEvent (guiEvent))
+        return true;
     }
 
     return HandleOnPriorityEvent (guiEvent);
@@ -191,6 +197,8 @@ namespace yap
   void BaseWidget::AddChild (IWidget& child)
   {
     childen_.Add (&child);
+
+    OnChildAdded (*this, EventArgsIWidget (child));
   }
 
   IWidget& BaseWidget::GetRoot () const

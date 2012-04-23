@@ -57,5 +57,6 @@ namespace yap
 
     textContent_ = content;
     drawableText_.setString (content);
+    OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

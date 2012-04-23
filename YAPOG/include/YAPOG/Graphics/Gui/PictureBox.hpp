@@ -1,9 +1,11 @@
 #ifndef YAPOG_PICTURE_BOX_HPP
 # define YAPOG_PICTURE_BOX_HPP
 
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
-# include "YAPOG\Graphics\Gui\"
+# include "YAPOG\Graphics\Gui\WidgetBorder.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -12,8 +14,22 @@ namespace yap
     DISALLOW_COPY(PictureBox);
 
   public:
+
+    struct EventArgsTexture
+    {
+      Texture& newContent;
+      EventArgsTexture (Texture& content)
+        : newContent (content)
+      {
+      }
+    };
+
     PictureBox ();
     virtual ~PictureBox ();
+
+    void SetPicture (String file);
+    const Texture& GetPicture () const;
+    Event<const PictureBox&, const EventArgsTexture&> OnPictureSet;
 
   private:
     virtual void HandleMove (const Vector2& offset);
@@ -24,13 +40,9 @@ namespace yap
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
 
-    virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-
     virtual void HandleUpdate (const Time& dt);
 
     Texture picture_;
-    WidgetBorder border_;
   };
 } // namespace yap
 

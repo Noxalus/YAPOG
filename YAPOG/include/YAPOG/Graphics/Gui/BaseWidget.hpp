@@ -4,7 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/IWidget.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
-# include "YAPOG\Collection\List.hpp"
+# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -17,6 +18,51 @@ namespace yap
     DISALLOW_COPY(BaseWidget);
 
   public:
+
+    struct EventArgs
+    {
+      EventArgs (const Vector2& content)
+      {
+        newContent = content;
+      }
+      Vector2 newContent;
+    };
+
+    struct EventArgsDraw
+    {
+      EventArgsDraw (IDrawingContext& content)
+        : newContent (content)
+      {
+      }
+      IDrawingContext& newContent;
+    };
+
+    struct EventArgsColor
+    {
+      EventArgsColor (const sf::Color& content)
+        : newContent (content)
+      {
+      }
+      const sf::Color& newContent;
+    };
+
+    struct EventArgsIWidget
+    {
+      IWidget& newContent;
+
+      EventArgsIWidget (IWidget& content)
+        : newContent (content)
+      {
+      }
+    };
+
+    Event<const BaseWidget&, const EventArgs&> OnMoved;
+    Event<const BaseWidget&, const EventArgs&> OnScaled;
+    Event<const BaseWidget&, const EventArgs&> OnPositionSet;
+    Event<const BaseWidget&, const EventArgs&> OnSizeSet;
+    Event<const BaseWidget&, const EventArgsDraw&> OnDraw;
+    Event<const BaseWidget&, const EventArgsColor&> OnColorChanged;
+    Event<const BaseWidget&, const EventArgsIWidget&> OnChildAdded;
 
     BaseWidget ();
     virtual ~BaseWidget ();

@@ -16,9 +16,9 @@ namespace yap
 
   public:
 
-    struct EventArgs
+    struct EventArgsString
     {
-      EventArgs (String content)
+      EventArgsString (String content)
       {
         newContent = content;
       }
@@ -31,7 +31,7 @@ namespace yap
 
     void SetText (String& content);
     String GetText () const;
-    Event<const Label&, const EventArgs&> OnTextChanged;
+    Event<const Label&, const EventArgsString&> OnTextChanged;
 
   private:
     virtual void HandleMove (const Vector2& offset);
