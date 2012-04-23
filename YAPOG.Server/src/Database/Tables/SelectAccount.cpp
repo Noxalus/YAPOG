@@ -3,56 +3,54 @@
 SelectAccount::SelectAccount (yap::DatabaseManager& dm, const yap::String& name)
 	: name_ (name)
 {
-	try
-	{
-		yap::String queryString = "SELECT account_id, account_password, "
-			"account_email, account_permissions, account_creation_date, "
-			"account_creation_ip, account_current_ip "
-			"FROM account WHERE account_name = :name";
+	yap::String queryString = "SELECT account_id, account_password, "
+		"account_email, account_permissions, account_creation_date, "
+		"account_creation_ip, account_current_ip "
+		"FROM account WHERE account_name = :name";
 
-		pg_stream select (queryString, dm.GetConnexion ());
-		select << name;
+	pg_stream select (queryString, dm.GetConnection ());
+	select << name;
 
-		/*
-		yap::String tmp;
-		while (!select.eof ())
-		{
-			select >> tmp;
-			std::cout << "\"" << tmp << "\"" << std::endl;
-		}
-		*/
-		if (select.eof ())
-			throw std::exception ("This account doesn't exist !!!");
+	if (select.eof ())
+		throw yap::Exception ("This account doesn't exist !");
 
-		select >> id_;
-		select >> password_;
-		select >> email_;
-		select >> permissions_;
-		yap::String tmp;
-		select >> tmp;
-		select >> creationIp_;
-		select >> currentIp_;
+	yap::UInt16 id;
+	yap::Int16 ap;
+	yap::String tmp;
 
-		if (select.eof ())
-			std::cout << "Account informations loaded !" << std::endl;
-		else
-			std::cerr << "Account information loading error !" << std::endl;
-	}
-	catch (pg_excpt e)
-	{
-		std::cerr << e.errmsg ();
-	}
+	select >> id;
+	select >> password_;
+	select >> email_;
+	select >> ap;
+	select >> creationDate_;
+	select >> creationIp_;
+	select >> currentIp_;
+
+	id_ = yap::ID (id);
+	permissions_ = static_cast<AccountPermission> (ap);
+
+	if (!select.eof ())
+		throw yap::Exception ("Account information loading error !");
 }
 
 void SelectAccount::DisplayData ()
 {
-	std::cout << "ID: " << id_ << std::endl
+	std::cout << "ID: " << id_.GetValue () << std::endl
 		<< "Username: " << name_ << std::endl
 		<< "Password: " << password_ << std::endl
-		<< "Email: " << email_ << std::endl;
+		<< "Email: " << email_ << std::endl
+		<< "Permission: " << static_cast<yap::UInt16> (permissions_) << std::endl
+		<< "Creation Date: " << creationDate_ << std::endl
+		<< "Creation IP: " << creationIp_ << std::endl
+		<< "Current IP: " << currentIp_ << std::endl;
 }
 
 bool SelectAccount::IsLogged ()
 {
 	return (currentIp_ != "");
+}
+
+void SelectAccount::SetCurrentIp (const yap::String& cip)
+{
+	currentIp_ = cip;
 }

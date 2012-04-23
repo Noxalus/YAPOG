@@ -23,110 +23,41 @@ void AccountManager::CreateNewAccount (const yap::String& name,
 		std::cout << "A new accout has been created ! (" << name << ")" << std::endl;
 }
 
-yap::ID AccountManager::Login (const yap::String& name, const yap::String& password, const yap::String& current_ip)
+void AccountManager::Login (const yap::String& name, const yap::String& password, const yap::String& current_ip)
 {
-	yap::ID id (yap::ID::ValueType (-1));
-
 	std::cout << "Login of \"" << name << "\" (pass: \"" << password << "\") !" << std::endl;
 
-	try
-	{
-		SelectAccount* sa = new SelectAccount (databaseManager_, name);
-		accounts_.Add (name, sa);
+	SelectAccount* sa = new SelectAccount (databaseManager_, name);
+	accounts_.Add (name, sa);
 
-		// Check if this is the corresponding password
+	yap::String encodedPassword = EncodePassword (password);
 
-		// Check if the account is already logged in
-		if (sa->IsLogged ())
-			throw std::exception ("A person is already using this account !");
+	// Check if this is the corresponding password
+	if (sa->GetPassword () != encodedPassword)
+		throw yap::Exception ("Wrong password !");
 
-		// Record the login IP
-		yap::String queryString = "UPDATE account SET account_current_ip = :currentIp WHERE account_name = :name";
-		pg_stream queryUpdateCurrentIp (queryString, databaseManager_.GetConnexion ());
-		queryUpdateCurrentIp << current_ip << name;
-		sa->SetCurrentIp (current_ip);
+	// Check if the account is already logged in
+	if (sa->IsLogged ())
+		throw yap::Exception ("A person is already using this account !");
 
-		std::cout << "This account is now in use for the server and the database !" << std::endl;
+	// Record the login IP
+	sa->SetCurrentIp (current_ip);
+	yap::String queryString = "UPDATE account SET account_current_ip = :currentIp WHERE account_name = :name";
+	pg_stream queryUpdateCurrentIp (queryString, databaseManager_.GetConnection ());
+	queryUpdateCurrentIp << current_ip << name;
+	std::cout << "This account is now in use for the server and the database !" << std::endl;
 
-		if (!sa->IsLogged ())
-			throw std::exception ("You just can't use this account !");
-	}
-	catch (std::exception e)
-	{
-		std::cerr << e.what () << std::endl;
-	}
-
-	try
-	{
-		/*
-		pg_trans tr (databaseManager_.GetConnexion ());
-
-		// Check if the username exists
-		yap::String queryString = "SELECT * FROM account WHERE account_name = :name";
-		pg_stream queryNameExists (queryString, databaseManager_.GetConnexion ());
-		queryNameExists << name;
-
-		if (queryNameExists.eof ())
-		{
-		std::cerr << "The username \"" << name << "\" doesn't exist !" << std::endl;
-		return yap::ID (yap::ID::ValueType (-1));
-		}
-
-		std::cout << "Display account informations:" << std::endl
-		<< "-----------------------" << std::endl;
-		yap::String s;
-		while (!queryNameExists.eof ())
-		{
-		queryNameExists >> s;
-		std::cout << s << std::endl;
-		}
-
-		std::cout << "-----------------------" << std::endl;
-
-		// Check if this is the corresponding password
-		queryString = "UPDATE account SET account_current_ip = :currentIp WHERE account_name = :name";
-		pg_stream queryUpdateCurrentIp (queryString, databaseManager_.GetConnexion ());
-		queryUpdateCurrentIp << current_ip << name;
-
-		// Check if the account is already logged in
-		// TODO
-
-		// Record the login IP
-		// TODO
-		/*
-		yap::String query_string = "SELECT account_id FROM account WHERE account_name = :name AND account_password = :pass";
-		pg_stream query (query_string, databaseManager_.GetConnexion ());
-		query << name << password;
-
-		std::cout << query.affected_rows () << std::endl;
-
-		int int_id = 0;
-		query >> int_id;
-		id.SetValue (int_id);
-
-		tr.commit ();
-
-		if (id.GetValue () != -1)
-		std::cout << "ID: " << id.GetValue () << std::endl;
-		else
-		std::cout << "This user doesn't exist !" << std::endl;
-		*/
-	}
-	catch (pg_excpt e)
-	{
-		std::cerr << e.errmsg ();
-	}
-
-	return id;
+	if (sa->IsLogged ())
+		std::cout << "This account is logged !" << std::endl;
 }
 
-void AccountManager::DisplayAllAccounts (yap::DatabaseManager& dm)
+void AccountManager::DisplayAllAccounts ()
 {
 	yap::String current_account;
 
 	try
 	{
-		pg_stream accounts ("SELECT account_name FROM account", dm.GetConnexion ());
+		pg_stream accounts ("SELECT account_name FROM account", databaseManager_.GetConnection ());
 
 		while (!accounts.eof ())
 		{
@@ -154,4 +85,27 @@ SelectAccount& AccountManager::GetAccount (const yap::String& name)
 		return *accounts_[name];
 	else
 		throw std::exception ("This account doesn't exist !");
+}
+
+yap::String AccountManager::EncodePassword (const yap::String& password)
+{
+	yap::String encodedPassword = password;
+	int counter = password.length ();
+
+	while (counter < 32)
+	{
+		encodedPassword += ' ';
+		counter++;
+	}
+
+	return encodedPassword;
+}
+
+void AccountManager::Disconnect (const yap::String& name)
+{
+	if (!accounts_.Contains (name))
+		throw yap::Exception ("This account doesn't log in !");
+
+	accounts_.Remove (name);
+	std::cout << name << " is now disconnected !" << std::endl;
 }

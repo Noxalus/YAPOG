@@ -136,6 +136,8 @@ ${inc_root}/System/IO/Log/CountLoggerMode.hpp
 ${src_root}/System/IO/Log/CountLoggerMode.cpp
 ${inc_root}/System/IO/Log/DebugLogger.hpp
 ${src_root}/System/IO/Log/DebugLogger.cpp
+${inc_root}/System/IO/Log/DatabaseLogger.hpp
+${src_root}/System/IO/Log/DatabaseLogger.cpp
 ${inc_root}/System/IO/Log/Logger.hpp
 ${inc_root}/System/IO/Log/Logger.hxx
 ${src_root}/System/IO/Log/Logger.cpp

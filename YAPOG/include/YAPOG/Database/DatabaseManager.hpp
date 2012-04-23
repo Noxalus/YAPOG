@@ -2,6 +2,9 @@
 # define YAPOG_DATABASEMANAGER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/String.hpp"
+# include "YAPOG/System/IO/Log/DatabaseLogger.hpp"
+# include "YAPOG/System/Error/Exception.hpp"
 # include "pgstream/pgstream.hpp"
 
 namespace yap
@@ -13,9 +16,12 @@ namespace yap
 		DatabaseManager ();
 		~DatabaseManager ();
 
-		pg_cnx& GetConnexion ();
+		pg_cnx& GetConnection ();
+		DatabaseLogger& GetDatabaseLogger ();
+		void SetLogStream (OStream& os);
 	private:
-		pg_cnx connexion_;
+		pg_cnx connection_;
+		DatabaseLogger* dl_;
 	};
 } // namespace yap
 

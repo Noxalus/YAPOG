@@ -20,12 +20,12 @@ bool InsertAccount::Add (yap::DatabaseManager& dM) const
 {
 	try
 	{
-		pg_trans tr (dM.GetConnexion ());
+		pg_trans tr (dM.GetConnection ());
 		yap::String query_string = "INSERT INTO account"
 			"(account_name, account_password, account_email, account_permissions, account_creation_date,  account_last_login_date, account_creation_ip) "
 			"VALUES (:name, :pass, :email, :perm, :creationDate, :lastLoginDate, :creationIp)";
 
-		pg_stream query (query_string, dM.GetConnexion ());
+		pg_stream query (query_string, dM.GetConnection ());
 		query << name_ << password_ << email_ << permissions_ << "NOW()" << "NOW()" << creationIp_;
 		tr.commit ();
 
