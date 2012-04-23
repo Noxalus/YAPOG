@@ -1,5 +1,5 @@
-#ifndef YAPOG_ACCOUNTTABLE_HPP
-# define YAPOG_ACCOUNTTABLE_HPP
+#ifndef YAPOG_INSERTACCOUNT_HPP
+# define YAPOG_INSERTACCOUNT_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "Database/IInsertTable.hpp"
@@ -24,7 +24,7 @@ public:
 
 	/// @name ISpatial members.
 	/// @{
-	virtual void Add (yap::DatabaseManager& dM) const;
+	virtual bool Add (yap::DatabaseManager& dM) const;
 	/// @}
 private:
 	yap::ID id_;
@@ -38,4 +38,4 @@ private:
 	yap::String currentIp_;
 };
 
-#endif // YAPOG_ITABLE_HPP
+#endif // YAPOG_INSERTACCOUNT_HPP

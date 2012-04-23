@@ -16,7 +16,7 @@ InsertAccount::~InsertAccount ()
 {
 }
 
-void InsertAccount::Add (yap::DatabaseManager& dM) const
+bool InsertAccount::Add (yap::DatabaseManager& dM) const
 {
 	try
 	{
@@ -27,11 +27,13 @@ void InsertAccount::Add (yap::DatabaseManager& dM) const
 
 		pg_stream query (query_string, dM.GetConnexion ());
 		query << name_ << password_ << email_ << permissions_ << "NOW()" << "NOW()" << creationIp_;
-
 		tr.commit ();
+
+		return true;
 	}
 	catch (pg_excpt e)
 	{
-		std::cerr << "This username already exists !" << std::endl;
+		std::cerr << e.errmsg () << std::endl;
+		return false;
 	}
 }

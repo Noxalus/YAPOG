@@ -22,6 +22,8 @@ ${src_root}/tmp/Server.cpp
 ${inc_root}/Database/IInsertTable.hpp
 ${inc_root}/Database/Tables/InsertAccount.hpp
 ${src_root}/Database/Tables/InsertAccount.cpp
+${inc_root}/Database/Tables/SelectAccount.hpp
+${src_root}/Database/Tables/SelectAccount.cpp
 ${inc_root}/Account/AccountManager.hpp
 ${src_root}/Account/AccountManager.cpp
 ${inc_root}/Account/AccountPermission.hpp

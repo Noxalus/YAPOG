@@ -10,41 +10,78 @@ int main ()
 	std::cout << "Server is starting..."
 		<< std::endl;
 
-	try
+	int selection = 0;
+	yap::String username;
+	yap::String password;
+	yap::String email;
+	yap::DatabaseManager dm;
+	AccountManager am (dm);
+	yap::String account;
+	bool isRunning = true;
+
+	//pg_stmt ("TRUNCATE account", dm.GetConnexion ());
+
+	while (isRunning)
 	{
-		yap::DatabaseManager dm;
-		AccountManager am (dm);
+		std::cout << "Please select an action:" << std::endl
+			<< "1. Login" << std::endl
+			<< "2. Create a new account" << std::endl
+			<< "3. See all accounts" << std::endl
+			<< "4. See logged accounts" << std::endl;
 
-		yap::String name = "COUCOU4";
-		yap::String password = "Password";
+		std::cin >> selection;
+		std::cout << std::endl;
 
-		pg_stream s ("TRUNCATE account", dm.GetConnexion ());
-
-		pg_trans tr (dm.GetConnexion ());
-		for(int i = 0; i < 100; i++)
+		switch (selection)
 		{
-			std::string test_string ("Name #");
+		case 1:
+			std::cout << "Login !" << std::endl;
+			std::cout << "Please enter a username: ";
+			std::cin >> username;
+			std::cout << "Password: ";
+			std::cin >> password;
 
-			if (true)
+			am.Login (username, password, "127.0.0.1");
+
+			std::cout << "Account information:" << std::endl;
+
+			try
 			{
-				std::ostringstream oss;
-				oss << i;
-				test_string += oss.str();
+				am.GetAccount (username).DisplayData ();
+			}
+			catch (std::exception e)
+			{
+				std::cerr << e.what () << std::endl;
 			}
 
-			am.CreateNewAccount (test_string, password, "Email", "2001:0db8:0000:85a3:0000:0000:ac1f:8001");
+			break;
+		case 2:
+			std::cout << "Create new account !" << std::endl;
+			std::cout << "Please enter a username: ";
+			std::cin >> username;
+			std::cout << "Password: ";
+			std::cin >> password;
+			std::cout << "Email address: ";
+			std::cin >> email;
+
+			am.CreateNewAccount (username, password, email, "127.0.0.1");
+
+			break;
+		case 3:
+			std::cout << "See all accounts !" << std::endl;
+			am.DisplayAllAccounts (dm);
+			break;
+		case 4:
+			std::cout << "See logged accounts !" << std::endl;
+			am.DisplayLoggedAccounts ();
+			break;
+		default:
+			std::cout << "Invalid selection !" << std::endl;
+			isRunning = false;
+			break;
 		}
 
-		am.Login ("Name #42", password, "2001:0db8:0000:85a3:0000:0000:ac1f:8001");
-		am.Login (name, password, "2001:0db8:0000:85a3:0000:0000:ac1f:8001");
-
-		tr.commit ();
-		getchar();
-	}
-	catch (std::exception e)
-	{
-		std::cerr << e.what ();
-		getchar();
+		std::cout << std::endl;
 	}
 
 	return 0;
