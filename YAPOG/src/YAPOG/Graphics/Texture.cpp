@@ -11,6 +11,16 @@ namespace yap
     , innerTexture_ (nullptr)
     , sprite_ ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
+    , id_ ()
+  {
+  }
+
+  Texture::Texture (const ID& id)
+    : spatialInfo_ ()
+    , innerTexture_ (nullptr)
+    , sprite_ ()
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
+    , id_ (id)
   {
   }
 
@@ -19,6 +29,7 @@ namespace yap
     , innerTexture_ (nullptr)
     , sprite_ ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
+    , id_ ()
   {
     LoadFromFile (name);
   }
@@ -28,9 +39,10 @@ namespace yap
     , innerTexture_ (nullptr)
     , sprite_ ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
+    , id_ ()
   {
     LoadFromFile (name);
-    SetTextureRect (rect);
+    SetRect (rect);
   }
 
   Texture::~Texture ()
@@ -45,11 +57,21 @@ namespace yap
     spatialInfo_.SetSize (Vector2FromVector2u (innerTexture_->getSize ()));
   }
 
-  void Texture::SetTextureRect (const sf::IntRect& rect)
+  void Texture::SetRect (const sf::IntRect& rect)
   {
     spatialInfo_.SetSize (Vector2 (rect.width, rect.height));
 
     sprite_.setTextureRect (rect);
+  }
+
+  const ID& Texture::GetID () const
+  {
+    return id_;
+  }
+
+  void Texture::SetID (const ID& id)
+  {
+    id_ = id;
   }
 
   const Vector2& Texture::GetPosition () const
@@ -133,5 +155,19 @@ namespace yap
   void Texture::ChangeColor (const sf::Color& color)
   {
     sprite_.setColor (color);
+  }
+
+  Texture* Texture::Clone () const
+  {
+    return new Texture (*this);
+  }
+
+  Texture::Texture (const Texture& copy)
+    : spatialInfo_ (copy.spatialInfo_)
+    , innerTexture_ (copy.innerTexture_)
+    , sprite_ (copy.sprite_)
+    , isVisible_ (copy.isVisible_)
+    , id_ (copy.id_)
+  {
   }
 } // namespace yap

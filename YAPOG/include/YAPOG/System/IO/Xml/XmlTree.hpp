@@ -37,6 +37,8 @@ namespace yap
 
       void ChangeRoot (const String& rootName);
 
+      bool NodeExists (const String& name) const;
+
       DataType* GetRootRawData () const;
 
     private:

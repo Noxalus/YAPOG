@@ -127,10 +127,14 @@ ${inc_root}/Graphics/ICamera.hpp
 ${inc_root}/Graphics/IDrawable.hpp
 ${inc_root}/Graphics/IDrawingContext.hpp
 ${inc_root}/Graphics/ISpatial.hpp
+${inc_root}/Graphics/RectReader.hpp
+${inc_root}/Graphics/RectReader.hxx
 ${inc_root}/Graphics/SpatialInfo.hpp
 ${src_root}/Graphics/SpatialInfo.cpp
 ${inc_root}/Graphics/Texture.hpp
 ${src_root}/Graphics/Texture.cpp
+${inc_root}/Graphics/TextureReader.hpp
+${src_root}/Graphics/TextureReader.cpp
 ${inc_root}/Graphics/Vector2.hpp
 ${src_root}/Graphics/Vector2.cpp
 
@@ -182,6 +186,7 @@ ${inc_root}/System/Path.hpp
 ${src_root}/System/Path.cpp
 ${inc_root}/System/StringHelper.hpp
 ${inc_root}/System/StringHelper.hxx
+${src_root}/System/StringHelper.cpp
 ${inc_root}/System/String.hpp
 ${inc_root}/System/Time/DateTimeHelper.hpp
 ${src_root}/System/Time/DateTimeHelper.cpp

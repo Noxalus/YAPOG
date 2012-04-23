@@ -26,6 +26,8 @@ namespace yap
         const String& name,
         XmlReaderCollection& xmlReaderCollection);
 
+      bool NodeExists (const String& name) const;
+
       /// @name IReader members.
       /// @{
       virtual void Accept (IReaderVisitor& visitor);

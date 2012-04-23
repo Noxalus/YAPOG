@@ -6,29 +6,38 @@
 # include <SFML/Graphics/Rect.hpp>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/ISpatial.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
   /// @brief Base graphical element.
   /// Overlay of SFML Sprite.
-  class YAPOG_LIB Texture : public IDrawable
+  class YAPOG_LIB Texture : public ISpatial
+                          , public IDrawable
+                          , public ILoadable
   {
-      DISALLOW_COPY(Texture);
+      DISALLOW_ASSIGN(Texture);
 
     public:
 
       Texture ();
+      explicit Texture (const ID& id);
       explicit Texture (const String& name);
       Texture (const String& name, const sf::IntRect& rect);
       virtual ~Texture ();
 
       void LoadFromFile (const String& name);
 
-      void SetTextureRect (const sf::IntRect& rect);
+      void SetRect (const sf::IntRect& rect);
+
+      const ID& GetID () const;
+      void SetID (const ID& id);
 
       /// @name ISpatial members.
       /// @{
@@ -58,6 +67,15 @@ namespace yap
       virtual void ChangeColor (const sf::Color& color);
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual Texture* Clone () const;
+      /// @}
+
+    protected:
+
+      Texture (const Texture& copy);
+
     private:
 
       static const bool DEFAULT_VISIBLE_STATE;
@@ -67,6 +85,8 @@ namespace yap
       sf::Sprite sprite_;
 
       bool isVisible_;
+
+      ID id_;
   };
 } // namespace yap
 

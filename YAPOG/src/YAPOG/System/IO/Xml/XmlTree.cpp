@@ -1,3 +1,5 @@
+#include <boost/optional.hpp>
+
 #include "YAPOG/System/IO/Xml/XmlTree.hpp"
 
 namespace yap
@@ -42,6 +44,14 @@ namespace yap
   void XmlTree::ChangeRoot (const String& rootName)
   {
     data_ = &rootData_.get_child (rootName);
+  }
+
+  bool XmlTree::NodeExists (const String& name) const
+  {
+    boost::optional<DataType&> targetNode =
+      data_->get_child_optional (name);
+
+    return targetNode;
   }
 
   XmlTree::DataType* XmlTree::GetRootRawData () const

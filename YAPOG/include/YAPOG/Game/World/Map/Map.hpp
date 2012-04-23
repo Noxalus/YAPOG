@@ -11,6 +11,8 @@ namespace yap
   /// @brief Base Map class for both client and server.
   class YAPOG_LIB Map : public ILoadable
   {
+      DISALLOW_ASSIGN(Map);
+
     public:
 
       Map (const ID& id);
@@ -24,13 +26,9 @@ namespace yap
 
     protected:
 
-      /// @brief Copy constructor for Clone member.
       Map (const Map& copy);
 
     private:
-
-      /// @brief Disabled.
-      Map& operator= (const Map& copy);
 
       static const String DEFAULT_NAME;
 

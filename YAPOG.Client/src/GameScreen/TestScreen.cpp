@@ -18,6 +18,7 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/String.hpp"
 #include "YAPOG/Game/Factory/XmlLoader.hpp"
+#include "YAPOG/Graphics/TextureReader.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -41,6 +42,8 @@ TestScreen::TestScreen ()
   // loadable types are registered
   of.RegisterLoader ("Map", new XmlLoader< ::Map, ::MapReader> (
                        Path ("Map"), "Map"));
+  of.RegisterLoader ("Texture", new XmlLoader<Texture, TextureReader> (
+                       Path ("Texture"), "Texture"));
 
   ::Map* map42 = of.Create< ::Map> ("Map", yap::ID (42));
   dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));
@@ -49,6 +52,11 @@ TestScreen::TestScreen ()
   ::Map* map1 = of.Create< ::Map> ("Map", yap::ID (1));
   dl.LogLine ("MAP_ID=" + StringHelper::ToString (map1->GetID ().GetValue ()));
   dl.LogLine ("MAP_NAME=" + map1->GetName ());
+
+  Texture* t1 = of.Create<Texture> ("Texture", yap::ID (1));
+  dl.LogLine ("TEXTURE_ID=" + StringHelper::ToString (t1->GetID ().GetValue ()));
+  dl.LogLine ("TEXTURE_WIDTH=" + StringHelper::ToString (t1->GetSize ().x));
+  dl.LogLine ("TEXTURE_HEIGHT=" + StringHelper::ToString (t1->GetSize ().y));
 
   gim.AddGameInput (
     new GameInput (

@@ -2,6 +2,7 @@
 #include "YAPOG/System/Error/InvalidMethodCallException.hpp"
 #include "YAPOG/System/IO/IWriterVisitor.hpp"
 #include "YAPOG/System/IO/IWriterConstVisitor.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -163,7 +164,11 @@ namespace yap
 
   void XmlWriter::Write (const String& name, const Vector2& value)
   {
-    /// @todo
-    Write (value);
+    String data =
+      StringHelper::ToString (value.x) +
+      "," +
+      StringHelper::ToString (value.y);
+
+    Write (name, data);
   }
 } // namespace yap

@@ -10,12 +10,17 @@ class Map : public yap::Map
     Map (const yap::ID& id);
     virtual ~Map ();
 
+    /// @name ICloneable members.
+    /// @{
     virtual Map* Clone () const;
+    /// @}
 
-  private:
+  protected:
 
     /// @brief Copy constructor for Clone member.
     Map (const Map& copy);
+
+  private:
 
     /// @brief Disabled.
     Map& operator= (const Map& copy);

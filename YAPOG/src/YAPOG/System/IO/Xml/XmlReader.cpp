@@ -3,6 +3,7 @@
 #include "YAPOG/System/IO/IReaderVisitor.hpp"
 #include "YAPOG/System/IO/IReaderConstVisitor.hpp"
 #include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -36,6 +37,11 @@ namespace yap
     }
 
     return xmlReaderCollection;
+  }
+
+  bool XmlReader::NodeExists (const String& name) const
+  {
+    return data_.NodeExists (name);
   }
 
   void XmlReader::Accept (IReaderVisitor& visitor)
@@ -175,8 +181,13 @@ namespace yap
 
   Vector2 XmlReader::ReadVector2 (const String& name)
   {
-    /// @todo
-    return ReadVector2 ();
+    String data = ReadString (name);
+    collection::Array<String> result;
+    StringHelper::Split (data, ",", result);
+
+    return Vector2 (
+      StringHelper::Parse<float> (result[0]),
+      StringHelper::Parse<float> (result[1]));
   }
 
   XmlReader::XmlReader (const XmlTree& data)

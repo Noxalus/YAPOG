@@ -3,6 +3,8 @@
 
 # include <sstream>
 
+# include <boost/lexical_cast.hpp>
+
 # include "YAPOG/Macros.hpp"
 
 namespace yap
@@ -15,6 +17,12 @@ namespace yap
     oss << value;
 
     return oss.str ();
+  }
+
+  template <typename T>
+  inline T StringHelper::Parse (const String& str)
+  {
+    return boost::lexical_cast <T> (str);
   }
 } // namespace yap
 
