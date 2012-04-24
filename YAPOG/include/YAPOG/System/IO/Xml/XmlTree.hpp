@@ -35,7 +35,10 @@ namespace yap
       /// @todo Enhance writing settings management.
       void Dump (OStream& oStream);
 
-      void ChangeRoot (const String& rootName);
+      void AbsoluteChangeRoot (const String& rootName);
+      void UpChangeRoot ();
+      void DownChangeRoot (const String& name);
+      bool TryChangeRoot (const String& name);
 
       bool NodeExists (const String& name) const;
 
@@ -45,8 +48,14 @@ namespace yap
 
     private:
 
+      void SetAbsoluteRootName (const String& rootName);
+      void UpdateRelativeRootName ();
+
       DataType rootData_;
       DataType* data_;
+
+      String currentAbsoluteRootName_;
+      String currentRelativeRootName_;
   };
 } // namespace yap
 

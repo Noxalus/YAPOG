@@ -24,6 +24,7 @@ namespace yap
     private:
 
       static const String DEFAULT_XML_ROOT_NODE_NAME;
+      static const String DEFAULT_XML_ID_NODE_NAME;
 
       Tile& tile_;
 

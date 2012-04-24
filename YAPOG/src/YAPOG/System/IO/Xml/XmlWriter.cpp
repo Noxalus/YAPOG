@@ -17,9 +17,24 @@ namespace yap
   {
   }
 
-  void XmlWriter::ChangeRoot (const String& rootName)
+  void XmlWriter::AbsoluteChangeRoot (const String& rootName)
   {
-    data_.ChangeRoot (rootName);
+    data_.AbsoluteChangeRoot (rootName);
+  }
+
+  void XmlWriter::UpChangeRoot ()
+  {
+    data_.UpChangeRoot ();
+  }
+
+  void XmlWriter::DownChangeRoot (const String& rootName)
+  {
+    data_.DownChangeRoot (rootName);
+  }
+
+  bool XmlWriter::TryChangeRoot (const String& rootName)
+  {
+    return data_.TryChangeRoot (rootName);
   }
 
   void XmlWriter::Dump ()

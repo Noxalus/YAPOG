@@ -3,6 +3,7 @@
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/Graphics/RectReader.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
 
 namespace yap
 {
@@ -33,7 +34,9 @@ namespace yap
   {
     // <Texture id="{id}>
 
-//    visitable.ChangeRoot (xmlRootNodeName_);
+    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
 
     texture_.SetID (
       visitable.ReadID (
@@ -44,7 +47,11 @@ namespace yap
     texture_.LoadFromFile (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
     if (!visitable.NodeExists (DEFAULT_XML_RECT_NODE_NAME))
+    {
+      visitable.UpChangeRoot ();
+
       return;
+    }
 
     // <rect>{rect}</rect>
 
@@ -52,6 +59,8 @@ namespace yap
     RectReader<int> rectReader (rect, DEFAULT_XML_RECT_NODE_NAME);
     visitable.Accept (rectReader);
     texture_.SetRect (rect);
+
+    visitable.UpChangeRoot ();
 
     // </Texture>
   }

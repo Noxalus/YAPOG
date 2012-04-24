@@ -20,7 +20,10 @@ namespace yap
       XmlReader (IStream& iStream, const String& rootName);
       virtual ~XmlReader ();
 
-      void ChangeRoot (const String& rootName);
+      void AbsoluteChangeRoot (const String& rootName);
+      void UpChangeRoot ();
+      void DownChangeRoot (const String& name);
+      bool TryChangeRoot (const String& name);
 
       XmlReaderCollection& ReadNodes (
         const String& name,

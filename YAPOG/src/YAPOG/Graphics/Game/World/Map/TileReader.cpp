@@ -3,10 +3,12 @@
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+#include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 
 namespace yap
 {
   const String TileReader::DEFAULT_XML_ROOT_NODE_NAME = "Tile";
+  const String TileReader::DEFAULT_XML_ID_NODE_NAME = "id";
 
   TileReader::TileReader (Tile& tile)
     : tile_ (tile)
@@ -28,7 +30,13 @@ namespace yap
   {
     // <Tile>
 
-//    visitable.ChangeRoot (xmlRootNodeName_);
+    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+
+    tile_.SetID (
+      visitable.ReadID (
+        XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
     // <{SpriteType}>
 
@@ -40,6 +48,8 @@ namespace yap
         spriteType));
 
     // </{SpriteType}>
+
+    visitable.UpChangeRoot ();
 
     // </Tile>
   }

@@ -2,6 +2,7 @@
 #include "YAPOG/Game/World/Map/Map.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
 
 namespace yap
 {
@@ -27,11 +28,24 @@ namespace yap
 
   void MapReader::Visit (XmlReader& visitable)
   {
-//    visitable.ChangeRoot (xmlRootNodeName_);
+    // <Map id="{id}">
+
+    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
 
     map_.SetID (
       visitable.ReadID (
         XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
+
+    // <name>
+
     map_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
+
+    // </name>
+
+    visitable.UpChangeRoot ();
+
+    // </Map>
   }
 } // namespace yap

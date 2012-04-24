@@ -4,11 +4,14 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yap
 {
   XmlTree::XmlTree ()
     : rootData_ ()
     , data_ (nullptr)
+    , currentAbsoluteRootName_ ()
+    , currentRelativeRootName_ ()
   {
   }
 
@@ -23,7 +26,7 @@ namespace yap
   {
     read_xml (iStream, rootData_);
 
-    ChangeRoot (rootName);
+    AbsoluteChangeRoot (rootName);
   }
 
   void XmlTree::CreateFromXmlTree (const XmlTree& copy)
@@ -43,9 +46,42 @@ namespace yap
     write_xml (oStream, rootData_, w);
   }
 
-  void XmlTree::ChangeRoot (const String& rootName)
+  void XmlTree::AbsoluteChangeRoot (const String& rootName)
   {
+    SetAbsoluteRootName (rootName);
+
     data_ = &rootData_.get_child (rootName);
+  }
+
+  void XmlTree::UpChangeRoot ()
+  {
+    AbsoluteChangeRoot (
+      currentAbsoluteRootName_.substr (
+        0,
+        currentAbsoluteRootName_.find_last_of ('.')));
+  }
+
+  void XmlTree::DownChangeRoot (const String& rootName)
+  {
+    SetAbsoluteRootName (
+      currentAbsoluteRootName_ +
+      (currentAbsoluteRootName_.empty () ? "" : ".") +
+      rootName);
+
+    data_ = &data_->get_child (rootName);
+  }
+
+  bool XmlTree::TryChangeRoot (const String& rootName)
+  {
+    if (currentRelativeRootName_ == rootName)
+      return true;
+
+    if (!NodeExists (rootName))
+      return false;
+
+    DownChangeRoot (rootName);
+
+    return true;
   }
 
   bool XmlTree::NodeExists (const String& name) const
@@ -70,5 +106,25 @@ namespace yap
   XmlTree::DataType* XmlTree::GetRootRawData () const
   {
     return data_;
+  }
+
+  void XmlTree::SetAbsoluteRootName (const String& rootName)
+  {
+    currentAbsoluteRootName_ = rootName;
+
+    UpdateRelativeRootName ();
+  }
+
+  void XmlTree::UpdateRelativeRootName ()
+  {
+    size_t lastPointIndex = currentAbsoluteRootName_.find_last_of ('.');
+    if (lastPointIndex == String::npos)
+    {
+      currentRelativeRootName_ = currentAbsoluteRootName_;
+      return;
+    }
+
+    currentRelativeRootName_ = currentAbsoluteRootName_.substr (
+      lastPointIndex + 1);
   }
 } // namespace yap

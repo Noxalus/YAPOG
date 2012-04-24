@@ -17,9 +17,24 @@ namespace yap
   {
   }
 
-  void XmlReader::ChangeRoot (const String& rootName)
+  void XmlReader::AbsoluteChangeRoot (const String& rootName)
   {
-    data_.ChangeRoot (rootName);
+    data_.AbsoluteChangeRoot (rootName);
+  }
+
+  void XmlReader::UpChangeRoot ()
+  {
+    data_.UpChangeRoot ();
+  }
+
+  void XmlReader::DownChangeRoot (const String& rootName)
+  {
+    data_.DownChangeRoot (rootName);
+  }
+
+  bool XmlReader::TryChangeRoot (const String& rootName)
+  {
+    return data_.TryChangeRoot (rootName);
   }
 
   XmlReaderCollection& XmlReader::ReadNodes (

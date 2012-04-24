@@ -30,17 +30,21 @@ namespace yap
   {
     // <Sprite>
 
-//    visitable.ChangeRoot (xmlRootNodeName_);
+    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
 
     // <Texture id="{id}"/>
 
-    visitable.ChangeRoot (DEFAULT_XML_TEXTURE_NODE_NAME);
+    visitable.DownChangeRoot (DEFAULT_XML_TEXTURE_NODE_NAME);
 
     sprite_.SetTexture (
       ObjectFactory::Instance ().Create<Texture> (
         "Texture",
         visitable.ReadID (
           XmlHelper::GetAttrNodeName (DEFAULT_XML_TEXTURE_ID_NODE_NAME))));
+
+    visitable.UpChangeRoot ();
 
     // </Sprite>
   }

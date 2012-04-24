@@ -68,6 +68,7 @@ TestScreen::TestScreen ()
   dl.LogLine ("TEXTURE_HEIGHT=" + StringHelper::ToString (t1->GetSize ().y));
 
   Tile* ti1 = of.Create<Tile> ("Tile", yap::ID (1));
+  dl.LogLine ("TILE_ID=" + StringHelper::ToString (ti1->GetID ().GetValue ()));
 
   gim.AddGameInput (
     new GameInput (
