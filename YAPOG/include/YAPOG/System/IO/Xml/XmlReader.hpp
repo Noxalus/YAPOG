@@ -28,6 +28,8 @@ namespace yap
 
       bool NodeExists (const String& name) const;
 
+      const String& GetNode (int index) const;
+
       /// @name IReader members.
       /// @{
       virtual void Accept (IReaderVisitor& visitor);
@@ -70,8 +72,10 @@ namespace yap
       virtual double ReadDouble (const String& name);
 
       virtual Vector2 ReadVector2 ();
-      /// @todo Determine representation of Vector2 in XML.
       virtual Vector2 ReadVector2 (const String& name);
+
+      virtual ID ReadID ();
+      virtual ID ReadID (const String& name);
       /// @}
 
     private:

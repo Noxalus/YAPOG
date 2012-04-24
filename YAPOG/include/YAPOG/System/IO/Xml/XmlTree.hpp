@@ -39,6 +39,8 @@ namespace yap
 
       bool NodeExists (const String& name) const;
 
+      const String& GetNode (int index) const;
+
       DataType* GetRootRawData () const;
 
     private:

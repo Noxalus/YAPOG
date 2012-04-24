@@ -1,10 +1,10 @@
-#ifndef YAPOG_XMLLOADER_HXX
-# define YAPOG_XMLLOADER_HXX
+#ifndef YAPOG_XMLOBJECTIDLOADER_HXX
+# define YAPOG_XMLOBJECTIDLOADER_HXX
 
 namespace yap
 {
   template <typename T, typename TXmlReader>
-  inline XmlLoader<T, TXmlReader>::XmlLoader (
+  inline XmlObjectIDLoader<T, TXmlReader>::XmlObjectIDLoader (
     const Path& rootPath,
     const String& rootNodeName)
     : rootPath_ (rootPath)
@@ -16,14 +16,14 @@ namespace yap
   }
 
   template <typename T, typename TXmlReader>
-  inline XmlLoader<T, TXmlReader>::~XmlLoader ()
+  inline XmlObjectIDLoader<T, TXmlReader>::~XmlObjectIDLoader ()
   {
     for (const auto& it : objects_)
       delete it.second;
   }
 
   template <typename T, typename TXmlReader>
-  inline T* XmlLoader<T, TXmlReader>::Load (const ID& id)
+  inline T* XmlObjectIDLoader<T, TXmlReader>::Load (const ID& id)
   {
     if (objects_.Contains (id))
       return objects_[id];
@@ -42,7 +42,7 @@ namespace yap
   }
 
   template <typename T, typename TXmlReader>
-  inline T& XmlLoader<T, TXmlReader>::GetObject (const ID& id)
+  inline T& XmlObjectIDLoader<T, TXmlReader>::GetObject (const ID& id)
   {
     if (currentID_ != id)
     {
@@ -54,4 +54,4 @@ namespace yap
   }
 } // namespace yap
 
-#endif // YAPOG_XMLLOADER_HXX
+#endif // YAPOG_XMLOBJECTIDLOADER_HXX

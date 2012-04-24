@@ -7,7 +7,9 @@
 
 namespace yap
 {
-  struct ILoader;
+  struct IObjectIDLoader;
+  struct IObjectLoader;
+  struct IReader;
 
   class ID;
 
@@ -22,14 +24,30 @@ namespace yap
       template <typename T>
       T* Create (const String& typeName, const ID& id);
 
-      void RegisterLoader (const String& typeName, ILoader* loader);
+      /// @brief Creates an object from a partial input file.
+      /// Does not stores it.
+      /// @param typeName Name of the registered type to load.
+      /// @param reader XmlReader from which to load the entity.
+      /// @param rootNodeName Name of the root node which contains
+      /// the definition of the entity to create in the file.
+      /// @return The entity with the type @a typeName created from the
+      /// node @a rootNodeName in the file @a file.
+      template <typename T>
+      T* Create (
+        const String& typeName,
+        IReader& reader,
+        const String& rootNodeName);
+
+      void RegisterLoader (const String& typeName, IObjectIDLoader* loader);
+      void RegisterLoader (const String& typeName, IObjectLoader* loader);
 
     private:
 
       ObjectFactory ();
       ~ObjectFactory ();
 
-      collection::Map<String, ILoader*> loaders_;
+      collection::Map<String, IObjectIDLoader*> objectIDLoaders_;
+      collection::Map<String, IObjectLoader*> objectLoaders_;
   };
 } // namespace yap
 

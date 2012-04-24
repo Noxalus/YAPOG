@@ -1,0 +1,6 @@
+<Tile id="2">
+  <AnimatedSprite>
+    <Texture id="1"/>
+    <Texture id="42"/>
+  </AnimatedSprite>
+</Tile>

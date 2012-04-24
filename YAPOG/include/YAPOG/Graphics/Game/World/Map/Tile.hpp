@@ -8,6 +8,7 @@
 # include "YAPOG/Graphics/ISpatial.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 
@@ -17,11 +18,12 @@ namespace yap
 
   class TileFamily;
 
-  class Tile : public ISpatial,
-               public IDrawable,
-               public IUpdateable
+  class Tile : public ISpatial
+             , public IDrawable
+             , public IUpdateable
+             , public ILoadable
   {
-      DISALLOW_COPY(Tile);
+      DISALLOW_ASSIGN(Tile);
 
     public:
 
@@ -29,6 +31,14 @@ namespace yap
 
       Tile (const ID& id);
       virtual ~Tile ();
+
+      const ID& GetID () const;
+      void SetID (const ID& id);
+
+      void SetSprite (ISprite* sprite);
+
+      void SetFamily (const TileFamily* family);
+      bool BelongsTo (const TileFamily& family) const;
 
       /// @name ISpatial members.
       /// @{
@@ -63,6 +73,15 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual Tile* Clone () const;
+      /// @}
+
+    protected:
+
+      Tile (const Tile& copy);
+
     private:
 
       static const bool DEFAULT_VISIBLE_STATE;
@@ -71,7 +90,7 @@ namespace yap
       ID id_;
 
       ISprite* sprite_;
-      TileFamily* family_;
+      const TileFamily* family_;
 
       SpatialInfo spatialInfo_;
       bool isVisible_;

@@ -24,6 +24,8 @@ namespace yap
     private:
 
       static const String DEFAULT_XML_ROOT_NODE_NAME;
+      static const String DEFAULT_XML_TEXTURE_NODE_NAME;
+      static const String DEFAULT_XML_TEXTURE_ID_NODE_NAME;
 
       Sprite& sprite_;
 

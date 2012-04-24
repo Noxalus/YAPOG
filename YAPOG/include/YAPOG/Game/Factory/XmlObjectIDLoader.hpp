@@ -1,8 +1,8 @@
-#ifndef YAPOG_XMLLOADER_HPP
-# define YAPOG_XMLLOADER_HPP
+#ifndef YAPOG_XMLOBJECTIDLOADER_HPP
+# define YAPOG_XMLOBJECTIDLOADER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/Factory/IGenLoader.hpp"
+# include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
@@ -11,19 +11,17 @@
 namespace yap
 {
   template <typename T, typename TXmlReader>
-  class XmlLoader : public IGenLoader<T>
+  class XmlObjectIDLoader : public IObjectIDLoader
   {
-      DISALLOW_COPY(XmlLoader);
+      DISALLOW_COPY(XmlObjectIDLoader);
 
     public:
 
       typedef T LoadedType;
       typedef TXmlReader XmlReaderType;
 
-      XmlLoader (
-        const Path& rootPath,
-        const String& rootNodeName);
-      virtual ~XmlLoader ();
+      XmlObjectIDLoader (const Path& rootPath, const String& rootNodeName);
+      virtual ~XmlObjectIDLoader ();
 
       virtual T* Load (const ID& id);
 
@@ -40,6 +38,6 @@ namespace yap
   };
 } // namespace yap
 
-# include "YAPOG/Game/Factory/XmlLoader.hxx"
+# include "YAPOG/Game/Factory/XmlObjectIDLoader.hxx"
 
-#endif // YAPOG_XMLLOADER_HPP
+#endif // YAPOG_XMLOBJECTIDLOADER_HPP

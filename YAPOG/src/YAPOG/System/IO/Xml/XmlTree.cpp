@@ -1,6 +1,8 @@
 #include <boost/optional.hpp>
 
 #include "YAPOG/System/IO/Xml/XmlTree.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -52,6 +54,17 @@ namespace yap
       data_->get_child_optional (name);
 
     return targetNode;
+  }
+
+  const String& XmlTree::GetNode (int index) const
+  {
+    for (const DataType::value_type& node : *data_)
+    {
+      if (index-- == 0)
+        return node.first;
+    }
+
+    throw Exception ("Index out of bound: " + StringHelper::ToString (index));
   }
 
   XmlTree::DataType* XmlTree::GetRootRawData () const

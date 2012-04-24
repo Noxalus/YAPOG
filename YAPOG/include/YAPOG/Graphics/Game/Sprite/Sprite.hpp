@@ -10,7 +10,7 @@ namespace yap
   /// @brief A simple static ISprite that holds a Texture.
   class YAPOG_LIB Sprite : public BaseSprite
   {
-      DISALLOW_COPY(Sprite);
+      DISALLOW_ASSIGN(Sprite);
 
     public:
 
@@ -21,6 +21,15 @@ namespace yap
       virtual ~Sprite ();
 
       void SetTexture (Texture* texture);
+
+      /// @name ICloneable members.
+      /// @{
+      virtual Sprite* Clone () const;
+      /// @}
+
+    protected:
+
+      Sprite (const Sprite& copy);
 
     private:
 

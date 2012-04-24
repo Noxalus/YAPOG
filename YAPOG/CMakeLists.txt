@@ -30,20 +30,18 @@ ${inc_root}/Content/ContentManager.hpp
 ${src_root}/Content/ContentManager.cpp
 
 ${inc_root}/Game/Factory/ICloneable.hpp
-${inc_root}/Game/Factory/IGenLoader.hpp
 ${inc_root}/Game/Factory/ILoadable.hpp
-${inc_root}/Game/Factory/ILoader.hpp
+${inc_root}/Game/Factory/IObjectIDLoader.hpp
+${inc_root}/Game/Factory/IObjectLoader.hpp
 ${inc_root}/Game/Factory/ObjectFactory.hpp
 ${inc_root}/Game/Factory/ObjectFactory.hxx
 ${src_root}/Game/Factory/ObjectFactory.cpp
-${inc_root}/Game/Factory/XmlLoader.hpp
-${inc_root}/Game/Factory/XmlLoader.hxx
+${inc_root}/Game/Factory/XmlObjectIDLoader.hpp
+${inc_root}/Game/Factory/XmlObjectIDLoader.hxx
+${inc_root}/Game/Factory/XmlObjectLoader.hpp
+${inc_root}/Game/Factory/XmlObjectLoader.hxx
 ${inc_root}/Game/ID.hpp
 ${src_root}/Game/ID.cpp
-${inc_root}/Game/IDReader.hpp
-${src_root}/Game/IDReader.cpp
-${inc_root}/Game/IDWriter.hpp
-${src_root}/Game/IDWriter.cpp
 ${inc_root}/Game/IUpdateable.hpp
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/Map.hpp
@@ -86,6 +84,8 @@ ${inc_root}/Graphics/Game/Sprite/RegularAnimatedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/RegularAnimatedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/Sprite.hpp
 ${src_root}/Graphics/Game/Sprite/Sprite.cpp
+${inc_root}/Graphics/Game/Sprite/SpriteReader.hpp
+${src_root}/Graphics/Game/Sprite/SpriteReader.cpp
 ${inc_root}/Graphics/Game/Sprite/SpriteSet.hpp
 ${inc_root}/Graphics/Game/Sprite/SpriteSet.hxx
 ${inc_root}/Graphics/Game/Sprite/SquareComposedSprite.hpp
@@ -102,6 +102,8 @@ ${inc_root}/Graphics/Game/World/Map/TileLayer.hpp
 ${src_root}/Graphics/Game/World/Map/TileLayer.cpp
 ${inc_root}/Graphics/Game/World/Map/TileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/TileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/TileReader.hpp
+${src_root}/Graphics/Game/World/Map/TileReader.cpp
 ${inc_root}/Graphics/Gui/BaseWidget.hpp
 ${src_root}/Graphics/Gui/BaseWidget.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp

@@ -171,4 +171,14 @@ namespace yap
 
     Write (name, data);
   }
+
+  void XmlWriter::Write (const ID& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const ID&)");
+  }
+
+  void XmlWriter::Write (const String& name, const ID& value)
+  {
+    Write (name, value.GetValue ());
+  }
 } // namespace yap

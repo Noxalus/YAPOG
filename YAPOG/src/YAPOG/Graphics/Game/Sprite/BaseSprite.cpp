@@ -110,6 +110,13 @@ namespace yap
     HandleUpdate (dt);
   }
 
+  BaseSprite::BaseSprite (const BaseSprite& copy)
+    : spatialInfo_ (copy.spatialInfo_)
+    , isVisible_ (copy.isVisible_)
+    , color_ (copy.color_)
+  {
+  }
+
   Vector2 BaseSprite::HandleGetSize () const
   {
     return spatialInfo_.GetSize ();

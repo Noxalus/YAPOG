@@ -5,6 +5,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
@@ -56,6 +57,9 @@ namespace yap
 
       virtual void Write (const Vector2& value) = 0;
       virtual void Write (const String& name, const Vector2& value) = 0;
+
+      virtual void Write (const ID& value) = 0;
+      virtual void Write (const String& name, const ID& value) = 0;
   };
 } // namespace yap
 

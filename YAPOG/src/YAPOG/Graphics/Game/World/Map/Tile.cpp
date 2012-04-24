@@ -23,6 +23,31 @@ namespace yap
     sprite_ = nullptr;
   }
 
+  const ID& Tile::GetID () const
+  {
+    return id_;
+  }
+
+  void Tile::SetID (const ID& id)
+  {
+    id_ = id;
+  }
+
+  void Tile::SetSprite (ISprite* sprite)
+  {
+    sprite_ = sprite;
+  }
+
+  void Tile::SetFamily (const TileFamily* family)
+  {
+    family_ = family;
+  }
+
+  bool Tile::BelongsTo (const TileFamily& family) const
+  {
+    return family_ == &family;
+  }
+
   const Vector2& Tile::GetPosition () const
   {
     return spatialInfo_.GetPosition ();
@@ -109,5 +134,20 @@ namespace yap
   void Tile::Update (const Time& dt)
   {
     sprite_->Update (dt);
+  }
+
+  Tile* Tile::Clone () const
+  {
+    return new Tile (*this);
+  }
+
+  Tile::Tile (const Tile& copy)
+    : id_ (copy.id_)
+    , sprite_ (copy.sprite_->Clone ())
+    , family_ (copy.family_)
+    , spatialInfo_ (copy.spatialInfo_)
+    , isVisible_ (copy.isVisible_)
+    , color_ (copy.color_)
+  {
   }
 } // namespace yap

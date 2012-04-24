@@ -3,13 +3,14 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 
 namespace yap
 {
   class YAPOG_LIB BaseSprite : public ISprite
   {
-      DISALLOW_COPY(BaseSprite);
+      DISALLOW_ASSIGN(BaseSprite);
 
     public:
 
@@ -48,6 +49,10 @@ namespace yap
       /// @{
       virtual void Update (const Time& dt);
       /// @}
+
+    protected:
+
+      BaseSprite (const BaseSprite& copy);
 
     private:
 

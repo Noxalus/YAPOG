@@ -6,6 +6,6 @@ using namespace std;
 using namespace sf;
 int main ()
 {
-  RegularAnimatedSprite anim1 (10);
-  getchar;
+//  RegularAnimatedSprite anim1 (10);
+//  getchar;
 }

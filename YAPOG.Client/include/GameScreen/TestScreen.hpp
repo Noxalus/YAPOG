@@ -33,7 +33,7 @@ class TestScreen : public yap::GameScreen
     yap::collection::List<yap::Texture*> backTextures_;
 
     yap::Sprite spr1_;
-    yap::RegularAnimatedSprite anim1_;
+//    yap::RegularAnimatedSprite anim1_;
 };
 
 #endif // YAPOG_TESTSCREEN_HPP

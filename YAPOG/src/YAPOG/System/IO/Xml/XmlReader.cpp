@@ -44,6 +44,11 @@ namespace yap
     return data_.NodeExists (name);
   }
 
+  const String& XmlReader::GetNode (int index) const
+  {
+    return data_.GetNode (index);
+  }
+
   void XmlReader::Accept (IReaderVisitor& visitor)
   {
     visitor.Visit (*this);
@@ -188,6 +193,16 @@ namespace yap
     return Vector2 (
       StringHelper::Parse<float> (result[0]),
       StringHelper::Parse<float> (result[1]));
+  }
+
+  ID XmlReader::ReadID ()
+  {
+    throw InvalidMethodCallException ("XmlReader::ReadID ()");
+  }
+
+  ID XmlReader::ReadID (const String& name)
+  {
+    return ID (ReadUInt64 (name));
   }
 
   XmlReader::XmlReader (const XmlTree& data)

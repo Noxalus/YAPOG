@@ -37,6 +37,17 @@ namespace yap
     texture_ = texture;
   }
 
+  Sprite* Sprite::Clone () const
+  {
+    return new Sprite (*this);
+  }
+
+  Sprite::Sprite (const Sprite& copy)
+    : BaseSprite (copy)
+    , texture_ (copy.texture_->Clone ())
+  {
+  }
+
   void Sprite::HandleMove (const Vector2& offset)
   {
     texture_->Move (offset);
