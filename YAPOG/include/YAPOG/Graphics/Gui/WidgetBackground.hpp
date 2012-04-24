@@ -1,7 +1,9 @@
 #ifndef YAPOG_WIDGET_BACKGROUND_HPP
 # define YAPOG_WIDGET_BACKGROUND_HPP
 
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Graphics/Texture.hpp"
 
 namespace yap
 {
@@ -10,8 +12,22 @@ namespace yap
     DISALLOW_COPY(WidgetBackground);
 
   public:
+
+    struct EventArgsTexture
+    {
+      Texture& newContent;
+      EventArgsTexture (Texture& content)
+        : newContent (content)
+      {
+      }
+    };
+
     WidgetBackground ();
     virtual ~WidgetBackground ();
+
+    void SetBackground (String file);
+    const Texture& GetBackground () const;
+    Event<const WidgetBackground&, const EventArgsTexture&> OnBackgroundSet;
 
   private:
     virtual void HandleMove (const Vector2& offset);
@@ -22,11 +38,9 @@ namespace yap
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
 
-    virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-
     virtual void HandleUpdate (const Time& dt);
-  private:
+
+    Texture background_;
 
   };
 } // namespace yap

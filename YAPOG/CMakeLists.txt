@@ -92,6 +92,7 @@ ${inc_root}/Graphics/Gui/PictureBox.hpp
 ${src_root}/Graphics/Gui/PictureBox.cpp
 ${inc_root}/Graphics/Gui/Menu.hpp
 ${inc_root}/Graphics/Gui/WidgetBackground.hpp
+${src_root}/Graphics/Gui/WidgetBackground.cpp
 ${inc_root}/Graphics/Gui/WidgetBorder.hpp
 ${inc_root}/Graphics/Gui/Padding.hpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp

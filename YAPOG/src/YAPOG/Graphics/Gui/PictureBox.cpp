@@ -23,7 +23,7 @@ namespace yap
 
   void PictureBox::HandleMove (const Vector2& offset)
   {
-    picture_.SetPosition (offset);
+    picture_.SetPosition (GetPosition() + offset);
   }
 
   void PictureBox::HandleScale (const Vector2& factor)

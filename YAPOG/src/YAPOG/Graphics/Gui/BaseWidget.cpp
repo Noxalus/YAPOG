@@ -91,8 +91,10 @@ namespace yap
       child->SetPosition (position);
     }
 
+    spatialInfo_.SetPosition (position);
     OnPositionSet (*this, EventArgs (position));
-    Move (position - GetPosition ());
+
+    //Move (position - GetPosition ());
   }
 
   void BaseWidget::SetSize (const Vector2& size)

@@ -34,7 +34,7 @@ TestScreen::TestScreen ()
   , textures_ ()
   , backTextures_ ()
   , anim1_ (100)
-  , mover_ (0, 0)
+  , mover_ (1, 1)
 {
   gim.AddGameInput (
     new GameInput (
@@ -137,9 +137,6 @@ const yap::ScreenType& TestScreen::HandleRun (
   //anim1_.Draw (context);
   //  dss1.Draw (context);
   //  spr1_.Draw (context);
-
-  mover_.x += 0.1f;
-  mover_.y += 0.1f;
 
   guiManager_->Move (mover_);
   guiManager_->Update (dt);

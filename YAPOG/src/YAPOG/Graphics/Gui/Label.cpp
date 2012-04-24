@@ -26,7 +26,7 @@ namespace yap
 
   void Label::HandleMove (const Vector2& offset)
   {
-    drawableText_.setPosition (offset);
+    drawableText_.setPosition (GetPosition() + offset);
   }
 
   void Label::HandleScale (const Vector2& factor)

@@ -1,6 +1,7 @@
 #ifndef YAPOG_LAYOUT_BOX_HPP
 # define YAPOG_LAYOUT_BOX_HPP
 
+# include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 
 namespace yap
@@ -26,7 +27,6 @@ namespace yap
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 
     virtual void HandleUpdate (const Time& dt);
-  private:
 
   };
 } // namespace yap
