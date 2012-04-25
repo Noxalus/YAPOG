@@ -695,7 +695,7 @@ pg_stream::execute()
     Oid* param_types = (Oid*)alloca(sz*sizeof(Oid));
     const char** param_values = (const char**)alloca(sz*sizeof(const char*));
     int* param_lengths = (int*)alloca(sz*sizeof(int));
-    int* param_formats = (int*)alloca(sz*sizeof(param_formats));
+    int* param_formats = (int*)alloca(sz*sizeof(int));
     std::vector<sql_bind_param>::iterator it = m_vars.begin();
     unsigned int i=0;
     for (;it != m_vars.end(); ++it, ++i) {

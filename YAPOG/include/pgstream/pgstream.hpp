@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include "YAPOG/Macros.hpp"
+
 class sql_null
 {
  public:
@@ -22,7 +24,7 @@ class sql_null
 };
 
 /// sql exception class
-class pg_excpt
+class YAPOG_LIB pg_excpt
 {
 public:
   pg_excpt() {}
@@ -48,7 +50,7 @@ private:
 };
 
 
-class pg_cnx
+class YAPOG_LIB pg_cnx
 {
   friend class pg_stream;
   friend class pg_trans;
@@ -85,7 +87,7 @@ protected:
   bool m_nested_trans;
 };
 
-class pg_stmt
+class YAPOG_LIB pg_stmt
 {
 public:
   pg_stmt(const char* stmt, pg_cnx& db);
@@ -96,7 +98,7 @@ private:
   void execute(const char* stmt, pg_cnx& db);
 };
 
-class pg_trans
+class YAPOG_LIB pg_trans
 {
 public:
   pg_trans(pg_cnx& cnx);
@@ -112,7 +114,7 @@ private:
 };
 
 /// sql_bind_param class. To be used for pg_stream internal purposes
-class sql_bind_param
+class YAPOG_LIB sql_bind_param
 {
 public:
   sql_bind_param() {}
@@ -169,7 +171,7 @@ private:
   static int m_oids[];
 };
 
-class pg_bytea
+class YAPOG_LIB pg_bytea
 {
   friend class pg_stream;
 public:
@@ -199,7 +201,7 @@ protected:
    pg_stream class. Allows the parametrized execution of a query
    and retrieval of results in a stream
 */
-class pg_stream
+class YAPOG_LIB pg_stream
 {
 public:
   /// constructor
@@ -312,7 +314,7 @@ private:
   static int m_uniq_cnt;
 };
 
-class pg_cursor : public pg_stream
+class YAPOG_LIB pg_cursor : public pg_stream
 {
 public:
   pg_cursor(unsigned int step, const char* query, pg_cnx& cnx);
