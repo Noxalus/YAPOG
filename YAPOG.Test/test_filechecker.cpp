@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem.hpp>
-#include <SFML/Network.hpp>
 #include "YAPOG/System/Hash/FileChecker.hpp"
 
 int main()
