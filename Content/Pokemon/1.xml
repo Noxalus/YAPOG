@@ -1,0 +1,27 @@
+<Pokemon>
+	<Id>1</Id>
+	<Graphics>
+		<Icon>001.png</Icon>
+		<Front>001.png</Front>
+		<Back>001.png</Back>
+		<ShinyFront>001.png</ShinyFront>
+		<ShinyBack>001.png</ShinyBack>
+	</Graphics>
+	<Name>BULBIZARRE</Name>
+	<Description>"BULBIZARRE passe son temps à faire la sieste sous le soleil. Il absorbe les rayons de soleil pour faire doucement pousser la graine qu'il a sur son dos."</Description>
+	<Species>GRAINE</Species>
+	<Height>0.7</Height>
+	<Weight>6.9</Weight>
+	<BaseStats>
+		<Hp>45<Hp>
+		<Attack>49</Attack>
+		<Defense>49</Defense>
+		<Speed>45</Speed>
+		<SpecialAttack>65</SpecialAttack>
+		<SpecialDefense>65</SpecialDefense>
+	</BaseStats>
+	<Experience>64</Experience>
+	<Rarity>45</Rarity>
+	<Type1>5</Type1>
+	<Type2>8</Type2>
+</Pokemon>
