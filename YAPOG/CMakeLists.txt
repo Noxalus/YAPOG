@@ -88,6 +88,9 @@ ${src_root}/Graphics/Gui/BaseWidget.cpp
 ${inc_root}/Graphics/Gui/Label.hpp
 ${src_root}/Graphics/Gui/Label.cpp
 ${inc_root}/Graphics/Gui/LayoutBox.hpp
+${src_root}/Graphics/Gui/LayoutBox.cpp
+${inc_root}/Graphics/Gui/LayoutH.hpp
+${src_root}/Graphics/Gui/LayoutH.cpp
 ${inc_root}/Graphics/Gui/PictureBox.hpp
 ${src_root}/Graphics/Gui/PictureBox.cpp
 ${inc_root}/Graphics/Gui/Menu.hpp

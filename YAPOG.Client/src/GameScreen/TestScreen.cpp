@@ -18,6 +18,8 @@
 
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/Graphics/Gui/LayoutH.hpp"
+#include "YAPOG/Graphics/Gui/Padding.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -150,18 +152,34 @@ void TestScreen::HandleInit ()
 {
   guiManager_ = new yap::GuiManager ();
 
+  yap::LayoutH* layout = new LayoutH (Padding (2, 2, 2, 2),
+    Padding (1, 1 ,1 ,1));
+
+  layout->SetSize (Vector2 (1024, 512));
+
   yap::Label* label = new yap::Label ();
-  label->SetText (String("ALL YOUR DIVINITYZ BELONG TO ME."));
+  label->SetText (String("TEST."));
   label->Scale (Vector2 (1, 1));
   label->ChangeColor (sf::Color (90, 255, 128, 128));
-  
+
   yap::PictureBox* pb = new PictureBox ();
   pb->SetPicture (String("jarri_j.jpg"));
   pb->Scale (Vector2 (1, 1));
 
-  guiManager_->AddChild (*pb);
-  guiManager_->AddChild (*label);
- 
+  Label* ts = new Label ();
+  ts->SetText (String("waza"));
+
+  Label* ts2 = new Label ("OLOL");
+
+  layout->AddChild (*label, LayoutBox::Align::TOP);
+  layout->AddChild (*pb, LayoutBox::Align::TOP);
+  layout->AddChild (*ts, LayoutBox::Align::TOP);
+  //layout->AddChild (*ts2, LayoutBox::Align::TOP);
+
+  layout->GeneratePosition ();
+
+  guiManager_->AddChild (*layout);
+
 }
 
 void TestScreen::HandleActivate ()

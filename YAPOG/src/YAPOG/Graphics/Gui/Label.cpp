@@ -2,6 +2,7 @@
 
 #include "YAPOG\Graphics\Gui\Label.hpp"
 #include "YAPOG\Graphics\IDrawingContext.hpp"
+#include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
 {
@@ -11,8 +12,24 @@ namespace yap
   {
   }
 
+  Label::Label (String content)
+    : textContent_ (content)
+    , drawableText_ (content)
+  {
+  }
+
   Label::~Label ()
   {
+  }
+
+  Vector2 Label::HandleGetSize () const
+  {
+    return Vector2 (padding_->left
+      + drawableText_.getLocalBounds ().width
+      + padding_->right,
+      padding_->top
+      + drawableText_.getLocalBounds ().height
+      + padding_->bottom);
   }
 
   void Label::HandleDraw (IDrawingContext& context)
@@ -26,7 +43,8 @@ namespace yap
 
   void Label::HandleMove (const Vector2& offset)
   {
-    drawableText_.setPosition (GetPosition() + offset);
+    drawableText_.move (offset);
+    //drawableText_.setPosition (GetPosition() + offset);
   }
 
   void Label::HandleScale (const Vector2& factor)
@@ -57,6 +75,8 @@ namespace yap
 
     textContent_ = content;
     drawableText_.setString (content);
+    drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
+      GetPosition ().y + padding_->top));
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

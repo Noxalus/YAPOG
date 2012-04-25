@@ -1,4 +1,5 @@
 #include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+#include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
 {
@@ -15,10 +16,11 @@ namespace yap
     , root_ (nullptr)
     , parent_ (nullptr)
     , focusedChildren_ (nullptr)
-    , padding_ ()
+    , padding_ (nullptr)
     , background_ (nullptr)
     , border_ (nullptr)
   {
+    padding_ = new Padding ();
   }
 
   BaseWidget::~BaseWidget ()
@@ -199,6 +201,8 @@ namespace yap
   void BaseWidget::AddChild (IWidget& child)
   {
     childen_.Add (&child);
+
+    child.SetPosition (GetPosition ());
 
     OnChildAdded (*this, EventArgsIWidget (child));
   }

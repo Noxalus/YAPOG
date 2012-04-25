@@ -3,18 +3,36 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
 {
+
   class YAPOG_LIB LayoutBox : public BaseWidget
   {
     DISALLOW_COPY(LayoutBox);
 
   public:
+
+    enum class Align
+    {
+      LEFT,
+      CENTER,
+      RIGHT,
+      TOP,
+      BOTTOM
+    };
+
     LayoutBox ();
+    LayoutBox (Padding ext, Padding in);
     virtual ~LayoutBox ();
 
-  private:
+    virtual void AddChild (IWidget& child, Align align = Align::CENTER);
+    virtual void GeneratePosition () = 0;
+
+  protected:
+
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 
@@ -23,10 +41,11 @@ namespace yap
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
 
-    virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-
     virtual void HandleUpdate (const Time& dt);
+
+    collection::Map<IWidget*, Align> items_;
+    Padding externPad_;
+    Padding innerPad_;
 
   };
 } // namespace yap

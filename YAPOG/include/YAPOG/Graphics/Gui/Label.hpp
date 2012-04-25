@@ -27,6 +27,8 @@ namespace yap
     };
 
     Label ();
+    Label (String content);
+
     virtual ~Label ();
 
     void SetText (String& content);
@@ -34,6 +36,8 @@ namespace yap
     Event<const Label&, const EventArgsString&> OnTextChanged;
 
   private:
+    virtual Vector2 HandleGetSize () const;
+
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 

@@ -1,5 +1,6 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
+#include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
 {
@@ -10,6 +11,12 @@ namespace yap
 
   PictureBox::~PictureBox ()
   {
+  }
+
+  Vector2 PictureBox::HandleGetSize () const
+  {
+    return Vector2 (padding_->left + picture_.GetSize ().x + padding_->right,
+      padding_->top + picture_.GetSize ().y + padding_->bottom);
   }
 
   void PictureBox::HandleDraw (IDrawingContext& context)
@@ -23,7 +30,8 @@ namespace yap
 
   void PictureBox::HandleMove (const Vector2& offset)
   {
-    picture_.SetPosition (GetPosition() + offset);
+    picture_.Move (offset);
+    //picture_.SetPosition (GetPosition() + offset);
   }
 
   void PictureBox::HandleScale (const Vector2& factor)
@@ -50,6 +58,9 @@ namespace yap
   void PictureBox::SetPicture (String file)
   {
     picture_.LoadFromFile (file);
+    picture_.SetPosition (Vector2 (GetPosition ().x + padding_->left,
+      GetPosition ().y + padding_->top));
+
     OnPictureSet (*this, EventArgsTexture (picture_));
   }
 } //namespace yap

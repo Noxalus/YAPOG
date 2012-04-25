@@ -32,6 +32,8 @@ namespace yap
     Event<const PictureBox&, const EventArgsTexture&> OnPictureSet;
 
   private:
+    virtual Vector2 HandleGetSize () const;
+
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 
