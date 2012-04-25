@@ -2,6 +2,7 @@
 # define YAPOG_MAP_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
@@ -24,16 +25,25 @@ namespace yap
       const String& GetName () const;
       void SetName (const String& name);
 
+      void SetSize (uint width, uint height);
+
     protected:
 
       Map (const Map& copy);
 
     private:
 
+      virtual void HandleSetSize (uint width, uint height);
+
       static const String DEFAULT_NAME;
+      static const uint DEFAULT_WIDTH;
+      static const uint DEFAULT_HEIGHT;
 
       ID id_;
       String name_;
+
+      uint width_;
+      uint height_;
   };
 } // namespace yap
 

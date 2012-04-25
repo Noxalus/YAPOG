@@ -10,8 +10,8 @@ namespace yap
   {
   }
 
-  void TileLayoutHandler::Execute ()
+  void TileLayoutHandler::Execute (TileLayer& tileLayer)
   {
-    HandleExecute ();
+    HandleExecute (tileLayer);
   }
 } // namespace yap

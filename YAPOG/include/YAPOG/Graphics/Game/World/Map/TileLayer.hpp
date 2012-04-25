@@ -13,23 +13,26 @@ namespace yap
   class TileLayoutHandler;
   class Tile;
 
-  class TileLayer : public IDrawable,
-                    public IUpdateable
+  class TileLayer : public IDrawable
+                  , public IUpdateable
   {
       DISALLOW_COPY(TileLayer);
 
     public:
 
-      TileLayer (UInt32 width, UInt32 height);
+      TileLayer (uint width, uint height);
       virtual ~TileLayer ();
 
-      const Tile& GetTile (UInt32 x, UInt32 y) const;
-      Tile& GetTile (UInt32 x, UInt32 y);
+      const Tile& GetTile (uint x, uint y) const;
+      Tile& GetTile (uint x, uint y);
 
-      void SetTile (UInt32 x, UInt32 y, Tile* tile);
+      void SetTile (uint x, uint y, Tile* tile);
 
       void SetLayoutHandler (TileLayoutHandler* layoutHandler);
       void PerformLayout ();
+
+      const uint& GetWidth () const;
+      const uint& GetHeight () const;
 
       /// @name IDrawable members.
       /// @{
@@ -51,8 +54,8 @@ namespace yap
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;
 
-      UInt32 width_;
-      UInt32 height_;
+      uint width_;
+      uint height_;
 
       collection::Array<Tile*> tiles_;
 

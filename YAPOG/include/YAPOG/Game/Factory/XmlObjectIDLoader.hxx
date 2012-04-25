@@ -1,6 +1,8 @@
 #ifndef YAPOG_XMLOBJECTIDLOADER_HXX
 # define YAPOG_XMLOBJECTIDLOADER_HXX
 
+# include "YAPOG/Content/ContentManager.hpp"
+
 namespace yap
 {
   template <typename T, typename TXmlReader>

@@ -15,4 +15,6 @@ MapReader::~MapReader ()
 void MapReader::Visit (yap::XmlReader& visitable)
 {
   yap::MapReader::Visit (visitable);
+
+//  visitable.DownChangeRoot (
 }

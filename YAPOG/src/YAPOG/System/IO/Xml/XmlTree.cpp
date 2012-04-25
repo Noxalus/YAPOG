@@ -4,7 +4,6 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yap
 {
   XmlTree::XmlTree ()

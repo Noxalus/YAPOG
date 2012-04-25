@@ -3,10 +3,14 @@
 namespace yap
 {
   const String Map::DEFAULT_NAME = "<ANONYMOUS_MAP>";
+  const uint Map::DEFAULT_WIDTH = 0;
+  const uint Map::DEFAULT_HEIGHT = 0;
 
   Map::Map (const ID& id)
     : id_ (id)
     , name_ (DEFAULT_NAME)
+    , width_ (DEFAULT_WIDTH)
+    , height_ (DEFAULT_HEIGHT)
   {
   }
 
@@ -38,5 +42,15 @@ namespace yap
   void Map::SetName (const String& name)
   {
     name_ = name;
+  }
+
+  void Map::SetSize (uint width, uint height)
+  {
+    width_ = width;
+    height_ = height;
+  }
+
+  void Map::HandleSetSize (uint width, uint height)
+  {
   }
 } // namespace yap

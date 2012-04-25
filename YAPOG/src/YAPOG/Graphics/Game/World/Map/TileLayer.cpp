@@ -7,10 +7,10 @@ namespace yap
   const bool TileLayer::DEFAULT_VISIBLE_STATE = true;
   const sf::Color TileLayer::DEFAULT_COLOR = sf::Color ();
 
-  TileLayer::TileLayer (UInt32 width, UInt32 height)
+  TileLayer::TileLayer (uint width, uint height)
     : width_ (width)
     , height_ (height)
-    , tiles_ ()
+    , tiles_ (width_ * height_, nullptr)
     , layoutHandler_ (nullptr)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
@@ -23,21 +23,21 @@ namespace yap
       delete tile;
   }
 
-  const Tile& TileLayer::GetTile (UInt32 x, UInt32 y) const
+  const Tile& TileLayer::GetTile (uint x, uint y) const
   {
     collection::Array<Tile*>::SizeType index = y * width_ + x;
 
     return *tiles_[index];
   }
 
-  Tile& TileLayer::GetTile (UInt32 x, UInt32 y)
+  Tile& TileLayer::GetTile (uint x, uint y)
   {
     collection::Array<Tile*>::SizeType index = y * width_ + x;
 
     return *tiles_[index];
   }
 
-  void TileLayer::SetTile (UInt32 x, UInt32 y, Tile* tile)
+  void TileLayer::SetTile (uint x, uint y, Tile* tile)
   {
     collection::Array<Tile*>::SizeType index = y * width_ + x;
 
@@ -51,7 +51,17 @@ namespace yap
 
   void TileLayer::PerformLayout ()
   {
-    layoutHandler_->Execute ();
+    layoutHandler_->Execute (*this);
+  }
+
+  const uint& TileLayer::GetWidth () const
+  {
+    return width_;
+  }
+
+  const uint& TileLayer::GetHeight () const
+  {
+    return height_;
   }
 
   void TileLayer::Draw (IDrawingContext& context)

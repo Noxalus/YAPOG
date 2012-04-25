@@ -3,21 +3,30 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
+# include "YAPOG/Collection/Array.hpp"
 
 namespace yap
 {
+  class Tile;
+
   class BasicTileLayoutHandler : public TileLayoutHandler
   {
       DISALLOW_COPY(BasicTileLayoutHandler);
 
     public:
 
-      BasicTileLayoutHandler ();
+      BasicTileLayoutHandler (uint width, uint height);
       virtual ~BasicTileLayoutHandler ();
+
+      void SetTile (uint x, uint y, Tile* tile);
 
     private:
 
-      virtual void HandleExecute ();
+      virtual void HandleExecute (TileLayer& tileLayer);
+
+      uint width_;
+      uint height_;
+      collection::Array<Tile*> tiles_;
   };
 } // namespace yap
 

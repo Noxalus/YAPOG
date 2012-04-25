@@ -100,6 +100,8 @@ ${inc_root}/Graphics/Game/World/Map/Tile.hpp
 ${src_root}/Graphics/Game/World/Map/Tile.cpp
 ${inc_root}/Graphics/Game/World/Map/TileLayer.hpp
 ${src_root}/Graphics/Game/World/Map/TileLayer.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayerStack.hpp
+${src_root}/Graphics/Game/World/Map/TileLayerStack.cpp
 ${inc_root}/Graphics/Game/World/Map/TileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/TileLayoutHandler.cpp
 ${inc_root}/Graphics/Game/World/Map/TileReader.hpp

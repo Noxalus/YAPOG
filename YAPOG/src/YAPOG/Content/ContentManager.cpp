@@ -65,6 +65,31 @@ namespace yap
     return rootPath_;
   }
 
+  void ContentManager::SetImagePath (const Path& path)
+  {
+    imagePath_ = path;
+  }
+
+  void ContentManager::SetTexturePath (const Path& path)
+  {
+    texturePath_ = path;
+  }
+
+  void ContentManager::SetFontPath (const Path& path)
+  {
+    fontPath_ = path;
+  }
+
+  void ContentManager::SetSoundBufferPath (const Path& path)
+  {
+    soundBufferPath_ = path;
+  }
+
+  void ContentManager::SetMusicPath (const Path& path)
+  {
+    musicPath_ = path;
+  }
+
   sf::Image& ContentManager::LoadImage (const String& name)
   {
     if (images_.Contains (name))

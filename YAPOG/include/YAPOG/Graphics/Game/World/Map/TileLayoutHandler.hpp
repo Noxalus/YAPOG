@@ -5,24 +5,24 @@
 
 namespace yap
 {
+  class TileLayer;
+
   class TileLayoutHandler
   {
       DISALLOW_COPY(TileLayoutHandler);
 
     public:
 
-      virtual ~TileLayoutHandler ();
-
-      void Execute ();
+      void Execute (TileLayer& tileLayer);
 
     protected:
 
       TileLayoutHandler ();
+      virtual ~TileLayoutHandler ();
 
     private:
 
-      virtual void HandleExecute () = 0;
-
+      virtual void HandleExecute (TileLayer& tileLayer) = 0;
   };
 } // namespace yap
 

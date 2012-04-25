@@ -26,6 +26,8 @@ namespace yap
       static const String DEFAULT_XML_ROOT_NODE_NAME;
       static const String DEFAULT_XML_ID_NODE_NAME;
       static const String DEFAULT_XML_NAME_NODE_NAME;
+      static const String DEFAULT_XML_WIDTH_NODE_NAME;
+      static const String DEFAULT_XML_HEIGHT_NODE_NAME;
 
       Map& map_;
 

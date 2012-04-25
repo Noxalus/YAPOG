@@ -25,11 +25,11 @@ namespace yap
       T* Create (const String& typeName, const ID& id);
 
       /// @brief Creates an object from a partial input file.
-      /// Does not stores it.
+      /// Does not store it.
       /// @param typeName Name of the registered type to load.
-      /// @param reader XmlReader from which to load the entity.
+      /// @param reader IReader from which to load the entity.
       /// @param rootNodeName Name of the root node which contains
-      /// the definition of the entity to create in the file.
+      /// the definition of the entity to create.
       /// @return The entity with the type @a typeName created from the
       /// node @a rootNodeName in the file @a file.
       template <typename T>

@@ -1,3 +1,15 @@
 <Map id="1">
-  <name>Map de la Moria</name>
+  <name>t</name>
+  <width>30</width>
+  <height>30</height>
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <mode>random</mode>
+      <Tile id="1"/>
+      <Tile id="2"/>
+      <Tile id="3"/>
+      <Tile id="4"/>
+    </tileLayer>
+  </ground>
 </Map>

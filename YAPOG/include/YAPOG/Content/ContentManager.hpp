@@ -28,6 +28,12 @@ namespace yap
       void Init (const Path& rootPath);
       const Path& GetContentPath () const;
 
+      void SetImagePath (const Path& path);
+      void SetTexturePath (const Path& path);
+      void SetFontPath (const Path& path);
+      void SetSoundBufferPath (const Path& path);
+      void SetMusicPath (const Path& path);
+
       sf::Image& LoadImage (const String& name);
       sf::Texture& LoadTexture (const String& name);
       sf::Font& LoadFont (const String& name);

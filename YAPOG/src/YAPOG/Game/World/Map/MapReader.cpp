@@ -9,6 +9,8 @@ namespace yap
   const String MapReader::DEFAULT_XML_ROOT_NODE_NAME = "Map";
   const String MapReader::DEFAULT_XML_ID_NODE_NAME = "id";
   const String MapReader::DEFAULT_XML_NAME_NODE_NAME = "name";
+  const String MapReader::DEFAULT_XML_WIDTH_NODE_NAME = "width";
+  const String MapReader::DEFAULT_XML_HEIGHT_NODE_NAME = "height";
 
   MapReader::MapReader (Map& map)
     : map_ (map)
@@ -43,6 +45,14 @@ namespace yap
     map_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
     // </name>
+
+    // <width/height>
+
+    map_.SetSize (
+      visitable.ReadUInt (DEFAULT_XML_WIDTH_NODE_NAME),
+      visitable.ReadUInt (DEFAULT_XML_HEIGHT_NODE_NAME));
+
+    // </width/height>
 
     visitable.UpChangeRoot ();
 
