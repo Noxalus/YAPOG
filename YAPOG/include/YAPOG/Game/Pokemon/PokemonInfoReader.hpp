@@ -1,0 +1,37 @@
+#ifndef YAPOG_POKEMONINFOREADER_HPP
+# define YAPOG_POKEMONINFOREADER_HPP
+
+# include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+# include "YAPOG/System/String.hpp"
+# include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+# include "YAPOG/System/IO/Xml/XmlHelper.hpp"
+
+namespace yap
+{
+  class YAPOG_LIB PokemonInfoReader : public IReaderVisitor
+  {
+    DISALLOW_COPY(PokemonInfoReader);
+
+  public:
+    PokemonInfoReader (PokemonInfo& pokeInfo);
+    PokemonInfoReader (PokemonInfo& map, const String& xmlRootNodeName);
+    virtual ~PokemonInfoReader ();
+
+    virtual void Visit (XmlReader& visitable);
+  private:
+    PokemonInfo& pokeInfo_;
+    String xmlRootNodeName_;
+
+    static const String DEFAULT_XML_ROOT_NODE_NAME;
+    static const String DEFAULT_XML_ID_NODE_NAME;
+    static const String DEFAULT_XML_NAME_NODE_NAME;
+    static const String PokemonInfoReader::DEFAULT_XML_GRAPHICS_NODE_NAME;
+    static const String PokemonInfoReader::DEFAULT_XML_GRAPHICS_ICON_NODE_NAME;
+  };
+} // namespace yap
+
+#endif // YAPOG_POKEMONINFOREADER_HPP
+

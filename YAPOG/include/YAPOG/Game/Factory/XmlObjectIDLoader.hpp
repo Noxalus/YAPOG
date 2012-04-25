@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
+# include "YAPOG/Content/ContentManager.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"

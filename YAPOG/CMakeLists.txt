@@ -53,6 +53,8 @@ ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp
 ${src_root}/Game/Pokemon/PokemonInfo.cpp
 ${inc_root}/Game/Pokemon/PokemonInfo.hpp
+${src_root}/Game/Pokemon/PokemonInfoReader.cpp
+${inc_root}/Game/Pokemon/PokemonInfoReader.hpp
 ${src_root}/Game/Pokemon/Type.cpp
 ${inc_root}/Game/Pokemon/Type.hpp
 ${inc_root}/Game/Pokemon/Gender.hpp
