@@ -51,6 +51,24 @@ ${src_root}/Game/World/Map/MapReader.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp
+${src_root}/Game/Pokemon/Type.cpp
+${inc_root}/Game/Pokemon/Type.hpp
+${inc_root}/Game/Pokemon/Gender.hpp
+${inc_root}/Game/Pokemon/Status.hpp
+${src_root}/Game/Pokemon/Skill.cpp
+${inc_root}/Game/Pokemon/Skill.hpp
+${src_root}/Game/Pokemon/BaseStat.cpp
+${inc_root}/Game/Pokemon/BaseStat.hpp
+${src_root}/Game/Pokemon/Attack.cpp
+${inc_root}/Game/Pokemon/Attack.hpp
+${src_root}/Game/Pokemon/Defense.cpp
+${inc_root}/Game/Pokemon/Defense.hpp
+${src_root}/Game/Pokemon/Speed.cpp
+${inc_root}/Game/Pokemon/Speed.hpp
+${src_root}/Game/Pokemon/SpecialAttack.cpp
+${inc_root}/Game/Pokemon/SpecialAttack.hpp
+${src_root}/Game/Pokemon/SpecialDefense.cpp
+${inc_root}/Game/Pokemon/SpecialDefense.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
