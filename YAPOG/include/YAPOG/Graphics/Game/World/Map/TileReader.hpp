@@ -9,7 +9,7 @@ namespace yap
 {
   class Tile;
 
-  class TileReader : public IReaderVisitor
+  class YAPOG_LIB TileReader : public IReaderVisitor
   {
       DISALLOW_COPY(TileReader);
 

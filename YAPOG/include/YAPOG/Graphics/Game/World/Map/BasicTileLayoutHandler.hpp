@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class BasicTileLayoutHandler : public TileLayoutHandler
+  class YAPOG_LIB BasicTileLayoutHandler : public TileLayoutHandler
   {
       DISALLOW_COPY(BasicTileLayoutHandler);
 

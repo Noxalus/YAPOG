@@ -11,7 +11,7 @@
 namespace yap
 {
   template <typename T, typename TXmlReader>
-  class XmlObjectIDLoader : public IObjectIDLoader
+  class YAPOG_LIB XmlObjectIDLoader : public IObjectIDLoader
   {
       DISALLOW_COPY(XmlObjectIDLoader);
 

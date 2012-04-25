@@ -49,6 +49,8 @@ ${src_root}/Game/World/Map/Map.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
+${src_root}/Game/Pokemon/Pokemon.cpp
+${inc_root}/Game/Pokemon/Pokemon.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

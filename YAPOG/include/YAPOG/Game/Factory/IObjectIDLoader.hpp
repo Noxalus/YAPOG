@@ -9,7 +9,7 @@ namespace yap
 
   class ID;
 
-  struct IObjectIDLoader
+  struct YAPOG_LIB IObjectIDLoader
   {
       virtual ~IObjectIDLoader () {}
 

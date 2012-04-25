@@ -13,7 +13,7 @@ namespace yap
   class TileLayoutHandler;
   class Tile;
 
-  class TileLayer : public IDrawable,
+  class YAPOG_LIB TileLayer : public IDrawable,
                     public IUpdateable
   {
       DISALLOW_COPY(TileLayer);

@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class TileFamily
+  class YAPOG_LIB TileFamily
   {
       DISALLOW_COPY(TileFamily);
 

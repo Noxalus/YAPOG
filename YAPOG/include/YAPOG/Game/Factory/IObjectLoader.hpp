@@ -8,7 +8,7 @@ namespace yap
 {
   struct ILoadable;
 
-  struct IObjectLoader
+  struct YAPOG_LIB IObjectLoader
   {
       virtual ~IObjectLoader () {}
 

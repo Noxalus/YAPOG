@@ -18,7 +18,7 @@ namespace yap
 
   class TileFamily;
 
-  class Tile : public ISpatial
+  class YAPOG_LIB Tile : public ISpatial
              , public IDrawable
              , public IUpdateable
              , public ILoadable

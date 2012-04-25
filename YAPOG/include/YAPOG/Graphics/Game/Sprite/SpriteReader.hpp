@@ -9,7 +9,7 @@ namespace yap
 {
   class Sprite;
 
-  class SpriteReader : public IReaderVisitor
+  class YAPOG_LIB SpriteReader : public IReaderVisitor
   {
       DISALLOW_COPY(SpriteReader);
 
