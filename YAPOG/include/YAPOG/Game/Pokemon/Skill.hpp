@@ -12,6 +12,16 @@ namespace yap
   {
   public:
     Skill ();
+
+    /// @brief Reset the PP to the maxPP value.
+    void Refill ();
+    /// @brief Decrease the currentPP value of 1.
+    void Use ();
+    /// @brief Increase the maxPP with @a value.
+    /// @param value The value that will increase the maxPP field.
+    void AddPP (int value);
+    /// @brief Jump the maxPP value directly to the limiPPMax value.
+    void RaiseToMaxPP ();
   private:
     ID id_;
     String name_;
@@ -21,6 +31,7 @@ namespace yap
     Type type_;
     int maxPP_;
     int currentPP_;
+    int limitPPMax_;
   };
 
 } // namespace yap

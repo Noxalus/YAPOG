@@ -51,6 +51,8 @@ ${src_root}/Game/World/Map/MapReader.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp
+${src_root}/Game/Pokemon/PokemonInfo.cpp
+${inc_root}/Game/Pokemon/PokemonInfo.hpp
 ${src_root}/Game/Pokemon/Type.cpp
 ${inc_root}/Game/Pokemon/Type.hpp
 ${inc_root}/Game/Pokemon/Gender.hpp
@@ -59,6 +61,8 @@ ${src_root}/Game/Pokemon/Skill.cpp
 ${inc_root}/Game/Pokemon/Skill.hpp
 ${src_root}/Game/Pokemon/BaseStat.cpp
 ${inc_root}/Game/Pokemon/BaseStat.hpp
+${src_root}/Game/Pokemon/HitPoint.cpp
+${inc_root}/Game/Pokemon/HitPoint.hpp
 ${src_root}/Game/Pokemon/Attack.cpp
 ${inc_root}/Game/Pokemon/Attack.hpp
 ${src_root}/Game/Pokemon/Defense.cpp

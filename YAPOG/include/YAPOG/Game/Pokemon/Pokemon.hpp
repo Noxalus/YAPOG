@@ -8,6 +8,12 @@
 # include "YAPOG/Game/Pokemon/Type.hpp"
 # include "YAPOG/Game/Pokemon/Status.hpp"
 # include "YAPOG/Game/Pokemon/Skill.hpp"
+# include "YAPOG/Game/Pokemon/HitPoint.hpp"
+# include "YAPOG/Game/Pokemon/Attack.hpp"
+# include "YAPOG/Game/Pokemon/Defense.hpp"
+# include "YAPOG/Game/Pokemon/SpecialAttack.hpp"
+# include "YAPOG/Game/Pokemon/SpecialDefense.hpp"
+# include "YAPOG/Game/Pokemon/Speed.hpp"
 
 namespace yap
 {
@@ -22,13 +28,12 @@ namespace yap
      String nickname_;
      int level_;
      int exp_;
-     int hp_;
-     int max_hp_;
-     int atk_;
-     int dfe_;
-     int spd_;
-     int ats_;
-     int dfs_;
+     HitPoint hp_;
+     Attack atk_;
+     Defense dfe_;
+     Speed spd_;
+     SpecialAttack ats_;
+     SpecialDefense dfs_;
      Type type1_;
      Type type2_;
      Status status_;

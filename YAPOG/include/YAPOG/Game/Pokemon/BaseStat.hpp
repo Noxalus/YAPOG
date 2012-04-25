@@ -9,6 +9,9 @@ namespace yap
   {
     public:
       BaseStat ();
+      int GetValue ();
+  protected:
+    int value_;
   };
 } // namespace yap
 
