@@ -30,7 +30,7 @@ int main ()
     ob.RegisterLoader ("PokemonInfo", xoidl);
 
     yap::PokemonInfo* pokeInfo = ob.Create<yap::PokemonInfo> ("PokemonInfo",  yap::ID (1));
-    std::cout << "Get name: \"" << pokeInfo->GetName () << "\"" << std::endl;
+    pokeInfo->DisplayData ();
 
     getchar ();
   }

@@ -28,8 +28,12 @@ namespace yap
     static const String DEFAULT_XML_ROOT_NODE_NAME;
     static const String DEFAULT_XML_ID_NODE_NAME;
     static const String DEFAULT_XML_NAME_NODE_NAME;
-    static const String PokemonInfoReader::DEFAULT_XML_GRAPHICS_NODE_NAME;
-    static const String PokemonInfoReader::DEFAULT_XML_GRAPHICS_ICON_NODE_NAME;
+    static const String DEFAULT_XML_DESCRIPTION_NODE_NAME;
+    static const String DEFAULT_XML_SPECIES_NODE_NAME;
+    static const String DEFAULT_XML_HEIGHT_NODE_NAME;
+    static const String DEFAULT_XML_WEIGHT_NODE_NAME;
+    static const String DEFAULT_XML_RARITY_NODE_NAME;
+    static const String DEFAULT_XML_EXPERIENCE_NODE_NAME;
   };
 } // namespace yap
 
