@@ -20,7 +20,7 @@ PGconn* ConnectDB()
 	// Make a connection to the database
 	conn = PQconnectdb("dbname = 'yapog' user = 'postgres' password = 'COUCOU'");
 
-	// Check to see that the backend connection was successfully made 
+	// Check to see that the backend connection was successfully made
 	if (PQstatus(conn) != CONNECTION_OK)
 	{
 		printf("Connection to database failed...\n");
@@ -190,13 +190,13 @@ void DropTestTable(PGconn* conn)
 }
 
 int main ()
-{	
+{
 	PGconn* conn = NULL;
 
   conn = ConnectDB();
   CreateTestTable(conn);
   InsertTestRec(conn, "COUCOU_BEGIN");
-	
+
 	for(int i = 0; i < 10000; i++)
 	{
 		std::ostringstream oss;

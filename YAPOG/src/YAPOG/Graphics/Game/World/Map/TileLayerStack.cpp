@@ -2,6 +2,7 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Game/World/Map/TileLayer.hpp"
+#include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
 
 namespace yap
 {
@@ -22,10 +23,29 @@ namespace yap
       delete it.second;
   }
 
+  TileLayerStack::TileLayerStack (const TileLayerStack& copy)
+    : width_ (copy.width_)
+    , height_ (copy.height_)
+    , tileLayers_ ()
+  {
+    for (const auto& it : copy.tileLayers_)
+      AddTileLayer (it.first, it.second->Clone ());
+  }
+
+  TileLayerStack* TileLayerStack::Clone () const
+  {
+    return new TileLayerStack (*this);
+  }
+
   void TileLayerStack::SetSize (uint width, uint height)
   {
     width_ = width;
     height_ = height;
+  }
+
+  void TileLayerStack::AddTileLayer (uint height, TileLayer* tileLayer)
+  {
+    tileLayers_.Add (height, tileLayer);
   }
 
   void TileLayerStack::AddTileLayer (
@@ -36,16 +56,16 @@ namespace yap
       throw Exception (
         "TileLayer level `" +
         StringHelper::ToString (height) +
-        "' is too high");
+        "' is too high.");
 
     if (tileLayers_.Contains (height))
       throw Exception (
         "TileLayer `" + StringHelper::ToString (height) + "' already exists.");
 
     TileLayer* tileLayer = new TileLayer (width_, height_);
-    tileLayer->SetLayoutHandler (layoutHandler);
+    layoutHandler->Execute (*tileLayer);
 
-    tileLayers_.Add (height, tileLayer);
+    AddTileLayer (height, tileLayer);
   }
 
   const TileLayer& TileLayerStack::GetTileLayer (uint height) const

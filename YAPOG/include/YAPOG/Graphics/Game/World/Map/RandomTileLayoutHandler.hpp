@@ -18,6 +18,8 @@ namespace yap
       RandomTileLayoutHandler ();
       virtual ~RandomTileLayoutHandler ();
 
+      void AddTile (Tile* tile);
+
     private:
 
       virtual void HandleExecute (TileLayer& tileLayer);

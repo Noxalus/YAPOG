@@ -13,7 +13,7 @@ namespace yap
 
   class ID;
 
-  class ObjectFactory
+  class YAPOG_LIB ObjectFactory
   {
       DISALLOW_COPY(ObjectFactory);
 

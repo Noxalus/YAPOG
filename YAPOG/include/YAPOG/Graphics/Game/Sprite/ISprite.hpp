@@ -19,7 +19,7 @@ namespace yap
 
       /// @name ICloneable members.
       /// @{
-      virtual ISprite* Clone () const = 0;
+      virtual ISprite* Clone () const = 0;/* { return nullptr; }*/
       /// @}
   };
 } // namespace yap

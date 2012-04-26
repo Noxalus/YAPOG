@@ -6,4 +6,5 @@ namespace yap
   {
     return DateTime (boost::posix_time::second_clock::local_time ());
   }
+
 } // namespace yap

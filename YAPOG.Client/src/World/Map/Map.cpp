@@ -12,6 +12,7 @@ Map::~Map ()
 
 Map::Map (const Map& copy)
   : yap::Map (copy)
+  , tileLayers_ (copy.tileLayers_)
 {
 }
 
@@ -20,9 +21,17 @@ Map* Map::Clone () const
   return new Map (*this);
 }
 
+void Map::AddTileLayer (uint height, yap::TileLayoutHandler* tileLayoutHandler)
+{
+  tileLayers_.AddTileLayer (height, tileLayoutHandler);
+}
+
 void Map::Draw (yap::IDrawingContext& context)
 {
+  if (!IsVisible ())
+    return;
 
+  tileLayers_.Draw (context);
 }
 
 bool Map::IsVisible () const

@@ -49,6 +49,32 @@ ${src_root}/Game/World/Map/Map.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
+${src_root}/Game/Pokemon/Pokemon.cpp
+${inc_root}/Game/Pokemon/Pokemon.hpp
+${src_root}/Game/Pokemon/PokemonInfo.cpp
+${inc_root}/Game/Pokemon/PokemonInfo.hpp
+${src_root}/Game/Pokemon/PokemonInfoReader.cpp
+${inc_root}/Game/Pokemon/PokemonInfoReader.hpp
+${src_root}/Game/Pokemon/Type.cpp
+${inc_root}/Game/Pokemon/Type.hpp
+${inc_root}/Game/Pokemon/Gender.hpp
+${inc_root}/Game/Pokemon/Status.hpp
+${src_root}/Game/Pokemon/Skill.cpp
+${inc_root}/Game/Pokemon/Skill.hpp
+${src_root}/Game/Pokemon/BaseStat.cpp
+${inc_root}/Game/Pokemon/BaseStat.hpp
+${src_root}/Game/Pokemon/HitPoint.cpp
+${inc_root}/Game/Pokemon/HitPoint.hpp
+${src_root}/Game/Pokemon/Attack.cpp
+${inc_root}/Game/Pokemon/Attack.hpp
+${src_root}/Game/Pokemon/Defense.cpp
+${inc_root}/Game/Pokemon/Defense.hpp
+${src_root}/Game/Pokemon/Speed.cpp
+${inc_root}/Game/Pokemon/Speed.hpp
+${src_root}/Game/Pokemon/SpecialAttack.cpp
+${inc_root}/Game/Pokemon/SpecialAttack.hpp
+${src_root}/Game/Pokemon/SpecialDefense.cpp
+${inc_root}/Game/Pokemon/SpecialDefense.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
@@ -94,6 +120,8 @@ ${inc_root}/Graphics/Game/Sprite/VerticalComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/VerticalComposedSprite.cpp
 ${inc_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.cpp
 ${inc_root}/Graphics/Game/World/Map/TileFamily.hpp
 ${src_root}/Graphics/Game/World/Map/TileFamily.cpp
 ${inc_root}/Graphics/Game/World/Map/Tile.hpp
@@ -163,6 +191,8 @@ ${inc_root}/System/IO/Log/CountLoggerMode.hpp
 ${src_root}/System/IO/Log/CountLoggerMode.cpp
 ${inc_root}/System/IO/Log/DebugLogger.hpp
 ${src_root}/System/IO/Log/DebugLogger.cpp
+${inc_root}/System/IO/Log/DatabaseLogger.hpp
+${src_root}/System/IO/Log/DatabaseLogger.cpp
 ${inc_root}/System/IO/Log/Logger.hpp
 ${inc_root}/System/IO/Log/Logger.hxx
 ${src_root}/System/IO/Log/Logger.cpp
@@ -204,6 +234,8 @@ ${inc_root}/System/Time/UpdateableTimer.hpp
 ${src_root}/System/Time/UpdateableTimer.cpp
 ${pgstream_inc_root}/pgstream.hpp
 ${pgstream_src_root}/pgstream.cpp
+${inc_root}/Database/DatabaseManager.hpp
+${src_root}/Database/DatabaseManager.cpp
 )
 
 ADD_LIBRARY(

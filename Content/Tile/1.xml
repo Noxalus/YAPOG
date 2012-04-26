@@ -1,4 +1,5 @@
 <Tile id="1">
+  <spriteType>Sprite</spriteType>
   <Sprite>
     <Texture id="1"/>
   </Sprite>

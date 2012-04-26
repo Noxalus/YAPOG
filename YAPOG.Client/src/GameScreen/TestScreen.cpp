@@ -39,6 +39,7 @@ DebugLogger& dl = DebugLogger::Instance ();
 ObjectFactory& of = ObjectFactory::Instance ();
 
 Tile* ti1;
+::Map* map1;
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
   , textures_ ()
@@ -58,9 +59,11 @@ TestScreen::TestScreen ()
 //  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));
 //  dl.LogLine ("MAP_NAME=" + map42->GetName ());
 
-  ::Map* map1 = of.Create< ::Map> ("Map", yap::ID (1));
+  map1 = of.Create< ::Map> ("Map", yap::ID (1));
   dl.LogLine ("MAP_ID=" + StringHelper::ToString (map1->GetID ().GetValue ()));
   dl.LogLine ("MAP_NAME=" + map1->GetName ());
+  dl.LogLine ("MAP_WIDTH=" + StringHelper::ToString (map1->GetWidth ()));
+  dl.LogLine ("MAP_HEIGHT=" + StringHelper::ToString (map1->GetHeight ()));
 
   Texture* t1 = of.Create<Texture> ("Texture", yap::ID (1));
   dl.LogLine ("TEXTURE_ID=" + StringHelper::ToString (t1->GetID ().GetValue ()));
@@ -69,6 +72,8 @@ TestScreen::TestScreen ()
 
   ti1 = of.Create<Tile> ("Tile", yap::ID (1));
   dl.LogLine ("TILE_ID=" + StringHelper::ToString (ti1->GetID ().GetValue ()));
+
+  ti1->Move (yap::Vector2 (200.0f, 200.0f));
 
   gim.AddGameInput (
     new GameInput (
@@ -144,10 +149,14 @@ const yap::ScreenType& TestScreen::HandleRun (
 
   context.SetDefaultCamera ();
 
-  ti1->Draw (context);
+  context.SetMode ("World");
 
-//  context.GetCamera ("World").Move (
-//    yap::Vector2 (300.0f * dt.GetValue (), 0.0f));
+  map1->Draw (context);
+
+  context.SetDefaultCamera ();
+
+  context.GetCamera ("World").Move (
+    yap::Vector2 (300.0f * dt.GetValue (), 100.0f));
 
 //  for (auto it : textures_)
 //    it->Draw (context);
@@ -156,7 +165,7 @@ const yap::ScreenType& TestScreen::HandleRun (
 //  anim1_.Draw (context);
 //  dss1.Draw (context);
 //  spr1_.Draw (context);
-//  DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
+  DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
   return nextScreen_;
 }

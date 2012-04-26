@@ -5,18 +5,19 @@
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Game/Factory/ICloneable.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 
 namespace yap
 {
-  class TileLayoutHandler;
   class Tile;
 
-  class TileLayer : public IDrawable
-                  , public IUpdateable
+  class YAPOG_LIB TileLayer : public IDrawable
+                            , public IUpdateable
+                            , public ICloneable
   {
-      DISALLOW_COPY(TileLayer);
+      DISALLOW_ASSIGN(TileLayer);
 
     public:
 
@@ -27,9 +28,6 @@ namespace yap
       Tile& GetTile (uint x, uint y);
 
       void SetTile (uint x, uint y, Tile* tile);
-
-      void SetLayoutHandler (TileLayoutHandler* layoutHandler);
-      void PerformLayout ();
 
       const uint& GetWidth () const;
       const uint& GetHeight () const;
@@ -49,6 +47,15 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual TileLayer* Clone () const;
+      /// @}
+
+    protected:
+
+      TileLayer (const TileLayer& copy);
+
     private:
 
       static const bool DEFAULT_VISIBLE_STATE;
@@ -58,8 +65,6 @@ namespace yap
       uint height_;
 
       collection::Array<Tile*> tiles_;
-
-      TileLayoutHandler* layoutHandler_;
 
       bool isVisible_;
       sf::Color color_;

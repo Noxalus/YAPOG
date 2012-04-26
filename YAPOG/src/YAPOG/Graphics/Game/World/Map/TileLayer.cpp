@@ -1,6 +1,5 @@
 #include "YAPOG/Graphics/Game/World/Map/TileLayer.hpp"
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
-#include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
 
 namespace yap
 {
@@ -11,7 +10,6 @@ namespace yap
     : width_ (width)
     , height_ (height)
     , tiles_ (width_ * height_, nullptr)
-    , layoutHandler_ (nullptr)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
   {
@@ -21,6 +19,24 @@ namespace yap
   {
     for (const Tile* tile : tiles_)
       delete tile;
+  }
+
+  TileLayer::TileLayer (const TileLayer& copy)
+    : width_ (copy.width_)
+    , height_ (copy.height_)
+    , tiles_ (width_ * height_, nullptr)
+    , isVisible_ (copy.isVisible_)
+    , color_ (copy.color_)
+  {
+    for (collection::Array<Tile*>::SizeType count = 0;
+         count < width_ * height_;
+         ++count)
+      tiles_[count] = copy.tiles_[count]->Clone ();
+  }
+
+  TileLayer* TileLayer::Clone () const
+  {
+    return new TileLayer (*this);
   }
 
   const Tile& TileLayer::GetTile (uint x, uint y) const
@@ -42,16 +58,11 @@ namespace yap
     collection::Array<Tile*>::SizeType index = y * width_ + x;
 
     tiles_[index] = tile;
-  }
 
-  void TileLayer::SetLayoutHandler (TileLayoutHandler* layoutHandler)
-  {
-    layoutHandler_ = layoutHandler;
-  }
-
-  void TileLayer::PerformLayout ()
-  {
-    layoutHandler_->Execute (*this);
+    tile->SetPosition (
+      Vector2 (
+        x * Tile::DEFAULT_SIZE,
+        y * Tile::DEFAULT_SIZE));
   }
 
   const uint& TileLayer::GetWidth () const
@@ -66,7 +77,7 @@ namespace yap
 
   void TileLayer::Draw (IDrawingContext& context)
   {
-    if (!isVisible_)
+    if (!IsVisible ())
       return;
 
     for (Tile* tile : tiles_)

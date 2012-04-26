@@ -17,6 +17,7 @@ namespace yap
 
       explicit DateTime (const InnerTimeType& time);
 
+			DateTime ();
       DateTime (const DateTime& copy);
       DateTime& operator= (const DateTime& copy);
 

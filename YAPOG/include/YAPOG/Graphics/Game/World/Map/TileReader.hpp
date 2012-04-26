@@ -9,7 +9,7 @@ namespace yap
 {
   class Tile;
 
-  class TileReader : public IReaderVisitor
+  class YAPOG_LIB TileReader : public IReaderVisitor
   {
       DISALLOW_COPY(TileReader);
 
@@ -25,6 +25,7 @@ namespace yap
 
       static const String DEFAULT_XML_ROOT_NODE_NAME;
       static const String DEFAULT_XML_ID_NODE_NAME;
+      static const String DEFAULT_XML_SPRITE_TYPE_NODE_NAME;
 
       Tile& tile_;
 

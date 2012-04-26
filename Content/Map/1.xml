@@ -1,15 +1,15 @@
 <Map id="1">
   <name>t</name>
-  <width>30</width>
-  <height>30</height>
+  <width>300</width>
+  <height>300</height>
   <ground>
     <tileLayer>
       <height>0</height>
-      <mode>random</mode>
+      <layoutHandlerType>RandomTileLayoutHandler</layoutHandlerType>
       <Tile id="1"/>
-      <Tile id="2"/>
-      <Tile id="3"/>
-      <Tile id="4"/>
+<!--      <Tile id="2"/>-->
+<!--      <Tile id="3"/>-->
+<!--      <Tile id="4"/>-->
     </tileLayer>
   </ground>
 </Map>

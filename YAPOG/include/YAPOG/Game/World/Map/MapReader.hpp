@@ -21,9 +21,12 @@ namespace yap
 
       virtual void Visit (XmlReader& visitable);
 
-    private:
+    protected:
 
       static const String DEFAULT_XML_ROOT_NODE_NAME;
+
+    private:
+
       static const String DEFAULT_XML_ID_NODE_NAME;
       static const String DEFAULT_XML_NAME_NODE_NAME;
       static const String DEFAULT_XML_WIDTH_NODE_NAME;

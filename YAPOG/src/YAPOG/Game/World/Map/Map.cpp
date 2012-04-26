@@ -21,6 +21,8 @@ namespace yap
   Map::Map (const Map& copy)
     : id_ (copy.id_)
     , name_ (copy.name_)
+    , width_ (copy.width_)
+    , height_ (copy.height_)
   {
   }
 
@@ -44,10 +46,22 @@ namespace yap
     name_ = name;
   }
 
+  const uint& Map::GetWidth () const
+  {
+    return width_;
+  }
+
+  const uint& Map::GetHeight () const
+  {
+    return height_;
+  }
+
   void Map::SetSize (uint width, uint height)
   {
     width_ = width;
     height_ = height;
+
+    HandleSetSize (width, height);
   }
 
   void Map::HandleSetSize (uint width, uint height)

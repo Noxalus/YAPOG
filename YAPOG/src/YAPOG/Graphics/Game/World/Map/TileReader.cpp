@@ -9,6 +9,7 @@ namespace yap
 {
   const String TileReader::DEFAULT_XML_ROOT_NODE_NAME = "Tile";
   const String TileReader::DEFAULT_XML_ID_NODE_NAME = "id";
+  const String TileReader::DEFAULT_XML_SPRITE_TYPE_NODE_NAME = "spriteType";
 
   TileReader::TileReader (Tile& tile)
     : tile_ (tile)
@@ -40,7 +41,8 @@ namespace yap
 
     // <{SpriteType}>
 
-    const String& spriteType = visitable.GetNode (1);
+    String spriteType = visitable.ReadString (
+      DEFAULT_XML_SPRITE_TYPE_NODE_NAME);
     tile_.SetSprite (
       ObjectFactory::Instance ().Create<ISprite> (
         spriteType,

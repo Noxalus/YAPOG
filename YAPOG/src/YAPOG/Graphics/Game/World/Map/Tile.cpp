@@ -23,6 +23,21 @@ namespace yap
     sprite_ = nullptr;
   }
 
+  Tile::Tile (const Tile& copy)
+    : id_ (copy.id_)
+    , sprite_ (copy.sprite_->Clone ())
+    , family_ (copy.family_)
+    , spatialInfo_ (copy.spatialInfo_)
+    , isVisible_ (copy.isVisible_)
+    , color_ (copy.color_)
+  {
+  }
+
+  Tile* Tile::Clone () const
+  {
+    return new Tile (*this);
+  }
+
   const ID& Tile::GetID () const
   {
     return id_;
@@ -134,20 +149,5 @@ namespace yap
   void Tile::Update (const Time& dt)
   {
     sprite_->Update (dt);
-  }
-
-  Tile* Tile::Clone () const
-  {
-    return new Tile (*this);
-  }
-
-  Tile::Tile (const Tile& copy)
-    : id_ (copy.id_)
-    , sprite_ (copy.sprite_->Clone ())
-    , family_ (copy.family_)
-    , spatialInfo_ (copy.spatialInfo_)
-    , isVisible_ (copy.isVisible_)
-    , color_ (copy.color_)
-  {
   }
 } // namespace yap

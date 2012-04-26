@@ -18,10 +18,10 @@ namespace yap
 
   class TileFamily;
 
-  class Tile : public ISpatial
-             , public IDrawable
-             , public IUpdateable
-             , public ILoadable
+  class YAPOG_LIB Tile : public ISpatial
+                       , public IDrawable
+                       , public IUpdateable
+                       , public ILoadable
   {
       DISALLOW_ASSIGN(Tile);
 

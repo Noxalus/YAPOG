@@ -9,7 +9,7 @@ namespace yap
 {
   class Texture;
 
-  class TextureReader : public IReaderVisitor
+  class YAPOG_LIB TextureReader : public IReaderVisitor
   {
       DISALLOW_COPY(TextureReader);
 

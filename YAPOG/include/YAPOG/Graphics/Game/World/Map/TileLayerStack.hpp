@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Game/Factory/ICloneable.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/Map.hpp"
 
@@ -14,8 +15,9 @@ namespace yap
 
   class TileLayerStack : public IDrawable
                        , public IUpdateable
+                       , public ICloneable
   {
-      DISALLOW_COPY(TileLayerStack);
+      DISALLOW_ASSIGN(TileLayerStack);
 
     public:
 
@@ -44,7 +46,16 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual TileLayerStack* Clone () const;
+      /// @}
+
+      TileLayerStack (const TileLayerStack& copy);
+
     private:
+
+      void AddTileLayer (uint height, TileLayer* tileLayer);
 
       static const uint DEFAULT_WIDTH;
       static const uint DEFAULT_HEIGHT;

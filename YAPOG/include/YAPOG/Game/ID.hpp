@@ -27,7 +27,6 @@ namespace yap
       bool operator< (const ID& right) const;
       bool operator>= (const ID& right) const;
       bool operator<= (const ID& right) const;
-
     private:
 
       static const ValueType DEFAULT_VALUE;

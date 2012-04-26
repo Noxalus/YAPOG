@@ -7,7 +7,7 @@
 namespace yap
 {
   template <typename T, typename TXmlReader>
-  class XmlObjectLoader : public IObjectLoader
+  class YAPOG_LIB XmlObjectLoader : public IObjectLoader
   {
       DISALLOW_COPY(XmlObjectLoader);
 

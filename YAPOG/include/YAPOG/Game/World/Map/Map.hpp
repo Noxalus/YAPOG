@@ -25,6 +25,8 @@ namespace yap
       const String& GetName () const;
       void SetName (const String& name);
 
+      const uint& GetWidth () const;
+      const uint& GetHeight () const;
       void SetSize (uint width, uint height);
 
     protected:
