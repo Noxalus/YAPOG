@@ -1,13 +1,15 @@
 #ifndef YAPOG_XMLOBJECTLOADER_HPP
 # define YAPOG_XMLOBJECTLOADER_HPP
 
+# define DLLEXPORT
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   template <typename T, typename TXmlReader>
-  class YAPOG_LIB XmlObjectLoader : public IObjectLoader
+  class XmlObjectLoader : public IObjectLoader
   {
       DISALLOW_COPY(XmlObjectLoader);
 

@@ -7,6 +7,7 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
+#include "YAPOG/System/IntTypes.hpp"
 
 MapReader::MapReader (Map& map)
   : yap::MapReader (map)
@@ -24,29 +25,31 @@ void MapReader::Visit (yap::XmlReader& visitable)
 
   if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
     throw yap::Exception (
-      "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+    "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
 
   visitable.DownChangeRoot ("ground");
 
+  /*
   yap::XmlReaderCollection tileSetReaders;
   for (auto& tileSetReader : visitable.ReadNodes ("tileLayer", tileSetReaders))
   {
-    uint height = tileSetReader->ReadUInt ("height");
-    yap::RandomTileLayoutHandler* tileLayoutHandler =
-      new yap::RandomTileLayoutHandler ();
+  yap::uint height = tileSetReader->ReadUInt ("height");
+  yap::RandomTileLayoutHandler* tileLayoutHandler =
+  new yap::RandomTileLayoutHandler ();
 
-    yap::XmlReaderCollection tileReaders;
-    for (auto& tileReader : tileSetReader->ReadNodes ("Tile", tileReaders))
-    {
-      yap::Tile* tile = yap::ObjectFactory::Instance ().Create<yap::Tile> (
-        "Tile",
-        tileReader->ReadID (yap::XmlHelper::GetAttrNodeName ("id")));
+  yap::XmlReaderCollection tileReaders;
+  for (auto& tileReader : tileSetReader->ReadNodes ("Tile", tileReaders))
+  {
+  yap::Tile* tile = yap::ObjectFactory::Instance ().Create<yap::Tile> (
+  "Tile",
+  tileReader->ReadID (yap::XmlHelper::GetAttrNodeName ("id")));
 
-      tileLayoutHandler->AddTile (tile);
-    }
-
-    map_.AddTileLayer (height, tileLayoutHandler);
+  tileLayoutHandler->AddTile (tile);
   }
+
+  map_.AddTileLayer (height, tileLayoutHandler);
+  }
+  */
 
   visitable.UpChangeRoot ();
 }

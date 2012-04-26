@@ -13,7 +13,7 @@ namespace yap
   class TileLayer;
   class TileLayoutHandler;
 
-  class TileLayerStack : public IDrawable
+  class YAPOG_LIB TileLayerStack : public IDrawable
                        , public IUpdateable
                        , public ICloneable
   {

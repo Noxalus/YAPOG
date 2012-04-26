@@ -12,6 +12,7 @@ namespace yap
   const String MapReader::DEFAULT_XML_WIDTH_NODE_NAME = "width";
   const String MapReader::DEFAULT_XML_HEIGHT_NODE_NAME = "height";
 
+
   MapReader::MapReader (Map& map)
     : map_ (map)
     , xmlRootNodeName_ (DEFAULT_XML_ROOT_NODE_NAME)

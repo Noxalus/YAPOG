@@ -10,7 +10,7 @@ namespace yap
   /// @brief Maps ISprite with keys.
   /// Represents an ISprite that changes of state over the time.
   template <typename K>
-  class YAPOG_LIB SpriteSet : public BaseSprite
+  class SpriteSet : public BaseSprite
   {
       DISALLOW_COPY(SpriteSet);
 

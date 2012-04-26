@@ -1,6 +1,8 @@
 #ifndef YAPOG_ARRAY_HPP
 # define YAPOG_ARRAY_HPP
 
+# define DLLEXPORT
+
 # include <vector>
 
 # include "YAPOG/Macros.hpp"
@@ -11,7 +13,7 @@ namespace yap
   {
     /// @brief Wrapper for std::vector.
     template <typename T>
-    class YAPOG_LIB Array
+    class Array
     {
       public:
 

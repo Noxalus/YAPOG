@@ -85,7 +85,6 @@ TestScreen::TestScreen ()
       new KeyboardGameInputEntry (Key::M)));
 
   int animFlag = 0;
-
   for (int i = 0; i < 2000; ++i)
   {
     yap::Vector2 scaleFactor (0.7f, 0.7f);

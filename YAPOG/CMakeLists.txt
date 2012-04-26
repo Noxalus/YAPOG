@@ -11,6 +11,10 @@ LINK_DIRECTORIES(
     ${EXT_LIB_DIR}
 )
 
+ADD_DEFINITIONS(
+	-DDLLEXPORT
+)
+
 SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/YAPOG )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/YAPOG )
 SET( pgstream_inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/pgstream )
@@ -254,9 +258,9 @@ ADD_CUSTOM_COMMAND(
 	TARGET
 	${PROJECT_NAME}
 	POST_BUILD
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Client\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Server\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the YAPOG DLL file in the good directory !"
 )
 
@@ -275,11 +279,11 @@ ADD_CUSTOM_COMMAND(
 	${PROJECT_NAME}
 	PRE_BUILD
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)YAPOG.Client\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)YAPOG.Server\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the SFML2 DLL files in the good directory !"
 )
 
@@ -288,11 +292,11 @@ ADD_CUSTOM_COMMAND(
 	${PROJECT_NAME}
 	PRE_BUILD
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)\\YAPOG.Client\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)\\YAPOG.Server\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)\\YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the SFML2 DLL files in the good directory !"
 )
 endif()

@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
 # include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {

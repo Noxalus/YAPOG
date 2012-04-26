@@ -1,6 +1,8 @@
 #ifndef YAPOG_XMLOBJECTIDLOADER_HPP
 # define YAPOG_XMLOBJECTIDLOADER_HPP
 
+# define DLLEXPORT
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
 # include "YAPOG/Content/ContentManager.hpp"
@@ -12,7 +14,7 @@
 namespace yap
 {
   template <typename T, typename TXmlReader>
-  class YAPOG_LIB XmlObjectIDLoader : public IObjectIDLoader
+  class XmlObjectIDLoader : public IObjectIDLoader
   {
       DISALLOW_COPY(XmlObjectIDLoader);
 

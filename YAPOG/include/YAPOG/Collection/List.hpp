@@ -1,6 +1,8 @@
 #ifndef YAPOG_LIST_HPP
 # define YAPOG_LIST_HPP
 
+# define DLLEXPORT
+
 # include <list>
 
 # include "YAPOG/Macros.hpp"
@@ -10,7 +12,7 @@ namespace yap
   namespace collection
   {
     template <typename T>
-    class YAPOG_LIB List
+    class List
     {
       public:
 

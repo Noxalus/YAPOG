@@ -10,7 +10,7 @@ namespace yap
   namespace collection
   {
     template <typename T>
-    class YAPOG_LIB Queue
+    class Queue
     {
       public:
 

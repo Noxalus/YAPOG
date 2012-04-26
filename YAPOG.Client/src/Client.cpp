@@ -14,5 +14,6 @@ int main ()
   catch (yap::Exception& ex)
   {
     ex.GetMessage (std::cout) << std::endl;
+    getchar ();
   }
 }

@@ -5,6 +5,7 @@
 # include "YAPOG/Game/World/Map/Map.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 class Map : public yap::Map
           , public yap::IDrawable
@@ -16,7 +17,7 @@ class Map : public yap::Map
     Map (const yap::ID& id);
     virtual ~Map ();
 
-    void AddTileLayer (uint height, yap::TileLayoutHandler* tileLayoutHandler);
+    void AddTileLayer (yap::uint height, yap::TileLayoutHandler* tileLayoutHandler);
 
     /// @name ICloneable members.
     /// @{
@@ -40,7 +41,7 @@ class Map : public yap::Map
 
   private:
 
-    virtual void HandleSetSize (uint width, uint height);
+    virtual void HandleSetSize (yap::uint width, yap::uint height);
 
     yap::TileLayerStack tileLayers_;
 };

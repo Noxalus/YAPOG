@@ -21,7 +21,7 @@ Map* Map::Clone () const
   return new Map (*this);
 }
 
-void Map::AddTileLayer (uint height, yap::TileLayoutHandler* tileLayoutHandler)
+void Map::AddTileLayer (yap::uint height, yap::TileLayoutHandler* tileLayoutHandler)
 {
   tileLayers_.AddTileLayer (height, tileLayoutHandler);
 }
@@ -47,7 +47,7 @@ void Map::ChangeColor (const sf::Color& color)
 {
 }
 
-void Map::HandleSetSize (uint width, uint height)
+void Map::HandleSetSize (yap::uint width, yap::uint height)
 {
   tileLayers_.SetSize (width, height);
 }
