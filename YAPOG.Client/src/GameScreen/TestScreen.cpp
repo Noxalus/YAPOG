@@ -19,6 +19,7 @@
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Gui/LayoutH.hpp"
+#include "YAPOG/Graphics/Gui/LayoutV.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 
 ///////////////////////////////
@@ -152,8 +153,8 @@ void TestScreen::HandleInit ()
 {
   guiManager_ = new yap::GuiManager ();
 
-  yap::LayoutH* layout = new LayoutH (Padding (2, 2, 2, 2),
-    Padding (1, 1 ,1 ,1));
+  yap::LayoutV* layout = new LayoutV (Padding (2, 2, 2, 2),
+    Padding (9, 9 ,9 , 9), false);
 
   layout->SetSize (Vector2 (1024, 512));
 
@@ -174,9 +175,7 @@ void TestScreen::HandleInit ()
   layout->AddChild (*label, LayoutBox::Align::TOP);
   layout->AddChild (*pb, LayoutBox::Align::TOP);
   layout->AddChild (*ts, LayoutBox::Align::TOP);
-  //layout->AddChild (*ts2, LayoutBox::Align::TOP);
-
-  layout->GeneratePosition ();
+  layout->AddChild (*ts2, LayoutBox::Align::TOP);
 
   guiManager_->AddChild (*layout);
 

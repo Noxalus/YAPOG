@@ -12,6 +12,21 @@ namespace yap
     Init (position, size);
   }
 
+  SpatialInfo::SpatialInfo (const SpatialInfo& copy)
+  {
+    Init (copy.position_, copy.size_);
+  }
+
+  SpatialInfo& SpatialInfo::operator= (const SpatialInfo& copy)
+  {
+    if (this == &copy)
+      return *this;
+
+    Init (copy.position_, copy.size_);
+
+    return *this;
+  }
+
   const Vector2& SpatialInfo::GetPosition () const
   {
     return position_;

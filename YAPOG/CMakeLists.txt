@@ -56,6 +56,8 @@ ${src_root}/Graphics/Game/GameScreenManager.cpp
 ${inc_root}/Graphics/Game/IGame.hpp
 ${inc_root}/Graphics/Game/IGameScreen.hpp
 ${inc_root}/Graphics/Game/IGameScreenManager.hpp
+${inc_root}/Game/Factory/ILoadable.hpp
+${inc_root}/Game/Factory/ICloneable.hpp
 ${inc_root}/Graphics/Game/Sprite/AnimatedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/AnimatedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/AnyFrameSwitcher.hpp
@@ -91,6 +93,10 @@ ${inc_root}/Graphics/Gui/LayoutBox.hpp
 ${src_root}/Graphics/Gui/LayoutBox.cpp
 ${inc_root}/Graphics/Gui/LayoutH.hpp
 ${src_root}/Graphics/Gui/LayoutH.cpp
+${inc_root}/Graphics/Gui/LayoutV.hpp
+${src_root}/Graphics/Gui/LayoutV.cpp
+${inc_root}/Graphics/Gui/TextureManager.hpp
+${src_root}/Graphics/Gui/TextureManager.cpp
 ${inc_root}/Graphics/Gui/PictureBox.hpp
 ${src_root}/Graphics/Gui/PictureBox.cpp
 ${inc_root}/Graphics/Gui/Menu.hpp

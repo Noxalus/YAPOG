@@ -80,7 +80,7 @@ namespace yap
     spatialInfo_.SetSize (
       Vector2 (
       GetSize ().x * factor.x,
-       GetSize ().y * factor.y));
+      GetSize ().y * factor.y));
 
     OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
@@ -88,15 +88,7 @@ namespace yap
 
   void BaseWidget::SetPosition (const Vector2& position)
   {
-    for (IWidget* child : childen_)
-    {
-      child->SetPosition (position);
-    }
-
-    spatialInfo_.SetPosition (position);
-    OnPositionSet (*this, EventArgs (position));
-
-    //Move (position - GetPosition ());
+    Move (position - GetPosition ());
   }
 
   void BaseWidget::SetSize (const Vector2& size)

@@ -58,7 +58,6 @@ namespace yap
 
     Event<const BaseWidget&, const EventArgs&> OnMoved;
     Event<const BaseWidget&, const EventArgs&> OnScaled;
-    Event<const BaseWidget&, const EventArgs&> OnPositionSet;
     Event<const BaseWidget&, const EventArgs&> OnSizeSet;
     Event<const BaseWidget&, const EventArgsDraw&> OnDraw;
     Event<const BaseWidget&, const EventArgsColor&> OnColorChanged;

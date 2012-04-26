@@ -25,14 +25,19 @@ namespace yap
     };
 
     LayoutBox ();
-    LayoutBox (Padding ext, Padding in);
+    LayoutBox (Padding ext, Padding in, bool isExt);
     virtual ~LayoutBox ();
 
     virtual void AddChild (IWidget& child, Align align = Align::CENTER);
-    virtual void GeneratePosition () = 0;
+    void SetExtensible (bool isExt);
+    bool GetExtensible ();
+    void SetAlign (Align global);
+    Align GetAlign ();
 
   protected:
+    virtual void GeneratePosition () = 0;
 
+    virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 
@@ -43,10 +48,14 @@ namespace yap
 
     virtual void HandleUpdate (const Time& dt);
 
+    float MaxSize (char coord);
+
     collection::Map<IWidget*, Align> items_;
     Padding externPad_;
     Padding innerPad_;
-
+    Align globalAlign_;
+    bool isExtensible_;
+    Vector2 realSize_;
   };
 } // namespace yap
 
