@@ -5,4 +5,9 @@ namespace yap
   Attack::Attack ()
   {
   }
+
+  Attack::Attack (UInt16 value)
+    : BaseStat (value)
+  {
+  }
 } // namespace yap

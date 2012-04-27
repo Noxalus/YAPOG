@@ -1,17 +1,17 @@
-#ifndef YAPOG_SKILL_HPP
-# define YAPOG_SKILL_HPP
+#ifndef YAPOG_POKEMONSKILL_HPP
+# define YAPOG_POKEMONSKILL_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
-# include "YAPOG/Game/Pokemon/Type.hpp"
+# include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB Skill
+  class YAPOG_LIB PokemonSkill
   {
   public:
-    Skill ();
+    PokemonSkill ();
 
     /// @brief Reset the PP to the maxPP value.
     void Refill ();
@@ -28,7 +28,7 @@ namespace yap
     String description_;
     int power_;
     int accuracy_;
-    Type type_;
+    TypeInfo type_;
     int maxPP_;
     int currentPP_;
     int limitPPMax_;
@@ -36,4 +36,4 @@ namespace yap
 
 } // namespace yap
 
-#endif // YAPOG_SKILL_HPP
+#endif // YAPOG_POKEMONSKILL_HPP

@@ -2,11 +2,19 @@
 
 namespace yap
 {
+  const UInt16 BaseStat::INITIAL_STAT_VALUE = 50;
+
   BaseStat::BaseStat ()
+  {
+    value_ = INITIAL_STAT_VALUE;
+  }
+
+  BaseStat::BaseStat (UInt16 value)
+    : value_ (value)
   {
   }
 
-  int BaseStat::GetValue ()
+  UInt16 BaseStat::GetValue ()
   {
     return value_;
   }

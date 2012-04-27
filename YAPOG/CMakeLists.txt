@@ -59,12 +59,18 @@ ${src_root}/Game/Pokemon/PokemonInfo.cpp
 ${inc_root}/Game/Pokemon/PokemonInfo.hpp
 ${src_root}/Game/Pokemon/PokemonInfoReader.cpp
 ${inc_root}/Game/Pokemon/PokemonInfoReader.hpp
-${src_root}/Game/Pokemon/Type.cpp
-${inc_root}/Game/Pokemon/Type.hpp
+${src_root}/Game/Pokemon/TypeInfo.cpp
+${inc_root}/Game/Pokemon/TypeInfo.hpp
+${src_root}/Game/Pokemon/PokemonType.cpp
+${inc_root}/Game/Pokemon/PokemonType.hpp
 ${inc_root}/Game/Pokemon/Gender.hpp
 ${inc_root}/Game/Pokemon/Status.hpp
-${src_root}/Game/Pokemon/Skill.cpp
-${inc_root}/Game/Pokemon/Skill.hpp
+${src_root}/Game/Pokemon/SkillInfo.cpp
+${inc_root}/Game/Pokemon/SkillInfo.hpp
+${src_root}/Game/Pokemon/PokemonSkill.cpp
+${inc_root}/Game/Pokemon/PokemonSkill.hpp
+${src_root}/Game/Pokemon/PokemonStat.cpp
+${inc_root}/Game/Pokemon/PokemonStat.hpp
 ${src_root}/Game/Pokemon/BaseStat.cpp
 ${inc_root}/Game/Pokemon/BaseStat.hpp
 ${src_root}/Game/Pokemon/HitPoint.cpp
@@ -79,6 +85,12 @@ ${src_root}/Game/Pokemon/SpecialAttack.cpp
 ${inc_root}/Game/Pokemon/SpecialAttack.hpp
 ${src_root}/Game/Pokemon/SpecialDefense.cpp
 ${inc_root}/Game/Pokemon/SpecialDefense.hpp
+${src_root}/Game/Pokemon/Ability.cpp
+${inc_root}/Game/Pokemon/Ability.hpp
+${src_root}/Game/Pokemon/NatureInfo.cpp
+${inc_root}/Game/Pokemon/NatureInfo.hpp
+${src_root}/Game/Pokemon/Gender.cpp
+${inc_root}/Game/Pokemon/Gender.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

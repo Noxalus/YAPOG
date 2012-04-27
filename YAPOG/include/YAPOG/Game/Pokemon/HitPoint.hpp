@@ -8,10 +8,15 @@ namespace yap
 {
   class YAPOG_LIB HitPoint : public BaseStat
   {
+    DISALLOW_COPY (HitPoint);
+
     public:
       HitPoint ();
+      HitPoint (UInt16 value);
+
+      UInt16& GetCurrentValue ();
   private:
-    int currentHP_;
+    UInt16 currentValue_;
   };
 } // namespace yap
 
