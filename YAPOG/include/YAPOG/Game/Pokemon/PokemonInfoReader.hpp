@@ -34,6 +34,13 @@ namespace yap
     static const String DEFAULT_XML_WEIGHT_NODE_NAME;
     static const String DEFAULT_XML_RARITY_NODE_NAME;
     static const String DEFAULT_XML_EXPERIENCE_NODE_NAME;
+    static const String DEFAULT_XML_BASE_STATS_NODE_NAME;
+    static const String DEFAULT_XML_HP_NODE_NAME;
+    static const String DEFAULT_XML_ATTACK_NODE_NAME;
+    static const String DEFAULT_XML_DEFENSE_NODE_NAME;
+    static const String DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME;
+    static const String DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME;
+    static const String DEFAULT_XML_SPEED_NODE_NAME;
   };
 } // namespace yap
 

@@ -12,6 +12,7 @@
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/System/Path.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
 
 int main ()
 {
@@ -20,17 +21,10 @@ int main ()
 
   try
   {
-    yap::ContentManager::Instance ().Init (yap::Path ("../../Content/"));
-    yap::ObjectFactory& ob = yap::ObjectFactory::Instance ();
-
-    yap::Path path = yap::Path ("Pokemon");
-    yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>* xoidl =
-      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
-      (path, "PokemonInfo");
-    ob.RegisterLoader ("PokemonInfo", xoidl);
-
-    yap::PokemonInfo* pokeInfo = ob.Create<yap::PokemonInfo> ("PokemonInfo",  yap::ID (1));
-    pokeInfo->DisplayData ();
+    yap::ContentManager::Instance ().Init (yap::Path ("../../Content"));
+    
+    yap::Pokemon p (yap::ID (1));
+    p.PrintStats ();
 
     getchar ();
   }

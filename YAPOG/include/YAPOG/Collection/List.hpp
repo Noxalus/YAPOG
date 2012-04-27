@@ -1,8 +1,6 @@
 #ifndef YAPOG_LIST_HPP
 # define YAPOG_LIST_HPP
 
-# define DLLEXPORT
-
 # include <list>
 
 # include "YAPOG/Macros.hpp"

@@ -27,6 +27,12 @@ namespace yap
     void SetWeight (const float& value);
     void SetExperience (const int& value);
     void SetRarity (const int& value);
+    void SetHitPoint (const int& value);
+    void SetAttack (const int& value);
+    void SetDefense (const int& value);
+    void SetSpecialAttack (const int& value);
+    void SetSpecialDefense (const int& value);
+    void SetSpeed (const int& value);
 
     ID& GetID ();
     String& GetName ();
@@ -36,19 +42,15 @@ namespace yap
     float& GetWeight ();
     int& GetExperience ();
     int& GetRarity ();
+    int& GetHitPoint ();
+    int& GetAttack ();
+    int& GetDefense ();
+    int& GetSpecialAttack ();
+    int& GetSpecialDefense ();
+    int& GetSpeed ();
 
-    void DisplayData ()
-    {
-      std::cout << "PokemonInfo Data: " << std::endl
-        << "ID: " << pokedexID_.GetValue () << std::endl
-        << "Name: " << name_ << std::endl
-        << "Description: " << description_ << std::endl
-        << "Species: " << species_ << std::endl
-        << "Height: " << height_ << std::endl
-        << "Weight: " << weight_ << std::endl
-        << "Rarity: " << rarity_ << std::endl
-        << "Experience: " << experience_ << std::endl;
-    }
+    void PrintBaseStats ();
+
   protected:
     PokemonInfo (const PokemonInfo& copy);
 
@@ -69,6 +71,8 @@ namespace yap
     int baseSpeed_;
     int type1_;
     int type2_;
+
+    static const int INITIAL_BASE_STATS_VALUE;
   };
 } // namespace yap
 

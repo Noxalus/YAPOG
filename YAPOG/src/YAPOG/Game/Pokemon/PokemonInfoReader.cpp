@@ -11,6 +11,13 @@ namespace yap
   const String PokemonInfoReader::DEFAULT_XML_WEIGHT_NODE_NAME = "weight";
   const String PokemonInfoReader::DEFAULT_XML_RARITY_NODE_NAME = "rarity";
   const String PokemonInfoReader::DEFAULT_XML_EXPERIENCE_NODE_NAME = "experience";
+  const String PokemonInfoReader:: DEFAULT_XML_BASE_STATS_NODE_NAME = "baseStats";
+  const String PokemonInfoReader:: DEFAULT_XML_HP_NODE_NAME = "hp";
+  const String PokemonInfoReader:: DEFAULT_XML_ATTACK_NODE_NAME = "attack";
+  const String PokemonInfoReader:: DEFAULT_XML_DEFENSE_NODE_NAME = "defense";
+  const String PokemonInfoReader:: DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME = "specialAttack";
+  const String PokemonInfoReader:: DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME = "specialDefense";
+  const String PokemonInfoReader:: DEFAULT_XML_SPEED_NODE_NAME = "speed";
 
   PokemonInfoReader::PokemonInfoReader (PokemonInfo& pokeInfo)
     : pokeInfo_ (pokeInfo)
@@ -84,6 +91,25 @@ namespace yap
     pokeInfo_.SetExperience (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_NODE_NAME));
 
     // </experience>
+
+    // <baseStat>
+
+    if (!visitable.TryChangeRoot (DEFAULT_XML_BASE_STATS_NODE_NAME))
+    {
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_BASE_STATS_NODE_NAME + "' node.");
+    }
+
+    pokeInfo_.SetHitPoint (visitable.ReadInt (DEFAULT_XML_HP_NODE_NAME));
+    pokeInfo_.SetAttack (visitable.ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
+    pokeInfo_.SetDefense (visitable.ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpecialAttack (visitable.ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
+    pokeInfo_.SetSpecialDefense (visitable.ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpeed (visitable.ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
+
+    visitable.UpChangeRoot ();
+
+    // </baseStat>
 
     visitable.UpChangeRoot ();
 

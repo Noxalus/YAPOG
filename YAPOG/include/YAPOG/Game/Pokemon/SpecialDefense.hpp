@@ -8,8 +8,11 @@ namespace yap
 {
   class YAPOG_LIB SpecialDefense : public BaseStat
   {
+    DISALLOW_COPY (SpecialDefense);
+
     public:
       SpecialDefense ();
+      SpecialDefense (UInt16 value);
   };
 } // namespace yap
 

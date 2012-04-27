@@ -1,8 +1,6 @@
 #ifndef YAPOG_XMLOBJECTIDLOADER_HPP
 # define YAPOG_XMLOBJECTIDLOADER_HPP
 
-# define DLLEXPORT
-
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
 # include "YAPOG/Content/ContentManager.hpp"

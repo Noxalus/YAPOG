@@ -1,23 +1,23 @@
-#include "YAPOG/Game/Pokemon/Skill.hpp"
+#include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
 
 namespace yap
 {
-  Skill::Skill ()
+  PokemonSkill::PokemonSkill ()
   {
   }
 
-  void Skill::Refill ()
+  void PokemonSkill::Refill ()
   {
     currentPP_ = maxPP_;
   }
 
-  void Skill::Use ()
+  void PokemonSkill::Use ()
   {
     if (currentPP_ > 0)
       currentPP_--;
   }
   
-  void Skill::AddPP (int value)
+  void PokemonSkill::AddPP (int value)
   {
     maxPP_ += value;
 
@@ -25,7 +25,7 @@ namespace yap
       maxPP_ = limitPPMax_;
   }
 
-  void Skill::RaiseToMaxPP ()
+  void PokemonSkill::RaiseToMaxPP ()
   {
     maxPP_ = limitPPMax_;
   }

@@ -24,4 +24,8 @@
 #  define YAPOG_LIB
 # endif // _MSC_VER
 
+#ifdef _MSC_VER
+ #pragma warning(disable : 4251)
+#endif
+
 #endif // YAPOG_MACROS_HPP

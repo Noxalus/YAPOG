@@ -9,7 +9,7 @@ namespace yap
 {
   class Tile;
 
-  class RandomTileLayoutHandler : public TileLayoutHandler
+  class YAPOG_LIB RandomTileLayoutHandler : public TileLayoutHandler
   {
       DISALLOW_COPY(RandomTileLayoutHandler);
 

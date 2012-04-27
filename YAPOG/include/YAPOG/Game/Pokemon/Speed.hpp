@@ -8,8 +8,11 @@ namespace yap
 {
   class YAPOG_LIB Speed : public BaseStat
   {
+    DISALLOW_COPY (Speed);
+
     public:
       Speed ();
+      Speed (UInt16 value);
   };
 } // namespace yap
 
