@@ -12,7 +12,8 @@ namespace yap
 
     public:
       BaseStat ();
-      BaseStat (UInt16 value);
+      BaseStat (const UInt16& value);
+      BaseStat (const UInt16& value, const UInt16& iv, const UInt16& ev);
 
       UInt16 GetValue ();
   protected:
@@ -21,6 +22,8 @@ namespace yap
     UInt16 effortValue_;
 
     static const UInt16 INITIAL_STAT_VALUE;
+    static const UInt16 INITIAL_INDIVIDUAL_VALUE;
+    static const UInt16 INITIAL_EFFORT_VALUE;
   };
 } // namespace yap
 

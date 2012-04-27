@@ -3,7 +3,11 @@
 namespace yap
 {
   const int PokemonInfo::INITIAL_BASE_STATS_VALUE = 0;
-  
+
+  PokemonInfo::PokemonInfo ()
+  {
+  }
+
   PokemonInfo::PokemonInfo (const ID& id)
     : pokedexID_ (id)
   {
@@ -119,72 +123,72 @@ namespace yap
     baseSpeed_ = value;
   }
 
-  ID& PokemonInfo::GetID ()
+  const ID& PokemonInfo::GetID () const
   {
     return pokedexID_;
   }
 
-  String& PokemonInfo::GetName ()
+  const String& PokemonInfo::GetName () const
   {
     return name_;
   }
 
-  String& PokemonInfo::GetDescription ()
+  const String& PokemonInfo::GetDescription () const
   {
     return description_;
   }
 
-  String& PokemonInfo::GetSpecies ()
+  const String& PokemonInfo::GetSpecies () const
   {
     return species_;
   }
 
-  float& PokemonInfo::GetHeight ()
+  const float& PokemonInfo::GetHeight () const
   {
     return height_;
   }
 
-  float& PokemonInfo::GetWeight ()
+  const float& PokemonInfo::GetWeight () const
   {
     return weight_;
   }
 
-  int& PokemonInfo::GetExperience ()
+  const int& PokemonInfo::GetExperience () const
   {
     return experience_;
   }
 
-  int& PokemonInfo::GetRarity ()
+  const int& PokemonInfo::GetRarity () const
   {
     return rarity_;
   }
 
-  int& PokemonInfo::GetHitPoint ()
+  const int& PokemonInfo::GetHitPoint () const
   {
     return baseHitPoint_;
   }
 
-  int& PokemonInfo::GetAttack ()
+  const int& PokemonInfo::GetAttack () const
   {
     return baseAttack_;
   }
 
-  int& PokemonInfo::GetDefense ()
+  const int& PokemonInfo::GetDefense () const
   {
     return baseDefense_;
   }
 
-  int& PokemonInfo::GetSpecialAttack ()
+  const int& PokemonInfo::GetSpecialAttack () const
   {
     return baseSpecialAttack_;
   }
 
-  int& PokemonInfo::GetSpecialDefense ()
+  const int& PokemonInfo::GetSpecialDefense () const
   {
     return baseSpecialDefense_;
   }
 
-  int& PokemonInfo::GetSpeed ()
+  const int& PokemonInfo::GetSpeed () const
   {
     return baseSpeed_;
   }

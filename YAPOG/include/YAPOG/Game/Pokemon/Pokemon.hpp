@@ -21,6 +21,7 @@ namespace yap
 
     public:
       Pokemon (const ID& staticID);
+      Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
 
       void PrintStats ();
     private:
@@ -40,6 +41,7 @@ namespace yap
      PokemonInfo* pokeInfo_;
 
      static const Path POKEMON_XML_PATH;
+     static const UInt16 POKEMON_INITIAL_LEVEL;
   };
 } // namespace yap
 
