@@ -22,6 +22,7 @@ namespace yap
     ~TextureManager ();
 
     void Init ();
+    void UpdatePosition ();
 
     virtual void Draw (IDrawingContext& context);
     virtual bool IsVisible () const;
@@ -44,13 +45,15 @@ namespace yap
     virtual void SetSize (const Vector2& size);
 
   private:
+    void GetLimits (int& width, int& height);
     mutable SpatialInfo spatialInfo_;
-    bool isEnable;
+    bool isEnable_;
     sf::Color color_;
     collection::Array<Texture*> textures_;
     bool isVisble_;
     uint width_;
     uint height_;
+    Texture* baseTexture_;
   };
 } // namespace yap
 

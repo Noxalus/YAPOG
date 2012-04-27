@@ -21,6 +21,7 @@
 #include "YAPOG/Graphics/Gui/LayoutH.hpp"
 #include "YAPOG/Graphics/Gui/LayoutV.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -177,7 +178,14 @@ void TestScreen::HandleInit ()
   layout->AddChild (*ts, LayoutBox::Align::TOP);
   layout->AddChild (*ts2, LayoutBox::Align::TOP);
 
+  //yap::WidgetBackground* bckgr = new WidgetBackground ("backGround.png", false);
+
+  //ts->SetBackground (*bckgr);
+  yap::WidgetBackground* bckgr = new WidgetBackground ();
+  bckgr->SetBackground ("soulEater.jpg", 1024, 512, false);
+
   guiManager_->AddChild (*layout);
+  guiManager_->AddChild (*bckgr);
 
 }
 

@@ -1,5 +1,7 @@
 #include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
 namespace yap
 {
@@ -65,6 +67,10 @@ namespace yap
     {
       child->Move (offset);
     }
+    if (border_ != nullptr)
+      border_->Move (offset);
+    if (background_ != nullptr)
+      background_->Move (offset);
     spatialInfo_.SetPosition (GetPosition () + offset);
     OnMoved (*this, EventArgs (offset));
     HandleMove (offset);
@@ -76,6 +82,10 @@ namespace yap
     {
       child->Scale (factor);
     }
+    if (border_ != nullptr)
+      border_->Scale (factor);
+    if (background_ != nullptr)
+      background_->Scale (factor);
 
     spatialInfo_.SetSize (
       Vector2 (
@@ -97,6 +107,10 @@ namespace yap
     {
       child->SetSize (size);
     }
+    if (background_ != nullptr)
+      background_->SetSize (size);
+    if (border_ != nullptr)
+      border_->SetSize (size);
 
     Scale (
       Vector2 (
@@ -109,6 +123,10 @@ namespace yap
   {
     if (!isVisible_)
       return;
+    if (background_ != nullptr)
+      background_->Draw (context);
+    if (border_ != nullptr)
+      border_->Draw (context);
 
     for (IWidget* child : childen_)
     {
@@ -130,6 +148,10 @@ namespace yap
     {
       child->Show (isVisible);
     }
+    if (border_ != nullptr)
+      border_->Show (isVisible);
+    if (background_ != nullptr)
+      background_->Show (isVisible);
 
     isVisible_ = isVisible;
 
@@ -142,6 +164,10 @@ namespace yap
     {
       child->ChangeColor (color);
     }
+    if (border_ != nullptr)
+      border_->ChangeColor (color);
+    if (background_ != nullptr)
+      background_->ChangeColor (color);
 
     color_ = color;
     OnColorChanged (*this, EventArgsColor (color));
@@ -150,22 +176,40 @@ namespace yap
 
   bool BaseWidget::OnEvent (const GuiEvent& guiEvent)
   {
+    if (!isEnable)
+      return false;
+
     for (IWidget* child : childen_)
     {
       if (child->OnEvent (guiEvent))
         return true;
     }
+    if (border_ != nullptr)
+      if (border_->OnEvent (guiEvent))
+        return true;
+    if (background_ != nullptr)
+      if (background_->OnEvent (guiEvent))
+        return true;
 
     return HandleOnEvent (guiEvent);
   }
 
   bool BaseWidget::OnPriorityEvent (const GuiEvent& guiEvent)
   {
+    if (!isEnable)
+      return false;
+
     for (IWidget* child : childen_)
     {
       if (child->OnPriorityEvent (guiEvent))
         return true;
     }
+    if (border_ != nullptr)
+      if (border_->OnEvent (guiEvent))
+        return true;
+    if (background_ != nullptr)
+      if (background_->OnEvent (guiEvent))
+        return true;
 
     return HandleOnPriorityEvent (guiEvent);
   }
@@ -176,6 +220,10 @@ namespace yap
     {
       child->Update (dt);
     }
+    if (border_ != nullptr)
+      border_->Update (dt);
+    if (background_ != nullptr)
+      background_->Update (dt);
 
     HandleUpdate (dt);
   }
@@ -217,6 +265,8 @@ namespace yap
   void BaseWidget::SetBackground (WidgetBackground& background)
   {
     background_= &background;
+    background_->SetPosition (GetPosition ());
+    background_->SetBackground (GetSize ());
   }
 
   void BaseWidget::SetBorder (WidgetBorder& border)

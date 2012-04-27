@@ -4,6 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
+# include "YAPOG/Graphics/Gui/TextureManager.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -23,9 +25,11 @@ namespace yap
     };
 
     WidgetBackground ();
+    WidgetBackground (String file, bool resize);
     virtual ~WidgetBackground ();
 
-    void SetBackground (String file);
+    void SetBackground (String file, uint width, uint height, bool resize);
+    void SetBackground (Vector2 size);
     const Texture& GetBackground () const;
     Event<const WidgetBackground&, const EventArgsTexture&> OnBackgroundSet;
 
@@ -41,6 +45,9 @@ namespace yap
     virtual void HandleUpdate (const Time& dt);
 
     Texture background_;
+    TextureManager* tm_;
+    bool resize_;
+    bool isInit;
 
   };
 } // namespace yap

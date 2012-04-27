@@ -8,33 +8,73 @@ namespace yap
 {
   TextureManager::TextureManager (Texture& base, uint w, uint h)
     : spatialInfo_ ()
-    , isEnable (true)
+    , isEnable_ (true)
     , color_  (sf::Color ())
     , textures_ ()
     , isVisble_ (true)
     , width_ (w)
     , height_ (h)
+    , baseTexture_ (&base)
   {
-    textures_.Add (&base);
+    base.SetPosition (GetPosition ());
+  }
+
+  void TextureManager::GetLimits (int& width, int& height)
+  {
+    Texture* base = baseTexture_;
+
+    width = width_ / base->GetSize ().x;
+    height = height_ / base->GetSize ().y;
+
+    if (width == 0)
+      width = 1;
+    if (height == 0)
+      height = 1;
   }
 
   void TextureManager::Init ()
   {
-    Texture* base = textures_[0];
-    int widthIt = width_ / base->GetSize ().x;
-    int heightIt = height_ / base->GetSize ().y;
+    Texture* base = baseTexture_;
 
-    if (widthIt == 0)
-      widthIt = 1;
-    if (heightIt == 0)
-      heightIt = 1;
+    int widthIt = 0;
+    int heightIt = 0;
+
+    GetLimits (widthIt, heightIt);
 
     for (int i = 0; i < widthIt; i++)
     {
       for (int j = 0; j < heightIt; j++)
       {
         Texture* current = base->Clone ();
+        textures_.Add (current);
       }
+    }
+    UpdatePosition ();
+  }
+
+  void TextureManager::UpdatePosition ()
+  {
+    Texture* base = baseTexture_;
+
+    int widthIt = 0;
+    int heightIt = 0;
+
+    GetLimits (widthIt, heightIt);
+
+    int currentWidth = GetPosition ().x;
+    int currentHeight = GetPosition ().y;
+
+    for (int i = 0; i < widthIt; i++)
+    {
+      for (int j = 0; j < heightIt; j++)
+      {
+        textures_[i * heightIt + j]->SetPosition (
+          Vector2 (currentWidth, currentHeight));
+
+        currentWidth += base->GetSize ().x;
+      }
+      currentHeight += base->GetSize ().y;
+      currentWidth = GetPosition ().x;
     }
   }
 
@@ -88,10 +128,9 @@ namespace yap
   void TextureManager::Scale (const Vector2& factor)
   {
     for (Texture* child : textures_)
-    {
       child->Scale (factor);
-    }
 
+    UpdatePosition ();
     spatialInfo_.SetSize (
       Vector2 (
       GetSize ().x * factor.x,
