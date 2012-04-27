@@ -7,7 +7,7 @@ namespace yap
 {
   class XmlWriter;
   class DebugLogger;
-	class DatabaseLogger;
+  class DatabaseLogger;
 
   struct YAPOG_LIB IWriterVisitor
   {
@@ -17,7 +17,7 @@ namespace yap
 
       virtual void Visit (XmlWriter& visitable) = 0;
       virtual void Visit (DebugLogger& visitable) = 0;
-			virtual void Visit (DatabaseLogger& visitable) = 0;
+      virtual void Visit (DatabaseLogger& visitable) = 0;
   };
 } // namespace yap
 

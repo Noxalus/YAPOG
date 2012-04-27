@@ -20,7 +20,7 @@ TestGame::~TestGame ()
 
 void TestGame::HandleInit ()
 {
-  yap::ContentManager::Instance ().Init (yap::Path ("../../Content/"));
+  yap::ContentManager::Instance ().Init (yap::Path ("../Content/"));
   yap::ContentManager::Instance ().SetTexturePath (yap::Path ("Graphics"));
 
   yap::DebugLogger::Instance ().AddMode (new yap::CountLoggerMode ());
