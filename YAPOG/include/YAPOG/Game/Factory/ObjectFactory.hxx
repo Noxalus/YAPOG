@@ -2,6 +2,7 @@
 # define YAPOG_OBJECTFACTORY_HXX
 
 # include "YAPOG/Game/Factory/ILoadable.hpp"
+# include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
 # include "YAPOG/Game/Factory/IObjectLoader.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
@@ -16,7 +17,7 @@ namespace yap
 
     IObjectIDLoader* loader = objectIDLoaders_[typeName];
 
-    ILoadable* object = loader->Load (id);
+    IIDLoadable* object = loader->Load (id);
     ICloneable* newObject = object->Clone ();
 
     return static_cast<T*> (newObject);
@@ -34,9 +35,8 @@ namespace yap
     IObjectLoader* loader = objectLoaders_[typeName];
 
     ILoadable* object = loader->Load (reader, rootNodeName);
-    ICloneable* newObject = object->Clone ();
 
-    return static_cast<T*> (newObject);
+    return static_cast<T*> (object);
   }
 } // namespace yap
 

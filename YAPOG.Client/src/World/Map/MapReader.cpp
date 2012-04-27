@@ -8,6 +8,7 @@
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
 #include "YAPOG/System/IntTypes.hpp"
+#include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
 
 MapReader::MapReader (Map& map)
   : yap::MapReader (map)
@@ -34,19 +35,14 @@ void MapReader::Visit (yap::XmlReader& visitable)
   for (auto& tileSetReader : tileSetReaders)
   {
     yap::uint height = tileSetReader->ReadUInt ("height");
-    yap::RandomTileLayoutHandler* tileLayoutHandler =
-      new yap::RandomTileLayoutHandler ();
+    yap::String layoutHandlerType = tileSetReader->ReadString (
+      "layoutHandlerType");
 
-    yap::XmlReaderCollection tileReaders;
-    tileSetReader->ReadNodes ("Tile", tileReaders);
-    for (auto& tileReader : tileReaders)
-    {
-      yap::Tile* tile = yap::ObjectFactory::Instance ().Create<yap::Tile> (
-        "Tile",
-        tileReader->ReadID (yap::XmlHelper::GetAttrNodeName ("id")));
-
-      tileLayoutHandler->AddTile (tile);
-    }
+    yap::TileLayoutHandler* tileLayoutHandler =
+      yap::ObjectFactory::Instance ().Create<yap::TileLayoutHandler> (
+        layoutHandlerType,
+        *tileSetReader,
+        "tileLayer");
 
     map_.AddTileLayer (height, tileLayoutHandler);
   }

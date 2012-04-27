@@ -8,7 +8,7 @@
 # include "YAPOG/Graphics/ISpatial.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
-# include "YAPOG/Game/Factory/ILoadable.hpp"
+# include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 
@@ -21,7 +21,7 @@ namespace yap
   class YAPOG_LIB Tile : public ISpatial
                        , public IDrawable
                        , public IUpdateable
-                       , public ILoadable
+                       , public IIDLoadable
   {
       DISALLOW_ASSIGN(Tile);
 

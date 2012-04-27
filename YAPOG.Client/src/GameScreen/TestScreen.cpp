@@ -24,6 +24,8 @@
 #include "YAPOG/Graphics/Game/World/Map/TileReader.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Graphics/Game/Sprite/SpriteReader.hpp"
+#include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp"
+#include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -54,6 +56,10 @@ TestScreen::TestScreen ()
   of.RegisterLoader ("Tile", new XmlObjectIDLoader<Tile, TileReader> (
                        Path ("Tile"), "Tile"));
   of.RegisterLoader ("Sprite", new XmlObjectLoader<Sprite, SpriteReader> ());
+  of.RegisterLoader (
+    "RandomTileLayoutHandler",
+    new XmlObjectLoader<RandomTileLayoutHandler,
+                        RandomTileLayoutHandlerReader> ());
 
 //  ::Map* map42 = of.Create< ::Map> ("Map", yap::ID (42));
 //  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));

@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  struct ILoadable;
+  struct IIDLoadable;
 
   class ID;
 
@@ -13,7 +13,7 @@ namespace yap
   {
       virtual ~IObjectIDLoader () {}
 
-      virtual ILoadable* Load (const ID& id) = 0;
+      virtual IIDLoadable* Load (const ID& id) = 0;
   };
 } // namespace yap
 

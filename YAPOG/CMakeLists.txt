@@ -37,6 +37,7 @@ ${src_root}/Content/ContentManager.cpp
 
 ${inc_root}/Game/Factory/ICloneable.hpp
 ${inc_root}/Game/Factory/ILoadable.hpp
+${inc_root}/Game/Factory/IIDLoadable.hpp
 ${inc_root}/Game/Factory/IObjectIDLoader.hpp
 ${inc_root}/Game/Factory/IObjectLoader.hpp
 ${inc_root}/Game/Factory/ObjectFactory.hpp
@@ -128,6 +129,8 @@ ${inc_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.cpp
 ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp
+${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.cpp
 ${inc_root}/Graphics/Game/World/Map/TileFamily.hpp
 ${src_root}/Graphics/Game/World/Map/TileFamily.cpp
 ${inc_root}/Graphics/Game/World/Map/Tile.hpp
@@ -138,6 +141,8 @@ ${inc_root}/Graphics/Game/World/Map/TileLayerStack.hpp
 ${src_root}/Graphics/Game/World/Map/TileLayerStack.cpp
 ${inc_root}/Graphics/Game/World/Map/TileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/TileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayoutHandlerReader.hpp
+${src_root}/Graphics/Game/World/Map/TileLayoutHandlerReader.cpp
 ${inc_root}/Graphics/Game/World/Map/TileReader.hpp
 ${src_root}/Graphics/Game/World/Map/TileReader.cpp
 ${inc_root}/Graphics/Gui/BaseWidget.hpp

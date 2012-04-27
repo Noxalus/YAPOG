@@ -2,12 +2,13 @@
 # define YAPOG_TILELAYOUTHANDLER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 
 namespace yap
 {
   class TileLayer;
 
-  class YAPOG_LIB TileLayoutHandler
+  class YAPOG_LIB TileLayoutHandler : public  ILoadable
   {
       DISALLOW_COPY(TileLayoutHandler);
 

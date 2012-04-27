@@ -3,14 +3,14 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IntTypes.hpp"
-# include "YAPOG/Game/Factory/ILoadable.hpp"
+# include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   /// @brief Base Map class for both client and server.
-  class YAPOG_LIB Map : public ILoadable
+  class YAPOG_LIB Map : public IIDLoadable
   {
       DISALLOW_ASSIGN(Map);
 

@@ -5,11 +5,11 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/ID.hpp"
-# include "YAPOG/Game/Factory/ILoadable.hpp"
+# include "YAPOG/Game/Factory/IIDLoadable.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB PokemonInfo : public ILoadable
+  class YAPOG_LIB PokemonInfo : public IIDLoadable
   {
   public:
     PokemonInfo (const ID& id);
