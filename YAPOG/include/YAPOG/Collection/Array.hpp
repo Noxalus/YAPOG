@@ -1,8 +1,6 @@
 #ifndef YAPOG_ARRAY_HPP
 # define YAPOG_ARRAY_HPP
 
-# define DLLEXPORT
-
 # include <vector>
 
 # include "YAPOG/Macros.hpp"

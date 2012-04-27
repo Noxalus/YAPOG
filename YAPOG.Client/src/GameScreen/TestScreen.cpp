@@ -184,10 +184,10 @@ void TestScreen::HandleDeactivate ()
 
 bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
 {
-  if (gim.GameInputIsActivated (yap::GameInputType::Action, guiEvent));
+//  if (gim.GameInputIsActivated (yap::GameInputType::Action, guiEvent));
 //    dss1.SetCurrentSprite (yap::Direction::North);
 
-  if (gim.GameInputIsActivated (yap::GameInputType::Misc, guiEvent));
+//  if (gim.GameInputIsActivated (yap::GameInputType::Misc, guiEvent));
 //    dss1.SetCurrentSprite (yap::Direction::South);
 
   return false;
