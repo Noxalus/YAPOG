@@ -13,6 +13,7 @@
 #include "YAPOG/System/Path.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 int main ()
 {
@@ -23,8 +24,11 @@ int main ()
   {
     yap::ContentManager::Instance ().Init (yap::Path ("../../Content"));
     
-    yap::Pokemon p (yap::ID (1));
-    p.PrintStats ();
+    yap::Pokemon p1 (yap::ID (1));
+    p1.PrintStats ();
+
+    yap::Pokemon p2 (yap::ID (1), 16, true);
+    p2.PrintStats ();
 
     getchar ();
   }

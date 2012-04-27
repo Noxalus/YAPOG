@@ -15,8 +15,12 @@ namespace yap
       HitPoint (UInt16 value);
 
       UInt16& GetCurrentValue ();
+
+      virtual void SetValue (const UInt16& value);
+      void SetCurrentValue (const UInt16& value);
   private:
     UInt16 currentValue_;
+    static const UInt16 INITIAL_CURRENT_VALUE;
   };
 } // namespace yap
 

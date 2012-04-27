@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Pokemon/PokemonStat.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 namespace yap
 {
@@ -64,27 +65,50 @@ namespace yap
 
   void PokemonStat::ComputeHitPoint (const int& baseHitPoint, const UInt16& level)
   {
-    hitPoint_.SetValue = 42;
+    UInt16 result = MathHelper::Floor ((((hitPoint_.GetIndividualValue () + (2 * baseHitPoint) + 
+      MathHelper::Floor (hitPoint_.GetEffortValue () / 4) + 100) * level) / 100)) + 10;
+
+    hitPoint_.SetValue (result);
   }
 
   void PokemonStat::ComputeAttack (const int& baseAttack, const UInt16& level)
   {
+    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseAttack) + 
+      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
+
+    attack_.SetValue (result);
   }
 
   void PokemonStat::ComputeDefense (const int& baseDefense, const UInt16& level)
   {
+    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseDefense) + 
+      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
+
+    defense_.SetValue (result);
   }
 
   void PokemonStat::ComputeSpecialAttack (const int& baseSpecialAttack, const UInt16& level)
   {
+    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseSpecialAttack) + 
+      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
+
+    specialAttack_.SetValue (result);
   }
 
   void PokemonStat::ComputeSpecialDefense (const int& baseSpecialDefense, const UInt16& level)
   {
+    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseSpecialDefense) + 
+      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
+
+    specialDefense_.SetValue (result);
   }
 
   void PokemonStat::ComputeSpeed (const int& baseSpeed, const UInt16& level)
   {
+    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseSpeed) + 
+      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
+
+    speed_.SetValue (result);
   }
 
 } // namespace yap

@@ -29,16 +29,21 @@ namespace yap
     , level_ (level)
     , shiny_ (shiny)
   {
+    pokeInfo_ = yap::ObjectFactory::Instance ().
+      Create<yap::PokemonInfo> ("PokemonInfo",  staticID);
+
+    stats_.ComputeStats (*pokeInfo_, level_);
   }
 
   void Pokemon::PrintStats ()
   {
-    pokeInfo_->PrintBaseStats ();
+    //pokeInfo_->PrintBaseStats ();
 
     std::cout 
       << "---------------------------------------------" << std::endl
       << "              Current Statistics" << std::endl
       << "---------------------------------------------" << std::endl
+      << "Level: " << level_ << std::endl
       << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue () << std::endl
       << "Attack: " << stats_.GetAttack ().GetValue () << std::endl
