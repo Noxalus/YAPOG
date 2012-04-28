@@ -11,6 +11,7 @@
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 # include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
 # include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+# include "YAPOG/Game/Pokemon/NatureInfo.hpp"
 # include "YAPOG/System/Path.hpp"
 
 namespace yap
@@ -38,9 +39,9 @@ namespace yap
      bool shiny_;
      Int16 loyalty_;
      PokemonSkill moveSet[4];
-     PokemonInfo* pokeInfo_;
+     PokemonInfo* pokemonInfo_;
+     NatureInfo* nature_;
 
-     static const Path POKEMON_XML_PATH;
      static const UInt16 POKEMON_INITIAL_LEVEL;
   };
 } // namespace yap

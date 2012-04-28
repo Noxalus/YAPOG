@@ -5,23 +5,20 @@
 
 namespace yap
 {
-  const Path Pokemon::POKEMON_XML_PATH ("Pokemon/Pokemon");
   const UInt16 Pokemon::POKEMON_INITIAL_LEVEL = 1;
 
   Pokemon::Pokemon (const ID& staticID)
     : staticID_ (staticID)
   {
-    yap::ObjectFactory::Instance ().RegisterLoader 
-      ("PokemonInfo",
-      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
-      (Pokemon::POKEMON_XML_PATH, "PokemonInfo"));
+    pokemonInfo_ = ObjectFactory::Instance ().
+      Create<PokemonInfo> ("PokemonInfo",  staticID);
 
-    pokeInfo_ = yap::ObjectFactory::Instance ().
-      Create<yap::PokemonInfo> ("PokemonInfo",  staticID);
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  ID (2));
 
     level_ = Pokemon::POKEMON_INITIAL_LEVEL;
 
-    stats_.ComputeStats (*pokeInfo_, level_);
+    stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
   }
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
@@ -29,10 +26,13 @@ namespace yap
     , level_ (level)
     , shiny_ (shiny)
   {
-    pokeInfo_ = yap::ObjectFactory::Instance ().
+    pokemonInfo_ = ObjectFactory::Instance ().
       Create<yap::PokemonInfo> ("PokemonInfo",  staticID);
 
-    stats_.ComputeStats (*pokeInfo_, level_);
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  ID (1));
+
+    stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
   }
 
   void Pokemon::PrintStats ()
@@ -44,6 +44,7 @@ namespace yap
       << "              Current Statistics" << std::endl
       << "---------------------------------------------" << std::endl
       << "Level: " << level_ << std::endl
+      << "Nature: " << nature_->GetName () << std::endl
       << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue () << std::endl
       << "Attack: " << stats_.GetAttack ().GetValue () << std::endl

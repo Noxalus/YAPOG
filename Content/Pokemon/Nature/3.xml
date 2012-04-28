@@ -1,0 +1,10 @@
+<Nature id="3">
+	<name>Hardi</name>
+	<factors>
+		<attack>1</attack>
+		<defense>1</defense>
+		<specialAttack>1</specialAttack>
+		<specialDefense>1</specialDefense>
+		<speed>1</speed>
+	</factors>
+</Nature>

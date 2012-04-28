@@ -1,0 +1,10 @@
+<Nature id="1">
+	<name>Solo</name>
+	<factors>
+		<attack>1.1</attack>
+		<defense>0.9</defense>
+		<specialAttack>1</specialAttack>
+		<specialDefense>1</specialDefense>
+		<speed>1</speed>
+	</factors>
+</Nature>
