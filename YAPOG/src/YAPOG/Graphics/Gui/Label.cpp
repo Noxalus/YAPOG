@@ -16,6 +16,11 @@ namespace yap
     : textContent_ (content)
     , drawableText_ (content)
   {
+    /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
+    GetPosition ().y + padding_->top));*/
+    drawableText_.setPosition (GetPosition ().x,
+      GetPosition ().y - drawableText_.getCharacterSize ()
+      + drawableText_.getGlobalBounds ().height);
   }
 
   Label::~Label ()
@@ -25,10 +30,10 @@ namespace yap
   Vector2 Label::HandleGetSize () const
   {
     return Vector2 (padding_->left
-      + drawableText_.getLocalBounds ().width
+      + drawableText_.getGlobalBounds ().width
       + padding_->right,
       padding_->top
-      + drawableText_.getLocalBounds ().height
+      + drawableText_.getGlobalBounds ().height
       + padding_->bottom);
   }
 
@@ -75,8 +80,11 @@ namespace yap
 
     textContent_ = content;
     drawableText_.setString (content);
-    drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
-      GetPosition ().y + padding_->top));
+    /* drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
+    GetPosition ().y + padding_->top));*/
+    drawableText_.setPosition (GetPosition ().x,
+      GetPosition ().y - drawableText_.getCharacterSize ()
+      + drawableText_.getGlobalBounds ().height);
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

@@ -7,8 +7,8 @@ namespace yap
 
   LayoutBox::LayoutBox ()
     : items_ ()
-    , innerPad_ (1, 1, 1, 1)
-    , externPad_ (1, 1, 1, 1)
+    , innerPad_ (0, 0, 0, 0)
+    , externPad_ (0, 0, 0, 0)
     , isExtensible_ (false)
     , realSize_ ()
   {

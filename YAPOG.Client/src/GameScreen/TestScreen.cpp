@@ -142,7 +142,7 @@ const yap::ScreenType& TestScreen::HandleRun (
   //  dss1.Draw (context);
   //  spr1_.Draw (context);
 
-  guiManager_->Move (mover_);
+  //guiManager_->Move (mover_);
   guiManager_->Update (dt);
   guiManager_->Draw (context);
   DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
@@ -155,7 +155,7 @@ void TestScreen::HandleInit ()
   guiManager_ = new yap::GuiManager ();
 
   yap::LayoutV* layout = new LayoutV (Padding (2, 2, 2, 2),
-    Padding (9, 9 ,9 , 9), false);
+    Padding (9, 9 , 9, 9), false);
 
   layout->SetSize (Vector2 (1024, 512));
 
@@ -168,24 +168,37 @@ void TestScreen::HandleInit ()
   pb->SetPicture (String("jarri_j.jpg"));
   pb->Scale (Vector2 (1, 1));
 
+  LayoutH* layouth = new LayoutH (Padding (2, 2, 2, 2),
+    Padding (9, 9 , 9, 9), false);
+
   Label* ts = new Label ();
   ts->SetText (String("waza"));
+  Label* ts3 = new Label ();
+  ts3->SetText (String("Waza"));
+
+  yap::WidgetBackground* bckgr = new WidgetBackground ("bckgrd.png", false);
+  yap::WidgetBackground* bckgr2 = new WidgetBackground ("bckgrd.png", false);
+
+  ts->SetBackground (*bckgr);
+  ts3->SetBackground (*bckgr2);
+
+  layouth->AddChild (*ts, LayoutBox::Align::TOP);
+  layouth->AddChild (*ts3, LayoutBox::Align::TOP);
 
   Label* ts2 = new Label ("OLOL");
 
+
   layout->AddChild (*label, LayoutBox::Align::TOP);
   layout->AddChild (*pb, LayoutBox::Align::TOP);
-  layout->AddChild (*ts, LayoutBox::Align::TOP);
+  layout->AddChild (*layouth, LayoutBox::Align::TOP);
   layout->AddChild (*ts2, LayoutBox::Align::TOP);
 
-  //yap::WidgetBackground* bckgr = new WidgetBackground ("backGround.png", false);
 
-  //ts->SetBackground (*bckgr);
-  yap::WidgetBackground* bckgr = new WidgetBackground ();
-  bckgr->SetBackground ("soulEater.jpg", 1024, 512, false);
+  //yap::widgetbackground* bckgr = new widgetbackground ();
+  //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);
 
   guiManager_->AddChild (*layout);
-  guiManager_->AddChild (*bckgr);
+  // guiManager_->AddChild (*bckgr);
 
 }
 

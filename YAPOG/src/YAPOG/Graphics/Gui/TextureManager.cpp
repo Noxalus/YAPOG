@@ -64,16 +64,16 @@ namespace yap
     int currentWidth = GetPosition ().x;
     int currentHeight = GetPosition ().y;
 
-    for (int i = 0; i < widthIt; i++)
+    for (int i = 0; i < heightIt; i++)
     {
-      for (int j = 0; j < heightIt; j++)
+      for (int j = 0; j < widthIt; j++)
       {
-        textures_[i * heightIt + j]->SetPosition (
+        textures_[j + i * widthIt]->SetPosition (
           Vector2 (currentWidth, currentHeight));
 
         currentWidth += base->GetSize ().x;
       }
-      currentHeight += base->GetSize ().y;
+      currentHeight +=  base->GetSize ().y;
       currentWidth = GetPosition ().x;
     }
   }
@@ -148,7 +148,7 @@ namespace yap
     {
       child->SetSize (size);
     }
-
+    UpdatePosition ();
     Scale (
       Vector2 (
       size.x / GetSize ().x,
