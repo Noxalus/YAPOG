@@ -6,13 +6,13 @@
 namespace yap
 {
   template <typename T>
-  const T& MathHelper::Max (const T& left, const T& right)
+  T MathHelper::Max (const T& left, const T& right)
   {
     return std::max (left, right);
   }
 
   template <typename T>
-  const T& MathHelper::Min (const T& left, const T& right)
+  T MathHelper::Min (const T& left, const T& right)
   {
     return std::min (left, right);
   }
@@ -21,6 +21,12 @@ namespace yap
   T MathHelper::Clamp (const T& value, const T& min, const T& max)
   {
     return value < min ? min : (value > max ? max : value);
+  }
+
+  template <typename T>
+  T MathHelper::Floor (const T& number)
+  {
+    return std::floor (number);
   }
 } // namespace yap
 

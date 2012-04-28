@@ -12,6 +12,7 @@ namespace yap
   class YAPOG_LIB PokemonInfo : public IIDLoadable
   {
   public:
+    PokemonInfo ();
     PokemonInfo (const ID& id);
 
     /// @name ICloneable members.
@@ -34,20 +35,20 @@ namespace yap
     void SetSpecialDefense (const int& value);
     void SetSpeed (const int& value);
 
-    ID& GetID ();
-    String& GetName ();
-    String& GetDescription ();
-    String& GetSpecies ();
-    float& GetHeight ();
-    float& GetWeight ();
-    int& GetExperience ();
-    int& GetRarity ();
-    int& GetHitPoint ();
-    int& GetAttack ();
-    int& GetDefense ();
-    int& GetSpecialAttack ();
-    int& GetSpecialDefense ();
-    int& GetSpeed ();
+    const ID& GetID () const;
+    const String& GetName () const;
+    const String& GetDescription () const;
+    const String& GetSpecies () const;
+    const float& GetHeight () const;
+    const float& GetWeight () const;
+    const int& GetExperience () const;
+    const int& GetRarity () const;
+    const int& GetHitPoint () const;
+    const int& GetAttack () const;
+    const int& GetDefense () const;
+    const int& GetSpecialAttack () const;
+    const int& GetSpecialDefense () const;
+    const int& GetSpeed () const;
 
     void PrintBaseStats ();
 

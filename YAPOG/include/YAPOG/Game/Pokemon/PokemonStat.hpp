@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 # include "YAPOG/Game/Pokemon/HitPoint.hpp"
 # include "YAPOG/Game/Pokemon/Attack.hpp"
 # include "YAPOG/Game/Pokemon/Defense.hpp"
@@ -33,6 +34,49 @@ namespace yap
     SpecialAttack& GetSpecialAttack ();
     SpecialDefense& GetSpecialDefense ();
     Speed& GetSpeed ();
+
+    /// @brief Computes all the statistics of the Pokemon
+    /// from its base statistics and its level
+    /// @param pokeInfo Base statistics of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeStats (const PokemonInfo& pokeInfo, const UInt16& level);
+
+    /// @brief Computes the Hit Points of the Pokemon
+    /// from its base statistics and its level
+    /// @param baseHitPoint Base Hit Points of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeHitPoint (const int& baseHitPoint, const UInt16& level);
+
+    /// @brief Computes the Attack of the Pokemon
+    /// from its base statistics and its level
+    /// @param baseHitPoint Base Attack of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeAttack (const int& baseAttack, const UInt16& level);
+
+    /// @brief Computes the Defense of the Pokemon
+    /// from its base statistics and its level
+    /// @param baseHitPoint Base Defense of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeDefense (const int& baseDefense, const UInt16& level);
+
+    /// @brief Computes the Special Attack of the Pokemon
+    /// from its base statistics and its level
+    /// @param baseHitPoint Base Special Attack of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeSpecialAttack (const int& baseSpecialAttack, const UInt16& level);
+
+    /// @brief Computes the Special Defense of the Pokemon
+    /// from its base statistics and its level
+    /// @param baseHitPoint Base Special Defense of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeSpecialDefense (const int& baseSpecialDefense, const UInt16& level);
+
+    /// @brief Computes the Speed of the Pokemon
+    /// from its base statistics and its level
+    /// @param baseHitPoint Base Speed of the Pokemon.
+    /// @param level Level of the Pokemon.
+    void ComputeSpeed (const int& baseSpeed, const UInt16& level);
+
   private:
     HitPoint hitPoint_;
     Attack attack_;

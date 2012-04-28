@@ -12,10 +12,13 @@ namespace yap
     public:
 
       template <typename T>
-      static const T& Max (const T& left, const T& right);
+      static T Max (const T& left, const T& right);
 
       template <typename T>
-      static const T& Min (const T& left, const T& right);
+      static T Min (const T& left, const T& right);
+
+      template <typename T>
+      static T Floor (const T& number);
 
       template <typename T>
       static T Clamp (const T& value, const T& min, const T& max);
