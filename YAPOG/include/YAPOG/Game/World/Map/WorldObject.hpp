@@ -52,7 +52,7 @@ namespace yap
 
       /// @name ICloneable members.
       /// @{
-      virtual WorldObject* Clone () const = 0;
+      virtual WorldObject* Clone () const { return nullptr; }
       /// @}
 
     protected:
