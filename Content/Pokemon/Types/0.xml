@@ -1,5 +1,5 @@
-<Type id="1">
-	<name>Normal</name>
+<Type id="0">
+	<name>???</name>
 	<factors>
 		<type id="1">1</type>
 		<type id="2">1</type>
@@ -13,10 +13,10 @@
 		<type id="10">1</type>
 		<type id="11">1</type>
 		<type id="12">1</type>
-		<type id="13">0.5</type>
-		<type id="14">0</type>
+		<type id="13">1</type>
+		<type id="14">1</type>
 		<type id="15">1</type>
-		<type id="16">0.5</type>
+		<type id="16">1</type>
 		<type id="17">1</type>
 	</factors>
 </Type>
