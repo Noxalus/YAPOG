@@ -8,7 +8,7 @@ namespace yap
 {
   class TileLayer;
 
-  class YAPOG_LIB TileLayoutHandler : public  ILoadable
+  class YAPOG_LIB TileLayoutHandler : public ILoadable
   {
       DISALLOW_COPY(TileLayoutHandler);
 

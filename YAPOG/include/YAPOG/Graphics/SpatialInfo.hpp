@@ -25,7 +25,7 @@ namespace yap
       const Vector2& GetBottomRight () const;
       const Vector2& GetCenter () const;
 
-      const sf::FloatRect& GetRectangle () const;
+      const FloatRect& GetRectangle () const;
 
       void SetPosition (const Vector2& position);
       void SetSize (const Vector2& size);

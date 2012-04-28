@@ -76,7 +76,7 @@ namespace yap
 
   String XmlReader::ReadString ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadString ()");
+    return data_.Get<String> ();
   }
 
   String XmlReader::ReadString (const String& name)
@@ -86,7 +86,7 @@ namespace yap
 
   bool XmlReader::ReadBool ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadBool ()");
+    return data_.Get<bool> ();
   }
 
   bool XmlReader::ReadBool (const String& name)
@@ -96,7 +96,7 @@ namespace yap
 
   char XmlReader::ReadChar ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadChar ()");
+    return data_.Get<char> ();
   }
 
   char XmlReader::ReadChar (const String& name)
@@ -106,7 +106,7 @@ namespace yap
 
   uchar XmlReader::ReadUChar ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadUChar ()");
+    return data_.Get<uchar> ();
   }
 
   uchar XmlReader::ReadUChar (const String& name)
@@ -116,7 +116,7 @@ namespace yap
 
   Int16 XmlReader::ReadInt16 ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadInt16 ()");
+    return data_.Get<Int16> ();
   }
 
   Int16 XmlReader::ReadInt16 (const String& name)
@@ -126,7 +126,7 @@ namespace yap
 
   UInt16 XmlReader::ReadUInt16 ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadUInt16 ()");
+    return data_.Get<UInt16> ();
   }
 
   UInt16 XmlReader::ReadUInt16 (const String& name)
@@ -136,7 +136,7 @@ namespace yap
 
   int XmlReader::ReadInt ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadInt ()");
+    return data_.Get<int> ();
   }
 
   int XmlReader::ReadInt (const String& name)
@@ -146,7 +146,7 @@ namespace yap
 
   uint XmlReader::ReadUInt ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadUInt ()");
+    return data_.Get<uint> ();
   }
 
   uint XmlReader::ReadUInt (const String& name)
@@ -156,7 +156,7 @@ namespace yap
 
   Int64 XmlReader::ReadInt64 ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadInt64 ()");
+    return data_.Get<Int64> ();
   }
 
   Int64 XmlReader::ReadInt64 (const String& name)
@@ -166,7 +166,7 @@ namespace yap
 
   UInt64 XmlReader::ReadUInt64 ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadUInt64 ()");
+    return data_.Get<UInt64> ();
   }
 
   UInt64 XmlReader::ReadUInt64 (const String& name)
@@ -176,7 +176,7 @@ namespace yap
 
   float XmlReader::ReadFloat ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadFloat ()");
+    return data_.Get<float> ();
   }
 
   float XmlReader::ReadFloat (const String& name)
@@ -186,7 +186,7 @@ namespace yap
 
   double XmlReader::ReadDouble ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadDouble ()");
+    return data_.Get<double> ();
   }
 
   double XmlReader::ReadDouble (const String& name)
@@ -196,7 +196,13 @@ namespace yap
 
   Vector2 XmlReader::ReadVector2 ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadVector2 ()");
+    String data = ReadString ();
+    collection::Array<String> result;
+    StringHelper::Split (data, ",", result);
+
+    return Vector2 (
+      StringHelper::Parse<float> (result[0]),
+      StringHelper::Parse<float> (result[1]));
   }
 
   Vector2 XmlReader::ReadVector2 (const String& name)
@@ -212,7 +218,7 @@ namespace yap
 
   ID XmlReader::ReadID ()
   {
-    throw InvalidMethodCallException ("XmlReader::ReadID ()");
+    return ID (ReadUInt64 ());
   }
 
   ID XmlReader::ReadID (const String& name)
