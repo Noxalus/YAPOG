@@ -123,6 +123,18 @@ namespace yap
     baseSpeed_ = value;
   }
 
+  void PokemonInfo::SetType1 (const int& value)
+  {
+    type1_ = value;
+  }
+
+  void PokemonInfo::SetType2 (const int& value)
+  {
+    type2_ = value;
+  }
+
+  /// Getters
+
   const ID& PokemonInfo::GetID () const
   {
     return pokedexID_;
@@ -191,6 +203,16 @@ namespace yap
   const int& PokemonInfo::GetSpeed () const
   {
     return baseSpeed_;
+  }
+
+  const int& PokemonInfo::GetType1 () const
+  {
+    return type1_;
+  }
+
+  const int& PokemonInfo::GetType2 () const
+  {
+    return type2_;
   }
 
   void PokemonInfo::PrintBaseStats ()

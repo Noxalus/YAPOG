@@ -4,7 +4,7 @@
 
 namespace yap
 {
-  const ID PokemonType::DEFAULT_TYPE_ID (1);
+  const ID PokemonType::DEFAULT_TYPE_ID (100);
 
   PokemonType::PokemonType ()
   {

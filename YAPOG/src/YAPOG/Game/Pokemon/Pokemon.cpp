@@ -18,6 +18,8 @@ namespace yap
     level_ = Pokemon::POKEMON_INITIAL_LEVEL;
 
     stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
   }
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
@@ -32,6 +34,8 @@ namespace yap
       Create<NatureInfo> ("NatureInfo",  ID (1));
 
     stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
   }
 
   void Pokemon::PrintStats ()

@@ -18,6 +18,9 @@ namespace yap
   const String PokemonInfoReader:: DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME = "specialAttack";
   const String PokemonInfoReader:: DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME = "specialDefense";
   const String PokemonInfoReader:: DEFAULT_XML_SPEED_NODE_NAME = "speed";
+  const String PokemonInfoReader:: DEFAULT_XML_TYPES_NODE_NAME = "types";
+  const String PokemonInfoReader:: DEFAULT_XML_TYPE1_NODE_NAME = "type1";
+  const String PokemonInfoReader:: DEFAULT_XML_TYPE2_NODE_NAME = "type2";
 
   PokemonInfoReader::PokemonInfoReader (PokemonInfo& pokeInfo)
     : pokeInfo_ (pokeInfo)
@@ -28,7 +31,7 @@ namespace yap
     PokemonInfo& pokeInfo,
     const String& xmlRootNodeName)
     : pokeInfo_ (pokeInfo),
-      xmlRootNodeName_ (xmlRootNodeName)
+    xmlRootNodeName_ (xmlRootNodeName)
   {
   }
 
@@ -110,6 +113,30 @@ namespace yap
     visitable.UpChangeRoot ();
 
     // </baseStat>
+
+    // <types>
+
+    if (!visitable.TryChangeRoot (DEFAULT_XML_TYPES_NODE_NAME))
+    {
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_TYPES_NODE_NAME + "' node.");
+    }
+
+    // <type1>
+
+    pokeInfo_.SetType1 (visitable.ReadInt (DEFAULT_XML_TYPE1_NODE_NAME));
+
+    // </type1>
+
+    // <type2>
+
+    pokeInfo_.SetType2 (visitable.ReadInt (DEFAULT_XML_TYPE2_NODE_NAME));
+
+    // </type2>
+
+    visitable.UpChangeRoot ();
+
+    // </types>
 
     visitable.UpChangeRoot ();
 

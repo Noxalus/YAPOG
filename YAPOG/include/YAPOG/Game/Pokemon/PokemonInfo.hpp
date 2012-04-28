@@ -34,6 +34,8 @@ namespace yap
     void SetSpecialAttack (const int& value);
     void SetSpecialDefense (const int& value);
     void SetSpeed (const int& value);
+    void SetType1 (const int& value);
+    void SetType2 (const int& value);
 
     const ID& GetID () const;
     const String& GetName () const;
@@ -49,6 +51,8 @@ namespace yap
     const int& GetSpecialAttack () const;
     const int& GetSpecialDefense () const;
     const int& GetSpeed () const;
+    const int& GetType1 () const;
+    const int& GetType2 () const;
 
     void PrintBaseStats ();
 
