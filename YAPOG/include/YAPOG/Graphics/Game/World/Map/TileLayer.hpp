@@ -60,6 +60,7 @@ namespace yap
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;
+      static const uint DEFAULT_DRAW_MARGIN;
 
       uint width_;
       uint height_;

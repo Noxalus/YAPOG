@@ -241,6 +241,8 @@ ${inc_root}/System/MathHelper.hpp
 ${inc_root}/System/MathHelper.hxx
 ${inc_root}/System/Path.hpp
 ${src_root}/System/Path.cpp
+${inc_root}/System/RandomHelper.hpp
+${src_root}/System/RandomHelper.cpp
 ${inc_root}/System/StringHelper.hpp
 ${inc_root}/System/StringHelper.hxx
 ${src_root}/System/StringHelper.cpp

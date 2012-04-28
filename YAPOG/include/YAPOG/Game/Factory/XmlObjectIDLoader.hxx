@@ -2,6 +2,7 @@
 # define YAPOG_XMLOBJECTIDLOADER_HXX
 
 # include "YAPOG/Content/ContentManager.hpp"
+# include "YAPOG/System/IO/Xml/XmlReader.hpp"
 
 namespace yap
 {

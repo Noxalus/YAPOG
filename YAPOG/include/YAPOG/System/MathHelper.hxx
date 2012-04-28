@@ -16,6 +16,12 @@ namespace yap
   {
     return std::min (left, right);
   }
+
+  template <typename T>
+  T MathHelper::Clamp (const T& value, const T& min, const T& max)
+  {
+    return value < min ? min : (value > max ? max : value);
+  }
 } // namespace yap
 
 #endif // YAPOG_MATHHELPER_HXX

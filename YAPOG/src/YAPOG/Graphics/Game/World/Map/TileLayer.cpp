@@ -1,10 +1,14 @@
 #include "YAPOG/Graphics/Game/World/Map/TileLayer.hpp"
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
+#include "YAPOG/Graphics/ICamera.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 namespace yap
 {
   const bool TileLayer::DEFAULT_VISIBLE_STATE = true;
   const sf::Color TileLayer::DEFAULT_COLOR = sf::Color ();
+  const uint TileLayer::DEFAULT_DRAW_MARGIN = 1;
 
   TileLayer::TileLayer (uint width, uint height)
     : width_ (width)
@@ -80,8 +84,30 @@ namespace yap
     if (!IsVisible ())
       return;
 
-    for (Tile* tile : tiles_)
-      tile->Draw (context);
+    int left =
+      context.GetCamera ().GetTopLeft ().x / Tile::DEFAULT_SIZE -
+      DEFAULT_DRAW_MARGIN;
+    int top =
+      context.GetCamera ().GetTopLeft ().y / Tile::DEFAULT_SIZE -
+      DEFAULT_DRAW_MARGIN;
+    int right =
+      context.GetCamera ().GetBottomRight ().x / Tile::DEFAULT_SIZE +
+      DEFAULT_DRAW_MARGIN;
+    int bottom =
+      context.GetCamera ().GetBottomRight ().y / Tile::DEFAULT_SIZE +
+      DEFAULT_DRAW_MARGIN;
+
+    int maxX = width_ - 1;
+    int maxY = height_ - 1;
+
+    uint clampedLeft = MathHelper::Clamp (left, 0, maxX);
+    uint clampedTop = MathHelper::Clamp (top, 0, maxY);
+    uint clampedRight = MathHelper::Clamp (right, 0, maxX);
+    uint clampedBottom = MathHelper::Clamp (bottom, 0, maxY);
+
+    for (uint y = clampedTop; y <= clampedBottom; ++y)
+      for (uint x = clampedLeft; x <= clampedRight; ++x)
+        tiles_[y * width_ + x]->Draw (context);
   }
 
   bool TileLayer::IsVisible () const

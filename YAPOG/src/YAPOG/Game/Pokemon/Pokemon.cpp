@@ -5,18 +5,18 @@
 
 namespace yap
 {
-  const Path Pokemon::POKEMON_XML_PATH ("Pokemon/Pokemon");
+  const Path Pokemon::POKEMON_XML_PATH = Path ("Pokemon/Pokemon");
 
   Pokemon::Pokemon (const ID& staticID)
     : staticID_ (staticID)
   {
-    yap::ObjectFactory::Instance ().RegisterLoader 
+    ObjectFactory::Instance ().RegisterLoader
       ("PokemonInfo",
-      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
+      new XmlObjectIDLoader<PokemonInfo, PokemonInfoReader>
       (Pokemon::POKEMON_XML_PATH, "PokemonInfo"));
 
-    pokeInfo_ = yap::ObjectFactory::Instance ().
-      Create<yap::PokemonInfo> ("PokemonInfo",  staticID);
+    pokeInfo_ = ObjectFactory::Instance ().
+      Create<PokemonInfo> ("PokemonInfo",  staticID);
   }
 
   void Pokemon::PrintStats ()
@@ -24,7 +24,7 @@ namespace yap
     std::cout << "COUCOU" << std::endl;
     pokeInfo_->PrintBaseStats ();
 
-    std::cout 
+    std::cout
       << "---------------------------------------------" << std::endl
       << "              Current Statistics" << std::endl
       << "---------------------------------------------" << std::endl

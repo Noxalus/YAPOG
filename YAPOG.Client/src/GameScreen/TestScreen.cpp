@@ -26,6 +26,7 @@
 #include "YAPOG/Graphics/Game/Sprite/SpriteReader.hpp"
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp"
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -61,6 +62,9 @@ TestScreen::TestScreen ()
     new XmlObjectLoader<RandomTileLayoutHandler,
                         RandomTileLayoutHandlerReader> ());
 
+  float ff = RandomHelper::GetNext (2.f, 3.f);
+  dl.LogLine (StringHelper::ToString (ff));
+
 //  ::Map* map42 = of.Create< ::Map> ("Map", yap::ID (42));
 //  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));
 //  dl.LogLine ("MAP_NAME=" + map42->GetName ());
@@ -76,6 +80,10 @@ TestScreen::TestScreen ()
   dl.LogLine ("TEXTURE_WIDTH=" + StringHelper::ToString (t1->GetSize ().x));
   dl.LogLine ("TEXTURE_HEIGHT=" + StringHelper::ToString (t1->GetSize ().y));
 
+  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
+  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
+  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
+  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
   ti1 = of.Create<Tile> ("Tile", yap::ID (1));
   dl.LogLine ("TILE_ID=" + StringHelper::ToString (ti1->GetID ().GetValue ()));
 

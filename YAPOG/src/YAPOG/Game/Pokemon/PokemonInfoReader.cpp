@@ -25,10 +25,10 @@ namespace yap
   }
 
   PokemonInfoReader::PokemonInfoReader (
-    PokemonInfo& pokeInfo, 
+    PokemonInfo& pokeInfo,
     const String& xmlRootNodeName)
     : pokeInfo_ (pokeInfo),
-    xmlRootNodeName_ (xmlRootNodeName)
+      xmlRootNodeName_ (xmlRootNodeName)
   {
   }
 

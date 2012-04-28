@@ -17,6 +17,9 @@ namespace yap
       template <typename T>
       static const T& Min (const T& left, const T& right);
 
+      template <typename T>
+      static T Clamp (const T& value, const T& min, const T& max);
+
     private:
 
       MathHelper ();
