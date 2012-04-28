@@ -28,6 +28,7 @@
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp"
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -174,7 +175,7 @@ const yap::ScreenType& TestScreen::HandleRun (
   context.SetDefaultCamera ();
 
   context.GetCamera ("World").Move (
-    yap::Vector2 (30.0f * dt.GetValue (), 10.0f * dt.GetValue ()));
+    yap::Vector2 (100.0f * dt.GetValue (), 40.0f * dt.GetValue ()));
 
 //  for (auto it : textures_)
 //    it->Draw (context);

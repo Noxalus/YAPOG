@@ -1,0 +1,72 @@
+#ifndef YAPOG_WORLDOBJECT_HPP
+# define YAPOG_WORLDOBJECT_HPP
+
+# include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
+# include "YAPOG/Game/Factory/IIDLoadable.hpp"
+# include "YAPOG/Game/World/Spatial3Info.hpp"
+
+namespace yap
+{
+  class WorldObject : public ICollidable
+                    , public IIDLoadable
+  {
+      DISALLOW_ASSIGN(WorldObject);
+
+    public:
+
+      /// @name ISpatial members.
+      /// @{
+      virtual const Vector2& GetPosition () const;
+      virtual const Vector2& GetSize () const;
+
+      virtual const Vector2& GetTopLeft () const;
+      virtual const Vector2& GetBottomRight () const;
+      virtual const Vector2& GetCenter () const;
+
+      virtual const FloatRect& GetRectangle () const;
+
+      virtual void Move (const Vector2& offset);
+      virtual void Scale (const Vector2& factor);
+
+      virtual void SetPosition (const Vector2& position);
+      virtual void SetSize (const Vector2& size);
+      /// @}
+
+      /// @name ISpatial3 members.
+      /// @{
+      virtual const int& GetZ ();
+      virtual void SetZ (int z);
+
+      virtual const int& GetH ();
+      virtual void SetH (int h);
+      /// @}
+
+      /// @name ICollidable members.
+      /// @{
+      /// @}
+
+      /// @name ICloneable members.
+      /// @{
+      virtual WorldObject* Clone () const = 0;
+      /// @}
+
+    protected:
+
+      WorldObject ();
+      virtual ~WorldObject ();
+
+      WorldObject (const WorldObject& copy);
+
+    private:
+
+      virtual void HandleMove (const Vector2& offset);
+      virtual void HandleScale (const Vector2& factor);
+      virtual void HandleSetZ (int z);
+      virtual void HandleSetH (int h);
+
+      Spatial3Info spatial3Info_;
+  };
+} // namespace yap
+
+#endif // YAPOG_WORLDOBJECT_HPP

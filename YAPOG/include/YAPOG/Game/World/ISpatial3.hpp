@@ -10,10 +10,10 @@ namespace yap
   {
       virtual ~ISpatial3 () {}
 
-      virtual const int& GetZ () = 0;
+      virtual const int& GetZ () const = 0;
       virtual void SetZ (int z) = 0;
 
-      virtual const int& GetH () = 0;
+      virtual const int& GetH () const = 0;
       virtual void SetH (int h) = 0;
   };
 } // namespace yap

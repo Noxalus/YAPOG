@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Game/Factory/ILoadable.hpp"
+# include "YAPOG/Game/Factory/ICloneable.hpp"
 
 namespace yap
 {
@@ -14,12 +15,13 @@ namespace yap
                            , public IDrawable
                            , public IUpdateable
                            , public ILoadable
+                           , public ICloneable
   {
       virtual ~ISprite () {}
 
       /// @name ICloneable members.
       /// @{
-      virtual ISprite* Clone () const { return nullptr; }
+      virtual ISprite* Clone () const = 0;
       /// @}
   };
 } // namespace yap
