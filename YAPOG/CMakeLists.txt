@@ -56,6 +56,8 @@ ${src_root}/Game/World/Map/Map.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
+${inc_root}/Game/World/Map/WorldObject.hpp
+${src_root}/Game/World/Map/WorldObject.cpp
 ${inc_root}/Game/World/ISpatial3.hpp
 ${inc_root}/Game/World/Spatial3Info.hpp
 ${src_root}/Game/World/Spatial3Info.cpp

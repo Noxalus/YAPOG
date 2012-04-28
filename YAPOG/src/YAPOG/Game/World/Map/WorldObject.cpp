@@ -2,8 +2,9 @@
 
 namespace yap
 {
-  WorldObject::WorldObject ()
-    : spatial3Info_ ()
+  WorldObject::WorldObject (const ID& id)
+    : id_ (id)
+    , spatial3Info_ ()
   {
   }
 
@@ -12,8 +13,19 @@ namespace yap
   }
 
   WorldObject::WorldObject (const WorldObject& copy)
-    : spatial3Info_ (copy.spatial3Info_)
+    : id_ (copy.id_)
+    , spatial3Info_ (copy.spatial3Info_)
   {
+  }
+
+  const ID& WorldObject::GetID () const
+  {
+    return id_;
+  }
+
+  void WorldObject::SetID (const ID& id)
+  {
+    id_ = id;
   }
 
   const Vector2& WorldObject::GetPosition () const
@@ -84,6 +96,8 @@ namespace yap
   void WorldObject::SetZ (int z)
   {
     spatial3Info_.SetZ (z);
+
+    HandleSetZ (z);
   }
 
   const int& WorldObject::GetH () const
@@ -94,6 +108,8 @@ namespace yap
   void WorldObject::SetH (int h)
   {
     spatial3Info_.SetH (h);
+
+    HandleSetH (h);
   }
 
   void WorldObject::HandleMove (const Vector2& offset)

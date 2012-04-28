@@ -4,16 +4,20 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
+# include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 
 namespace yap
 {
-  class WorldObject : public ICollidable
-                    , public IIDLoadable
+  class YAPOG_LIB WorldObject : public ICollidable
+                              , public IIDLoadable
   {
       DISALLOW_ASSIGN(WorldObject);
 
     public:
+
+      const ID& GetID () const;
+      void SetID (const ID& id);
 
       /// @name ISpatial members.
       /// @{
@@ -35,10 +39,10 @@ namespace yap
 
       /// @name ISpatial3 members.
       /// @{
-      virtual const int& GetZ ();
+      virtual const int& GetZ () const;
       virtual void SetZ (int z);
 
-      virtual const int& GetH ();
+      virtual const int& GetH () const;
       virtual void SetH (int h);
       /// @}
 
@@ -53,7 +57,7 @@ namespace yap
 
     protected:
 
-      WorldObject ();
+      WorldObject (const ID& id);
       virtual ~WorldObject ();
 
       WorldObject (const WorldObject& copy);
@@ -65,6 +69,7 @@ namespace yap
       virtual void HandleSetZ (int z);
       virtual void HandleSetH (int h);
 
+      ID id_;
       Spatial3Info spatial3Info_;
   };
 } // namespace yap
