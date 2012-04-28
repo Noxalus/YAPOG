@@ -1,7 +1,6 @@
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
-#include "YAPOG/Game/Pokemon/PokemonInfoReader.hpp"
 
 namespace yap
 {
@@ -19,6 +18,8 @@ namespace yap
     level_ = Pokemon::POKEMON_INITIAL_LEVEL;
 
     stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
   }
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
@@ -33,6 +34,8 @@ namespace yap
       Create<NatureInfo> ("NatureInfo",  ID (1));
 
     stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
   }
 
   void Pokemon::PrintStats ()
@@ -45,6 +48,8 @@ namespace yap
       << "---------------------------------------------" << std::endl
       << "Level: " << level_ << std::endl
       << "Nature: " << nature_->GetName () << std::endl
+      << "Type1: " << type_.GetType1 ().GetName () << std::endl
+      << "Type2: " << type_.GetType2 ().GetName () << std::endl
       << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue () << std::endl
       << "Attack: " << stats_.GetAttack ().GetValue () << std::endl

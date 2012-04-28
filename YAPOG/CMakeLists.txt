@@ -65,6 +65,8 @@ ${src_root}/Game/Pokemon/PokemonInfo.cpp
 ${inc_root}/Game/Pokemon/PokemonInfo.hpp
 ${src_root}/Game/Pokemon/PokemonInfoReader.cpp
 ${inc_root}/Game/Pokemon/PokemonInfoReader.hpp
+${src_root}/Game/Pokemon/TypeInfoReader.cpp
+${inc_root}/Game/Pokemon/TypeInfoReader.hpp
 ${src_root}/Game/Pokemon/TypeInfo.cpp
 ${inc_root}/Game/Pokemon/TypeInfo.hpp
 ${src_root}/Game/Pokemon/PokemonType.cpp

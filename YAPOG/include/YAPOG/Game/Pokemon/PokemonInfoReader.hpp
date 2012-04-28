@@ -41,6 +41,9 @@ namespace yap
     static const String DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME;
     static const String DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME;
     static const String DEFAULT_XML_SPEED_NODE_NAME;
+    static const String DEFAULT_XML_TYPES_NODE_NAME;
+    static const String DEFAULT_XML_TYPE1_NODE_NAME;
+    static const String DEFAULT_XML_TYPE2_NODE_NAME;
   };
 } // namespace yap
 

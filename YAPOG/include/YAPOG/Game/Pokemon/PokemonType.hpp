@@ -2,6 +2,7 @@
 # define YAPOG_POKEMONTYPE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 
 namespace yap
 {
@@ -9,6 +10,21 @@ namespace yap
   {
     public:
       PokemonType ();
+      PokemonType (const ID& type1, const ID& type2);
+
+      /// Getters
+      const TypeInfo& GetType1 ();
+      const TypeInfo& GetType2 ();
+
+      /// Setters
+      void SetType1 (const ID& typeID);
+      void SetType2 (const ID& typeID);
+
+  private:
+    TypeInfo* type1_;
+    TypeInfo* type2_;
+
+    static const ID DEFAULT_TYPE_ID;
   };
 } // namespace yap
 
