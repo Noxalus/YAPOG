@@ -14,6 +14,8 @@
 #include "YAPOG/Content/ContentManager.hpp"
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/Game/Pokemon/NatureInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/NatureInfo.hpp"
 
 int main ()
 {
@@ -23,6 +25,15 @@ int main ()
   try
   {
     yap::ContentManager::Instance ().Init (yap::Path ("../../Content"));
+    yap::ObjectFactory::Instance ().RegisterLoader 
+      ("PokemonInfo",
+      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
+      (yap::Path ("Pokemon/Pokemon"), "PokemonInfo"));
+
+    yap::ObjectFactory::Instance ().RegisterLoader 
+      ("NatureInfo",
+      new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader>
+      (yap::Path ("Pokemon/Nature"), "Nature"));
     
     yap::Pokemon p1 (yap::ID (1));
     p1.PrintStats ();

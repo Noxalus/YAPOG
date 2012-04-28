@@ -90,6 +90,8 @@ ${src_root}/Game/Pokemon/SpecialDefense.cpp
 ${inc_root}/Game/Pokemon/SpecialDefense.hpp
 ${src_root}/Game/Pokemon/Ability.cpp
 ${inc_root}/Game/Pokemon/Ability.hpp
+${src_root}/Game/Pokemon/NatureInfoReader.cpp
+${inc_root}/Game/Pokemon/NatureInfoReader.hpp
 ${src_root}/Game/Pokemon/NatureInfo.cpp
 ${inc_root}/Game/Pokemon/NatureInfo.hpp
 ${src_root}/Game/Pokemon/Gender.cpp
