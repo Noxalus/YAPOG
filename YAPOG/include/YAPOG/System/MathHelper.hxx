@@ -28,6 +28,13 @@ namespace yap
   {
     return std::floor (number);
   }
+
+  template <typename T1, typename T2>
+  int MathHelper::Pow (const T1& number, const T2& pow)
+  {
+    return std::pow (number, pow);
+  }
+
 } // namespace yap
 
 #endif // YAPOG_MATHHELPER_HXX

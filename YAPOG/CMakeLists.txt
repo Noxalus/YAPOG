@@ -103,6 +103,20 @@ ${src_root}/Game/Pokemon/NatureInfo.cpp
 ${inc_root}/Game/Pokemon/NatureInfo.hpp
 ${src_root}/Game/Pokemon/Gender.cpp
 ${inc_root}/Game/Pokemon/Gender.hpp
+${src_root}/Game/Pokemon/PokemonExperience.cpp
+${inc_root}/Game/Pokemon/PokemonExperience.hpp
+${src_root}/Game/Pokemon/ExperienceFast.cpp
+${inc_root}/Game/Pokemon/ExperienceFast.hpp
+${src_root}/Game/Pokemon/ExperienceErratic.cpp
+${inc_root}/Game/Pokemon/ExperienceErratic.hpp
+${src_root}/Game/Pokemon/ExperienceFluctuating.cpp
+${inc_root}/Game/Pokemon/ExperienceFluctuating.hpp
+${src_root}/Game/Pokemon/ExperienceSlow.cpp
+${inc_root}/Game/Pokemon/ExperienceSlow.hpp
+${src_root}/Game/Pokemon/ExperienceMediumSlow.cpp
+${inc_root}/Game/Pokemon/ExperienceMediumSlow.hpp
+${src_root}/Game/Pokemon/ExperienceMediumFast.cpp
+${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

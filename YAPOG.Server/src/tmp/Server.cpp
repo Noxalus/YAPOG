@@ -52,6 +52,15 @@ int main ()
     yap::Pokemon p2 (yap::ID (1), 16, true);
     p2.PrintStats ();
 
+    yap::Pokemon p3 (yap::ID (1), 75, false);
+    p3.PrintStats ();
+
+    yap::Pokemon p4 (yap::ID (1), 55, false);
+    p4.PrintStats ();
+
+    yap::Pokemon p5 (yap::ID (1), 99, false);
+    p5.PrintStats ();
+
     yap::TypeInfo types[17];
 
     for (int i = 0; i < 17; i++)
@@ -60,6 +69,13 @@ int main ()
         Create<yap::TypeInfo> ("TypeInfo",  yap::ID (i + 1));
     }
 
+    std::cout << yap::MathHelper::Pow (75, 3) << std::endl;
+
+    /*
+    p2.AddExperience (600);
+    p2.PrintStats ();
+    
+    /*
     yap::OFStream file ("type.html");
 
     std::cout << "Type table !" << std::endl;
@@ -89,6 +105,11 @@ int main ()
     }
 
     file << "</table>";
+
+    yap::TypeInfo& grassType = types[4];
+    std::cout << p1.GetName () << " against a move of type " << grassType.GetName () 
+      << ": " << p1.GetTypeEffectFactor (grassType) << std::endl;
+    */
 
     /*
     yap::RandomHelper::Init (std::time (nullptr));

@@ -23,6 +23,9 @@ namespace yap
       template <typename T>
       static T Clamp (const T& value, const T& min, const T& max);
 
+      template <typename T1, typename T2>
+      static int Pow (const T1& number, const T2& pow);
+
     private:
 
       MathHelper ();

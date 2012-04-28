@@ -25,7 +25,7 @@ namespace yap
     /// Getters
     const ID& GetID () const;
     const String& GetName () const;
-    const float& GetTypeEffect (const ID& typeID);
+    const float& GetTypeEffect (const ID& typeID) const;
 
     /// Setters
     void SetID (const ID& id);

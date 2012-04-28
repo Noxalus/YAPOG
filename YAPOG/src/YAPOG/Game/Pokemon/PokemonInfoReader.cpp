@@ -21,6 +21,7 @@ namespace yap
   const String PokemonInfoReader:: DEFAULT_XML_TYPES_NODE_NAME = "types";
   const String PokemonInfoReader:: DEFAULT_XML_TYPE1_NODE_NAME = "type1";
   const String PokemonInfoReader:: DEFAULT_XML_TYPE2_NODE_NAME = "type2";
+  const String PokemonInfoReader:: DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME = "experienceType";
 
   PokemonInfoReader::PokemonInfoReader (PokemonInfo& pokeInfo)
     : pokeInfo_ (pokeInfo)
@@ -94,6 +95,12 @@ namespace yap
     pokeInfo_.SetExperience (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_NODE_NAME));
 
     // </experience>
+
+    // <experienceType>
+
+    pokeInfo_.SetExperience (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME));
+
+    // </experienceType>
 
     // <baseStat>
 

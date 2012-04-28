@@ -13,8 +13,8 @@ namespace yap
       PokemonType (const ID& type1, const ID& type2);
 
       /// Getters
-      const TypeInfo& GetType1 ();
-      const TypeInfo& GetType2 ();
+      const TypeInfo& GetType1 () const;
+      const TypeInfo& GetType2 () const;
 
       /// Setters
       void SetType1 (const ID& typeID);
