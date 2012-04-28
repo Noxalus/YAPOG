@@ -1,5 +1,6 @@
 #include "YAPOG/Game/Pokemon/BaseStat.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 namespace yap
 {
@@ -10,15 +11,18 @@ namespace yap
   BaseStat::BaseStat ()
   {
     value_ = INITIAL_STAT_VALUE;
-    individualValue_ = INITIAL_INDIVIDUAL_VALUE;
+   
+    //individualValue_ = INITIAL_INDIVIDUAL_VALUE;
     effortValue_ = INITIAL_EFFORT_VALUE;
+    individualValue_ = RandomHelper::GetNext (0, 32);
   }
 
   BaseStat::BaseStat (const UInt16& value)
     : value_ (value)
   {
-    individualValue_ = INITIAL_INDIVIDUAL_VALUE;
+    //individualValue_ = INITIAL_INDIVIDUAL_VALUE;
     effortValue_ = INITIAL_EFFORT_VALUE;
+    individualValue_ = RandomHelper::GetNext (0, 32);
   }
 
   BaseStat::BaseStat (const UInt16& value, const UInt16& iv, const UInt16& ev)

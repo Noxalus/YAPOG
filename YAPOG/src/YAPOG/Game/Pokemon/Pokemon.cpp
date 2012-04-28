@@ -51,11 +51,17 @@ namespace yap
       << "Type1: " << type_.GetType1 ().GetName () << std::endl
       << "Type2: " << type_.GetType2 ().GetName () << std::endl
       << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
-      << "Max HP: " << stats_.GetHitPoint ().GetValue () << std::endl
-      << "Attack: " << stats_.GetAttack ().GetValue () << std::endl
-      << "Defense: " << stats_.GetDefense ().GetValue () << std::endl
-      << "Special Attack: " << stats_.GetSpecialAttack ().GetValue () << std::endl
-      << "Special Defense: " << stats_.GetSpecialDefense ().GetValue () << std::endl
-      << "Speed: " << stats_.GetSpeed ().GetValue () << std::endl;
+      << "Max HP: " << stats_.GetHitPoint ().GetValue ()
+      << " (IV: " << stats_.GetHitPoint ().GetIndividualValue () << ")" << std::endl
+      << "Attack: " << stats_.GetAttack ().GetValue () 
+      << " (IV: " << stats_.GetAttack ().GetIndividualValue () << ")" << std::endl
+      << "Defense: " << stats_.GetDefense ().GetValue ()
+      << " (IV: " << stats_.GetDefense ().GetIndividualValue () << ")" << std::endl
+      << "Special Attack: " << stats_.GetSpecialAttack ().GetValue ()
+      << " (IV: " << stats_.GetSpecialAttack ().GetIndividualValue () << ")" << std::endl
+      << "Special Defense: " << stats_.GetSpecialDefense ().GetValue ()
+      << " (IV: " << stats_.GetSpecialDefense ().GetIndividualValue () << ")" << std::endl
+      << "Speed: " << stats_.GetSpeed ().GetValue ()
+      << " (IV: " << stats_.GetSpeed ().GetIndividualValue () << ")" << std::endl;
   }
 }

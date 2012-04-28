@@ -20,6 +20,7 @@
 #include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Game/Pokemon/TypeInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/TypeInfo.hpp"
+#include "YAPOG/System/IO/IWriter.hpp"
 
 int main ()
 {
@@ -28,7 +29,8 @@ int main ()
 
   try
   {
-    yap::ContentManager::Instance ().Init (yap::Path ("../../Content"));
+    yap::Path ContentDirectory ("../../Content");
+    yap::ContentManager::Instance ().Init (ContentDirectory);
     yap::ObjectFactory::Instance ().RegisterLoader 
       ("PokemonInfo",
       new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
@@ -43,25 +45,63 @@ int main ()
       ("TypeInfo",
       new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader>
       (yap::Path ("Pokemon/Types"), "Type"));
-    
+
     yap::Pokemon p1 (yap::ID (1));
     p1.PrintStats ();
 
     yap::Pokemon p2 (yap::ID (1), 16, true);
     p2.PrintStats ();
 
+    yap::TypeInfo types[17];
+
+    for (int i = 0; i < 17; i++)
+    {
+      types[i] = *yap::ObjectFactory::Instance ().
+        Create<yap::TypeInfo> ("TypeInfo",  yap::ID (i + 1));
+    }
+
+    yap::OFStream file ("type.html");
+
+    std::cout << "Type table !" << std::endl;
+
+    file << "<table style=\"text-align: center;\"><tr><th>Types</th>";
+    for (int i = 0; i < 17; i++)
+      file << "<th>" << types[i].GetName () << "</th>";
+    file << "</tr><tr>";
+
+    for (int i = 0; i < 17; i++)
+    {
+      file << "<tr><td>" << types[i].GetName () << "</td>";
+      for (int j = 0; j < 17; j++)
+      {
+        if (types[i].GetTypeEffect (types[j].GetID ()) == 0)
+          file << "<td style=\"background-color: Red; color: White;\">";
+        else if (types[i].GetTypeEffect (types[j].GetID ()) == 0.5)
+          file << "<td style=\"background-color: Grey; color: White;\">";
+        else if (types[i].GetTypeEffect (types[j].GetID ()) == 2)
+          file << "<td style=\"background-color: Green; color: White;\">";
+        else
+          file << "<td>";
+
+        file << types[i].GetTypeEffect (types[j].GetID ()) << "</td>";
+      }
+      file << "</tr>";
+    }
+
+    file << "</table>";
+
     /*
     yap::RandomHelper::Init (std::time (nullptr));
-    
+
     float rand = 0.f;
     for (int i = 0; i < 100000000; i++)
     {
-      rand = yap::RandomHelper::GetNext (0.f, 1.f) * 100;
-      if (rand == 100.f)
-      {
-        std::cout << "Random #" << i << ": " <<  rand << std::endl;
-        break;
-      }
+    rand = yap::RandomHelper::GetNext (0.f, 1.f) * 100;
+    if (rand == 100.f)
+    {
+    std::cout << "Random #" << i << ": " <<  rand << std::endl;
+    break;
+    }
     }
 
     std::cout << "Finish !" << std::endl;
