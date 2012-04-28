@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class RandomHelper
+  class YAPOG_LIB RandomHelper
   {
       DISALLOW_COPY(RandomHelper);
 

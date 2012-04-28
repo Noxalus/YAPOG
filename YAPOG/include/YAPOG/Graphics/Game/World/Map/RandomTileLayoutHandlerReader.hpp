@@ -8,7 +8,7 @@ namespace yap
 {
   class RandomTileLayoutHandler;
 
-  class RandomTileLayoutHandlerReader : public TileLayoutHandlerReader
+  class YAPOG_LIB RandomTileLayoutHandlerReader : public TileLayoutHandlerReader
   {
       DISALLOW_COPY(RandomTileLayoutHandlerReader);
 
