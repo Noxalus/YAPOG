@@ -53,72 +53,37 @@ namespace yap
     return speed_;
   }
 
-  void PokemonStat::ComputeStats (const PokemonInfo& pokeInfo, const UInt16& level, const NatureInfo& natureInfo)
+  void PokemonStat::ComputeStats (
+    const PokemonInfo& pokeInfo, 
+    const UInt16& level, 
+    const NatureInfo& natureInfo)
   {
-    ComputeHitPoint (pokeInfo.GetHitPoint (), level);
-    ComputeAttack (pokeInfo.GetAttack (), level, natureInfo.GetAttackFactor ());
-    ComputeDefense (pokeInfo.GetDefense (), level, natureInfo.GetDefenseFactor ());
-    ComputeSpecialAttack (pokeInfo.GetSpecialAttack(), level, natureInfo.GetSpecialAttackFactor ());
-    ComputeSpecialDefense (pokeInfo.GetSpecialDefense (), level, natureInfo.GetSpecialDefenseFactor ());
-    ComputeSpeed (pokeInfo.GetSpeed (), level, natureInfo.GetSpeedFactor ());
-  }
+    hitPoint_.ComputeValue (pokeInfo.GetHitPoint (), level);
 
-  void PokemonStat::ComputeHitPoint (const int& baseHitPoint, const UInt16& level)
-  {
-    UInt16 result = MathHelper::Floor ((((hitPoint_.GetIndividualValue () + (2 * baseHitPoint) + 
-      MathHelper::Floor (hitPoint_.GetEffortValue () / 4) + 100) * level) / 100)) + 10;
+    attack_.ComputeValue (
+      pokeInfo.GetAttack (), 
+      level, 
+      natureInfo.GetAttackFactor ());
 
-    hitPoint_.SetValue (result);
-  }
+    defense_.ComputeValue (
+      pokeInfo.GetDefense (), 
+      level, 
+      natureInfo.GetDefenseFactor ());
 
-  void PokemonStat::ComputeAttack (const int& baseAttack, const UInt16& level, const float& natureFactor)
-  {
-    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseAttack) + 
-      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
+    specialAttack_.ComputeValue (
+      pokeInfo.GetSpecialAttack (), 
+      level, 
+      natureInfo.GetSpecialAttackFactor ());
 
-    result = MathHelper::Floor (result * natureFactor);
+    specialDefense_.ComputeValue (
+      pokeInfo.GetSpecialDefense (), 
+      level, 
+      natureInfo.GetSpecialDefenseFactor ());
 
-    attack_.SetValue (result);
-  }
-
-  void PokemonStat::ComputeDefense (const int& baseDefense, const UInt16& level, const float& natureFactor)
-  {
-    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseDefense) + 
-      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
-
-    result = MathHelper::Floor (result * natureFactor);
-
-    defense_.SetValue (result);
-  }
-
-  void PokemonStat::ComputeSpecialAttack (const int& baseSpecialAttack, const UInt16& level, const float& natureFactor)
-  {
-    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseSpecialAttack) + 
-      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
-
-    result = MathHelper::Floor (result * natureFactor);
-
-    specialAttack_.SetValue (result);
-  }
-
-  void PokemonStat::ComputeSpecialDefense (const int& baseSpecialDefense, const UInt16& level, const float& natureFactor)
-  {
-    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseSpecialDefense) + 
-      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
-
-    result = MathHelper::Floor (result * natureFactor);
-
-    specialDefense_.SetValue (result);
-  }
-
-  void PokemonStat::ComputeSpeed (const int& baseSpeed, const UInt16& level, const float& natureFactor)
-  {
-    UInt16 result = MathHelper::Floor (((hitPoint_.GetIndividualValue () + (2 * baseSpeed) + 
-      MathHelper::Floor (hitPoint_.GetEffortValue () / 4)) * level) / 100) + 5;
-
-
-    result = MathHelper::Floor (result * natureFactor);
-    speed_.SetValue (result);
+    speed_.ComputeValue (
+      pokeInfo.GetSpeed (), 
+      level, 
+      natureInfo.GetSpeedFactor ());
   }
 
 } // namespace yap

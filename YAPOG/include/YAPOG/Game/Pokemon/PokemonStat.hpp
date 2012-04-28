@@ -41,51 +41,12 @@ namespace yap
     /// @param pokeInfo Base statistics of the Pokemon.
     /// @param level Level of the Pokemon.
     /// @param natureInfo Contains the nature factors of all stats.
-    void ComputeStats (const PokemonInfo& pokeInfo, const UInt16& level, const NatureInfo& natureInfo);
+    void ComputeStats (
+      const PokemonInfo& pokeInfo, 
+      const UInt16& level, 
+      const NatureInfo& natureInfo);
 
   private:
-
-    /// @brief Computes the Hit Points of the Pokemon
-    /// from its base statistics, its level and its nature.
-    /// @param baseHitPoint Base Hit Points of the Pokemon.
-    /// @param level Level of the Pokemon.
-    void ComputeHitPoint (const int& baseHitPoint, const UInt16& level);
-
-    /// @brief Computes the Attack of the Pokemon
-    /// from its base statistics, its level and its nature.
-    /// @param baseHitPoint Base Attack of the Pokemon.
-    /// @param level Level of the Pokemon.
-    /// @param natureFactor Nature factor of the pokemon for this specific stat.
-    void ComputeAttack (const int& baseAttack, const UInt16& level, const float& natureFactor);
-
-    /// @brief Computes the Defense of the Pokemon
-    /// from its base statistics, its level and its nature.
-    /// @param baseHitPoint Base Defense of the Pokemon.
-    /// @param level Level of the Pokemon.
-    /// @param natureFactor Nature factor of the pokemon for this specific stat.
-    void ComputeDefense (const int& baseDefense, const UInt16& level, const float& natureFactor);
-
-    /// @brief Computes the Special Attack of the Pokemon
-    /// from its base statistics, its level and its nature.
-    /// @param baseHitPoint Base Special Attack of the Pokemon.
-    /// @param level Level of the Pokemon.
-    /// @param natureFactor Nature factor of the pokemon for this specific stat.
-    void ComputeSpecialAttack (const int& baseSpecialAttack, const UInt16& level, const float& natureFactor);
-
-    /// @brief Computes the Special Defense of the Pokemon
-    /// from its base statistics, its level and its nature.
-    /// @param baseHitPoint Base Special Defense of the Pokemon.
-    /// @param level Level of the Pokemon.
-    /// @param natureFactor Nature factor of the pokemon for this specific stat.
-    void ComputeSpecialDefense (const int& baseSpecialDefense, const UInt16& level, const float& natureFactor);
-
-    /// @brief Computes the Speed of the Pokemon
-    /// from its base statistics, its level and its nature.
-    /// @param baseHitPoint Base Speed of the Pokemon.
-    /// @param level Level of the Pokemon.
-    /// @param natureFactor Nature factor of the pokemon for this specific stat.
-    void ComputeSpeed (const int& baseSpeed, const UInt16& level, const float& natureFactor);
-
     HitPoint hitPoint_;
     Attack attack_;
     Defense defense_;
