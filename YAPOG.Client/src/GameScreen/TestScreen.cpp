@@ -1,3 +1,4 @@
+#include <ctime>
 #include "GameScreen/TestScreen.hpp"
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
@@ -49,6 +50,7 @@ TestScreen::TestScreen ()
   , backTextures_ ()
 //  , anim1_ (100)
 {
+  RandomHelper::Init (time (nullptr));
   // loadable types are registered
   of.RegisterLoader ("Map", new XmlObjectIDLoader< ::Map, ::MapReader> (
                        Path ("Map"), "Map"));
@@ -64,6 +66,9 @@ TestScreen::TestScreen ()
 
   float ff = RandomHelper::GetNext (2.f, 3.f);
   dl.LogLine (StringHelper::ToString (ff));
+
+  int ii = RandomHelper::GetNext (2, 3);
+  dl.LogLine (StringHelper::ToString (ii));
 
 //  ::Map* map42 = of.Create< ::Map> ("Map", yap::ID (42));
 //  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));
@@ -169,7 +174,7 @@ const yap::ScreenType& TestScreen::HandleRun (
   context.SetDefaultCamera ();
 
   context.GetCamera ("World").Move (
-    yap::Vector2 (300.0f * dt.GetValue (), 100.0f));
+    yap::Vector2 (30.0f * dt.GetValue (), 10.0f * dt.GetValue ()));
 
 //  for (auto it : textures_)
 //    it->Draw (context);

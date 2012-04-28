@@ -1,6 +1,6 @@
-<Tile id="2">
+<Tile id="3">
   <spriteType>Sprite</spriteType>
   <Sprite>
-    <Texture id="2"/>
+    <Texture id="3"/>
   </Sprite>
 </Tile>

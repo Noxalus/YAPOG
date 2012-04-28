@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp"
 #include "YAPOG/Graphics/Game/World/Map/TileLayer.hpp"
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 namespace yap
 {
@@ -21,14 +22,16 @@ namespace yap
 
   void RandomTileLayoutHandler::HandleExecute (TileLayer& tileLayer)
   {
+    if (tiles_.Count () <= 0)
+      return;
+
     for (uint y = 0; y < tileLayer.GetHeight (); y++)
     {
       for (uint x = 0; x < tileLayer.GetWidth (); ++x)
       {
-        /// @todo RandomHelper.
-        if (tiles_.Count () <= 0)
-          return;
-        tileLayer.SetTile (x, y, tiles_[0]->Clone ());
+        uint index = RandomHelper::GetNext (0, tiles_.Count () - 1);
+
+        tileLayer.SetTile (x, y, tiles_[index]->Clone ());
       }
     }
   }

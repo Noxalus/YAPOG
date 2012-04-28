@@ -7,9 +7,9 @@
       <height>0</height>
       <layoutHandlerType>RandomTileLayoutHandler</layoutHandlerType>
       <Tile id="1"/>
-<!--      <Tile id="2"/>-->
-<!--      <Tile id="3"/>-->
-<!--      <Tile id="4"/>-->
+      <Tile id="2"/>
+      <Tile id="3"/>
+      <Tile id="4"/>
     </tileLayer>
   </ground>
 </Map>
