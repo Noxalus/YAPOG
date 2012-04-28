@@ -13,7 +13,7 @@ if( WIN32 )
 endif()
 
 if( UNIX )
-    SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x -Wall -Wextra" )
+    SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x -Wall -Wextra -Wno-unused-parameter" )
     if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
         SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb" )
 	endif()

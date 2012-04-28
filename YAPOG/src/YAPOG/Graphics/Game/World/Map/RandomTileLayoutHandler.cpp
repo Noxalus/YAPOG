@@ -13,6 +13,8 @@ namespace yap
 
   RandomTileLayoutHandler::~RandomTileLayoutHandler ()
   {
+    for (const Tile* tile : tiles_)
+      delete tile;
   }
 
   void RandomTileLayoutHandler::AddTile (Tile* tile)

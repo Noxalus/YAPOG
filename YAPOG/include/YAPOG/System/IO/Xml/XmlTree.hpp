@@ -24,6 +24,9 @@ namespace yap
       const T Get (const String& name) const;
 
       template <typename T>
+      const T Get () const;
+
+      template <typename T>
       void Add (const String& name, const T& value);
 
       void Create (const String& rootName);

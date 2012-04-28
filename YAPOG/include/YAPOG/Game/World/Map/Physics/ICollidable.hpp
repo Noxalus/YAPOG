@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  struct YAPOG_LIB ICollidable : public ISpatial
+  struct YAPOG_LIB ICollidable : public ISpatial3
   {
       virtual ~ICollidable () {}
   };
