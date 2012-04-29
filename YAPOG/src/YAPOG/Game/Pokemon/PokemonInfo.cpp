@@ -3,6 +3,7 @@
 namespace yap
 {
   const int PokemonInfo::INITIAL_BASE_STATS_VALUE = 0;
+  const UInt16 PokemonInfo::MAX_MOVE_NUMBER = 4;
 
   PokemonInfo::PokemonInfo ()
   {
@@ -46,12 +47,34 @@ namespace yap
     , baseSpeed_ (copy.baseSpeed_)
     , type1_ (copy.type1_)
     , type2_ (copy.type2_)
+    , baseSkills_ (copy.baseSkills_)
   {
   }
 
   PokemonInfo* PokemonInfo::Clone () const
   {
     return new PokemonInfo (*this);
+  }
+
+  void PokemonInfo::InitMoveSet (
+    PokemonSkill* moveSet[MAX_MOVE_NUMBER], 
+    const UInt16& level)
+  {
+    int i = level;
+    int skillNumber = 0;
+    while (i >= 1 && skillNumber < 4)
+    {
+      if (baseSkills_.Contains (i))
+      {
+        for (const ID& skillID : baseSkills_[i])
+        {
+          moveSet[skillNumber] = new PokemonSkill (skillID);
+          skillNumber++;
+        }
+      }
+
+      i--;
+    }
   }
 
   void PokemonInfo::SetID (const ID& id)
@@ -137,6 +160,18 @@ namespace yap
   void PokemonInfo::SetType2 (const int& value)
   {
     type2_ = value;
+  }
+
+  void PokemonInfo::AddBaseSkill (const UInt16 level, const ID& skillID)
+  {
+    if (baseSkills_.Contains (level))
+      baseSkills_[level].Add (skillID);
+    else
+    {
+      collection::List<ID> skillList;
+      skillList.Add (skillID);
+      baseSkills_.Add (level, skillList);
+    }
   }
 
   /// Getters
@@ -247,5 +282,18 @@ namespace yap
       <<  "Special Defense: " << baseSpecialDefense_ << std::endl
       <<  "Speed: " << baseSpeed_ << std::endl
       << "---------------------------------------------" << std::endl;
+  }
+
+  void PokemonInfo::PrintBaseSkills ()
+  {
+    for (const auto& skill : baseSkills_)
+    {
+      std::cout << skill.first << " => ";
+
+      for (const ID& skillID : skill.second)
+        std::cout << skillID.GetValue () << " ";
+
+      std::cout << std::endl;
+    }
   }
 }

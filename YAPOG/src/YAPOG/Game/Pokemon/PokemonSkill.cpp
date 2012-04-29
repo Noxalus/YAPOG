@@ -42,6 +42,9 @@ namespace yap
   {
     skillInfo_ = ObjectFactory::Instance ().
       Create<SkillInfo> ("SkillInfo",  ID (skillID));
+
+    maxPP_ = skillInfo_->GetPP ();
+    Refill ();
   }
 
   void PokemonSkill::Refill ()

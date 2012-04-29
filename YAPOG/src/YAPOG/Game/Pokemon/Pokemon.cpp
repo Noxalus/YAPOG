@@ -51,10 +51,7 @@ namespace yap
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
 
-    moveSet[0] = new PokemonSkill (ID (33));
-    moveSet[1] = nullptr;
-    moveSet[2] = nullptr;
-    moveSet[3] = nullptr;
+    InitMoveSet ();
   }
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
@@ -99,10 +96,15 @@ namespace yap
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
 
-    moveSet[0] = new PokemonSkill (ID (33));
-    moveSet[1] = nullptr;
-    moveSet[2] = nullptr;
-    moveSet[3] = nullptr;
+    InitMoveSet ();
+  }
+
+  void Pokemon::InitMoveSet ()
+  {
+    for (int i = 0; i < PokemonInfo::MAX_MOVE_NUMBER; i++)
+      moveSet[i] = nullptr;
+
+    pokemonInfo_->InitMoveSet (moveSet, GetLevel ());
   }
 
   const String& Pokemon::GetName () const
@@ -199,5 +201,7 @@ namespace yap
       else
         std::cout << " - " << std::endl;
     }
+
+    pokemonInfo_->PrintBaseSkills ();
   }
 }

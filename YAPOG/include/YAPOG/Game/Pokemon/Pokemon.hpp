@@ -35,6 +35,7 @@ namespace yap
 
     void PrintStats ();
   private:
+    void InitMoveSet ();
 
     ID uniqueID_;
     ID staticID_;

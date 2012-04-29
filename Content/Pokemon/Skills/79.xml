@@ -1,0 +1,14 @@
+<Skill id="79">
+	<name>POUDRE DODO</name>
+	<description>Répand une poudre pouvant endormir l'ennemi.</description>
+	<power>0</power>
+	<pp>15</pp>
+	<maxPP>24</maxPP>
+	<accuracy>75</accuracy>
+	<type>5</type>
+	<category>3</category>
+	<target>2</target>
+	<effect>1</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

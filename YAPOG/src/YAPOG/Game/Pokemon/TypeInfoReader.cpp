@@ -59,7 +59,8 @@ namespace yap
     visitable.ReadNodes (DEFAULT_XML_TYPE_NODE_NAME, factorsReaders);
     for (auto& factorsReader : factorsReaders)
     {
-      ID typeID = factorsReader->ReadID (XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME));
+      ID typeID = factorsReader->ReadID (
+        XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME));
       float effect = factorsReader->ReadFloat ();
 
       typeInfo_.AddTypeEffect (typeID, effect);
