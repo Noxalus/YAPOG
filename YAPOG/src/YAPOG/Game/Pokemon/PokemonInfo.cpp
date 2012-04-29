@@ -29,22 +29,23 @@ namespace yap
   }
 
   PokemonInfo::PokemonInfo (const PokemonInfo& copy)
-    : pokedexID_ (copy.pokedexID_),
-    name_ (copy.name_),
-    description_ (copy.description_),
-    species_ (copy.species_),
-    height_ (copy.height_),
-    weight_ (copy.weight_),
-    experience_ (copy.experience_),
-    rarity_ (copy.rarity_),
-    baseHitPoint_ (copy.baseHitPoint_),
-    baseAttack_ (copy.baseAttack_),
-    baseDefense_ (copy.baseDefense_),
-    baseSpecialAttack_ (copy.baseSpecialAttack_),
-    baseSpecialDefense_ (copy.baseSpecialDefense_),
-    baseSpeed_ (copy.baseSpeed_),
-    type1_ (copy.type1_),
-    type2_ (copy.type2_)
+    : pokedexID_ (copy.pokedexID_)
+    , name_ (copy.name_)
+    , description_ (copy.description_)
+    , species_ (copy.species_)
+    , height_ (copy.height_)
+    , weight_ (copy.weight_)
+    , experience_ (copy.experience_)
+    , experienceType_ (copy.experienceType_)
+    , rarity_ (copy.rarity_)
+    , baseHitPoint_ (copy.baseHitPoint_)
+    , baseAttack_ (copy.baseAttack_)
+    , baseDefense_ (copy.baseDefense_)
+    , baseSpecialAttack_ (copy.baseSpecialAttack_)
+    , baseSpecialDefense_ (copy.baseSpecialDefense_)
+    , baseSpeed_ (copy.baseSpeed_)
+    , type1_ (copy.type1_)
+    , type2_ (copy.type2_)
   {
   }
 
@@ -86,6 +87,11 @@ namespace yap
   void PokemonInfo::SetExperience (const int& value)
   {
     experience_ = value;
+  }
+
+  void PokemonInfo::SetExperienceType (const int& value)
+  {
+    experienceType_ = value;
   }
 
   void PokemonInfo::SetRarity (const int& value)
@@ -168,6 +174,11 @@ namespace yap
   const int& PokemonInfo::GetExperience () const
   {
     return experience_;
+  }
+
+  const int& PokemonInfo::GetExperienceType () const
+  {
+    return experienceType_;
   }
 
   const int& PokemonInfo::GetRarity () const

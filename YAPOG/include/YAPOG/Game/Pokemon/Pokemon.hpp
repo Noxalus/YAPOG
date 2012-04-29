@@ -21,35 +21,34 @@ namespace yap
   {
     DISALLOW_COPY (Pokemon);
 
-    public:
-      Pokemon (const ID& staticID);
-      Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
+  public:
+    Pokemon (const ID& staticID);
+    Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
 
-      const String& GetName () const;
-      float GetTypeEffectFactor (const TypeInfo& type) const;
-      const UInt32& GetTotalExperience () const;
-      const UInt32& GetExperienceToNextLevel () const;
-      const UInt16& GetLevel () const;
+    const String& GetName () const;
+    float GetTypeEffectFactor (const TypeInfo& type) const;
+    const UInt32& GetTotalExperience () const;
+    const UInt32& GetExperienceToNextLevel () const;
+    const UInt16& GetLevel () const;
 
-      void AddExperience (const Int32& value);
+    void AddExperience (const Int32& value);
 
-      void PrintStats ();
-    private:
-     ID uniqueID_;
-     ID staticID_;
-     String nickname_;
-     PokemonStat stats_;
-     PokemonType type_;
-     Status status_;
-     Gender gender_;
-     bool shiny_;
-     Int16 loyalty_;
-     PokemonSkill moveSet[4];
-     PokemonInfo* pokemonInfo_;
-     NatureInfo* nature_;
-     PokemonExperience* exp_;
+    void PrintStats ();
+  private:
 
-     static const UInt16 POKEMON_INITIAL_LEVEL;
+    ID uniqueID_;
+    ID staticID_;
+    String nickname_;
+    PokemonStat stats_;
+    PokemonType type_;
+    Status status_;
+    Gender gender_;
+    bool shiny_;
+    Int16 loyalty_;
+    PokemonSkill moveSet[4];
+    PokemonInfo* pokemonInfo_;
+    NatureInfo* nature_;
+    PokemonExperience* exp_;
   };
 } // namespace yap
 

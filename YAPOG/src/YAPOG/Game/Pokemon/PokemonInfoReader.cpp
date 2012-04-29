@@ -98,7 +98,7 @@ namespace yap
 
     // <experienceType>
 
-    pokeInfo_.SetExperience (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME));
+    pokeInfo_.SetExperienceType (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME));
 
     // </experienceType>
 

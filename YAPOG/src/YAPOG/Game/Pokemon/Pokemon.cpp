@@ -10,37 +10,82 @@
 
 namespace yap
 {
-  const UInt16 Pokemon::POKEMON_INITIAL_LEVEL = 1;
-
   Pokemon::Pokemon (const ID& staticID)
     : staticID_ (staticID)
   {
     pokemonInfo_ = ObjectFactory::Instance ().
-      Create<PokemonInfo> ("PokemonInfo",  staticID);
+      Create<PokemonInfo> ("PokemonInfo",  staticID_);
 
     nature_ = ObjectFactory::Instance ().
       Create<NatureInfo> ("NatureInfo",  ID (2));
 
-    exp_ = new ExperienceErratic ();
+    switch (pokemonInfo_->GetExperienceType ())
+    {
+    case 1:
+      exp_ = new ExperienceSlow ();
+      break;
+    case 2:
+      exp_ = new ExperienceMediumSlow ();
+      break;
+    case 3:
+      exp_ = new ExperienceMediumFast ();
+      break;
+    case 4:
+      exp_ = new ExperienceFast ();
+      break;
+    case 5:
+      exp_ = new ExperienceFluctuating ();
+      break;
+    case 6:
+      exp_ = new ExperienceErratic ();
+      break;
+    default:
+      exp_ = new ExperienceMediumSlow ();
+      break;
+    }
+
     exp_->Init ();
 
     stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
-
   }
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
-    : staticID_ (staticID_)
+    : staticID_ (staticID)
     , shiny_ (shiny)
   {
     pokemonInfo_ = ObjectFactory::Instance ().
-      Create<yap::PokemonInfo> ("PokemonInfo",  staticID);
+      Create<PokemonInfo> ("PokemonInfo",  staticID_);
 
     nature_ = ObjectFactory::Instance ().
-      Create<NatureInfo> ("NatureInfo",  ID (1));
+      Create<NatureInfo> ("NatureInfo",  ID (2));
 
-    exp_ = new ExperienceErratic (level);
+    switch (pokemonInfo_->GetExperienceType ())
+    {
+    case 1:
+      exp_ = new ExperienceSlow (level);
+      break;
+    case 2:
+      exp_ = new ExperienceMediumSlow (level);
+      break;
+    case 3:
+      exp_ = new ExperienceMediumFast (level);
+      break;
+    case 4:
+      exp_ = new ExperienceFast (level);
+      break;
+    case 5:
+      exp_ = new ExperienceFluctuating (level);
+      break;
+    case 6:
+      exp_ = new ExperienceErratic (level);
+      break;
+    default:
+      exp_ = new ExperienceMediumSlow (level);
+      break;
+    }
+
     exp_->Init ();
 
     stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
@@ -115,6 +160,7 @@ namespace yap
       << "Total experience: " << GetTotalExperience () << std::endl
       << "Experience to the next level: " << GetExperienceToNextLevel ()
       << " (" << GetExperienceToNextLevel () - GetTotalExperience () << ")" << std::endl
+      << "Experience type: " << pokemonInfo_->GetExperienceType () << std::endl
       << "Nature: " << nature_->GetName () << std::endl
       << "Type1: " << type_.GetType1 ().GetName () << std::endl
       << "Type2: " << type_.GetType2 ().GetName () << std::endl
