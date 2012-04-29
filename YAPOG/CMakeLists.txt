@@ -75,6 +75,8 @@ ${src_root}/Game/Pokemon/PokemonType.cpp
 ${inc_root}/Game/Pokemon/PokemonType.hpp
 ${inc_root}/Game/Pokemon/Gender.hpp
 ${inc_root}/Game/Pokemon/Status.hpp
+${src_root}/Game/Pokemon/SkillInfoReader.cpp
+${inc_root}/Game/Pokemon/SkillInfoReader.hpp
 ${src_root}/Game/Pokemon/SkillInfo.cpp
 ${inc_root}/Game/Pokemon/SkillInfo.hpp
 ${src_root}/Game/Pokemon/PokemonSkill.cpp

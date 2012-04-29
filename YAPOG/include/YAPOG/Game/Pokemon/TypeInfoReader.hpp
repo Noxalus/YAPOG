@@ -16,7 +16,7 @@ namespace yap
     DISALLOW_COPY(TypeInfoReader);
 
   public:
-    TypeInfoReader (TypeInfo& pokeInfo);
+    TypeInfoReader (TypeInfo& typeInfo);
     TypeInfoReader (TypeInfo& map, const String& xmlRootNodeName);
     virtual ~TypeInfoReader ();
 

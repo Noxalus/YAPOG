@@ -12,6 +12,7 @@ namespace yap
 {
   Pokemon::Pokemon (const ID& staticID)
     : staticID_ (staticID)
+    , status_ (Status::Normal)
   {
     pokemonInfo_ = ObjectFactory::Instance ().
       Create<PokemonInfo> ("PokemonInfo",  staticID_);
@@ -49,11 +50,17 @@ namespace yap
     stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
+
+    moveSet[0] = new PokemonSkill (ID (33));
+    moveSet[1] = nullptr;
+    moveSet[2] = nullptr;
+    moveSet[3] = nullptr;
   }
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
     : staticID_ (staticID)
     , shiny_ (shiny)
+    , status_ (Status::Normal)
   {
     pokemonInfo_ = ObjectFactory::Instance ().
       Create<PokemonInfo> ("PokemonInfo",  staticID_);
@@ -91,6 +98,11 @@ namespace yap
     stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
+
+    moveSet[0] = new PokemonSkill (ID (33));
+    moveSet[1] = nullptr;
+    moveSet[2] = nullptr;
+    moveSet[3] = nullptr;
   }
 
   const String& Pokemon::GetName () const
@@ -177,5 +189,15 @@ namespace yap
       << " (IV: " << stats_.GetSpecialDefense ().GetIndividualValue () << ")" << std::endl
       << "Speed: " << stats_.GetSpeed ().GetValue ()
       << " (IV: " << stats_.GetSpeed ().GetIndividualValue () << ")" << std::endl;
+
+    std::cout << "Move set:" << std::endl;
+
+    for (int i = 0; i < 4; i++)
+    {
+      if (moveSet[i] != nullptr)
+        std::cout << moveSet[i]->GetName () << std::endl;
+      else
+        std::cout << " - " << std::endl;
+    }
   }
 }

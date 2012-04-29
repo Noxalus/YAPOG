@@ -14,6 +14,8 @@
 #include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Game/Pokemon/TypeInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/TypeInfo.hpp"
+#include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/System/IO/IWriter.hpp"
 
 using namespace yap;
@@ -43,6 +45,11 @@ int main ()
       ("TypeInfo",
       new XmlObjectIDLoader<TypeInfo, TypeInfoReader>
       (Path ("Pokemon/Types"), "Type"));
+
+    ObjectFactory::Instance ().RegisterLoader 
+      ("SkillInfo",
+      new XmlObjectIDLoader<SkillInfo, SkillInfoReader>
+      (Path ("Pokemon/Skills"), "Skill"));
 
     collection::List<Pokemon*> pokemons;
 

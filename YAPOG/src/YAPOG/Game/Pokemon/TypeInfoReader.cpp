@@ -28,7 +28,7 @@ namespace yap
 
   void TypeInfoReader::Visit (XmlReader& visitable)
   {
-    // <Nature id="{id}">
+    // <Type id="{id}">
 
     if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
     {
@@ -71,6 +71,6 @@ namespace yap
 
     visitable.UpChangeRoot ();
 
-    // </Nature>
+    // </Type>
   }
 }

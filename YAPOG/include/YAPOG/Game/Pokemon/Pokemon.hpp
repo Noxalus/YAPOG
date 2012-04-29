@@ -45,7 +45,7 @@ namespace yap
     Gender gender_;
     bool shiny_;
     Int16 loyalty_;
-    PokemonSkill moveSet[4];
+    PokemonSkill* moveSet[4];
     PokemonInfo* pokemonInfo_;
     NatureInfo* nature_;
     PokemonExperience* exp_;
