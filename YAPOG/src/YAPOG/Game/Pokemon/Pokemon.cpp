@@ -150,7 +150,7 @@ namespace yap
 
   void Pokemon::PrintStats ()
   {
-    //pokeInfo_->PrintBaseStats ();
+    //pokemonInfo_->PrintBaseStats ();
 
     std::cout
       << "---------------------------------------------" << std::endl

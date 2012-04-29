@@ -1,0 +1,37 @@
+<PokemonInfo id="16">
+	<name>ROUCOOL</name>
+	<description>ROUCOOL a un excellent sens de l'orientation. Il retrouvera toujours son nid, même s'il est loin de chez lui et dans un environnement qu'il ne connaît pas.</description>
+	<species>MINOISEAU</species>
+	<height>0.3</height>
+	<weight>1.8</weight>
+	<gender>50</gender>
+	<baseStats>
+		<hp>40</hp>
+		<attack>45</attack>
+		<defense>40</defense>
+		<speed>56</speed>
+		<specialAttack>35</specialAttack>
+		<specialDefense>35</specialDefense>
+	</baseStats>
+	<evolution level="18">17</evolution>
+	<experience>55</experience>
+	<experienceType>2</experienceType>
+	<rarity>255</rarity>
+	<types>
+		<type1>1</type1>
+		<type2>10</type2>
+	</types>
+	<baseSkills>
+		<skill level="1">33</skill>
+	</baseSkills>
+	<learnableSkills>
+		<skill>16</skill>
+	</learnableSkills>
+	<graphics>
+		<icon>016.png</icon>
+		<front>016.png</front>
+		<back>016.png</back>
+		<shinyFront>016.png</shinyFront>
+		<shinyBack>016.png</shinyBack>
+	</graphics>
+</PokemonInfo>
