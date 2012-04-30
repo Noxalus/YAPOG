@@ -1,0 +1,14 @@
+<Skill id="235">
+	<name>SYNTHESE</name>
+	<description>Restaure les PV. Varie suivant le temps.</description>
+	<power>0</power>
+	<pp>5</pp>
+	<maxPP>8</maxPP>
+	<accuracy>100</accuracy>
+	<type>5</type>
+	<category>3</category>
+	<target>8</target>
+	<effect>133</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

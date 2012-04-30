@@ -54,7 +54,7 @@ int main ()
     collection::List<Pokemon*> pokemons;
 
     for (int i = 0; i < 1; i++)
-      pokemons.Add (new Pokemon (ID (1), 7, false));
+      pokemons.Add (new Pokemon (ID (1), 1000, false));
 
     for (Pokemon* pokemon : pokemons)
       pokemon->PrintStats ();

@@ -27,7 +27,12 @@ namespace yap
     if (level_ == INITIAL_LEVEL_VALUE)
       value_ = INITIAL_EXPERIENCE_VALUE;
     else
+    {
+      if (level_ > MAX_LEVEL_VALUE)
+        level_ = MAX_LEVEL_VALUE;
+
       value_ = ComputeExperienceFromLevel (level_);
+    }
 
     ComputeExperienceToNextLevel ();
   }
@@ -80,6 +85,10 @@ namespace yap
     {
       level_++;
       ComputeExperienceToNextLevel ();
+
+      // Learn skill ?
+
+      // Evolve ?
     }
   }
 
