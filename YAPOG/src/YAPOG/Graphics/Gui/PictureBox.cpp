@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
 namespace yap
 {
@@ -16,7 +17,10 @@ namespace yap
   Vector2 PictureBox::HandleGetSize () const
   {
     return Vector2 (padding_->left + picture_.GetSize ().x + padding_->right,
-      padding_->top + picture_.GetSize ().y + padding_->bottom);
+      padding_->top + picture_.GetSize ().y + padding_->bottom)
+      + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
+      * 2, border_->GetWidth () * 2) : Vector2 ());
+    return Vector2 ();
   }
 
   void PictureBox::HandleDraw (IDrawingContext& context)

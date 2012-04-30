@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/System/Event/Event.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -111,7 +112,7 @@ namespace yap
     virtual void SetParent (IWidget& parent);
     virtual void SetPadding (Padding* padding);
     virtual void SetBackground (WidgetBackground& background);
-    virtual void SetBorder  (WidgetBorder& border);
+    virtual void SetBorder  (WidgetBorder& border, uint width);
 
 
   protected:

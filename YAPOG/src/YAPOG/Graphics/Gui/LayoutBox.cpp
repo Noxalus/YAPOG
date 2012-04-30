@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
 namespace yap
 {
@@ -47,7 +48,8 @@ namespace yap
   Vector2 LayoutBox::HandleGetSize () const
   {
     if (isExtensible_)
-      return realSize_;
+      return realSize_ + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
+      * 2, border_->GetWidth () * 2) : Vector2 ());
 
     return spatialInfo_.GetSize ();
   }

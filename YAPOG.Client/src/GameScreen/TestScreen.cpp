@@ -22,6 +22,7 @@
 #include "YAPOG/Graphics/Gui/LayoutV.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -157,7 +158,7 @@ void TestScreen::HandleInit ()
   yap::LayoutV* layout = new LayoutV (Padding (2, 2, 2, 2),
     Padding (9, 9 , 9, 9), false);
 
-  layout->SetSize (Vector2 (1024, 512));
+  layout->SetSize (Vector2 (1024, 768));
 
   yap::Label* label = new yap::Label ();
   label->SetText (String("TEST."));
@@ -168,8 +169,10 @@ void TestScreen::HandleInit ()
   pb->SetPicture (String("jarri_j.jpg"));
   pb->Scale (Vector2 (1, 1));
 
+  WidgetBorder* border = new WidgetBorder ("heart.gif");
+
   LayoutH* layouth = new LayoutH (Padding (2, 2, 2, 2),
-    Padding (9, 9 , 9, 9), false);
+    Padding (9, 9 , 9, 9), true);
 
   Label* ts = new Label ();
   ts->SetText (String("waza"));
@@ -181,17 +184,17 @@ void TestScreen::HandleInit ()
 
   ts->SetBackground (*bckgr);
   ts3->SetBackground (*bckgr2);
-
+  
   layouth->AddChild (*ts, LayoutBox::Align::TOP);
   layouth->AddChild (*ts3, LayoutBox::Align::TOP);
 
   Label* ts2 = new Label ("OLOL");
+  pb->SetBorder (*border, 16);
 
-
-  layout->AddChild (*label, LayoutBox::Align::TOP);
-  layout->AddChild (*pb, LayoutBox::Align::TOP);
-  layout->AddChild (*layouth, LayoutBox::Align::TOP);
-  layout->AddChild (*ts2, LayoutBox::Align::TOP);
+  layout->AddChild (*label, LayoutBox::Align::CENTER);
+  layout->AddChild (*pb, LayoutBox::Align::CENTER);
+  layout->AddChild (*layouth, LayoutBox::Align::CENTER);
+  layout->AddChild (*ts2, LayoutBox::Align::CENTER);
 
 
   //yap::widgetbackground* bckgr = new widgetbackground ();

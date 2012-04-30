@@ -2,6 +2,9 @@
 # define YAPOG_WIDGET_BORDER_HPP
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Graphics/Texture.hpp"
+# include "YAPOG/Graphics/Gui/TextureManager.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -10,8 +13,24 @@ namespace yap
     DISALLOW_COPY(WidgetBorder);
 
   public:
+
+    struct EventArgsTexture
+    {
+      Texture& newContent;
+      EventArgsTexture (Texture& content)
+        : newContent (content)
+      {
+      }
+    };
+
     WidgetBorder ();
+    WidgetBorder (String file);
     virtual ~WidgetBorder ();
+
+    Event<const WidgetBorder&, const EventArgsTexture&> OnBorderSet;
+    void SetBorder (Vector2 size, uint width);
+    const Texture& GetBorder () const;
+    uint GetWidth () const;
 
   private:
     virtual void HandleMove (const Vector2& offset);
@@ -22,11 +41,16 @@ namespace yap
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
 
-    virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-
     virtual void HandleUpdate (const Time& dt);
-  private:
+
+    Texture border_;
+    TextureManager* tmTop_;
+    TextureManager* tmBottom_;
+    TextureManager* tmLeft_;
+    TextureManager* tmRight_;
+    uint width_;
+
+    bool isInit;
 
   };
 } // namespace yap

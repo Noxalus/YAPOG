@@ -3,6 +3,7 @@
 #include "YAPOG\Graphics\Gui\Label.hpp"
 #include "YAPOG\Graphics\IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
 namespace yap
 {
@@ -34,7 +35,9 @@ namespace yap
       + padding_->right,
       padding_->top
       + drawableText_.getGlobalBounds ().height
-      + padding_->bottom);
+      + padding_->bottom)
+      + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
+      * 2, border_->GetWidth () * 2) : Vector2 ());
   }
 
   void Label::HandleDraw (IDrawingContext& context)

@@ -2,6 +2,10 @@
 # define YAPOG_MENU_HPP
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Graphics/Gui/MenuItem.hpp"
+# include "YAPOG/Graphics/Gui/LayoutBox.hpp"
+# include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
 {
@@ -10,10 +14,20 @@ namespace yap
     DISALLOW_COPY(Menu);
 
   public:
-    Menu ();
+
+    enum class Type
+    {
+      VERTICAL,
+      HORIZONTAL
+    };
+
+    Menu (Type type, Padding ext, Padding in, bool extend);
+    void AddChild (MenuItem& child, LayoutBox::Align align
+      = LayoutBox::Align::CENTER);
     virtual ~Menu ();
 
   private:
+    virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 
@@ -22,12 +36,10 @@ namespace yap
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
 
-    virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-
     virtual void HandleUpdate (const Time& dt);
-  private:
 
+    collection::List<MenuItem*> itemz_;
+    LayoutBox* layout_;
   };
 } // namespace yap
 

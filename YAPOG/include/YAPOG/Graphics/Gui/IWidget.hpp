@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Graphics/Gui/IEventHandler.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -27,7 +28,7 @@ namespace yap
     virtual void SetParent (IWidget& parent) = 0;
     virtual void SetPadding (Padding* padding) = 0;
     virtual void SetBackground (WidgetBackground& background) = 0;
-    virtual void SetBorder  (WidgetBorder& border) = 0;
+    virtual void SetBorder  (WidgetBorder& border, uint width) = 0;
   };
 } // namespace yap
 

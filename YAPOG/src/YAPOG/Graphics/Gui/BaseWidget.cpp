@@ -2,6 +2,7 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -269,9 +270,26 @@ namespace yap
     background_->SetBackground (GetSize ());
   }
 
-  void BaseWidget::SetBorder (WidgetBorder& border)
+  void BaseWidget::SetBorder (WidgetBorder& border, uint width)
   {
     border_ = &border;
+    border_->SetPosition (GetPosition ());
+    border_->SetBorder (GetSize (), width);
+
+    if (spatialInfo_.GetPosition ().x > width)
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
+    else
+    {
+      Move (Vector2 (width - GetPosition ().x, 0));
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
+    }
+    if (spatialInfo_.GetPosition ().y > width)
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
+    else
+    {
+      Move (Vector2 (0, width - GetPosition ().y));
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
+    }
   }
 
   bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)
