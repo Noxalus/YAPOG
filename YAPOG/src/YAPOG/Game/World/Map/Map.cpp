@@ -1,4 +1,6 @@
 #include "YAPOG/Game/World/Map/Map.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
 namespace yap
 {
@@ -11,6 +13,9 @@ namespace yap
     , name_ (DEFAULT_NAME)
     , width_ (DEFAULT_WIDTH)
     , height_ (DEFAULT_HEIGHT)
+    , objects_ ()
+    , dynamicObjects_ ()
+    , updateables_ ()
   {
   }
 
@@ -23,7 +28,12 @@ namespace yap
     , name_ (copy.name_)
     , width_ (copy.width_)
     , height_ (copy.height_)
+    , objects_ ()
+    , dynamicObjects_ ()
+    , updateables_ ()
   {
+    for (WorldObject* object : copy.objects_)
+      AddObject (object->Clone ());
   }
 
   const ID& Map::GetID () const
@@ -66,5 +76,29 @@ namespace yap
 
   void Map::HandleSetSize (uint width, uint height)
   {
+  }
+
+  void Map::Update (const Time& dt)
+  {
+    for (IUpdateable* updateable : updateables_)
+      updateable->Update (dt);
+
+    HandleUpdate (dt);
+  }
+
+  void Map::AddObject (WorldObject* object)
+  {
+    objects_.Add (object);
+  }
+
+  void Map::AddDynamicObject (DynamicWorldObject* object)
+  {
+    dynamicObjects_.AddObject (object);
+    AddUpdateable (object);
+  }
+
+  void Map::AddUpdateable (IUpdateable* updateable)
+  {
+    updateables_.Add (updateable);
   }
 } // namespace yap

@@ -22,10 +22,16 @@ ${inc_root}/GameScreen/TestScreen.hpp
 ${src_root}/GameScreen/TestScreen.cpp
 ${inc_root}/TestGame.hpp
 ${src_root}/TestGame.cpp
+${inc_root}/World/Map/Character.hpp
+${src_root}/World/Map/Character.cpp
 ${inc_root}/World/Map/Map.hpp
 ${src_root}/World/Map/Map.cpp
 ${inc_root}/World/Map/MapReader.hpp
 ${src_root}/World/Map/MapReader.cpp
+${inc_root}/World/Map/NPC.hpp
+${src_root}/World/Map/NPC.cpp
+${inc_root}/World/Map/Player.hpp
+${src_root}/World/Map/Player.cpp
 )
 
 ADD_EXECUTABLE(

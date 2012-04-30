@@ -6,6 +6,7 @@
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
+# include "YAPOG/Game/World/Map/Physics/BoundingBoxCollection.hpp"
 
 namespace yap
 {
@@ -15,6 +16,8 @@ namespace yap
       DISALLOW_ASSIGN(WorldObject);
 
     public:
+
+      virtual ~WorldObject ();
 
       const ID& GetID () const;
       void SetID (const ID& id);
@@ -57,9 +60,7 @@ namespace yap
 
     protected:
 
-      WorldObject (const ID& id);
-      virtual ~WorldObject ();
-
+      explicit WorldObject (const ID& id);
       WorldObject (const WorldObject& copy);
 
     private:
@@ -71,6 +72,8 @@ namespace yap
 
       ID id_;
       Spatial3Info spatial3Info_;
+
+      BoundingBoxCollection boundingBoxes_;
   };
 } // namespace yap
 

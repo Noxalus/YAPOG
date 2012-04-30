@@ -29,6 +29,7 @@
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -64,6 +65,7 @@ TestScreen::TestScreen ()
     "RandomTileLayoutHandler",
     new XmlObjectLoader<RandomTileLayoutHandler,
                         RandomTileLayoutHandlerReader> ());
+
 
   float ff = RandomHelper::GetNext (2.f, 3.f);
   dl.LogLine (StringHelper::ToString (ff));
@@ -175,7 +177,7 @@ const yap::ScreenType& TestScreen::HandleRun (
   context.SetDefaultCamera ();
 
   context.GetCamera ("World").Move (
-    yap::Vector2 (100.0f * dt.GetValue (), 40.0f * dt.GetValue ()));
+    yap::Vector2 (150.0f * dt.GetValue (), 60.0f * dt.GetValue ()));
 
 //  for (auto it : textures_)
 //    it->Draw (context);

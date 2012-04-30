@@ -51,3 +51,7 @@ void Map::HandleSetSize (yap::uint width, yap::uint height)
 {
   tileLayers_.SetSize (width, height);
 }
+
+void Map::HandleUpdate (const yap::Time& dt)
+{
+}

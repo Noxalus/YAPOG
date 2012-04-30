@@ -17,7 +17,9 @@ class Map : public yap::Map
     Map (const yap::ID& id);
     virtual ~Map ();
 
-    void AddTileLayer (yap::uint height, yap::TileLayoutHandler* tileLayoutHandler);
+    void AddTileLayer (
+      yap::uint height,
+      yap::TileLayoutHandler* tileLayoutHandler);
 
     /// @name ICloneable members.
     /// @{
@@ -36,12 +38,12 @@ class Map : public yap::Map
 
   protected:
 
-    /// @brief Copy constructor for Clone member.
     Map (const Map& copy);
 
   private:
 
     virtual void HandleSetSize (yap::uint width, yap::uint height);
+    virtual void HandleUpdate (const yap::Time& dt);
 
     yap::TileLayerStack tileLayers_;
 };

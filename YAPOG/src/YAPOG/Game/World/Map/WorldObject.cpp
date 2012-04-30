@@ -5,6 +5,7 @@ namespace yap
   WorldObject::WorldObject (const ID& id)
     : id_ (id)
     , spatial3Info_ ()
+    , boundingBoxes_ ()
   {
   }
 
@@ -15,6 +16,7 @@ namespace yap
   WorldObject::WorldObject (const WorldObject& copy)
     : id_ (copy.id_)
     , spatial3Info_ (copy.spatial3Info_)
+    , boundingBoxes_ (copy.boundingBoxes_)
   {
   }
 
@@ -114,17 +116,21 @@ namespace yap
 
   void WorldObject::HandleMove (const Vector2& offset)
   {
+    boundingBoxes_.Move (offset);
   }
 
   void WorldObject::HandleScale (const Vector2& factor)
   {
+    boundingBoxes_.Scale (factor);
   }
 
   void WorldObject::HandleSetZ (int z)
   {
+    boundingBoxes_.SetZ (z);
   }
 
   void WorldObject::HandleSetH (int h)
   {
+    boundingBoxes_.SetH (h);
   }
 } // namespace yap
