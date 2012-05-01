@@ -26,7 +26,7 @@ Character::Character (const Character& copy)
 }
 
 void Character::AddSprite (
-  const yap::WorldObjectState& state,
+  const yap::String& state,
   yap::ISprite* sprite)
 {
   sprites_->AddSprite (state, sprite);

@@ -56,8 +56,8 @@ namespace yap
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
     : staticID_ (staticID)
-    , shiny_ (shiny)
     , status_ (Status::Normal)
+    , shiny_ (shiny)
   {
     pokemonInfo_ = ObjectFactory::Instance ().
       Create<PokemonInfo> ("PokemonInfo",  staticID_);
@@ -124,7 +124,7 @@ namespace yap
       return exp_->GetValue ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () + 
+      throw Exception ("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -135,7 +135,7 @@ namespace yap
       return exp_->GetExperienceToNextLevel ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () + 
+      throw Exception ("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -146,7 +146,7 @@ namespace yap
       return exp_->GetLevel ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () + 
+      throw Exception ("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -157,7 +157,7 @@ namespace yap
       exp_->AddExperience (value);
     else
     {
-      throw Exception ("The Pokémon " + GetName () + 
+      throw Exception ("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -181,7 +181,7 @@ namespace yap
       << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue ()
       << " (IV: " << stats_.GetHitPoint ().GetIndividualValue () << ")" << std::endl
-      << "Attack: " << stats_.GetAttack ().GetValue () 
+      << "Attack: " << stats_.GetAttack ().GetValue ()
       << " (IV: " << stats_.GetAttack ().GetIndividualValue () << ")" << std::endl
       << "Defense: " << stats_.GetDefense ().GetValue ()
       << " (IV: " << stats_.GetDefense ().GetIndividualValue () << ")" << std::endl

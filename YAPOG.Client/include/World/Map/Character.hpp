@@ -5,6 +5,7 @@
 # include "YAPOG/Game/World/Map/Character.hpp"
 # include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
 # include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
+# include "YAPOG/System/String.hpp"
 
 class Character : public yap::Character
                 , public yap::IDrawableWorldObject
@@ -15,7 +16,7 @@ class Character : public yap::Character
 
     virtual ~Character ();
 
-    void AddSprite (const yap::WorldObjectState& state, yap::ISprite* sprite);
+    void AddSprite (const yap::String& state, yap::ISprite* sprite);
 
     /// @name IDrawable members.
     /// @{
