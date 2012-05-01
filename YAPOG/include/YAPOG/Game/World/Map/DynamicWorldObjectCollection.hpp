@@ -10,7 +10,7 @@ namespace yap
 {
   class DynamicWorldObject;
 
-  class DynamicWorldObjectCollection : public IUpdateable
+  class YAPOG_LIB DynamicWorldObjectCollection : public IUpdateable
   {
       DISALLOW_COPY(DynamicWorldObjectCollection);
 

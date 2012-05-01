@@ -10,42 +10,45 @@
 #include "YAPOG/System/IntTypes.hpp"
 #include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
 
-MapReader::MapReader (Map& map, const yap::String& xmlRootNodeName)
-  : yap::MapReader (map, xmlRootNodeName)
-  , map_ (map)
+namespace ycl
 {
-}
-
-MapReader::~MapReader ()
-{
-}
-
-void MapReader::Visit (yap::XmlReader& visitable)
-{
-  yap::MapReader::Visit (visitable);
-
-  if (!visitable.TryChangeRoot (xmlRootNodeName_))
-    throw yap::Exception (
-      "Failed to read `" + xmlRootNodeName_ + "' node.");
-
-  visitable.DownChangeRoot ("ground");
-
-  yap::XmlReaderCollection tileSetReaders;
-  visitable.ReadNodes ("tileLayer", tileSetReaders);
-  for (auto& tileSetReader : tileSetReaders)
+  MapReader::MapReader (Map& map, const yap::String& xmlRootNodeName)
+    : yap::MapReader (map, xmlRootNodeName)
+    , map_ (map)
   {
-    yap::uint height = tileSetReader->ReadUInt ("height");
-    yap::String layoutHandlerType = tileSetReader->ReadString (
-      "layoutHandlerType");
-
-    yap::TileLayoutHandler* tileLayoutHandler =
-      yap::ObjectFactory::Instance ().Create<yap::TileLayoutHandler> (
-        layoutHandlerType,
-        *tileSetReader,
-        "tileLayer");
-
-    map_.AddTileLayer (height, tileLayoutHandler);
   }
 
-  visitable.UpChangeRoot ();
-}
+  MapReader::~MapReader ()
+  {
+  }
+
+  void MapReader::Visit (yap::XmlReader& visitable)
+  {
+    yap::MapReader::Visit (visitable);
+
+    if (!visitable.TryChangeRoot (xmlRootNodeName_))
+      throw yap::Exception (
+        "Failed to read `" + xmlRootNodeName_ + "' node.");
+
+    visitable.DownChangeRoot ("ground");
+
+    yap::XmlReaderCollection tileSetReaders;
+    visitable.ReadNodes ("tileLayer", tileSetReaders);
+    for (auto& tileSetReader : tileSetReaders)
+    {
+      yap::uint height = tileSetReader->ReadUInt ("height");
+      yap::String layoutHandlerType = tileSetReader->ReadString (
+        "layoutHandlerType");
+
+      yap::TileLayoutHandler* tileLayoutHandler =
+        yap::ObjectFactory::Instance ().Create<yap::TileLayoutHandler> (
+          layoutHandlerType,
+          *tileSetReader,
+          "tileLayer");
+
+      map_.AddTileLayer (height, tileLayoutHandler);
+    }
+
+    visitable.UpChangeRoot ();
+  }
+} // namespace ycl

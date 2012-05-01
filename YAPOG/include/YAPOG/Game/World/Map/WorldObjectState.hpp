@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  class WorldObjectState
+  class YAPOG_LIB WorldObjectState
   {
     public:
 

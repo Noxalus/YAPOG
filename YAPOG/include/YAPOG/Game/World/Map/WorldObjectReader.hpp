@@ -9,7 +9,7 @@ namespace yap
 {
   class WorldObject;
 
-  class WorldObjectReader : public IReaderVisitor
+  class YAPOG_LIB WorldObjectReader : public IReaderVisitor
   {
       DISALLOW_COPY(WorldObjectReader);
 

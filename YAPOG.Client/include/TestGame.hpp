@@ -3,16 +3,19 @@
 
 # include "YAPOG/Graphics/Game/Game.hpp"
 
-/// @brief A game for testing.
-class TestGame : public yap::Game
+namespace ycl
 {
-  public:
+/// @brief A game for testing.
+  class TestGame : public yap::Game
+  {
+    public:
 
-    TestGame (const yap::String& name);
-    virtual ~TestGame ();
+      TestGame (const yap::String& name);
+      virtual ~TestGame ();
 
-    virtual void HandleInit ();
-    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
-};
+      virtual void HandleInit ();
+      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+  };
+} // namespace ycl
 
 #endif // YAPOG_DEMOGAME_HPP

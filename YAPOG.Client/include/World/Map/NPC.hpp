@@ -4,23 +4,26 @@
 # include "YAPOG/Macros.hpp"
 # include "World/Map/Character.hpp"
 
-class NPC : public Character
+namespace ycl
 {
-    DISALLOW_ASSIGN(NPC);
+  class NPC : public Character
+  {
+      DISALLOW_ASSIGN(NPC);
 
-  public:
+    public:
 
-    NPC (const yap::ID& id);
-    virtual ~NPC ();
+      NPC (const yap::ID& id);
+      virtual ~NPC ();
 
-    /// @name ICloneable members.
-    /// @{
-    virtual NPC* Clone () const;
-    /// @}
+      /// @name ICloneable members.
+      /// @{
+      virtual NPC* Clone () const;
+      /// @}
 
-  protected:
+    protected:
 
-    NPC (const NPC& copy);
-};
+      NPC (const NPC& copy);
+  };
+} // namespace ycl
 
 #endif // YAPOG_CLIENT_NPC_HPP

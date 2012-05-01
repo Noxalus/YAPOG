@@ -7,59 +7,62 @@
 # include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
 # include "YAPOG/System/String.hpp"
 
-class Character : public yap::Character
-                , public yap::IDrawableWorldObject
+namespace ycl
 {
-    DISALLOW_ASSIGN(Character);
+  class Character : public yap::Character
+                  , public yap::IDrawableWorldObject
+  {
+      DISALLOW_ASSIGN(Character);
 
-  public:
+    public:
 
-    virtual ~Character ();
+      virtual ~Character ();
 
-    void AddSprite (const yap::String& state, yap::ISprite* sprite);
+      void AddSprite (const yap::String& state, yap::ISprite* sprite);
 
-    /// @name IDrawable members.
-    /// @{
-    virtual void Draw (yap::IDrawingContext& context);
+      /// @name IDrawable members.
+      /// @{
+      virtual void Draw (yap::IDrawingContext& context);
 
-    virtual bool IsVisible () const;
-    virtual void Show (bool isVisible);
+      virtual bool IsVisible () const;
+      virtual void Show (bool isVisible);
 
-    virtual void ChangeColor (const sf::Color& color);
-    /// @}
+      virtual void ChangeColor (const sf::Color& color);
+      /// @}
 
-    /// @name IDrawableWorldObject members.
-    /// @{
-    virtual int CompareOrder (const yap::IDrawableWorldObject& other) const;
+      /// @name IDrawableWorldObject members.
+      /// @{
+      virtual int CompareOrder (const yap::IDrawableWorldObject& other) const;
 
-    virtual float GetComparisonPoint () const;
-    /// @}
+      virtual float GetComparisonPoint () const;
+      /// @}
 
-  protected:
+    protected:
 
-    explicit Character (const yap::ID& id);
+      explicit Character (const yap::ID& id);
 
-    Character (const Character& copy);
+      Character (const Character& copy);
 
-  private:
+    private:
 
-    virtual void HandleDraw (yap::IDrawingContext& context);
+      virtual void HandleDraw (yap::IDrawingContext& context);
 
-    virtual void HandleShow (bool isVisible);
-    virtual void HandleChangeColor (const sf::Color& color);
+      virtual void HandleShow (bool isVisible);
+      virtual void HandleChangeColor (const sf::Color& color);
 
-    virtual int HandleCompareOrder (
-      const yap::IDrawableWorldObject& other) const;
+      virtual int HandleCompareOrder (
+        const yap::IDrawableWorldObject& other) const;
 
-    virtual float HandleGetComparisonPoint () const;
+      virtual float HandleGetComparisonPoint () const;
 
-    static const bool DEFAULT_VISIBLE_STATE;
-    static const sf::Color DEFAULT_COLOR;
+      static const bool DEFAULT_VISIBLE_STATE;
+      static const sf::Color DEFAULT_COLOR;
 
-    bool isVisible_;
-    sf::Color color_;
+      bool isVisible_;
+      sf::Color color_;
 
-    yap::SpriteSet<yap::String>* sprites_;
-};
+      yap::SpriteSet<yap::String>* sprites_;
+  };
+} // namespace ycl
 
 #endif // YAPOG_CLIENT_CHARACTER_HPP

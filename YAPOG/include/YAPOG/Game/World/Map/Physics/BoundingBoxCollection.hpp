@@ -10,7 +10,7 @@ namespace yap
 {
   class BoundingBox;
 
-  class BoundingBoxCollection : public ISpatial3
+  class YAPOG_LIB BoundingBoxCollection : public ISpatial3
   {
       DISALLOW_ASSIGN(BoundingBoxCollection);
 

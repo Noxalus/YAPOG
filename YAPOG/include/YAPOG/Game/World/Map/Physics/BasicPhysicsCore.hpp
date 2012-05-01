@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class BasicPhysicsCore : public PhysicsCore
+  class YAPOG_LIB BasicPhysicsCore : public PhysicsCore
   {
       DISALLOW_COPY(BasicPhysicsCore);
 

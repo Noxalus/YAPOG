@@ -11,7 +11,7 @@ namespace yap
 {
   class WorldObjectPhysicsInfo;
 
-  class DynamicWorldObject : public WorldObject
+  class YAPOG_LIB DynamicWorldObject : public WorldObject
                            , public IUpdateable
   {
       DISALLOW_ASSIGN(DynamicWorldObject);

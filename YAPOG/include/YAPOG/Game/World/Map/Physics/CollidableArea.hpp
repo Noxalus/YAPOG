@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  class CollidableArea
+  class YAPOG_LIB CollidableArea
   {
   };
 } // namespace yap

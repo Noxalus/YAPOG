@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class CharacterPhysicsInfo : public WorldObjectPhysicsInfo
+  class YAPOG_LIB CharacterPhysicsInfo : public WorldObjectPhysicsInfo
   {
   };
 } // namespace yap

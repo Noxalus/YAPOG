@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class BoundingBox : public ISpatial3
+  class YAPOG_LIB BoundingBox : public ISpatial3
   {
       DISALLOW_ASSIGN(BoundingBox);
 

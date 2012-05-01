@@ -38,135 +38,132 @@
 /// Just some ugly tests... ///
 ///////////////////////////////
 
-using namespace yap;
-
 //DirectionalSpriteSet dss1;
-GameInputManager& gim = yap::GameInputManager::Instance ();
-ContentManager& cm = ContentManager::Instance ();
-DebugLogger& dl = DebugLogger::Instance ();
+yap::GameInputManager& gim = yap::GameInputManager::Instance ();
+yap::ContentManager& cm = yap::ContentManager::Instance ();
+yap::DebugLogger& dl = yap::DebugLogger::Instance ();
 
-ObjectFactory& of = ObjectFactory::Instance ();
+yap::ObjectFactory& of = yap::ObjectFactory::Instance ();
 
-Tile* ti1;
-::Map* map1;
-TestScreen::TestScreen ()
-  : yap::GameScreen ("Test")
+yap::Tile* ti1;
+ycl::Map* map1;
+
+namespace ycl
 {
-  RandomHelper::Init (time (nullptr));
-  // loadable types are registered
-  of.RegisterLoader ("Map", new XmlObjectIDLoader< ::Map, ::MapReader> (
-                       Path ("Map"), "Map"));
-  of.RegisterLoader ("Texture", new XmlObjectIDLoader<Texture, TextureReader> (
-                       Path ("Texture"), "Texture"));
-  of.RegisterLoader ("Tile", new XmlObjectIDLoader<Tile, TileReader> (
-                       Path ("Tile"), "Tile"));
-  of.RegisterLoader ("Sprite", new XmlObjectLoader<Sprite, SpriteReader> ());
-  of.RegisterLoader (
-    "RandomTileLayoutHandler",
-    new XmlObjectLoader<RandomTileLayoutHandler,
-                        RandomTileLayoutHandlerReader> ());
+  TestScreen::TestScreen ()
+    : yap::GameScreen ("Test")
+  {
+    yap::RandomHelper::Init (time (nullptr));
+    // loadable types are registered
+    of.RegisterLoader (
+      "Map",
+      new yap::XmlObjectIDLoader<Map, MapReader> (
+        yap::Path ("Map"), "Map"));
+    of.RegisterLoader (
+      "Texture",
+      new yap::XmlObjectIDLoader<yap::Texture, yap::TextureReader> (
+        yap::Path ("Texture"), "Texture"));
+    of.RegisterLoader (
+      "Tile",
+      new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
+        yap::Path ("Tile"), "Tile"));
+    of.RegisterLoader (
+      "Sprite",
+      new yap::XmlObjectLoader<yap::Sprite, yap::SpriteReader> ());
+    of.RegisterLoader (
+      "RandomTileLayoutHandler",
+      new yap::XmlObjectLoader<yap::RandomTileLayoutHandler,
+                               yap::RandomTileLayoutHandlerReader> ());
 
-  /*of.RegisterLoader (
-    "Player",
-    new XmlObjectIDLoader<Player, PlayerReader> (
-      Path ("Player"),
-      "Player"));*/
-//  of.Create<Player> ("Player", yap::ID (1));
+    of.RegisterLoader (
+      "Player",
+      new yap::XmlObjectIDLoader<Player, PlayerReader> (
+        yap::Path ("Player"),
+        "Player"));
+//    of.Create<Player> ("Player", yap::ID (1));
 
 
 //  Player* pp = new Player (ID (1));
 //  pp->AddSprite ("Inactive",
 
+    map1 = of.Create<Map> ("Map", yap::ID (1));
+    dl.LogLine ("MAP_ID=" + yap::StringHelper::ToString (map1->GetID ().GetValue ()));
+    dl.LogLine ("MAP_NAME=" + map1->GetName ());
+    dl.LogLine ("MAP_WIDTH=" + yap::StringHelper::ToString (map1->GetWidth ()));
+    dl.LogLine ("MAP_HEIGHT=" + yap::StringHelper::ToString (map1->GetHeight ()));
 
+    yap::Texture* t1 = of.Create<yap::Texture> ("Texture", yap::ID (1));
+    dl.LogLine ("TEXTURE_ID=" + yap::StringHelper::ToString (t1->GetID ().GetValue ()));
+    dl.LogLine ("TEXTURE_WIDTH=" + yap::StringHelper::ToString (t1->GetSize ().x));
+    dl.LogLine ("TEXTURE_HEIGHT=" + yap::StringHelper::ToString (t1->GetSize ().y));
 
+    ti1 = of.Create<yap::Tile> ("Tile", yap::ID (1));
+    dl.LogLine ("TILE_ID=" + yap::StringHelper::ToString (ti1->GetID ().GetValue ()));
 
+    ti1->Move (yap::Vector2 (200.0f, 200.0f));
 
+    gim.AddGameInput (
+      new yap::GameInput (
+        yap::GameInputType::Action,
+        new yap::KeyboardGameInputEntry (yap::Key::Return)));
+    gim.AddGameInput (
+      new yap::GameInput (
+        yap::GameInputType::Misc,
+        new yap::KeyboardGameInputEntry (yap::Key::M)));
+  }
 
+  TestScreen::~TestScreen ()
+  {
+  }
 
+  const yap::ScreenType& TestScreen::HandleRun (
+    const yap::Time& dt,
+    yap::IDrawingContext& context)
+  {
+    context.SetMode ("Background World");
 
-  float ff = RandomHelper::GetNext (2.f, 3.f);
-  dl.LogLine (StringHelper::ToString (ff));
+    context.SetDefaultCamera ();
 
-  int ii = RandomHelper::GetNext (2, 3);
-  dl.LogLine (StringHelper::ToString (ii));
+    context.SetMode ("World");
 
-  map1 = of.Create< ::Map> ("Map", yap::ID (1));
-  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map1->GetID ().GetValue ()));
-  dl.LogLine ("MAP_NAME=" + map1->GetName ());
-  dl.LogLine ("MAP_WIDTH=" + StringHelper::ToString (map1->GetWidth ()));
-  dl.LogLine ("MAP_HEIGHT=" + StringHelper::ToString (map1->GetHeight ()));
+    map1->Draw (context);
 
-  Texture* t1 = of.Create<Texture> ("Texture", yap::ID (1));
-  dl.LogLine ("TEXTURE_ID=" + StringHelper::ToString (t1->GetID ().GetValue ()));
-  dl.LogLine ("TEXTURE_WIDTH=" + StringHelper::ToString (t1->GetSize ().x));
-  dl.LogLine ("TEXTURE_HEIGHT=" + StringHelper::ToString (t1->GetSize ().y));
+    context.SetDefaultCamera ();
 
-  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
-  dl.LogLine ("TILE_ID=" + StringHelper::ToString (ti1->GetID ().GetValue ()));
+    context.GetCamera ("World").Move (
+      yap::Vector2 (150.0f * dt.GetValue (), 60.0f * dt.GetValue ()));
 
-  ti1->Move (yap::Vector2 (200.0f, 200.0f));
+    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
-  gim.AddGameInput (
-    new GameInput (
-      GameInputType::Action,
-      new KeyboardGameInputEntry (Key::Return)));
-  gim.AddGameInput (
-    new GameInput (
-      GameInputType::Misc,
-      new KeyboardGameInputEntry (Key::M)));
-}
+    return nextScreen_;
+  }
 
-TestScreen::~TestScreen ()
-{
-}
+  void TestScreen::HandleInit ()
+  {
+    guiManager_ = new yap::GuiManager ();
+  }
 
-const yap::ScreenType& TestScreen::HandleRun (
-  const yap::Time& dt,
-  yap::IDrawingContext& context)
-{
-  context.SetMode ("Background World");
+  void TestScreen::HandleActivate ()
+  {
+  }
 
-  context.SetDefaultCamera ();
+  void TestScreen::HandleDeactivate ()
+  {
+  }
 
-  context.SetMode ("World");
-
-  map1->Draw (context);
-
-  context.SetDefaultCamera ();
-
-  context.GetCamera ("World").Move (
-    yap::Vector2 (150.0f * dt.GetValue (), 60.0f * dt.GetValue ()));
-
-  DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
-
-  return nextScreen_;
-}
-
-void TestScreen::HandleInit ()
-{
-  guiManager_ = new yap::GuiManager ();
-}
-
-void TestScreen::HandleActivate ()
-{
-}
-
-void TestScreen::HandleDeactivate ()
-{
-}
-
-bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
-{
+  bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
 //  if (gim.GameInputIsActivated (yap::GameInputType::Action, guiEvent));
 //    dss1.SetCurrentSprite (yap::Direction::North);
 
 //  if (gim.GameInputIsActivated (yap::GameInputType::Misc, guiEvent));
 //    dss1.SetCurrentSprite (yap::Direction::South);
 
-  return false;
-}
+    return false;
+  }
 
-bool TestScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
-{
-  return false;
-}
+  bool TestScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
+  {
+    return false;
+  }
+} // namespace ycl

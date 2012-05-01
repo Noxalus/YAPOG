@@ -8,7 +8,7 @@ namespace yap
 {
   class DynamicWorldObject;
 
-  class DynamicWorldObjectReader : public WorldObjectReader
+  class YAPOG_LIB DynamicWorldObjectReader : public WorldObjectReader
   {
       DISALLOW_COPY(DynamicWorldObjectReader);
 

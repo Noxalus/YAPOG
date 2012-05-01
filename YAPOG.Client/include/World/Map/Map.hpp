@@ -7,45 +7,48 @@
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 
-class Map : public yap::Map
-          , public yap::IDrawable
+namespace ycl
 {
-    DISALLOW_ASSIGN(Map);
+  class Map : public yap::Map
+            , public yap::IDrawable
+  {
+      DISALLOW_ASSIGN(Map);
 
-  public:
+    public:
 
-    Map (const yap::ID& id);
-    virtual ~Map ();
+      Map (const yap::ID& id);
+      virtual ~Map ();
 
-    void AddTileLayer (
-      yap::uint height,
-      yap::TileLayoutHandler* tileLayoutHandler);
+      void AddTileLayer (
+        yap::uint height,
+        yap::TileLayoutHandler* tileLayoutHandler);
 
-    /// @name ICloneable members.
-    /// @{
-    virtual Map* Clone () const;
-    /// @}
+      /// @name ICloneable members.
+      /// @{
+      virtual Map* Clone () const;
+      /// @}
 
-    /// @name IDrawable members.
-    /// @{
-    virtual void Draw (yap::IDrawingContext& context);
+      /// @name IDrawable members.
+      /// @{
+      virtual void Draw (yap::IDrawingContext& context);
 
-    virtual bool IsVisible () const;
-    virtual void Show (bool isVisible);
+      virtual bool IsVisible () const;
+      virtual void Show (bool isVisible);
 
-    virtual void ChangeColor (const sf::Color& color);
-    /// @}
+      virtual void ChangeColor (const sf::Color& color);
+      /// @}
 
-  protected:
+    protected:
 
-    Map (const Map& copy);
+      Map (const Map& copy);
 
-  private:
+    private:
 
-    virtual void HandleSetSize (yap::uint width, yap::uint height);
-    virtual void HandleUpdate (const yap::Time& dt);
+      virtual void HandleSetSize (yap::uint width, yap::uint height);
+      virtual void HandleUpdate (const yap::Time& dt);
 
-    yap::TileLayerStack tileLayers_;
-};
+      yap::TileLayerStack tileLayers_;
+  };
+} // namespace ycl
 
 #endif // YAPOG_CLIENT_MAP_HPP

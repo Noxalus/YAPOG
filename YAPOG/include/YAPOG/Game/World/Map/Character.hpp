@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class Character : public DynamicWorldObject
+  class YAPOG_LIB Character : public DynamicWorldObject
   {
       DISALLOW_ASSIGN(Character);
 

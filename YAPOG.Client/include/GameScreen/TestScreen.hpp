@@ -8,32 +8,35 @@
 # include "YAPOG/Graphics/Game/Sprite/RegularAnimatedSprite.hpp"
 # include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
-class TestScreen : public yap::GameScreen
+namespace ycl
 {
-  public:
+  class TestScreen : public yap::GameScreen
+  {
+    public:
 
-    TestScreen ();
-    virtual ~TestScreen ();
+      TestScreen ();
+      virtual ~TestScreen ();
 
-    virtual const yap::ScreenType& HandleRun (
-      const yap::Time& dt,
-      yap::IDrawingContext& context);
+      virtual const yap::ScreenType& HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
 
-    virtual void HandleInit ();
+      virtual void HandleInit ();
 
-    virtual void HandleActivate ();
-    virtual void HandleDeactivate ();
+      virtual void HandleActivate ();
+      virtual void HandleDeactivate ();
 
-    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
-    virtual bool HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
+      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+      virtual bool HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
 
-  private:
+    private:
 
-    yap::collection::List<yap::Texture*> textures_;
-    yap::collection::List<yap::Texture*> backTextures_;
+      yap::collection::List<yap::Texture*> textures_;
+      yap::collection::List<yap::Texture*> backTextures_;
 
-    yap::Sprite spr1_;
+      yap::Sprite spr1_;
 //    yap::RegularAnimatedSprite anim1_;
-};
+  };
+} // namespace ycl
 
 #endif // YAPOG_TESTSCREEN_HPP

@@ -1,0 +1,69 @@
+<Player>
+  <spriteType>SpriteSet</spriteType>
+  <SpriteSet>
+    <sprite>
+      <key>Inactive</key>
+      <spriteType>SpriteSet</spriteType>
+      <SpriteSet>
+        <sprite>
+          <key>North</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="todo"/>
+          </Sprite>
+        </sprite>
+        <sprite>
+          <key>East</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="todo"/>
+          </Sprite>
+        </sprite>
+        <sprite>
+          <key>South</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="todo"/>
+          </Sprite>
+        </sprite>
+        <sprite>
+          <key>West</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="todo"/>
+          </Sprite>
+        </sprite>
+      </SpriteSet>
+    </sprite>
+    <sprite>
+      <key>Walking</key>
+      <spriteType>SpriteSet</spriteType>
+      <SpriteSet>
+        <sprite>
+          <key>North</key>
+          <spriteType>AnimatedSprite</spriteType>
+          <AnimatedSprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="1"/>
+              </Sprite>
+            </sprite>
+          </AnimatedSprite>
+        </sprite>
+        <sprite>
+          <key>South</key>
+          <spriteType>AnimatedSprite</spriteType>
+          <AnimatedSprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="2"/>
+              </Sprite>
+            </sprite>
+          </AnimatedSprite>
+        </sprite>
+      </SpriteSet>
+    </sprite>
+  </SpriteSet>
+</Player>

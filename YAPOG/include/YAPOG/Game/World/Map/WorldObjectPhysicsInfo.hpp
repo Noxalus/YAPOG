@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  class WorldObjectPhysicsInfo
+  class YAPOG_LIB WorldObjectPhysicsInfo
   {
   };
 } // namespace yap

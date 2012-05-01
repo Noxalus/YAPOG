@@ -7,7 +7,7 @@ int main ()
 {
   try
   {
-    TestGame game ("YAPOG");
+    ycl::TestGame game ("YAPOG");
     game.Init ();
     game.Launch ();
   }

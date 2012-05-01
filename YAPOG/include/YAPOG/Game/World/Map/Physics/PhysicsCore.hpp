@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class PhysicsCore : public IUpdateable
+  class YAPOG_LIB PhysicsCore : public IUpdateable
   {
       DISALLOW_COPY(PhysicsCore);
 

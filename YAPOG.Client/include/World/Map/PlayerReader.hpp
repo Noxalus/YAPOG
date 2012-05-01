@@ -4,24 +4,27 @@
 # include "YAPOG/Macros.hpp"
 # include "World/Map/CharacterReader.hpp"
 
-class Player;
-
-class PlayerReader : public CharacterReader
+namespace ycl
 {
-    DISALLOW_COPY(PlayerReader);
+  class Player;
 
-  public:
+  class PlayerReader : public CharacterReader
+  {
+      DISALLOW_COPY(PlayerReader);
 
-    PlayerReader (
-      Player& character,
-      const yap::String& xmlRootNodeName);
-    virtual ~PlayerReader ();
+    public:
 
-    virtual void Visit (yap::XmlReader& visitable);
+      PlayerReader (
+        Player& character,
+        const yap::String& xmlRootNodeName);
+      virtual ~PlayerReader ();
 
-  private:
+      virtual void Visit (yap::XmlReader& visitable);
 
-    Player& player_;
-};
+    private:
+
+      Player& player_;
+  };
+} // namespace ycl
 
 #endif // YAPOG_CLIENT_PLAYERREADER_HPP
