@@ -2,7 +2,7 @@
 # define YAPOG_MENU_HPP
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
-# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/Graphics/Gui/MenuItem.hpp"
 # include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 # include "YAPOG/Graphics/Gui/Padding.hpp"
@@ -37,8 +37,11 @@ namespace yap
     virtual void HandleChangeColor (const sf::Color& color);
 
     virtual void HandleUpdate (const Time& dt);
+    bool HandleOnEvent (const GuiEvent& guiEvent);
+    void SetFormItem ();
 
-    collection::List<MenuItem*> itemz_;
+    collection::Array<MenuItem*> itemz_;
+    int currentSelec_;
     LayoutBox* layout_;
   };
 } // namespace yap

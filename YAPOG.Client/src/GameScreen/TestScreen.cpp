@@ -23,6 +23,8 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/Menu.hpp"
+#include "YAPOG/Graphics/Gui/MenuItem.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -154,6 +156,19 @@ const yap::ScreenType& TestScreen::HandleRun (
 void TestScreen::HandleInit ()
 {
   guiManager_ = new yap::GuiManager ();
+
+  Menu* menu = new Menu (Menu::Type::VERTICAL, Padding (1, 1, 1, 1), Padding (5, 5, 5, 5), false);
+  MenuItem item1;
+  MenuItem item2;
+  MenuItem item3;
+
+  item1.SetSize (Vector2 (100, 50));
+  item2.SetSize (Vector2 (100, 50));
+  item3.SetSize (Vector2 (100, 50));
+
+  menu->AddChild (item1);
+  menu->AddChild (item2);
+  menu->AddChild (item3);
 
   yap::LayoutV* layout = new LayoutV (Padding (2, 2, 2, 2),
     Padding (9, 9 , 9, 9), false);
