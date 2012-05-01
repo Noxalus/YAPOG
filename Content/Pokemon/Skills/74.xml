@@ -1,0 +1,14 @@
+<Skill id="74">
+	<name>CROISSANCE</name>
+	<description>Développe le corps et augmente l'Atq. Spé.</description>
+	<power>0</power>
+	<pp>40</pp>
+	<maxPP>64</maxPP>
+	<accuracy>100</accuracy>
+	<type>1</type>
+	<category>3</category>
+	<target>2</target>
+	<effect>13</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

@@ -1,0 +1,14 @@
+<Skill id="388">
+	<name>SOUCIGRAINE</name>
+	<description>Remplace la capacité spéciale de l'ennemi par Insomnia.</description>
+	<power>0</power>
+	<pp>10</pp>
+	<maxPP>16</maxPP>
+	<accuracy>100</accuracy>
+	<type>5</type>
+	<category>3</category>
+	<target>2</target>
+	<effect>247</effect>
+	<use>1</use>
+	<priority>15</priority>
+</Skill>

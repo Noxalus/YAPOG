@@ -41,7 +41,7 @@ namespace yap
     return name_;
   }
 
-  const float& TypeInfo::GetTypeEffect (const ID& typeID)
+  const float& TypeInfo::GetTypeEffect (const ID& typeID) const
   {
     if (typeEffect_.Contains (typeID))
       return typeEffect_[typeID];

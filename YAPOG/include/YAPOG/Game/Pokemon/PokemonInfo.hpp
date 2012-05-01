@@ -3,9 +3,13 @@
 
 # include <iostream>
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
+# include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
 
 namespace yap
 {
@@ -14,6 +18,7 @@ namespace yap
   public:
     PokemonInfo ();
     PokemonInfo (const ID& id);
+    void InitMoveSet (PokemonSkill* moveSet[], const UInt16& level);
 
     /// @name ICloneable members.
     /// @{
@@ -27,6 +32,7 @@ namespace yap
     void SetHeight (const float& value);
     void SetWeight (const float& value);
     void SetExperience (const int& value);
+    void SetExperienceType (const int& value);
     void SetRarity (const int& value);
     void SetHitPoint (const int& value);
     void SetAttack (const int& value);
@@ -36,6 +42,7 @@ namespace yap
     void SetSpeed (const int& value);
     void SetType1 (const int& value);
     void SetType2 (const int& value);
+    void AddBaseSkill (const UInt16 level, const ID& skillID);
 
     const ID& GetID () const;
     const String& GetName () const;
@@ -44,6 +51,7 @@ namespace yap
     const float& GetHeight () const;
     const float& GetWeight () const;
     const int& GetExperience () const;
+    const int& GetExperienceType () const;
     const int& GetRarity () const;
     const int& GetHitPoint () const;
     const int& GetAttack () const;
@@ -55,11 +63,15 @@ namespace yap
     const int& GetType2 () const;
 
     void PrintBaseStats ();
+    void PrintBaseSkills ();
+
+    static const UInt16 MAX_MOVE_NUMBER;
 
   protected:
     PokemonInfo (const PokemonInfo& copy);
 
   private:
+
     ID pokedexID_;
     String name_;
     String description_;
@@ -67,6 +79,7 @@ namespace yap
     float height_;
     float weight_;
     int experience_;
+    int experienceType_;
     int rarity_;
     int baseHitPoint_;
     int baseAttack_;
@@ -76,6 +89,7 @@ namespace yap
     int baseSpeed_;
     int type1_;
     int type2_;
+    collection::Map<UInt16, collection::List<ID>> baseSkills_;
 
     static const int INITIAL_BASE_STATS_VALUE;
   };

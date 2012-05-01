@@ -12,6 +12,7 @@
 # include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
 # include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 # include "YAPOG/Game/Pokemon/NatureInfo.hpp"
+# include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 # include "YAPOG/System/Path.hpp"
 
 namespace yap
@@ -20,29 +21,35 @@ namespace yap
   {
     DISALLOW_COPY (Pokemon);
 
-    public:
-      Pokemon (const ID& staticID);
-      Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
+  public:
+    Pokemon (const ID& staticID);
+    Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
 
-      void PrintStats ();
-    private:
-     ID uniqueID_;
-     ID staticID_;
-     String name_;
-     String nickname_;
-     int level_;
-     int exp_;
-     PokemonStat stats_;
-     PokemonType type_;
-     Status status_;
-     Gender gender_;
-     bool shiny_;
-     Int16 loyalty_;
-     PokemonSkill moveSet[4];
-     PokemonInfo* pokemonInfo_;
-     NatureInfo* nature_;
+    const String& GetName () const;
+    float GetTypeEffectFactor (const TypeInfo& type) const;
+    const UInt32& GetTotalExperience () const;
+    const UInt32& GetExperienceToNextLevel () const;
+    const UInt16& GetLevel () const;
 
-     static const UInt16 POKEMON_INITIAL_LEVEL;
+    void AddExperience (const Int32& value);
+
+    void PrintStats ();
+  private:
+    void InitMoveSet ();
+
+    ID uniqueID_;
+    ID staticID_;
+    String nickname_;
+    PokemonStat stats_;
+    PokemonType type_;
+    Status status_;
+    Gender gender_;
+    bool shiny_;
+    Int16 loyalty_;
+    PokemonSkill* moveSet[4];
+    PokemonInfo* pokemonInfo_;
+    NatureInfo* nature_;
+    PokemonExperience* exp_;
   };
 } // namespace yap
 

@@ -28,7 +28,7 @@ namespace yap
 
   void TypeInfoReader::Visit (XmlReader& visitable)
   {
-    // <Nature id="{id}">
+    // <Type id="{id}">
 
     if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
     {
@@ -59,7 +59,8 @@ namespace yap
     visitable.ReadNodes (DEFAULT_XML_TYPE_NODE_NAME, factorsReaders);
     for (auto& factorsReader : factorsReaders)
     {
-      ID typeID = factorsReader->ReadID (XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME));
+      ID typeID = factorsReader->ReadID (
+        XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME));
       float effect = factorsReader->ReadFloat ();
 
       typeInfo_.AddTypeEffect (typeID, effect);
@@ -71,6 +72,6 @@ namespace yap
 
     visitable.UpChangeRoot ();
 
-    // </Nature>
+    // </Type>
   }
 }

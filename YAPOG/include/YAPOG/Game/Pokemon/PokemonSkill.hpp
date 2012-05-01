@@ -4,7 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
-# include "YAPOG/Game/Pokemon/TypeInfo.hpp"
+# include "YAPOG/Game/Pokemon/SkillInfo.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -12,6 +13,10 @@ namespace yap
   {
   public:
     PokemonSkill ();
+    PokemonSkill (const ID& skillID);
+
+    void SetSkillInfo (const ID& skillID);
+    const String& GetName () const;
 
     /// @brief Reset the PP to the maxPP value.
     void Refill ();
@@ -23,15 +28,14 @@ namespace yap
     /// @brief Jump the maxPP value directly to the limiPPMax value.
     void RaiseToMaxPP ();
   private:
-    ID id_;
-    String name_;
-    String description_;
-    int power_;
-    int accuracy_;
-    TypeInfo type_;
-    int maxPP_;
-    int currentPP_;
-    int limitPPMax_;
+    const UInt16& GetLimitPPMax () const;
+
+    UInt16 currentPP_;
+    UInt16 maxPP_;
+    SkillInfo* skillInfo_;
+
+    static const UInt16 DEFAULT_PP_VALUE;
+    static const UInt16 DEFAULT_MAX_PP_VALUE;
   };
 
 } // namespace yap

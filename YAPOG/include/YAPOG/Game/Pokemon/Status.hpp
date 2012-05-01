@@ -7,6 +7,7 @@ namespace yap
 {
   enum class YAPOG_LIB Status
   {
+    Normal,
     Poisoned,
     Paralyzed,
     Burned,

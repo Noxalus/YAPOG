@@ -19,12 +19,12 @@ namespace yap
   }
 
   /// Getters
-  const TypeInfo& PokemonType::GetType1 ()
+  const TypeInfo& PokemonType::GetType1 () const
   {
     return *type1_;
   }
 
-  const TypeInfo& PokemonType::GetType2 ()
+  const TypeInfo& PokemonType::GetType2 () const
   {
     return *type2_;
   }

@@ -3,6 +3,7 @@
 namespace yap
 {
   const int PokemonInfo::INITIAL_BASE_STATS_VALUE = 0;
+  const UInt16 PokemonInfo::MAX_MOVE_NUMBER = 4;
 
   PokemonInfo::PokemonInfo ()
   {
@@ -29,28 +30,51 @@ namespace yap
   }
 
   PokemonInfo::PokemonInfo (const PokemonInfo& copy)
-    : pokedexID_ (copy.pokedexID_),
-    name_ (copy.name_),
-    description_ (copy.description_),
-    species_ (copy.species_),
-    height_ (copy.height_),
-    weight_ (copy.weight_),
-    experience_ (copy.experience_),
-    rarity_ (copy.rarity_),
-    baseHitPoint_ (copy.baseHitPoint_),
-    baseAttack_ (copy.baseAttack_),
-    baseDefense_ (copy.baseDefense_),
-    baseSpecialAttack_ (copy.baseSpecialAttack_),
-    baseSpecialDefense_ (copy.baseSpecialDefense_),
-    baseSpeed_ (copy.baseSpeed_),
-    type1_ (copy.type1_),
-    type2_ (copy.type2_)
+    : pokedexID_ (copy.pokedexID_)
+    , name_ (copy.name_)
+    , description_ (copy.description_)
+    , species_ (copy.species_)
+    , height_ (copy.height_)
+    , weight_ (copy.weight_)
+    , experience_ (copy.experience_)
+    , experienceType_ (copy.experienceType_)
+    , rarity_ (copy.rarity_)
+    , baseHitPoint_ (copy.baseHitPoint_)
+    , baseAttack_ (copy.baseAttack_)
+    , baseDefense_ (copy.baseDefense_)
+    , baseSpecialAttack_ (copy.baseSpecialAttack_)
+    , baseSpecialDefense_ (copy.baseSpecialDefense_)
+    , baseSpeed_ (copy.baseSpeed_)
+    , type1_ (copy.type1_)
+    , type2_ (copy.type2_)
+    , baseSkills_ (copy.baseSkills_)
   {
   }
 
   PokemonInfo* PokemonInfo::Clone () const
   {
     return new PokemonInfo (*this);
+  }
+
+  void PokemonInfo::InitMoveSet (
+    PokemonSkill* moveSet[MAX_MOVE_NUMBER], 
+    const UInt16& level)
+  {
+    int i = level;
+    int skillNumber = 0;
+    while (i >= 1 && skillNumber < 4)
+    {
+      if (baseSkills_.Contains (i))
+      {
+        for (const ID& skillID : baseSkills_[i])
+        {
+          moveSet[skillNumber] = new PokemonSkill (skillID);
+          skillNumber++;
+        }
+      }
+
+      i--;
+    }
   }
 
   void PokemonInfo::SetID (const ID& id)
@@ -86,6 +110,11 @@ namespace yap
   void PokemonInfo::SetExperience (const int& value)
   {
     experience_ = value;
+  }
+
+  void PokemonInfo::SetExperienceType (const int& value)
+  {
+    experienceType_ = value;
   }
 
   void PokemonInfo::SetRarity (const int& value)
@@ -133,6 +162,18 @@ namespace yap
     type2_ = value;
   }
 
+  void PokemonInfo::AddBaseSkill (const UInt16 level, const ID& skillID)
+  {
+    if (baseSkills_.Contains (level))
+      baseSkills_[level].Add (skillID);
+    else
+    {
+      collection::List<ID> skillList;
+      skillList.Add (skillID);
+      baseSkills_.Add (level, skillList);
+    }
+  }
+
   /// Getters
 
   const ID& PokemonInfo::GetID () const
@@ -168,6 +209,11 @@ namespace yap
   const int& PokemonInfo::GetExperience () const
   {
     return experience_;
+  }
+
+  const int& PokemonInfo::GetExperienceType () const
+  {
+    return experienceType_;
   }
 
   const int& PokemonInfo::GetRarity () const
@@ -236,5 +282,18 @@ namespace yap
       <<  "Special Defense: " << baseSpecialDefense_ << std::endl
       <<  "Speed: " << baseSpeed_ << std::endl
       << "---------------------------------------------" << std::endl;
+  }
+
+  void PokemonInfo::PrintBaseSkills ()
+  {
+    for (const auto& skill : baseSkills_)
+    {
+      std::cout << skill.first << " => ";
+
+      for (const ID& skillID : skill.second)
+        std::cout << skillID.GetValue () << " ";
+
+      std::cout << std::endl;
+    }
   }
 }

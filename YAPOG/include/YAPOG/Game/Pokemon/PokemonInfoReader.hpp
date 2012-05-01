@@ -44,6 +44,10 @@ namespace yap
     static const String DEFAULT_XML_TYPES_NODE_NAME;
     static const String DEFAULT_XML_TYPE1_NODE_NAME;
     static const String DEFAULT_XML_TYPE2_NODE_NAME;
+    static const String DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME;
+    static const String DEFAULT_XML_BASE_SKILLS_NODE_NAME;
+    static const String DEFAULT_XML_SKILL_NODE_NAME;
+    static const String DEFAULT_XML_LEVEL_ATTR_NAME;
   };
 } // namespace yap
 

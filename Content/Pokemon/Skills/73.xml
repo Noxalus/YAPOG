@@ -1,0 +1,14 @@
+<Skill id="73">
+	<name>VAMPIGRAINE</name>
+	<description>Plante des graines pour voler des PV à chaque tour.</description>
+	<power>0</power>
+	<pp>10</pp>
+	<maxPP>16</maxPP>
+	<accuracy>90</accuracy>
+	<type>5</type>
+	<category>3</category>
+	<target>2</target>
+	<effect>84</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

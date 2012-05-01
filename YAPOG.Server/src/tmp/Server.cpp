@@ -6,20 +6,6 @@
 #include "YAPOG/Database/DatabaseManager.hpp"
 #include "YAPOG/System/String.hpp"
 #include "YAPOG/System/IOStream.hpp"
-#include "YAPOG/System/IO/Xml/XmlReader.hpp"
-#include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
-#include "YAPOG/Game/Pokemon/PokemonInfoReader.hpp"
-#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
-#include "YAPOG/System/Path.hpp"
-#include "YAPOG/Content/ContentManager.hpp"
-#include "YAPOG/Game/Pokemon/Pokemon.hpp"
-#include "YAPOG/System/MathHelper.hpp"
-#include "YAPOG/Game/Pokemon/NatureInfoReader.hpp"
-#include "YAPOG/Game/Pokemon/NatureInfo.hpp"
-#include "YAPOG/System/RandomHelper.hpp"
-#include "YAPOG/Game/Pokemon/TypeInfoReader.hpp"
-#include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 
 int main ()
 {
@@ -28,40 +14,16 @@ int main ()
 
   try
   {
-    yap::ContentManager::Instance ().Init (yap::Path ("../../Content"));
-    yap::ObjectFactory::Instance ().RegisterLoader 
-      ("PokemonInfo",
-      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
-      (yap::Path ("Pokemon/Pokemon"), "PokemonInfo"));
-
-    yap::ObjectFactory::Instance ().RegisterLoader 
-      ("NatureInfo",
-      new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader>
-      (yap::Path ("Pokemon/Nature"), "Nature"));
-
-    yap::ObjectFactory::Instance ().RegisterLoader 
-      ("TypeInfo",
-      new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader>
-      (yap::Path ("Pokemon/Types"), "Type"));
-    
-    yap::Pokemon p1 (yap::ID (1));
-    p1.PrintStats ();
-
-    yap::Pokemon p2 (yap::ID (1), 16, true);
-    p2.PrintStats ();
-
     /*
-    yap::RandomHelper::Init (std::time (nullptr));
-    
     float rand = 0.f;
     for (int i = 0; i < 100000000; i++)
     {
-      rand = yap::RandomHelper::GetNext (0.f, 1.f) * 100;
-      if (rand == 100.f)
-      {
-        std::cout << "Random #" << i << ": " <<  rand << std::endl;
-        break;
-      }
+    rand = yap::RandomHelper::GetNext (0.f, 1.f) * 100;
+    if (rand == 100.f)
+    {
+    std::cout << "Random #" << i << ": " <<  rand << std::endl;
+    break;
+    }
     }
 
     std::cout << "Finish !" << std::endl;

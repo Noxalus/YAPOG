@@ -23,6 +23,9 @@ namespace yap
       void SetIndividualValue (const UInt16& iv);
       void SetEffortValue (const UInt16& ev);
 
+      void ComputeValue (const int& base, const UInt16 level);
+      void ComputeValue (const int& base, const UInt16 level, const float& natureFactor);
+
   protected:
     UInt16 value_;
     UInt16 individualValue_;
