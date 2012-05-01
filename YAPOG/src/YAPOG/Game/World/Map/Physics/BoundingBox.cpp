@@ -45,7 +45,7 @@ namespace yap
     return spatial3Info_.GetCenter ();
   }
 
-  const sf::FloatRect& BoundingBox::GetRectangle () const
+  const FloatRect& BoundingBox::GetRectangle () const
   {
     return spatial3Info_.GetRectangle ();
   }

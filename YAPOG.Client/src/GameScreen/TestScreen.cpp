@@ -31,6 +31,9 @@
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 
+#include "World/Map/Player.hpp"
+#include "World/Map/PlayerReader.hpp"
+
 ///////////////////////////////
 /// Just some ugly tests... ///
 ///////////////////////////////
@@ -48,9 +51,6 @@ Tile* ti1;
 ::Map* map1;
 TestScreen::TestScreen ()
   : yap::GameScreen ("Test")
-  , textures_ ()
-  , backTextures_ ()
-//  , anim1_ (100)
 {
   RandomHelper::Init (time (nullptr));
   // loadable types are registered
@@ -66,16 +66,29 @@ TestScreen::TestScreen ()
     new XmlObjectLoader<RandomTileLayoutHandler,
                         RandomTileLayoutHandlerReader> ());
 
+  /*of.RegisterLoader (
+    "Player",
+    new XmlObjectIDLoader<Player, PlayerReader> (
+      Path ("Player"),
+      "Player"));*/
+//  of.Create<Player> ("Player", yap::ID (1));
+
+
+//  Player* pp = new Player (ID (1));
+//  pp->AddSprite ("Inactive",
+
+
+
+
+
+
+
 
   float ff = RandomHelper::GetNext (2.f, 3.f);
   dl.LogLine (StringHelper::ToString (ff));
 
   int ii = RandomHelper::GetNext (2, 3);
   dl.LogLine (StringHelper::ToString (ii));
-
-//  ::Map* map42 = of.Create< ::Map> ("Map", yap::ID (42));
-//  dl.LogLine ("MAP_ID=" + StringHelper::ToString (map42->GetID ().GetValue ()));
-//  dl.LogLine ("MAP_NAME=" + map42->GetName ());
 
   map1 = of.Create< ::Map> ("Map", yap::ID (1));
   dl.LogLine ("MAP_ID=" + StringHelper::ToString (map1->GetID ().GetValue ()));
@@ -89,10 +102,6 @@ TestScreen::TestScreen ()
   dl.LogLine ("TEXTURE_HEIGHT=" + StringHelper::ToString (t1->GetSize ().y));
 
   ti1 = of.Create<Tile> ("Tile", yap::ID (1));
-  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
-  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
-  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
-  ti1 = of.Create<Tile> ("Tile", yap::ID (1));
   dl.LogLine ("TILE_ID=" + StringHelper::ToString (ti1->GetID ().GetValue ()));
 
   ti1->Move (yap::Vector2 (200.0f, 200.0f));
@@ -105,68 +114,17 @@ TestScreen::TestScreen ()
     new GameInput (
       GameInputType::Misc,
       new KeyboardGameInputEntry (Key::M)));
-
-  int animFlag = 0;
-  for (int i = 0; i < 2000; ++i)
-  {
-    yap::Vector2 scaleFactor (0.7f, 0.7f);
-
-    yap::Texture* texture = new yap::Texture ();
-    texture->LoadFromFile ("boo.png");
-//    texture->Move (yap::Vector2 (i * 400.0f, 0.0f));
-    texture->Scale (scaleFactor);
-    texture->ChangeColor (sf::Color (255, 90, 128, 128));
-    textures_.Add (texture);
-
-    if (animFlag++ < 2)
-    {
-//      dss1.AddSprite (yap::Direction::North, new yap::Sprite (texture));
-//      anim1_.AddFrame (new yap::Sprite (texture));
-//      spr1_.SetTexture (texture);
-    }
-
-    texture = new yap::Texture ();
-    texture->LoadFromFile ("boo.png");
-//    texture->Move (yap::Vector2 (i * 400.0f + 200.0f, 0.0f));
-    texture->ChangeColor (sf::Color (128, 255, 128, 128));
-    texture->Scale (scaleFactor);
-    backTextures_.Add (texture);
-
-    if (animFlag++ < 2)
-    {
-//      dss1.AddSprite (yap::Direction::South, new yap::Sprite (texture));
-//      anim1_.AddFrame (new yap::Sprite (texture));
-    }
-  }
-
-//  anim1_.Move (yap::Vector2 (100.0f, 100.0f));
-
-//  anim1_.ChangeState (yap::AnimatedSprite::PlayState::Loop);
-//  anim1_.ChangeColor (sf::Color::Blue);
 }
 
 TestScreen::~TestScreen ()
 {
-/*  for (const auto& it : textures_)
-    delete it;
-
-  for (const auto& it : backTextures_)
-  delete it;*/
 }
 
 const yap::ScreenType& TestScreen::HandleRun (
   const yap::Time& dt,
   yap::IDrawingContext& context)
 {
-//  yap::DebugLogger::Instance ().LogLine (1.0f / dt.GetValue ());
-
-//  context.GetCamera ("Background World").Move (
-//    yap::Vector2 (140.0f * dt.GetValue (), 0.0f));
-
   context.SetMode ("Background World");
-
-//  for (auto it : backTextures_)
-//    it->Draw (context);
 
   context.SetDefaultCamera ();
 
@@ -179,13 +137,6 @@ const yap::ScreenType& TestScreen::HandleRun (
   context.GetCamera ("World").Move (
     yap::Vector2 (150.0f * dt.GetValue (), 60.0f * dt.GetValue ()));
 
-//  for (auto it : textures_)
-//    it->Draw (context);
-
-//  anim1_.Update (dt);
-//  anim1_.Draw (context);
-//  dss1.Draw (context);
-//  spr1_.Draw (context);
   DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
   return nextScreen_;

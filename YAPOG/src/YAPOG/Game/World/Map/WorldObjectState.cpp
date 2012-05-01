@@ -17,4 +17,9 @@ namespace yap
 
     return *this;
   }
+
+  bool WorldObjectState::operator< (const WorldObjectState& right) const
+  {
+    return true;
+  }
 } // namespace yap

@@ -26,7 +26,7 @@ namespace yap
       virtual const Vector2& GetBottomRight () const;
       virtual const Vector2& GetCenter () const;
 
-      virtual const sf::FloatRect& GetRectangle () const;
+      virtual const FloatRect& GetRectangle () const;
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);

@@ -15,15 +15,15 @@ namespace yap
 
   public:
 
-    MapReader (Map& map);
-    MapReader (Map& map, const String& xmlRootNodeName);
     virtual ~MapReader ();
 
     virtual void Visit (XmlReader& visitable);
 
+    String xmlRootNodeName_;
+
   protected:
 
-    static const String DEFAULT_XML_ROOT_NODE_NAME;
+    MapReader (Map& map, const String& xmlRootNodeName);
 
   private:
 
@@ -33,8 +33,6 @@ namespace yap
     static const String DEFAULT_XML_HEIGHT_NODE_NAME;
 
     Map& map_;
-
-    String xmlRootNodeName_;
   };
 } // namespace yap
 

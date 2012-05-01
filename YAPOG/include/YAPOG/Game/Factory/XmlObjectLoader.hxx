@@ -20,7 +20,7 @@ namespace yap
   {
     T* object = new T ();
 
-    TXmlReader objectReader (*object);
+    TXmlReader objectReader (*object, rootNodeName);
     reader.Accept (objectReader);
 
     return object;

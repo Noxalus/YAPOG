@@ -54,11 +54,15 @@ ${inc_root}/Game/World/Map/Character.hpp
 ${src_root}/Game/World/Map/Character.cpp
 ${inc_root}/Game/World/Map/CharacterPhysicsInfo.hpp
 ${src_root}/Game/World/Map/CharacterPhysicsInfo.cpp
+${inc_root}/Game/World/Map/CharacterReader.hpp
+${src_root}/Game/World/Map/CharacterReader.cpp
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/DynamicWorldObject.hpp
 ${src_root}/Game/World/Map/DynamicWorldObject.cpp
 ${inc_root}/Game/World/Map/DynamicWorldObjectCollection.hpp
 ${src_root}/Game/World/Map/DynamicWorldObjectCollection.cpp
+${inc_root}/Game/World/Map/DynamicWorldObjectReader.hpp
+${src_root}/Game/World/Map/DynamicWorldObjectReader.cpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
@@ -78,6 +82,8 @@ ${inc_root}/Game/World/Map/WorldObjectState.hpp
 ${src_root}/Game/World/Map/WorldObjectState.cpp
 ${inc_root}/Game/World/Map/WorldObjectPhysicsInfo.hpp
 ${src_root}/Game/World/Map/WorldObjectPhysicsInfo.cpp
+${inc_root}/Game/World/Map/WorldObjectReader.hpp
+${src_root}/Game/World/Map/WorldObjectReader.cpp
 ${inc_root}/Game/World/ISpatial3.hpp
 ${inc_root}/Game/World/Spatial3Info.hpp
 ${src_root}/Game/World/Spatial3Info.cpp

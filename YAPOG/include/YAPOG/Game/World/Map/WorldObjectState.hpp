@@ -13,6 +13,8 @@ namespace yap
 
       WorldObjectState (const WorldObjectState& copy);
       WorldObjectState& operator= (const WorldObjectState& copy);
+
+      bool operator< (const WorldObjectState& right) const;
   };
 } // namespace yap
 

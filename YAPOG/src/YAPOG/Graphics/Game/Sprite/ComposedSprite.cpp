@@ -32,13 +32,13 @@ namespace yap
 
   void ComposedSprite::HandleMove (const Vector2& offset)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it->Move (offset);
   }
 
   void ComposedSprite::HandleScale (const Vector2& factor)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it->Scale (factor);
 
     UpdatePosition ();
@@ -46,7 +46,7 @@ namespace yap
 
   void ComposedSprite::HandleDraw (IDrawingContext& context)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it->Draw (context);
   }
 
@@ -56,13 +56,13 @@ namespace yap
 
   void ComposedSprite::HandleChangeColor (const sf::Color& color)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it->ChangeColor (color);
   }
 
   void ComposedSprite::HandleUpdate (const Time& dt)
   {
-    for (const auto& it : sprites_)
+    for (auto& it : sprites_)
       it->Update (dt);
   }
 } // namespace yap

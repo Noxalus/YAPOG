@@ -6,22 +6,14 @@
 
 namespace yap
 {
-  const String MapReader::DEFAULT_XML_ROOT_NODE_NAME = "Map";
   const String MapReader::DEFAULT_XML_ID_NODE_NAME = "id";
   const String MapReader::DEFAULT_XML_NAME_NODE_NAME = "name";
   const String MapReader::DEFAULT_XML_WIDTH_NODE_NAME = "width";
   const String MapReader::DEFAULT_XML_HEIGHT_NODE_NAME = "height";
 
-
-  MapReader::MapReader (Map& map)
-    : map_ (map)
-    , xmlRootNodeName_ (DEFAULT_XML_ROOT_NODE_NAME)
-  {
-  }
-
   MapReader::MapReader (Map& map, const String& xmlRootNodeName)
-    : map_ (map)
-    , xmlRootNodeName_ (xmlRootNodeName)
+    : xmlRootNodeName_ (xmlRootNodeName)
+    , map_ (map)
   {
   }
 
@@ -33,9 +25,9 @@ namespace yap
   {
     // <Map id="{id}">
 
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
+    if (!visitable.TryChangeRoot (xmlRootNodeName_))
       throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+        "Failed to read `" + xmlRootNodeName_ + "' node.");
 
     map_.SetID (
       visitable.ReadID (

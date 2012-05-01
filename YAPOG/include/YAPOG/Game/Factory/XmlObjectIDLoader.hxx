@@ -38,7 +38,7 @@ namespace yap
     ContentManager::Instance ().LoadFile (rootPath_, id, file);
 
     XmlReader xmlReader (file, rootNodeName_);
-    TXmlReader objectReader (GetObject (id));
+    TXmlReader objectReader (GetObject (id), rootNodeName_);
     xmlReader.Accept (objectReader);
 
     return object;

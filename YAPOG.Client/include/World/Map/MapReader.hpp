@@ -12,7 +12,7 @@ class MapReader : public yap::MapReader
 
   public:
 
-    MapReader (Map& map);
+    MapReader (Map& map, const yap::String& xmlRootNodeName);
     virtual ~MapReader ();
 
     virtual void Visit (yap::XmlReader& visitable);

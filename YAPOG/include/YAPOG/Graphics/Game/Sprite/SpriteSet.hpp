@@ -12,7 +12,7 @@ namespace yap
   template <typename K>
   class SpriteSet : public BaseSprite
   {
-      DISALLOW_COPY(SpriteSet);
+      DISALLOW_ASSIGN(SpriteSet);
 
     public:
 
@@ -27,6 +27,15 @@ namespace yap
       void SetCurrentSprite (const KeyType& key);
       void SetDefaultKey (const KeyType& key);
       void SetDefaultSprite ();
+
+      /// @name ICloneable members.
+      /// @{
+      virtual SpriteSet* Clone () const;
+      /// @}
+
+    protected:
+
+      SpriteSet (const SpriteSet& copy);
 
     private:
 

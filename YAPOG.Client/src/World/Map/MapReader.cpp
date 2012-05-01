@@ -10,8 +10,8 @@
 #include "YAPOG/System/IntTypes.hpp"
 #include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
 
-MapReader::MapReader (Map& map)
-  : yap::MapReader (map)
+MapReader::MapReader (Map& map, const yap::String& xmlRootNodeName)
+  : yap::MapReader (map, xmlRootNodeName)
   , map_ (map)
 {
 }
@@ -24,9 +24,9 @@ void MapReader::Visit (yap::XmlReader& visitable)
 {
   yap::MapReader::Visit (visitable);
 
-  if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
+  if (!visitable.TryChangeRoot (xmlRootNodeName_))
     throw yap::Exception (
-      "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+      "Failed to read `" + xmlRootNodeName_ + "' node.");
 
   visitable.DownChangeRoot ("ground");
 
