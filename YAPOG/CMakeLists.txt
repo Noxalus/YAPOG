@@ -190,6 +190,7 @@ ${inc_root}/Graphics/Game/Sprite/VerticalComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/VerticalComposedSprite.cpp
 ${inc_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/IDrawableWorldObject.hpp
 ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.cpp
 ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp
