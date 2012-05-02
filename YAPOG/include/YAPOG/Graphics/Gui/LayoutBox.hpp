@@ -33,10 +33,11 @@ namespace yap
     bool GetExtensible ();
     void SetAlign (Align global);
     Align GetAlign ();
+    
 
   protected:
     virtual void GeneratePosition () = 0;
-
+    virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
@@ -54,7 +55,7 @@ namespace yap
     Padding externPad_;
     Padding innerPad_;
     Align globalAlign_;
-    bool isExtensible_;
+
     Vector2 realSize_;
   };
 } // namespace yap

@@ -10,9 +10,13 @@ namespace yap
     : items_ ()
     , innerPad_ (0, 0, 0, 0)
     , externPad_ (0, 0, 0, 0)
-    , isExtensible_ (false)
     , realSize_ ()
   {
+  }
+
+  void LayoutBox::Refresh ()
+  {
+    GeneratePosition ();
   }
 
   void LayoutBox::SetExtensible (bool isExt)
@@ -36,7 +40,6 @@ namespace yap
     : items_ ()
     , innerPad_ (in)
     , externPad_ (ext)
-    , isExtensible_ (isExt)
     , realSize_ ()
   {
   }

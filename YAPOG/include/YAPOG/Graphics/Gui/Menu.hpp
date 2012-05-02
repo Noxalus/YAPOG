@@ -26,6 +26,9 @@ namespace yap
       = LayoutBox::Align::CENTER);
     virtual ~Menu ();
 
+    void SetSelectedBackground (WidgetBackground& background);
+    void SetSelectedBorder (WidgetBorder& border);
+
   private:
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
@@ -39,10 +42,15 @@ namespace yap
     virtual void HandleUpdate (const Time& dt);
     bool HandleOnEvent (const GuiEvent& guiEvent);
     void SetFormItem ();
+    void SetUnformItem ();
 
     collection::Array<MenuItem*> itemz_;
     int currentSelec_;
     LayoutBox* layout_;
+
+    WidgetBackground* selecBckgrd_;
+    WidgetBorder* selecBrdr_;
+    uint selecBrdSize_;
   };
 } // namespace yap
 

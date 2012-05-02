@@ -101,6 +101,7 @@ ${inc_root}/Graphics/Gui/PictureBox.hpp
 ${src_root}/Graphics/Gui/PictureBox.cpp
 ${inc_root}/Graphics/Gui/Menu.hpp
 ${inc_root}/Graphics/Gui/MenuItem.hpp
+${src_root}/Graphics/Gui/MenuItem.cpp
 ${src_root}/Graphics/Gui/Menu.cpp
 ${inc_root}/Graphics/Gui/WidgetBackground.hpp
 ${src_root}/Graphics/Gui/WidgetBackground.cpp

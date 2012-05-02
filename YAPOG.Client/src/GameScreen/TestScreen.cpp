@@ -157,18 +157,18 @@ void TestScreen::HandleInit ()
 {
   guiManager_ = new yap::GuiManager ();
 
-  Menu* menu = new Menu (Menu::Type::VERTICAL, Padding (1, 1, 1, 1), Padding (5, 5, 5, 5), false);
-  MenuItem item1;
-  MenuItem item2;
-  MenuItem item3;
+  Menu* menu = new Menu (Menu::Type::HORIZONTAL, Padding (1, 1, 1, 1), Padding (5, 5, 5, 5), false);
+  MenuItem* item1 = new MenuItem ();
+  MenuItem* item2 = new MenuItem ();
+  MenuItem* item3 = new MenuItem ();
 
-  item1.SetSize (Vector2 (100, 50));
-  item2.SetSize (Vector2 (100, 50));
-  item3.SetSize (Vector2 (100, 50));
+  item1->SetSize (Vector2 (64, 256));
+  item2->SetSize (Vector2 (64, 256));
+  item3->SetSize (Vector2 (64, 256));
 
-  menu->AddChild (item1);
-  menu->AddChild (item2);
-  menu->AddChild (item3);
+  menu->AddChild (*item1, LayoutBox::Align::LEFT);
+  menu->AddChild (*item2, LayoutBox::Align::LEFT);
+  menu->AddChild (*item3, LayoutBox::Align::LEFT);
 
   yap::LayoutV* layout = new LayoutV (Padding (2, 2, 2, 2),
     Padding (9, 9 , 9, 9), false);
@@ -210,6 +210,7 @@ void TestScreen::HandleInit ()
   layout->AddChild (*pb, LayoutBox::Align::CENTER);
   layout->AddChild (*layouth, LayoutBox::Align::CENTER);
   layout->AddChild (*ts2, LayoutBox::Align::CENTER);
+  layout->AddChild (*menu, LayoutBox::Align::CENTER);
 
 
   //yap::widgetbackground* bckgr = new widgetbackground ();

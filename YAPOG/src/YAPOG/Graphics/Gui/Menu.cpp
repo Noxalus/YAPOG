@@ -14,6 +14,9 @@ namespace yap
     : itemz_ ()
     , currentSelec_ (0)
     , layout_ (nullptr)
+    , selecBrdr_ (new WidgetBorder ("heart.gif"))
+    , selecBckgrd_ (new WidgetBackground ("bckgrd.png", true))
+    , selecBrdSize_ (16)
   {
     if (type == Type::HORIZONTAL)
       layout_ = new LayoutH (ext, in, extend);
@@ -27,6 +30,16 @@ namespace yap
   {
   }
 
+  void Menu::SetSelectedBackground (WidgetBackground& background)
+  {
+    selecBckgrd_ = &background;
+  }
+
+  void Menu::SetSelectedBorder (WidgetBorder& border)
+  {
+    selecBrdr_ = &border;
+  }
+
   Vector2 Menu::HandleGetSize () const
   {
     return layout_->GetSize () + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
@@ -36,11 +49,17 @@ namespace yap
   void Menu::SetFormItem ()
   {
     MenuItem* curItem = itemz_[currentSelec_];
-    WidgetBorder* border = new WidgetBorder ("heart.gif");
-    WidgetBackground* background = new WidgetBackground ("bckgrd.png", true);
 
-    curItem->SetBackground (*background);
-    curItem->SetBorder (*border, 4);
+    curItem->SetBackground (*selecBckgrd_);
+    curItem->SetBorder (*selecBrdr_, selecBrdSize_);
+  }
+
+  void Menu::SetUnformItem ()
+  {
+    MenuItem* curItem = itemz_[currentSelec_];
+
+    curItem->UnsetBackground ();
+    curItem->UnsetBorder ();
   }
 
   void Menu::AddChild (MenuItem& child, LayoutBox::Align align)
@@ -66,19 +85,19 @@ namespace yap
         if (currentSelec_ <= 0)
           return true;
 
+        SetUnformItem ();
         currentSelec_--;
         SetFormItem ();
-
         return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
-        if (currentSelec_ >= itemz_.Count ())
+        if (currentSelec_ >= itemz_.Count () - 1)
           return true;
 
+        SetUnformItem ();
         currentSelec_++;
         SetFormItem ();
-
         return true;
       }
     }

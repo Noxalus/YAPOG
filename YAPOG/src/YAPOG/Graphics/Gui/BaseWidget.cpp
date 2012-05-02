@@ -22,6 +22,8 @@ namespace yap
     , padding_ (nullptr)
     , background_ (nullptr)
     , border_ (nullptr)
+    , userSize_ (0, 0)
+    , isExtensible_ (false)
   {
     padding_ = new Padding ();
   }
@@ -95,11 +97,22 @@ namespace yap
 
     OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
+
+    Refresh ();
   }
 
   void BaseWidget::SetPosition (const Vector2& position)
   {
     Move (position - GetPosition ());
+  }
+
+  void BaseWidget::UnsetBackground ()
+  {
+    background_ = nullptr;
+  }
+  void BaseWidget::UnsetBorder ()
+  {
+    border_ = nullptr;
   }
 
   void BaseWidget::SetSize (const Vector2& size)
@@ -113,11 +126,14 @@ namespace yap
     if (border_ != nullptr)
       border_->SetSize (size);
 
+    userSize_ = size;
     Scale (
       Vector2 (
       size.x / GetSize ().x,
       size.y / GetSize ().y));
     OnSizeSet (*this, EventArgs (size));
+
+    Refresh ();
   }
 
   void BaseWidget::Draw (IDrawingContext& context)
@@ -129,13 +145,18 @@ namespace yap
     if (border_ != nullptr)
       border_->Draw (context);
 
-    for (IWidget* child : childen_)
+    for (IDrawable* child : drawables_)
     {
       child->Draw (context);
     }
 
     OnDraw (*this, EventArgsDraw (context));
     HandleDraw (context);
+  }
+
+  Vector2 BaseWidget::GetUserSize () const
+  {
+    return userSize_;
   }
 
   bool BaseWidget::IsVisible () const
@@ -180,7 +201,7 @@ namespace yap
     if (!isEnable)
       return false;
 
-    for (IWidget* child : childen_)
+    for (IEventHandler* child : eventHandlers_)
     {
       if (child->OnEvent (guiEvent))
         return true;
@@ -200,7 +221,7 @@ namespace yap
     if (!isEnable)
       return false;
 
-    for (IWidget* child : childen_)
+    for (IEventHandler* child : eventHandlers_)
     {
       if (child->OnPriorityEvent (guiEvent))
         return true;
@@ -242,9 +263,12 @@ namespace yap
   void BaseWidget::AddChild (IWidget& child)
   {
     childen_.Add (&child);
+    AddDrawable (child);
+    updatables_.Add (&child);
+    eventHandlers_.Add (&child);
 
     child.SetPosition (GetPosition ());
-
+    child.SetParent (*this);
     OnChildAdded (*this, EventArgsIWidget (child));
   }
 
@@ -256,11 +280,19 @@ namespace yap
   void BaseWidget::SetParent (IWidget& parent)
   {
     parent_ = &parent;
+    root_ = &parent.GetRoot ();
   }
 
   void BaseWidget::SetPadding (Padding* padding)
   {
     padding_ = padding;
+    Refresh ();
+  }
+
+  void BaseWidget::Refresh ()
+  {
+    if (parent_ != nullptr)
+      parent_->Refresh ();
   }
 
   void BaseWidget::SetBackground (WidgetBackground& background)
@@ -270,11 +302,15 @@ namespace yap
     background_->SetBackground (GetSize ());
   }
 
+
   void BaseWidget::SetBorder (WidgetBorder& border, uint width)
   {
     border_ = &border;
     border_->SetPosition (GetPosition ());
-    border_->SetBorder (GetSize (), width);
+    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
+      border_->SetBorder (GetSize (), width);
+    else
+      border_->SetBorder (GetUserSize (), width);
 
     if (spatialInfo_.GetPosition ().x > width)
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
@@ -290,6 +326,8 @@ namespace yap
       Move (Vector2 (0, width - GetPosition ().y));
       spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
     }
+
+    Refresh ();
   }
 
   bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)

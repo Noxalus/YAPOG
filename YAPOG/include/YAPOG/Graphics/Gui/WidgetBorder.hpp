@@ -43,7 +43,8 @@ namespace yap
 
     virtual void HandleUpdate (const Time& dt);
 
-    Texture border_;
+    Texture* border_;
+    String file_;
     TextureManager* tmTop_;
     TextureManager* tmBottom_;
     TextureManager* tmLeft_;

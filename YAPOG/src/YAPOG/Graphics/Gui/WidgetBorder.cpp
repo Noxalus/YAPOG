@@ -4,7 +4,8 @@
 namespace yap
 {
   WidgetBorder::WidgetBorder ()
-    : border_ ()
+    : border_ (nullptr)
+    , file_ ("")
     , tmTop_ (nullptr)
     , tmBottom_ (nullptr)
     , tmRight_ (nullptr)
@@ -15,7 +16,8 @@ namespace yap
   }
 
   WidgetBorder::WidgetBorder (String file)
-    : border_ ()
+    : border_ (nullptr)
+    , file_ (file)
     , tmTop_ (nullptr)
     , tmBottom_ (nullptr)
     , tmRight_ (nullptr)
@@ -23,7 +25,6 @@ namespace yap
     , isInit (false)
     , width_ (0)
   {
-    border_.LoadFromFile (file);
   }
 
   WidgetBorder::~WidgetBorder ()
@@ -58,15 +59,18 @@ namespace yap
 
   void WidgetBorder::HandleScale (const Vector2& factor)
   {
-    Vector2 base = border_.GetSize ();
-    Vector2 neo (base.x * factor.x, base.y * factor.y);
-
-    if (isInit)
+    if (border_ != nullptr)
     {
-      tmTop_->SetSize (neo);
-      tmBottom_->SetSize (neo);
-      tmRight_->SetSize (neo);
-      tmLeft_->SetSize (neo);
+      Vector2 base = border_->GetSize ();
+      Vector2 neo (base.x * factor.x, base.y * factor.y);
+
+      if (isInit)
+      {
+        tmTop_->SetSize (neo);
+        tmBottom_->SetSize (neo);
+        tmRight_->SetSize (neo);
+        tmLeft_->SetSize (neo);
+      }
     }
   }
 
@@ -80,7 +84,9 @@ namespace yap
 
   const Texture& WidgetBorder::GetBorder () const
   {
-    return border_;
+    if (border_ != nullptr)
+      return *border_;
+    return Texture ();
   }
 
   uint WidgetBorder::GetWidth () const
@@ -90,25 +96,39 @@ namespace yap
 
   void WidgetBorder::SetBorder (Vector2 size, uint width)
   {
-    border_.SetPosition (GetPosition ());
+    width_ = 0;
+    if (border_ != nullptr)
+      delete border_;
 
-    tmTop_ = new TextureManager (border_, size.x + width, width);
+    border_ = new Texture (file_);
+    border_->SetPosition (GetPosition ());
+
+    if (tmTop_ != nullptr)
+      delete tmTop_;
+    if (tmBottom_ != nullptr)
+      delete tmBottom_;
+    if (tmLeft_ != nullptr)
+      delete tmLeft_;
+    if (tmRight_ != nullptr)
+      delete tmRight_;
+
+    tmTop_ = new TextureManager (*border_, size.x + width, width);
     tmTop_->SetPosition (GetPosition () - Vector2 (0, width));
     tmTop_->Init ();
 
-    tmBottom_ = new TextureManager (border_, size.x + width, width);
+    tmBottom_ = new TextureManager (*border_, size.x + width * 2, width);
     tmBottom_->SetPosition (GetPosition () - Vector2 (width, -size.y));
     tmBottom_->Init ();
-    
-    tmLeft_ = new TextureManager (border_, width,  size.y + width);
+
+    tmLeft_ = new TextureManager (*border_, width,  size.y + width);
     tmLeft_->SetPosition (GetPosition () - Vector2 (width, width));
     tmLeft_->Init ();
-    
-    tmRight_ = new TextureManager (border_, width, size.y + width);
+
+    tmRight_ = new TextureManager (*border_, width, size.y + width);
     tmRight_->SetPosition (GetPosition () + Vector2 (size.x, 0));
     tmRight_->Init ();
 
-    OnBorderSet (*this, EventArgsTexture (border_));
+    OnBorderSet (*this, EventArgsTexture (*border_));
     isInit = true;
     width_ = width;
   }

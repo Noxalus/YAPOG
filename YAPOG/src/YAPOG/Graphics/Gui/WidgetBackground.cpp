@@ -41,7 +41,7 @@ namespace yap
   {
     if (isInit)
       if (resize_)
-        background_.SetPosition (GetPosition() + offset);
+        background_.Move (offset);
       else
         tm_->Move (offset);
   }

@@ -13,8 +13,10 @@ namespace yap
   public:
     MenuItem ();
     virtual ~MenuItem ();
+    virtual void Do ();
 
   private:
+    virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 
@@ -24,6 +26,7 @@ namespace yap
     virtual void HandleChangeColor (const sf::Color& color);
 
     virtual void HandleUpdate (const Time& dt);
+
   };
 } // namespace yap
 
