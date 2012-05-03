@@ -1,5 +1,5 @@
 #include <iostream>
-#include "YAPOG/Collection/List.hpp"
+#include "YAPOG/Collection/Array.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
@@ -51,10 +51,15 @@ int main ()
       new XmlObjectIDLoader<SkillInfo, SkillInfoReader>
       (Path ("Pokemon/Skills"), "Skill"));
 
-    collection::List<Pokemon*> pokemons;
+    collection::Array<Pokemon*> pokemons;
 
     for (int i = 0; i < 1; i++)
-      pokemons.Add (new Pokemon (ID (1), 1000, false));
+      pokemons.Add (new Pokemon (ID (1), 1, false));
+
+    for (Pokemon* pokemon : pokemons)
+      pokemon->PrintStats ();
+
+    pokemons[0]->AddExperience (57);
 
     for (Pokemon* pokemon : pokemons)
       pokemon->PrintStats ();
@@ -96,30 +101,28 @@ int main ()
 
     file << "</table>";
 
-    /*
     file << "<table style=\"text-align: center;\"><tr><th>Types</th>";
     for (int i = 0; i < 17; i++)
       file << "<th>" << types[i].GetName () << "</th>";
 
     file << "</tr><tr>"
-      << "<td>" << p4.GetName () << "</td>";
+      << "<td>" << pokemons[0]->GetName () << "</td>";
 
     for (int i = 0; i < 17; i++)
     {
-      if (p4.GetTypeEffectFactor (types[i]) == 0)
+      if (pokemons[0]->GetTypeEffectFactor (types[i]) == 0)
         file << "<td style=\"background-color: Red; color: White;\">";
-      else if (p4.GetTypeEffectFactor (types[i]) == 0.5)
+      else if (pokemons[0]->GetTypeEffectFactor (types[i]) == 0.5)
         file << "<td style=\"background-color: Grey; color: White;\">";
-      else if (p4.GetTypeEffectFactor (types[i]) == 2)
+      else if (pokemons[0]->GetTypeEffectFactor (types[i]) == 2)
         file << "<td style=\"background-color: Green; color: White;\">";
       else
         file << "<td>";
 
-      file << p4.GetTypeEffectFactor (types[i]) << "</td>";
+      file << pokemons[0]->GetTypeEffectFactor (types[i]) << "</td>";
     }
 
     file << "</tr></table>";
-    */
 
     getchar ();
   }

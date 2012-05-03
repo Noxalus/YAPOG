@@ -11,7 +11,7 @@ namespace yap
     DISALLOW_COPY (PokemonExperience);
 
   public:
-    PokemonExperience ();
+    //PokemonExperience ();
     PokemonExperience (const UInt16& level);
 
     void Init ();
@@ -21,10 +21,13 @@ namespace yap
     const UInt32& GetExperienceToNextLevel () const;
 
     void SetValue (const UInt32& value);
-    void AddExperience (const UInt32& value);
+    int AddExperience (const UInt32& value);
     void LevelUp ();
 
     void ComputeExperienceToNextLevel ();
+
+    static const UInt16 INITIAL_LEVEL_VALUE;
+    static const UInt16 MAX_LEVEL_VALUE;
   protected:
     void SetExperienceToNextLevel (const UInt32& value);
 
@@ -34,8 +37,6 @@ namespace yap
     UInt32 value_;
     UInt16 level_;
     UInt32 experienceToNextLevel_;
-    static const UInt16 INITIAL_LEVEL_VALUE;
-    static const UInt16 MAX_LEVEL_VALUE;
     static const UInt32 INITIAL_EXPERIENCE_VALUE;
     static const UInt32 MAX_EXPERIENCE_VALUE;
   };

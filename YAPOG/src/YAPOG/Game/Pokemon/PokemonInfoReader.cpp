@@ -103,7 +103,22 @@ namespace yap
 
     // <experienceType>
 
-    pokeInfo_.SetExperienceType (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME));
+    String experienceType = visitable.ReadString (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME);
+
+    if (experienceType == "Slow")
+      pokeInfo_.SetExperienceType (ExperienceType::Slow);
+    else if (experienceType == "MediumSlow")
+      pokeInfo_.SetExperienceType (ExperienceType::MediumSlow);
+    else if (experienceType == "MediumFast")
+      pokeInfo_.SetExperienceType (ExperienceType::MediumFast);
+    else if (experienceType == "Fast")
+      pokeInfo_.SetExperienceType (ExperienceType::Fast);
+    else if (experienceType == "Fluctuating")
+      pokeInfo_.SetExperienceType (ExperienceType::Fluctuating);
+    else if (experienceType == "Erratic")
+      pokeInfo_.SetExperienceType (ExperienceType::Erratic);
+    else
+      pokeInfo_.SetExperienceType (ExperienceType::MediumSlow);
 
     // </experienceType>
 

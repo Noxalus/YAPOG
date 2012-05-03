@@ -16,7 +16,11 @@ namespace yap
     PokemonSkill (const ID& skillID);
 
     void SetSkillInfo (const ID& skillID);
+
+    /// Getters
     const String& GetName () const;
+    const UInt16& GetCurrentPP () const;
+    const UInt16& GetMaxPP () const;
 
     /// @brief Reset the PP to the maxPP value.
     void Refill ();

@@ -2,18 +2,19 @@
 
 namespace yap
 {
-  const UInt32 PokemonExperience::INITIAL_EXPERIENCE_VALUE = 0;
+  const uint PokemonExperience::INITIAL_EXPERIENCE_VALUE = 0;
   const UInt16 PokemonExperience::INITIAL_LEVEL_VALUE = 1;
-  const UInt32 PokemonExperience::MAX_EXPERIENCE_VALUE = 2000000;
+  const uint PokemonExperience::MAX_EXPERIENCE_VALUE = 2000000;
   const UInt16 PokemonExperience::MAX_LEVEL_VALUE = 100;
 
+  /*
   PokemonExperience::PokemonExperience ()
-    : value_ (INITIAL_EXPERIENCE_VALUE)
-    , level_ (INITIAL_LEVEL_VALUE)
-    , experienceToNextLevel_ (INITIAL_EXPERIENCE_VALUE)
-
+  : value_ (INITIAL_EXPERIENCE_VALUE)
+  , level_ (INITIAL_LEVEL_VALUE)
+  , experienceToNextLevel_ (INITIAL_EXPERIENCE_VALUE)
   {
   }
+  */
 
   PokemonExperience::PokemonExperience (const UInt16& level)
     : value_ (INITIAL_EXPERIENCE_VALUE)
@@ -70,13 +71,25 @@ namespace yap
     experienceToNextLevel_ = value;
   }
 
-  void PokemonExperience::AddExperience (const UInt32& value)
+  int PokemonExperience::AddExperience (const UInt32& value)
   {
+    int levelEarned = 0;
+    
     if ((value_ + value) <= MAX_EXPERIENCE_VALUE)
       value_ += value;
 
     if (value_ >= experienceToNextLevel_)
-      LevelUp ();
+    {
+      while (value_ >= experienceToNextLevel_)
+      {
+        LevelUp ();
+        levelEarned++;
+      }
+
+      return levelEarned;
+    }
+
+    return levelEarned;
   }
 
   void PokemonExperience::LevelUp ()

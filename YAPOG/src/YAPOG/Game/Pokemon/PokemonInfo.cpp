@@ -112,7 +112,7 @@ namespace yap
     experience_ = value;
   }
 
-  void PokemonInfo::SetExperienceType (const int& value)
+  void PokemonInfo::SetExperienceType (const ExperienceType& value)
   {
     experienceType_ = value;
   }
@@ -211,7 +211,7 @@ namespace yap
     return experience_;
   }
 
-  const int& PokemonInfo::GetExperienceType () const
+  const ExperienceType& PokemonInfo::GetExperienceType () const
   {
     return experienceType_;
   }

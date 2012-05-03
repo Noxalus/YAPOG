@@ -10,6 +10,7 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
+# include "YAPOG/Game/Pokemon/ExperienceType.hpp"
 
 namespace yap
 {
@@ -32,7 +33,7 @@ namespace yap
     void SetHeight (const float& value);
     void SetWeight (const float& value);
     void SetExperience (const int& value);
-    void SetExperienceType (const int& value);
+    void SetExperienceType (const ExperienceType& value);
     void SetRarity (const int& value);
     void SetHitPoint (const int& value);
     void SetAttack (const int& value);
@@ -51,7 +52,7 @@ namespace yap
     const float& GetHeight () const;
     const float& GetWeight () const;
     const int& GetExperience () const;
-    const int& GetExperienceType () const;
+    const ExperienceType& GetExperienceType () const;
     const int& GetRarity () const;
     const int& GetHitPoint () const;
     const int& GetAttack () const;
@@ -79,7 +80,7 @@ namespace yap
     float height_;
     float weight_;
     int experience_;
-    int experienceType_;
+    ExperienceType experienceType_;
     int rarity_;
     int baseHitPoint_;
     int baseAttack_;

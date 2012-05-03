@@ -11,7 +11,6 @@ namespace yap
     DISALLOW_COPY (ExperienceFluctuating);
 
   public:
-    ExperienceFluctuating ();
     ExperienceFluctuating (const UInt16& level);
 
   private:

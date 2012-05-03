@@ -133,6 +133,7 @@ ${src_root}/Game/Pokemon/Gender.cpp
 ${inc_root}/Game/Pokemon/Gender.hpp
 ${src_root}/Game/Pokemon/PokemonExperience.cpp
 ${inc_root}/Game/Pokemon/PokemonExperience.hpp
+${inc_root}/Game/Pokemon/ExperienceType.hpp
 ${src_root}/Game/Pokemon/ExperienceFast.cpp
 ${inc_root}/Game/Pokemon/ExperienceFast.hpp
 ${src_root}/Game/Pokemon/ExperienceErratic.cpp

@@ -27,14 +27,16 @@ namespace yap
 
     const String& GetName () const;
     float GetTypeEffectFactor (const TypeInfo& type) const;
-    const UInt32& GetTotalExperience () const;
-    const UInt32& GetExperienceToNextLevel () const;
+    const uint& GetTotalExperience () const;
+    const uint& GetExperienceToNextLevel () const;
     const UInt16& GetLevel () const;
 
     void AddExperience (const Int32& value);
 
     void PrintStats ();
   private:
+    void Init (UInt16 level);
+    void InitExperience (UInt16 level);
     void InitMoveSet ();
 
     ID uniqueID_;

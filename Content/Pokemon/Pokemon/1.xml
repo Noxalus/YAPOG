@@ -15,7 +15,7 @@
 	</baseStats>
 	<evolution level="16">2</evolution>
 	<experience>64</experience>
-	<experienceType>2</experienceType>
+	<experienceType>MediumSlow</experienceType>
 	<rarity>45</rarity>
 	<types>
 		<type1>5</type1>

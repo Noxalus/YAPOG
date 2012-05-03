@@ -11,7 +11,6 @@ namespace yap
     DISALLOW_COPY (ExperienceMediumSlow);
 
   public:
-    ExperienceMediumSlow ();
     ExperienceMediumSlow (const UInt16& level);
 
   private:

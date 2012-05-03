@@ -3,10 +3,6 @@
 
 namespace yap
 {
-  ExperienceFluctuating::ExperienceFluctuating ()
-  {
-  }
-
   ExperienceFluctuating::ExperienceFluctuating (const UInt16& level)
     : PokemonExperience (level)
   {
