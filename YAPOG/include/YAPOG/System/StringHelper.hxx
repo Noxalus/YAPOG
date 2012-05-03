@@ -9,6 +9,7 @@
 # include "YAPOG/Game/World/Map/Direction.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
 # include "YAPOG/Game/World/Map/Direction.hpp"
+# include "YAPOG/Game/Pokemon/ExperienceType.hpp"
 
 namespace yap
 {
@@ -40,6 +41,18 @@ namespace yap
     if (str == "West") return Direction::West;
     if (str == "NorthWest") return Direction::NorthWest;
     YAPOG_THROW("Not a valid direction: " + str);
+  }
+
+  template <>
+  inline ExperienceType StringHelper::Parse<ExperienceType> (const String& str)
+  {
+    if (str == "Slow") return ExperienceType::Slow;
+    if (str == "MediumSlow") return ExperienceType::MediumSlow;
+    if (str == "MediumFast") return ExperienceType::MediumFast;
+    if (str == "Fast") return ExperienceType::Fast;
+    if (str == "Fluctuating") return ExperienceType::Fluctuating;
+    if (str == "Erratic") return ExperienceType::Erratic;
+    YAPOG_THROW("Not a valid experience type: " + str);
   }
 } // namespace yap
 

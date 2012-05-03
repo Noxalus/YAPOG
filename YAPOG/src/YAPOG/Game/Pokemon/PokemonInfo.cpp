@@ -261,6 +261,14 @@ namespace yap
     return type2_;
   }
 
+  const collection::List<ID>* PokemonInfo::GetNewSkills (const UInt16& level)
+  {
+    if (baseSkills_.Contains (level))
+      return &baseSkills_[level];
+    else
+      return nullptr;
+  }
+
   void PokemonInfo::PrintBaseStats ()
   {
     std::cout << "PokemonInfo Data: " << std::endl

@@ -62,6 +62,7 @@ namespace yap
     const int& GetSpeed () const;
     const int& GetType1 () const;
     const int& GetType2 () const;
+    const collection::List<ID>* GetNewSkills (const UInt16& level);
 
     void PrintBaseStats ();
     void PrintBaseSkills ();

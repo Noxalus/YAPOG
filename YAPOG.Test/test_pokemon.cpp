@@ -59,7 +59,7 @@ int main ()
     for (Pokemon* pokemon : pokemons)
       pokemon->PrintStats ();
 
-    pokemons[0]->AddExperience (57);
+    pokemons[0]->AddExperience (50000);
 
     for (Pokemon* pokemon : pokemons)
       pokemon->PrintStats ();
