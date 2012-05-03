@@ -25,6 +25,7 @@
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/MenuItem.hpp"
+#include "YAPOG/Graphics/Gui/WidgetTextBox.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -212,11 +213,16 @@ void TestScreen::HandleInit ()
   layout->AddChild (*ts2, LayoutBox::Align::CENTER);
   layout->AddChild (*menu, LayoutBox::Align::CENTER);
 
+  WidgetTextBox* txtbox = new WidgetTextBox ();
+  txtbox->SetSize (Vector2 (256, 64));
+  WidgetBackground* bckgrd = new WidgetBackground ("bckgrd.png", true);
+  txtbox->SetBackground (*bckgr);
 
   //yap::widgetbackground* bckgr = new widgetbackground ();
   //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);
 
   guiManager_->AddChild (*layout);
+  guiManager_->AddChild (*txtbox);
   // guiManager_->AddChild (*bckgr);
 
 }

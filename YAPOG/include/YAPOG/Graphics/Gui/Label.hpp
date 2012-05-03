@@ -34,6 +34,9 @@ namespace yap
     void SetText (String& content);
     String GetText () const;
     Event<const Label&, const EventArgsString&> OnTextChanged;
+    float GetCharWidth () const;
+    Vector2 CharPos (uint pos) const;
+    uint Length () const;
 
   private:
     virtual Vector2 HandleGetSize () const;

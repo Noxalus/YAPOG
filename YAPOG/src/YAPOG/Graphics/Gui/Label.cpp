@@ -28,6 +28,20 @@ namespace yap
   {
   }
 
+  float Label::GetCharWidth () const
+  {
+    return drawableText_.getCharacterSize () / 1.5;
+  }
+
+  Vector2 Label::CharPos (uint pos) const
+  {
+    return drawableText_.findCharacterPos (pos);
+  }
+
+  uint Label::Length () const
+  {
+    return textContent_.length ();
+  }
   Vector2 Label::HandleGetSize () const
   {
     return Vector2 (padding_->left
