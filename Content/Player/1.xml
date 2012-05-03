@@ -1,56 +1,23 @@
 <Player>
-  <spriteType>SpriteSet</spriteType>
-  <SpriteSet>
+  <spriteType>StringSpriteSet</spriteType>
+  <StringSpriteSet>
     <sprite>
       <key>Inactive</key>
-      <spriteType>SpriteSet</spriteType>
-      <SpriteSet>
-        <sprite>
-          <key>North</key>
-          <spriteType>Sprite</spriteType>
-          <Sprite>
-            <Texture id="todo"/>
-          </Sprite>
-        </sprite>
-        <sprite>
-          <key>East</key>
-          <spriteType>Sprite</spriteType>
-          <Sprite>
-            <Texture id="todo"/>
-          </Sprite>
-        </sprite>
+      <spriteType>DirectionSpriteSet</spriteType>
+      <DirectionSpriteSet>
         <sprite>
           <key>South</key>
           <spriteType>Sprite</spriteType>
           <Sprite>
-            <Texture id="todo"/>
+            <Texture id="10"/>
           </Sprite>
         </sprite>
-        <sprite>
-          <key>West</key>
-          <spriteType>Sprite</spriteType>
-          <Sprite>
-            <Texture id="todo"/>
-          </Sprite>
-        </sprite>
-      </SpriteSet>
+      </DirectionSpriteSet>
     </sprite>
-    <sprite>
+<!--    <sprite>
       <key>Walking</key>
-      <spriteType>SpriteSet</spriteType>
-      <SpriteSet>
-        <sprite>
-          <key>North</key>
-          <spriteType>AnimatedSprite</spriteType>
-          <AnimatedSprite>
-            <sprite>
-              <spriteType>Sprite</spriteType>
-              <Sprite>
-                <Texture id="1"/>
-              </Sprite>
-            </sprite>
-          </AnimatedSprite>
-        </sprite>
+      <spriteType>DirectionSpriteSet</spriteType>
+      <DirectionSpriteSet>
         <sprite>
           <key>South</key>
           <spriteType>AnimatedSprite</spriteType>
@@ -58,12 +25,24 @@
             <sprite>
               <spriteType>Sprite</spriteType>
               <Sprite>
-                <Texture id="2"/>
+                <Texture id="11"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="12"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="13"/>
               </Sprite>
             </sprite>
           </AnimatedSprite>
         </sprite>
-      </SpriteSet>
-    </sprite>
-  </SpriteSet>
+      </DirectionSpriteSet>
+    </sprite>-->
+  </StringSpriteSet>
 </Player>

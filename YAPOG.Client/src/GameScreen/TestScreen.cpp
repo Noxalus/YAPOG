@@ -8,8 +8,10 @@
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
+#include "YAPOG/Graphics/Game/Sprite/AnimatedSprite.hpp"
+#include "YAPOG/Graphics/Game/Sprite/AnimatedSpriteReader.hpp"
 #include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
-#include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
+#include "YAPOG/Graphics/Game/Sprite/SpriteSetReader.hpp"
 #include "YAPOG/Graphics/Game/Sprite/ComposedSprite.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
@@ -76,12 +78,28 @@ namespace ycl
                                yap::RandomTileLayoutHandlerReader> ());
 
     of.RegisterLoader (
+      "StringSpriteSet",
+      new yap::XmlObjectLoader<
+        yap::SpriteSet<yap::String>,
+        yap::SpriteSetReader<yap::String>> ());
+    of.RegisterLoader (
+      "DirectionSpriteSet",
+      new yap::XmlObjectLoader<
+        yap::SpriteSet<yap::Direction>,
+        yap::SpriteSetReader<yap::Direction>> ());
+    of.RegisterLoader (
+      "AnimatedSprite",
+      new yap::XmlObjectLoader<
+        yap::RegularAnimatedSprite,
+        yap::AnimatedSpriteReader> ());
+
+    of.RegisterLoader (
       "Player",
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
         yap::Path ("Player"),
         "Player"));
-//    of.Create<Player> ("Player", yap::ID (1));
 
+    of.Create<Player> ("Player", yap::ID (1));
 
 //  Player* pp = new Player (ID (1));
 //  pp->AddSprite ("Inactive",

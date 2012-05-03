@@ -17,6 +17,7 @@ namespace yap
 
     public:
 
+      XmlReader ();
       XmlReader (IStream& iStream, const String& rootName);
       virtual ~XmlReader ();
 
@@ -83,7 +84,7 @@ namespace yap
 
     private:
 
-      XmlReader (const XmlTree& data);
+      XmlReader (XmlTree& data);
 
       XmlTree data_;
   };

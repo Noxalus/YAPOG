@@ -3,22 +3,16 @@
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
-  const String SpriteReader::DEFAULT_XML_ROOT_NODE_NAME = "Sprite";
   const String SpriteReader::DEFAULT_XML_TEXTURE_NODE_NAME = "Texture";
   const String SpriteReader::DEFAULT_XML_TEXTURE_ID_NODE_NAME = "id";
 
-  SpriteReader::SpriteReader (Sprite& sprite)
-    : sprite_ (sprite)
-    , xmlRootNodeName_ (DEFAULT_XML_ROOT_NODE_NAME)
-  {
-  }
-
   SpriteReader::SpriteReader (Sprite& sprite, const String& xmlRootNodeName)
-    : sprite_ (sprite)
-    , xmlRootNodeName_ (xmlRootNodeName)
+    : BaseSpriteReader (sprite, xmlRootNodeName)
+    , sprite_ (sprite)
   {
   }
 
@@ -30,9 +24,8 @@ namespace yap
   {
     // <Sprite>
 
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+    if (!visitable.TryChangeRoot (xmlRootNodeName_))
+      YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
 
     // <Texture id="{id}"/>
 

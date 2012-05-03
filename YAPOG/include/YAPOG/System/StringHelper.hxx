@@ -6,6 +6,9 @@
 # include <boost/lexical_cast.hpp>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/World/Map/Direction.hpp"
+# include "YAPOG/System/Error/Exception.hpp"
+# include "YAPOG/Game/World/Map/Direction.hpp"
 
 namespace yap
 {
@@ -23,6 +26,20 @@ namespace yap
   inline T StringHelper::Parse (const String& str)
   {
     return boost::lexical_cast <T> (str);
+  }
+
+  template <>
+  inline Direction StringHelper::Parse<Direction> (const String& str)
+  {
+    if (str == "North") return Direction::North;
+    if (str == "NorthEast") return Direction::NorthEast;
+    if (str == "East") return Direction::East;
+    if (str == "SouthEast") return Direction::SouthEast;
+    if (str == "South") return Direction::South;
+    if (str == "SouthWest") return Direction::SouthWest;
+    if (str == "West") return Direction::West;
+    if (str == "NorthWest") return Direction::NorthWest;
+    YAPOG_THROW("Not a valid direction: " + str);
   }
 } // namespace yap
 
