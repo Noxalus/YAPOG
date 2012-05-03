@@ -7,6 +7,11 @@
 
 namespace yap
 {
+  XmlReader::XmlReader ()
+    : data_ ()
+  {
+  }
+
   XmlReader::XmlReader (IStream& iStream, const String& rootName)
     : data_ ()
   {
@@ -47,7 +52,7 @@ namespace yap
         continue;
 
       XmlTree data;
-      data.CreateFromRawData (&it.second);
+      data.CreateFromRawData (name, data_, &it.second);
       xmlReaderCollection.Add (XmlReaderPtrType (new XmlReader (data)));
     }
 
@@ -226,7 +231,7 @@ namespace yap
     return ID (ReadUInt64 (name));
   }
 
-  XmlReader::XmlReader (const XmlTree& data)
+  XmlReader::XmlReader (XmlTree& data)
     : data_ ()
   {
     data_.CreateFromXmlTree (data);

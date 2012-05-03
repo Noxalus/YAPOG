@@ -16,6 +16,8 @@ namespace ycl
 
       virtual ~CharacterReader ();
 
+      virtual void Visit (yap::XmlReader& visitable);
+
     protected:
 
       CharacterReader (

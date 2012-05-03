@@ -34,9 +34,8 @@ namespace yap
   {
     // <Texture id="{id}>
 
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+    if (!visitable.TryChangeRoot (xmlRootNodeName_))
+      YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
 
     texture_.SetID (
       visitable.ReadID (

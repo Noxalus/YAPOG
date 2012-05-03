@@ -27,6 +27,11 @@ namespace ycl
   {
   }
 
+  void Character::SetSprite (yap::SpriteSet<yap::String>* sprite)
+  {
+    sprites_ = sprite;
+  }
+
   void Character::AddSprite (
     const yap::String& state,
     yap::ISprite* sprite)

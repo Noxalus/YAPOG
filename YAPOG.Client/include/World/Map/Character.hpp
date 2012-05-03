@@ -4,8 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Character.hpp"
 # include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
-# include "YAPOG/Graphics/Game/Sprite/DirectionalSpriteSet.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
 
 namespace ycl
 {
@@ -18,6 +18,7 @@ namespace ycl
 
       virtual ~Character ();
 
+      void SetSprite (yap::SpriteSet<yap::String>* sprite);
       void AddSprite (const yap::String& state, yap::ISprite* sprite);
 
       /// @name IDrawable members.

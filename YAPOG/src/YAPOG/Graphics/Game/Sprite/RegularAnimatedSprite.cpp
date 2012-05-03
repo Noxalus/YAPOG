@@ -3,6 +3,16 @@
 
 namespace yap
 {
+  const int RegularAnimatedSprite::DEFAULT_FRAME_RATE = 8;
+
+  RegularAnimatedSprite::RegularAnimatedSprite ()
+    : AnimatedSprite ()
+  {
+    SetFrameSwitcher (
+      new DelayedFrameSwitcher (
+        Time (1.0f / static_cast<float> (DEFAULT_FRAME_RATE))));
+  }
+
   RegularAnimatedSprite::RegularAnimatedSprite (const Time& delay)
     : AnimatedSprite ()
   {

@@ -12,9 +12,14 @@ namespace yap
 
     public:
 
+      RegularAnimatedSprite ();
       explicit RegularAnimatedSprite (const Time& delay);
       explicit RegularAnimatedSprite (int frameRate);
       virtual ~RegularAnimatedSprite ();
+
+    private:
+
+      static const int DEFAULT_FRAME_RATE;
   };
 } // namespace yap
 
