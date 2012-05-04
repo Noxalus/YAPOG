@@ -1,10 +1,18 @@
 <PokemonInfo id="1">
-	<name>BULBIZARRE</name>
-	<description>BULBIZARRE passe son temps à faire la sieste sous le soleil. Il absorbe les rayons de soleil pour faire doucement pousser la graine qu'il a sur son dos.</description>
-	<species>GRAINE</species>
+	<name>Bulbizarre</name>
+	<description>Bulbizarre passe son temps à faire la sieste sous le soleil. Il absorbe les rayons de soleil pour faire doucement pousser la graine qu'il a sur son dos.</description>
+	<species>Graine</species>
 	<height>0.7</height>
 	<weight>6.9</weight>
 	<gender>12.5</gender>
+	<effortValues>
+		<hp>0</hp>
+		<attack>0</attack>
+		<defense>0</defense>
+		<speed>0</speed>
+		<specialAttack>1</specialAttack>
+		<specialDefense>0</specialDefense>
+	</effortValues>
 	<baseStats>
 		<hp>45</hp>
 		<attack>49</attack>
@@ -63,6 +71,10 @@
 		<skill>90</skill>
 		<skill>94</skill>
 	</learnableSkills>
+	<learnableCapacities>
+		<capacity>1</capacity>
+		<capacity>4</capacity>
+	</learnableCapacities>
 	<graphics>
 		<icon>001.png</icon>
 		<front>001.png</front>

@@ -11,7 +11,7 @@ namespace yap
     DISALLOW_COPY (ExperienceFast);
 
   public:
-    ExperienceFast (const UInt16& level);
+    ExperienceFast ();
 
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level);

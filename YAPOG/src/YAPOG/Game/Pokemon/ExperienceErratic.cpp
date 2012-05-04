@@ -3,8 +3,7 @@
 
 namespace yap
 {
-  ExperienceErratic::ExperienceErratic (const UInt16& level)
-    : PokemonExperience (level)
+  ExperienceErratic::ExperienceErratic ()
   {
   }
 

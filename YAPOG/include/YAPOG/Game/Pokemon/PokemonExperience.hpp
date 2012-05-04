@@ -11,7 +11,7 @@ namespace yap
     DISALLOW_COPY (PokemonExperience);
 
   public:
-    PokemonExperience (const UInt16& level);
+    PokemonExperience ();
 
     void Init (UInt16 level);
 

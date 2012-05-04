@@ -11,7 +11,7 @@ namespace yap
     DISALLOW_COPY (ExperienceSlow);
 
   public:
-    ExperienceSlow (const UInt16& level);
+    ExperienceSlow ();
 
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level);

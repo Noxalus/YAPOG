@@ -11,7 +11,7 @@ namespace yap
     DISALLOW_COPY (ExperienceErratic);
 
   public:
-    ExperienceErratic (const UInt16& level);
+    ExperienceErratic ();
 
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level);

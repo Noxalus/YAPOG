@@ -41,9 +41,17 @@ namespace yap
     void SetSpecialAttack (const int& value);
     void SetSpecialDefense (const int& value);
     void SetSpeed (const int& value);
+    void SetHitPointEV (const int& value);
+    void SetAttackEV (const int& value);
+    void SetDefenseEV (const int& value);
+    void SetSpecialAttackEV (const int& value);
+    void SetSpecialDefenseEV (const int& value);
+    void SetSpeedEV (const int& value);
     void SetType1 (const int& value);
     void SetType2 (const int& value);
     void AddBaseSkill (const UInt16 level, const ID& skillID);
+    void SetEvolutionLevel (UInt16 value);
+    void SetPokemonEvolutionID (const ID& value);
 
     const ID& GetID () const;
     const String& GetName () const;
@@ -60,9 +68,18 @@ namespace yap
     const int& GetSpecialAttack () const;
     const int& GetSpecialDefense () const;
     const int& GetSpeed () const;
+    const int& GetHitPointEV () const;
+    const int& GetAttackEV () const;
+    const int& GetDefenseEV () const;
+    const int& GetSpecialAttackEV () const;
+    const int& GetSpecialDefenseEV () const;
+    const int& GetSpeedEV () const;
     const int& GetType1 () const;
     const int& GetType2 () const;
-    const collection::List<ID>* GetNewSkills (const UInt16& level);
+    const collection::List<ID>* GetNewSkills (const UInt16& level) const;
+    const bool CanEvolve () const;
+    const UInt16 GetEvolutionLevel () const;
+    const ID& GetPokemonEvolutionID () const;
 
     void PrintBaseStats ();
     void PrintBaseSkills ();
@@ -82,6 +99,8 @@ namespace yap
     float weight_;
     int experience_;
     ExperienceType experienceType_;
+    UInt16 evolutionLevel_;
+    ID pokemonEvolutionID_;
     int rarity_;
     int baseHitPoint_;
     int baseAttack_;
@@ -89,11 +108,18 @@ namespace yap
     int baseSpecialAttack_;
     int baseSpecialDefense_;
     int baseSpeed_;
+    int hitPointEV_;
+    int attackEV_;
+    int defenseEV_;
+    int specialAttackEV_;
+    int specialDefenseEV_;
+    int speedEV_;
     int type1_;
     int type2_;
     collection::Map<UInt16, collection::List<ID>> baseSkills_;
 
     static const int INITIAL_BASE_STATS_VALUE;
+    static const int INITIAL_BASE_EV_VALUE;
   };
 } // namespace yap
 

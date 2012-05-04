@@ -40,6 +40,7 @@ namespace yap
     InitExperience ();
 
     stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
+
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
 
@@ -51,25 +52,25 @@ namespace yap
     switch (pokemonInfo_->GetExperienceType ())
     {
     case ExperienceType::Slow:
-      exp_ = new ExperienceSlow (level_);
+      exp_ = new ExperienceSlow ();
       break;
     case ExperienceType::MediumSlow:
-      exp_ = new ExperienceMediumSlow (level_);
+      exp_ = new ExperienceMediumSlow ();
       break;
     case ExperienceType::MediumFast:
-      exp_ = new ExperienceMediumFast (level_);
+      exp_ = new ExperienceMediumFast ();
       break;
     case ExperienceType::Fast:
-      exp_ = new ExperienceFast (level_);
+      exp_ = new ExperienceFast ();
       break;
     case ExperienceType::Fluctuating:
-      exp_ = new ExperienceFluctuating (level_);
+      exp_ = new ExperienceFluctuating ();
       break;
     case ExperienceType::Erratic:
-      exp_ = new ExperienceErratic (level_);
+      exp_ = new ExperienceErratic ();
       break;
     default:
-      exp_ = new ExperienceMediumSlow (level_);
+      exp_ = new ExperienceMediumSlow ();
       break;
     }
 
@@ -142,8 +143,8 @@ namespace yap
           {
             for (const ID& skillID : *newSkills)
             {
-              if (!Learn (skillID))
-                Replace (skillID, 0);
+              if (!LearnSkill (skillID))
+                ReplaceSkill (skillID, 0);
             }
           }
 
@@ -151,7 +152,13 @@ namespace yap
         }
 
         // Evolution ?
+        if (pokemonInfo_->CanEvolve ())
+        {
+          if (level_ > pokemonInfo_->GetEvolutionLevel ())
+            Evolve ();
+        }
 
+        stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
       }
     }
     else
@@ -161,7 +168,7 @@ namespace yap
     }
   }
 
-  bool Pokemon::Learn (const ID& skillID)
+  bool Pokemon::LearnSkill (const ID& skillID)
   {
     for (int i = 0; i < 4; i++)
     {
@@ -175,9 +182,17 @@ namespace yap
     return false;
   }
 
-  void Pokemon::Replace (const ID& skillID, int index)
+  void Pokemon::ReplaceSkill (const ID& skillID, int index)
   {
     moveSet[index] = new PokemonSkill (skillID);
+  }
+
+  void Pokemon::Evolve ()
+  {
+    std::cout << "EVOLUTION !" << std::endl;
+
+    staticID_ = pokemonInfo_->GetPokemonEvolutionID ();
+    Init ();
   }
 
   static String GetStringFromExperienceType (const ExperienceType& experienceType)
@@ -220,17 +235,31 @@ namespace yap
       << "Type2: " << type_.GetType2 ().GetName () << std::endl
       << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue ()
-      << " (IV: " << stats_.GetHitPoint ().GetIndividualValue () << ")" << std::endl
+      << " (IV: " << stats_.GetHitPoint ().GetIndividualValue ()
+      << " | Base EV: " << pokemonInfo_->GetHitPointEV () << ")" << std::endl
       << "Attack: " << stats_.GetAttack ().GetValue ()
-      << " (IV: " << stats_.GetAttack ().GetIndividualValue () << ")" << std::endl
+      << " (IV: " << stats_.GetAttack ().GetIndividualValue ()
+      << " | Base EV: " << pokemonInfo_->GetAttackEV () << ")" << std::endl
       << "Defense: " << stats_.GetDefense ().GetValue ()
-      << " (IV: " << stats_.GetDefense ().GetIndividualValue () << ")" << std::endl
+      << " (IV: " << stats_.GetDefense ().GetIndividualValue ()
+      << " | Base EV: " << pokemonInfo_->GetDefenseEV () << ")" << std::endl
       << "Special Attack: " << stats_.GetSpecialAttack ().GetValue ()
-      << " (IV: " << stats_.GetSpecialAttack ().GetIndividualValue () << ")" << std::endl
+      << " (IV: " << stats_.GetSpecialAttack ().GetIndividualValue ()
+      << " | Base EV: " << pokemonInfo_->GetSpecialAttackEV () << ")" << std::endl
       << "Special Defense: " << stats_.GetSpecialDefense ().GetValue ()
-      << " (IV: " << stats_.GetSpecialDefense ().GetIndividualValue () << ")" << std::endl
+      << " (IV: " << stats_.GetSpecialDefense ().GetIndividualValue ()
+      << " | Base EV: " << pokemonInfo_->GetSpecialDefenseEV () << ")" << std::endl
       << "Speed: " << stats_.GetSpeed ().GetValue ()
-      << " (IV: " << stats_.GetSpeed ().GetIndividualValue () << ")" << std::endl;
+      << " (IV: " << stats_.GetSpeed ().GetIndividualValue ()
+      << " | Base EV: " << pokemonInfo_->GetSpeedEV () << ")" << std::endl;
+
+    if (pokemonInfo_->CanEvolve ())
+    {
+      std::cout << "This Pokémon can evolve at level " 
+        << pokemonInfo_->GetEvolutionLevel ()
+        << " in " << pokemonInfo_->GetPokemonEvolutionID ().GetValue () 
+        << " !" << std::endl;
+    }
 
     std::cout << "Move set:" << std::endl;
 

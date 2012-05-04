@@ -3,8 +3,7 @@
 
 namespace yap
 {
-  ExperienceFast::ExperienceFast (const UInt16& level)
-    : PokemonExperience (level)
+  ExperienceFast::ExperienceFast ()
   {
   }
 

@@ -31,8 +31,8 @@ namespace yap
     const uint& GetExperienceToNextLevel () const;
     const UInt16& GetLevel () const;
 
-    bool Learn (const ID& skillID);
-    void Replace (const ID& skillID, int index);
+    bool LearnSkill (const ID& skillID);
+    void ReplaceSkill (const ID& skillID, int index);
 
 
     void AddExperience (const Int32& value);
@@ -42,6 +42,7 @@ namespace yap
     void Init ();
     void InitExperience ();
     void InitMoveSet ();
+    void Evolve ();
 
     ID uniqueID_;
     ID staticID_;
@@ -49,6 +50,7 @@ namespace yap
     PokemonStat stats_;
     UInt16 level_;
     PokemonType type_;
+    Gender gender_;
     Status status_;
     bool shiny_;
     Int16 loyalty_;

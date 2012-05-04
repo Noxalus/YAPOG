@@ -1,0 +1,14 @@
+<Skill id="76">
+	<name>Lance-Soleil</name>
+	<description>Absorbe la lumière et attaque le tour suivant.</description>
+	<power>120</power>
+	<pp>10</pp>
+	<maxPP>16</maxPP>
+	<accuracy>100</accuracy>
+	<type>5</type>
+	<category>2</category>
+	<target>2</target>
+	<effect>151</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

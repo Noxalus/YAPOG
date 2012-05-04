@@ -3,6 +3,7 @@
 namespace yap
 {
   const int PokemonInfo::INITIAL_BASE_STATS_VALUE = 0;
+  const int PokemonInfo::INITIAL_BASE_EV_VALUE = 0;
   const UInt16 PokemonInfo::MAX_MOVE_NUMBER = 4;
 
   PokemonInfo::PokemonInfo ()
@@ -27,6 +28,14 @@ namespace yap
     baseSpeed_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
     type1_ = 0;
     type2_ = 0;
+    hitPointEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
+    attackEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
+    defenseEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
+    specialAttackEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
+    specialDefenseEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
+    speedEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
+    evolutionLevel_ = 0;
+    pokemonEvolutionID_ = ID (0);
   }
 
   PokemonInfo::PokemonInfo (const PokemonInfo& copy)
@@ -48,6 +57,14 @@ namespace yap
     , type1_ (copy.type1_)
     , type2_ (copy.type2_)
     , baseSkills_ (copy.baseSkills_)
+    , evolutionLevel_ (copy.evolutionLevel_)
+    , pokemonEvolutionID_ (copy.pokemonEvolutionID_)
+    , hitPointEV_ (copy.hitPointEV_)
+    , attackEV_ (copy.attackEV_)
+    , defenseEV_ (copy.defenseEV_)
+    , specialAttackEV_ (copy.specialAttackEV_)
+    , specialDefenseEV_ (copy.specialDefenseEV_)
+    , speedEV_ (copy.speedEV_)
   {
   }
 
@@ -174,6 +191,45 @@ namespace yap
     }
   }
 
+  void PokemonInfo::SetHitPointEV (const int& value)
+  {
+    hitPointEV_ = value;
+  }
+
+  void PokemonInfo::SetAttackEV (const int& value)
+  {
+    attackEV_ = value;
+  }
+
+  void PokemonInfo::SetDefenseEV (const int& value)
+  {
+    defenseEV_ = value;
+  }
+  void PokemonInfo::SetSpecialAttackEV (const int& value)
+  {
+    specialAttackEV_ = value;
+  }
+
+  void PokemonInfo::SetSpecialDefenseEV (const int& value)
+  {
+    specialDefenseEV_ = value;
+  }
+
+  void PokemonInfo::SetSpeedEV (const int& value)
+  {
+    speedEV_ = value;
+  }
+
+  void PokemonInfo::SetEvolutionLevel (UInt16 value)
+  {
+    evolutionLevel_ = value;
+  }
+
+  void PokemonInfo::SetPokemonEvolutionID (const ID& value)
+  {
+    pokemonEvolutionID_ = value;
+  }
+
   /// Getters
 
   const ID& PokemonInfo::GetID () const
@@ -261,12 +317,56 @@ namespace yap
     return type2_;
   }
 
-  const collection::List<ID>* PokemonInfo::GetNewSkills (const UInt16& level)
+  const collection::List<ID>* PokemonInfo::GetNewSkills (const UInt16& level) const
   {
     if (baseSkills_.Contains (level))
       return &baseSkills_[level];
     else
       return nullptr;
+  }
+
+  const int& PokemonInfo::GetHitPointEV () const
+  {
+    return hitPointEV_;
+  }
+
+  const int& PokemonInfo::GetAttackEV () const
+  {
+    return attackEV_;
+  }
+
+  const int& PokemonInfo::GetDefenseEV () const
+  {
+    return defenseEV_;
+  }
+
+  const int& PokemonInfo::GetSpecialAttackEV () const
+  {
+    return specialAttackEV_;
+  }
+
+  const int& PokemonInfo::GetSpecialDefenseEV () const
+  {
+    return specialDefenseEV_;
+  }
+
+  const int& PokemonInfo::GetSpeedEV () const
+  {
+    return speedEV_;
+  }
+
+  const bool PokemonInfo::CanEvolve () const
+  {
+    return (evolutionLevel_ > 0);
+  }
+
+  const UInt16 PokemonInfo::GetEvolutionLevel () const
+  {
+    return evolutionLevel_;
+  }
+  const ID& PokemonInfo::GetPokemonEvolutionID () const
+  {
+    return pokemonEvolutionID_;
   }
 
   void PokemonInfo::PrintBaseStats ()

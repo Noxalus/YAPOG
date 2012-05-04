@@ -7,7 +7,7 @@ namespace yap
   const uint PokemonExperience::MAX_EXPERIENCE_VALUE = 2000000;
   const UInt16 PokemonExperience::MAX_LEVEL_VALUE = 100;
 
-  PokemonExperience::PokemonExperience (const UInt16& level)
+  PokemonExperience::PokemonExperience ()
     : value_ (INITIAL_EXPERIENCE_VALUE)
     , experienceToNextLevel_ (INITIAL_EXPERIENCE_VALUE)
   {
