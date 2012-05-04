@@ -19,8 +19,9 @@ namespace yap
 
     virtual String GetContent () const;
     virtual void SetContent (String& contentArg);
-  private:
 
+  protected:
+    void Refresh ();
     virtual bool HandleOnEvent (const GuiEvent& guiEvent);
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
@@ -33,6 +34,7 @@ namespace yap
 
     virtual void HandleUpdate (const Time& dt);
 
+  private:
     String content_;
     Label* label_;
     Texture* curser_;

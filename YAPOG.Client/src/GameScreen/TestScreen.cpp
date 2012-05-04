@@ -216,7 +216,7 @@ void TestScreen::HandleInit ()
   WidgetTextBox* txtbox = new WidgetTextBox ();
   txtbox->SetSize (Vector2 (256, 64));
   WidgetBackground* bckgrd = new WidgetBackground ("bckgrd.png", true);
-  txtbox->SetBackground (*bckgr);
+  txtbox->SetBackground (*bckgrd);
 
   //yap::widgetbackground* bckgr = new widgetbackground ();
   //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);

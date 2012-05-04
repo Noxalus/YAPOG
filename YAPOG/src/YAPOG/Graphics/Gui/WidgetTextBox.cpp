@@ -14,10 +14,19 @@ namespace yap
     , curserRelPos_ (0)
   {
     label_ = new Label ();
-    label_->SetPosition (GetPosition ());
+    label_->SetPosition (Vector2 (GetPosition ().x,
+      GetPosition ().y + label_->GetCharHeight () / 2));
   }
   WidgetTextBox::~WidgetTextBox ()
   {
+  }
+
+  void WidgetTextBox::Refresh ()
+  {
+
+    label_->SetPosition (Vector2 (GetPosition ().x,
+      GetPosition ().y + label_->GetCharHeight () / 2));
+    BaseWidget::Refresh ();
   }
 
   Vector2 WidgetTextBox::HandleGetSize () const
@@ -72,19 +81,47 @@ namespace yap
     {
       if (guiEvent.key.code == sf::Keyboard::Back)
       {
+        uint contentLength = content_.length ();
         if (content_.length () > 0)
-          content_ = content_.substr (0, content_.length () - 1);
+          if (curserPos_ == 0)
+            content_ = content_.substr (0, content_.length () - 1);
+          else
+          {
+            String firstPart = content_.substr (0, content_.length () - curserPos_ - 1);
+            String lastPart = content_.substr (content_.length () - curserPos_);
 
-        if (label_->Length () < content_.length ())
-        {
-          String temp = content_.substr (content_.length () - 2);
-          String temp2 = label_->GetText ();
-          label_->SetText (temp + temp2.substr (0, temp2.length () - 1));
-        }
-        else
-          label_->SetText (content_);
+            content_ = firstPart + lastPart;
+          }
 
-        return true;
+          if (label_->Length () < contentLength)
+          {
+            if (curserRelPos_ == 0)
+            {
+              String temp;
+              if (content_.length () == label_->Length ())
+                temp = content_.substr (0, 1);
+              else
+                temp = content_.substr
+                (content_.length () - label_->Length () - 1, 1);
+              String temp2 = label_->GetText ();
+              label_->SetText (temp + temp2.substr (0, temp2.length () - 1));
+            }
+            else
+            {
+              String temp = label_->GetText ();
+              String firstPart = temp.substr (0, temp.length () - curserRelPos_ - 1);
+              String lastPart = temp.substr (temp.length () - curserRelPos_);
+
+              int charleft = label_->Length () - curserRelPos_;
+              char first = content_.at (content_.length () - curserPos_ - charleft);
+
+              label_->SetText (first + firstPart + lastPart);
+            }
+          }
+          else
+            label_->SetText (content_);
+
+          return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
@@ -127,6 +164,8 @@ namespace yap
     if (guiEvent.type == sf::Event::TextEntered)
     {
       char txt = static_cast<char> (guiEvent.text.unicode);
+      if (txt == '\b')
+        return true;
       if (curserPos_ > 0)
       {
         String firstPart = content_.substr (0, content_.length () - curserPos_);
@@ -150,7 +189,7 @@ namespace yap
 
       uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
 
-      if (label_->GetSize ().x > labelMaxWidth)
+      while (label_->GetSize ().x > labelMaxWidth)
       {
         label_->SetText (label_->GetText ().substr (1));
       }

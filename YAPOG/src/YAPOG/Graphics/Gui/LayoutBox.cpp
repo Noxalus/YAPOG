@@ -17,6 +17,7 @@ namespace yap
   void LayoutBox::Refresh ()
   {
     GeneratePosition ();
+    BaseWidget::Refresh ();
   }
 
   void LayoutBox::SetExtensible (bool isExt)

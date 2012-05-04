@@ -42,6 +42,12 @@ namespace yap
   {
     return textContent_.length ();
   }
+
+  uint Label::GetCharHeight () const
+  {
+    return drawableText_.getCharacterSize ();
+  }
+
   Vector2 Label::HandleGetSize () const
   {
     return Vector2 (padding_->left
@@ -90,18 +96,16 @@ namespace yap
 
   void Label::SetText (String& content)
   {
-    if (content.empty())
-      return;
-    else if (content == textContent_)
+    if (content == textContent_)
       return;
 
     textContent_ = content;
     drawableText_.setString (content);
-    /* drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
-    GetPosition ().y + padding_->top));*/
-    drawableText_.setPosition (GetPosition ().x,
+     drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
+    GetPosition ().y + padding_->top));
+    /*drawableText_.setPosition (GetPosition ().x,
       GetPosition ().y - drawableText_.getCharacterSize ()
-      + drawableText_.getGlobalBounds ().height);
+      + drawableText_.getGlobalBounds ().height);*/
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap
