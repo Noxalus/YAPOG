@@ -7,11 +7,6 @@ namespace yap
   {
   }
 
-  ExperienceMediumSlow::ExperienceMediumSlow (const UInt16& level)
-    : PokemonExperience (level)
-  {
-  }
-
   UInt32 ExperienceMediumSlow::ComputeExperienceFromLevel (const UInt16& level)
   {
     float value = (6.f/5.f) * MathHelper::Pow (level, 3);

@@ -7,11 +7,6 @@ namespace yap
   {
   }
 
-  ExperienceErratic::ExperienceErratic (const UInt16& level)
-    : PokemonExperience (level)
-  {
-  }
-
   UInt32 ExperienceErratic::ComputeExperienceFromLevel (const UInt16& level)
   {
     float value = 0;

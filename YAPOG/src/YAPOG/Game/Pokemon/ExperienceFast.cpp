@@ -7,11 +7,6 @@ namespace yap
   {
   }
 
-  ExperienceFast::ExperienceFast (const UInt16& level)
-    : PokemonExperience (level)
-  {
-  }
-
   UInt32 ExperienceFast::ComputeExperienceFromLevel (const UInt16& level)
   {
     return ((4.f / 5.f) * MathHelper::Pow (level, 3));

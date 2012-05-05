@@ -30,6 +30,16 @@ namespace yap
     return skillInfo_->GetName ();
   }
 
+  const UInt16& PokemonSkill::GetCurrentPP () const
+  {
+    return currentPP_;
+  }
+
+  const UInt16& PokemonSkill::GetMaxPP () const
+  {
+    return maxPP_;
+  }
+
   const UInt16& PokemonSkill::GetLimitPPMax () const
   {
     if (skillInfo_ == nullptr)

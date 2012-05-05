@@ -1,5 +1,6 @@
 #include "YAPOG/Game/Pokemon/PokemonInfoReader.hpp"
 #include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -26,6 +27,11 @@ namespace yap
   const String PokemonInfoReader::DEFAULT_XML_BASE_SKILLS_NODE_NAME = "baseSkills";
   const String PokemonInfoReader::DEFAULT_XML_SKILL_NODE_NAME = "skill";
   const String PokemonInfoReader::DEFAULT_XML_LEVEL_ATTR_NAME = "level";
+  const String PokemonInfoReader:: DEFAULT_XML_EVOLUTION_NODE_NAME = "evolution";
+  const String PokemonInfoReader:: DEFAULT_XML_POKEMON_ID_NODE_NAME = "pokemonID";
+  const String PokemonInfoReader:: DEFAULT_XML_STONE_NODE_NAME = "stone";
+  const String PokemonInfoReader:: DEFAULT_XML_ITEM_HOLD_NODE_NAME = "itemHold";
+  const String PokemonInfoReader::DEFAULT_XML_EFFORT_VALUES_NODE_NAME = "effortValues";
 
 
   PokemonInfoReader::PokemonInfoReader (PokemonInfo& pokeInfo)
@@ -103,7 +109,8 @@ namespace yap
 
     // <experienceType>
 
-    pokeInfo_.SetExperienceType (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME));
+    pokeInfo_.SetExperienceType (StringHelper::Parse<ExperienceType> 
+      (visitable.ReadString (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME)));
 
     // </experienceType>
 
@@ -126,6 +133,38 @@ namespace yap
 
     // </baseStat>
 
+    // <effortValues>
+
+    if (!visitable.TryChangeRoot (DEFAULT_XML_EFFORT_VALUES_NODE_NAME))
+    {
+      throw Exception (
+        "Failed to read `" + DEFAULT_XML_EFFORT_VALUES_NODE_NAME + "' node.");
+    }
+
+    pokeInfo_.SetHitPointEV (visitable.ReadInt (DEFAULT_XML_HP_NODE_NAME));
+    pokeInfo_.SetAttackEV (visitable.ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
+    pokeInfo_.SetDefenseEV (visitable.ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpecialAttackEV (visitable.ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
+    pokeInfo_.SetSpecialDefenseEV (visitable.ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpeedEV (visitable.ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
+
+    visitable.UpChangeRoot ();
+
+    // </effortValues>
+
+    // <evolution>
+
+    if (visitable.TryChangeRoot (DEFAULT_XML_EVOLUTION_NODE_NAME))
+    {
+      pokeInfo_.SetEvolutionLevel (
+        visitable.ReadInt (XmlHelper::GetAttrNodeName (DEFAULT_XML_LEVEL_ATTR_NAME)));
+      pokeInfo_.SetPokemonEvolutionID (visitable.ReadID ());
+
+      visitable.UpChangeRoot ();
+    }
+
+    // </evolution>
+
     // <baseSkills>
 
     if (!visitable.TryChangeRoot (DEFAULT_XML_BASE_SKILLS_NODE_NAME))
@@ -143,7 +182,6 @@ namespace yap
       ID skillID = skillReader->ReadID ();
 
       pokeInfo_.AddBaseSkill (level, skillID);
-      
     }
 
     visitable.UpChangeRoot ();
@@ -177,5 +215,9 @@ namespace yap
     visitable.UpChangeRoot ();
 
     // </PokemonInfo>
+  }
+
+  void PokemonInfoReader::ParseEvolution ()
+  {
   }
 }

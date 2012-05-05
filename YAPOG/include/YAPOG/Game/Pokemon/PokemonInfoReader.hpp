@@ -22,6 +22,8 @@ namespace yap
 
     virtual void Visit (XmlReader& visitable);
   private:
+    void ParseEvolution ();
+
     PokemonInfo& pokeInfo_;
     String xmlRootNodeName_;
 
@@ -48,6 +50,11 @@ namespace yap
     static const String DEFAULT_XML_BASE_SKILLS_NODE_NAME;
     static const String DEFAULT_XML_SKILL_NODE_NAME;
     static const String DEFAULT_XML_LEVEL_ATTR_NAME;
+    static const String DEFAULT_XML_EVOLUTION_NODE_NAME;
+    static const String DEFAULT_XML_POKEMON_ID_NODE_NAME;
+    static const String DEFAULT_XML_STONE_NODE_NAME;
+    static const String DEFAULT_XML_ITEM_HOLD_NODE_NAME;
+    static const String DEFAULT_XML_EFFORT_VALUES_NODE_NAME;
   };
 } // namespace yap
 

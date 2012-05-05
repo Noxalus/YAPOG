@@ -12,7 +12,6 @@ namespace yap
 
   public:
     ExperienceErratic ();
-    ExperienceErratic (const UInt16& level);
 
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level);
