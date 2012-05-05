@@ -148,6 +148,8 @@ ${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
+${inc_root}/Graphics/CameraController.hpp
+${src_root}/Graphics/CameraController.cpp
 ${inc_root}/Graphics/DrawingContext.hpp
 ${src_root}/Graphics/DrawingContext.cpp
 ${inc_root}/Graphics/Game/Game.hpp
@@ -238,6 +240,8 @@ ${inc_root}/Graphics/ICamera.hpp
 ${inc_root}/Graphics/IDrawable.hpp
 ${inc_root}/Graphics/IDrawingContext.hpp
 ${inc_root}/Graphics/ISpatial.hpp
+${inc_root}/Graphics/ProgressiveCameraController.hpp
+${src_root}/Graphics/ProgressiveCameraController.cpp
 ${inc_root}/Graphics/RectReader.hpp
 ${inc_root}/Graphics/RectReader.hxx
 ${inc_root}/Graphics/SpatialInfo.hpp

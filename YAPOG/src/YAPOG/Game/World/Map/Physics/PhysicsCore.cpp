@@ -16,6 +16,14 @@ namespace yap
   {
   }
 
+  PhysicsCore::PhysicsCore (const PhysicsCore& copy)
+    : velocity_ (copy.velocity_)
+    , minVelocity_ (copy.minVelocity_)
+    , maxVelocity_ (copy.maxVelocity_)
+    , move_ (copy.move_)
+  {
+  }
+
   void PhysicsCore::ApplyForce (const Vector2& force)
   {
     HandleApplyForce (force);
@@ -51,10 +59,12 @@ namespace yap
 
   void PhysicsCore::SetVelocity (const Vector2& velocity)
   {
-    Vector2 clampedVelocity (
+    velocity_ = Vector2 (
+      velocity.x < 0 ?
+      MathHelper::Clamp (velocity.x, -maxVelocity_.x, -minVelocity_.x) :
       MathHelper::Clamp (velocity.x, minVelocity_.x, maxVelocity_.x),
+      velocity.y < 0 ?
+      MathHelper::Clamp (velocity.y, -maxVelocity_.y, -minVelocity_.y) :
       MathHelper::Clamp (velocity.y, minVelocity_.y, maxVelocity_.y));
-
-    velocity_ = clampedVelocity;
   }
 } // namespace yap

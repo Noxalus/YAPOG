@@ -76,6 +76,13 @@ namespace ycl
     return HandleGetComparisonPoint ();
   }
 
+  void Character::HandleMove (const yap::Vector2& offset)
+  {
+    yap::Character::HandleMove (offset);
+
+    sprites_->Move (offset);
+  }
+
   void Character::HandleDraw (yap::IDrawingContext& context)
   {
     sprites_->Draw (context);

@@ -8,14 +8,23 @@ namespace yap
 {
   class YAPOG_LIB BasicPhysicsCore : public PhysicsCore
   {
-      DISALLOW_COPY(BasicPhysicsCore);
+      DISALLOW_ASSIGN(BasicPhysicsCore);
 
     public:
 
       BasicPhysicsCore ();
       virtual ~BasicPhysicsCore ();
 
+      virtual BasicPhysicsCore* Clone () const;
+
+    protected:
+
+      BasicPhysicsCore (const BasicPhysicsCore& copy);
+
     private:
+
+      static const Vector2 DEFAULT_MIN_VELOCITY_BOUNDS;
+      static const Vector2 DEFAULT_MAX_VELOCITY_BOUNDS;
 
       virtual void HandleApplyForce (const Vector2& force);
       virtual void ResetVelocity (const Time& dt);

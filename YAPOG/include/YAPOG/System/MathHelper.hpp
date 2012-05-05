@@ -26,6 +26,9 @@ namespace yap
       template <typename T1, typename T2>
       static int Pow (const T1& number, const T2& pow);
 
+      template <typename T>
+      static T Abs (const T& value);
+
     private:
 
       MathHelper ();

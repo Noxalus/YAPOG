@@ -10,9 +10,10 @@
 namespace yap
 {
   class WorldObjectPhysicsInfo;
+  class PhysicsCore;
 
   class YAPOG_LIB DynamicWorldObject : public WorldObject
-                           , public IUpdateable
+                                     , public IUpdateable
   {
       DISALLOW_ASSIGN(DynamicWorldObject);
 
@@ -22,6 +23,10 @@ namespace yap
 
       const ID& GetWorldID () const;
       void SetWorldID (const ID& id);
+
+      void SetPhysicsCore (PhysicsCore* physicsCore);
+      void ApplyForce (const Vector2& force);
+      const Vector2& GetMove () const;
 
       /// @name IUpdateable members.
       /// @{
@@ -36,15 +41,17 @@ namespace yap
 
       void SetPhysicsInfo (WorldObjectPhysicsInfo* physicsInfo);
 
-    private:
-
       virtual void HandleUpdate (const Time& dt);
 
-      virtual WorldObjectPhysicsInfo& GetPhysicsInfo () = 0;
+    private:
+
+      virtual void InitPhysicsInfo ();
 
       ID worldID_;
 
       WorldObjectState state_;
+
+      WorldObjectPhysicsInfo* physicsInfo_;
   };
 } // namespace yap
 

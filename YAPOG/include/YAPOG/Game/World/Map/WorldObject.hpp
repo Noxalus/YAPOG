@@ -63,12 +63,12 @@ namespace yap
       explicit WorldObject (const ID& id);
       WorldObject (const WorldObject& copy);
 
-    private:
-
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
       virtual void HandleSetZ (int z);
       virtual void HandleSetH (int h);
+
+    private:
 
       ID id_;
       Spatial3Info spatial3Info_;
