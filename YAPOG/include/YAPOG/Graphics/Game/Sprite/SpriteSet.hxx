@@ -34,13 +34,13 @@ namespace yap
     for (const auto& it : sprites_)
       delete it.second;
   }
-  /*
+
   template <typename K>
   inline SpriteSet<K>* SpriteSet<K>::Clone () const
   {
     return new SpriteSet<K> (*this);
   }
-  */
+
   template <typename K>
   inline void SpriteSet<K>::AddSprite (const KeyType& key, ISprite* sprite)
   {
