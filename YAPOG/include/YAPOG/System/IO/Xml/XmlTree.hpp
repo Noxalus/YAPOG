@@ -39,18 +39,9 @@ namespace yap
       void CreateFromStream (IStream& iStream, const String& rootName);
 
       void CreateFromXmlTree (const String& rootName, XmlTree& copy);
-/*      void CreateFromRawData (
-        const String& rootName,
-        XmlTree& rootSource,
-        DataType* data);*/
 
       /// @todo Enhance writing settings management.
       void Dump (OStream& oStream);
-
-
-//      void UpChangeRoot ();
-//      void DownChangeRoot (const String& name);
-//      bool TryChangeRoot (const String& name);
 
       XmlTreePtrType ChangeRoot (const String& rootName);
 
@@ -62,24 +53,14 @@ namespace yap
 
     private:
 
-//      void AbsoluteChangeRoot (const String& rootName);
-
       DataType& GetChild (const String& name);
       DataType& AbsoluteGetChild (const String& name);
 
       DataType& GetRootData ();
       const DataType& GetRootData () const;
 
-//      void SetAbsoluteRootName (const String& rootName);
-//      void AppendRootNodeName (const String& nodeName);
-//      void UpdateRelativeRootName ();
-
       DataType rootData_;
       DataType* data_;
-//      DataType* rootDataPtr_;
-
-//      String currentAbsoluteRootName_;
-//      String currentRelativeRootName_;
   };
 } // namespace yap
 

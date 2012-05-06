@@ -9,9 +9,6 @@ namespace yap
   XmlTree::XmlTree ()
     : rootData_ ()
     , data_ (nullptr)
-//    , rootDataPtr_ (nullptr)
-//    , currentAbsoluteRootName_ ()
-//    , currentRelativeRootName_ ()
   {
   }
 
@@ -31,30 +28,14 @@ namespace yap
   void XmlTree::CreateFromStream (IStream& iStream, const String& rootName)
   {
     read_xml (iStream, GetRootData ());
+
     data_ = &GetRootData ();
-//    AbsoluteChangeRoot (rootName);
   }
 
   void XmlTree::CreateFromXmlTree (const String& rootName, XmlTree& copy)
   {
-//    rootDataPtr_ = &rootSource.GetRootData ();
     data_ = &copy.GetChild (rootName);
-
-//    SetAbsoluteRootName (copy.currentAbsoluteRootName_);
-//    AppendRootNodeName (rootName);
   }
-
-/*  void XmlTree::CreateFromRawData (
-    const String& rootName,
-    XmlTree& rootSource,
-    DataType* data)
-  {
-    rootDataPtr_ = &rootSource.GetRootData ();
-    data_ = data;
-
-    SetAbsoluteRootName (rootSource.currentAbsoluteRootName_);
-    AppendRootNodeName (rootName);
-    }*/
 
   void XmlTree::Dump (OStream& oStream)
   {
@@ -62,39 +43,6 @@ namespace yap
 
     write_xml (oStream, rootData_, w);
   }
-
-/*  void XmlTree::AbsoluteChangeRoot (const String& rootName)
-  {
-    data_ = AbsoluteGetChild (rootName);
-  }
-
-  void XmlTree::UpChangeRoot ()
-  {
-    AbsoluteChangeRoot (
-      currentAbsoluteRootName_.substr (
-        0,
-        currentAbsoluteRootName_.find_last_of ('.')));
-  }
-
-  void XmlTree::DownChangeRoot (const String& rootName)
-  {
-    AppendRootNodeName (rootName);
-
-    data_ = &data_->get_child (rootName);
-  }
-
-  bool XmlTree::TryChangeRoot (const String& rootName)
-  {
-    if (currentRelativeRootName_ == rootName)
-      return true;
-
-    if (!NodeExists (rootName))
-      return false;
-
-    DownChangeRoot (rootName);
-
-    return true;
-    }*/
 
   XmlTreePtrType XmlTree::ChangeRoot (const String& rootName)
   {
@@ -128,37 +76,6 @@ namespace yap
   {
     return data_;
   }
-
-/*  void XmlTree::SetAbsoluteRootName (const String& rootName)
-  {
-    currentAbsoluteRootName_ = rootName;
-
-    UpdateRelativeRootName ();
-  }
-
-  void XmlTree::AppendRootNodeName (const String& nodeName)
-  {
-    if (nodeName.empty ())
-      return;
-
-    SetAbsoluteRootName (
-      currentAbsoluteRootName_ +
-      (currentAbsoluteRootName_.empty () ? "" : ".") +
-      nodeName);
-  }
-
-  void XmlTree::UpdateRelativeRootName ()
-  {
-    size_t lastPointIndex = currentAbsoluteRootName_.find_last_of ('.');
-    if (lastPointIndex == String::npos)
-    {
-      currentRelativeRootName_ = currentAbsoluteRootName_;
-      return;
-    }
-
-    currentRelativeRootName_ = currentAbsoluteRootName_.substr (
-      lastPointIndex + 1);
-      }*/
 
   XmlTree::DataType& XmlTree::GetChild (const String& name)
   {

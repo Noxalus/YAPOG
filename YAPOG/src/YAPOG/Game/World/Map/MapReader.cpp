@@ -23,9 +23,6 @@ namespace yap
 
   void MapReader::Visit (XmlReader& visitable)
   {
-//    if (!visitable.TryChangeRoot (xmlRootNodeName_))
-//      throw Exception (
-//        "Failed to read `" + xmlRootNodeName_ + "' node.");
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     map_.SetID (

@@ -22,26 +22,6 @@ namespace yap
   {
   }
 
-/*  void XmlReader::AbsoluteChangeRoot (const String& rootName)
-  {
-    data_.AbsoluteChangeRoot (rootName);
-  }
-
-  void XmlReader::UpChangeRoot ()
-  {
-    data_.UpChangeRoot ();
-  }
-
-  void XmlReader::DownChangeRoot (const String& rootName)
-  {
-    data_.DownChangeRoot (rootName);
-  }
-
-  bool XmlReader::TryChangeRoot (const String& rootName)
-  {
-    return data_.TryChangeRoot (rootName);
-    }*/
-
   XmlReaderPtrType XmlReader::ChangeRoot (const String& rootName)
   {
     return XmlReaderPtrType (
@@ -60,9 +40,6 @@ namespace yap
       if (it.first != name)
         continue;
 
-//      XmlTree data;
-//      data.CreateFromXmlTree (name, data_);
-//      data.CreateFromRawData (name, data_, &it.second);
       xmlReaderCollection.Add (
         XmlReaderPtrType (
           new XmlReader (
