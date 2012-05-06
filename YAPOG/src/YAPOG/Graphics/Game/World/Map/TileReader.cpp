@@ -29,30 +29,19 @@ namespace yap
 
   void TileReader::Visit (XmlReader& visitable)
   {
-    // <Tile>
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     tile_.SetID (
-      visitable.ReadID (
+      reader->ReadID (
         XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <{SpriteType}>
-
-    String spriteType = visitable.ReadString (
+    String spriteType = reader->ReadString (
       DEFAULT_XML_SPRITE_TYPE_NODE_NAME);
+
     tile_.SetSprite (
       ObjectFactory::Instance ().Create<ISprite> (
         spriteType,
-        visitable,
+        *reader,
         spriteType));
-
-    // </{SpriteType}>
-
-    visitable.UpChangeRoot ();
-
-    // </Tile>
   }
 } // namespace yap

@@ -32,35 +32,20 @@ namespace yap
 
   void TextureReader::Visit (XmlReader& visitable)
   {
-    // <Texture id="{id}>
-
-    if (!visitable.TryChangeRoot (xmlRootNodeName_))
-      YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     texture_.SetID (
-      visitable.ReadID (
+      reader->ReadID (
         XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <name>{name}</name>
+    texture_.LoadFromFile (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    texture_.LoadFromFile (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
-
-    if (!visitable.NodeExists (DEFAULT_XML_RECT_NODE_NAME))
-    {
-      visitable.UpChangeRoot ();
-
+    if (!reader->NodeExists (DEFAULT_XML_RECT_NODE_NAME))
       return;
-    }
-
-    // <rect>{rect}</rect>
 
     sf::IntRect rect;
     RectReader<int> rectReader (rect, DEFAULT_XML_RECT_NODE_NAME);
-    visitable.Accept (rectReader);
+    reader->Accept (rectReader);
     texture_.SetRect (rect);
-
-    visitable.UpChangeRoot ();
-
-    // </Texture>
   }
 } // namespace yap

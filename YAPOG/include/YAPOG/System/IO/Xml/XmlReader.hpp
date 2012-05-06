@@ -26,11 +26,11 @@ namespace yap
       XmlReader (IStream& iStream, const String& rootName);
       virtual ~XmlReader ();
 
-      void AbsoluteChangeRoot (const String& rootName);
-      void UpChangeRoot ();
-//      XmlReaderPtrType DownChangeRoot (const String& name);
-      void DownChangeRoot (const String& name);
-      bool TryChangeRoot (const String& name);
+//      void AbsoluteChangeRoot (const String& rootName);
+//      void UpChangeRoot ();
+      XmlReaderPtrType ChangeRoot (const String& name);
+//      void DownChangeRoot (const String& name);
+//      bool TryChangeRoot (const String& name);
 
       XmlReaderCollection& ReadNodes (
         const String& name,
@@ -90,7 +90,7 @@ namespace yap
 
     private:
 
-      XmlReader (XmlTree& data);
+      XmlReader (const String& rootName, XmlTree& data);
 
       XmlTree data_;
   };

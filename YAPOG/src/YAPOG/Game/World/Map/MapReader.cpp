@@ -23,32 +23,19 @@ namespace yap
 
   void MapReader::Visit (XmlReader& visitable)
   {
-    // <Map id="{id}">
-
-    if (!visitable.TryChangeRoot (xmlRootNodeName_))
-      throw Exception (
-        "Failed to read `" + xmlRootNodeName_ + "' node.");
+//    if (!visitable.TryChangeRoot (xmlRootNodeName_))
+//      throw Exception (
+//        "Failed to read `" + xmlRootNodeName_ + "' node.");
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     map_.SetID (
-      visitable.ReadID (
+      reader->ReadID (
         XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <name>
-
-    map_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
-
-    // </name>
-
-    // <width/height>
+    map_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
     map_.SetSize (
-      visitable.ReadUInt (DEFAULT_XML_WIDTH_NODE_NAME),
-      visitable.ReadUInt (DEFAULT_XML_HEIGHT_NODE_NAME));
-
-    // </width/height>
-
-    visitable.UpChangeRoot ();
-
-    // </Map>
+      reader->ReadUInt (DEFAULT_XML_WIDTH_NODE_NAME),
+      reader->ReadUInt (DEFAULT_XML_HEIGHT_NODE_NAME));
   }
 } // namespace yap

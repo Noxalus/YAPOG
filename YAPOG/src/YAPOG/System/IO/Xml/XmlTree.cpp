@@ -9,9 +9,15 @@ namespace yap
   XmlTree::XmlTree ()
     : rootData_ ()
     , data_ (nullptr)
-    , rootDataPtr_ (nullptr)
-    , currentAbsoluteRootName_ ()
-    , currentRelativeRootName_ ()
+//    , rootDataPtr_ (nullptr)
+//    , currentAbsoluteRootName_ ()
+//    , currentRelativeRootName_ ()
+  {
+  }
+
+  XmlTree::XmlTree (const XmlTree& copy)
+    : rootData_ ()
+    , data_ (copy.data_)
   {
   }
 
@@ -25,16 +31,20 @@ namespace yap
   void XmlTree::CreateFromStream (IStream& iStream, const String& rootName)
   {
     read_xml (iStream, GetRootData ());
-
-    AbsoluteChangeRoot (rootName);
+    data_ = &GetRootData ();
+//    AbsoluteChangeRoot (rootName);
   }
 
-  void XmlTree::CreateFromXmlTree (XmlTree& copy)
+  void XmlTree::CreateFromXmlTree (const String& rootName, XmlTree& copy)
   {
-    CreateFromRawData ("", copy, copy.data_);
+//    rootDataPtr_ = &rootSource.GetRootData ();
+    data_ = &copy.GetChild (rootName);
+
+//    SetAbsoluteRootName (copy.currentAbsoluteRootName_);
+//    AppendRootNodeName (rootName);
   }
 
-  void XmlTree::CreateFromRawData (
+/*  void XmlTree::CreateFromRawData (
     const String& rootName,
     XmlTree& rootSource,
     DataType* data)
@@ -44,7 +54,7 @@ namespace yap
 
     SetAbsoluteRootName (rootSource.currentAbsoluteRootName_);
     AppendRootNodeName (rootName);
-  }
+    }*/
 
   void XmlTree::Dump (OStream& oStream)
   {
@@ -53,11 +63,9 @@ namespace yap
     write_xml (oStream, rootData_, w);
   }
 
-  void XmlTree::AbsoluteChangeRoot (const String& rootName)
+/*  void XmlTree::AbsoluteChangeRoot (const String& rootName)
   {
-    SetAbsoluteRootName (rootName);
-
-    data_ = &GetRootData ().get_child (rootName);
+    data_ = AbsoluteGetChild (rootName);
   }
 
   void XmlTree::UpChangeRoot ()
@@ -86,6 +94,15 @@ namespace yap
     DownChangeRoot (rootName);
 
     return true;
+    }*/
+
+  XmlTreePtrType XmlTree::ChangeRoot (const String& rootName)
+  {
+    XmlTreePtrType xmlTreePtr (new XmlTree ());
+
+    xmlTreePtr->CreateFromXmlTree (rootName, *this);
+
+    return xmlTreePtr;
   }
 
   bool XmlTree::NodeExists (const String& name) const
@@ -112,7 +129,7 @@ namespace yap
     return data_;
   }
 
-  void XmlTree::SetAbsoluteRootName (const String& rootName)
+/*  void XmlTree::SetAbsoluteRootName (const String& rootName)
   {
     currentAbsoluteRootName_ = rootName;
 
@@ -141,15 +158,25 @@ namespace yap
 
     currentRelativeRootName_ = currentAbsoluteRootName_.substr (
       lastPointIndex + 1);
+      }*/
+
+  XmlTree::DataType& XmlTree::GetChild (const String& name)
+  {
+    return data_->get_child (name);
+  }
+
+  XmlTree::DataType& XmlTree::AbsoluteGetChild (const String& name)
+  {
+    return GetRootData ().get_child (name);
   }
 
   XmlTree::DataType& XmlTree::GetRootData ()
   {
-    return rootDataPtr_ == nullptr ? rootData_ : *rootDataPtr_;
+    return rootData_;
   }
 
   const XmlTree::DataType& XmlTree::GetRootData () const
   {
-    return rootDataPtr_ == nullptr ? rootData_ : *rootDataPtr_;
+    return rootData_;
   }
 } // namespace yap
