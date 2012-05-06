@@ -127,17 +127,19 @@ namespace yap
       {
         if (curserPos_ >= content_.length ())
           return true;
-        else if (curserPos_ >= label_->Length ())
-        {
-          uint size = content_.length () - 1;
-          String temp = label_->GetText ().substr (0, label_->Length () - 1);
 
-          label_->SetText (content_.substr (0, size) + temp);
-
-        }
+        curserPos_++;
         if (curserRelPos_ < label_->Length ())
           curserRelPos_++;
-        curserPos_++;
+        else
+        {
+          int charleft = label_->Length () - curserRelPos_;
+          char first = content_.at (content_.length () - curserPos_ - charleft);
+
+          String temp = label_->GetText ().substr (0, label_->Length () - 1);
+
+          label_->SetText (first + temp);
+        }
 
         return true;
       }
@@ -151,8 +153,8 @@ namespace yap
           curserRelPos_--;
         else
         {
-          String lastStr = content_.substr (curserPos_, 1);
-          label_->SetText (label_->GetText ().substr (1) + lastStr);
+          char end = content_.at (content_.length () - curserPos_);          
+          label_->SetText (label_->GetText ().substr (1) + end);
         }
 
         curserPos_--;

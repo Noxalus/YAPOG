@@ -4,6 +4,7 @@
 #include "YAPOG\Graphics\IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
 namespace yap
 {
@@ -94,6 +95,15 @@ namespace yap
     return textContent_;
   }
 
+  void Label::SetBackground (WidgetBackground& background)
+  {
+    background_= &background;
+    background_->SetPosition (GetPosition ()/* + Vector2 (0,
+      drawableText_.getGlobalBounds ().height
+      - drawableText_.getCharacterSize ())*/);
+    background_->SetBackground (GetSize ());
+  }
+
   void Label::SetText (String& content)
   {
     if (content == textContent_)
@@ -101,11 +111,11 @@ namespace yap
 
     textContent_ = content;
     drawableText_.setString (content);
-     drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
-    GetPosition ().y + padding_->top));
-    /*drawableText_.setPosition (GetPosition ().x,
-      GetPosition ().y - drawableText_.getCharacterSize ()
-      + drawableText_.getGlobalBounds ().height);*/
+    /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
+      GetPosition ().y + padding_->top));*/
+    drawableText_.setPosition (GetPosition ().x,
+    GetPosition ().y - drawableText_.getCharacterSize ()
+    + drawableText_.getGlobalBounds ().height);
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

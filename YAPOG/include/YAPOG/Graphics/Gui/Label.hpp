@@ -38,8 +38,10 @@ namespace yap
     uint GetCharHeight () const;
     Vector2 CharPos (uint pos) const;
     uint Length () const;
+    virtual void SetBackground (WidgetBackground& background);
 
   private:
+
     virtual Vector2 HandleGetSize () const;
 
     virtual void HandleMove (const Vector2& offset);

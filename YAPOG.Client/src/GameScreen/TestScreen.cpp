@@ -182,7 +182,7 @@ void TestScreen::HandleInit ()
   label->ChangeColor (sf::Color (90, 255, 128, 128));
 
   yap::PictureBox* pb = new PictureBox ();
-  pb->SetPicture (String("jarri_j.jpg"));
+  pb->SetPicture (String("jarri_j.png"));
   pb->Scale (Vector2 (1, 1));
 
   WidgetBorder* border = new WidgetBorder ("heart.gif");
@@ -201,8 +201,8 @@ void TestScreen::HandleInit ()
   ts->SetBackground (*bckgr);
   ts3->SetBackground (*bckgr2);
   
-  layouth->AddChild (*ts, LayoutBox::Align::TOP);
-  layouth->AddChild (*ts3, LayoutBox::Align::TOP);
+  layouth->AddChild (*ts, LayoutBox::Align::BOTTOM);
+  layouth->AddChild (*ts3, LayoutBox::Align::BOTTOM);
 
   Label* ts2 = new Label ("OLOL");
   pb->SetBorder (*border, 16);

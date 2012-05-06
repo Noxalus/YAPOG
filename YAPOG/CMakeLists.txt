@@ -105,6 +105,8 @@ ${src_root}/Graphics/Gui/MenuItem.cpp
 ${src_root}/Graphics/Gui/Menu.cpp
 ${inc_root}/Graphics/Gui/WidgetBackground.hpp
 ${src_root}/Graphics/Gui/WidgetBackground.cpp
+${inc_root}/Graphics/Gui/WidgetTextBox.hpp
+${src_root}/Graphics/Gui/WidgetTextBox.cpp
 ${inc_root}/Graphics/Gui/WidgetBorder.hpp
 ${src_root}/Graphics/Gui/WidgetBorder.cpp
 ${inc_root}/Graphics/Gui/Padding.hpp

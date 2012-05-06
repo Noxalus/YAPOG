@@ -24,13 +24,15 @@ namespace yap
   {
     float totalPad = 0;
 
-    if (globalAlign_ == Align::LEFT)
-      totalPad = externPad_.left;
+    
+    if (globalAlign_ == Align::RIGHT)
+      totalPad = GetSize ().x - externPad_.right;
     else if (globalAlign_ == Align::CENTER)
       totalPad = (GetSize ().x - externPad_.left- externPad_.right) / 2
       + externPad_.left;
-    else if (globalAlign_ == Align::RIGHT)
-      totalPad = GetSize ().x - externPad_.right;
+    else
+      totalPad = externPad_.left;
+
 
     float topAlign = externPad_.top;
     float botAlign = GetSize ().y - externPad_.bottom;
