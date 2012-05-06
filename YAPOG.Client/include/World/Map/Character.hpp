@@ -44,6 +44,8 @@ namespace ycl
 
       Character (const Character& copy);
 
+      virtual void HandleSetState (const yap::String& state);
+
       virtual void HandleMove (const yap::Vector2& offset);
 
       virtual void HandleDraw (yap::IDrawingContext& context);

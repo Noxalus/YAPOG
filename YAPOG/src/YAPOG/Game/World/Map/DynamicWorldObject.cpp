@@ -3,6 +3,8 @@
 
 namespace yap
 {
+  const String DynamicWorldObject::DEFAULT_INACTIVE_STATE = "Inactive";
+
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
     , worldID_ ()
@@ -62,6 +64,56 @@ namespace yap
     return physicsInfo_->GetMove ();
   }
 
+  bool DynamicWorldObject::IsActive () const
+  {
+    return GetLogicalState () != DEFAULT_INACTIVE_STATE;
+  }
+
+  const String& DynamicWorldObject::GetState () const
+  {
+    return state_.GetName ();
+  }
+
+  const String& DynamicWorldObject::GetLogicalState () const
+  {
+    return state_.GetLogicalName ();
+  }
+
+  bool DynamicWorldObject::TryChangeState (const String& state)
+  {
+    if (IsActive ())
+    {
+      if (state_.IsJoinedTo (state))
+      {
+        SetState (state);
+        return true;
+      }
+
+      if (state != DEFAULT_INACTIVE_STATE)
+        return GetState () == state;
+
+      SetInactive ();
+
+      return true;
+    }
+
+    SetState (state);
+
+    return true;
+  }
+
+  void DynamicWorldObject::SetInactive ()
+  {
+    SetState (DEFAULT_INACTIVE_STATE);
+  }
+
+  void DynamicWorldObject::SetState (const String& state)
+  {
+    state_ = state;
+
+    HandleSetState (state);
+  }
+
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);
@@ -75,5 +127,9 @@ namespace yap
   void DynamicWorldObject::HandleUpdate (const Time& dt)
   {
     physicsInfo_->Update (dt);
+  }
+
+  void DynamicWorldObject::HandleSetState (const String& state)
+  {
   }
 } // namespace yap

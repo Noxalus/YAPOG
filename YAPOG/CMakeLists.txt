@@ -80,6 +80,8 @@ ${inc_root}/Game/World/Map/WorldObject.hpp
 ${src_root}/Game/World/Map/WorldObject.cpp
 ${inc_root}/Game/World/Map/WorldObjectState.hpp
 ${src_root}/Game/World/Map/WorldObjectState.cpp
+${inc_root}/Game/World/Map/WorldObjectStateFactory.hpp
+${src_root}/Game/World/Map/WorldObjectStateFactory.cpp
 ${inc_root}/Game/World/Map/WorldObjectPhysicsInfo.hpp
 ${src_root}/Game/World/Map/WorldObjectPhysicsInfo.cpp
 ${inc_root}/Game/World/Map/WorldObjectReader.hpp

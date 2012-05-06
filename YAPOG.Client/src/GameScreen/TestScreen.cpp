@@ -154,8 +154,6 @@ namespace ycl
       new yap::GameInput (
         yap::GameInputType::Right,
         new yap::KeyboardGameInputEntry (yap::Key::Right)));
-
-
   }
 
   TestScreen::~TestScreen ()
@@ -170,12 +168,15 @@ namespace ycl
     {
       pcc = new yap::ProgressiveCameraController (context.GetCamera ("World"));
       pcc->SetTarget (*p1);
-      pcc->SetBounds (yap::FloatRect (0.0f, 0.0f, 1000.0f, 1000.0f));
+      pcc->SetBounds (yap::FloatRect (0.0f, 0.0f, 5000.0f, 5000.0f));
     }
 
     const float forceValue = 100000000.0f;
     if (gim.GameInputIsActive (yap::GameInputType::Down))
+    {
       p1->ApplyForce (yap::Vector2 (0.0f, forceValue));
+//      p1->TryChangeState ("Walking");
+    }
     else if (gim.GameInputIsActive (yap::GameInputType::Up))
       p1->ApplyForce (yap::Vector2 (0.0f, -forceValue));
     else if (gim.GameInputIsActive (yap::GameInputType::Left))

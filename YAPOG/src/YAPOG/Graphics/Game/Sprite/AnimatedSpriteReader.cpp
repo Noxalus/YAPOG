@@ -22,6 +22,8 @@ namespace yap
 
   void AnimatedSpriteReader::Visit (XmlReader& visitable)
   {
+    BaseSpriteReader::Visit (visitable);
+
     if (!visitable.TryChangeRoot (xmlRootNodeName_))
       YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
 

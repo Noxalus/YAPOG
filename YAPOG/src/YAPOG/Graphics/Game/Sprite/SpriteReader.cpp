@@ -22,12 +22,8 @@ namespace yap
 
   void SpriteReader::Visit (XmlReader& visitable)
   {
-    // <Sprite>
-
     if (!visitable.TryChangeRoot (xmlRootNodeName_))
       YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
-
-    // <Texture id="{id}"/>
 
     visitable.DownChangeRoot (DEFAULT_XML_TEXTURE_NODE_NAME);
 
@@ -37,8 +33,6 @@ namespace yap
         visitable.ReadID (
           XmlHelper::GetAttrNodeName (DEFAULT_XML_TEXTURE_ID_NODE_NAME))));
 
-    visitable.UpChangeRoot ();
-
-    // </Sprite>
+//    visitable.UpChangeRoot ();
   }
 } // namespace yap

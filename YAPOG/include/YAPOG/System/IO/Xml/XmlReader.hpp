@@ -1,6 +1,8 @@
 #ifndef YAPOG_XMLREADER_HPP
 # define YAPOG_XMLREADER_HPP
 
+# include <memory>
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IOStream.hpp"
@@ -9,6 +11,9 @@
 
 namespace yap
 {
+  class XmlReader;
+  typedef std::shared_ptr<XmlReader> XmlReaderPtrType;
+
   class XmlReaderCollection;
 
   class YAPOG_LIB XmlReader : public IReader
@@ -23,6 +28,7 @@ namespace yap
 
       void AbsoluteChangeRoot (const String& rootName);
       void UpChangeRoot ();
+//      XmlReaderPtrType DownChangeRoot (const String& name);
       void DownChangeRoot (const String& name);
       bool TryChangeRoot (const String& name);
 

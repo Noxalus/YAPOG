@@ -28,6 +28,12 @@ namespace yap
       void ApplyForce (const Vector2& force);
       const Vector2& GetMove () const;
 
+      const String& GetState () const;
+      const String& GetLogicalState () const;
+      bool TryChangeState (const String& state);
+      void SetInactive ();
+      bool IsActive () const;
+
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
@@ -42,10 +48,15 @@ namespace yap
       void SetPhysicsInfo (WorldObjectPhysicsInfo* physicsInfo);
 
       virtual void HandleUpdate (const Time& dt);
+      virtual void HandleSetState (const String& state);
 
     private:
 
+      void SetState (const String& state);
+
       virtual void InitPhysicsInfo ();
+
+      static const String DEFAULT_INACTIVE_STATE;
 
       ID worldID_;
 

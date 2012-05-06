@@ -26,6 +26,22 @@ namespace yap
       delete it;
   }
 
+  AnimatedSprite::AnimatedSprite (const AnimatedSprite& copy)
+    : BaseSprite (copy)
+    , sprites_ ()
+    , frameSwitcher_ (copy.frameSwitcher_->Clone ())
+    , currentState_ (copy.currentState_)
+    , currentIndex_ (DEFAULT_DEFAULT_INDEX)
+    , currentFrame_ (nullptr)
+    , defaultIndex_ (DEFAULT_DEFAULT_INDEX)
+  {
+    for (ISprite* sprite : copy.sprites_)
+      AddFrame (sprite->Clone ());
+
+    SetDefaultFrame (copy.defaultIndex_);
+    SetCurrentFrame (copy.currentIndex_);
+  }
+
   void AnimatedSprite::AddFrame (ISprite* sprite)
   {
     sprites_.Add (sprite);
