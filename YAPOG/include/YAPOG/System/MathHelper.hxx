@@ -35,6 +35,11 @@ namespace yap
     return std::pow (number, pow);
   }
 
+  template <typename T>
+  T MathHelper::Abs (const T& value)
+  {
+    return value < 0 ? -value : value;
+  }
 } // namespace yap
 
 #endif // YAPOG_MATHHELPER_HXX

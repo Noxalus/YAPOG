@@ -30,7 +30,7 @@ namespace yap
 
       /// @name ICloneable members.
       /// @{
-      //virtual SpriteSet* Clone () const;
+      virtual SpriteSet* Clone () const;
       /// @}
 
     protected:

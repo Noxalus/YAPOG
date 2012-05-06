@@ -7,16 +7,16 @@ namespace yap
   const String SkillInfoReader::DEFAULT_XML_ID_NODE_NAME = "id";
   const String SkillInfoReader::DEFAULT_XML_NAME_NODE_NAME = "name";
   const String SkillInfoReader::DEFAULT_XML_DESCRIPTION_NODE_NAME = "description";
-    const String SkillInfoReader::DEFAULT_XML_POWER_NODE_NAME = "power";
-    const String SkillInfoReader::DEFAULT_XML_PP_NODE_NAME = "pp";
-    const String SkillInfoReader::DEFAULT_XML_MAX_PP_NODE_NAME = "maxPP";
-    const String SkillInfoReader::DEFAULT_XML_ACCURACY_NODE_NAME = "accuracy";
-    const String SkillInfoReader::DEFAULT_XML_TYPE_NODE_NAME = "type";
-    const String SkillInfoReader::DEFAULT_XML_CATEGORY_NODE_NAME = "category";
-    const String SkillInfoReader::DEFAULT_XML_TARGET_NODE_NAME = "target";
-    const String SkillInfoReader::DEFAULT_XML_EFFECT_NODE_NAME = "effect";
-    const String SkillInfoReader::DEFAULT_XML_USE_NODE_NAME = "use";
-    const String SkillInfoReader::DEFAULT_XML_PRIORITY_NODE_NAME = "priority";
+  const String SkillInfoReader::DEFAULT_XML_POWER_NODE_NAME = "power";
+  const String SkillInfoReader::DEFAULT_XML_PP_NODE_NAME = "pp";
+  const String SkillInfoReader::DEFAULT_XML_MAX_PP_NODE_NAME = "maxPP";
+  const String SkillInfoReader::DEFAULT_XML_ACCURACY_NODE_NAME = "accuracy";
+  const String SkillInfoReader::DEFAULT_XML_TYPE_NODE_NAME = "type";
+  const String SkillInfoReader::DEFAULT_XML_CATEGORY_NODE_NAME = "category";
+  const String SkillInfoReader::DEFAULT_XML_TARGET_NODE_NAME = "target";
+  const String SkillInfoReader::DEFAULT_XML_EFFECT_NODE_NAME = "effect";
+  const String SkillInfoReader::DEFAULT_XML_USE_NODE_NAME = "use";
+  const String SkillInfoReader::DEFAULT_XML_PRIORITY_NODE_NAME = "priority";
 
   SkillInfoReader::SkillInfoReader (SkillInfo& typeInfo)
     : skillInfo_ (typeInfo)
@@ -24,10 +24,10 @@ namespace yap
   }
 
   SkillInfoReader::SkillInfoReader (
-    SkillInfo& typeInfo, 
+    SkillInfo& typeInfo,
     const String& xmlRootNodeName)
     : skillInfo_ (typeInfo),
-    xmlRootNodeName_ (xmlRootNodeName)
+      xmlRootNodeName_ (xmlRootNodeName)
   {
   }
 
@@ -37,92 +37,36 @@ namespace yap
 
   void SkillInfoReader::Visit (XmlReader& visitable)
   {
-    // <Skill id="{id}">
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
-    }
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     skillInfo_.SetID (
-      visitable.ReadID (
-      XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
+      reader->ReadID (
+        XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <name>
+    skillInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    skillInfo_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
+    skillInfo_.SetDescription (
+      reader->ReadString (
+        DEFAULT_XML_DESCRIPTION_NODE_NAME));
 
-    // </name>
+    skillInfo_.SetPower (reader->ReadInt (DEFAULT_XML_POWER_NODE_NAME));
 
-    // <description>
+    skillInfo_.SetPP (reader->ReadInt (DEFAULT_XML_PP_NODE_NAME));
 
-    skillInfo_.SetDescription (visitable.ReadString (DEFAULT_XML_DESCRIPTION_NODE_NAME));
+    skillInfo_.SetMaxPP (reader->ReadInt (DEFAULT_XML_MAX_PP_NODE_NAME));
 
-    // </description>
+    skillInfo_.SetAccuracy (reader->ReadInt (DEFAULT_XML_ACCURACY_NODE_NAME));
 
-    // <power>
+    skillInfo_.SetType (reader->ReadInt (DEFAULT_XML_TYPE_NODE_NAME));
 
-    skillInfo_.SetPower (visitable.ReadInt (DEFAULT_XML_POWER_NODE_NAME));
+    skillInfo_.SetCategory (reader->ReadInt (DEFAULT_XML_CATEGORY_NODE_NAME));
 
-    // </power>
+    skillInfo_.SetTarget (reader->ReadInt (DEFAULT_XML_TARGET_NODE_NAME));
 
-    // <pp>
+    skillInfo_.SetEffect (reader->ReadInt (DEFAULT_XML_EFFECT_NODE_NAME));
 
-    skillInfo_.SetPP (visitable.ReadInt (DEFAULT_XML_PP_NODE_NAME));
+    skillInfo_.SetUse (reader->ReadInt (DEFAULT_XML_USE_NODE_NAME));
 
-    // </pp>
-
-    // <maxPP>
-
-    skillInfo_.SetMaxPP (visitable.ReadInt (DEFAULT_XML_MAX_PP_NODE_NAME));
-
-    // </maxPP>
-
-    // <accuracy>
-
-    skillInfo_.SetAccuracy (visitable.ReadInt (DEFAULT_XML_ACCURACY_NODE_NAME));
-
-    // </accuracy>
-
-    // <type>
-
-    skillInfo_.SetType (visitable.ReadInt (DEFAULT_XML_TYPE_NODE_NAME));
-
-    // </type>
-
-    // <category>
-
-    skillInfo_.SetCategory (visitable.ReadInt (DEFAULT_XML_CATEGORY_NODE_NAME));
-
-    // </category>
-
-    // <target>
-
-    skillInfo_.SetTarget (visitable.ReadInt (DEFAULT_XML_TARGET_NODE_NAME));
-
-    // </target>
-
-    // <effect>
-
-    skillInfo_.SetEffect (visitable.ReadInt (DEFAULT_XML_EFFECT_NODE_NAME));
-
-    // </effect>
-
-    // <use>
-
-    skillInfo_.SetUse (visitable.ReadInt (DEFAULT_XML_USE_NODE_NAME));
-
-    // </use>
-
-    // <priority>
-
-    skillInfo_.SetPriority (visitable.ReadInt (DEFAULT_XML_PRIORITY_NODE_NAME));
-
-    // </priority>
-
-    visitable.UpChangeRoot ();
-
-    // </Skill>
+    skillInfo_.SetPriority (reader->ReadInt (DEFAULT_XML_PRIORITY_NODE_NAME));
   }
 }

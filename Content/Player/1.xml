@@ -14,7 +14,7 @@
         </sprite>
       </DirectionSpriteSet>
     </sprite>
-<!--    <sprite>
+    <sprite>
       <key>Walking</key>
       <spriteType>DirectionSpriteSet</spriteType>
       <DirectionSpriteSet>
@@ -43,6 +43,6 @@
           </AnimatedSprite>
         </sprite>
       </DirectionSpriteSet>
-    </sprite>-->
+    </sprite>
   </StringSpriteSet>
 </Player>

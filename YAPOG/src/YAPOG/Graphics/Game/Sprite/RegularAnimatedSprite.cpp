@@ -13,6 +13,21 @@ namespace yap
         Time (1.0f / static_cast<float> (DEFAULT_FRAME_RATE))));
   }
 
+  RegularAnimatedSprite::~RegularAnimatedSprite ()
+  {
+  }
+
+  RegularAnimatedSprite::RegularAnimatedSprite (
+    const RegularAnimatedSprite& copy)
+    : AnimatedSprite (copy)
+  {
+  }
+
+  RegularAnimatedSprite* RegularAnimatedSprite::Clone () const
+  {
+    return new RegularAnimatedSprite (*this);
+  }
+
   RegularAnimatedSprite::RegularAnimatedSprite (const Time& delay)
     : AnimatedSprite ()
   {
@@ -25,9 +40,5 @@ namespace yap
     SetFrameSwitcher (
       new DelayedFrameSwitcher (
         Time (1.0f / static_cast<float> (frameRate))));
-  }
-
-  RegularAnimatedSprite::~RegularAnimatedSprite ()
-  {
   }
 } // namespace yap

@@ -22,24 +22,13 @@ namespace yap
   {
   }
 
-  void XmlReader::AbsoluteChangeRoot (const String& rootName)
+  XmlReaderPtrType XmlReader::ChangeRoot (const String& rootName)
   {
-    data_.AbsoluteChangeRoot (rootName);
-  }
-
-  void XmlReader::UpChangeRoot ()
-  {
-    data_.UpChangeRoot ();
-  }
-
-  void XmlReader::DownChangeRoot (const String& rootName)
-  {
-    data_.DownChangeRoot (rootName);
-  }
-
-  bool XmlReader::TryChangeRoot (const String& rootName)
-  {
-    return data_.TryChangeRoot (rootName);
+    return XmlReaderPtrType (
+      new XmlReader (
+        rootName,
+        *data_.ChangeRoot (
+          rootName)));
   }
 
   XmlReaderCollection& XmlReader::ReadNodes (
@@ -51,9 +40,11 @@ namespace yap
       if (it.first != name)
         continue;
 
-      XmlTree data;
-      data.CreateFromRawData (name, data_, &it.second);
-      xmlReaderCollection.Add (XmlReaderPtrType (new XmlReader (data)));
+      xmlReaderCollection.Add (
+        XmlReaderPtrType (
+          new XmlReader (
+            name,
+            *data_.ChangeRoot (name))));
     }
 
     return xmlReaderCollection;
@@ -231,9 +222,8 @@ namespace yap
     return ID (ReadUInt64 (name));
   }
 
-  XmlReader::XmlReader (XmlTree& data)
-    : data_ ()
+  XmlReader::XmlReader (const String& rootName, XmlTree& data)
+    : data_ (data)
   {
-    data_.CreateFromXmlTree (data);
   }
 } // namespace yap

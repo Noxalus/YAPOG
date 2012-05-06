@@ -3,13 +3,15 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Game/Factory/ICloneable.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 
 namespace yap
 {
   class YAPOG_LIB PhysicsCore : public IUpdateable
+                              , public ICloneable
   {
-      DISALLOW_COPY(PhysicsCore);
+      DISALLOW_ASSIGN(PhysicsCore);
 
     public:
 
@@ -23,9 +25,16 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual PhysicsCore* Clone () const = 0;
+      /// @}
+
     protected:
 
       PhysicsCore ();
+
+      PhysicsCore (const PhysicsCore& copy);
 
       void SetVelocityBounds (const Vector2& min, const Vector2& max);
 

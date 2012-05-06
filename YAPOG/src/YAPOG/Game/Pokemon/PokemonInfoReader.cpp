@@ -53,128 +53,62 @@ namespace yap
 
   void PokemonInfoReader::Visit (XmlReader& visitable)
   {
-    // <PokemonInfo id="{id}">
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
-    }
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     pokeInfo_.SetID (
-      visitable.ReadID (
+      reader->ReadID (
       XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <name>
+    pokeInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    pokeInfo_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
+    pokeInfo_.SetDescription (reader->ReadString (DEFAULT_XML_DESCRIPTION_NODE_NAME));
 
-    // </name>
+    pokeInfo_.SetSpecies (reader->ReadString (DEFAULT_XML_SPECIES_NODE_NAME));
 
-    // <description>
+    pokeInfo_.SetHeight (reader->ReadFloat (DEFAULT_XML_HEIGHT_NODE_NAME));
 
-    pokeInfo_.SetDescription (visitable.ReadString (DEFAULT_XML_DESCRIPTION_NODE_NAME));
+    pokeInfo_.SetWeight (reader->ReadFloat (DEFAULT_XML_WEIGHT_NODE_NAME));
 
-    // </description>
+    pokeInfo_.SetRarity (reader->ReadInt (DEFAULT_XML_RARITY_NODE_NAME));
 
-    // <species>
+    pokeInfo_.SetExperience (reader->ReadInt (DEFAULT_XML_EXPERIENCE_NODE_NAME));
 
-    pokeInfo_.SetSpecies (visitable.ReadString (DEFAULT_XML_SPECIES_NODE_NAME));
+    pokeInfo_.SetExperienceType (StringHelper::Parse<ExperienceType>
+      (reader->ReadString (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME)));
 
-    // </species>
+    reader = reader->ChangeRoot (DEFAULT_XML_BASE_STATS_NODE_NAME);
 
-    // <height>
+    pokeInfo_.SetHitPoint (reader->ReadInt (DEFAULT_XML_HP_NODE_NAME));
+    pokeInfo_.SetAttack (reader->ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
+    pokeInfo_.SetDefense (reader->ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpecialAttack (reader->ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
+    pokeInfo_.SetSpecialDefense (reader->ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpeed (reader->ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
 
-    pokeInfo_.SetHeight (visitable.ReadFloat (DEFAULT_XML_HEIGHT_NODE_NAME));
+    reader = reader->ChangeRoot (DEFAULT_XML_EFFORT_VALUES_NODE_NAME);
 
-    // </height>
+    pokeInfo_.SetHitPointEV (reader->ReadInt (DEFAULT_XML_HP_NODE_NAME));
+    pokeInfo_.SetAttackEV (reader->ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
+    pokeInfo_.SetDefenseEV (reader->ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpecialAttackEV (reader->ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
+    pokeInfo_.SetSpecialDefenseEV (reader->ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
+    pokeInfo_.SetSpeedEV (reader->ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
 
-    // <weight>
-
-    pokeInfo_.SetWeight (visitable.ReadFloat (DEFAULT_XML_WEIGHT_NODE_NAME));
-
-    // </weight>
-
-    // <rarity>
-
-    pokeInfo_.SetRarity (visitable.ReadInt (DEFAULT_XML_RARITY_NODE_NAME));
-
-    // </rarity>
-
-    // <experience>
-
-    pokeInfo_.SetExperience (visitable.ReadInt (DEFAULT_XML_EXPERIENCE_NODE_NAME));
-
-    // </experience>
-
-    // <experienceType>
-
-    pokeInfo_.SetExperienceType (StringHelper::Parse<ExperienceType> 
-      (visitable.ReadString (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME)));
-
-    // </experienceType>
-
-    // <baseStat>
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_BASE_STATS_NODE_NAME))
+    if (reader->NodeExists (DEFAULT_XML_EVOLUTION_NODE_NAME))
     {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_BASE_STATS_NODE_NAME + "' node.");
-    }
+      auto evolutionReader = reader->ChangeRoot (
+        DEFAULT_XML_EVOLUTION_NODE_NAME);
 
-    pokeInfo_.SetHitPoint (visitable.ReadInt (DEFAULT_XML_HP_NODE_NAME));
-    pokeInfo_.SetAttack (visitable.ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
-    pokeInfo_.SetDefense (visitable.ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpecialAttack (visitable.ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
-    pokeInfo_.SetSpecialDefense (visitable.ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpeed (visitable.ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
-
-    visitable.UpChangeRoot ();
-
-    // </baseStat>
-
-    // <effortValues>
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_EFFORT_VALUES_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_EFFORT_VALUES_NODE_NAME + "' node.");
-    }
-
-    pokeInfo_.SetHitPointEV (visitable.ReadInt (DEFAULT_XML_HP_NODE_NAME));
-    pokeInfo_.SetAttackEV (visitable.ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
-    pokeInfo_.SetDefenseEV (visitable.ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpecialAttackEV (visitable.ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
-    pokeInfo_.SetSpecialDefenseEV (visitable.ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpeedEV (visitable.ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
-
-    visitable.UpChangeRoot ();
-
-    // </effortValues>
-
-    // <evolution>
-
-    if (visitable.TryChangeRoot (DEFAULT_XML_EVOLUTION_NODE_NAME))
-    {
       pokeInfo_.SetEvolutionLevel (
-        visitable.ReadInt (XmlHelper::GetAttrNodeName (DEFAULT_XML_LEVEL_ATTR_NAME)));
-      pokeInfo_.SetPokemonEvolutionID (visitable.ReadID ());
-
-      visitable.UpChangeRoot ();
+        evolutionReader->ReadInt (
+          XmlHelper::GetAttrNodeName (DEFAULT_XML_LEVEL_ATTR_NAME)));
+      pokeInfo_.SetPokemonEvolutionID (evolutionReader->ReadID ());
     }
 
-    // </evolution>
-
-    // <baseSkills>
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_BASE_SKILLS_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_BASE_SKILLS_NODE_NAME + "' node.");
-    }
+    reader = reader->ChangeRoot (DEFAULT_XML_BASE_SKILLS_NODE_NAME);
 
     yap::XmlReaderCollection skillReaders;
-    visitable.ReadNodes (DEFAULT_XML_SKILL_NODE_NAME, skillReaders);
+    reader->ReadNodes (DEFAULT_XML_SKILL_NODE_NAME, skillReaders);
     for (auto& skillReader : skillReaders)
     {
       UInt16 level = skillReader->ReadInt (
@@ -184,37 +118,11 @@ namespace yap
       pokeInfo_.AddBaseSkill (level, skillID);
     }
 
-    visitable.UpChangeRoot ();
+    reader = reader->ChangeRoot (DEFAULT_XML_TYPES_NODE_NAME);
 
-    // </baseSkills>
+    pokeInfo_.SetType1 (reader->ReadInt (DEFAULT_XML_TYPE1_NODE_NAME));
 
-    // <types>
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_TYPES_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_TYPES_NODE_NAME + "' node.");
-    }
-
-    // <type1>
-
-    pokeInfo_.SetType1 (visitable.ReadInt (DEFAULT_XML_TYPE1_NODE_NAME));
-
-    // </type1>
-
-    // <type2>
-
-    pokeInfo_.SetType2 (visitable.ReadInt (DEFAULT_XML_TYPE2_NODE_NAME));
-
-    // </type2>
-
-    visitable.UpChangeRoot ();
-
-    // </types>
-
-    visitable.UpChangeRoot ();
-
-    // </PokemonInfo>
+    pokeInfo_.SetType2 (reader->ReadInt (DEFAULT_XML_TYPE2_NODE_NAME));
   }
 
   void PokemonInfoReader::ParseEvolution ()

@@ -80,6 +80,8 @@ ${inc_root}/Game/World/Map/WorldObject.hpp
 ${src_root}/Game/World/Map/WorldObject.cpp
 ${inc_root}/Game/World/Map/WorldObjectState.hpp
 ${src_root}/Game/World/Map/WorldObjectState.cpp
+${inc_root}/Game/World/Map/WorldObjectStateFactory.hpp
+${src_root}/Game/World/Map/WorldObjectStateFactory.cpp
 ${inc_root}/Game/World/Map/WorldObjectPhysicsInfo.hpp
 ${src_root}/Game/World/Map/WorldObjectPhysicsInfo.cpp
 ${inc_root}/Game/World/Map/WorldObjectReader.hpp
@@ -153,6 +155,8 @@ ${inc_root}/Game/Battle/BattleCore.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
+${inc_root}/Graphics/CameraController.hpp
+${src_root}/Graphics/CameraController.cpp
 ${inc_root}/Graphics/DrawingContext.hpp
 ${src_root}/Graphics/DrawingContext.cpp
 ${inc_root}/Graphics/Game/Game.hpp
@@ -243,6 +247,8 @@ ${inc_root}/Graphics/ICamera.hpp
 ${inc_root}/Graphics/IDrawable.hpp
 ${inc_root}/Graphics/IDrawingContext.hpp
 ${inc_root}/Graphics/ISpatial.hpp
+${inc_root}/Graphics/ProgressiveCameraController.hpp
+${src_root}/Graphics/ProgressiveCameraController.cpp
 ${inc_root}/Graphics/RectReader.hpp
 ${inc_root}/Graphics/RectReader.hxx
 ${inc_root}/Graphics/SpatialInfo.hpp

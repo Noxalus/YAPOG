@@ -8,7 +8,7 @@ namespace yap
 {
   class YAPOG_LIB RegularAnimatedSprite : public AnimatedSprite
   {
-      DISALLOW_COPY(RegularAnimatedSprite);
+      DISALLOW_ASSIGN(RegularAnimatedSprite);
 
     public:
 
@@ -16,6 +16,15 @@ namespace yap
       explicit RegularAnimatedSprite (const Time& delay);
       explicit RegularAnimatedSprite (int frameRate);
       virtual ~RegularAnimatedSprite ();
+
+      /// @name ICloneable members.
+      /// @{
+      virtual RegularAnimatedSprite* Clone () const;
+      /// @}
+
+    protected:
+
+      RegularAnimatedSprite (const RegularAnimatedSprite& copy);
 
     private:
 

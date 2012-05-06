@@ -8,8 +8,10 @@ namespace yap
   const String NatureInfoReader::DEFAULT_XML_FACTORS_NODE_NAME = "factors";
   const String NatureInfoReader::DEFAULT_XML_ATTACK_NODE_NAME = "attack";
   const String NatureInfoReader::DEFAULT_XML_DEFENSE_NODE_NAME = "defense";
-  const String NatureInfoReader::DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME = "specialAttack";
-  const String NatureInfoReader::DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME = "specialDefense";
+  const String NatureInfoReader::DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME =
+    "specialAttack";
+  const String NatureInfoReader::DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME =
+    "specialDefense";
   const String NatureInfoReader::DEFAULT_XML_SPEED_NODE_NAME = "speed";
 
   NatureInfoReader::NatureInfoReader (NatureInfo& natureInfo)
@@ -18,7 +20,7 @@ namespace yap
   }
 
   NatureInfoReader::NatureInfoReader (
-    NatureInfo& natureInfo, 
+    NatureInfo& natureInfo,
     const String& xmlRootNodeName)
     : natureInfo_ (natureInfo),
     xmlRootNodeName_ (xmlRootNodeName)
@@ -31,44 +33,34 @@ namespace yap
 
   void NatureInfoReader::Visit (XmlReader& visitable)
   {
-    // <Nature id="{id}">
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
-    }
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     natureInfo_.SetID (
-      visitable.ReadID (
+      reader->ReadID (
       XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <name>
+    natureInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    natureInfo_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
+    reader = reader->ChangeRoot (DEFAULT_XML_FACTORS_NODE_NAME);
 
-    // </name>
+    natureInfo_.SetAttackFactor (
+      reader->ReadFloat (
+        DEFAULT_XML_ATTACK_NODE_NAME));
 
-    // <factors>
+    natureInfo_.SetDefenseFactor (
+      reader->ReadFloat (
+        DEFAULT_XML_DEFENSE_NODE_NAME));
 
-    if (!visitable.TryChangeRoot (DEFAULT_XML_FACTORS_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_FACTORS_NODE_NAME + "' node.");
-    }
+    natureInfo_.SetSpecialAttackFactor (
+      reader->ReadFloat (
+        DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
 
-    natureInfo_.SetAttackFactor (visitable.ReadFloat (DEFAULT_XML_ATTACK_NODE_NAME));
-    natureInfo_.SetDefenseFactor (visitable.ReadFloat (DEFAULT_XML_DEFENSE_NODE_NAME));
-    natureInfo_.SetSpecialAttackFactor (visitable.ReadFloat (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
-    natureInfo_.SetSpecialDefenseFactor (visitable.ReadFloat (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
-    natureInfo_.SetSpeedFactor (visitable.ReadFloat (DEFAULT_XML_SPEED_NODE_NAME));
+    natureInfo_.SetSpecialDefenseFactor (
+      reader->ReadFloat (
+        DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
 
-    visitable.UpChangeRoot ();
-
-    // </factors>
-
-    visitable.UpChangeRoot ();
-
-    // </Nature>
+    natureInfo_.SetSpeedFactor (
+      reader->ReadFloat (
+        DEFAULT_XML_SPEED_NODE_NAME));
   }
 }

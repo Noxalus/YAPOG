@@ -15,7 +15,7 @@ namespace yap
   }
 
   TypeInfoReader::TypeInfoReader (
-    TypeInfo& typeInfo, 
+    TypeInfo& typeInfo,
     const String& xmlRootNodeName)
     : typeInfo_ (typeInfo),
     xmlRootNodeName_ (xmlRootNodeName)
@@ -28,35 +28,18 @@ namespace yap
 
   void TypeInfoReader::Visit (XmlReader& visitable)
   {
-    // <Type id="{id}">
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_ROOT_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_ROOT_NODE_NAME + "' node.");
-    }
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     typeInfo_.SetID (
-      visitable.ReadID (
+      reader->ReadID (
       XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    // <name>
+    typeInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    typeInfo_.SetName (visitable.ReadString (DEFAULT_XML_NAME_NODE_NAME));
-
-    // </name>
-
-    // <factors>
-
-    if (!visitable.TryChangeRoot (DEFAULT_XML_FACTORS_NODE_NAME))
-    {
-      throw Exception (
-        "Failed to read `" + DEFAULT_XML_FACTORS_NODE_NAME + "' node.");
-    }
-
+    reader = reader->ChangeRoot (DEFAULT_XML_FACTORS_NODE_NAME);
 
     yap::XmlReaderCollection factorsReaders;
-    visitable.ReadNodes (DEFAULT_XML_TYPE_NODE_NAME, factorsReaders);
+    reader->ReadNodes (DEFAULT_XML_TYPE_NODE_NAME, factorsReaders);
     for (auto& factorsReader : factorsReaders)
     {
       ID typeID = factorsReader->ReadID (
@@ -65,13 +48,5 @@ namespace yap
 
       typeInfo_.AddTypeEffect (typeID, effect);
     }
-
-    visitable.UpChangeRoot ();
-
-    // </factors>
-
-    visitable.UpChangeRoot ();
-
-    // </Type>
   }
 }

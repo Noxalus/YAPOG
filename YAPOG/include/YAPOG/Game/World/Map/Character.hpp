@@ -23,9 +23,7 @@ namespace yap
 
     private:
 
-      virtual CharacterPhysicsInfo& GetPhysicsInfo ();
-
-      CharacterPhysicsInfo physicsInfo_;
+      virtual void InitPhysicsInfo ();
   };
 } // namespace yap
 

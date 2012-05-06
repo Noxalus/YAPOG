@@ -29,11 +29,10 @@ namespace yap
   {
     BaseSpriteReader::Visit (visitable);
 
-    if (!visitable.TryChangeRoot (xmlRootNodeName_))
-      YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     XmlReaderCollection spriteReaders;
-    visitable.ReadNodes ("sprite", spriteReaders);
+    reader->ReadNodes ("sprite", spriteReaders);
     for (auto& spriteReader : spriteReaders)
     {
       K key = StringHelper::Parse<K> (spriteReader->ReadString ("key"));
@@ -47,8 +46,6 @@ namespace yap
           *spriteReader,
           spriteType));
     }
-
-    visitable.UpChangeRoot ();
   }
 } // namespace yap
 

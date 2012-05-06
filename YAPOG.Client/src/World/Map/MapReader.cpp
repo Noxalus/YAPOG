@@ -26,14 +26,12 @@ namespace ycl
   {
     yap::MapReader::Visit (visitable);
 
-    if (!visitable.TryChangeRoot (xmlRootNodeName_))
-      throw yap::Exception (
-        "Failed to read `" + xmlRootNodeName_ + "' node.");
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
-    visitable.DownChangeRoot ("ground");
+    reader = reader->ChangeRoot ("ground");
 
     yap::XmlReaderCollection tileSetReaders;
-    visitable.ReadNodes ("tileLayer", tileSetReaders);
+    reader->ReadNodes ("tileLayer", tileSetReaders);
     for (auto& tileSetReader : tileSetReaders)
     {
       yap::uint height = tileSetReader->ReadUInt ("height");
@@ -48,7 +46,5 @@ namespace ycl
 
       map_.AddTileLayer (height, tileLayoutHandler);
     }
-
-    visitable.UpChangeRoot ();
   }
 } // namespace ycl

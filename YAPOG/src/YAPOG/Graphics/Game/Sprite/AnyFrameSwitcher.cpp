@@ -20,7 +20,18 @@ namespace yap
   {
   }
 
-  int AnyFrameSwitcher::FrameIsOver (const Time& dt)
+  AnyFrameSwitcher::AnyFrameSwitcher (const AnyFrameSwitcher& copy)
+    : FrameSwitcher (copy)
+    , switchCount_ (copy.switchCount_)
+  {
+  }
+
+  AnyFrameSwitcher* AnyFrameSwitcher::Clone () const
+  {
+    return new AnyFrameSwitcher (*this);
+  }
+
+  int AnyFrameSwitcher::HandleFrameIsOver (const Time& dt)
   {
     return switchCount_;
   }

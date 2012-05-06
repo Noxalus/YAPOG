@@ -10,12 +10,21 @@ namespace yap
 {
   class YAPOG_LIB DelayedFrameSwitcher : public FrameSwitcher
   {
-      DISALLOW_COPY(DelayedFrameSwitcher);
+      DISALLOW_ASSIGN(DelayedFrameSwitcher);
 
     public:
 
       explicit DelayedFrameSwitcher (const Time& delay);
       virtual ~DelayedFrameSwitcher ();
+
+      /// @name ICloneable members.
+      /// @{
+      virtual DelayedFrameSwitcher* Clone () const;
+      /// @}
+
+    protected:
+
+      DelayedFrameSwitcher (const DelayedFrameSwitcher& copy);
 
     private:
 

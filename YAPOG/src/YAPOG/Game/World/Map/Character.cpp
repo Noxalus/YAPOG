@@ -5,7 +5,6 @@ namespace yap
 {
   Character::Character (const ID& id)
     : DynamicWorldObject (id)
-    , physicsInfo_ ()
   {
   }
 
@@ -15,12 +14,11 @@ namespace yap
 
   Character::Character (const Character& copy)
     : DynamicWorldObject (copy)
-    , physicsInfo_ ()
   {
   }
 
-  CharacterPhysicsInfo& Character::GetPhysicsInfo ()
+  void Character::InitPhysicsInfo ()
   {
-    return physicsInfo_;
+    SetPhysicsInfo (new CharacterPhysicsInfo ());
   }
 } // namespace yap

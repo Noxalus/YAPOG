@@ -44,7 +44,9 @@ namespace ycl
 
       Character (const Character& copy);
 
-    private:
+      virtual void HandleSetState (const yap::String& state);
+
+      virtual void HandleMove (const yap::Vector2& offset);
 
       virtual void HandleDraw (yap::IDrawingContext& context);
 
@@ -55,6 +57,8 @@ namespace ycl
         const yap::IDrawableWorldObject& other) const;
 
       virtual float HandleGetComparisonPoint () const;
+
+    private:
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;

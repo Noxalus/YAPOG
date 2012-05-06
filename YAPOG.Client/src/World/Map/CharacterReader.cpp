@@ -23,14 +23,13 @@ namespace ycl
   {
     yap::CharacterReader::Visit (visitable);
 
-    if (!visitable.TryChangeRoot (xmlRootNodeName_))
-      YAPOG_THROW("Failed to read `" + xmlRootNodeName_ + "' node.");
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
-    yap::String spriteType = visitable.ReadString ("spriteType");
+    yap::String spriteType = reader->ReadString ("spriteType");
     character_.SetSprite (
       yap::ObjectFactory::Instance ().Create<yap::SpriteSet<yap::String>> (
         spriteType,
-        visitable,
+        *reader,
         spriteType));
   }
 } // namespace ycl
