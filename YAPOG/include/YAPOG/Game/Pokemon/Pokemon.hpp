@@ -6,13 +6,13 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/Pokemon/Gender.hpp"
-# include "YAPOG/Game/Pokemon/PokemonType.hpp"
 # include "YAPOG/Game/Pokemon/Status.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
+# include "YAPOG/Game/Pokemon/PokemonType.hpp"
 # include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
 # include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
-# include "YAPOG/Game/Pokemon/NatureInfo.hpp"
 # include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
+# include "YAPOG/Game/Pokemon/NatureInfo.hpp"
 # include "YAPOG/System/Path.hpp"
 
 namespace yap

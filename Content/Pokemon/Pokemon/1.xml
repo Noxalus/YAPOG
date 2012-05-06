@@ -75,11 +75,4 @@
 		<capacity>1</capacity>
 		<capacity>4</capacity>
 	</learnableCapacities>
-	<graphics>
-		<icon>001.png</icon>
-		<front>001.png</front>
-		<back>001.png</back>
-		<shinyFront>001.png</shinyFront>
-		<shinyBack>001.png</shinyBack>
-	</graphics>
 </PokemonInfo>

@@ -146,6 +146,10 @@ ${src_root}/Game/Pokemon/ExperienceMediumSlow.cpp
 ${inc_root}/Game/Pokemon/ExperienceMediumSlow.hpp
 ${src_root}/Game/Pokemon/ExperienceMediumFast.cpp
 ${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
+${src_root}/Game/Pokemon/PokemonTeam.cpp
+${inc_root}/Game/Pokemon/PokemonTeam.hpp
+${src_root}/Game/Battle/BattleCore.cpp
+${inc_root}/Game/Battle/BattleCore.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

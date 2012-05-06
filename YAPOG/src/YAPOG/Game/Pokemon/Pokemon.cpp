@@ -13,6 +13,7 @@ namespace yap
 {
   Pokemon::Pokemon (const ID& staticID)
     : staticID_ (staticID)
+    , nickname_ ("")
     , status_ (Status::Normal)
     , level_ (PokemonExperience::INITIAL_LEVEL_VALUE)
     , shiny_ (false)
@@ -22,6 +23,7 @@ namespace yap
 
   Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
     : staticID_ (staticID)
+    , nickname_ ("")
     , status_ (Status::Normal)
     , level_ (level)
     , shiny_ (shiny)
@@ -87,7 +89,14 @@ namespace yap
 
   const String& Pokemon::GetName () const
   {
-    return pokemonInfo_->GetName ();
+    if (pokemonInfo_ != nullptr)
+    {
+      /*
+      if (nickname_ == "")
+      return nickname_;
+      else*/
+      return pokemonInfo_->GetName ();
+    }
   }
 
   float Pokemon::GetTypeEffectFactor (const TypeInfo& type) const
