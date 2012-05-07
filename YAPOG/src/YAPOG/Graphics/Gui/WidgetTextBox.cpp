@@ -21,6 +21,27 @@ namespace yap
   {
   }
 
+  bool WidgetTextBox::IsAlpha (String& str)
+  {
+
+  }
+  bool WidgetTextBox::IsNumeric (String& str)
+  {
+
+  }
+  bool WidgetTextBox::ContainSpecial (String& str)
+  {
+
+  }
+  bool WidgetTextBox::ContainNumeric (String& str)
+  {
+
+  }
+  bool WidgetTextBox::ContainAlpha (String& str)
+  {
+
+  }
+
   void WidgetTextBox::Refresh ()
   {
 

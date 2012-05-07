@@ -303,15 +303,8 @@ namespace yap
   }
 
 
-  void BaseWidget::SetBorder (WidgetBorder& border, uint width)
+  void BaseWidget::SetPosAfterBorder (uint width)
   {
-    border_ = &border;
-    border_->SetPosition (GetPosition ());
-    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
-      border_->SetBorder (GetSize (), width);
-    else
-      border_->SetBorder (GetUserSize (), width);
-
     if (spatialInfo_.GetPosition ().x > width)
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
     else
@@ -328,6 +321,30 @@ namespace yap
     }
 
     Refresh ();
+  }
+
+  void BaseWidget::SetBorder (WidgetBorder& border, uint width)
+  {
+    border_ = &border;
+    border_->SetPosition (GetPosition ());
+    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
+      border_->SetBorder (GetSize (), width);
+    else
+      border_->SetBorder (GetUserSize (), width);
+    
+    SetPosAfterBorder (width);
+  }
+
+  void BaseWidget::SetBorder (WidgetBorder& border)
+  {
+    border_ = &border;
+    border_->SetPosition (GetPosition ());
+    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
+      border_->SetBorder (GetSize ());
+    else
+      border_->SetBorder (GetUserSize ());
+    
+    SetPosAfterBorder (border.GetBorder ().GetSize ().y);
   }
 
   bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)

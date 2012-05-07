@@ -189,6 +189,8 @@ ${inc_root}/System/Path.hpp
 ${src_root}/System/Path.cpp
 ${inc_root}/System/StringHelper.hpp
 ${inc_root}/System/StringHelper.hxx
+${inc_root}/System/StringFilter.hpp
+${src_root}/System/StringFilter.cpp
 ${inc_root}/System/String.hpp
 ${inc_root}/System/Time/DateTimeHelper.hpp
 ${src_root}/System/Time/DateTimeHelper.cpp

@@ -182,7 +182,7 @@ void TestScreen::HandleInit ()
   label->ChangeColor (sf::Color (90, 255, 128, 128));
 
   yap::PictureBox* pb = new PictureBox ();
-  pb->SetPicture (String("jarri_j.png"));
+  pb->SetPicture (String("jarri_j.jpg"));
   pb->Scale (Vector2 (1, 1));
 
   WidgetBorder* border = new WidgetBorder ("heart.gif");

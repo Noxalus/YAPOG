@@ -5,6 +5,7 @@
 # include "YAPOG/Graphics/Texture.hpp"
 # include "YAPOG/Graphics/Gui/TextureManager.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Collection/Array.hpp"
 
 namespace yap
 {
@@ -25,10 +26,21 @@ namespace yap
 
     WidgetBorder ();
     WidgetBorder (String file);
+    WidgetBorder (Texture& top,
+      Texture& topRight,
+      Texture& right,
+      Texture& botRight,
+      Texture& bot,
+      Texture& botLeft,
+      Texture& left,
+      Texture& topLeft,
+      bool isScalable);
+
     virtual ~WidgetBorder ();
 
     Event<const WidgetBorder&, const EventArgsTexture&> OnBorderSet;
     void SetBorder (Vector2 size, uint width);
+    void SetBorder (Vector2 size);
     const Texture& GetBorder () const;
     uint GetWidth () const;
 
@@ -45,6 +57,9 @@ namespace yap
 
     Texture* border_;
     String file_;
+
+    collection::Array<Texture*> textures_;
+    collection::Array<TextureManager*> tms_;
     TextureManager* tmTop_;
     TextureManager* tmBottom_;
     TextureManager* tmLeft_;
@@ -52,6 +67,8 @@ namespace yap
     uint width_;
 
     bool isInit;
+    bool basic_;
+    bool isScalable_;
 
   };
 } // namespace yap

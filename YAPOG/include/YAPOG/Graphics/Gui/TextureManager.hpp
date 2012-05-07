@@ -18,6 +18,7 @@ namespace yap
     public ISpatial
   {
   public:
+    TextureManager ();
     TextureManager (Texture& baseTexture, uint width, uint height);
     ~TextureManager ();
 

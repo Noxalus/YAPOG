@@ -6,6 +6,10 @@
 
 namespace yap
 {
+  TextureManager::TextureManager ()
+  {
+  }
+
   TextureManager::TextureManager (Texture& base, uint w, uint h)
     : spatialInfo_ ()
     , isEnable_ (true)

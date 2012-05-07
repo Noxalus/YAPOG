@@ -14,10 +14,28 @@ namespace yap
     : itemz_ ()
     , currentSelec_ (0)
     , layout_ (nullptr)
-    , selecBrdr_ (new WidgetBorder ("heart.gif"))
+    , selecBrdr_ (nullptr)
     , selecBckgrd_ (new WidgetBackground ("bckgrd.png", true))
     , selecBrdSize_ (16)
   {
+    Texture* t = new Texture ();
+    t->LoadFromFile ("T.png");
+    Texture* tr = new Texture ();
+    tr->LoadFromFile ("TR.png");
+    Texture* r = new Texture (); 
+    r->LoadFromFile ("R.png");
+    Texture* br = new Texture ();
+    br->LoadFromFile  ("BR.png");
+    Texture* b = new Texture (); 
+    b->LoadFromFile ("B.png");
+    Texture* bl = new Texture (); 
+    bl->LoadFromFile ("BL.png");
+    Texture* l = new Texture ();
+    l->LoadFromFile ("L.png");
+    Texture* tl = new Texture (); 
+    tl->LoadFromFile ("TL.png");
+
+    selecBrdr_ = new WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
     if (type == Type::HORIZONTAL)
       layout_ = new LayoutH (ext, in, extend);
     else if (type == Type::VERTICAL)
@@ -51,7 +69,7 @@ namespace yap
     MenuItem* curItem = itemz_[currentSelec_];
 
     curItem->SetBackground (*selecBckgrd_);
-    curItem->SetBorder (*selecBrdr_, selecBrdSize_);
+    curItem->SetBorder (*selecBrdr_);
   }
 
   void Menu::SetUnformItem ()

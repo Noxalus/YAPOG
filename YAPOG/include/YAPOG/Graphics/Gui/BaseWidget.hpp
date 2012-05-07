@@ -113,6 +113,7 @@ namespace yap
     virtual void SetPadding (Padding* padding);
     virtual void SetBackground (WidgetBackground& background);
     virtual void SetBorder  (WidgetBorder& border, uint width);
+    virtual void SetBorder  (WidgetBorder& border);
     virtual void UnsetBackground ();
     virtual void UnsetBorder ();
 
@@ -151,6 +152,8 @@ namespace yap
     Vector2 userSize_;
     bool isExtensible_;
 
+  private:
+    void SetPosAfterBorder (uint width);
   };
 } // namespace yap
 
