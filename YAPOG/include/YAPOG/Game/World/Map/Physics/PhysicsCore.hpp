@@ -20,6 +20,8 @@ namespace yap
       void ApplyForce (const Vector2& force);
       const Vector2& GetMove () const;
 
+      void SetVelocityBounds (const Vector2& min, const Vector2& max);
+
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
@@ -35,8 +37,6 @@ namespace yap
       PhysicsCore ();
 
       PhysicsCore (const PhysicsCore& copy);
-
-      void SetVelocityBounds (const Vector2& min, const Vector2& max);
 
       const Vector2& GetVelocity () const;
       void SetVelocity (const Vector2& velocity);

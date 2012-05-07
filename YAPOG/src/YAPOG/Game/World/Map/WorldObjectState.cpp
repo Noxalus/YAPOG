@@ -8,7 +8,14 @@ namespace yap
   }
 
   WorldObjectState::WorldObjectState (const WorldObjectState& copy)
+    : info_ (copy.info_)
   {
+  }
+
+  WorldObjectState::WorldObjectState (const String& state)
+    : info_ (nullptr)
+  {
+    info_ = &WorldObjectStateFactory::Instance ().GetState (state);
   }
 
   WorldObjectState& WorldObjectState::operator= (const WorldObjectState& copy)

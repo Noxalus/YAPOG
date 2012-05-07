@@ -9,7 +9,6 @@
 
 namespace yap
 {
-  class WorldObjectPhysicsInfo;
   class PhysicsCore;
 
   class YAPOG_LIB DynamicWorldObject : public WorldObject
@@ -45,8 +44,6 @@ namespace yap
 
       DynamicWorldObject (const DynamicWorldObject& copy);
 
-      void SetPhysicsInfo (WorldObjectPhysicsInfo* physicsInfo);
-
       virtual void HandleUpdate (const Time& dt);
       virtual void HandleSetState (const String& state);
 
@@ -54,15 +51,13 @@ namespace yap
 
       void SetState (const String& state);
 
-      virtual void InitPhysicsInfo ();
-
       static const String DEFAULT_INACTIVE_STATE;
 
       ID worldID_;
 
       WorldObjectState state_;
 
-      WorldObjectPhysicsInfo* physicsInfo_;
+      PhysicsCore* physicsCore_;
   };
 } // namespace yap
 

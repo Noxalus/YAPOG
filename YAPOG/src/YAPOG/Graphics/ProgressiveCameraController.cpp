@@ -6,15 +6,22 @@
 namespace yap
 {
   const float ProgressiveCameraController::CAMERA_MOVE_TRIGGER_LIMIT = 30.0f;
-  const float ProgressiveCameraController::MOVE_AMORTIZATION_FACTOR = 1.0f;
+  const float ProgressiveCameraController::MOVE_AMORTIZATION_FACTOR = 150.0f;
+  const float ProgressiveCameraController::DEFAULT_VELOCITY_FACTOR = 100.0f;
 
   ProgressiveCameraController::ProgressiveCameraController (ICamera& camera)
     : CameraController (camera)
+    , velocityFactor_ (DEFAULT_VELOCITY_FACTOR)
   {
   }
 
   ProgressiveCameraController::~ProgressiveCameraController ()
   {
+  }
+
+  void ProgressiveCameraController::SetVelocityFactor (float velocityFactor)
+  {
+    velocityFactor_ = velocityFactor;
   }
 
   void ProgressiveCameraController::HandleUpdate (const Time& dt)
@@ -32,6 +39,7 @@ namespace yap
     if (MathHelper::Abs (targetPoint.x - camera_.GetCenter ().x) >
         CAMERA_MOVE_TRIGGER_LIMIT * cameraSizeFactor.x)
       offset.x =
+        velocityFactor_ *
         (targetPoint.x - camera_.GetCenter ().x) /
         MOVE_AMORTIZATION_FACTOR *
         cameraSizeFactor.y *
@@ -40,6 +48,7 @@ namespace yap
     if (MathHelper::Abs (targetPoint.y - camera_.GetCenter ().y) >
         CAMERA_MOVE_TRIGGER_LIMIT * cameraSizeFactor.y)
       offset.y =
+        velocityFactor_ *
         (targetPoint.y - camera_.GetCenter ().y) /
         MOVE_AMORTIZATION_FACTOR *
         cameraSizeFactor.x *

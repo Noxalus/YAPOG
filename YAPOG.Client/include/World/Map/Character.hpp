@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
+# include "YAPOG/Collection/Map.hpp"
 
 namespace ycl
 {
@@ -18,7 +19,16 @@ namespace ycl
 
       virtual ~Character ();
 
+      /// @todo loading of character from copying code of spritesetreader
+      void AddSprite (
+        const yap::String& state,
+        yap::Direction direction,
+        yap::ISprite* sprite);
+
+      /// @todo erase
       void SetSprite (yap::SpriteSet<yap::String>* sprite);
+
+      /// @todo make private
       void AddSprite (const yap::String& state, yap::ISprite* sprite);
 
       /// @name IDrawable members.
@@ -66,6 +76,9 @@ namespace ycl
       bool isVisible_;
       sf::Color color_;
 
+      yap::collection::Map<
+        yap::String,
+        yap::SpriteSet<yap::Direction>*> directionSprites_;
       yap::SpriteSet<yap::String>* sprites_;
   };
 } // namespace ycl

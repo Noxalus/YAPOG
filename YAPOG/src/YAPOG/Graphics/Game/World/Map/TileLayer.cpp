@@ -8,7 +8,7 @@ namespace yap
 {
   const bool TileLayer::DEFAULT_VISIBLE_STATE = true;
   const sf::Color TileLayer::DEFAULT_COLOR = sf::Color ();
-  const uint TileLayer::DEFAULT_DRAW_MARGIN = 1;
+  const uint TileLayer::DEFAULT_DRAW_MARGIN = 4;
 
   TileLayer::TileLayer (uint width, uint height)
     : width_ (width)

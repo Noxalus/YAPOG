@@ -14,6 +14,7 @@ namespace yap
       WorldObjectState ();
 
       WorldObjectState (const WorldObjectState& copy);
+      WorldObjectState (const String& state);
       WorldObjectState& operator= (const WorldObjectState& copy);
       WorldObjectState& operator= (const String& other);
 

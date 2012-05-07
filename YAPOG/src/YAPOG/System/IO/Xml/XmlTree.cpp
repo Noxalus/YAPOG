@@ -37,6 +37,11 @@ namespace yap
     data_ = &copy.GetChild (rootName);
   }
 
+  void XmlTree::CreateFromRawData (DataType* data)
+  {
+    data_ = data;
+  }
+
   void XmlTree::Dump (OStream& oStream)
   {
     boost::property_tree::xml_writer_settings<char> w (' ', 2);

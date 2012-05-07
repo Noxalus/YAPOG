@@ -33,6 +33,8 @@
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 #include "YAPOG/Graphics/ProgressiveCameraController.hpp"
+#include "YAPOG/Game/World/Map/Physics/CharacterMoveController.hpp"
+#include "YAPOG/Game/World/Map/WorldObjectStateFactory.hpp"
 
 #include "World/Map/Player.hpp"
 #include "World/Map/PlayerReader.hpp"
@@ -41,18 +43,22 @@
 /// Just some ugly tests... ///
 ///////////////////////////////
 
-//DirectionalSpriteSet dss1;
+const float MAX_VELOCITY = 250.0f;
+
+
 yap::GameInputManager& gim = yap::GameInputManager::Instance ();
 yap::ContentManager& cm = yap::ContentManager::Instance ();
 yap::DebugLogger& dl = yap::DebugLogger::Instance ();
 
 yap::ObjectFactory& of = yap::ObjectFactory::Instance ();
 
-yap::Tile* ti1;
 ycl::Map* map1;
 ycl::Player* p1;
+yap::CharacterMoveController cmc;
 
 yap::ProgressiveCameraController* pcc = nullptr;
+
+yap::WorldObjectStateFactory& wosf = yap::WorldObjectStateFactory::Instance ();
 namespace ycl
 {
   TestScreen::TestScreen ()
@@ -102,9 +108,15 @@ namespace ycl
         yap::Path ("Player"),
         "Player"));
 
+    wosf.AddState ("Inactive", "Inactive");
+    wosf.AddState ("Moving", "Moving");
+
     p1 = of.Create<Player> ("Player", yap::ID (1));
 
     yap::BasicPhysicsCore* bpc = new yap::BasicPhysicsCore ();
+    bpc->SetVelocityBounds (
+      yap::Vector2 (),
+      yap::Vector2 (MAX_VELOCITY, MAX_VELOCITY));
     p1->SetPhysicsCore (bpc);
 
     map1 = of.Create<Map> ("Map", yap::ID (1));
@@ -124,11 +136,7 @@ namespace ycl
     dl.LogLine (
       "TEXTURE_HEIGHT=" + yap::StringHelper::ToString (t1->GetSize ().y));
 
-    ti1 = of.Create<yap::Tile> ("Tile", yap::ID (1));
-    dl.LogLine (
-      "TILE_ID=" + yap::StringHelper::ToString (ti1->GetID ().GetValue ()));
-
-    ti1->Move (yap::Vector2 (200.0f, 200.0f));
+    cmc.SetValue (MAX_VELOCITY);
 
     gim.AddGameInput (
       new yap::GameInput (
@@ -168,21 +176,9 @@ namespace ycl
     {
       pcc = new yap::ProgressiveCameraController (context.GetCamera ("World"));
       pcc->SetTarget (*p1);
-      pcc->SetBounds (yap::FloatRect (0.0f, 0.0f, 5000.0f, 5000.0f));
+      pcc->SetBounds (yap::FloatRect (0.0f, 0.0f, 15000.0f, 15000.0f));
+      pcc->SetVelocityFactor (MAX_VELOCITY);
     }
-
-    const float forceValue = 100000000.0f;
-    if (gim.GameInputIsActive (yap::GameInputType::Down))
-    {
-      p1->ApplyForce (yap::Vector2 (0.0f, forceValue));
-//      p1->TryChangeState ("Walking");
-    }
-    else if (gim.GameInputIsActive (yap::GameInputType::Up))
-      p1->ApplyForce (yap::Vector2 (0.0f, -forceValue));
-    else if (gim.GameInputIsActive (yap::GameInputType::Left))
-      p1->ApplyForce (yap::Vector2 (-forceValue, 0.0f));
-    else if (gim.GameInputIsActive (yap::GameInputType::Right))
-      p1->ApplyForce (yap::Vector2 (forceValue, 0.0f));
 
     context.SetMode ("Background World");
 
@@ -190,13 +186,14 @@ namespace ycl
 
     context.SetMode ("World");
 
+    p1->ApplyForce (cmc.GetForce ());
     p1->Update (dt);
-
     const yap::Vector2& p1Move = p1->GetMove ();
 
-    dl.LogLine ("( " + yap::StringHelper::ToString (p1->GetMove ().x) + ", " +
-                yap::StringHelper::ToString (p1->GetMove ().y) + " )");
-    p1->Move (p1Move);
+    if (p1Move == yap::Vector2 ())
+      p1->SetInactive ();
+    else
+      p1->Move (p1Move);
 
     pcc->Update (dt);
 
@@ -205,10 +202,7 @@ namespace ycl
 
     context.SetDefaultCamera ();
 
-//    context.GetCamera ("World").Move (
-//      yap::Vector2 (150.0f * dt.GetValue (), 60.0f * dt.GetValue ()));
-
-//    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
+    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
     return nextScreen_;
   }
@@ -228,20 +222,23 @@ namespace ycl
 
   bool TestScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
-//  if (gim.GameInputIsActivated (yap::GameInputType::Action, guiEvent));
-//    dss1.SetCurrentSprite (yap::Direction::North);
+    if (gim.GameInputIsActivated (yap::GameInputType::Down, guiEvent))
+      cmc.EnableDirection (yap::Direction::South);
+    else if (gim.GameInputIsActivated (yap::GameInputType::Up, guiEvent))
+      cmc.EnableDirection (yap::Direction::North);
+    else if (gim.GameInputIsActivated (yap::GameInputType::Left, guiEvent))
+      cmc.EnableDirection (yap::Direction::West);
+    else if (gim.GameInputIsActivated (yap::GameInputType::Right, guiEvent))
+      cmc.EnableDirection (yap::Direction::East);
 
-//  if (gim.GameInputIsActivated (yap::GameInputType::Misc, guiEvent));
-//    dss1.SetCurrentSprite (yap::Direction::South);
-
-//    const float forceValue = 100.0f;
-
-//    if (gim.GameInputIsActive (yap::GameInputType::Down, guiEvent))
-//    {
-//      dl.LogLine ("FORCE APPLIED");
-//      p1->ApplyForce (yap::Vector2 (0.0f, forceValue));
-//      return true;
-//    }
+    if (gim.GameInputIsDeactivated (yap::GameInputType::Down, guiEvent))
+      cmc.DisableDirection (yap::Direction::South);
+    else if (gim.GameInputIsDeactivated (yap::GameInputType::Up, guiEvent))
+      cmc.DisableDirection (yap::Direction::North);
+    else if (gim.GameInputIsDeactivated (yap::GameInputType::Left, guiEvent))
+      cmc.DisableDirection (yap::Direction::West);
+    else if (gim.GameInputIsDeactivated (yap::GameInputType::Right, guiEvent))
+      cmc.DisableDirection (yap::Direction::East);
 
     return false;
   }

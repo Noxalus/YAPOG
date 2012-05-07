@@ -40,11 +40,9 @@ namespace yap
       if (it.first != name)
         continue;
 
-      xmlReaderCollection.Add (
-        XmlReaderPtrType (
-          new XmlReader (
-            name,
-            *data_.ChangeRoot (name))));
+      XmlReaderPtrType xmlReader (new XmlReader ());
+      xmlReader->data_.CreateFromRawData (&it.second);
+      xmlReaderCollection.Add (xmlReader);
     }
 
     return xmlReaderCollection;

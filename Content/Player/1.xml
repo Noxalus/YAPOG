@@ -9,13 +9,34 @@
           <key>South</key>
           <spriteType>Sprite</spriteType>
           <Sprite>
-            <Texture id="10"/>
+            <Texture id="12"/>
+          </Sprite>
+        </sprite>
+        <sprite>
+          <key>West</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="15"/>
+          </Sprite>
+        </sprite>
+        <sprite>
+          <key>East</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="172"/>
+          </Sprite>
+        </sprite>
+        <sprite>
+          <key>North</key>
+          <spriteType>Sprite</spriteType>
+          <Sprite>
+            <Texture id="21"/>
           </Sprite>
         </sprite>
       </DirectionSpriteSet>
     </sprite>
     <sprite>
-      <key>Walking</key>
+      <key>Moving</key>
       <spriteType>DirectionSpriteSet</spriteType>
       <DirectionSpriteSet>
         <sprite>
@@ -38,6 +59,78 @@
               <spriteType>Sprite</spriteType>
               <Sprite>
                 <Texture id="13"/>
+              </Sprite>
+            </sprite>
+          </AnimatedSprite>
+        </sprite>
+        <sprite>
+          <key>West</key>
+          <spriteType>AnimatedSprite</spriteType>
+          <AnimatedSprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="14"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="15"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="16"/>
+              </Sprite>
+            </sprite>
+          </AnimatedSprite>
+        </sprite>
+        <sprite>
+          <key>East</key>
+          <spriteType>AnimatedSprite</spriteType>
+          <AnimatedSprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="17"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="172"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="18"/>
+              </Sprite>
+            </sprite>
+          </AnimatedSprite>
+        </sprite>
+        <sprite>
+          <key>North</key>
+          <spriteType>AnimatedSprite</spriteType>
+          <AnimatedSprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="19"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="20"/>
+              </Sprite>
+            </sprite>
+            <sprite>
+              <spriteType>Sprite</spriteType>
+              <Sprite>
+                <Texture id="21"/>
               </Sprite>
             </sprite>
           </AnimatedSprite>

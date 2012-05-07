@@ -3,7 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
-# include "YAPOG/Game/World/Map/CharacterPhysicsInfo.hpp"
+# include "YAPOG/Game/World/Map/Direction.hpp"
 
 namespace yap
 {
@@ -21,9 +21,17 @@ namespace yap
 
       Character (const Character& copy);
 
+      void SetDirection (Direction direction);
+
+      virtual void HandleMove (const Vector2& offset);
+
+      virtual void HandleSetDirection (Direction direction);
+
     private:
 
-      virtual void InitPhysicsInfo ();
+      void UpdateDirection (const Vector2& offset);
+
+      Direction direction_;
   };
 } // namespace yap
 

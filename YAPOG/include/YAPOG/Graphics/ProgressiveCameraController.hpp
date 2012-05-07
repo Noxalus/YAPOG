@@ -15,6 +15,8 @@ namespace yap
       ProgressiveCameraController (ICamera& camera);
       virtual ~ProgressiveCameraController ();
 
+      void SetVelocityFactor (float velocityFactor);
+
     protected:
 
       virtual void HandleUpdate (const Time& dt);
@@ -23,6 +25,9 @@ namespace yap
 
       static const float CAMERA_MOVE_TRIGGER_LIMIT;
       static const float MOVE_AMORTIZATION_FACTOR;
+      static const float DEFAULT_VELOCITY_FACTOR;
+
+      float velocityFactor_;
   };
 } // namespace yap
 

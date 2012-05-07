@@ -39,6 +39,7 @@ namespace yap
       void CreateFromStream (IStream& iStream, const String& rootName);
 
       void CreateFromXmlTree (const String& rootName, XmlTree& copy);
+      void CreateFromRawData (DataType* data);
 
       /// @todo Enhance writing settings management.
       void Dump (OStream& oStream);

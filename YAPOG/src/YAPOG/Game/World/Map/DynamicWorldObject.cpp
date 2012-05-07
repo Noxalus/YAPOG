@@ -1,5 +1,5 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
-#include "YAPOG/Game/World/Map/WorldObjectPhysicsInfo.hpp"
+#include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
 
 namespace yap
 {
@@ -8,25 +8,25 @@ namespace yap
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
     , worldID_ ()
-    , state_ ()
-    , physicsInfo_ (nullptr)
+    , state_ (DEFAULT_INACTIVE_STATE)
+    , physicsCore_ (nullptr)
   {
   }
 
   DynamicWorldObject::~DynamicWorldObject ()
   {
-    delete physicsInfo_;
-    physicsInfo_ = nullptr;
+    delete physicsCore_;
+    physicsCore_ = nullptr;
   }
 
   DynamicWorldObject::DynamicWorldObject (const DynamicWorldObject& copy)
     : WorldObject (copy)
     , worldID_ (copy.worldID_)
     , state_ (copy.state_)
-    , physicsInfo_ (nullptr)
+    , physicsCore_ (nullptr)
   {
-    if (copy.physicsInfo_ != nullptr)
-      physicsInfo_ = copy.physicsInfo_->Clone ();
+    if (copy.physicsCore_ != nullptr)
+      physicsCore_ = copy.physicsCore_->Clone ();
   }
 
   const ID& DynamicWorldObject::GetWorldID () const
@@ -39,29 +39,22 @@ namespace yap
     worldID_ = id;
   }
 
-  void DynamicWorldObject::InitPhysicsInfo ()
-  {
-    physicsInfo_ = new WorldObjectPhysicsInfo ();
-  }
-
   void DynamicWorldObject::SetPhysicsCore (PhysicsCore* physicsCore)
   {
-    if (physicsInfo_ != nullptr)
-      return;
-
-    InitPhysicsInfo ();
-
-    physicsInfo_->SetCore (physicsCore);
+    physicsCore_ = physicsCore;
   }
 
   void DynamicWorldObject::ApplyForce (const Vector2& force)
   {
-    physicsInfo_->ApplyForce (force);
+    if (force != Vector2 ())
+      TryChangeState ("Moving");
+
+    physicsCore_->ApplyForce (force);
   }
 
   const Vector2& DynamicWorldObject::GetMove () const
   {
-    return physicsInfo_->GetMove ();
+    return physicsCore_->GetMove ();
   }
 
   bool DynamicWorldObject::IsActive () const
@@ -119,14 +112,9 @@ namespace yap
     HandleUpdate (dt);
   }
 
-  void DynamicWorldObject::SetPhysicsInfo (WorldObjectPhysicsInfo* physicsInfo)
-  {
-    physicsInfo_ = physicsInfo;
-  }
-
   void DynamicWorldObject::HandleUpdate (const Time& dt)
   {
-    physicsInfo_->Update (dt);
+    physicsCore_->Update (dt);
   }
 
   void DynamicWorldObject::HandleSetState (const String& state)

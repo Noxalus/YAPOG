@@ -4,7 +4,7 @@
 namespace yap
 {
   const AnimatedSprite::PlayState AnimatedSprite::DEFAULT_PLAY_STATE =
-    PlayState::None;
+    PlayState::Loop;
   const AnimatedSprite::IndexType AnimatedSprite::DEFAULT_DEFAULT_INDEX = 0;
 
   AnimatedSprite::AnimatedSprite ()
