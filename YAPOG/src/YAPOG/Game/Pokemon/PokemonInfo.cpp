@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
 
 namespace yap
 {
@@ -7,35 +8,61 @@ namespace yap
   const UInt16 PokemonInfo::MAX_MOVE_NUMBER = 4;
 
   PokemonInfo::PokemonInfo ()
+    : pokedexID_ (ID (0))
+    , name_ ("")
+    , description_ ("")
+    , species_ ("")
+    , genderProbability_ (0.f)
+    , height_ (0.f)
+    , weight_ (0.f)
+    , experience_ (0)
+    , rarity_ (255)
+    , baseHitPoint_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseDefense_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseSpecialAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseSpecialDefense_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseSpeed_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , type1_ (0)
+    , type2_ (0)
+    , hitPointEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , attackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , defenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , specialAttackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , specialDefenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , speedEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , evolutionLevel_ (0)
+    , pokemonEvolutionID_ (ID (0))
   {
   }
 
   PokemonInfo::PokemonInfo (const ID& id)
     : pokedexID_ (id)
+    , name_ ("")
+    , description_ ("")
+    , species_ ("")
+    , genderProbability_ (0.f)
+    , height_ (0.f)
+    , weight_ (0.f)
+    , experience_ (0)
+    , rarity_ (255)
+    , baseHitPoint_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseDefense_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseSpecialAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseSpecialDefense_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , baseSpeed_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
+    , type1_ (0)
+    , type2_ (0)
+    , hitPointEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , attackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , defenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , specialAttackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , specialDefenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , speedEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
+    , evolutionLevel_ (0)
+    , pokemonEvolutionID_ (ID (0))
   {
-    name_ = "";
-    description_ = "";
-    species_ = "";
-    height_ = 0.f;
-    weight_ = 0.f;
-    experience_ = 0;
-    rarity_ = 255;
-    baseHitPoint_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
-    baseAttack_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
-    baseDefense_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
-    baseSpecialAttack_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
-    baseSpecialDefense_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
-    baseSpeed_ = PokemonInfo::INITIAL_BASE_STATS_VALUE;
-    type1_ = 0;
-    type2_ = 0;
-    hitPointEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
-    attackEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
-    defenseEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
-    specialAttackEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
-    specialDefenseEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
-    speedEV_ = PokemonInfo::INITIAL_BASE_EV_VALUE;
-    evolutionLevel_ = 0;
-    pokemonEvolutionID_ = ID (0);
   }
 
   PokemonInfo::PokemonInfo (const PokemonInfo& copy)
@@ -43,6 +70,7 @@ namespace yap
     , name_ (copy.name_)
     , description_ (copy.description_)
     , species_ (copy.species_)
+    , genderProbability_ (copy.genderProbability_)
     , height_ (copy.height_)
     , weight_ (copy.weight_)
     , experience_ (copy.experience_)
@@ -74,12 +102,12 @@ namespace yap
   }
 
   void PokemonInfo::InitMoveSet (
-    PokemonSkill* moveSet[MAX_MOVE_NUMBER], 
+    collection::Array<PokemonSkill*>& moveSet, 
     const UInt16& level)
   {
     int i = level;
     int skillNumber = 0;
-    while (i >= 1 && skillNumber < 4)
+    while (i >= 1 && skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER)
     {
       if (baseSkills_.Contains (i))
       {
@@ -112,6 +140,11 @@ namespace yap
   void PokemonInfo::SetSpecies (const String& species) 
   {
     species_ = species;
+  }
+
+  void PokemonInfo::SetGenderProbability (const float& value)
+  {
+    genderProbability_ = value;
   }
 
   void PokemonInfo::SetHeight (const float& value)
@@ -252,6 +285,11 @@ namespace yap
     return species_;
   }
 
+  const float& PokemonInfo::GetGenderProbability () const
+  {
+    return genderProbability_;
+  }
+
   const float& PokemonInfo::GetHeight () const
   {
     return height_;
@@ -317,7 +355,8 @@ namespace yap
     return type2_;
   }
 
-  const collection::List<ID>* PokemonInfo::GetNewSkills (const UInt16& level) const
+  const collection::List<ID>* PokemonInfo::GetNewSkills (
+    const UInt16& level) const
   {
     if (baseSkills_.Contains (level))
       return &baseSkills_[level];

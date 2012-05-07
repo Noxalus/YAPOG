@@ -15,7 +15,7 @@ namespace yap
     currentValue_ = INITIAL_CURRENT_VALUE;
   }
 
-  UInt16& HitPoint::GetCurrentValue ()
+  const UInt16& HitPoint::GetCurrentValue () const
   {
     return currentValue_;
   }

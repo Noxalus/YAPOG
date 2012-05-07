@@ -10,7 +10,9 @@ namespace yap
   const String SpriteReader::DEFAULT_XML_TEXTURE_NODE_NAME = "Texture";
   const String SpriteReader::DEFAULT_XML_TEXTURE_ID_NODE_NAME = "id";
 
-  SpriteReader::SpriteReader (Sprite& sprite, const String& xmlRootNodeName)
+  SpriteReader::SpriteReader (
+    Sprite& sprite, 
+    const String& xmlRootNodeName)
     : BaseSpriteReader (sprite, xmlRootNodeName)
     , sprite_ (sprite)
   {
@@ -29,6 +31,6 @@ namespace yap
       ObjectFactory::Instance ().Create<Texture> (
         "Texture",
         reader->ReadID (
-          XmlHelper::GetAttrNodeName (DEFAULT_XML_TEXTURE_ID_NODE_NAME))));
+        XmlHelper::GetAttrNodeName (DEFAULT_XML_TEXTURE_ID_NODE_NAME))));
   }
 } // namespace yap

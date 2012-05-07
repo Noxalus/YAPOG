@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/System/IntTypes.hpp"
@@ -19,7 +20,9 @@ namespace yap
   public:
     PokemonInfo ();
     PokemonInfo (const ID& id);
-    void InitMoveSet (PokemonSkill* moveSet[], const UInt16& level);
+    void InitMoveSet (
+      collection::Array<PokemonSkill*>& moveSet, 
+      const UInt16& level);
 
     /// @name ICloneable members.
     /// @{
@@ -30,6 +33,7 @@ namespace yap
     void SetName (const String& name);
     void SetDescription (const String& description);
     void SetSpecies (const String& species);
+    void SetGenderProbability (const float& value);
     void SetHeight (const float& value);
     void SetWeight (const float& value);
     void SetExperience (const int& value);
@@ -57,6 +61,7 @@ namespace yap
     const String& GetName () const;
     const String& GetDescription () const;
     const String& GetSpecies () const;
+    const float& GetGenderProbability () const;
     const float& GetHeight () const;
     const float& GetWeight () const;
     const int& GetExperience () const;
@@ -95,6 +100,7 @@ namespace yap
     String name_;
     String description_;
     String species_;
+    float genderProbability_;
     float height_;
     float weight_;
     int experience_;

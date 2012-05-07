@@ -14,7 +14,7 @@ namespace yap
       HitPoint ();
       HitPoint (UInt16 value);
 
-      UInt16& GetCurrentValue ();
+      const UInt16& GetCurrentValue () const;
 
       virtual void SetValue (const UInt16& value);
       void SetCurrentValue (const UInt16& value);

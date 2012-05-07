@@ -152,6 +152,10 @@ ${src_root}/Game/Pokemon/PokemonTeam.cpp
 ${inc_root}/Game/Pokemon/PokemonTeam.hpp
 ${src_root}/Game/Battle/BattleCore.cpp
 ${inc_root}/Game/Battle/BattleCore.hpp
+${src_root}/Game/Battle/WildBattle.cpp
+${inc_root}/Game/Battle/WildBattle.hpp
+${src_root}/Game/Battle/TrainerBattle.cpp
+${inc_root}/Game/Battle/TrainerBattle.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

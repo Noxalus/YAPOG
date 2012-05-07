@@ -29,12 +29,12 @@ namespace yap
       UInt16 speDef, 
       UInt16 speed);
 
-    HitPoint& GetHitPoint ();
-    Attack& GetAttack ();
-    Defense& GetDefense ();
-    SpecialAttack& GetSpecialAttack ();
-    SpecialDefense& GetSpecialDefense ();
-    Speed& GetSpeed ();
+    const HitPoint& GetHitPoint () const;
+    const Attack& GetAttack () const;
+    const Defense& GetDefense () const;
+    const SpecialAttack& GetSpecialAttack () const;
+    const SpecialDefense& GetSpecialDefense () const;
+    const Speed& GetSpeed () const;
 
     /// @brief Computes all the statistics of the Pokemon
     /// from its base statistics, its level and its nature

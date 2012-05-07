@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class WorldObjectStateFactory
+  class YAPOG_LIB WorldObjectStateFactory
   {
       DISALLOW_COPY(WorldObjectStateFactory);
 

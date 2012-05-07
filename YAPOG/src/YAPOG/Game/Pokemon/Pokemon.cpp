@@ -8,25 +8,41 @@
 #include "YAPOG/Game/Pokemon/ExperienceMediumSlow.hpp"
 #include "YAPOG/Game/Pokemon/ExperienceSlow.hpp"
 #include "YAPOG/Game/Pokemon/ExperienceType.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 namespace yap
 {
+  const int Pokemon::MAX_POKEMON_MOVE_NUMBER = 4;
+
   Pokemon::Pokemon (const ID& staticID)
     : staticID_ (staticID)
+    , uniqueID_ (ID (0))
     , nickname_ ("")
+    , gender_ (Gender::Genderless)
     , status_ (Status::Normal)
     , level_ (PokemonExperience::INITIAL_LEVEL_VALUE)
     , shiny_ (false)
+    , loyalty_ (0)
+    , moveSet_ (MAX_POKEMON_MOVE_NUMBER, nullptr)
+    , pokemonInfo_ ()
   {
     Init ();
   }
 
-  Pokemon::Pokemon (const ID& staticID, const UInt16& level, const bool& shiny)
+  Pokemon::Pokemon (
+    const ID& staticID, 
+    const UInt16& level, 
+    const bool& shiny)
     : staticID_ (staticID)
+    , uniqueID_ (ID (0))
     , nickname_ ("")
+    , gender_ (Gender::Genderless)
     , status_ (Status::Normal)
     , level_ (level)
     , shiny_ (shiny)
+    , loyalty_ (0)
+    , moveSet_ (MAX_POKEMON_MOVE_NUMBER, nullptr)
+    , pokemonInfo_ ()
   {
     Init ();
   }
@@ -38,6 +54,8 @@ namespace yap
 
     nature_ = ObjectFactory::Instance ().
       Create<NatureInfo> ("NatureInfo",  ID (2));
+
+    SpecifyGender ();
 
     InitExperience ();
 
@@ -81,21 +99,44 @@ namespace yap
 
   void Pokemon::InitMoveSet ()
   {
-    for (int i = 0; i < PokemonInfo::MAX_MOVE_NUMBER; i++)
-      moveSet[i] = nullptr;
+    pokemonInfo_->InitMoveSet (moveSet_, level_);
+  }
 
-    pokemonInfo_->InitMoveSet (moveSet, level_);
+  void Pokemon::Reset ()
+  {
+    moveSet_.Clear ();
+    for (PokemonSkill* pk : moveSet_)
+      delete pk;
+
+    delete pokemonInfo_;
+    delete exp_;    
+    delete nature_;
+
+    pokemonInfo_ = nullptr;
+    nature_ = nullptr;
+    exp_ = nullptr;
+
+    Init ();
+  }
+
+  void Pokemon::SpecifyGender ()
+  {
+    float rand = RandomHelper::GetNext (0.f, 100.f);
+
+    if (rand <= pokemonInfo_->GetGenderProbability ())
+      gender_ = Gender::Female;
+    else
+      gender_ = Gender::Male;
   }
 
   const String& Pokemon::GetName () const
   {
     if (pokemonInfo_ != nullptr)
     {
-      /*
-      if (nickname_ == "")
-      return nickname_;
-      else*/
-      return pokemonInfo_->GetName ();
+      if (nickname_ != "")
+        return nickname_;
+      else
+        return pokemonInfo_->GetName ();
     }
   }
 
@@ -127,9 +168,29 @@ namespace yap
     }
   }
 
+  UInt16 Pokemon::GetCurrentHP () const
+  {
+    return stats_.GetHitPoint ().GetCurrentValue ();
+  }
+
+  UInt16 Pokemon::GetMaxHP () const
+  {
+    return stats_.GetHitPoint ().GetValue ();
+  }
+
+  const PokemonStat& Pokemon::GetStats () const
+  {
+    return stats_;
+  }
+
   const UInt16& Pokemon::GetLevel () const
   {
     return level_;
+  }
+
+  const Gender& Pokemon::GetGender () const
+  {
+    return gender_;
   }
 
   void Pokemon::AddExperience (const Int32& value)
@@ -177,13 +238,18 @@ namespace yap
     }
   }
 
+  const collection::Array<PokemonSkill*>& Pokemon::GetMoves () const
+  {
+    return moveSet_;
+  }
+
   bool Pokemon::LearnSkill (const ID& skillID)
   {
     for (int i = 0; i < 4; i++)
     {
-      if (moveSet[i] == nullptr)
+      if (moveSet_[i] == nullptr)
       {
-        moveSet[i] = new PokemonSkill (skillID);
+        moveSet_[i] = new PokemonSkill (skillID);
         return true;
       }
     }
@@ -193,7 +259,7 @@ namespace yap
 
   void Pokemon::ReplaceSkill (const ID& skillID, int index)
   {
-    moveSet[index] = new PokemonSkill (skillID);
+    moveSet_[index] = new PokemonSkill (skillID);
   }
 
   void Pokemon::Evolve ()
@@ -201,10 +267,11 @@ namespace yap
     std::cout << "EVOLUTION !" << std::endl;
 
     staticID_ = pokemonInfo_->GetPokemonEvolutionID ();
-    Init ();
+    Reset ();
   }
 
-  static String GetStringFromExperienceType (const ExperienceType& experienceType)
+  static String GetStringFromExperienceType (
+    const ExperienceType& experienceType)
   {
     switch (experienceType)
     {
@@ -225,6 +292,32 @@ namespace yap
     }
   }
 
+  static String GetStringFromGender (
+    const Gender& gender)
+  {
+    switch (gender)
+    {
+    case Gender::Genderless:
+      return "G";
+    case Gender::Female:
+      return "F";
+    case Gender::Male:
+      return "M";
+    default:
+      return "Error";
+    }
+  }
+
+  void Pokemon::PrintBattleStats ()
+  {
+    std::cout 
+      << GetName () << " ("
+      << GetStringFromGender (GetGender ()) << ")"
+      << " N." << GetLevel () << std::endl
+      << "PV: " << GetCurrentHP () << "/" << GetMaxHP ()
+      << std::endl;
+  }
+
   void Pokemon::PrintStats ()
   {
     //pokemonInfo_->PrintBaseStats ();
@@ -233,34 +326,46 @@ namespace yap
       << "---------------------------------------------" << std::endl
       << "              Current Statistics" << std::endl
       << "---------------------------------------------" << std::endl
+      << GetName () << " (" 
+      << GetStringFromGender (gender_) << ")" << std::endl
       << "Level: " << GetLevel () << std::endl
       << "Total experience: " << GetTotalExperience () << std::endl
       << "Experience to the next level: " << GetExperienceToNextLevel ()
-      << " (" << GetExperienceToNextLevel () - GetTotalExperience () << ")" << std::endl
+      << " (" 
+      << GetExperienceToNextLevel () - GetTotalExperience () << ")" 
+      << std::endl
       << "Experience type: " 
-      << GetStringFromExperienceType (pokemonInfo_->GetExperienceType ()) << std::endl
+      << GetStringFromExperienceType (pokemonInfo_->GetExperienceType ()) 
+      << std::endl
       << "Nature: " << nature_->GetName () << std::endl
       << "Type1: " << type_.GetType1 ().GetName () << std::endl
       << "Type2: " << type_.GetType2 ().GetName () << std::endl
-      << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () << std::endl
+      << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () 
+      << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue ()
       << " (IV: " << stats_.GetHitPoint ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetHitPointEV () << ")" << std::endl
+      << " | Base EV: " << pokemonInfo_->GetHitPointEV () << ")" 
+      << std::endl
       << "Attack: " << stats_.GetAttack ().GetValue ()
       << " (IV: " << stats_.GetAttack ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetAttackEV () << ")" << std::endl
+      << " | Base EV: " << pokemonInfo_->GetAttackEV () << ")" 
+      << std::endl
       << "Defense: " << stats_.GetDefense ().GetValue ()
       << " (IV: " << stats_.GetDefense ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetDefenseEV () << ")" << std::endl
+      << " | Base EV: " << pokemonInfo_->GetDefenseEV () << ")" 
+      << std::endl
       << "Special Attack: " << stats_.GetSpecialAttack ().GetValue ()
       << " (IV: " << stats_.GetSpecialAttack ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetSpecialAttackEV () << ")" << std::endl
+      << " | Base EV: " << pokemonInfo_->GetSpecialAttackEV () << ")" 
+      << std::endl
       << "Special Defense: " << stats_.GetSpecialDefense ().GetValue ()
       << " (IV: " << stats_.GetSpecialDefense ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetSpecialDefenseEV () << ")" << std::endl
+      << " | Base EV: " << pokemonInfo_->GetSpecialDefenseEV () << ")" 
+      << std::endl
       << "Speed: " << stats_.GetSpeed ().GetValue ()
       << " (IV: " << stats_.GetSpeed ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetSpeedEV () << ")" << std::endl;
+      << " | Base EV: " << pokemonInfo_->GetSpeedEV () << ")" 
+      << std::endl;
 
     if (pokemonInfo_->CanEvolve ())
     {
@@ -274,11 +379,11 @@ namespace yap
 
     for (int i = 0; i < 4; i++)
     {
-      if (moveSet[i] != nullptr)
+      if (moveSet_[i] != nullptr)
       {
-        std::cout << moveSet[i]->GetName ()
-          << " (" << moveSet[i]->GetCurrentPP () << "/" 
-          << moveSet[i]->GetMaxPP () << ")" << std::endl;
+        std::cout << moveSet_[i]->GetName ()
+          << " (" << moveSet_[i]->GetCurrentPP () << "/" 
+          << moveSet_[i]->GetMaxPP () << ")" << std::endl;
       }
       else
         std::cout << " - " << std::endl;
