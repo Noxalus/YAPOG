@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class CharacterMoveController : public WorldObjectMoveController
+  class YAPOG_LIB CharacterMoveController : public WorldObjectMoveController
   {
       DISALLOW_COPY(CharacterMoveController);
 
