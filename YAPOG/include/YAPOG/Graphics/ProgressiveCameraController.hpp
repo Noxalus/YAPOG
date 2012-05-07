@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class ProgressiveCameraController : public CameraController
+  class YAPOG_LIB ProgressiveCameraController : public CameraController
   {
       DISALLOW_COPY(ProgressiveCameraController);
 

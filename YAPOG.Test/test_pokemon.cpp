@@ -17,6 +17,7 @@
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/System/IO/IWriter.hpp"
+#include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 
 using namespace yap;
 using namespace std;
@@ -51,19 +52,15 @@ int main ()
       new XmlObjectIDLoader<SkillInfo, SkillInfoReader>
       (Path ("Pokemon/Skills"), "Skill"));
 
-    collection::Array<Pokemon*> pokemons;
+    PokemonTeam team;
+    team.AddPokemon (new Pokemon (ID (1)));
+    team.AddPokemon (new Pokemon (ID (16)));
+    team.AddPokemon (new Pokemon (ID (3), 50, false));
+    team.AddPokemon (new Pokemon (ID (16), 32, true));
+    
+    team.PrintTeam ();
 
-    for (int i = 0; i < 1; i++)
-      pokemons.Add (new Pokemon (ID (1), 1, false));
-
-    for (Pokemon* pokemon : pokemons)
-      pokemon->PrintStats ();
-
-    pokemons[0]->AddExperience (50000);
-
-    for (Pokemon* pokemon : pokemons)
-      pokemon->PrintStats ();
-
+    /*
     // Create the types table
     TypeInfo types[17];
 
@@ -106,24 +103,24 @@ int main ()
       file << "<th>" << types[i].GetName () << "</th>";
 
     file << "</tr><tr>"
-      << "<td>" << pokemons[0]->GetName () << "</td>";
+      << "<td>" << team.GetPokemon (0)->GetName () << "</td>";
 
     for (int i = 0; i < 17; i++)
     {
-      if (pokemons[0]->GetTypeEffectFactor (types[i]) == 0)
+      if (team.GetPokemon (0)->GetTypeEffectFactor (types[i]) == 0)
         file << "<td style=\"background-color: Red; color: White;\">";
-      else if (pokemons[0]->GetTypeEffectFactor (types[i]) == 0.5)
+      else if (team.GetPokemon (0)->GetTypeEffectFactor (types[i]) == 0.5)
         file << "<td style=\"background-color: Grey; color: White;\">";
-      else if (pokemons[0]->GetTypeEffectFactor (types[i]) == 2)
+      else if (team.GetPokemon (0)->GetTypeEffectFactor (types[i]) == 2)
         file << "<td style=\"background-color: Green; color: White;\">";
       else
         file << "<td>";
 
-      file << pokemons[0]->GetTypeEffectFactor (types[i]) << "</td>";
+      file << team.GetPokemon (0)->GetTypeEffectFactor (types[i]) << "</td>";
     }
 
     file << "</tr></table>";
-
+    */
     getchar ();
   }
   catch (Exception& ex)
@@ -131,5 +128,4 @@ int main ()
     ex.GetMessage (cout) << endl;
     getchar ();
   }
-
 }

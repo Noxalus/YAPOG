@@ -18,11 +18,6 @@ namespace yap
       XmlWriter (OStream& oStream, const String& rootName);
       virtual ~XmlWriter ();
 
-      void AbsoluteChangeRoot (const String& rootName);
-      void UpChangeRoot ();
-      void DownChangeRoot (const String& name);
-      bool TryChangeRoot (const String& name);
-
       void Dump ();
 
       /// @name IWriter members.

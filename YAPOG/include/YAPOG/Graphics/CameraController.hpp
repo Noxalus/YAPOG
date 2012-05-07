@@ -10,7 +10,7 @@ namespace yap
   struct ICamera;
   struct ISpatial;
 
-  class CameraController : public IUpdateable
+  class YAPOG_LIB CameraController : public IUpdateable
   {
       DISALLOW_COPY(CameraController);
 

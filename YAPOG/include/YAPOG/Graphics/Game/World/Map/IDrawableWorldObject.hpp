@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  struct YAPOG_LIB IDrawableWorldObject : public IDrawable
+  struct IDrawableWorldObject : public IDrawable
   {
       virtual ~IDrawableWorldObject () {}
 

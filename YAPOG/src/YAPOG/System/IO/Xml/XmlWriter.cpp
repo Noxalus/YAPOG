@@ -17,30 +17,6 @@ namespace yap
   {
   }
 
-  /// @todo erase
-  void XmlWriter::AbsoluteChangeRoot (const String& rootName)
-  {
-//    data_.AbsoluteChangeRoot (rootName);
-  }
-
-  /// @todo erase
-  void XmlWriter::UpChangeRoot ()
-  {
-//    data_.UpChangeRoot ();
-  }
-
-  /// @todo erase
-  void XmlWriter::DownChangeRoot (const String& rootName)
-  {
-//    data_.DownChangeRoot (rootName);
-  }
-
-  /// @todo erase
-  bool XmlWriter::TryChangeRoot (const String& rootName)
-  {
-//    return data_.TryChangeRoot (rootName);
-  }
-
   void XmlWriter::Dump ()
   {
     data_.Dump (oStream_);

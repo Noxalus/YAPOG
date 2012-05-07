@@ -29,7 +29,7 @@ namespace yap
 
       /// @name ICloneable members.
       /// @{
-      virtual PhysicsCore* Clone () const = 0;
+      virtual PhysicsCore* Clone () const { return nullptr; };
       /// @}
 
     protected:

@@ -8,7 +8,7 @@ namespace yap
 {
   class AnimatedSprite;
 
-  class AnimatedSpriteReader : public BaseSpriteReader
+  class YAPOG_LIB AnimatedSpriteReader : public BaseSpriteReader
   {
       DISALLOW_COPY(AnimatedSpriteReader);
 
