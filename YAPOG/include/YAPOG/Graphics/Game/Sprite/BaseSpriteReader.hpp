@@ -9,7 +9,7 @@ namespace yap
 {
   class BaseSprite;
 
-  class BaseSpriteReader : public IReaderVisitor
+  class YAPOG_LIB BaseSpriteReader : public IReaderVisitor
   {
       DISALLOW_COPY(BaseSpriteReader);
 
