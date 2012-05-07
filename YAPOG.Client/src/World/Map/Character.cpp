@@ -9,7 +9,8 @@ namespace ycl
     : yap::Character (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
-    , sprites_ (nullptr)
+    , sprites_ (new yap::SpriteSet<yap::String> ())
+    , directionSprites_ ()
   {
   }
 
@@ -23,20 +24,19 @@ namespace ycl
     : yap::Character (copy)
     , isVisible_ (copy.isVisible_)
     , color_ (copy.color_)
-    , sprites_ (copy.sprites_->Clone ())
+    , sprites_ (new yap::SpriteSet<yap::String> ())
+    , directionSprites_ ()
   {
-  }
-
-  void Character::SetSprite (yap::SpriteSet<yap::String>* sprite)
-  {
-    sprites_ = sprite;
+    for (auto& it : copy.directionSprites_)
+      AddSprite (it.first, it.second->Clone ());
   }
 
   void Character::AddSprite (
     const yap::String& state,
-    yap::ISprite* sprite)
+    yap::SpriteSet<yap::Direction>* directionSprite)
   {
-    sprites_->AddSprite (state, sprite);
+    sprites_->AddSprite (state, directionSprite);
+    directionSprites_.Add (state, directionSprite);
   }
 
   void Character::Draw (yap::IDrawingContext& context)
@@ -76,6 +76,13 @@ namespace ycl
     return HandleGetComparisonPoint ();
   }
 
+  void Character::HandleUpdate (const yap::Time& dt)
+  {
+    yap::Character::HandleUpdate (dt);
+
+    sprites_->Update (dt);
+  }
+
   void Character::HandleSetState (const yap::String& state)
   {
     sprites_->SetCurrentSprite (state);
@@ -86,6 +93,14 @@ namespace ycl
     yap::Character::HandleMove (offset);
 
     sprites_->Move (offset);
+  }
+
+  void Character::HandleSetDirection (yap::Direction direction)
+  {
+    yap::Character::HandleSetDirection (direction);
+
+    for (auto& it : directionSprites_)
+      it.second->SetCurrentSprite (direction);
   }
 
   void Character::HandleDraw (yap::IDrawingContext& context)

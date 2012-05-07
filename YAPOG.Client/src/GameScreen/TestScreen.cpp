@@ -119,7 +119,7 @@ namespace ycl
       yap::Vector2 (MAX_VELOCITY, MAX_VELOCITY));
     p1->SetPhysicsCore (bpc);
 
-    map1 = of.Create<Map> ("Map", yap::ID (1));
+    map1 = of.Get<Map> ("Map", yap::ID (1));
     dl.LogLine (
       "MAP_ID=" + yap::StringHelper::ToString (map1->GetID ().GetValue ()));
     dl.LogLine ("MAP_NAME=" + map1->GetName ());
@@ -202,7 +202,7 @@ namespace ycl
 
     context.SetDefaultCamera ();
 
-    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
+//    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
     return nextScreen_;
   }

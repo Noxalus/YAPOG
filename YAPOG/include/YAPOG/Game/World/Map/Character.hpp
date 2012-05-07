@@ -21,6 +21,7 @@ namespace yap
 
       Character (const Character& copy);
 
+      const Direction& GetDirection () const;
       void SetDirection (Direction direction);
 
       virtual void HandleMove (const Vector2& offset);
@@ -30,6 +31,8 @@ namespace yap
     private:
 
       void UpdateDirection (const Vector2& offset);
+
+      static const Direction DEFAULT_DIRECTION;
 
       Direction direction_;
   };

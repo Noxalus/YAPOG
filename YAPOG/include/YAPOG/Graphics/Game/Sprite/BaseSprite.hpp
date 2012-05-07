@@ -54,8 +54,6 @@ namespace yap
 
       BaseSprite (const BaseSprite& copy);
 
-    private:
-
       virtual Vector2 HandleGetSize () const;
 
       virtual void HandleMove (const Vector2& offset) = 0;
@@ -67,6 +65,8 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color) = 0;
 
       virtual void HandleUpdate (const Time& dt) = 0;
+
+    private:
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;

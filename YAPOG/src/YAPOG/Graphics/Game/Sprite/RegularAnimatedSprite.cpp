@@ -3,7 +3,7 @@
 
 namespace yap
 {
-  const int RegularAnimatedSprite::DEFAULT_FRAME_RATE = 8;
+  const int RegularAnimatedSprite::DEFAULT_FRAME_RATE = 10;
 
   RegularAnimatedSprite::RegularAnimatedSprite ()
     : AnimatedSprite ()

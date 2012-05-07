@@ -10,6 +10,15 @@
 namespace yap
 {
   template <typename T>
+  T* ObjectFactory::Get (const String& typeName, const ID& id)
+  {
+    if (!objectIDLoaders_.Contains (typeName))
+      throw Exception ("Loader `" + typeName + "' does not exist.");
+
+    return static_cast<T*> (objectIDLoaders_[typeName]->Load (id));
+  }
+
+  template <typename T>
   inline T* ObjectFactory::Create (const String& typeName, const ID& id)
   {
     if (!objectIDLoaders_.Contains (typeName))

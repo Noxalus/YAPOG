@@ -21,6 +21,7 @@ namespace yap
   AnimatedSprite::~AnimatedSprite ()
   {
     delete frameSwitcher_;
+    frameSwitcher_ = nullptr;
 
     for (const ISprite* it : sprites_)
       delete it;

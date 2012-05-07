@@ -12,17 +12,6 @@ namespace ycl
   {
   }
 
-  Map::Map (const Map& copy)
-    : yap::Map (copy)
-    , tileLayers_ (copy.tileLayers_)
-  {
-  }
-
-  Map* Map::Clone () const
-  {
-    return new Map (*this);
-  }
-
   void Map::AddTileLayer (
     yap::uint height,
     yap::TileLayoutHandler* tileLayoutHandler)

@@ -23,11 +23,6 @@ namespace ycl
         yap::uint height,
         yap::TileLayoutHandler* tileLayoutHandler);
 
-      /// @name ICloneable members.
-      /// @{
-      virtual Map* Clone () const;
-      /// @}
-
       /// @name IDrawable members.
       /// @{
       virtual void Draw (yap::IDrawingContext& context);
@@ -37,10 +32,6 @@ namespace ycl
 
       virtual void ChangeColor (const sf::Color& color);
       /// @}
-
-    protected:
-
-      Map (const Map& copy);
 
     private:
 

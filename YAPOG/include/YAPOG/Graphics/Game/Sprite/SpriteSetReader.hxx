@@ -8,7 +8,6 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yap
 {
   template <typename K>
@@ -37,7 +36,7 @@ namespace yap
     for (auto& spriteReader : spriteReaders)
     {
       K key = StringHelper::Parse<K> (spriteReader->ReadString ("key"));
-      DebugLogger::Instance ().LogLine (spriteReader->ReadString ("key"));
+
       String spriteType = spriteReader->ReadString ("spriteType");
 
       spriteSet_.AddSprite (

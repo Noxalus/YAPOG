@@ -19,17 +19,9 @@ namespace ycl
 
       virtual ~Character ();
 
-      /// @todo loading of character from copying code of spritesetreader
       void AddSprite (
         const yap::String& state,
-        yap::Direction direction,
-        yap::ISprite* sprite);
-
-      /// @todo erase
-      void SetSprite (yap::SpriteSet<yap::String>* sprite);
-
-      /// @todo make private
-      void AddSprite (const yap::String& state, yap::ISprite* sprite);
+        yap::SpriteSet<yap::Direction>* directionSprite);
 
       /// @name IDrawable members.
       /// @{
@@ -54,9 +46,13 @@ namespace ycl
 
       Character (const Character& copy);
 
+      virtual void HandleUpdate (const yap::Time& dt);
+
       virtual void HandleSetState (const yap::String& state);
 
       virtual void HandleMove (const yap::Vector2& offset);
+
+      virtual void HandleSetDirection (yap::Direction direction);
 
       virtual void HandleDraw (yap::IDrawingContext& context);
 
@@ -76,10 +72,10 @@ namespace ycl
       bool isVisible_;
       sf::Color color_;
 
+      yap::SpriteSet<yap::String>* sprites_;
       yap::collection::Map<
         yap::String,
         yap::SpriteSet<yap::Direction>*> directionSprites_;
-      yap::SpriteSet<yap::String>* sprites_;
   };
 } // namespace ycl
 

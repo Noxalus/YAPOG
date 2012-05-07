@@ -22,6 +22,9 @@ namespace yap
       static ObjectFactory& Instance ();
 
       template <typename T>
+      T* Get (const String& typeName, const ID& id);
+
+      template <typename T>
       T* Create (const String& typeName, const ID& id);
 
       /// @brief Creates an object from a partial input file.

@@ -19,7 +19,7 @@ namespace yap
   class YAPOG_LIB Map : public IUpdateable
                       , public IIDLoadable
   {
-      DISALLOW_ASSIGN(Map);
+      DISALLOW_COPY(Map);
 
     public:
 
@@ -40,10 +40,14 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual Map* Clone () const;
+      /// @}
+
     protected:
 
       Map (const ID& id);
-      Map (const Map& copy);
 
       virtual void AddObject (WorldObject* object);
       virtual void AddDynamicObject (DynamicWorldObject* object);

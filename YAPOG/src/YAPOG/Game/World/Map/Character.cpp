@@ -2,8 +2,11 @@
 
 namespace yap
 {
+  const Direction Character::DEFAULT_DIRECTION = Direction::South;
+
   Character::Character (const ID& id)
     : DynamicWorldObject (id)
+    , direction_ (DEFAULT_DIRECTION)
   {
   }
 
@@ -13,7 +16,13 @@ namespace yap
 
   Character::Character (const Character& copy)
     : DynamicWorldObject (copy)
+    , direction_ (copy.direction_)
   {
+  }
+
+  const Direction& Character::GetDirection () const
+  {
+    return direction_;
   }
 
   void Character::SetDirection (Direction direction)
@@ -36,13 +45,16 @@ namespace yap
 
   void Character::UpdateDirection (const Vector2& offset)
   {
+    if (offset == Vector2 (0.0f, 0.0f))
+      return;
+
     if (offset.x < 0.0f)
-      direction_ = Direction::West;
+      SetDirection (Direction::West);
     else if (offset.y < 0.0f)
-      direction_ = Direction::North;
+      SetDirection (Direction::North);
     else if (offset.x > 0.0f)
-      direction_ = Direction::East;
+      SetDirection (Direction::East);
     else if (offset.y > 0.0f)
-      direction_ = Direction::South;
+      SetDirection (Direction::South);
   }
 } // namespace yap

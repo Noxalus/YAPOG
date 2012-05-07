@@ -1,6 +1,8 @@
 #include "YAPOG/Game/World/Map/Map.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -23,17 +25,9 @@ namespace yap
   {
   }
 
-  Map::Map (const Map& copy)
-    : id_ (copy.id_)
-    , name_ (copy.name_)
-    , width_ (copy.width_)
-    , height_ (copy.height_)
-    , objects_ ()
-    , dynamicObjects_ ()
-    , updateables_ ()
+  Map* Map::Clone () const
   {
-    for (WorldObject* object : copy.objects_)
-      AddObject (object->Clone ());
+    YAPOG_THROW("Invalid method call: `Map::Clone () const'.");
   }
 
   const ID& Map::GetID () const

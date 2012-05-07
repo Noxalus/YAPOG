@@ -37,8 +37,6 @@ namespace yap
 
       SpriteSet (const SpriteSet& copy);
 
-    private:
-
       virtual Vector2 HandleGetSize () const;
 
       virtual void HandleMove (const Vector2& offset);
@@ -50,6 +48,8 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color);
 
       virtual void HandleUpdate (const Time& dt);
+
+    private:
 
       KeyType currentKey_;
       KeyType defaultKey_;

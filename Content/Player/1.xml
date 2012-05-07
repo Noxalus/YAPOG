@@ -30,7 +30,7 @@
           <key>North</key>
           <spriteType>Sprite</spriteType>
           <Sprite>
-            <Texture id="21"/>
+            <Texture id="20"/>
           </Sprite>
         </sprite>
       </DirectionSpriteSet>

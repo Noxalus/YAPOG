@@ -15,7 +15,7 @@ namespace yap
       HorizontalComposedSprite (ISprite* left, ISprite* right);
       virtual ~HorizontalComposedSprite ();
 
-    private:
+    protected:
 
       virtual Vector2 HandleGetSize () const;
 

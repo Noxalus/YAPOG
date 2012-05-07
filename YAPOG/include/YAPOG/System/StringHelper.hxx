@@ -30,6 +30,23 @@ namespace yap
   }
 
   template <>
+  inline String StringHelper::ToString<Direction> (const Direction& value)
+  {
+    switch (value)
+    {
+      case Direction::North: return "North";
+      case Direction::NorthEast: return "NorthEast";
+      case Direction::East: return "East";
+      case Direction::SouthEast: return "SouthEast";
+      case Direction::South: return "South";
+      case Direction::SouthWest: return "SouthWest";
+      case Direction::West: return "West";
+      case Direction::NorthWest: return "NorthWest";
+      default: YAPOG_THROW("Not a valid direction.");
+    }
+  }
+
+  template <>
   inline Direction StringHelper::Parse<Direction> (const String& str)
   {
     if (str == "North") return Direction::North;
