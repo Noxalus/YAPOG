@@ -120,21 +120,6 @@ namespace ycl
     p1->SetPhysicsCore (bpc);
 
     map1 = of.Get<Map> ("Map", yap::ID (1));
-    dl.LogLine (
-      "MAP_ID=" + yap::StringHelper::ToString (map1->GetID ().GetValue ()));
-    dl.LogLine ("MAP_NAME=" + map1->GetName ());
-    dl.LogLine (
-      "MAP_WIDTH=" + yap::StringHelper::ToString (map1->GetWidth ()));
-    dl.LogLine (
-      "MAP_HEIGHT=" + yap::StringHelper::ToString (map1->GetHeight ()));
-
-    yap::Texture* t1 = of.Create<yap::Texture> ("Texture", yap::ID (1));
-    dl.LogLine (
-      "TEXTURE_ID=" + yap::StringHelper::ToString (t1->GetID ().GetValue ()));
-    dl.LogLine (
-      "TEXTURE_WIDTH=" + yap::StringHelper::ToString (t1->GetSize ().x));
-    dl.LogLine (
-      "TEXTURE_HEIGHT=" + yap::StringHelper::ToString (t1->GetSize ().y));
 
     cmc.SetValue (MAX_VELOCITY);
 
@@ -202,7 +187,7 @@ namespace ycl
 
     context.SetDefaultCamera ();
 
-//    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
+    yap::DebugLogger::Instance().LogLine (1.0f/dt.GetValue());
 
     return nextScreen_;
   }

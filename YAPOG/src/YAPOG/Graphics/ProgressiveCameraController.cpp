@@ -5,8 +5,8 @@
 
 namespace yap
 {
-  const float ProgressiveCameraController::CAMERA_MOVE_TRIGGER_LIMIT = 30.0f;
-  const float ProgressiveCameraController::MOVE_AMORTIZATION_FACTOR = 150.0f;
+  const float ProgressiveCameraController::CAMERA_MOVE_TRIGGER_LIMIT = 50.0f;
+  const float ProgressiveCameraController::MOVE_AMORTIZATION_FACTOR = 180.0f;
   const float ProgressiveCameraController::DEFAULT_VELOCITY_FACTOR = 100.0f;
 
   ProgressiveCameraController::ProgressiveCameraController (ICamera& camera)
