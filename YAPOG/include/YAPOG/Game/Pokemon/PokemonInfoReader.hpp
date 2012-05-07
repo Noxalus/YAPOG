@@ -55,6 +55,7 @@ namespace yap
     static const String DEFAULT_XML_STONE_NODE_NAME;
     static const String DEFAULT_XML_ITEM_HOLD_NODE_NAME;
     static const String DEFAULT_XML_EFFORT_VALUES_NODE_NAME;
+    static const String DEFAULT_XML_GENDER_NODE_NAME;
   };
 } // namespace yap
 

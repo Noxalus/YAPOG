@@ -1,5 +1,5 @@
-#ifndef YAPOG_BATTLECORE_HPP
-# define YAPOG_BATTLECORE_HPP
+#ifndef YAPOG_TRAINERBATTLE_HPP
+# define YAPOG_TRAINERBATTLE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
@@ -7,11 +7,11 @@
 
 namespace yap
 {
-  class YAPOG_LIB BattleCore
+  class YAPOG_LIB TrainerBattle
   {
   public:
-    BattleCore ();
+    TrainerBattle ();
   };
 } // namespace yap
 
-#endif // YAPOG_BATTLECORE_HPP
+#endif // YAPOG_TRAINERBATTLE_HPP

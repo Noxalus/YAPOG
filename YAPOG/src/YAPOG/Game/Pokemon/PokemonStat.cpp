@@ -23,32 +23,32 @@ namespace yap
   {
   }
 
-  HitPoint& PokemonStat::GetHitPoint ()
+  const HitPoint& PokemonStat::GetHitPoint () const
   {
     return hitPoint_;
   }
 
-  Attack& PokemonStat::GetAttack ()
+  const Attack& PokemonStat::GetAttack () const
   {
     return attack_;
   }
 
-  Defense& PokemonStat::GetDefense ()
+  const Defense& PokemonStat::GetDefense () const
   {
     return defense_;
   }
 
-  SpecialAttack& PokemonStat::GetSpecialAttack ()
+  const SpecialAttack& PokemonStat::GetSpecialAttack () const
   {
     return specialAttack_;
   }
 
-  SpecialDefense& PokemonStat::GetSpecialDefense ()
+  const SpecialDefense& PokemonStat::GetSpecialDefense () const
   {
     return specialDefense_;
   }
 
-  Speed& PokemonStat::GetSpeed ()
+  const Speed& PokemonStat::GetSpeed () const
   {
     return speed_;
   }

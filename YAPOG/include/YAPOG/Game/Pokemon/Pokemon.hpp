@@ -2,6 +2,7 @@
 # define YAPOG_POKEMON_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
@@ -30,6 +31,11 @@ namespace yap
     const uint& GetTotalExperience () const;
     const uint& GetExperienceToNextLevel () const;
     const UInt16& GetLevel () const;
+    const PokemonStat& GetStats () const;
+    const Gender& GetGender () const;
+    UInt16 GetCurrentHP () const;
+    UInt16 GetMaxHP () const;
+    const collection::Array<PokemonSkill*>& GetMoves () const;
 
     bool LearnSkill (const ID& skillID);
     void ReplaceSkill (const ID& skillID, int index);
@@ -37,12 +43,17 @@ namespace yap
 
     void AddExperience (const Int32& value);
 
+    void PrintBattleStats ();
     void PrintStats ();
+
+    static const int MAX_POKEMON_MOVE_NUMBER;
   private:
     void Init ();
     void InitExperience ();
     void InitMoveSet ();
+    void Reset ();
     void Evolve ();
+    void SpecifyGender ();
 
     ID uniqueID_;
     ID staticID_;
@@ -54,10 +65,11 @@ namespace yap
     Status status_;
     bool shiny_;
     Int16 loyalty_;
-    PokemonSkill* moveSet[4];
+    collection::Array<PokemonSkill*> moveSet_;
     PokemonInfo* pokemonInfo_;
     NatureInfo* nature_;
     PokemonExperience* exp_;
+
   };
 } // namespace yap
 

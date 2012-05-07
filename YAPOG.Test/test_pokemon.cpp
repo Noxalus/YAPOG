@@ -9,6 +9,7 @@
 #include "YAPOG/Content/ContentManager.hpp"
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Game/Pokemon/NatureInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/NatureInfo.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
@@ -18,13 +19,26 @@
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/System/IO/IWriter.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+#include "boost/exception/all.hpp"
+#include "YAPOG/Game/Battle/WildBattle.hpp"
 
 using namespace yap;
 using namespace std;
 
+static Pokemon* GeneratePokemon ()
+{
+  ID staticID = ID (RandomHelper::GetNext (1, 4));
+
+  if (staticID == ID (4))
+    staticID = ID (16);
+
+  int level = RandomHelper::GetNext (1, 100);
+
+  return new Pokemon (staticID, level, false);
+}
+
 int main ()
 {
-
   try
   {
     RandomHelper::Init (time (nullptr));
@@ -53,12 +67,11 @@ int main ()
       (Path ("Pokemon/Skills"), "Skill"));
 
     PokemonTeam team;
-    team.AddPokemon (new Pokemon (ID (1)));
-    team.AddPokemon (new Pokemon (ID (16)));
-    team.AddPokemon (new Pokemon (ID (3), 50, false));
+    team.AddPokemon (new Pokemon (ID (2), 42, false));
     team.AddPokemon (new Pokemon (ID (16), 32, true));
-    
-    team.PrintTeam ();
+
+    WildBattle wildBattle (team, GeneratePokemon ());
+    wildBattle.Run ();
 
     /*
     // Create the types table
@@ -126,6 +139,11 @@ int main ()
   catch (Exception& ex)
   {
     ex.GetMessage (cout) << endl;
+    getchar ();
+  }
+  catch (boost::exception const&  ex)
+  {
+    cout << boost::diagnostic_information(ex);
     getchar ();
   }
 }

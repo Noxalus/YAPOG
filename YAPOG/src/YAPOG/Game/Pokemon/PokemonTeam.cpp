@@ -7,7 +7,7 @@ namespace yap
   const int PokemonTeam::MAX_POKEMON_TEAM_NUMBER = 6;
 
   PokemonTeam::PokemonTeam ()
-    : pokemonTeam_ ()
+    : pokemonTeam_ (MAX_POKEMON_TEAM_NUMBER, nullptr)
   {
   }
 
@@ -36,6 +36,11 @@ namespace yap
     return false;
   }
 
+  const collection::Array<Pokemon*>& PokemonTeam::GetTeam () const
+  {
+    return pokemonTeam_;
+  }
+
   /// Debug
   void PokemonTeam::PrintTeam ()
   {
@@ -46,9 +51,11 @@ namespace yap
         std::cout << pokemonTeam_[i]->GetName () 
           << " (lvl. " << pokemonTeam_[i]->GetLevel () << ")"
           << std::endl;
+
+        pokemonTeam_[i]->PrintStats ();
       }
       else
-        std::cout << " - " << std::endl;
+        std::cout << "[NO POKEMON] " << std::endl;
     }
   }
 }
