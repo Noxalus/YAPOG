@@ -4,15 +4,19 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Map.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
+# include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Collection/List.hpp"
 
 namespace ycl
 {
+  class Player;
+
   class Map : public yap::Map
             , public yap::IDrawable
   {
-      DISALLOW_ASSIGN(Map);
+      DISALLOW_COPY(Map);
 
     public:
 
@@ -22,6 +26,8 @@ namespace ycl
       void AddTileLayer (
         yap::uint height,
         yap::TileLayoutHandler* tileLayoutHandler);
+
+      void AddPlayer (Player* player);
 
       /// @name IDrawable members.
       /// @{
@@ -33,12 +39,18 @@ namespace ycl
       virtual void ChangeColor (const sf::Color& color);
       /// @}
 
-    private:
+    protected:
+
+      void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
 
       virtual void HandleSetSize (yap::uint width, yap::uint height);
       virtual void HandleUpdate (const yap::Time& dt);
 
+    private:
+
       yap::TileLayerStack tileLayers_;
+
+      yap::collection::List<yap::IDrawableWorldObject*> drawableObjects_;
   };
 } // namespace ycl
 

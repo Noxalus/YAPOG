@@ -21,8 +21,8 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  Event<SenderType, ArgsType, ReturnType>&
-  inline Event<SenderType, ArgsType, ReturnType>::operator+= (
+  inline Event<SenderType, ArgsType, ReturnType>&
+  Event<SenderType, ArgsType, ReturnType>::operator+= (
     const HandlerType handler)
   {
     sig_.connect (handler);
@@ -33,8 +33,8 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  Event<SenderType, ArgsType, ReturnType>&
-  inline Event<SenderType, ArgsType, ReturnType>::operator-= (
+  inline Event<SenderType, ArgsType, ReturnType>&
+  Event<SenderType, ArgsType, ReturnType>::operator-= (
     const HandlerType handler)
   {
     sig_.disconnect (handler);
@@ -45,8 +45,8 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  ReturnType
-  inline Event<SenderType, ArgsType, ReturnType>::operator() (
+  inline ReturnType
+  Event<SenderType, ArgsType, ReturnType>::operator() (
     SenderType sender,
     ArgsType args)
   {

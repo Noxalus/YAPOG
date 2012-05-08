@@ -31,7 +31,10 @@ namespace yap
       const String& GetLogicalState () const;
       bool TryChangeState (const String& state);
       void SetInactive ();
+
       bool IsActive () const;
+
+      bool IsMoving () const;
 
       /// @name IUpdateable members.
       /// @{

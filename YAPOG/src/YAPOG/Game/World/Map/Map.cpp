@@ -23,6 +23,8 @@ namespace yap
 
   Map::~Map ()
   {
+//    for (WorldObject* object : objects_)
+//      delete object;
   }
 
   Map* Map::Clone () const
@@ -77,7 +79,15 @@ namespace yap
     for (IUpdateable* updateable : updateables_)
       updateable->Update (dt);
 
+    for (auto& it : dynamicObjects_)
+      if (it.second->IsMoving ())
+        it.second->Move (it.second->GetMove ());
+
     HandleUpdate (dt);
+  }
+
+  void Map::HandleUpdate (const Time& dt)
+  {
   }
 
   void Map::AddObject (WorldObject* object)
@@ -87,6 +97,7 @@ namespace yap
 
   void Map::AddDynamicObject (DynamicWorldObject* object)
   {
+    AddObject (object);
     dynamicObjects_.AddObject (object);
     AddUpdateable (object);
   }

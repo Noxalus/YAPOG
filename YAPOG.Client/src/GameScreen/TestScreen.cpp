@@ -121,6 +121,8 @@ namespace ycl
 
     map1 = of.Get<Map> ("Map", yap::ID (1));
 
+    map1->AddPlayer (p1);
+
     cmc.SetValue (MAX_VELOCITY);
 
     gim.AddGameInput (
@@ -172,18 +174,16 @@ namespace ycl
     context.SetMode ("World");
 
     p1->ApplyForce (cmc.GetForce ());
-    p1->Update (dt);
-    const yap::Vector2& p1Move = p1->GetMove ();
+//    p1->Update (dt);
 
-    if (p1Move == yap::Vector2 ())
-      p1->SetInactive ();
-    else
-      p1->Move (p1Move);
+//    const yap::Vector2& p1Move = p1->GetMove ();
+//    p1->Move (p1Move);
 
     pcc->Update (dt);
 
+    map1->Update (dt);
     map1->Draw (context);
-    p1->Draw (context);
+//    p1->Draw (context);
 
     context.SetDefaultCamera ();
 
