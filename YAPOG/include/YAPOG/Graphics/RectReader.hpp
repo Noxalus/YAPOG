@@ -4,13 +4,13 @@
 # include <SFML/Graphics/Rect.hpp>
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/IO/BaseReaderVisitor.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   template <typename T>
-  class YAPOG_LIB RectReader : public IReaderVisitor
+  class YAPOG_LIB RectReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(RectReader);
 

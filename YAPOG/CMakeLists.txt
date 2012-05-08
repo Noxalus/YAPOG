@@ -161,6 +161,8 @@ ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
 ${inc_root}/Graphics/CameraController.hpp
 ${src_root}/Graphics/CameraController.cpp
+${inc_root}/Graphics/CenteredCameraController.hpp
+${src_root}/Graphics/CenteredCameraController.cpp
 ${inc_root}/Graphics/DrawingContext.hpp
 ${src_root}/Graphics/DrawingContext.cpp
 ${inc_root}/Graphics/Game/Game.hpp
@@ -275,6 +277,15 @@ ${src_root}/System/Error/InvalidMethodCallException.cpp
 ${inc_root}/System/Event/Event.hpp
 ${inc_root}/System/Event/Event.hxx
 ${inc_root}/System/IntTypes.hpp
+${inc_root}/System/IO/BaseReaderConstVisitor.hpp
+${src_root}/System/IO/BaseReaderConstVisitor.cpp
+${inc_root}/System/IO/BaseReaderVisitor.hpp
+${src_root}/System/IO/BaseReaderVisitor.cpp
+${inc_root}/System/IO/BaseWriterConstVisitor.hpp
+${src_root}/System/IO/BaseWriterConstVisitor.cpp
+${inc_root}/System/IO/BaseWriterVisitor.hpp
+${src_root}/System/IO/BaseWriterVisitor.cpp
+${inc_root}/System/IO/IReaderConstVisitor.hpp
 ${inc_root}/System/IO/IReaderConstVisitor.hpp
 ${inc_root}/System/IO/IReader.hpp
 ${inc_root}/System/IO/IReaderVisitor.hpp
@@ -310,6 +321,10 @@ ${src_root}/System/IO/Xml/XmlWriter.cpp
 ${inc_root}/System/IOStream.hpp
 ${inc_root}/System/MathHelper.hpp
 ${inc_root}/System/MathHelper.hxx
+${inc_root}/System/Network/IPacket.hpp
+${inc_root}/System/Network/Packet.hpp
+${inc_root}/System/Network/Packet.hxx
+${src_root}/System/Network/Packet.cpp
 ${inc_root}/System/Path.hpp
 ${src_root}/System/Path.cpp
 ${inc_root}/System/RandomHelper.hpp

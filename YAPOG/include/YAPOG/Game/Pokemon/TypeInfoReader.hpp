@@ -2,7 +2,7 @@
 # define YAPOG_TYPEINFOREADER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/IO/BaseReaderVisitor.hpp"
 # include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
@@ -11,7 +11,7 @@
 
 namespace yap
 {
-  class YAPOG_LIB TypeInfoReader : public IReaderVisitor
+  class YAPOG_LIB TypeInfoReader : public BaseReaderVisitor
   {
     DISALLOW_COPY(TypeInfoReader);
 

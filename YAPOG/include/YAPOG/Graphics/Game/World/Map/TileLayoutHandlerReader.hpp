@@ -2,12 +2,12 @@
 # define YAPOG_TILELAYOUTHANDLERREADER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/IO/BaseReaderVisitor.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
-  class TileLayoutHandlerReader : public IReaderVisitor
+  class YAPOG_LIB TileLayoutHandlerReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(TileLayoutHandlerReader);
 

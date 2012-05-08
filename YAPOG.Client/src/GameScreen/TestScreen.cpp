@@ -33,6 +33,7 @@
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 #include "YAPOG/Graphics/ProgressiveCameraController.hpp"
+#include "YAPOG/Graphics/CenteredCameraController.hpp"
 #include "YAPOG/Game/World/Map/Physics/CharacterMoveController.hpp"
 #include "YAPOG/Game/World/Map/WorldObjectStateFactory.hpp"
 
@@ -56,6 +57,7 @@ ycl::Map* map1;
 ycl::Player* p1;
 yap::CharacterMoveController cmc;
 
+yap::CenteredCameraController* ccc = nullptr;
 yap::ProgressiveCameraController* pcc = nullptr;
 
 yap::WorldObjectStateFactory& wosf = yap::WorldObjectStateFactory::Instance ();
@@ -161,6 +163,10 @@ namespace ycl
   {
     if (pcc == nullptr)
     {
+      ccc = new yap::CenteredCameraController (context.GetCamera ("World"));
+      ccc->SetTarget (*p1);
+      ccc->SetBounds (yap::FloatRect (0.0f, 0.0f, 15000.0f, 15000.0f));
+
       pcc = new yap::ProgressiveCameraController (context.GetCamera ("World"));
       pcc->SetTarget (*p1);
       pcc->SetBounds (yap::FloatRect (0.0f, 0.0f, 15000.0f, 15000.0f));
@@ -174,16 +180,13 @@ namespace ycl
     context.SetMode ("World");
 
     p1->ApplyForce (cmc.GetForce ());
-//    p1->Update (dt);
-
-//    const yap::Vector2& p1Move = p1->GetMove ();
-//    p1->Move (p1Move);
-
-    pcc->Update (dt);
 
     map1->Update (dt);
+//    ccc->Update (dt);
+    pcc->Update (dt);
+
+
     map1->Draw (context);
-//    p1->Draw (context);
 
     context.SetDefaultCamera ();
 

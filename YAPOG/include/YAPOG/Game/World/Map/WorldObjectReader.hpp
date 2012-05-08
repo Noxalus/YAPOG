@@ -2,14 +2,14 @@
 # define YAPOG_WORLDOBJECTREADER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/IO/BaseReaderVisitor.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   class WorldObject;
 
-  class YAPOG_LIB WorldObjectReader : public IReaderVisitor
+  class YAPOG_LIB WorldObjectReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(WorldObjectReader);
 
