@@ -10,13 +10,24 @@
 
 namespace yap
 {
-  Packet::Packet ()
-    : packet_ ()
+  Packet::Packet (PacketType type)
+    : type_ (type)
+    , packet_ ()
   {
   }
 
   Packet::~Packet ()
   {
+  }
+
+  const PacketType& Packet::GetType () const
+  {
+    return type_;
+  }
+
+  sf::Packet& Packet::GetInnerPacket ()
+  {
+    return packet_;
   }
 
   void Packet::Accept (IWriterVisitor& visitor)

@@ -14,8 +14,15 @@ namespace yap
 
     public:
 
-      Packet ();
+      Packet (PacketType type);
       virtual ~Packet ();
+
+      /// @name IPacket members.
+      /// @{
+      virtual const PacketType& GetType () const;
+
+      virtual sf::Packet& GetInnerPacket ();
+      /// @}
 
       /// @name IWriter members.
       /// @{
@@ -129,6 +136,7 @@ namespace yap
       template <typename T>
       T ReadData ();
 
+      PacketType type_;
       sf::Packet packet_;
   };
 } // namespace yap

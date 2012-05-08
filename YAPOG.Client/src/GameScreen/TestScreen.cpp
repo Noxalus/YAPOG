@@ -36,6 +36,7 @@
 #include "YAPOG/Graphics/CenteredCameraController.hpp"
 #include "YAPOG/Game/World/Map/Physics/CharacterMoveController.hpp"
 #include "YAPOG/Game/World/Map/WorldObjectStateFactory.hpp"
+#include "YAPOG/System/Network/ISocket.hpp"
 
 #include "World/Map/Player.hpp"
 #include "World/Map/PlayerReader.hpp"
