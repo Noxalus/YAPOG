@@ -7,7 +7,7 @@ struct IInsertTable
 {
 	virtual ~IInsertTable () {};
 
-	virtual bool Add (yap::DatabaseManager& dM) const = 0;
+	virtual bool Add (yap::DatabaseManager& databaseManager) = 0;
 };
 
 #endif // YAPOG_ITABLE_HPP

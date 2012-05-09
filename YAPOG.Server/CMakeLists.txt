@@ -24,8 +24,16 @@ ${inc_root}/Database/Tables/InsertAccount.hpp
 ${src_root}/Database/Tables/InsertAccount.cpp
 ${inc_root}/Database/Tables/SelectAccount.hpp
 ${src_root}/Database/Tables/SelectAccount.cpp
+${inc_root}/Database/Tables/InsertPlayerData.hpp
+${src_root}/Database/Tables/InsertPlayerData.cpp
+${inc_root}/Database/Tables/SelectPlayerData.hpp
+${src_root}/Database/Tables/SelectPlayerData.cpp
 ${inc_root}/Account/AccountManager.hpp
 ${src_root}/Account/AccountManager.cpp
+${inc_root}/Account/Account.hpp
+${src_root}/Account/Account.cpp
+${inc_root}/Account/PlayerData.hpp
+${src_root}/Account/PlayerData.cpp
 ${inc_root}/Account/AccountPermission.hpp
 )
 

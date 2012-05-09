@@ -1,7 +1,7 @@
 ﻿#ifndef YAPOG_ACCOUNTPERMISSION_HPP
 # define YAPOG_ACCOUNTPERMISSION_HPP
 
-enum class AccountPermission
+enum class AccountPermission : int
 {
   Normal,
 	Admin

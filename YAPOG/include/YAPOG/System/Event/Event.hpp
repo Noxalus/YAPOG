@@ -9,7 +9,7 @@
 
 namespace yap
 {
-  class EmptyEventArgs { };
+  class YAPOG_LIB EmptyEventArgs { };
 
   template <typename SenderType,
             typename ArgsType = const EmptyEventArgs&,

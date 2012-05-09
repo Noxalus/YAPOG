@@ -1,8 +1,9 @@
 #include "Account/AccountManager.hpp"
+#include "Account/PlayerData.hpp"
 
 AccountManager::AccountManager (yap::DatabaseManager& dm)
-  : databaseManager_ (dm),
-    accounts_ ()
+  : databaseManager_ (dm)
+  , accounts_ ()
 {
 }
 
@@ -12,45 +13,79 @@ AccountManager::~AccountManager ()
     delete it.second;
 }
 
-void AccountManager::CreateNewAccount (const yap::String& name,
-                                       const yap::String& password,
-                                       const yap::String& email,
-                                       const yap::String& creationIp)
+void AccountManager::CreateNewAccount (
+  const yap::String& name,
+  const yap::String& password,
+  const yap::String& email,
+  const yap::String& creationIP)
 {
-  InsertAccount ia (name, email, password, creationIp);
+  Account account;
+  account.SetName (name);
+  account.SetPassword (password);
+  account.SetEmail (email);
+  account.SetCreationIP (creationIP);
+  InsertAccount ia (account);
 
   if (ia.Add (databaseManager_))
-    std::cout << "A new accout has been created ! (" << name << ")" << std::endl;
+  {
+    std::cout << "A new accout has been created ! (" 
+      << name << ")" << std::endl;
+  }
+
+  PlayerData playerData (ia.GetID ());
+  InsertPlayerData ipd (playerData);
+
+  if (ipd.Add (databaseManager_))
+    std::cout << "Player data have been created !" << std::endl;
 }
 
-void AccountManager::Login (const yap::String& name, const yap::String& password, const yap::String& current_ip)
+void AccountManager::Login (
+  const yap::String& name, 
+  const yap::String& password, 
+  const yap::String& current_ip)
 {
-  std::cout << "Login of \"" << name << "\" (pass: \"" << password << "\") !" << std::endl;
+  std::cout << "Login of \"" << name 
+    << "\" (pass: \"" << password << "\") !" << std::endl;
 
-  SelectAccount* sa = new SelectAccount (databaseManager_, name);
-  accounts_.Add (name, sa);
+  Account* account = new Account ();
+  SelectAccount sa (databaseManager_, name, *account);
 
   yap::String encodedPassword = EncodePassword (password);
 
   // Check if this is the corresponding password
-  if (sa->GetPassword () != encodedPassword)
+  if (account->GetPassword () != encodedPassword)
     throw yap::Exception ("Wrong password !");
 
   // Check if the account is already logged in
-  if (sa->IsLogged ())
+  if (account->IsLogged ())
     throw yap::Exception ("A person is already using this account !");
 
+  // Get player data
+  PlayerData* playerData = new PlayerData (account->GetID ());
+  SelectPlayerData spd (databaseManager_, *playerData);
+
+  playerData->DisplayData ();
+
   // Record the login IP
-  sa->SetCurrentIp (current_ip);
-  yap::String queryString = "UPDATE account SET "
+  account->SetCurrentIP (current_ip);
+
+  yap::String queryString = 
+    "UPDATE account SET "
     "account_current_ip = :currentIp, account_last_login_date = NOW () "
     " WHERE account_name = :name";
-  pg_stream queryUpdateCurrentIp (queryString, databaseManager_.GetConnection ());
-  queryUpdateCurrentIp << current_ip << name;
-  std::cout << "This account is now in use for the server and the database !" << std::endl;
 
-  if (sa->IsLogged ())
+  pg_stream queryUpdateCurrentIp (
+    queryString, databaseManager_.GetConnection ());
+
+  queryUpdateCurrentIp << current_ip << name;
+  std::cout 
+    << "This account is now in use for the "
+    << "server and the database !" << std::endl;
+
+  if (account->IsLogged ())
     std::cout << "This account is logged !" << std::endl;
+
+  accounts_.Add (name, account);
 }
 
 void AccountManager::DisplayAllAccounts ()
@@ -81,7 +116,7 @@ void AccountManager::DisplayLoggedAccounts ()
     std::cout << sa.second->GetName () << std::endl;
 }
 
-SelectAccount& AccountManager::GetAccount (const yap::String& name)
+Account& AccountManager::GetAccount (const yap::String& name)
 {
   if (accounts_.Contains (name))
     return *accounts_[name];
