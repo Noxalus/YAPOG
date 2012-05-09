@@ -7,16 +7,9 @@
 
 namespace yap
 {
-  const String TextureReader::DEFAULT_XML_ROOT_NODE_NAME = "Texture";
   const String TextureReader::DEFAULT_XML_ID_NODE_NAME = "id";
   const String TextureReader::DEFAULT_XML_NAME_NODE_NAME = "name";
   const String TextureReader::DEFAULT_XML_RECT_NODE_NAME = "rect";
-
-  TextureReader::TextureReader (Texture& texture)
-    : texture_ (texture)
-    , xmlRootNodeName_ (DEFAULT_XML_ROOT_NODE_NAME)
-  {
-  }
 
   TextureReader::TextureReader (
     Texture& texture,

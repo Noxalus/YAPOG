@@ -17,8 +17,8 @@ SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
 SET(
 source_files
-${inc_root}/tmp/Server.hpp
-${src_root}/tmp/Server.cpp
+${inc_root}/Server.hpp
+${src_root}/Server.cpp
 ${inc_root}/Database/IInsertTable.hpp
 ${inc_root}/Database/Tables/InsertAccount.hpp
 ${src_root}/Database/Tables/InsertAccount.cpp

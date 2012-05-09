@@ -5,7 +5,9 @@
 namespace yap
 {
   PhysicsCore::PhysicsCore ()
-    : velocity_ ()
+    : OnStopping ()
+    , OnMoving ()
+    , velocity_ ()
     , minVelocity_ ()
     , maxVelocity_ ()
     , move_ ()
@@ -17,7 +19,9 @@ namespace yap
   }
 
   PhysicsCore::PhysicsCore (const PhysicsCore& copy)
-    : velocity_ (copy.velocity_)
+    : OnStopping ()
+    , OnMoving ()
+    , velocity_ (copy.velocity_)
     , minVelocity_ (copy.minVelocity_)
     , maxVelocity_ (copy.maxVelocity_)
     , move_ (copy.move_)
@@ -36,9 +40,19 @@ namespace yap
 
   void PhysicsCore::Update (const Time& dt)
   {
+    Vector2 oldMove = move_;
+
     move_ = velocity_ * dt.GetValue ();
 
     ResetVelocity (dt);
+
+    if (move_ == oldMove)
+      return;
+
+    if (oldMove == Vector2 (0.0f, 0.0f))
+      OnMoving (*this, EmptyEventArgs ());
+    else if (move_ == Vector2 (0.0f, 0.0f))
+      OnStopping (*this, EmptyEventArgs ());
   }
 
   void PhysicsCore::SetVelocityBounds (const Vector2& min, const Vector2& max)

@@ -2,16 +2,16 @@
 # define YAPOG_NATUREINFOREADER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/IO/BaseReaderVisitor.hpp"
 # include "YAPOG/Game/Pokemon/NatureInfo.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
-#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+# include "YAPOG/System/IO/Xml/XmlReader.hpp"
 # include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB NatureInfoReader : public IReaderVisitor
+  class YAPOG_LIB NatureInfoReader : public BaseReaderVisitor
   {
     DISALLOW_COPY(NatureInfoReader);
 

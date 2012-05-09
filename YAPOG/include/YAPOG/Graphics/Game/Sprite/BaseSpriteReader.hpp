@@ -2,14 +2,14 @@
 # define YAPOG_BASESPRITEREADER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/IO/IReaderVisitor.hpp"
+# include "YAPOG/System/IO/BaseReaderVisitor.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
   class BaseSprite;
 
-  class YAPOG_LIB BaseSpriteReader : public IReaderVisitor
+  class YAPOG_LIB BaseSpriteReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(BaseSpriteReader);
 

@@ -5,6 +5,7 @@
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Game/Factory/ICloneable.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -29,7 +30,13 @@ namespace yap
 
       /// @name ICloneable members.
       /// @{
-      virtual PhysicsCore* Clone () const { return nullptr; };
+      virtual PhysicsCore* Clone () const { return nullptr; }
+      /// @}
+
+      /// @name Events.
+      /// @{
+      Event<const PhysicsCore&, const EmptyEventArgs&> OnStopping;
+      Event<const PhysicsCore&, const EmptyEventArgs&> OnMoving;
       /// @}
 
     protected:

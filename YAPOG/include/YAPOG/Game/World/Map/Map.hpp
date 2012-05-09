@@ -53,10 +53,10 @@ namespace yap
       virtual void AddDynamicObject (DynamicWorldObject* object);
       virtual void AddUpdateable (IUpdateable* updateable);
 
-    private:
-
       virtual void HandleSetSize (uint width, uint height);
-      virtual void HandleUpdate (const Time& dt) = 0;
+      virtual void HandleUpdate (const Time& dt);
+
+    private:
 
       static const String DEFAULT_NAME;
       static const uint DEFAULT_WIDTH;

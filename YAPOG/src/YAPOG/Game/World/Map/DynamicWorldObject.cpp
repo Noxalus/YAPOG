@@ -26,7 +26,7 @@ namespace yap
     , physicsCore_ (nullptr)
   {
     if (copy.physicsCore_ != nullptr)
-      physicsCore_ = copy.physicsCore_->Clone ();
+      SetPhysicsCore (copy.physicsCore_->Clone ());
   }
 
   const ID& DynamicWorldObject::GetWorldID () const
@@ -42,13 +42,22 @@ namespace yap
   void DynamicWorldObject::SetPhysicsCore (PhysicsCore* physicsCore)
   {
     physicsCore_ = physicsCore;
+
+    physicsCore_->OnMoving +=
+      [&](const PhysicsCore& sender, const EmptyEventArgs& args)
+    {
+      TryChangeState ("Moving");
+    };
+
+    physicsCore_->OnStopping +=
+      [&](const PhysicsCore& sender, const EmptyEventArgs& args)
+    {
+      SetInactive ();
+    };
   }
 
   void DynamicWorldObject::ApplyForce (const Vector2& force)
   {
-    if (force != Vector2 ())
-      TryChangeState ("Moving");
-
     physicsCore_->ApplyForce (force);
   }
 
@@ -105,6 +114,11 @@ namespace yap
     state_ = state;
 
     HandleSetState (state);
+  }
+
+  bool DynamicWorldObject::IsMoving () const
+  {
+    return GetLogicalState () == "Moving";
   }
 
   void DynamicWorldObject::Update (const Time& dt)
