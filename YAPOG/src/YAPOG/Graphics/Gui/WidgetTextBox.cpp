@@ -21,25 +21,16 @@ namespace yap
   {
   }
 
-  bool WidgetTextBox::IsAlpha (String& str)
+  bool WidgetTextBox::IsFocusable () const
   {
-
+    return true;
   }
-  bool WidgetTextBox::IsNumeric (String& str)
-  {
 
-  }
-  bool WidgetTextBox::ContainSpecial (String& str)
+  void WidgetTextBox::SetCursor (Texture& cursor)
   {
-
-  }
-  bool WidgetTextBox::ContainNumeric (String& str)
-  {
-
-  }
-  bool WidgetTextBox::ContainAlpha (String& str)
-  {
-
+    cursor.SetSize (Vector2 (cursor.GetSize ().x, label_->GetCharHeight ()));
+    cursor.SetPosition (GetPosition ());
+    curser_ = &cursor;
   }
 
   void WidgetTextBox::Refresh ()
@@ -63,7 +54,9 @@ namespace yap
 
     if (curser_ != nullptr)
     {
-      curser_->SetPosition (label_->CharPos (label_->Length () - curserRelPos_));
+      curser_->SetPosition (label_->CharPos (
+        label_->Length () - curserRelPos_) - Vector2 (3, -5));
+      curser_->Draw (context);
     }
   }
 
@@ -74,12 +67,16 @@ namespace yap
   void WidgetTextBox::HandleMove (const Vector2& offset)
   {
     label_->Move (offset);
+    if (curser_ != nullptr)
+      curser_->Move (offset);
     //drawableText_.setPosition (GetPosition() + offset);
   }
 
   void WidgetTextBox::HandleScale (const Vector2& factor)
   {
     label_->Scale (factor);
+    if (curser_ != nullptr)
+      curser_->Scale (factor);
   }
 
   void WidgetTextBox::HandleUpdate (const Time& dt)
@@ -102,6 +99,8 @@ namespace yap
     {
       if (guiEvent.key.code == sf::Keyboard::Back)
       {
+        if (label_->Length () - curserRelPos_ == 0)
+          return true;
         uint contentLength = content_.length ();
         if (content_.length () > 0)
           if (curserPos_ == 0)
@@ -126,6 +125,16 @@ namespace yap
                 (content_.length () - label_->Length () - 1, 1);
               String temp2 = label_->GetText ();
               label_->SetText (temp + temp2.substr (0, temp2.length () - 1));
+
+              uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
+              Vector2 labelWidth (label_->CharPos (label_->Length () - curserRelPos_)
+                - label_->GetPosition ());
+              while (labelWidth.x > labelMaxWidth)
+              {
+                label_->SetText (label_->GetText ().substr (1));
+                labelWidth = label_->CharPos (label_->Length () - curserRelPos_)
+                  - label_->GetPosition ();
+              }
             }
             else
             {
@@ -189,6 +198,8 @@ namespace yap
       char txt = static_cast<char> (guiEvent.text.unicode);
       if (txt == '\b')
         return true;
+      if (txt == '\t')
+        return false;
       if (curserPos_ > 0)
       {
         String firstPart = content_.substr (0, content_.length () - curserPos_);
@@ -202,6 +213,10 @@ namespace yap
       if (curserRelPos_ > 0)
       {
         String temp = label_->GetText ();
+
+        if (temp.length () < curserRelPos_)
+          return true;
+
         String firstPart = temp.substr (0, temp.length () - curserRelPos_);
         String lastPart = temp.substr (temp.length () - curserRelPos_);
 
@@ -211,12 +226,19 @@ namespace yap
         label_->SetText (label_->GetText () + txt);
 
       uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
-
+      Vector2 labelWidth (label_->CharPos (label_->Length ())
+        - label_->GetPosition ());
+      while (labelWidth.x > labelMaxWidth)
+      {
+        label_->SetText (label_->GetText ().substr (1));
+        labelWidth = label_->CharPos (label_->Length ())
+          - label_->GetPosition ();
+      }
       while (label_->GetSize ().x > labelMaxWidth)
       {
         label_->SetText (label_->GetText ().substr (1));
       }
-      return false;
+      return true;
     }
   }
 

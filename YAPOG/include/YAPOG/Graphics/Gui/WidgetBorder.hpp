@@ -38,6 +38,7 @@ namespace yap
 
     virtual ~WidgetBorder ();
 
+    virtual bool IsFocusable () const;
     Event<const WidgetBorder&, const EventArgsTexture&> OnBorderSet;
     void SetBorder (Vector2 size, uint width);
     void SetBorder (Vector2 size);

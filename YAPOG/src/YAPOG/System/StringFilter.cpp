@@ -17,16 +17,19 @@ namespace yap
 
   bool StringFilter::ContainSpecial (String& str)
   {
-    return (!IsAlpha (str) && !IsNumeric (str));
+    std::regex rx("[^[:digit:]^[:alpha:]]");
+    return regex_search (str.begin(), str.end(), rx);
   }
 
   bool StringFilter::ContainNumeric (String& str)
   {
-
+    std::regex rx("[[:digit:]]");
+    return regex_search (str.begin(), str.end(), rx);
   }
 
   bool StringFilter::ContainAlpha (String& str)
   {
-
+    std::regex rx("[[:alpha:]]");
+    return regex_search (str.begin(), str.end(), rx);
   }
 } // !namespace yap

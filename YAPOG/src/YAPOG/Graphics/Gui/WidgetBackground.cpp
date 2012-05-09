@@ -11,6 +11,11 @@ namespace yap
   {
   }
 
+  bool WidgetBackground::IsFocusable () const
+  {
+    return false;
+  }
+
   WidgetBackground::WidgetBackground (String file, bool resize)
     : background_ ()
     , tm_ (nullptr)

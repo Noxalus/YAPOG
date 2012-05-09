@@ -16,6 +16,11 @@ namespace yap
   {
   }
 
+  bool WidgetBorder::IsFocusable () const
+  {
+    return false;
+  }
+
   WidgetBorder::WidgetBorder (String file)
     : border_ (nullptr)
     , file_ (file)

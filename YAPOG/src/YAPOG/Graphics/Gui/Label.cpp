@@ -28,6 +28,10 @@ namespace yap
   Label::~Label ()
   {
   }
+  bool Label::IsFocusable () const
+  {
+    return false;
+  }
 
   float Label::GetCharWidth () const
   {

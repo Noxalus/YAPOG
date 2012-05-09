@@ -11,6 +11,7 @@ namespace yap
     , innerPad_ (0, 0, 0, 0)
     , externPad_ (0, 0, 0, 0)
     , realSize_ ()
+    , focusedChild_ (0)
   {
   }
 
@@ -18,6 +19,11 @@ namespace yap
   {
     GeneratePosition ();
     BaseWidget::Refresh ();
+  }
+
+  bool LayoutBox::IsFocusable () const
+  {
+    return true;
   }
 
   void LayoutBox::SetExtensible (bool isExt)
@@ -64,6 +70,23 @@ namespace yap
     items_.Add (&child, align);
 
     GeneratePosition ();
+  }
+
+  bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Tab)
+      {
+        focusedChild_ = (focusedChild_ + 1) % items_.Count ();
+        IEventHandler* child = eventHandlers_[focusedChild_];
+        eventHandlers_[focusedChild_] = eventHandlers_[0];
+        eventHandlers_[0] = child;
+
+        return true;
+      }
+    }
+    return false;
   }
 
   void LayoutBox::HandleDraw (IDrawingContext& context)

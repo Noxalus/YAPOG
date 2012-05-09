@@ -23,6 +23,11 @@ namespace yap
     return Vector2 ();
   }
 
+  bool PictureBox::IsFocusable () const
+  {
+    return false;
+  }
+
   void PictureBox::HandleDraw (IDrawingContext& context)
   {
     picture_.Draw (context);

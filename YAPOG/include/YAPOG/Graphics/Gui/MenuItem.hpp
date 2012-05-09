@@ -14,6 +14,7 @@ namespace yap
     MenuItem ();
     virtual ~MenuItem ();
     virtual void Do ();
+    virtual bool IsFocusable () const;
 
   private:
     virtual Vector2 HandleGetSize () const;

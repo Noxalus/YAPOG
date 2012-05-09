@@ -44,6 +44,11 @@ namespace yap
     BaseWidget::AddChild (*layout_);
   }
 
+  bool Menu::IsFocusable () const
+  {
+    return true;
+  }
+
   Menu::~Menu ()
   {
   }

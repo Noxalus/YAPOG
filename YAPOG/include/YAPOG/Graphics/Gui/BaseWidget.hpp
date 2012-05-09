@@ -5,6 +5,7 @@
 # include "YAPOG/Graphics/Gui/IWidget.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 
@@ -116,9 +117,10 @@ namespace yap
     virtual void SetBorder  (WidgetBorder& border);
     virtual void UnsetBackground ();
     virtual void UnsetBorder ();
-
+    virtual bool IsFocusable () const = 0;
     Vector2 GetUserSize () const;
   protected:
+
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
 
@@ -133,19 +135,18 @@ namespace yap
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 
     static const bool DEFAULT_VISIBLE_STATE;
-    static const sf::Color DEFAULT_COLOR;
+    static const sf::Color DEFAULT_COLOR;    
 
     mutable SpatialInfo spatialInfo_;
     bool isVisible_;
     bool isEnable;
     sf::Color color_;
     collection::List<IDrawable*> drawables_;
-    collection::List<IEventHandler*> eventHandlers_;
+    collection::Array<IEventHandler*> eventHandlers_;
     collection::List<IWidget*> childen_;
     collection::List<IUpdateable*> updatables_;
     IWidget* root_;
     IWidget* parent_;
-    IWidget* focusedChildren_;
     Padding* padding_;
     WidgetBackground* background_;
     WidgetBorder* border_;

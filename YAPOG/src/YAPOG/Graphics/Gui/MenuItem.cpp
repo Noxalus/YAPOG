@@ -19,6 +19,11 @@ namespace yap
 
   }
 
+  bool MenuItem::IsFocusable () const
+  {
+    return true;
+  }
+
   Vector2 MenuItem::HandleGetSize () const
   {
     return GetUserSize ()

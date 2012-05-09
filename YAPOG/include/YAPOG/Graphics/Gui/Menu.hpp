@@ -28,6 +28,7 @@ namespace yap
 
     void SetSelectedBackground (WidgetBackground& background);
     void SetSelectedBorder (WidgetBorder& border);
+    virtual bool IsFocusable () const;
 
   private:
     virtual Vector2 HandleGetSize () const;

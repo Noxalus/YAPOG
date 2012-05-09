@@ -18,7 +18,6 @@ namespace yap
     , childen_ ()
     , root_ (nullptr)
     , parent_ (nullptr)
-    , focusedChildren_ (nullptr)
     , padding_ (nullptr)
     , background_ (nullptr)
     , border_ (nullptr)
@@ -221,6 +220,9 @@ namespace yap
     if (!isEnable)
       return false;
 
+    if (HandleOnPriorityEvent (guiEvent))
+      return true;
+
     for (IEventHandler* child : eventHandlers_)
     {
       if (child->OnPriorityEvent (guiEvent))
@@ -233,7 +235,7 @@ namespace yap
       if (background_->OnEvent (guiEvent))
         return true;
 
-    return HandleOnPriorityEvent (guiEvent);
+    return false;
   }
 
   void BaseWidget::Update (const Time& dt)
@@ -331,7 +333,7 @@ namespace yap
       border_->SetBorder (GetSize (), width);
     else
       border_->SetBorder (GetUserSize (), width);
-    
+
     SetPosAfterBorder (width);
   }
 
@@ -343,7 +345,7 @@ namespace yap
       border_->SetBorder (GetSize ());
     else
       border_->SetBorder (GetUserSize ());
-    
+
     SetPosAfterBorder (border.GetBorder ().GetSize ().y);
   }
 

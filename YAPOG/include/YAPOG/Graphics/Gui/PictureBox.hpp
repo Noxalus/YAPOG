@@ -27,6 +27,8 @@ namespace yap
     PictureBox ();
     virtual ~PictureBox ();
 
+    virtual bool IsFocusable () const;
+
     void SetPicture (String file);
     const Texture& GetPicture () const;
     Event<const PictureBox&, const EventArgsTexture&> OnPictureSet;

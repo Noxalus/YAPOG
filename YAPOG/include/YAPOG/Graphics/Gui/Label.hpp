@@ -30,6 +30,7 @@ namespace yap
     Label (String content);
 
     virtual ~Label ();
+    virtual bool IsFocusable () const;
 
     void SetText (String& content);
     String GetText () const;

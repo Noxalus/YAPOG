@@ -6,6 +6,10 @@ namespace yap
     : BaseWidget ()
   {
   }
+  bool GuiManager::IsFocusable () const
+  {
+    return false;
+  }
 
   GuiManager::~GuiManager ()
   {

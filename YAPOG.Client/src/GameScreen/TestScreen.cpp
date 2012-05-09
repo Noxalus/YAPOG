@@ -190,14 +190,14 @@ void TestScreen::HandleInit ()
   LayoutH* layouth = new LayoutH (Padding (2, 2, 2, 2),
     Padding (9, 9 , 9, 9), true);
 
-  Label* ts = new Label ();
-  ts->SetText (String("waza"));
-  Label* ts3 = new Label ();
-  ts3->SetText (String("Waza"));
 
+  WidgetTextBox* ts = new WidgetTextBox ();
+  WidgetTextBox* ts3 = new WidgetTextBox ();
   yap::WidgetBackground* bckgr = new WidgetBackground ("bckgrd.png", false);
   yap::WidgetBackground* bckgr2 = new WidgetBackground ("bckgrd.png", false);
-
+  
+  ts->SetSize (Vector2 (128, 32));
+  ts3->SetSize (Vector2 (128, 32));
   ts->SetBackground (*bckgr);
   ts3->SetBackground (*bckgr2);
   
@@ -215,6 +215,9 @@ void TestScreen::HandleInit ()
 
   WidgetTextBox* txtbox = new WidgetTextBox ();
   txtbox->SetSize (Vector2 (256, 64));
+  Texture* cursor = new Texture ();
+  cursor->LoadFromFile ("cursor.png");
+  txtbox->SetCursor (*cursor);
   WidgetBackground* bckgrd = new WidgetBackground ("bckgrd.png", true);
   txtbox->SetBackground (*bckgrd);
 

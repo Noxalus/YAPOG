@@ -17,6 +17,7 @@ namespace yap
 
       GuiManager ();
       virtual ~GuiManager ();
+      virtual bool IsFocusable () const;
 
     private:
 

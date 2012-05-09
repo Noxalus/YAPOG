@@ -30,6 +30,7 @@ namespace yap
     virtual void SetBackground (WidgetBackground& background) = 0;
     virtual void SetBorder  (WidgetBorder& border, uint width) = 0;
     virtual void Refresh () = 0;
+    virtual bool IsFocusable () const = 0;
   };
 } // namespace yap
 

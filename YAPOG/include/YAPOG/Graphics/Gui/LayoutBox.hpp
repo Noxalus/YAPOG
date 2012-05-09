@@ -27,6 +27,7 @@ namespace yap
     LayoutBox ();
     LayoutBox (Padding ext, Padding in, bool isExt);
     virtual ~LayoutBox ();
+    virtual bool IsFocusable () const;
 
     virtual void AddChild (IWidget& child, Align align = Align::CENTER);
     void SetExtensible (bool isExt);
@@ -51,12 +52,16 @@ namespace yap
 
     float MaxSize (char coord);
 
+    virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
+   //virtual bool HandleOnEvent (const GuiEvent& guiEvent);
+
     collection::Map<IWidget*, Align> items_;
     Padding externPad_;
     Padding innerPad_;
     Align globalAlign_;
 
     Vector2 realSize_;
+    uint focusedChild_;
   };
 } // namespace yap
 
