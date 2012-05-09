@@ -9,12 +9,12 @@
 
 namespace yap
 {
-  class YAPOG_LIB EmptyEventArgs { };
+  class EmptyEventArgs { };
 
   template <typename SenderType,
             typename ArgsType = const EmptyEventArgs&,
             typename ReturnType = void>
-  class YAPOG_LIB Event
+  class Event
   {
       DISALLOW_COPY(Event);
 

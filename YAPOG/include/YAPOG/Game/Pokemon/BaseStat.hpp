@@ -8,8 +8,6 @@ namespace yap
 {
   class YAPOG_LIB BaseStat
   {
-    DISALLOW_COPY (BaseStat);
-
     public:
       BaseStat ();
       BaseStat (const UInt16& value);

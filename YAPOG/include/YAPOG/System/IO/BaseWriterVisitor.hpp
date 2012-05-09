@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class BaseWriterVisitor : public IWriterVisitor
+  class YAPOG_LIB BaseWriterVisitor : public IWriterVisitor
   {
       DISALLOW_COPY(BaseWriterVisitor);
 

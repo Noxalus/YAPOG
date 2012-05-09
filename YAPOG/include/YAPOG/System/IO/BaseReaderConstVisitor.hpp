@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class BaseReaderConstVisitor : public IReaderConstVisitor
+  class YAPOG_LIB BaseReaderConstVisitor : public IReaderConstVisitor
   {
       DISALLOW_COPY(BaseReaderConstVisitor);
 
