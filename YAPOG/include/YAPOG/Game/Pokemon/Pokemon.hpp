@@ -43,7 +43,6 @@ namespace yap
 
     void AddExperience (const Int32& value);
 
-    void PrintBattleStats ();
     void PrintStats ();
 
     static const int MAX_POKEMON_MOVE_NUMBER;

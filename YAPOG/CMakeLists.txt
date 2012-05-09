@@ -156,6 +156,10 @@ ${src_root}/Game/Battle/WildBattle.cpp
 ${inc_root}/Game/Battle/WildBattle.hpp
 ${src_root}/Game/Battle/TrainerBattle.cpp
 ${inc_root}/Game/Battle/TrainerBattle.hpp
+${src_root}/Game/Battle/PokemonFighter.cpp
+${inc_root}/Game/Battle/PokemonFighter.hpp
+${src_root}/Game/Battle/Battle.cpp
+${inc_root}/Game/Battle/Battle.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

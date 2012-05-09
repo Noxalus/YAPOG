@@ -308,16 +308,6 @@ namespace yap
     }
   }
 
-  void Pokemon::PrintBattleStats ()
-  {
-    std::cout 
-      << GetName () << " ("
-      << GetStringFromGender (GetGender ()) << ")"
-      << " N." << GetLevel () << std::endl
-      << "PV: " << GetCurrentHP () << "/" << GetMaxHP ()
-      << std::endl;
-  }
-
   void Pokemon::PrintStats ()
   {
     //pokemonInfo_->PrintBaseStats ();
