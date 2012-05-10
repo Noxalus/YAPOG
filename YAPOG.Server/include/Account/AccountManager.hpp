@@ -9,34 +9,37 @@
 # include "YAPOG/Collection/Map.hpp"
 # include "Account/Account.hpp"
 
-class PlayerData;
-
-class AccountManager
+namespace yse
 {
-	DISALLOW_COPY(AccountManager);
-public:
-	AccountManager (yap::DatabaseManager& dm);
-	~AccountManager ();
+  class PlayerData;
 
-	void CreateNewAccount (
-    const yap::String& name, 
-    const yap::String& password, 
-		const yap::String& email, 
-    const yap::String& creationIp);
+  class AccountManager
+  {
+    DISALLOW_COPY(AccountManager);
+  public:
+    AccountManager (yap::DatabaseManager& dm);
+    ~AccountManager ();
 
-	void Login (
-    const yap::String& name, 
-    const yap::String& password, 
-    const yap::String& current_ip);
+    void CreateNewAccount (
+      const yap::String& name, 
+      const yap::String& password, 
+      const yap::String& email, 
+      const yap::String& creationIp);
 
-	void Disconnect (const yap::String& name);
-	void DisplayAllAccounts ();
-	void DisplayLoggedAccounts ();
-	Account& GetAccount (const yap::String& name);
-	yap::String EncodePassword (const yap::String& password);
-private:
-	yap::DatabaseManager& databaseManager_;
-	yap::collection::Map<yap::String, Account*> accounts_;
-};
+    void Login (
+      const yap::String& name, 
+      const yap::String& password, 
+      const yap::String& current_ip);
+
+    void Disconnect (const yap::String& name);
+    void DisplayAllAccounts ();
+    void DisplayLoggedAccounts ();
+    Account& GetAccount (const yap::String& name);
+    yap::String EncodePassword (const yap::String& password);
+  private:
+    yap::DatabaseManager& databaseManager_;
+    yap::collection::Map<yap::String, Account*> accounts_;
+  };
+} // namespace yse
 
 #endif // YAPOG_ACCOUNTMANAGER_HPP

@@ -1,10 +1,8 @@
 #include <iostream>
-
-#include "Server.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
-#include "Database/Tables/InsertAccount.hpp"
 #include "Account/AccountManager.hpp"
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "Server.hpp"
 
 static void test_db ()
 {
@@ -15,7 +13,7 @@ static void test_db ()
   yap::DatabaseManager dm;
   dm.SetLogStream (std::cerr);
 
-  AccountManager am (dm);
+  yse::AccountManager am (dm);
   yap::String account;
   bool isRunning = true;
 
@@ -52,7 +50,7 @@ static void test_db ()
         am.Login (username, password, "127.0.0.1");
 
         std::cout << "Account information:" << std::endl;
-        am.GetAccount (username).DisplayData ();
+        //am.GetAccount (username).DisplayData ();
 
         break;
       case 2:
