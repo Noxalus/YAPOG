@@ -80,7 +80,6 @@ namespace yap
   void Menu::SetUnformItem ()
   {
     MenuItem* curItem = itemz_[currentSelec_];
-
     curItem->UnsetBackground ();
     curItem->UnsetBorder ();
   }

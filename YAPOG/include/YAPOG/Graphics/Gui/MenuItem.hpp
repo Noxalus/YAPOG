@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Graphics/Gui/Label.hpp"
 
 namespace yap
 {
@@ -15,8 +16,11 @@ namespace yap
     virtual ~MenuItem ();
     virtual void Do ();
     virtual bool IsFocusable () const;
+    String GetContent () const;
+    void SetContent (String content);
 
-  private:
+  protected:
+    virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
@@ -27,6 +31,9 @@ namespace yap
     virtual void HandleChangeColor (const sf::Color& color);
 
     virtual void HandleUpdate (const Time& dt);
+
+  private:
+    Label label_;
 
   };
 } // namespace yap

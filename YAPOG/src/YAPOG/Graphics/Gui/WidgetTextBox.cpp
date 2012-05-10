@@ -35,7 +35,6 @@ namespace yap
 
   void WidgetTextBox::Refresh ()
   {
-
     label_->SetPosition (Vector2 (GetPosition ().x,
       GetPosition ().y + label_->GetCharHeight () / 2));
     BaseWidget::Refresh ();
@@ -191,6 +190,7 @@ namespace yap
 
         return true;
       }
+      return false;
     }
 
     if (guiEvent.type == sf::Event::TextEntered)
@@ -240,6 +240,7 @@ namespace yap
       }
       return true;
     }
+    return false;
   }
 
   void WidgetTextBox::SetContent (String& contentArg)

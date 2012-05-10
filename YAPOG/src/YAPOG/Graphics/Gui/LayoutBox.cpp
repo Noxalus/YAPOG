@@ -49,6 +49,7 @@ namespace yap
     , externPad_ (ext)
     , realSize_ ()
   {
+    isExtensible_ = isExt;
   }
 
   LayoutBox::~LayoutBox ()
@@ -78,13 +79,20 @@ namespace yap
     {
       if (guiEvent.key.code == sf::Keyboard::Tab)
       {
-        focusedChild_ = (focusedChild_ + 1) % items_.Count ();
-        IEventHandler* child = eventHandlers_[focusedChild_];
+        IEventHandler* child;
+        uint cycle = focusedChild_;
+        do
+        {
+          focusedChild_ = (focusedChild_ + 1) % items_.Count ();
+          child = eventHandlers_[focusedChild_];
+        } while (!dynamic_cast<BaseWidget*> (child)->IsFocusable () && focusedChild_ != cycle);
+
         eventHandlers_[focusedChild_] = eventHandlers_[0];
         eventHandlers_[0] = child;
 
         return true;
       }
+      return false;
     }
     return false;
   }

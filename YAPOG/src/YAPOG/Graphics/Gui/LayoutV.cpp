@@ -60,6 +60,7 @@ namespace yap
       + externPad_.bottom
       , spatialInfo_.GetSize ().y);
     realSize_.x = MaxSize ('x');
+    BaseWidget::Refresh ();
   }
 
   void LayoutV::HandleDraw (IDrawingContext& context)

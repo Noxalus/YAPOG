@@ -159,13 +159,22 @@ void TestScreen::HandleInit ()
   guiManager_ = new yap::GuiManager ();
 
   Menu* menu = new Menu (Menu::Type::HORIZONTAL, Padding (1, 1, 1, 1), Padding (5, 5, 5, 5), false);
+  menu->SetSize (Vector2 (400, 88));
   MenuItem* item1 = new MenuItem ();
   MenuItem* item2 = new MenuItem ();
   MenuItem* item3 = new MenuItem ();
 
-  item1->SetSize (Vector2 (64, 256));
-  item2->SetSize (Vector2 (64, 256));
-  item3->SetSize (Vector2 (64, 256));
+  item1->SetSize (Vector2 (88, 64));
+  item2->SetSize (Vector2 (88, 64));
+  item3->SetSize (Vector2 (88, 64));
+
+  item1->SetContent ("Item 1");
+  item2->SetContent ("Item 2");
+  item3->SetContent ("Item 3");
+
+  item1->ChangeColor (sf::Color (128, 64, 32));
+  item2->ChangeColor (sf::Color (128, 64, 32));
+  item3->ChangeColor (sf::Color (128, 64, 32));
 
   menu->AddChild (*item1, LayoutBox::Align::LEFT);
   menu->AddChild (*item2, LayoutBox::Align::LEFT);
@@ -173,39 +182,42 @@ void TestScreen::HandleInit ()
 
   yap::LayoutV* layout = new LayoutV (Padding (2, 2, 2, 2),
     Padding (9, 9 , 9, 9), false);
+  WidgetBackground* bckgrd4 = new WidgetBackground ("bckgrd4.png", true);
+  layout->SetBackground (*bckgrd4);
 
   layout->SetSize (Vector2 (1024, 768));
 
   yap::Label* label = new yap::Label ();
-  label->SetText (String("TEST."));
+  label->SetText (String("Ceci est un label."));
   label->Scale (Vector2 (1, 1));
-  label->ChangeColor (sf::Color (90, 255, 128, 128));
+  label->ChangeColor (sf::Color (255, 0, 128));
 
   yap::PictureBox* pb = new PictureBox ();
-  pb->SetPicture (String("jarri_j.jpg"));
+  pb->SetPicture (String("jarri_j.png"));
   pb->Scale (Vector2 (1, 1));
 
   WidgetBorder* border = new WidgetBorder ("heart.gif");
-
-  LayoutH* layouth = new LayoutH (Padding (2, 2, 2, 2),
-    Padding (9, 9 , 9, 9), true);
-
-
-  WidgetTextBox* ts = new WidgetTextBox ();
-  WidgetTextBox* ts3 = new WidgetTextBox ();
-  yap::WidgetBackground* bckgr = new WidgetBackground ("bckgrd.png", false);
-  yap::WidgetBackground* bckgr2 = new WidgetBackground ("bckgrd.png", false);
-  
-  ts->SetSize (Vector2 (128, 32));
-  ts3->SetSize (Vector2 (128, 32));
-  ts->SetBackground (*bckgr);
-  ts3->SetBackground (*bckgr2);
-  
-  layouth->AddChild (*ts, LayoutBox::Align::BOTTOM);
-  layouth->AddChild (*ts3, LayoutBox::Align::BOTTOM);
-
-  Label* ts2 = new Label ("OLOL");
   pb->SetBorder (*border, 16);
+
+  
+
+  LayoutH* layouth = new LayoutH (Padding (20, 20, 20, 20),
+    Padding (9, 9 , 9, 9), true);
+  yap::WidgetBackground* bckgr5 = new WidgetBackground ("bckgrd5.png", true);
+  
+
+  Label* ts = new Label ("Element1");
+  Label* ts3 = new Label ("Element2");
+  yap::WidgetBackground* bckgr = new WidgetBackground ("bckgrd3.png", false);
+
+  ts->SetBackground (*bckgr);
+  
+  layouth->AddChild (*ts, LayoutBox::Align::TOP);
+  layouth->AddChild (*ts3, LayoutBox::Align::TOP);
+
+  layouth->SetBackground (*bckgr5);
+
+  Label* ts2 = new Label ("Last Element");
 
   layout->AddChild (*label, LayoutBox::Align::CENTER);
   layout->AddChild (*pb, LayoutBox::Align::CENTER);
@@ -224,8 +236,10 @@ void TestScreen::HandleInit ()
   //yap::widgetbackground* bckgr = new widgetbackground ();
   //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);
 
+  
   guiManager_->AddChild (*layout);
   guiManager_->AddChild (*txtbox);
+  
   // guiManager_->AddChild (*bckgr);
 
 }

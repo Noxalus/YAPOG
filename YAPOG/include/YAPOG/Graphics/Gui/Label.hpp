@@ -58,6 +58,7 @@ namespace yap
 
     String textContent_;
     sf::Text drawableText_;
+    bool isPosSet_;
   };
 } // namespace yap
 

@@ -11,18 +11,21 @@ namespace yap
   Label::Label ()
     : textContent_ ()
     , drawableText_ ()
+    , isPosSet_ (false)
   {
   }
 
   Label::Label (String content)
     : textContent_ (content)
     , drawableText_ (content)
+    , isPosSet_ (false)
   {
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
     GetPosition ().y + padding_->top));*/
     drawableText_.setPosition (GetPosition ().x,
       GetPosition ().y - drawableText_.getCharacterSize ()
       + drawableText_.getGlobalBounds ().height);
+    isPosSet_ = true;
   }
 
   Label::~Label ()
@@ -103,8 +106,8 @@ namespace yap
   {
     background_= &background;
     background_->SetPosition (GetPosition ()/* + Vector2 (0,
-      drawableText_.getGlobalBounds ().height
-      - drawableText_.getCharacterSize ())*/);
+                                            drawableText_.getGlobalBounds ().height
+                                            - drawableText_.getCharacterSize ())*/);
     background_->SetBackground (GetSize ());
   }
 
@@ -116,10 +119,15 @@ namespace yap
     textContent_ = content;
     drawableText_.setString (content);
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
-      GetPosition ().y + padding_->top));*/
-    drawableText_.setPosition (GetPosition ().x,
-    GetPosition ().y - drawableText_.getCharacterSize ()
-    + drawableText_.getGlobalBounds ().height);
+    GetPosition ().y + padding_->top));*/
+    if (isPosSet_)
+
+    {
+      drawableText_.setPosition (GetPosition ().x,
+        GetPosition ().y - drawableText_.getCharacterSize ()
+        + drawableText_.getGlobalBounds ().height);
+      isPosSet_ = false;
+    }
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

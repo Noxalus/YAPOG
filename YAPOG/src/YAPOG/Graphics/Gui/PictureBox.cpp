@@ -20,7 +20,6 @@ namespace yap
       padding_->top + picture_.GetSize ().y + padding_->bottom)
       + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
       * 2, border_->GetWidth () * 2) : Vector2 ());
-    return Vector2 ();
   }
 
   bool PictureBox::IsFocusable () const
