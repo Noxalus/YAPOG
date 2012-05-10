@@ -19,7 +19,7 @@ namespace yse
 
     const yap::ID& GetID ();
 
-    /// @name ISpatial members.
+    /// @name IInsertRequest members.
     /// @{
     virtual bool Insert (yap::DatabaseManager& databaseManager);
     /// @}

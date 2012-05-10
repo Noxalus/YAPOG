@@ -13,7 +13,7 @@ namespace yse
   public:
     AccountUpdateRequest (const AccountTable& accountTable);
 
-    /// @name ISpatial members.
+    /// @name IUpdateRequest members.
     /// @{
     virtual bool Update (yap::DatabaseManager& databaseManager);
     /// @}

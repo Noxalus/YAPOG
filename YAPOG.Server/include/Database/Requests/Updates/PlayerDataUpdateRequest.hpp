@@ -13,7 +13,7 @@ namespace yse
   public:
     PlayerDataUpdateRequest (const PlayerDataTable& playerDataTable);
 
-    /// @name ISpatial members.
+    /// @name IUpdateRequest members.
     /// @{
     virtual bool Update (yap::DatabaseManager& databaseManager);
     /// @}
