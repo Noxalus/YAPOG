@@ -9,6 +9,7 @@ namespace yap
   class DebugLogger;
   class DatabaseLogger;
   class Packet;
+  class DatabaseStream;
 
   struct YAPOG_LIB IWriterConstVisitor
   {
@@ -20,6 +21,7 @@ namespace yap
       virtual void Visit (const DebugLogger& visitable) = 0;
       virtual void Visit (const DatabaseLogger& visitable) = 0;
       virtual void Visit (const Packet& visitable) = 0;
+      virtual void Visit (const DatabaseStream& visitable) = 0;
   };
 } // namespace yap
 

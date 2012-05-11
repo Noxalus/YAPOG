@@ -13,6 +13,8 @@ namespace yse
   public:
     AccountUpdateRequest (const AccountTable& accountTable);
 
+    bool UpdateLastLoginDate (yap::DatabaseManager& databaseManager);
+
     /// @name IUpdateRequest members.
     /// @{
     virtual bool Update (yap::DatabaseManager& databaseManager);

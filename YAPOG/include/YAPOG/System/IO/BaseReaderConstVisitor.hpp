@@ -18,6 +18,7 @@ namespace yap
       /// @{
       virtual void Visit (const XmlReader& visitable);
       virtual void Visit (const Packet& visitable);
+      virtual void Visit (const DatabaseStream& visitable);
       /// @}
 
     protected:

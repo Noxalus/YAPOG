@@ -1,3 +1,4 @@
+#include "YAPOG/Database/DatabaseStream.hpp"
 #include "Account/AccountManager.hpp"
 #include "Database/Tables/AccountTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
@@ -58,6 +59,8 @@ namespace yse
     AccountTable accountTable;
     AccountSelectRequest asr (databaseManager_, name, accountTable);
 
+    accountTable.DisplayData ();
+
     yap::String encodedPassword = EncodePassword (password);
 
     // Check if this is the corresponding password
@@ -81,13 +84,17 @@ namespace yse
 
     yap::String queryString = 
       "UPDATE account SET "
-      "account_current_ip = :currentIp, account_last_login_date = NOW () "
+      "account_current_ip = :currentIp, "
+      "account_last_login_date = NOW () "
       " WHERE account_name = :name";
 
-    pg_stream queryUpdateCurrentIp (
-      queryString, databaseManager_.GetConnection ());
+    yap::DatabaseStream queryUpdateCurrentIp (
+      queryString, 
+      databaseManager_.GetConnection ());
 
-    queryUpdateCurrentIp << current_ip << name;
+    queryUpdateCurrentIp.Write (current_ip);
+    queryUpdateCurrentIp.Write (name);
+
     std::cout 
       << "This account is now in use for the "
       << "server and the database !" << std::endl;
@@ -106,20 +113,21 @@ namespace yse
 
     try
     {
-      pg_stream accounts (
+      yap::DatabaseStream accounts (
         "SELECT account_name "
         "FROM account", 
         databaseManager_.GetConnection ());
 
-      while (!accounts.eof ())
+      while (!accounts.EndOfStream ())
       {
-        accounts >> current_account;
+        current_account = accounts.ReadString ();
         std::cout << current_account << std::endl;
       }
 
-      std::cout << accounts.affected_rows () << " account(s) found !" << std::endl;
+      std::cout << accounts.AffectedRows () 
+        << " account(s) found !" << std::endl;
     }
-    catch (pg_excpt e)
+    catch (pgs::pg_excpt e)
     {
       std::cerr << e.errmsg () << std::endl;
     }
@@ -141,7 +149,8 @@ namespace yse
       throw yap::Exception ("This account doesn't exist !");
   }
 
-  yap::String AccountManager::EncodePassword (const yap::String& password)
+  yap::String AccountManager::EncodePassword (
+    const yap::String& password)
   {
     yap::String encodedPassword = password;
     int counter = password.length ();
@@ -165,8 +174,10 @@ namespace yse
       "SET account_current_ip = NULL "
       "WHERE account_name = :name";
 
-    pg_stream update (queryString, databaseManager_.GetConnection ());
-    update << name;
+    yap::DatabaseStream update 
+      (queryString, databaseManager_.GetConnection ());
+
+    update.Write (name);
 
     accounts_.Remove (name);
     std::cout << name << " is now disconnected !" << std::endl;

@@ -1,3 +1,4 @@
+#include "YAPOG/Database/DatabaseStream.hpp"
 #include "Database/Requests/Selects/AccountSelectRequest.hpp"
 
 namespace yse
@@ -18,39 +19,24 @@ namespace yse
       "FROM account "
       "WHERE account_name = :name";
 
-    pg_stream select (queryString, dm.GetConnection ());
-    select << name;
+    yap::DatabaseStream select (queryString, dm.GetConnection ());
+    select.Write (name);
 
-    if (select.eof ())
+    if (select.EndOfStream ())
       throw yap::Exception ("This account doesn't exist !");
 
-    // Get information from database
-    int id;
-    int permissions;
-    yap::String password;
-    yap::String email;
-    yap::String creationDate;
-    yap::String creationIP;
-    yap::String currentIP;
-
-    select >> id;
-    select >> password;
-    select >> email;
-    select >> permissions;
-    select >> creationDate;
-    select >> creationIP;
-    select >> currentIP;
-
     // Set the value of this account with the database information
-    accountTable.SetID (yap::ID (id));
+    accountTable.SetID (yap::ID (select.ReadInt ()));
     accountTable.SetName (name);
-    accountTable.SetPassword (password);
-    accountTable.SetPermissions (static_cast<AccountPermission> (permissions));
-    accountTable.SetCreationDate (creationDate);
-    accountTable.SetCreationIP (creationIP);
-    accountTable.SetCurrentIP (currentIP);
+    accountTable.SetPassword (select.ReadString ());
+    accountTable.SetEmail (select.ReadString ());
+    accountTable.SetPermissions 
+      (static_cast<AccountPermission> (select.ReadInt ()));
+    accountTable.SetCreationDate (select.ReadString ());
+    accountTable.SetCreationIP (select.ReadString ());
+    accountTable.SetCurrentIP (select.ReadString ());
 
-    if (!select.eof ())
+    if (!select.EndOfStream ())
       throw yap::Exception ("Account information loading error !");
   }
 } // namespace yse

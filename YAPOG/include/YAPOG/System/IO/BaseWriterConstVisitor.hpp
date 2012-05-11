@@ -20,6 +20,7 @@ namespace yap
       virtual void Visit (const DebugLogger& visitable);
       virtual void Visit (const DatabaseLogger& visitable);
       virtual void Visit (const Packet& visitable);
+      virtual void Visit (const DatabaseStream& visitable);
       /// @}
 
     protected:

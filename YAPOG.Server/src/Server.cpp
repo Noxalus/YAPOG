@@ -24,7 +24,8 @@ static void test_db ()
     // Reset the currentIp field
     yap::String queryString = 
       "UPDATE account SET account_current_ip = NULL";
-    pg_stmt (queryString, dm.GetConnection ());
+
+    pgs::pg_stmt (queryString, dm.GetConnection ());
 
     while (isRunning)
     {
@@ -94,7 +95,7 @@ static void test_db ()
     getchar ();
     getchar ();
   }
-  catch (const pg_excpt& e)
+  catch (const pgs::pg_excpt& e)
   {
     std::cerr << e.errmsg () << std::endl;
     getchar ();

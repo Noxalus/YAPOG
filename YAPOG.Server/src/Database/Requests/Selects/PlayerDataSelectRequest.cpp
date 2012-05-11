@@ -1,6 +1,7 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Collection/Array.hpp"
 #include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
+#include "YAPOG/Database/DatabaseStream.hpp"
 
 namespace yse
 {
@@ -13,27 +14,18 @@ namespace yse
       "FROM player_data "
       "WHERE account_id = :accountID";
 
-    pg_stream select (queryString, dm.GetConnection ());
+    yap::DatabaseStream select (queryString, dm.GetConnection ());
 
-    select << playerDataTable.GetAccountID ().GetValue ();
+    select.Write (playerDataTable.GetAccountID ().GetValue ());
 
-    if (select.eof ())
+    if (select.EndOfStream ())
       throw yap::Exception ("This account doesn't have any player data !");
 
-    yap::String positionString;
-    select >> positionString;
-
-    yap::collection::Array<yap::String> result;
-    yap::StringHelper::Split (positionString, "(,)", result); 
-
-    yap::Vector2 position = yap::Vector2 (
-      yap::StringHelper::Parse<float> (result[1]), 
-      yap::StringHelper::Parse<float> (result[2]));
+    yap::Vector2 position = select.ReadVector2 ();
 
     playerDataTable.SetPosition (position);
 
-
-    if (!select.eof ())
+    if (!select.EndOfStream ())
       throw yap::Exception ("Account information loading error !");
   }
 } // namespace yse

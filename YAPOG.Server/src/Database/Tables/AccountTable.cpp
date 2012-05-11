@@ -9,14 +9,14 @@ namespace yse
 
   /// Getters
   const yap::ID& AccountTable::GetID () const
-  { return id_; }
+{ return id_; }
   const yap::String& AccountTable::GetName () const
   { return name_; }
   const yap::String& AccountTable::GetPassword () const
   { return password_; }
   const yap::String& AccountTable::GetEmail () const
   { return email_; }
-  const AccountPermission& AccountTable::GetPermissions () const
+  const AccountPermission& AccountTable::GetPermissions () const 
   { return permissions_; }
   const yap::String& AccountTable::GetCreationDate () const
   { return creationDate_; }
@@ -26,7 +26,7 @@ namespace yse
   { return creationIP_; }
   const yap::String& AccountTable::GetCurrentIP () const
   { return currentIP_; }
-
+  
   /// Setters
   void AccountTable::SetID (const yap::ID& value) 
   { id_ = value; }

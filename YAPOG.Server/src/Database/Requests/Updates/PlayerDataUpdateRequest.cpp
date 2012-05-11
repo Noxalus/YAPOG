@@ -1,3 +1,4 @@
+#include "YAPOG/Database/DatabaseStream.hpp"
 #include "Database/Requests/Updates/PlayerDataUpdateRequest.hpp"
 
 namespace yse
@@ -8,10 +9,21 @@ namespace yse
   {
   }
 
-  bool PlayerDataUpdateRequest::Update (yap::DatabaseManager& databaseManager)
+  bool PlayerDataUpdateRequest::Update 
+    (yap::DatabaseManager& databaseManager)
   {
-    /* @TODO */
-    return false;
+    yap::String query_string = 
+      "UPDATE player_data "
+      "SET player_data_position = :position "
+      "WHERE account_id = :accountID";
+
+    yap::DatabaseStream query 
+      (query_string, databaseManager.GetConnection ());
+
+    query.Write (playerDataTable_.GetPosition ());
+    query.Write (playerDataTable_.GetAccountID ());
+
+    return true;
   }
 
 } // namespace yse
