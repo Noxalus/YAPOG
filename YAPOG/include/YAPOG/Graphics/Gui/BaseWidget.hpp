@@ -142,7 +142,7 @@ namespace yap
     bool isEnable;
     sf::Color color_;
     collection::List<IDrawable*> drawables_;
-    collection::Array<IEventHandler*> eventHandlers_;
+    collection::List<IEventHandler*> eventHandlers_;
     collection::List<IWidget*> childen_;
     collection::List<IUpdateable*> updatables_;
     IWidget* root_;

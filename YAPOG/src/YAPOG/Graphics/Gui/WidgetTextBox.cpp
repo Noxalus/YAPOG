@@ -17,6 +17,19 @@ namespace yap
     label_->SetPosition (Vector2 (GetPosition ().x,
       GetPosition ().y + label_->GetCharHeight () / 2));
   }
+
+   WidgetTextBox::WidgetTextBox (String content)
+    : label_ (nullptr)
+    , curser_ (nullptr)
+    , curserPos_ (0)
+    , curserRelPos_ (0)
+  {
+    label_ = new Label ();
+    label_->SetPosition (Vector2 (GetPosition ().x,
+      GetPosition ().y + label_->GetCharHeight () / 2));
+    SetText (content);
+  }
+
   WidgetTextBox::~WidgetTextBox ()
   {
   }
@@ -243,7 +256,7 @@ namespace yap
     return false;
   }
 
-  void WidgetTextBox::SetContent (String& contentArg)
+  void WidgetTextBox::SetText (String& contentArg)
   {
     if (contentArg.empty())
       return;
@@ -271,7 +284,7 @@ namespace yap
         label_->SetText (content_.substr (0, size--) + contentTemp);
       }
 
-      while (label_->GetSize ().x > labelMaxWidth)
+      while (label_->GetSize ().x > labelMaxWidth && labelMaxWidth != 0)
       {
         contentTemp = contentTemp.substr (1);
         label_->SetText (contentTemp);

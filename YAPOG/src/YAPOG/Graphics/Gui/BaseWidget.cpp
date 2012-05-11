@@ -229,10 +229,10 @@ namespace yap
         return true;
     }
     if (border_ != nullptr)
-      if (border_->OnEvent (guiEvent))
+      if (border_->OnPriorityEvent (guiEvent))
         return true;
     if (background_ != nullptr)
-      if (background_->OnEvent (guiEvent))
+      if (background_->OnPriorityEvent (guiEvent))
         return true;
 
     return false;

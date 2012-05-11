@@ -15,10 +15,11 @@ namespace yap
   public:
 
     WidgetTextBox ();
+    WidgetTextBox (String content);  
     virtual ~WidgetTextBox ();
 
     virtual String GetContent () const;
-    virtual void SetContent (String& contentArg);
+    virtual void SetText (String& contentArg);
     void SetCursor (Texture& cursor);
     virtual bool IsFocusable () const;
 

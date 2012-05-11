@@ -187,9 +187,9 @@ void TestScreen::HandleInit ()
 
   layout->SetSize (Vector2 (1024, 768));
 
-  yap::Label* label = new yap::Label ();
+  yap::WidgetTextBox* label = new yap::WidgetTextBox ();
   label->SetText (String("Ceci est un label."));
-  label->Scale (Vector2 (1, 1));
+  label->SetSize (Vector2 (100, 32));
   label->ChangeColor (sf::Color (255, 0, 128));
 
   yap::PictureBox* pb = new PictureBox ();
@@ -206,8 +206,10 @@ void TestScreen::HandleInit ()
   yap::WidgetBackground* bckgr5 = new WidgetBackground ("bckgrd5.png", true);
   
 
-  Label* ts = new Label ("Element1");
-  Label* ts3 = new Label ("Element2");
+  WidgetTextBox* ts = new WidgetTextBox ("Element1");
+  ts->SetSize (Vector2 (100, 32));
+  WidgetTextBox* ts3 = new WidgetTextBox ("Element2");
+  ts3->SetSize (Vector2 (100, 32));
   yap::WidgetBackground* bckgr = new WidgetBackground ("bckgrd3.png", false);
 
   ts->SetBackground (*bckgr);
@@ -217,8 +219,8 @@ void TestScreen::HandleInit ()
 
   layouth->SetBackground (*bckgr5);
 
-  Label* ts2 = new Label ("Last Element");
-
+  WidgetTextBox* ts2 = new WidgetTextBox ("Last Element");
+  ts2->SetSize (Vector2 (100, 32));
   layout->AddChild (*label, LayoutBox::Align::CENTER);
   layout->AddChild (*pb, LayoutBox::Align::CENTER);
   layout->AddChild (*layouth, LayoutBox::Align::CENTER);

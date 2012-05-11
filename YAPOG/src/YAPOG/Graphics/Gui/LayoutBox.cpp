@@ -8,11 +8,23 @@ namespace yap
 
   LayoutBox::LayoutBox ()
     : items_ ()
+    , focusables_ ()
     , innerPad_ (0, 0, 0, 0)
     , externPad_ (0, 0, 0, 0)
     , realSize_ ()
     , focusedChild_ (0)
   {
+  }
+
+  LayoutBox::LayoutBox (Padding ext, Padding in, bool isExt)
+    : items_ ()
+    , focusables_ ()
+    , innerPad_ (in)
+    , externPad_ (ext)
+    , realSize_ ()
+    , focusedChild_ (0)
+  {
+    isExtensible_ = isExt;
   }
 
   void LayoutBox::Refresh ()
@@ -43,14 +55,7 @@ namespace yap
     return globalAlign_;
   }
 
-  LayoutBox::LayoutBox (Padding ext, Padding in, bool isExt)
-    : items_ ()
-    , innerPad_ (in)
-    , externPad_ (ext)
-    , realSize_ ()
-  {
-    isExtensible_ = isExt;
-  }
+
 
   LayoutBox::~LayoutBox ()
   {
@@ -70,25 +75,44 @@ namespace yap
     BaseWidget::AddChild (child);
     items_.Add (&child, align);
 
+    if (child.IsFocusable ())    
+      focusables_.Add (&child);    
+
     GeneratePosition ();
   }
-
+ 
   bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::Tab)
       {
-        IEventHandler* child;
-        uint cycle = focusedChild_;
-        do
-        {
-          focusedChild_ = (focusedChild_ + 1) % items_.Count ();
-          child = eventHandlers_[focusedChild_];
-        } while (!dynamic_cast<BaseWidget*> (child)->IsFocusable () && focusedChild_ != cycle);
+        if (focusables_.Count () == 0)
+          return false;
 
-        eventHandlers_[focusedChild_] = eventHandlers_[0];
-        eventHandlers_[0] = child;
+        IWidget* child;
+        uint cycle = focusedChild_;
+
+        // if current focussable is a layout, give it control for tab
+        if (focusables_[cycle]->OnPriorityEvent (guiEvent))
+          return true;
+        focusedChild_ = (focusedChild_ + 1) % focusables_.Count ();
+
+        //Performed a cycle, give control to the parent
+        if (focusedChild_ == 0)
+        {
+          child = focusables_[focusedChild_];
+
+          eventHandlers_.Remove (child);
+          eventHandlers_.AddFront (child);
+          return false;
+        }
+
+
+        child = focusables_[focusedChild_];
+
+        eventHandlers_.Remove (child);
+        eventHandlers_.AddFront (child);
 
         return true;
       }

@@ -56,6 +56,7 @@ namespace yap
    //virtual bool HandleOnEvent (const GuiEvent& guiEvent);
 
     collection::Map<IWidget*, Align> items_;
+    collection::Array<IWidget*> focusables_;
     Padding externPad_;
     Padding innerPad_;
     Align globalAlign_;

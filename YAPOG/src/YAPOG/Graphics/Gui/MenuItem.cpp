@@ -21,7 +21,8 @@ namespace yap
   {
     label_.SetPosition (GetPosition ()
       + Vector2 (GetUserSize ().x / 2 - label_.GetSize ().x / 2 + 7,
-      GetUserSize ().y / 2 - label_.GetSize ().y / 2));
+      GetUserSize ().y / 2
+      - label_.GetSize ().y / 2 + label_.GetCharHeight ()));
     BaseWidget::Refresh ();
   }
 
@@ -45,7 +46,7 @@ namespace yap
 
   bool MenuItem::IsFocusable () const
   {
-    return true;
+    return false;
   }
 
   Vector2 MenuItem::HandleGetSize () const
