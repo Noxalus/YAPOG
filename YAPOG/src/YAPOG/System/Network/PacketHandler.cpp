@@ -4,7 +4,7 @@
 namespace yap
 {
   PacketHandler::PacketHandler ()
-    : actions_ ()
+    : handlers_ ()
     , relay_ (nullptr)
   {
   }
@@ -13,16 +13,18 @@ namespace yap
   {
   }
 
-  void PacketHandler::SetRelay (PacketHandler* relay)
+  void PacketHandler::SetRelay (IPacketHandler* relay)
   {
     relay_ = relay;
   }
 
   bool PacketHandler::HandlePacket (IPacket& packet)
   {
-    if (actions_.Contains (packet.GetType ()))
+    if (handlers_.Contains (packet.GetType ()))
     {
-      (this->*actions_[packet.GetType ()]) (packet);
+      HandlerTargetPairType& action = handlers_[packet.GetType ()];
+      (action.second->*action.first) (packet);
+
       return true;
     }
 
@@ -32,8 +34,11 @@ namespace yap
     return false;
   }
 
-  void PacketHandler::AddAction (PacketType packetType, Action action)
+  void PacketHandler::AddHandler (
+    PacketType packetType,
+    HandlerType handler,
+    IPacketHandler* packetHandler)
   {
-    actions_.Add (packetType, action);
+    handlers_.Add (packetType, HandlerTargetPairType (handler, packetHandler));
   }
 } // namespace yap

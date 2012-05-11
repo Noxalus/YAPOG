@@ -22,6 +22,9 @@ namespace ycl
 
   void TestGame::HandleInit ()
   {
+    // tmp
+    yap::Vector2 resolution (1360.0f, 700.0f);
+
     yap::ContentManager::Instance ().Init (yap::Path ("../Content/"));
     yap::ContentManager::Instance ().SetTexturePath (yap::Path ("Graphics"));
 
@@ -30,19 +33,19 @@ namespace ycl
 
     // initialization of the drawing context
     yap::DrawingContext* drawingContext = new yap::DrawingContext (
-      yap::Vector2 (800, 600), name_);
+      resolution, name_);
     drawingContext_ = drawingContext;
 
     // add of the world camera to the drawing context
     drawingContext_->AddCamera (
-      "World", new yap::Camera (yap::Vector2 (),  yap::Vector2 (800, 600)));
+      "World", new yap::Camera (yap::Vector2 (),  resolution));
     drawingContext_->AddCamera (
       "Background World",
-      new yap::Camera (yap::Vector2 (),  yap::Vector2 (800, 600)));
+      new yap::Camera (yap::Vector2 (),  resolution));
 
     // add of the GUI camera to the drawing context
     drawingContext_->AddCamera (
-      "Gui", new yap::Camera (yap::Vector2 (), yap::Vector2 (800, 600)));
+      "Gui", new yap::Camera (yap::Vector2 (), resolution));
 
     window_ = &drawingContext->GetWindow ();
 

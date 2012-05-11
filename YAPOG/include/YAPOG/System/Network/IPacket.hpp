@@ -6,11 +6,10 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IO/IWriter.hpp"
 # include "YAPOG/System/IO/IReader.hpp"
+# include "YAPOG/System/Network/PacketType.hpp"
 
 namespace yap
 {
-  enum class PacketType;
-
   struct IPacket : public IWriter
                  , public IReader
   {

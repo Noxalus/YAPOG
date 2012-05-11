@@ -89,6 +89,8 @@ ${src_root}/Game/World/Map/WorldObjectReader.cpp
 ${inc_root}/Game/World/ISpatial3.hpp
 ${inc_root}/Game/World/Spatial3Info.hpp
 ${src_root}/Game/World/Spatial3Info.cpp
+${inc_root}/Game/World/World.hpp
+${src_root}/Game/World/World.cpp
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp
 ${src_root}/Game/Pokemon/PokemonInfo.cpp
@@ -332,6 +334,8 @@ ${inc_root}/System/Network/Packet.hxx
 ${src_root}/System/Network/Packet.cpp
 ${inc_root}/System/Network/PacketHandler.hpp
 ${src_root}/System/Network/PacketHandler.cpp
+${inc_root}/System/Network/PacketSender.hpp
+${src_root}/System/Network/PacketSender.cpp
 ${inc_root}/System/Network/PacketType.hpp
 ${inc_root}/System/Network/ServerSocket.hpp
 ${src_root}/System/Network/ServerSocket.cpp
@@ -349,6 +353,8 @@ ${inc_root}/System/Time/DateTimeHelper.hpp
 ${src_root}/System/Time/DateTimeHelper.cpp
 ${inc_root}/System/Time/DateTime.hpp
 ${src_root}/System/Time/DateTime.cpp
+${inc_root}/System/Thread/Thread.hpp
+${src_root}/System/Thread/Thread.cpp
 ${inc_root}/System/Time/Time.hpp
 ${src_root}/System/Time/Time.cpp
 ${inc_root}/System/Time/Timer.hpp

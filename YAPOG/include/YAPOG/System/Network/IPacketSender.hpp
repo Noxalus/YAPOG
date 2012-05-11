@@ -5,9 +5,13 @@
 
 namespace yap
 {
+  struct IPacket;
+
   struct IPacketSender
   {
       virtual ~IPacketSender () { }
+
+      virtual bool SendPacket (IPacket& packet) = 0;
   };
 } // namespace yap
 

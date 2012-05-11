@@ -8,14 +8,19 @@
 
 namespace yap
 {
+  class ClientSocket;
+
   class Packet : public IPacket
   {
       DISALLOW_COPY(Packet);
 
     public:
 
-      Packet (PacketType type);
+      Packet ();
       virtual ~Packet ();
+
+      void CreateFromType (PacketType type);
+      bool CreateFromSocket (ClientSocket& socket);
 
       /// @name IPacket members.
       /// @{
@@ -130,11 +135,16 @@ namespace yap
 
     private:
 
+      void Write (PacketType packetType);
+      PacketType ReadPacketType ();
+
       template <typename T>
       void WriteData (const T& data);
 
       template <typename T>
       T ReadData ();
+
+      static const PacketType DEFAULT_TYPE;
 
       PacketType type_;
       sf::Packet packet_;

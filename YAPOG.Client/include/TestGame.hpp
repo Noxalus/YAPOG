@@ -5,7 +5,7 @@
 
 namespace ycl
 {
-/// @brief A game for testing.
+  /// @brief A game for testing.
   class TestGame : public yap::Game
   {
     public:

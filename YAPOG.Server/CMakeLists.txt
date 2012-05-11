@@ -17,8 +17,11 @@ SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
 SET(
 source_files
-${inc_root}/Server.hpp
 ${src_root}/Server.cpp
+${inc_root}/Server/Server.hpp
+${src_root}/Server/Server.cpp
+${inc_root}/Server/ClientSession.hpp
+${src_root}/Server/ClientSession.cpp
 ${inc_root}/Database/IInsertTable.hpp
 ${inc_root}/Database/Tables/InsertAccount.hpp
 ${src_root}/Database/Tables/InsertAccount.cpp
@@ -27,6 +30,8 @@ ${src_root}/Database/Tables/SelectAccount.cpp
 ${inc_root}/Account/AccountManager.hpp
 ${src_root}/Account/AccountManager.cpp
 ${inc_root}/Account/AccountPermission.hpp
+${inc_root}/World/World.hpp
+${src_root}/World/World.cpp
 )
 
 ADD_EXECUTABLE(

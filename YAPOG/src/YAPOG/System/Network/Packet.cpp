@@ -7,17 +7,37 @@
 #include "YAPOG/System/IO/IWriterConstVisitor.hpp"
 #include "YAPOG/System/IO/IReaderVisitor.hpp"
 #include "YAPOG/System/IO/IReaderConstVisitor.hpp"
+#include "YAPOG/System/Network/ClientSocket.hpp"
 
 namespace yap
 {
-  Packet::Packet (PacketType type)
-    : type_ (type)
+  const PacketType Packet::DEFAULT_TYPE = PacketType::None;
+
+  Packet::Packet ()
+    : type_ (DEFAULT_TYPE)
     , packet_ ()
   {
   }
 
   Packet::~Packet ()
   {
+  }
+
+  void Packet::CreateFromType (PacketType type)
+  {
+    type_ = type;
+
+    Write (type_);
+  }
+
+  bool Packet::CreateFromSocket (ClientSocket& socket)
+  {
+    if (!socket.Receive (*this))
+      return false;
+
+    type_ = ReadPacketType ();
+
+    return true;
   }
 
   const PacketType& Packet::GetType () const
@@ -28,6 +48,16 @@ namespace yap
   sf::Packet& Packet::GetInnerPacket ()
   {
     return packet_;
+  }
+
+  void Packet::Write (PacketType packetType)
+  {
+    Write (static_cast<Int16> (packetType));
+  }
+
+  PacketType Packet::ReadPacketType ()
+  {
+    return static_cast<PacketType> (ReadInt16 ());
   }
 
   void Packet::Accept (IWriterVisitor& visitor)
@@ -57,8 +87,7 @@ namespace yap
 
   void Packet::Write (const String& name, const String& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const String&)");
+    YAPOG_THROW("Packet::Write (const String&, const String&)");
   }
 
   void Packet::Write (const bool& value)
@@ -68,8 +97,7 @@ namespace yap
 
   void Packet::Write (const String& name, const bool& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const bool&)");
+    YAPOG_THROW("Packet::Write (const String&, const bool&)");
   }
 
   void Packet::Write (const char& value)
@@ -79,8 +107,7 @@ namespace yap
 
   void Packet::Write (const String& name, const char& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const char&)");
+    YAPOG_THROW("Packet::Write (const String&, const char&)");
   }
 
   void Packet::Write (const uchar& value)
@@ -90,8 +117,7 @@ namespace yap
 
   void Packet::Write (const String& name, const uchar& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const uchar&)");
+    YAPOG_THROW("Packet::Write (const String&, const uchar&)");
   }
 
   void Packet::Write (const Int16& value)
@@ -101,8 +127,7 @@ namespace yap
 
   void Packet::Write (const String& name, const Int16& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const Int16&)");
+    YAPOG_THROW("Packet::Write (const String&, const Int16&)");
   }
 
   void Packet::Write (const UInt16& value)
@@ -112,8 +137,7 @@ namespace yap
 
   void Packet::Write (const String& name, const UInt16& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const UInt16&)");
+    YAPOG_THROW("Packet::Write (const String&, const UInt16&)");
   }
 
   void Packet::Write (const int& value)
@@ -123,8 +147,7 @@ namespace yap
 
   void Packet::Write (const String& name, const int& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const int&)");
+    YAPOG_THROW("Packet::Write (const String&, const int&)");
   }
 
   void Packet::Write (const uint& value)
@@ -134,8 +157,7 @@ namespace yap
 
   void Packet::Write (const String& name, const uint& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const uint&)");
+    YAPOG_THROW("Packet::Write (const String&, const uint&)");
   }
 
   void Packet::Write (const Int64& value)
@@ -145,8 +167,7 @@ namespace yap
 
   void Packet::Write (const String& name, const Int64& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const Int64&)");
+    YAPOG_THROW("Packet::Write (const String&, const Int64&)");
   }
 
   void Packet::Write (const UInt64& value)
@@ -156,8 +177,7 @@ namespace yap
 
   void Packet::Write (const String& name, const UInt64& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const UInt64&)");
+    YAPOG_THROW("Packet::Write (const String&, const UInt64&)");
   }
 
   void Packet::Write (const float& value)
@@ -167,8 +187,7 @@ namespace yap
 
   void Packet::Write (const String& name, const float& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const float&)");
+    YAPOG_THROW("Packet::Write (const String&, const float&)");
   }
 
   void Packet::Write (const double& value)
@@ -178,8 +197,7 @@ namespace yap
 
   void Packet::Write (const String& name, const double& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const double&)");
+    YAPOG_THROW("Packet::Write (const String&, const double&)");
   }
 
   void Packet::Write (const Vector2& value)
@@ -190,8 +208,7 @@ namespace yap
 
   void Packet::Write (const String& name, const Vector2& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const Vector2&)");
+    YAPOG_THROW("Packet::Write (const String&, const Vector2&)");
   }
 
   void Packet::Write (const ID& value)
@@ -201,8 +218,7 @@ namespace yap
 
   void Packet::Write (const String& name, const ID& value)
   {
-    YAPOG_THROW(
-      "Packet::Write (const String&, const ID&)");
+    YAPOG_THROW("Packet::Write (const String&, const ID&)");
   }
 
   String Packet::ReadString ()
