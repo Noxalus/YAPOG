@@ -5,6 +5,9 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "Account/AccountManager.hpp"
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "Account/AccountManager.hpp"
+#include "YAPOG/Database/DatabaseManager.hpp"
 
 static void test_db ()
 {
