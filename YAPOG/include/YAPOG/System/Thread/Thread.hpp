@@ -9,7 +9,7 @@
 
 namespace yap
 {
-  class Thread
+  class YAPOG_LIB Thread
   {
       DISALLOW_COPY(Thread);
 

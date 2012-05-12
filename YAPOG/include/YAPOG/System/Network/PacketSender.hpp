@@ -8,7 +8,7 @@ namespace yap
 {
   struct IPacket;
 
-  class PacketSender : public IPacketSender
+  class YAPOG_LIB PacketSender : public IPacketSender
   {
       DISALLOW_COPY(PacketSender);
 

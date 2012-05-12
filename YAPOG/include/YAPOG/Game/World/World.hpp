@@ -8,7 +8,7 @@ namespace yap
 {
   class Map;
 
-  class World : public IUpdateable
+  class YAPOG_LIB World : public IUpdateable
   {
       DISALLOW_COPY(World);
 

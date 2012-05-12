@@ -12,7 +12,7 @@ namespace yap
 {
   struct IPacket;
 
-  class ClientSocket : public Socket
+  class YAPOG_LIB ClientSocket : public Socket
   {
       DISALLOW_COPY(ClientSocket);
 

@@ -17,7 +17,7 @@ namespace yap
   struct IPacket;
   struct ISocket;
 
-  class PacketHandler : public IPacketHandler
+  class YAPOG_LIB PacketHandler : public IPacketHandler
   {
       DISALLOW_COPY(PacketHandler);
 

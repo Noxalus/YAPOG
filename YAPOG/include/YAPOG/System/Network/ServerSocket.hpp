@@ -11,7 +11,7 @@ namespace yap
 {
   class ClientSocket;
 
-  class ServerSocket : public Socket
+  class YAPOG_LIB ServerSocket : public Socket
   {
       DISALLOW_COPY(ServerSocket);
 

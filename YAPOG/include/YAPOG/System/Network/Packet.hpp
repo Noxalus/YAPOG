@@ -10,7 +10,7 @@ namespace yap
 {
   class ClientSocket;
 
-  class Packet : public IPacket
+  class YAPOG_LIB Packet : public IPacket
   {
       DISALLOW_COPY(Packet);
 
