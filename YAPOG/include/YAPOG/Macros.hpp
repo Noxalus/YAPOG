@@ -11,6 +11,12 @@
   private:                                      \
   TYPE& operator= (const TYPE&)
 
+# ifdef _MSC_VER
+#  define YAPOG_WIN
+# else
+#  define YAPOG_LINUX
+# endif // _MSC_VER
+
 /// WIN32 dll export
 # ifdef _MSC_VER
 #  define YAPOG_LIB_EXPORT __declspec(dllexport)

@@ -17,4 +17,8 @@ namespace yap
   void BaseReaderVisitor::Visit (Packet& visitable)
   {
   }
+
+  void BaseReaderVisitor::Visit (DatabaseStream& visitable)
+  {
+  }
 } // namespace yap

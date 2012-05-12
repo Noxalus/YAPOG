@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class BaseWriterVisitor : public IWriterVisitor
+  class YAPOG_LIB BaseWriterVisitor : public IWriterVisitor
   {
       DISALLOW_COPY(BaseWriterVisitor);
 
@@ -20,6 +20,7 @@ namespace yap
       virtual void Visit (DebugLogger& visitable);
       virtual void Visit (DatabaseLogger& visitable);
       virtual void Visit (Packet& visitable);
+      virtual void Visit (DatabaseStream& visitable);
       /// @}
 
     protected:

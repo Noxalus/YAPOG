@@ -25,7 +25,12 @@ namespace ycl
     // tmp
     yap::Vector2 resolution (1360.0f, 700.0f);
 
+#ifndef YAPOG_WIN
     yap::ContentManager::Instance ().Init (yap::Path ("../Content/"));
+#else
+    yap::ContentManager::Instance ().Init (yap::Path ("../../Content/"));
+#endif // YAPOG_WIN
+
     yap::ContentManager::Instance ().SetTexturePath (yap::Path ("Graphics"));
 
     yap::DebugLogger::Instance ().AddMode (new yap::CountLoggerMode ());

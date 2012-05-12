@@ -23,6 +23,9 @@ SET( pgstream_inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/pgstream )
 SET( pgstream_src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/pgstream )
 SET(
 source_files
+${pgstream_inc_root}/pgstream.hpp
+${pgstream_src_root}/pgstream.cpp
+
 ${inc_root}/Collection/Array.hpp
 ${inc_root}/Collection/Array.hxx
 ${inc_root}/Collection/List.hpp
@@ -158,6 +161,10 @@ ${src_root}/Game/Battle/WildBattle.cpp
 ${inc_root}/Game/Battle/WildBattle.hpp
 ${src_root}/Game/Battle/TrainerBattle.cpp
 ${inc_root}/Game/Battle/TrainerBattle.hpp
+${src_root}/Game/Battle/PokemonFighter.cpp
+${inc_root}/Game/Battle/PokemonFighter.hpp
+${src_root}/Game/Battle/Battle.cpp
+${inc_root}/Game/Battle/Battle.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
@@ -361,10 +368,12 @@ ${inc_root}/System/Time/Timer.hpp
 ${src_root}/System/Time/Timer.cpp
 ${inc_root}/System/Time/UpdateableTimer.hpp
 ${src_root}/System/Time/UpdateableTimer.cpp
-${pgstream_inc_root}/pgstream.hpp
-${pgstream_src_root}/pgstream.cpp
+
 ${inc_root}/Database/DatabaseManager.hpp
 ${src_root}/Database/DatabaseManager.cpp
+${inc_root}/Database/DatabaseStream.hpp
+${inc_root}/Database/DatabaseStream.hxx
+${src_root}/Database/DatabaseStream.cpp
 )
 
 ADD_LIBRARY(

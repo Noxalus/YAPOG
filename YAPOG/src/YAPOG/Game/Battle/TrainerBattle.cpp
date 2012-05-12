@@ -2,7 +2,13 @@
 
 namespace yap
 {
-  TrainerBattle::TrainerBattle ()
+  TrainerBattle::TrainerBattle (PokemonTeam& playerTeam)
+    : Battle (playerTeam)
   {
   }
+
+  void TrainerBattle::DisplayBeginMessage ()
+  {
+  }
+
 } // namespace yap

@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class BaseReaderConstVisitor : public IReaderConstVisitor
+  class YAPOG_LIB BaseReaderConstVisitor : public IReaderConstVisitor
   {
       DISALLOW_COPY(BaseReaderConstVisitor);
 
@@ -18,6 +18,7 @@ namespace yap
       /// @{
       virtual void Visit (const XmlReader& visitable);
       virtual void Visit (const Packet& visitable);
+      virtual void Visit (const DatabaseStream& visitable);
       /// @}
 
     protected:

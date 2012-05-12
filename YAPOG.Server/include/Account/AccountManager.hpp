@@ -7,27 +7,39 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Database/DatabaseManager.hpp"
 # include "YAPOG/Collection/Map.hpp"
-# include "Database/Tables/InsertAccount.hpp"
-# include "Database/Tables/SelectAccount.hpp"
+# include "Account/Account.hpp"
 
-class AccountManager
+namespace yse
 {
-	DISALLOW_COPY(AccountManager);
-public:
-	AccountManager (yap::DatabaseManager& dm);
-	~AccountManager ();
+  class PlayerData;
 
-	void CreateNewAccount (const yap::String& name, const yap::String& password, 
-		const yap::String& email, const yap::String& creationIp);
-	void Login (const yap::String& name, const yap::String& password, const yap::String& current_ip);
-	void Disconnect (const yap::String& name);
-	void DisplayAllAccounts ();
-	void DisplayLoggedAccounts ();
-	SelectAccount& GetAccount (const yap::String& name);
-	yap::String EncodePassword (const yap::String& password);
-private:
-	yap::DatabaseManager& databaseManager_;
-	yap::collection::Map<yap::String, SelectAccount*> accounts_;
-};
+  class AccountManager
+  {
+    DISALLOW_COPY(AccountManager);
+  public:
+    AccountManager (yap::DatabaseManager& dm);
+    ~AccountManager ();
+
+    void CreateNewAccount (
+      const yap::String& name, 
+      const yap::String& password, 
+      const yap::String& email, 
+      const yap::String& creationIp);
+
+    void Login (
+      const yap::String& name, 
+      const yap::String& password, 
+      const yap::String& current_ip);
+
+    void Disconnect (const yap::String& name);
+    void DisplayAllAccounts ();
+    void DisplayLoggedAccounts ();
+    Account& GetAccount (const yap::String& name);
+    yap::String EncodePassword (const yap::String& password);
+  private:
+    yap::DatabaseManager& databaseManager_;
+    yap::collection::Map<yap::String, Account*> accounts_;
+  };
+} // namespace yse
 
 #endif // YAPOG_ACCOUNTMANAGER_HPP

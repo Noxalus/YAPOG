@@ -8,9 +8,13 @@ namespace yap
 	{
 		try
 		{
-			connection_.connect("dbname=yapog user=postgres password=COUCOU port=5432");
+			connection_.connect(
+        "dbname=yapog "
+        "user=postgres "
+        "password=COUCOU "
+        "port=5432");
 		}
-		catch (pg_excpt e)
+		catch (pgs::pg_excpt e)
 		{
 			std::cerr << e.errmsg ();
 		}
@@ -28,7 +32,7 @@ namespace yap
 		dl_ = new DatabaseLogger (os);
 	}
 
-	pg_cnx& DatabaseManager::GetConnection ()
+	pgs::pg_cnx& DatabaseManager::GetConnection ()
 	{
 		return connection_;
 	}
