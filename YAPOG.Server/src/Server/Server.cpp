@@ -32,11 +32,13 @@ namespace yse
   {
     isRunning_ = true;
 
+    // tmp
     yap::Packet p;
     p.CreateFromType (yap::PacketType::None);
 
     ClientSession cs;
     cs.HandlePacket (p);
+
 //    listeningThread_.Launch ();
 
     while (isRunning_)

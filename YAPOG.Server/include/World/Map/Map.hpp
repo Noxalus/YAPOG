@@ -1,30 +1,25 @@
-#ifndef YAPOG_SERVER_WORLD_HPP
-# define YAPOG_SERVER_WORLD_HPP
+#ifndef YAPOG_SERVER_MAP_HPP
+# define YAPOG_SERVER_MAP_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/World/World.hpp"
+# include "YAPOG/Game/World/Map/Map.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 # include "YAPOG/System/Network/IPacketSender.hpp"
 # include "YAPOG/System/Network/PacketSender.hpp"
-# include "YAPOG/Collection/List.hpp"
 
 namespace yse
 {
-  class Map;
-
-  class World : public yap::World
-              , public yap::IPacketHandler
-              , public yap::IPacketSender
+  class Map : public yap::Map
+            , public yap::IPacketHandler
+            , public yap::IPacketSender
   {
-      DISALLOW_COPY(World);
+      DISALLOW_COPY(Map);
 
     public:
 
-      World ();
-      virtual ~World ();
-
-      void AddMap (Map* map);
+      Map (const yap::ID& id);
+      virtual ~Map ();
 
       /// @name IPacketHandler members.
       /// @{
@@ -38,13 +33,9 @@ namespace yse
 
     private:
 
-      virtual void HandleUpdate (const yap::Time& dt);
-
-      yap::collection::List<Map*> maps_;
-
       yap::PacketHandler packetHandler_;
       yap::PacketSender packetSender_;
   };
-} // namespace yap
+} // namespace yse
 
-#endif // YAPOG_SERVER_WORLD_HPP
+#endif // YAPOG_MAP_HPP

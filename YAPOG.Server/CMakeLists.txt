@@ -32,6 +32,10 @@ ${src_root}/Account/AccountManager.cpp
 ${inc_root}/Account/AccountPermission.hpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
+${inc_root}/World/Map/Map.hpp
+${src_root}/World/Map/Map.cpp
+${inc_root}/World/Map/Character.hpp
+${src_root}/World/Map/Character.cpp
 )
 
 ADD_EXECUTABLE(
