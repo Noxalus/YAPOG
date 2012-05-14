@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Server/Server.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
@@ -8,6 +7,7 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "Account/AccountManager.hpp"
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
 
 static void test_db ()
 {
@@ -112,7 +112,7 @@ int main ()
 {
   try
   {
-    test_db ();
+    //test_db ();
 
     yse::Server server;
 
