@@ -15,6 +15,22 @@ namespace yap
   {
   }
 
+  bool GuiManager::HandleOnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    if (!isEnable)
+      return false;
+
+    for (IWidget* child : childen_)
+    {
+      if (child->IsFocusable ())
+      {
+        child->SetFocused (true);
+        return false;
+      }
+    }
+    return false;
+  }
+
   void GuiManager::HandleMove (const Vector2& offset)
   {
   }

@@ -23,12 +23,18 @@ namespace yap
     , border_ (nullptr)
     , userSize_ (0, 0)
     , isExtensible_ (false)
+    , isFocused_ (true)
   {
     padding_ = new Padding ();
   }
 
   BaseWidget::~BaseWidget ()
   {
+  }
+
+  void BaseWidget::SetFocused (bool state)
+  {
+    isFocused_ = state;
   }
 
   const Vector2& BaseWidget::GetPosition () const

@@ -18,7 +18,7 @@ namespace yap
       GetPosition ().y + label_->GetCharHeight () / 2));
   }
 
-   WidgetTextBox::WidgetTextBox (String content)
+  WidgetTextBox::WidgetTextBox (String content)
     : label_ (nullptr)
     , curser_ (nullptr)
     , curserPos_ (0)
@@ -49,7 +49,14 @@ namespace yap
   void WidgetTextBox::Refresh ()
   {
     label_->SetPosition (Vector2 (GetPosition ().x,
-      GetPosition ().y + label_->GetCharHeight () / 2));
+      GetPosition ().y /*+ label_->GetCharHeight () / 2*/));
+
+    uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
+    while (label_->GetSize ().x > labelMaxWidth)
+    {
+      label_->SetText (label_->GetText ().substr (1));
+    }
+
     BaseWidget::Refresh ();
   }
 
