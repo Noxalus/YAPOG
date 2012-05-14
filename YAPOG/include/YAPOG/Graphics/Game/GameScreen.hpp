@@ -40,27 +40,29 @@ namespace yap
 
     protected:
 
+      virtual void CreateGuiManager ();
+
+      /// @brief Behavior of Run.
+      virtual const ScreenType& HandleRun (
+        const Time& dt,
+        IDrawingContext& context);
+      /// @brief Behavior of Init.
+      virtual void HandleInit ();
+      /// @brief Behavior of Activate.
+      virtual void HandleActivate ();
+      /// @brief Behavior of Deactivate.
+      virtual void HandleDeactivate ();
+      /// @brief Behavior of OnEvent.
+      virtual bool HandleOnEvent (const GuiEvent& guiEvent);
+      /// @brief Behavior of OnPriorityEvent.
+      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
+
       /// Type of the Screen to be executed on next frame.
       ScreenType nextScreen_;
       /// Root widget if this GameScreen.
       GuiManager* guiManager_;
 
     private:
-
-      /// @brief Behavior of Run.
-      virtual const ScreenType& HandleRun (
-        const Time& dt,
-        IDrawingContext& context) = 0;
-      /// @brief Behavior of Init.
-      virtual void HandleInit () = 0;
-      /// @brief Behavior of Activate.
-      virtual void HandleActivate () = 0;
-      /// @brief Behavior of Deactivate.
-      virtual void HandleDeactivate () = 0;
-      /// @brief Behavior of OnEvent.
-      virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
-      /// @brief Behavior of OnPriorityEvent.
-      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent) = 0;
 
       /// Type of this GameScreen.
       ScreenType type_;

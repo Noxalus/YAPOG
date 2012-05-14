@@ -6,8 +6,6 @@ namespace yse
   World::World ()
     : yap::World ()
     , maps_ ()
-    , packetHandler_ ()
-    , packetSender_ ()
   {
   }
 
@@ -18,16 +16,6 @@ namespace yse
   void World::AddMap (Map* map)
   {
     maps_.Add (map);
-  }
-
-  bool World::HandlePacket (yap::IPacket& packet)
-  {
-    return packetHandler_.HandlePacket (packet);
-  }
-
-  bool World::SendPacket (yap::IPacket& packet)
-  {
-    return packetSender_.SendPacket (packet);
   }
 
   void World::HandleUpdate (const yap::Time& dt)

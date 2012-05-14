@@ -6,7 +6,10 @@ namespace yse
   ClientSession::ClientSession ()
     : packetHandler_ ()
     , socket_ ()
+    , user_ ()
   {
+    AddRelay (&user_);
+
     ADD_HANDLER(None, ClientSession::HandleNone);
   }
 
@@ -27,6 +30,16 @@ namespace yse
   bool ClientSession::SendPacket (yap::IPacket& packet)
   {
     return socket_.Send (packet);
+  }
+
+  void ClientSession::AddRelay (yap::IPacketHandler* relay)
+  {
+    packetHandler_.AddRelay (relay);
+  }
+
+  void ClientSession::SetParent (yap::IPacketHandler* parent)
+  {
+    packetHandler_.SetParent (parent);
   }
 
   /// @brief test.

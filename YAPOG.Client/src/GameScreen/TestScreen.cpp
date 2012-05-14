@@ -198,7 +198,7 @@ namespace ycl
 
   void TestScreen::HandleInit ()
   {
-    guiManager_ = new yap::GuiManager ();
+    yap::GameScreen::HandleInit ();
   }
 
   void TestScreen::HandleActivate ()

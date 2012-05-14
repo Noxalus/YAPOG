@@ -1,18 +1,27 @@
-#include "TestGame.hpp"
 #include "YAPOG/Graphics/Game/GameScreenManager.hpp"
 #include "YAPOG/Graphics/DrawingContext.hpp"
 #include "YAPOG/Graphics/Camera.hpp"
-#include "GameScreen/TestScreen.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/KeyboardGameInputEntry.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 #include "YAPOG/System/IO/Log/CountLoggerMode.hpp"
 #include "YAPOG/System/IO/Log/TimeLoggerMode.hpp"
 
+#include "TestGame.hpp"
+#include "GameScreen/TestScreen.hpp"
+#include "GameScreen/LoadingScreen.hpp"
+#include "GameScreen/UpdateScreen.hpp"
+#include "GameScreen/OptionScreen.hpp"
+#include "GameScreen/LoginScreen.hpp"
+#include "GameScreen/GameplayScreen.hpp"
+#include "GameScreen/BattleScreen.hpp"
+#include "Client/Session.hpp"
+
 namespace ycl
 {
   TestGame::TestGame (const yap::String& name)
     : yap::Game (name)
+    , session_ (Session::Instance ())
   {
   }
 
@@ -22,8 +31,11 @@ namespace ycl
 
   void TestGame::HandleInit ()
   {
-    // tmp
-    yap::Vector2 resolution (1360.0f, 700.0f);
+    ///////////////////////////////////////////////////////////////////////////
+    // tmp                                                                   //
+    ///////////////////////////////////////////////////////////////////////////
+
+    yap::Vector2 resolution (800.0f, 600.0f);
 
 #ifndef YAPOG_WIN
     yap::ContentManager::Instance ().Init (yap::Path ("../Content/"));
@@ -58,8 +70,14 @@ namespace ycl
     screenManager_ = new yap::GameScreenManager ();
     // add of the screens
     screenManager_->AddGameScreen (new TestScreen ());
+    screenManager_->AddGameScreen (new LoadingScreen ());
+    screenManager_->AddGameScreen (new UpdateScreen ());
+    screenManager_->AddGameScreen (new OptionScreen ());
+    screenManager_->AddGameScreen (new LoginScreen ());
+    screenManager_->AddGameScreen (new GameplayScreen ());
+    screenManager_->AddGameScreen (new BattleScreen ());
     // initialization of all the screens
-    screenManager_->Init ("Test");
+    screenManager_->Init ("Gameplay");
   }
 
   bool TestGame::HandleOnEvent (const yap::GuiEvent& guiEvent)
@@ -93,5 +111,14 @@ namespace ycl
     }
 
     return false;
+  }
+
+  void TestGame::HandleRun (
+    const yap::Time& dt,
+    yap::IDrawingContext& context)
+  {
+    yap::Game::HandleRun (dt, context);
+
+    session_.Refresh ();
   }
 } // namespace ycl

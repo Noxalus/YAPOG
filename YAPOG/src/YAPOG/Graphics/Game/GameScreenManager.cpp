@@ -4,7 +4,7 @@ namespace yap
 {
   GameScreenManager::GameScreenManager ()
     : currentScreenType_ ()
-    , currentScreen_ ()
+    , currentScreen_ (nullptr)
     , screens_ ()
   {
   }
@@ -48,13 +48,18 @@ namespace yap
     if (currentScreenType_ == screenType)
       return;
 
+    if (currentScreen_ != nullptr)
+      currentScreen_->Deactivate ();
+
     currentScreenType_ = screenType;
 
     currentScreen_ = screens_[currentScreenType_];
+
+    currentScreen_->Activate ();
   }
 
   void GameScreenManager::Run (const Time& dt, IDrawingContext& context)
   {
-    currentScreen_->Run (dt, context);
+    SetCurrentScreen (currentScreen_->Run (dt, context));
   }
 } // namespace yap

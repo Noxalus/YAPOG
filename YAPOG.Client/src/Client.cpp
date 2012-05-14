@@ -8,7 +8,9 @@ int main ()
   try
   {
     ycl::TestGame game ("YAPOG");
+
     game.Init ();
+
     game.Launch ();
   }
   catch (yap::Exception& ex)

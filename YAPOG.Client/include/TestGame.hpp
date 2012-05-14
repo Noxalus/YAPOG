@@ -1,10 +1,12 @@
-#ifndef YAPOG_DEMOGAME_HPP
-# define YAPOG_DEMOGAME_HPP
+#ifndef YAPOG_CLIENT_DEMOGAME_HPP
+# define YAPOG_CLIENT_DEMOGAME_HPP
 
 # include "YAPOG/Graphics/Game/Game.hpp"
 
 namespace ycl
 {
+  class Session;
+
   /// @brief A game for testing.
   class TestGame : public yap::Game
   {
@@ -15,7 +17,15 @@ namespace ycl
 
       virtual void HandleInit ();
       virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+
+      virtual void HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
+
+    private:
+
+      Session& session_;
   };
 } // namespace ycl
 
-#endif // YAPOG_DEMOGAME_HPP
+#endif // YAPOG_CLIENT_DEMOGAME_HPP

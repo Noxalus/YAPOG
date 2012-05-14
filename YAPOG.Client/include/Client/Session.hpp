@@ -1,25 +1,23 @@
-#ifndef YAPOG_SERVER_CLIENTSESSION_HPP
-# define YAPOG_SERVER_CLIENTSESSION_HPP
+#ifndef YAPOG_CLIENT_SESSION_HPP
+# define YAPOG_CLIENT_SESSION_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 # include "YAPOG/System/Network/ClientSocket.hpp"
+# include "YAPOG/System/Network/NetworkHandler.hpp"
 
-# include "Server/User.hpp"
-
-namespace yse
+namespace ycl
 {
-  class ClientSession : public yap::IPacketHandler
+  class Session : public yap::IPacketHandler
   {
-      DISALLOW_COPY(ClientSession);
+      DISALLOW_COPY(Session);
 
     public:
 
-      ClientSession ();
-      virtual ~ClientSession ();
+      static Session& Instance ();
 
-      yap::ClientSocket& GetSocket ();
+      void Refresh ();
 
       /// @name IPacketHandler members.
       /// @{
@@ -32,14 +30,14 @@ namespace yse
 
     private:
 
-      void HandleNone (yap::IPacket& packet);
+      Session ();
+      virtual ~Session ();
 
       yap::PacketHandler packetHandler_;
 
       yap::ClientSocket socket_;
-
-      User user_;
+      yap::NetworkHandler networkHandler_;
   };
-} // namespace yap
+}
 
-#endif // YAPOG_SERVER_CLIENTSESSION_HPP
+#endif // YAPOG_CLIENT_SESSION_HPP

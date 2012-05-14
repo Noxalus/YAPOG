@@ -10,14 +10,4 @@ namespace yse
   Map::~Map ()
   {
   }
-
-  bool Map::HandlePacket (yap::IPacket& packet)
-  {
-    return packetHandler_.HandlePacket (packet);
-  }
-
-  bool Map::SendPacket (yap::IPacket& packet)
-  {
-    return packetSender_.SendPacket (packet);
-  }
 } // namespace yse

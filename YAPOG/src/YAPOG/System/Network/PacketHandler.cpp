@@ -1,11 +1,14 @@
 #include "YAPOG/System/Network/PacketHandler.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
   PacketHandler::PacketHandler ()
     : handlers_ ()
-    , relay_ (nullptr)
+    , relays_ ()
+    , parent_ (nullptr)
   {
   }
 
@@ -13,9 +16,12 @@ namespace yap
   {
   }
 
-  void PacketHandler::SetRelay (IPacketHandler* relay)
+  void PacketHandler::AddHandler (
+    PacketType packetType,
+    HandlerType handler,
+    IPacketHandler* packetHandler)
   {
-    relay_ = relay;
+    handlers_.Add (packetType, HandlerTargetPairType (handler, packetHandler));
   }
 
   bool PacketHandler::HandlePacket (IPacket& packet)
@@ -28,17 +34,33 @@ namespace yap
       return true;
     }
 
-    if (relay_ != nullptr)
-      return relay_->HandlePacket (packet);
+    for (IPacketHandler* relay : relays_)
+      if (relay->HandlePacket (packet))
+        return true;
 
     return false;
   }
 
-  void PacketHandler::AddHandler (
-    PacketType packetType,
-    HandlerType handler,
-    IPacketHandler* packetHandler)
+  bool PacketHandler::SendPacket (IPacket& packet)
   {
-    handlers_.Add (packetType, HandlerTargetPairType (handler, packetHandler));
+    if (parent_ == nullptr)
+      return false;
+
+    return parent_->SendPacket (packet);
+  }
+
+  void PacketHandler::AddRelay (IPacketHandler* relay)
+  {
+    relays_.Add (relay);
+
+    relay->SetParent (this);
+  }
+
+  void PacketHandler::SetParent (IPacketHandler* parent)
+  {
+    if (parent_ != nullptr)
+      YAPOG_THROW("Parent already exists.");
+
+    parent_ = parent;
   }
 } // namespace yap

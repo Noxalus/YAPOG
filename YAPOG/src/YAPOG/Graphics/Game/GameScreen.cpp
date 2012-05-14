@@ -71,9 +71,44 @@ namespace yap
 
   bool GameScreen::OnPriorityEvent (const GuiEvent& guiEvent)
   {
-    if (guiManager_->OnPriorityEvent (guiEvent))
+    if (HandleOnPriorityEvent (guiEvent))
       return true;
 
-    return HandleOnPriorityEvent (guiEvent);
+    return guiManager_->OnPriorityEvent (guiEvent);
+  }
+
+  void GameScreen::CreateGuiManager ()
+  {
+    guiManager_ = new GuiManager ();
+  }
+
+  const ScreenType& GameScreen::HandleRun (
+    const Time& dt,
+    IDrawingContext& context)
+  {
+    return nextScreen_;
+  }
+
+  void GameScreen::HandleInit ()
+  {
+    CreateGuiManager ();
+  }
+
+  void GameScreen::HandleActivate ()
+  {
+  }
+
+  void GameScreen::HandleDeactivate ()
+  {
+  }
+
+  bool GameScreen::HandleOnEvent (const GuiEvent& guiEvent)
+  {
+    return false;
+  }
+
+  bool GameScreen::HandleOnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    return false;
   }
 } // namespace yap

@@ -334,15 +334,14 @@ ${inc_root}/System/Network/ClientSocket.hpp
 ${src_root}/System/Network/ClientSocket.cpp
 ${inc_root}/System/Network/IPacket.hpp
 ${inc_root}/System/Network/IPacketHandler.hpp
-${inc_root}/System/Network/IPacketSender.hpp
 ${inc_root}/System/Network/ISocket.hpp
+${inc_root}/System/Network/NetworkHandler.hpp
+${src_root}/System/Network/NetworkHandler.cpp
 ${inc_root}/System/Network/Packet.hpp
 ${inc_root}/System/Network/Packet.hxx
 ${src_root}/System/Network/Packet.cpp
 ${inc_root}/System/Network/PacketHandler.hpp
 ${src_root}/System/Network/PacketHandler.cpp
-${inc_root}/System/Network/PacketSender.hpp
-${src_root}/System/Network/PacketSender.cpp
 ${inc_root}/System/Network/PacketType.hpp
 ${inc_root}/System/Network/ServerSocket.hpp
 ${src_root}/System/Network/ServerSocket.cpp

@@ -48,6 +48,8 @@ ${inc_root}/Server/Server.hpp
 ${src_root}/Server/Server.cpp
 ${inc_root}/Server/ClientSession.hpp
 ${src_root}/Server/ClientSession.cpp
+${inc_root}/Server/User.hpp
+${src_root}/Server/User.cpp
 ${inc_root}/Account/AccountManager.hpp
 ${src_root}/Account/AccountManager.cpp
 ${inc_root}/Account/Account.hpp

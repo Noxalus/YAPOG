@@ -12,6 +12,10 @@ namespace yap
       virtual ~IPacketHandler () { }
 
       virtual bool HandlePacket (IPacket& packet) = 0;
+      virtual bool SendPacket (IPacket& packet) = 0;
+
+      virtual void AddRelay (IPacketHandler* relay) = 0;
+      virtual void SetParent (IPacketHandler* parent) = 0;
   };
 } // namespace yap
 

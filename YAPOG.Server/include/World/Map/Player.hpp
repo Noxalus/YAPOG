@@ -7,7 +7,7 @@
 
 namespace yse
 {
-  class Player : Character
+  class Player : public Character
   {
       DISALLOW_ASSIGN(Player);
 
