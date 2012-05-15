@@ -8,6 +8,7 @@
 #include "Account/AccountManager.hpp"
 #include "YAPOG/Database/DatabaseManager.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 static void test_db ()
 {
@@ -16,6 +17,7 @@ static void test_db ()
   yap::String password;
   yap::String email;
   yap::DatabaseManager dm;
+  dm.Connect ();
   dm.SetLogStream (std::cerr);
 
   yse::AccountManager am (dm);
@@ -112,7 +114,7 @@ int main ()
 {
   try
   {
-    //test_db ();
+    test_db ();
 
     yse::Server server;
 

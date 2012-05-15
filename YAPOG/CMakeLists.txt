@@ -283,6 +283,8 @@ ${inc_root}/System/Error/Exception.hpp
 ${src_root}/System/Error/Exception.cpp
 ${inc_root}/System/Error/InvalidMethodCallException.hpp
 ${src_root}/System/Error/InvalidMethodCallException.cpp
+${inc_root}/System/Error/DatabaseException.hpp
+${src_root}/System/Error/DatabaseException.cpp
 ${inc_root}/System/Event/Event.hpp
 ${inc_root}/System/Event/Event.hxx
 ${inc_root}/System/IntTypes.hpp

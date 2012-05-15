@@ -6,7 +6,15 @@ namespace yap
 	DatabaseManager::DatabaseManager ()
 		: dl_ (nullptr)
 	{
-		try
+	}
+
+	DatabaseManager::~DatabaseManager ()
+	{
+	}
+
+  void DatabaseManager::Connect ()
+  {
+    try
 		{
 			connection_.connect(
         "dbname=yapog "
@@ -16,13 +24,9 @@ namespace yap
 		}
 		catch (pgs::pg_excpt e)
 		{
-			std::cerr << e.errmsg ();
+      std::cerr << e.full_error_txt ();
 		}
-	}
-
-	DatabaseManager::~DatabaseManager ()
-	{
-	}
+  }
 
 	void DatabaseManager::SetLogStream (OStream& os)
 	{
