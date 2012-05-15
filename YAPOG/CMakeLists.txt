@@ -91,6 +91,8 @@ ${inc_root}/Graphics/Gui/Label.hpp
 ${src_root}/Graphics/Gui/Label.cpp
 ${inc_root}/Graphics/Gui/LayoutBox.hpp
 ${src_root}/Graphics/Gui/LayoutBox.cpp
+${inc_root}/Graphics/Gui/WidgetDialogBox.hpp
+${src_root}/Graphics/Gui/WidgetDialogBox.cpp
 ${inc_root}/Graphics/Gui/LayoutH.hpp
 ${src_root}/Graphics/Gui/LayoutH.cpp
 ${inc_root}/Graphics/Gui/LayoutV.hpp

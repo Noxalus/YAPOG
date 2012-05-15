@@ -70,7 +70,8 @@ namespace yap
 
   void Label::HandleDraw (IDrawingContext& context)
   {
-    context.Draw (drawableText_);
+    if (isVisible_)
+      context.Draw (drawableText_);
   }
 
   void Label::HandleShow (bool isVisible)

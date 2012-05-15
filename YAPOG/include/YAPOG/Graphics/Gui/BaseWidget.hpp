@@ -121,9 +121,7 @@ namespace yap
     Vector2 GetUserSize () const;
   protected:
 
-
-    void SetFocused (bool state);
-    bool GetFocused ();
+    virtual void SetFocused (bool state);
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
 

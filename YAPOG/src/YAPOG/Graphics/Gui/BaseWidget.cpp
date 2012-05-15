@@ -169,10 +169,6 @@ namespace yap
     isFocused_ = state;
   }
 
-  bool BaseWidget::GetFocused ()
-  {
-    return isFocused_;
-  }
 
   void BaseWidget::Show (bool isVisible)
   {

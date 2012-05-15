@@ -32,7 +32,6 @@ namespace yap
     virtual void Refresh () = 0;
     virtual bool IsFocusable () const = 0;
     virtual void SetFocused (bool state) = 0;
-    virtual bool GetFocused () = 0;
   };
 } // namespace yap
 

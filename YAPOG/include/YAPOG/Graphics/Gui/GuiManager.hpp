@@ -20,7 +20,7 @@ namespace yap
       virtual bool IsFocusable () const;
 
     private:
-
+      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
 
