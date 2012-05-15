@@ -63,6 +63,7 @@ namespace yap
 
     Vector2 realSize_;
     uint focusedChild_;
+    
   };
 } // namespace yap
 

@@ -121,6 +121,9 @@ namespace yap
     Vector2 GetUserSize () const;
   protected:
 
+
+    void SetFocused (bool state);
+    bool GetFocused ();
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
 
@@ -152,6 +155,7 @@ namespace yap
     WidgetBorder* border_;
     Vector2 userSize_;
     bool isExtensible_;
+    bool isFocused_;
 
   private:
     void SetPosAfterBorder (uint width);

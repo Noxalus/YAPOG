@@ -81,18 +81,21 @@ namespace yap
     GeneratePosition ();
   }
  
+ 
+
   bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::Tab)
       {
-        if (focusables_.Count () == 0)
+        if (focusables_.Count () == 0 || !isFocused_)
           return false;
 
         IWidget* child;
         uint cycle = focusedChild_;
 
+        
         // if current focussable is a layout, give it control for tab
         if (focusables_[cycle]->OnPriorityEvent (guiEvent))
           return true;
@@ -105,12 +108,12 @@ namespace yap
 
           eventHandlers_.Remove (child);
           eventHandlers_.AddFront (child);
+          isFocused_ = false;
           return false;
         }
 
-
         child = focusables_[focusedChild_];
-
+        child->SetFocused (true);
         eventHandlers_.Remove (child);
         eventHandlers_.AddFront (child);
 

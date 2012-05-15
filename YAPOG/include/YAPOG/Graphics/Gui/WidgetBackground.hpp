@@ -29,7 +29,7 @@ namespace yap
     virtual ~WidgetBackground ();
 
     virtual bool IsFocusable () const;
-    void SetBackground (String file, uint width, uint height, bool resize);
+          void SetBackground (String file, uint width, uint height, bool resize);
     void SetBackground (Vector2 size);
     const Texture& GetBackground () const;
     Event<const WidgetBackground&, const EventArgsTexture&> OnBackgroundSet;

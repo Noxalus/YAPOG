@@ -23,6 +23,7 @@ namespace yap
     , border_ (nullptr)
     , userSize_ (0, 0)
     , isExtensible_ (false)
+    , isFocused_ (true)
   {
     padding_ = new Padding ();
   }
@@ -161,6 +162,16 @@ namespace yap
   bool BaseWidget::IsVisible () const
   {
     return isVisible_;
+  }
+
+  void BaseWidget::SetFocused (bool state)
+  {
+    isFocused_ = state;
+  }
+
+  bool BaseWidget::GetFocused ()
+  {
+    return isFocused_;
   }
 
   void BaseWidget::Show (bool isVisible)
