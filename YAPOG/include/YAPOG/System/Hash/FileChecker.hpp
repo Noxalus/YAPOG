@@ -1,5 +1,6 @@
 #ifndef YAPOG_FILECHECKER_HPP
 # define YAPOG_FILECHECKER_HPP
+
 # include <cstdio>
 # include <cstdlib>
 # include <algorithm>

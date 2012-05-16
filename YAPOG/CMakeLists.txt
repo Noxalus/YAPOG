@@ -36,6 +36,12 @@ ${src_root}/Game/IDReader.cpp
 ${inc_root}/Game/IDWriter.hpp
 ${src_root}/Game/IDWriter.cpp
 ${inc_root}/Game/IUpdateable.hpp
+${inc_root}/Game/Chat/Chat.hpp
+${src_root}/Game/Chat/Chat.cpp
+${inc_root}/Game/Chat/ChatCommand.hpp
+${src_root}/Game/Chat/ChatCommand.cpp
+${inc_root}/Game/Chat/ChatDisplayer.hpp
+${src_root}/Game/Chat/ChatDisplayer.cpp
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp

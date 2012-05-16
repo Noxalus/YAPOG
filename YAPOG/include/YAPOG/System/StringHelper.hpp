@@ -15,6 +15,9 @@ namespace yap
       template <typename T>
       static String ToString (const T& value);
 
+	  template <typename T>
+	  static int compare_string (const T& s1, const T& s2);
+
     private:
 
       StringHelper ();
