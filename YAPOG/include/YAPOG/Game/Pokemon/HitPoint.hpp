@@ -8,8 +8,6 @@ namespace yap
 {
   class YAPOG_LIB HitPoint : public BaseStat
   {
-    DISALLOW_COPY (HitPoint);
-
     public:
       HitPoint ();
       HitPoint (UInt16 value);

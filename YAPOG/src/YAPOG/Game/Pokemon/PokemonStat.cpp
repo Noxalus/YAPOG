@@ -23,35 +23,57 @@ namespace yap
   {
   }
 
-  const HitPoint& PokemonStat::GetHitPoint () const
+  PokemonStat::PokemonStat (
+    const HitPoint& hp,
+    const Attack& atk,
+    const Defense& def,
+    const SpecialAttack& speAtk,
+    const SpecialDefense& speDef,
+    const Speed& speed)
+    : hitPoint_ (hp)
+    , attack_ (atk)
+    , defense_ (def)
+    , specialAttack_ (speAtk)
+    , specialDefense_ (speDef)
+    , speed_ (speed)
   {
-    return hitPoint_;
   }
+
+  const HitPoint& PokemonStat::GetHitPoint () const
+  { return hitPoint_; }
 
   const Attack& PokemonStat::GetAttack () const
-  {
-    return attack_;
-  }
+  { return attack_; }
 
   const Defense& PokemonStat::GetDefense () const
-  {
-    return defense_;
-  }
+  { return defense_; }
 
   const SpecialAttack& PokemonStat::GetSpecialAttack () const
-  {
-    return specialAttack_;
-  }
+  { return specialAttack_; }
 
   const SpecialDefense& PokemonStat::GetSpecialDefense () const
-  {
-    return specialDefense_;
-  }
+  { return specialDefense_; }
 
   const Speed& PokemonStat::GetSpeed () const
-  {
-    return speed_;
-  }
+  { return speed_; }
+
+  void PokemonStat::SetHitPoint (const HitPoint& value)
+  { hitPoint_ = value; }
+
+  void PokemonStat::SetAttack(const Attack& value)
+  { attack_ = value; }
+
+  void PokemonStat::SetDefense (const Defense& value)
+  { defense_ = value; }
+
+  void PokemonStat::SetSpecialAttack (const SpecialAttack& value)
+  { specialAttack_ = value; }
+
+  void PokemonStat::SetSpecialDefense (const SpecialDefense& value)
+  { specialDefense_ = value; }
+
+  void PokemonStat::SetSpeed (const Speed& value)
+  { speed_ = value; }
 
   void PokemonStat::ComputeStats (
     const PokemonInfo& pokeInfo, 

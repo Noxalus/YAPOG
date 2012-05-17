@@ -30,6 +30,14 @@ namespace yap
     return skillInfo_->GetName ();
   }
 
+  const UInt16& PokemonSkill::GetPower () const
+  {
+    if (skillInfo_ == nullptr)
+      throw Exception ("This skill's base informations doesn't exist !");
+
+    return skillInfo_->GetPower ();
+  }
+
   const UInt16& PokemonSkill::GetCurrentPP () const
   {
     return currentPP_;
@@ -79,5 +87,15 @@ namespace yap
   void PokemonSkill::RaiseToMaxPP ()
   {
     maxPP_ = GetLimitPPMax ();
+  }
+
+  const TypeInfo& PokemonSkill::GetType () const
+  {
+    return skillInfo_->GetType ();
+  }
+
+  const UInt16& PokemonSkill::GetCategory () const
+  {
+    return skillInfo_->GetCategory ();
   }
 }

@@ -29,7 +29,9 @@ Pokemon* GeneratePokemon ()
 
   int level = RandomHelper::GetNext (1, 100);
 
-  return new Pokemon (staticID, level, false);
+  Pokemon* p = new Pokemon (staticID, level, false);
+
+  return p;
 }
 
 int main ()
@@ -62,7 +64,7 @@ int main ()
   team.AddPokemon (new Pokemon (ID (2), 42, false));
   team.AddPokemon (new Pokemon (ID (16), 32, true));
 
-  WildBattle wildBattle (team, GeneratePokemon ());
+  WildBattle wildBattle (team, *GeneratePokemon ());
   wildBattle.Run ();
 
   getchar ();

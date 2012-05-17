@@ -27,7 +27,7 @@ namespace yap
     SkillInfo& typeInfo,
     const String& xmlRootNodeName)
     : skillInfo_ (typeInfo),
-      xmlRootNodeName_ (xmlRootNodeName)
+    xmlRootNodeName_ (xmlRootNodeName)
   {
   }
 
@@ -41,13 +41,13 @@ namespace yap
 
     skillInfo_.SetID (
       reader->ReadID (
-        XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
+      XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
     skillInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
     skillInfo_.SetDescription (
       reader->ReadString (
-        DEFAULT_XML_DESCRIPTION_NODE_NAME));
+      DEFAULT_XML_DESCRIPTION_NODE_NAME));
 
     skillInfo_.SetPower (reader->ReadInt (DEFAULT_XML_POWER_NODE_NAME));
 
@@ -57,7 +57,9 @@ namespace yap
 
     skillInfo_.SetAccuracy (reader->ReadInt (DEFAULT_XML_ACCURACY_NODE_NAME));
 
-    skillInfo_.SetType (reader->ReadInt (DEFAULT_XML_TYPE_NODE_NAME));
+    // Type of the skill
+    skillInfo_.SetType (
+      TypeInfo (ID (reader->ReadInt (DEFAULT_XML_TYPE_NODE_NAME))));
 
     skillInfo_.SetCategory (reader->ReadInt (DEFAULT_XML_CATEGORY_NODE_NAME));
 

@@ -4,7 +4,17 @@ namespace yap
 {
   PokemonFighter::PokemonFighter (Pokemon* originalPokemon)
     : originalPokemon_ (originalPokemon)
+    , stats_ ()
   {
+    /*
+    stats_.SetHitPoint (originalPokemon->GetStats ().GetHitPoint ());
+    stats_.SetAttack (originalPokemon->GetStats ().GetAttack ());
+    stats_.SetSpecialAttack 
+      (originalPokemon->GetStats ().GetSpecialAttack ());
+    stats_.SetSpecialDefense 
+      (originalPokemon->GetStats ().GetSpecialDefense ());
+    stats_.SetSpeed (originalPokemon->GetStats ().GetSpeed ());
+    */
   }
 
   const String& PokemonFighter::GetName () const
@@ -62,6 +72,40 @@ namespace yap
       << " N." << GetLevel () << std::endl
       << "PV: " << GetCurrentHP () << "/" << GetMaxHP ()
       << std::endl;
+  }
+
+  void PokemonFighter::PrintStats ()
+  {
+    originalPokemon_->PrintStats ();
+  }
+
+  float PokemonFighter::GetTypeEffectFactor (const TypeInfo& type) const
+  {
+    return originalPokemon_->GetTypeEffectFactor (type);
+  }
+
+  const Attack& PokemonFighter::GetAttack () const
+  {
+    return stats_.GetAttack ();
+  }
+
+  const Defense& PokemonFighter::GetDefense () const
+  {
+    return stats_.GetDefense ();
+  }
+
+  const SpecialAttack& PokemonFighter::GetSpecialAttack () const
+  {
+    return stats_.GetSpecialAttack ();
+  }
+  const SpecialDefense& PokemonFighter::GetSpecialDefense () const
+  {
+    return stats_.GetSpecialDefense ();
+  }
+
+  const Speed& PokemonFighter::GetSpeed () const
+  {
+    return stats_.GetSpeed ();
   }
 
 } // namespace yap
