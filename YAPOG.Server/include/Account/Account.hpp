@@ -10,6 +10,8 @@ namespace yse
     DISALLOW_COPY(Account);
   public:
     Account ();
+  private:
+
   };
 } // namespace yse
 

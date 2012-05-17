@@ -1,4 +1,5 @@
 #include "YAPOG/Database/DatabaseStream.hpp"
+#include "YAPOG/System/Error/DatabaseException.hpp"
 #include "Database/Requests/Selects/AccountSelectRequest.hpp"
 
 namespace yse
@@ -23,7 +24,7 @@ namespace yse
     select.Write (name);
 
     if (select.EndOfStream ())
-      throw yap::Exception ("This account doesn't exist !");
+      throw yap::DatabaseException ("This account doesn't exist !");
 
     // Set the value of this account with the database information
     accountTable.SetID (yap::ID (select.ReadInt ()));

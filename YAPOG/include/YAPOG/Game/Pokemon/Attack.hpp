@@ -8,8 +8,6 @@ namespace yap
 {
   class YAPOG_LIB Attack : public BaseStat
   {
-    DISALLOW_COPY (Attack);
-
   public:
     Attack ();
     Attack (UInt16 value);

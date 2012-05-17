@@ -16,6 +16,7 @@ namespace yap
 		DatabaseManager ();
 		~DatabaseManager ();
 
+    void Connect ();
 		pgs::pg_cnx& GetConnection ();
 		DatabaseLogger& GetDatabaseLogger ();
 		void SetLogStream (OStream& os);

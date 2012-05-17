@@ -6,6 +6,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
+# include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 
 namespace yap
 {
@@ -29,7 +30,7 @@ namespace yap
     const UInt16& GetPP () const;
     const UInt16& GetMaxPP () const;
     const UInt16& GetAccuracy () const;
-    const UInt16& GetType () const;
+    const TypeInfo& GetType () const;
     const UInt16& GetCategory () const;
     const UInt16& GetTarget () const;
     const UInt16& GetEffect () const;
@@ -41,15 +42,15 @@ namespace yap
     void SetName (const String& name);
     void SetDescription (const String& description);
     void SetPower (const UInt16& value);
-    void  SetPP (const UInt16& value);
-    void  SetMaxPP (const UInt16& value);
-    void  SetAccuracy (const UInt16& value);
-    void  SetType (const UInt16& value);
-    void  SetCategory (const UInt16& value);
-    void  SetTarget (const UInt16& value);
-    void  SetEffect (const UInt16& value);
-    void  SetUse (const UInt16& value);
-    void  SetPriority (const UInt16& value);
+    void SetPP (const UInt16& value);
+    void SetMaxPP (const UInt16& value);
+    void SetAccuracy (const UInt16& value);
+    void SetType (const TypeInfo& value);
+    void SetCategory (const UInt16& value);
+    void SetTarget (const UInt16& value);
+    void SetEffect (const UInt16& value);
+    void SetUse (const UInt16& value);
+    void SetPriority (const UInt16& value);
 
   private:
     ID staticID_;
@@ -59,7 +60,7 @@ namespace yap
     UInt16 pp_;
     UInt16 maxPP_;
     UInt16 accuracy_;
-    UInt16 type_;
+    TypeInfo type_;
     UInt16 category_;
     UInt16 target_;
     UInt16 effect_;
@@ -73,7 +74,7 @@ namespace yap
     static const UInt16 DEFAULT_PP;
     static const UInt16 DEFAULT_MAX_PP;
     static const UInt16 DEFAULT_ACCURACY;
-    static const UInt16 DEFAULT_TYPE;
+    static const TypeInfo DEFAULT_TYPE;
     static const UInt16 DEFAULT_CATEGORY;
     static const UInt16 DEFAULT_TARGET;
     static const UInt16 DEFAULT_EFFECT;

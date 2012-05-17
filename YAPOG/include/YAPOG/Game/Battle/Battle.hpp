@@ -13,6 +13,7 @@ namespace yap
   public:
     Battle (PokemonTeam& playerTeam);
 
+    void Init ();
     void Run ();
     void DisplayMoves ();
     void DisplayTeam ();

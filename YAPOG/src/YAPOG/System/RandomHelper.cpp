@@ -28,4 +28,10 @@ namespace yap
   {
     return rand ();
   }
+
+  bool RandomHelper::Pourcentage (const float& pourcentage)
+  {
+    return (GetNext (0.f, 100.f) <= pourcentage) ? true : false;
+  }
+
 } // namespace yap

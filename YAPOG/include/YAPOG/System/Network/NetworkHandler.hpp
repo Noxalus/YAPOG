@@ -16,7 +16,7 @@ namespace yap
 
   typedef std::shared_ptr<IPacket> IPacketPtrType;
 
-  class NetworkHandler
+  class YAPOG_LIB NetworkHandler
   {
       DISALLOW_COPY(NetworkHandler);
 

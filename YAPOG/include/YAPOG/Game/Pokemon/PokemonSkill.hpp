@@ -5,6 +5,7 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/Pokemon/SkillInfo.hpp"
+# include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
@@ -19,8 +20,11 @@ namespace yap
 
     /// Getters
     const String& GetName () const;
+    const UInt16& GetPower () const;
     const UInt16& GetCurrentPP () const;
     const UInt16& GetMaxPP () const;
+    const TypeInfo& GetType () const;
+    const UInt16& GetCategory () const;
 
     /// @brief Reset the PP to the maxPP value.
     void Refill ();

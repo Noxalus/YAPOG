@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 # include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+# include "YAPOG/Game/Battle/PokemonFighter.hpp"
 
 namespace yap
 {
@@ -11,6 +12,11 @@ namespace yap
   {
   public:
     BattleCore ();
+
+    int ComputeDamage (
+      const PokemonSkill& move, 
+      const PokemonFighter& attacker, 
+      const PokemonFighter& defender);
   };
 } // namespace yap
 

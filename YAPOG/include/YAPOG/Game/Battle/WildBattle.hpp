@@ -12,13 +12,14 @@ namespace yap
   class YAPOG_LIB WildBattle : public Battle
   {
   public:
-    WildBattle (PokemonTeam& playerTeam, 
-      Pokemon* wildPokemon);
+    WildBattle (
+      PokemonTeam& playerTeam, 
+      Pokemon& wildPokemon);
 
     virtual void DisplayBeginMessage ();
 
   private:
-    Pokemon* wildPokemon_;
+    Pokemon& wildPokemon_;
   };
 } // namespace yap
 

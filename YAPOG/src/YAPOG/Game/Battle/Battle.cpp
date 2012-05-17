@@ -1,5 +1,5 @@
 #include "YAPOG/Game/Battle/Battle.hpp"
-
+#include "YAPOG/Game/Battle/BattleCore.hpp"
 using namespace std;
 
 namespace yap
@@ -14,6 +14,8 @@ namespace yap
 
     void Battle::Run ()
   {
+    BattleCore bc;
+
     DisplayBeginMessage ();
 
     cout 
@@ -28,6 +30,7 @@ namespace yap
       cout << "[Tour " << turnCount_ << "]" << endl;
       cout << "Pokemon adverse: " << endl;
       currentOpponent_.PrintBattleStats ();
+      //currentOpponent_.PrintStats ();
       cout << "Pokemon du joueur: " << endl;
       currentPokemon_.PrintBattleStats ();
       cout << endl
@@ -47,6 +50,10 @@ namespace yap
       {
       case 1:
         DisplayMoves ();
+        bc.ComputeDamage (
+          *currentPokemon_.GetMoves ()[2], 
+          currentPokemon_, 
+          currentOpponent_);
         break;
       case 2:
         cout << "Le sac n'est pas encore fonctionnel !" << endl;
@@ -64,8 +71,6 @@ namespace yap
         break;
 
       }
-
-      getchar ();
     }
   }
 

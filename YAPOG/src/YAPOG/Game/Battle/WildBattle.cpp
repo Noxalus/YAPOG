@@ -7,17 +7,17 @@ namespace yap
 {
   WildBattle::WildBattle (
     PokemonTeam& playerTeam, 
-    Pokemon* wildPokemon)
+    Pokemon& wildPokemon)
     : Battle (playerTeam)
     , wildPokemon_ (wildPokemon)
   {
-    currentOpponent_ = PokemonFighter (wildPokemon);
+    currentOpponent_ = PokemonFighter (&wildPokemon);
   }
 
   void WildBattle::DisplayBeginMessage ()
   {
     cout 
-      << "Un " << wildPokemon_->GetName () 
+      << "Un " << wildPokemon_.GetName () 
       << " sauvage apparait !" 
       << endl;
   }

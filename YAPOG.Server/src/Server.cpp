@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Server/Server.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
@@ -8,6 +7,8 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "Account/AccountManager.hpp"
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 static void test_db ()
 {
@@ -16,6 +17,7 @@ static void test_db ()
   yap::String password;
   yap::String email;
   yap::DatabaseManager dm;
+  dm.Connect ();
   dm.SetLogStream (std::cerr);
 
   yse::AccountManager am (dm);

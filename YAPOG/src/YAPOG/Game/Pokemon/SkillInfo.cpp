@@ -9,7 +9,7 @@ namespace yap
   const UInt16 SkillInfo::DEFAULT_PP = 0;
   const UInt16 SkillInfo::DEFAULT_MAX_PP = 0;
   const UInt16 SkillInfo::DEFAULT_ACCURACY = 0;
-  const UInt16 SkillInfo::DEFAULT_TYPE = 0;
+  const TypeInfo SkillInfo::DEFAULT_TYPE = TypeInfo (ID (100));
   const UInt16 SkillInfo::DEFAULT_CATEGORY = 0;
   const UInt16 SkillInfo::DEFAULT_TARGET = 0;
   const UInt16 SkillInfo::DEFAULT_EFFECT = 0;
@@ -111,7 +111,7 @@ namespace yap
     return accuracy_;
   }
 
-  const UInt16& SkillInfo::GetType () const
+  const TypeInfo& SkillInfo::GetType () const
   {
     return type_;
   }
@@ -177,7 +177,7 @@ namespace yap
     accuracy_ = value; 
   }
 
-  void  SkillInfo::SetType (const UInt16& value)
+  void  SkillInfo::SetType (const TypeInfo& value)
   {
     type_ = value; 
   }
