@@ -25,9 +25,9 @@
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/TextureReader.hpp"
+#include "YAPOG/Graphics/Game/Sprite/RegularAnimatedSprite.hpp"
 
 #include "TestGame.hpp"
-#include "GameScreen/TestScreen.hpp"
 #include "GameScreen/LoadingScreen.hpp"
 #include "GameScreen/UpdateScreen.hpp"
 #include "GameScreen/OptionScreen.hpp"

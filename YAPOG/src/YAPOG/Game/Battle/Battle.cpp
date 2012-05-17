@@ -6,8 +6,8 @@ namespace yap
 {
   Battle::Battle (PokemonTeam& playerTeam)
     : playerTeam_ (playerTeam)
-    , currentPokemon_ (playerTeam.GetPokemon (0))
     , currentOpponent_ (nullptr)
+    , currentPokemon_ (playerTeam.GetPokemon (0))
     , turnCount_ (0)
   {
   }
@@ -18,9 +18,9 @@ namespace yap
 
     DisplayBeginMessage ();
 
-    cout 
-      << currentPokemon_.GetName () 
-      <<  "! A l'attaque !" 
+    cout
+      << currentPokemon_.GetName ()
+      <<  "! A l'attaque !"
       << endl << endl;
 
     while (true)
@@ -34,7 +34,7 @@ namespace yap
       cout << "Pokemon du joueur: " << endl;
       currentPokemon_.PrintBattleStats ();
       cout << endl
-        << "Que doit faire " 
+        << "Que doit faire "
         << currentPokemon_.GetName ()
         << " ?" << endl << endl
         << "[1]Attaque" << endl
@@ -51,8 +51,8 @@ namespace yap
       case 1:
         DisplayMoves ();
         bc.ComputeDamage (
-          *currentPokemon_.GetMoves ()[2], 
-          currentPokemon_, 
+          *currentPokemon_.GetMoves ()[2],
+          currentPokemon_,
           currentOpponent_);
         break;
       case 2:

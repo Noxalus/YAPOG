@@ -18,4 +18,6 @@ int main ()
     ex.GetMessage (std::cout) << std::endl;
     getchar ();
   }
+
+  getchar ();
 }

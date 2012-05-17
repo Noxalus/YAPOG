@@ -9,40 +9,50 @@
 #include "YAPOG/Game/Pokemon/ExperienceSlow.hpp"
 #include "YAPOG/Game/Pokemon/ExperienceType.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
   const int Pokemon::MAX_POKEMON_MOVE_NUMBER = 4;
 
   Pokemon::Pokemon (const ID& staticID)
-    : staticID_ (staticID)
-    , uniqueID_ (ID (0))
+    : uniqueID_ (ID ())
+    , staticID_ (staticID)
     , nickname_ ("")
+    , stats_ ()
+    , level_ (PokemonExperience::INITIAL_LEVEL_VALUE)
+    , type_ ()
     , gender_ (Gender::Genderless)
     , status_ (Status::Normal)
-    , level_ (PokemonExperience::INITIAL_LEVEL_VALUE)
     , shiny_ (false)
     , loyalty_ (0)
     , moveSet_ (MAX_POKEMON_MOVE_NUMBER, nullptr)
     , pokemonInfo_ ()
+    , nature_ ()
+    , exp_ ()
   {
     Init ();
   }
 
   Pokemon::Pokemon (
-    const ID& staticID, 
-    const UInt16& level, 
+    const ID& staticID,
+    const UInt16& level,
     const bool& shiny)
-    : staticID_ (staticID)
-    , uniqueID_ (ID (0))
+    : uniqueID_ (ID ())
+    , staticID_ (staticID)
     , nickname_ ("")
+    , stats_ ()
+    , level_ (level)
+    , type_ ()
     , gender_ (Gender::Genderless)
     , status_ (Status::Normal)
-    , level_ (level)
     , shiny_ (shiny)
     , loyalty_ (0)
     , moveSet_ (MAX_POKEMON_MOVE_NUMBER, nullptr)
     , pokemonInfo_ ()
+    , nature_ ()
+    , exp_ ()
   {
     Init ();
   }
@@ -109,7 +119,7 @@ namespace yap
       delete pk;
 
     delete pokemonInfo_;
-    delete exp_;    
+    delete exp_;
     delete nature_;
 
     pokemonInfo_ = nullptr;
@@ -136,6 +146,8 @@ namespace yap
       else
         return pokemonInfo_->GetName ();
     }
+
+    YAPOG_THROW("PokemonInfo is not initialized.");
   }
 
   float Pokemon::GetTypeEffectFactor (const TypeInfo& type) const
@@ -195,7 +207,7 @@ namespace yap
   {
     if (exp_ != nullptr)
     {
-      int levelEarned = exp_->AddExperience (value, level_); 
+      int levelEarned = exp_->AddExperience (value, level_);
       if (levelEarned > 0)
       {
         // Level Up
@@ -205,7 +217,7 @@ namespace yap
         {
           level_++;
           // Skill learning ?
-          const collection::List<ID>* newSkills = 
+          const collection::List<ID>* newSkills =
             pokemonInfo_->GetNewSkills (level_);
           if (newSkills != nullptr)
           {
@@ -314,52 +326,52 @@ namespace yap
       << "---------------------------------------------" << std::endl
       << "              Current Statistics" << std::endl
       << "---------------------------------------------" << std::endl
-      << GetName () << " (" 
+      << GetName () << " ("
       << GetStringFromGender (gender_) << ")" << std::endl
       << "Level: " << GetLevel () << std::endl
       << "Total experience: " << GetTotalExperience () << std::endl
       << "Experience to the next level: " << GetExperienceToNextLevel ()
-      << " (" 
-      << GetExperienceToNextLevel () - GetTotalExperience () << ")" 
+      << " ("
+      << GetExperienceToNextLevel () - GetTotalExperience () << ")"
       << std::endl
-      << "Experience type: " 
-      << GetStringFromExperienceType (pokemonInfo_->GetExperienceType ()) 
+      << "Experience type: "
+      << GetStringFromExperienceType (pokemonInfo_->GetExperienceType ())
       << std::endl
       << "Nature: " << nature_->GetName () << std::endl
       << "Type1: " << type_.GetType1 ().GetName () << std::endl
       << "Type2: " << type_.GetType2 ().GetName () << std::endl
-      << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue () 
+      << "Current HP: " << stats_.GetHitPoint ().GetCurrentValue ()
       << std::endl
       << "Max HP: " << stats_.GetHitPoint ().GetValue ()
       << " (IV: " << stats_.GetHitPoint ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetHitPointEV () << ")" 
+      << " | Base EV: " << pokemonInfo_->GetHitPointEV () << ")"
       << std::endl
       << "Attack: " << stats_.GetAttack ().GetValue ()
       << " (IV: " << stats_.GetAttack ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetAttackEV () << ")" 
+      << " | Base EV: " << pokemonInfo_->GetAttackEV () << ")"
       << std::endl
       << "Defense: " << stats_.GetDefense ().GetValue ()
       << " (IV: " << stats_.GetDefense ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetDefenseEV () << ")" 
+      << " | Base EV: " << pokemonInfo_->GetDefenseEV () << ")"
       << std::endl
       << "Special Attack: " << stats_.GetSpecialAttack ().GetValue ()
       << " (IV: " << stats_.GetSpecialAttack ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetSpecialAttackEV () << ")" 
+      << " | Base EV: " << pokemonInfo_->GetSpecialAttackEV () << ")"
       << std::endl
       << "Special Defense: " << stats_.GetSpecialDefense ().GetValue ()
       << " (IV: " << stats_.GetSpecialDefense ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetSpecialDefenseEV () << ")" 
+      << " | Base EV: " << pokemonInfo_->GetSpecialDefenseEV () << ")"
       << std::endl
       << "Speed: " << stats_.GetSpeed ().GetValue ()
       << " (IV: " << stats_.GetSpeed ().GetIndividualValue ()
-      << " | Base EV: " << pokemonInfo_->GetSpeedEV () << ")" 
+      << " | Base EV: " << pokemonInfo_->GetSpeedEV () << ")"
       << std::endl;
 
     if (pokemonInfo_->CanEvolve ())
     {
-      std::cout << "This Pokémon can evolve at level " 
+      std::cout << "This Pokémon can evolve at level "
         << pokemonInfo_->GetEvolutionLevel ()
-        << " in " << pokemonInfo_->GetPokemonEvolutionID ().GetValue () 
+        << " in " << pokemonInfo_->GetPokemonEvolutionID ().GetValue ()
         << " !" << std::endl;
     }
 
@@ -370,7 +382,7 @@ namespace yap
       if (moveSet_[i] != nullptr)
       {
         std::cout << moveSet_[i]->GetName ()
-          << " (" << moveSet_[i]->GetCurrentPP () << "/" 
+          << " (" << moveSet_[i]->GetCurrentPP () << "/"
           << moveSet_[i]->GetMaxPP () << ")" << std::endl;
       }
       else

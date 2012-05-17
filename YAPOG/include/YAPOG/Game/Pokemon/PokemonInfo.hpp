@@ -21,8 +21,10 @@ namespace yap
     PokemonInfo ();
     PokemonInfo (const ID& id);
     void InitMoveSet (
-      collection::Array<PokemonSkill*>& moveSet, 
+      collection::Array<PokemonSkill*>& moveSet,
       const UInt16& level);
+
+    bool CanEvolve () const;
 
     /// @name ICloneable members.
     /// @{
@@ -82,8 +84,7 @@ namespace yap
     const int& GetType1 () const;
     const int& GetType2 () const;
     const collection::List<ID>* GetNewSkills (const UInt16& level) const;
-    const bool CanEvolve () const;
-    const UInt16 GetEvolutionLevel () const;
+    const UInt16& GetEvolutionLevel () const;
     const ID& GetPokemonEvolutionID () const;
 
     void PrintBaseStats ();

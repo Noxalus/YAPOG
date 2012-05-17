@@ -24,8 +24,6 @@ ${inc_root}/Client/User.hpp
 ${src_root}/Client/User.cpp
 ${inc_root}/GameInput/GameInputReader.hpp
 ${src_root}/GameInput/GameInputReader.cpp
-${inc_root}/GameScreen/TestScreen.hpp
-${src_root}/GameScreen/TestScreen.cpp
 ${inc_root}/GameScreen/BaseScreen.hpp
 ${src_root}/GameScreen/BaseScreen.cpp
 ${inc_root}/GameScreen/LoadingScreen.hpp

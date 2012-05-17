@@ -18,6 +18,8 @@ namespace ycl
 
     protected:
 
+      virtual void HandleInit ();
+
       virtual const yap::ScreenType& HandleRun (
         const yap::Time& dt,
         yap::IDrawingContext& context);

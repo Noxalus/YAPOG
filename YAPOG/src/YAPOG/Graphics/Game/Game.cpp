@@ -48,6 +48,8 @@ namespace yap
       {
         GameInputManager::Instance ().Update (guiEvent);
 
+        screenManager_->OnPriorityEvent (guiEvent);
+          
         if (!screenManager_->OnEvent (guiEvent))
           HandleOnEvent (guiEvent);
       }

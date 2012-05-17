@@ -183,6 +183,8 @@ ${src_root}/Graphics/Game/GameScreenManager.cpp
 ${inc_root}/Graphics/Game/IGame.hpp
 ${inc_root}/Graphics/Game/IGameScreen.hpp
 ${inc_root}/Graphics/Game/IGameScreenManager.hpp
+${inc_root}/Game/Factory/ILoadable.hpp
+${inc_root}/Game/Factory/ICloneable.hpp
 ${inc_root}/Graphics/Game/Sprite/AnimatedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/AnimatedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/AnimatedSpriteReader.hpp
@@ -239,6 +241,31 @@ ${inc_root}/Graphics/Game/World/Map/TileReader.hpp
 ${src_root}/Graphics/Game/World/Map/TileReader.cpp
 ${inc_root}/Graphics/Gui/BaseWidget.hpp
 ${src_root}/Graphics/Gui/BaseWidget.cpp
+${inc_root}/Graphics/Gui/Label.hpp
+${src_root}/Graphics/Gui/Label.cpp
+${inc_root}/Graphics/Gui/LayoutBox.hpp
+${src_root}/Graphics/Gui/LayoutBox.cpp
+${inc_root}/Graphics/Gui/WidgetDialogBox.hpp
+${src_root}/Graphics/Gui/WidgetDialogBox.cpp
+${inc_root}/Graphics/Gui/LayoutH.hpp
+${src_root}/Graphics/Gui/LayoutH.cpp
+${inc_root}/Graphics/Gui/LayoutV.hpp
+${src_root}/Graphics/Gui/LayoutV.cpp
+${inc_root}/Graphics/Gui/TextureManager.hpp
+${src_root}/Graphics/Gui/TextureManager.cpp
+${inc_root}/Graphics/Gui/PictureBox.hpp
+${src_root}/Graphics/Gui/PictureBox.cpp
+${inc_root}/Graphics/Gui/Menu.hpp
+${inc_root}/Graphics/Gui/MenuItem.hpp
+${src_root}/Graphics/Gui/MenuItem.cpp
+${src_root}/Graphics/Gui/Menu.cpp
+${inc_root}/Graphics/Gui/WidgetBackground.hpp
+${src_root}/Graphics/Gui/WidgetBackground.cpp
+${inc_root}/Graphics/Gui/WidgetTextBox.hpp
+${src_root}/Graphics/Gui/WidgetTextBox.cpp
+${inc_root}/Graphics/Gui/WidgetBorder.hpp
+${src_root}/Graphics/Gui/WidgetBorder.cpp
+${inc_root}/Graphics/Gui/Padding.hpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp
 ${src_root}/Graphics/Gui/GameInput/GameInputEntry.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInput.hpp
@@ -257,6 +284,7 @@ ${src_root}/Graphics/Gui/GuiEvent.cpp
 ${inc_root}/Graphics/Gui/GuiManager.hpp
 ${src_root}/Graphics/Gui/GuiManager.cpp
 ${inc_root}/Graphics/Gui/IEventHandler.hpp
+${inc_root}/Graphics/Gui/IGuiManager.hpp
 ${inc_root}/Graphics/Gui/IWidget.hpp
 ${inc_root}/Graphics/ICamera.hpp
 ${inc_root}/Graphics/IDrawable.hpp
@@ -356,6 +384,8 @@ ${src_root}/System/RandomHelper.cpp
 ${inc_root}/System/StringHelper.hpp
 ${inc_root}/System/StringHelper.hxx
 ${src_root}/System/StringHelper.cpp
+${inc_root}/System/StringFilter.hpp
+${src_root}/System/StringFilter.cpp
 ${inc_root}/System/String.hpp
 ${inc_root}/System/Time/DateTimeHelper.hpp
 ${src_root}/System/Time/DateTimeHelper.cpp
@@ -432,6 +462,6 @@ ADD_CUSTOM_COMMAND(
 							\$\(SolutionDir\)\\YAPOG.Server\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
 							\$\(SolutionDir\)\\YAPOG.Test\\bin\\\$\(Configuration\)
-	COMMENT "Copy the SFML2 DLL files in the good directory !"
+	COMMENT "Copy the Postgre DLL files in the good directory !"
 )
 endif()

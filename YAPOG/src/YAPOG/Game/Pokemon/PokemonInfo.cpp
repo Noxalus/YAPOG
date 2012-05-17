@@ -16,6 +16,9 @@ namespace yap
     , height_ (0.f)
     , weight_ (0.f)
     , experience_ (0)
+    , experienceType_ ()
+    , evolutionLevel_ (0)
+    , pokemonEvolutionID_ (ID (0))
     , rarity_ (255)
     , baseHitPoint_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
     , baseAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
@@ -23,16 +26,15 @@ namespace yap
     , baseSpecialAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
     , baseSpecialDefense_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
     , baseSpeed_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
-    , type1_ (0)
-    , type2_ (0)
     , hitPointEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , attackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , defenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , specialAttackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , specialDefenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , speedEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
-    , evolutionLevel_ (0)
-    , pokemonEvolutionID_ (ID (0))
+    , type1_ (0)
+    , type2_ (0)
+    , baseSkills_ ()
   {
   }
 
@@ -45,6 +47,9 @@ namespace yap
     , height_ (0.f)
     , weight_ (0.f)
     , experience_ (0)
+    , experienceType_ ()
+    , evolutionLevel_ (0)
+    , pokemonEvolutionID_ (ID (0))
     , rarity_ (255)
     , baseHitPoint_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
     , baseAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
@@ -52,16 +57,15 @@ namespace yap
     , baseSpecialAttack_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
     , baseSpecialDefense_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
     , baseSpeed_ (PokemonInfo::INITIAL_BASE_STATS_VALUE)
-    , type1_ (0)
-    , type2_ (0)
     , hitPointEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , attackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , defenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , specialAttackEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , specialDefenseEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
     , speedEV_ (PokemonInfo::INITIAL_BASE_EV_VALUE)
-    , evolutionLevel_ (0)
-    , pokemonEvolutionID_ (ID (0))
+    , type1_ (0)
+    , type2_ (0)
+    , baseSkills_ ()
   {
   }
 
@@ -75,6 +79,8 @@ namespace yap
     , weight_ (copy.weight_)
     , experience_ (copy.experience_)
     , experienceType_ (copy.experienceType_)
+    , evolutionLevel_ (copy.evolutionLevel_)
+    , pokemonEvolutionID_ (copy.pokemonEvolutionID_)
     , rarity_ (copy.rarity_)
     , baseHitPoint_ (copy.baseHitPoint_)
     , baseAttack_ (copy.baseAttack_)
@@ -82,17 +88,15 @@ namespace yap
     , baseSpecialAttack_ (copy.baseSpecialAttack_)
     , baseSpecialDefense_ (copy.baseSpecialDefense_)
     , baseSpeed_ (copy.baseSpeed_)
-    , type1_ (copy.type1_)
-    , type2_ (copy.type2_)
-    , baseSkills_ (copy.baseSkills_)
-    , evolutionLevel_ (copy.evolutionLevel_)
-    , pokemonEvolutionID_ (copy.pokemonEvolutionID_)
     , hitPointEV_ (copy.hitPointEV_)
     , attackEV_ (copy.attackEV_)
     , defenseEV_ (copy.defenseEV_)
     , specialAttackEV_ (copy.specialAttackEV_)
     , specialDefenseEV_ (copy.specialDefenseEV_)
     , speedEV_ (copy.speedEV_)
+    , type1_ (copy.type1_)
+    , type2_ (copy.type2_)
+    , baseSkills_ (copy.baseSkills_)
   {
   }
 
@@ -102,7 +106,7 @@ namespace yap
   }
 
   void PokemonInfo::InitMoveSet (
-    collection::Array<PokemonSkill*>& moveSet, 
+    collection::Array<PokemonSkill*>& moveSet,
     const UInt16& level)
   {
     int i = level;
@@ -137,7 +141,7 @@ namespace yap
     description_ = description;
   }
 
-  void PokemonInfo::SetSpecies (const String& species) 
+  void PokemonInfo::SetSpecies (const String& species)
   {
     species_ = species;
   }
@@ -394,12 +398,12 @@ namespace yap
     return speedEV_;
   }
 
-  const bool PokemonInfo::CanEvolve () const
+  bool PokemonInfo::CanEvolve () const
   {
-    return (evolutionLevel_ > 0);
+    return evolutionLevel_ > 0;
   }
 
-  const UInt16 PokemonInfo::GetEvolutionLevel () const
+  const UInt16& PokemonInfo::GetEvolutionLevel () const
   {
     return evolutionLevel_;
   }

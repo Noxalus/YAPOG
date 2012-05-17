@@ -17,9 +17,10 @@ namespace yap
 
       GuiManager ();
       virtual ~GuiManager ();
+      virtual bool IsFocusable () const;
 
     private:
-
+      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
 
@@ -27,9 +28,6 @@ namespace yap
 
       virtual void HandleShow (bool isVisible);
       virtual void HandleChangeColor (const sf::Color& color);
-
-      virtual bool HandleOnEvent (const GuiEvent& guiEvent);
-      virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 
       virtual void HandleUpdate (const Time& dt);
   };
