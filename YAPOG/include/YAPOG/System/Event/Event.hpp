@@ -11,6 +11,22 @@ namespace yap
 {
   class YAPOG_LIB EmptyEventArgs { };
 
+  template <typename T>
+  class ConstChangeEventArgs
+  {
+    public: ConstChangeEventArgs (const T& old, const T& current)
+      : Old (old), Current (current) { }
+      const T& Old, Current;
+  };
+
+  template <typename T>
+  class ChangeEventArgs
+  {
+    public: ChangeEventArgs (T& old, T& current)
+      : Old (old), Current (current) { }
+      T& Old, Current;
+  };
+
   template <typename SenderType,
             typename ArgsType = const EmptyEventArgs&,
             typename ReturnType = void>

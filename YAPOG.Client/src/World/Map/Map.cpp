@@ -23,6 +23,8 @@ namespace ycl
 
   void Map::AddPlayer (Player* player)
   {
+    player->SetMap (this);
+
     AddDynamicObject (player);
     AddDrawableObject (player);
   }

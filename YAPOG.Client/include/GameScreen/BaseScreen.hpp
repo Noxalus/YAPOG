@@ -4,6 +4,15 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/GameScreen.hpp"
 
+namespace yap
+{
+  class ContentManager;
+  class ObjectFactory;
+  class WorldObjectStateFactory;
+  class GameInputManager;
+  class Logger;
+} // namespace yap
+
 namespace ycl
 {
   class Session;
@@ -21,6 +30,15 @@ namespace ycl
       explicit BaseScreen (const yap::ScreenType& type);
 
       Session& session_;
+
+      yap::ContentManager& contentManager_;
+
+      yap::ObjectFactory& objectFactory_;
+      yap::WorldObjectStateFactory& worldObjectStateFactory_;
+
+      yap::GameInputManager& gameInputManager_;
+
+      yap::Logger& logger_;
   };
 } // namespace ycl
 

@@ -15,6 +15,10 @@ namespace ycl
 
       BattleScreen ();
       virtual ~BattleScreen ();
+
+    private:
+
+      static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

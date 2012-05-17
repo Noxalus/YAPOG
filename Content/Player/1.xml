@@ -1,4 +1,5 @@
 <Player>
+  <maxVelocity>150</maxVelocity>
   <spriteType>StringSpriteSet</spriteType>
   <StringSpriteSet>
     <sprite>

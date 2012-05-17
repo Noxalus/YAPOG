@@ -10,11 +10,11 @@ namespace yap
   {
   }
 
-  void NetworkHandler::Refresh ()
+  void NetworkHandler::Refresh (const sf::SocketSelector& selector)
   {
     IPacketPtrType packet (new Packet ());
 
-    while (socket_.Receive (*packet))
+    while (socket_.Receive (selector, *packet))
       packets_.Enqueue (packet);
   }
 

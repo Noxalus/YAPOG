@@ -30,9 +30,11 @@ namespace yap
     Write (type_);
   }
 
-  bool Packet::CreateFromSocket (ClientSocket& socket)
+  bool Packet::CreateFromSocket (
+    const sf::SocketSelector selector,
+    ClientSocket& socket)
   {
-    if (!socket.Receive (*this))
+    if (!socket.Receive (selector, *this))
       return false;
 
     type_ = ReadPacketType ();

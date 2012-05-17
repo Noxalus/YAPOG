@@ -16,6 +16,8 @@ namespace yap
 
       virtual ~DynamicWorldObjectReader ();
 
+      virtual void Visit (XmlReader& visitable);
+
     protected:
 
       DynamicWorldObjectReader (
@@ -23,6 +25,8 @@ namespace yap
         const String& xmlRootNodeName);
 
     private:
+
+      static const String DEFAULT_XML_MAX_VELOCITY_NODE_NAME;
 
       DynamicWorldObject& dynamicWorldObject_;
   };

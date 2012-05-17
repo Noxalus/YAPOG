@@ -9,12 +9,14 @@ namespace yap
   const String Map::DEFAULT_NAME = "<ANONYMOUS_MAP>";
   const uint Map::DEFAULT_WIDTH = 0;
   const uint Map::DEFAULT_HEIGHT = 0;
+  const float Map::DEFAULT_CELL_SIZE = 32.0f;
 
   Map::Map (const ID& id)
     : id_ (id)
     , name_ (DEFAULT_NAME)
     , width_ (DEFAULT_WIDTH)
     , height_ (DEFAULT_HEIGHT)
+    , size_ ()
     , objects_ ()
     , dynamicObjects_ ()
     , updateables_ ()
@@ -23,8 +25,6 @@ namespace yap
 
   Map::~Map ()
   {
-//    for (WorldObject* object : objects_)
-//      delete object;
   }
 
   Map* Map::Clone () const
@@ -70,8 +70,14 @@ namespace yap
     HandleSetSize (width, height);
   }
 
+  const Vector2& Map::GetSize () const
+  {
+    return size_;
+  }
+
   void Map::HandleSetSize (uint width, uint height)
   {
+    UpdateSize ();
   }
 
   void Map::Update (const Time& dt)
@@ -105,5 +111,10 @@ namespace yap
   void Map::AddUpdateable (IUpdateable* updateable)
   {
     updateables_.Add (updateable);
+  }
+
+  void Map::UpdateSize ()
+  {
+    size_ = Vector2 (width_, height_) * DEFAULT_CELL_SIZE;
   }
 } // namespace yap

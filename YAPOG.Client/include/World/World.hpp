@@ -4,7 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/World.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace ycl
 {
@@ -20,7 +21,7 @@ namespace ycl
       World ();
       virtual ~World ();
 
-      void AddMap (Map* map);
+      void ChangeMap (const yap::ID& id);
 
       /// @name IDrawable members.
       /// @{
@@ -33,6 +34,9 @@ namespace ycl
       /// @}
 
     private:
+
+      void AddMap (const yap::ID& id);
+      void AddMap (Map* map);
 
       virtual void HandleUpdate (const yap::Time& dt);
 
@@ -47,7 +51,9 @@ namespace ycl
       bool isVisible_;
       sf::Color color_;
 
-      yap::collection::List<Map*> maps_;
+      yap::ID currentMapID_;
+      Map* currentMap_;
+      yap::collection::Map<yap::ID, Map*> maps_;
   };
 } // namespace ycl
 

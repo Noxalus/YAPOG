@@ -19,8 +19,6 @@ namespace yap
     protected:
 
       Socket ();
-
-      static const sf::Socket::Status VALID_STATUS;
   };
 } // namespace yap
 

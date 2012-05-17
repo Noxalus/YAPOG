@@ -9,6 +9,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/Game/World/Map/DynamicWorldObjectCollection.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 
 namespace yap
 {
@@ -35,6 +36,8 @@ namespace yap
       const uint& GetHeight () const;
       void SetSize (uint width, uint height);
 
+      const Vector2& GetSize () const;
+
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
@@ -58,15 +61,19 @@ namespace yap
 
     private:
 
+      void UpdateSize ();
+
       static const String DEFAULT_NAME;
       static const uint DEFAULT_WIDTH;
       static const uint DEFAULT_HEIGHT;
+      static const float DEFAULT_CELL_SIZE;
 
       ID id_;
       String name_;
 
       uint width_;
       uint height_;
+      Vector2 size_;
 
       collection::List<WorldObject*> objects_;
       DynamicWorldObjectCollection dynamicObjects_;

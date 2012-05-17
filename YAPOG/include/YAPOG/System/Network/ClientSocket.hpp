@@ -2,11 +2,13 @@
 # define YAPOG_CLIENTSOCKET_HPP
 
 # include <SFML/Network/TcpSocket.hpp>
+# include <SFML/Network/SocketSelector.hpp>
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/Socket.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/System/Time/Time.hpp"
 
 namespace yap
 {
@@ -25,11 +27,14 @@ namespace yap
       void Disconnect ();
 
       bool Send (IPacket& packet);
-      bool Receive (IPacket& packet);
+      bool Receive (const sf::SocketSelector& selector, IPacket& packet);
 
       sf::TcpSocket& GetInnerSocket ();
 
     private:
+
+      static const bool DEFAULT_BLOCKING_STATE;
+      static const Time DEFAULT_CONNECTION_TIMEOUT;
 
       sf::TcpSocket socket_;
   };

@@ -1,3 +1,5 @@
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
 
@@ -10,19 +12,37 @@ namespace ycl
     : yap::World ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , currentMapID_ ()
+    , currentMap_ (nullptr)
     , maps_ ()
   {
   }
 
   World::~World ()
   {
-    for (Map* map : maps_)
-      delete map;
+  }
+
+  void World::ChangeMap (const yap::ID& id)
+  {
+    if (currentMapID_ == id)
+      return;
+
+    currentMapID_ = id;
+
+    if (!maps_.Contains (currentMapID_))
+      AddMap (currentMapID_);
+
+    currentMap_ = maps_[currentMapID_];
+  }
+
+  void World::AddMap (const yap::ID& id)
+  {
+    AddMap (yap::ObjectFactory::Instance ().Get<Map> ("Map", id));
   }
 
   void World::AddMap (Map* map)
   {
-    maps_.Add (map);
+    maps_.Add (map->GetID (), map);
   }
 
   void World::Draw (yap::IDrawingContext& context)
@@ -54,14 +74,12 @@ namespace ycl
 
   void World::HandleUpdate (const yap::Time& dt)
   {
-    for (Map* map : maps_)
-      map->Update (dt);
+    currentMap_->Update (dt);
   }
 
   void World::HandleDraw (yap::IDrawingContext& context)
   {
-    for (Map* map : maps_)
-      map->Draw (context);
+    currentMap_->Draw (context);
   }
 
   void World::HandleShow (bool isVisible)
@@ -70,7 +88,7 @@ namespace ycl
 
   void World::HandleChangeColor (const sf::Color& color)
   {
-    for (Map* map : maps_)
-      map->ChangeColor (color);
+    for (auto& it : maps_)
+      it.second->ChangeColor (color);
   }
 } // namespace ycl

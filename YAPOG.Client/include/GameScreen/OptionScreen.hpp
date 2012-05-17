@@ -15,6 +15,10 @@ namespace ycl
 
       OptionScreen ();
       virtual ~OptionScreen ();
+
+    private:
+
+      static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

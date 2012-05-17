@@ -16,8 +16,7 @@ namespace yap
 
     ClientRequestStartInfo,
 
-    ClientInfoStartMove,
-    ClientInfoEndMove,
+    ClientInfoApplyForce,
 
     // from server to client
     ServerInfoLoginValidation,

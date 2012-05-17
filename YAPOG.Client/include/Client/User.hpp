@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace ycl
 {
@@ -26,6 +27,8 @@ namespace ycl
       virtual void AddRelay (yap::IPacketHandler* relay);
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
+
+      yap::Event<const User&, const Player*> OnPlayerCreated;
 
     private:
 

@@ -1,10 +1,13 @@
-#include "Server/Server.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Network/ClientSocket.hpp"
-
-#include "Server/ClientSession.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
+
+#include "Server/Server.hpp"
+#include "Server/ClientSession.hpp"
+
 namespace yse
 {
   const bool Server::DEFAULT_RUNNING_STATE = false;
@@ -32,14 +35,7 @@ namespace yse
   {
     isRunning_ = true;
 
-    // tmp
-    yap::Packet p;
-    p.CreateFromType (yap::PacketType::None);
-
-    ClientSession cs;
-    cs.HandlePacket (p);
-
-//    listeningThread_.Launch ();
+    listeningThread_.Launch ();
 
     while (isRunning_)
     {
@@ -49,6 +45,8 @@ namespace yse
 
   void Server::AddClient (ClientSession* client)
   {
+    client->Init ();
+
     clients_.Add (client);
   }
 
@@ -60,6 +58,8 @@ namespace yse
 
       if (!socket_.Accept (client->GetSocket ()))
         YAPOG_THROW("Failed to accept client `xxx'");
+
+      yap::DebugLogger::Instance ().LogLine ("new commer");
 
       AddClient (client);
     }

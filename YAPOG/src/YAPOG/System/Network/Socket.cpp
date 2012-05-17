@@ -2,8 +2,6 @@
 
 namespace yap
 {
-  const sf::Socket::Status Socket::VALID_STATUS = sf::Socket::Done;
-
   Socket::Socket ()
   {
   }

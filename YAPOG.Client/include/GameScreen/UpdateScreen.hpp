@@ -15,6 +15,16 @@ namespace ycl
 
       UpdateScreen ();
       virtual ~UpdateScreen ();
+
+    protected:
+
+      virtual const yap::ScreenType& HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
+
+    private:
+
+      static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

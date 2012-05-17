@@ -20,4 +20,13 @@ namespace ycl
   {
     return new Player (*this);
   }
+
+  void Player::SetMap (Map* map)
+  {
+    Map* oldMap = map_;
+
+    map_ = map;
+
+    OnMapChanged (*this, yap::ConstChangeEventArgs<Map*> (oldMap, map_));
+  }
 } // namespace ycl

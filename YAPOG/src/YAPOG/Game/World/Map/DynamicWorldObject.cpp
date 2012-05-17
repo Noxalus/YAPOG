@@ -4,12 +4,15 @@
 namespace yap
 {
   const String DynamicWorldObject::DEFAULT_INACTIVE_STATE = "Inactive";
+  const Vector2 DynamicWorldObject::DEFAULT_MAX_VELOCITY =
+    Vector2 (150.0f, 150.0f);
 
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
     , worldID_ ()
     , state_ (DEFAULT_INACTIVE_STATE)
     , physicsCore_ (nullptr)
+    , maxVelocity_ (DEFAULT_MAX_VELOCITY)
   {
   }
 
@@ -24,6 +27,7 @@ namespace yap
     , worldID_ (copy.worldID_)
     , state_ (copy.state_)
     , physicsCore_ (nullptr)
+    , maxVelocity_ (copy.maxVelocity_)
   {
     if (copy.physicsCore_ != nullptr)
       SetPhysicsCore (copy.physicsCore_->Clone ());
@@ -37,6 +41,16 @@ namespace yap
   void DynamicWorldObject::SetWorldID (const ID& id)
   {
     worldID_ = id;
+  }
+
+  const Vector2& DynamicWorldObject::GetMaxVelocity () const
+  {
+    return maxVelocity_;
+  }
+
+  void DynamicWorldObject::SetMaxVelocity (const Vector2& maxVelocity)
+  {
+    maxVelocity_ = maxVelocity;
   }
 
   void DynamicWorldObject::SetPhysicsCore (PhysicsCore* physicsCore)

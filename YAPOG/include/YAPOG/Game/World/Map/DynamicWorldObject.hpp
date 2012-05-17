@@ -23,6 +23,9 @@ namespace yap
       const ID& GetWorldID () const;
       void SetWorldID (const ID& id);
 
+      const Vector2& GetMaxVelocity () const;
+      void SetMaxVelocity (const Vector2& maxVelocity);
+
       void SetPhysicsCore (PhysicsCore* physicsCore);
       void ApplyForce (const Vector2& force);
       const Vector2& GetMove () const;
@@ -55,12 +58,14 @@ namespace yap
       void SetState (const String& state);
 
       static const String DEFAULT_INACTIVE_STATE;
+      static const Vector2 DEFAULT_MAX_VELOCITY;
 
       ID worldID_;
 
       WorldObjectState state_;
 
       PhysicsCore* physicsCore_;
+      Vector2 maxVelocity_;
   };
 } // namespace yap
 

@@ -41,8 +41,7 @@ namespace yap
       IGameScreenManager* screenManager_;
 
       IDrawingContext* drawingContext_;
-      /// Handle of the RenderWindow.
-      /// MUST NOT be deleted from here.
+
       sf::RenderWindow* window_;
 
       const String name_;

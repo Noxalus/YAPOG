@@ -19,6 +19,8 @@ namespace yse
       ClientSession ();
       virtual ~ClientSession ();
 
+      void Init ();
+
       yap::ClientSocket& GetSocket ();
 
       /// @name IPacketHandler members.

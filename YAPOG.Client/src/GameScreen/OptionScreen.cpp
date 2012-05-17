@@ -2,8 +2,10 @@
 
 namespace ycl
 {
+  const yap::ScreenType OptionScreen::DEFAULT_NAME = "Option";
+
   OptionScreen::OptionScreen ()
-    : BaseScreen ("Option")
+    : BaseScreen (DEFAULT_NAME)
   {
   }
 

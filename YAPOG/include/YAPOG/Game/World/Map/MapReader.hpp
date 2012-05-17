@@ -19,11 +19,11 @@ namespace yap
 
     virtual void Visit (XmlReader& visitable);
 
-    String xmlRootNodeName_;
-
   protected:
 
     MapReader (Map& map, const String& xmlRootNodeName);
+
+    String xmlRootNodeName_;
 
   private:
 

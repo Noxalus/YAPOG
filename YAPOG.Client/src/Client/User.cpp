@@ -36,5 +36,7 @@ namespace ycl
   void User::SetPlayer (Player* player)
   {
     player_ = player;
+
+    OnPlayerCreated (*this, player_);
   }
 } // namespace ycl

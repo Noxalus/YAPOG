@@ -1,4 +1,3 @@
-#include <ctime>
 #include "GameScreen/TestScreen.hpp"
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
@@ -67,91 +66,13 @@ namespace ycl
   TestScreen::TestScreen ()
     : yap::GameScreen ("Test")
   {
-    yap::RandomHelper::Init (time (nullptr));
-    // loadable types are registered
-    of.RegisterLoader (
-      "Map",
-      new yap::XmlObjectIDLoader<Map, MapReader> (
-        yap::Path ("Map"), "Map"));
-    of.RegisterLoader (
-      "Texture",
-      new yap::XmlObjectIDLoader<yap::Texture, yap::TextureReader> (
-        yap::Path ("Texture"), "Texture"));
-    of.RegisterLoader (
-      "Tile",
-      new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
-        yap::Path ("Tile"), "Tile"));
-    of.RegisterLoader (
-      "Sprite",
-      new yap::XmlObjectLoader<yap::Sprite, yap::SpriteReader> ());
-    of.RegisterLoader (
-      "RandomTileLayoutHandler",
-      new yap::XmlObjectLoader<yap::RandomTileLayoutHandler,
-                               yap::RandomTileLayoutHandlerReader> ());
-
-    of.RegisterLoader (
-      "StringSpriteSet",
-      new yap::XmlObjectLoader<
-        yap::SpriteSet<yap::String>,
-        yap::SpriteSetReader<yap::String>> ());
-    of.RegisterLoader (
-      "DirectionSpriteSet",
-      new yap::XmlObjectLoader<
-        yap::SpriteSet<yap::Direction>,
-        yap::SpriteSetReader<yap::Direction>> ());
-    of.RegisterLoader (
-      "AnimatedSprite",
-      new yap::XmlObjectLoader<
-        yap::RegularAnimatedSprite,
-        yap::AnimatedSpriteReader> ());
-
-    of.RegisterLoader (
-      "Player",
-      new yap::XmlObjectIDLoader<Player, PlayerReader> (
-        yap::Path ("Player"),
-        "Player"));
-
-    wosf.AddState ("Inactive", "Inactive");
-    wosf.AddState ("Moving", "Moving");
-
     p1 = of.Create<Player> ("Player", yap::ID (1));
-
-    yap::BasicPhysicsCore* bpc = new yap::BasicPhysicsCore ();
-    bpc->SetVelocityBounds (
-      yap::Vector2 (),
-      yap::Vector2 (MAX_VELOCITY, MAX_VELOCITY));
-    p1->SetPhysicsCore (bpc);
 
     map1 = of.Get<Map> ("Map", yap::ID (1));
 
     map1->AddPlayer (p1);
 
     cmc.SetValue (MAX_VELOCITY);
-
-    gim.AddGameInput (
-      new yap::GameInput (
-        yap::GameInputType::Action,
-        new yap::KeyboardGameInputEntry (yap::Key::Return)));
-    gim.AddGameInput (
-      new yap::GameInput (
-        yap::GameInputType::Misc,
-        new yap::KeyboardGameInputEntry (yap::Key::M)));
-    gim.AddGameInput (
-      new yap::GameInput (
-        yap::GameInputType::Up,
-        new yap::KeyboardGameInputEntry (yap::Key::Up)));
-    gim.AddGameInput (
-      new yap::GameInput (
-        yap::GameInputType::Down,
-        new yap::KeyboardGameInputEntry (yap::Key::Down)));
-    gim.AddGameInput (
-      new yap::GameInput (
-        yap::GameInputType::Left,
-        new yap::KeyboardGameInputEntry (yap::Key::Left)));
-    gim.AddGameInput (
-      new yap::GameInput (
-        yap::GameInputType::Right,
-        new yap::KeyboardGameInputEntry (yap::Key::Right)));
   }
 
   TestScreen::~TestScreen ()
@@ -164,21 +85,11 @@ namespace ycl
   {
     if (pcc == nullptr)
     {
-      ccc = new yap::CenteredCameraController (context.GetCamera ("World"));
-      ccc->SetTarget (*p1);
-      ccc->SetBounds (yap::FloatRect (0.0f, 0.0f, 15000.0f, 15000.0f));
-
       pcc = new yap::ProgressiveCameraController (context.GetCamera ("World"));
       pcc->SetTarget (*p1);
       pcc->SetBounds (yap::FloatRect (0.0f, 0.0f, 15000.0f, 15000.0f));
-      pcc->SetVelocityFactor (MAX_VELOCITY);
+      pcc->SetVelocityFactor (yap::Vector2 (MAX_VELOCITY, MAX_VELOCITY));
     }
-
-    context.SetMode ("Background World");
-
-    context.SetDefaultCamera ();
-
-    context.SetMode ("World");
 
     p1->ApplyForce (cmc.GetForce ());
 

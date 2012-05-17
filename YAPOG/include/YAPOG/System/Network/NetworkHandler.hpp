@@ -3,6 +3,8 @@
 
 # include <memory>
 
+# include <SFML/Network/SocketSelector.hpp>
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Queue.hpp"
 
@@ -22,7 +24,7 @@ namespace yap
 
       NetworkHandler (ClientSocket& socket);
 
-      void Refresh ();
+      void Refresh (const sf::SocketSelector& selector);
 
       bool IsEmpty () const;
       IPacketPtrType GetPacket ();

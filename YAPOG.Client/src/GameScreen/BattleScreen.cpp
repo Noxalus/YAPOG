@@ -2,8 +2,10 @@
 
 namespace ycl
 {
+  const yap::ScreenType BattleScreen::DEFAULT_NAME = "Battle";
+
   BattleScreen::BattleScreen ()
-    : BaseScreen ("Battle")
+    : BaseScreen (DEFAULT_NAME)
   {
   }
 

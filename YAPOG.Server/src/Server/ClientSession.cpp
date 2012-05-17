@@ -8,13 +8,17 @@ namespace yse
     , socket_ ()
     , user_ ()
   {
-    AddRelay (&user_);
-
-    ADD_HANDLER(None, ClientSession::HandleNone);
   }
 
   ClientSession::~ClientSession ()
   {
+  }
+
+  void ClientSession::Init ()
+  {
+    AddRelay (&user_);
+
+    ADD_HANDLER(None, ClientSession::HandleNone);
   }
 
   yap::ClientSocket& ClientSession::GetSocket ()
