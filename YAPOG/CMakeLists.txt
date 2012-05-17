@@ -42,6 +42,8 @@ ${inc_root}/Game/Chat/ChatCommand.hpp
 ${src_root}/Game/Chat/ChatCommand.cpp
 ${inc_root}/Game/Chat/ChatDisplayer.hpp
 ${src_root}/Game/Chat/ChatDisplayer.cpp
+${inc_root}/Game/Chat/OPTChat.hpp
+${src_root}/Game/Chat/OPTChat.cpp
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp
