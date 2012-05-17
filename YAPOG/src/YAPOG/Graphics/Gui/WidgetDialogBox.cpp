@@ -1,4 +1,5 @@
-﻿#include "YAPOG\Graphics\Gui\Label.hpp"
+﻿#include <SFML\Graphics\Text.hpp>
+#include "YAPOG\Graphics\Gui\Label.hpp"
 #include "YAPOG\Graphics\IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
@@ -50,12 +51,16 @@ namespace yap
 
   void WidgetDialogBox::HandleDraw (IDrawingContext& context)
   {
-    if (IsVisible)
-      labels_[currentText_]->Draw (context);
+    //if (isVisible_)
+    Label* current = labels_[currentText_];
+    current->ChangeColor (sf::Color (128, 32, 64));
+    current->Draw (context);
   }
 
   void WidgetDialogBox::HandleShow (bool isVisible)
   {
+    for (Label* text : labels_)
+      text->Show (isVisible);
   }
 
   void WidgetDialogBox::HandleMove (const Vector2& offset)
@@ -72,6 +77,8 @@ namespace yap
 
   void WidgetDialogBox::HandleUpdate (const Time& dt)
   {
+    for (Label* text : labels_)
+      text->Update (dt);
   }
 
   void WidgetDialogBox::HandleChangeColor (const sf::Color& color)
@@ -87,6 +94,8 @@ namespace yap
 
   bool WidgetDialogBox::HandleOnEvent (const GuiEvent& guiEvent)
   {
+    if (!isVisible_)
+      return false;
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::Return)
@@ -106,22 +115,24 @@ namespace yap
     return false;
   }
 
-  void WidgetDialogBox::AddText (String& contentArg)
+  void WidgetDialogBox::AddText (const String& contentArg)
   {
     if (contentArg.empty())
       return;
 
     String txt = contentArg;
     Label* lb = new Label ();
-    lb->SetSize (GetUserSize ());
 
     uint LabelMaxSize = GetUserSize ().x - padding_->left - padding_->right;
-    uint charNumb = LabelMaxSize / lb->GetCharWidth ();
+    uint charNumb = (LabelMaxSize / lb->GetCharWidth ());
+    charNumb += (charNumb / 2);
 
-    for (int i = 0; i < contentArg.length (); i++)
+    for (int i = 1; i < contentArg.length (); i++)
     {
+      sf::Text widh
+      int tess = i % charNumb;
       if (i % charNumb == 0)
-        txt.insert (charNumb, "\n");
+        txt.insert (i, "\n");
     }
     lb->SetText (txt);
     labels_.Add (lb);

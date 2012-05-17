@@ -26,6 +26,7 @@
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/MenuItem.hpp"
 #include "YAPOG/Graphics/Gui/WidgetTextBox.hpp"
+#include "YAPOG/Graphics/Gui/WidgetDialogBox.hpp"
 
 ///////////////////////////////
 /// Just some ugly tests... ///
@@ -221,6 +222,16 @@ void TestScreen::HandleInit ()
 
   WidgetTextBox* ts2 = new WidgetTextBox ("Last Element");
   ts2->SetSize (Vector2 (100, 32));
+
+  WidgetBackground* dboxBck = new WidgetBackground ("bckgrd.png", true);
+  WidgetDialogBox* dbox = new WidgetDialogBox ();
+  dbox->SetSize (Vector2 (312, 128));
+  dbox->SetPosition (Vector2 (64, 64));
+  dbox->AddText (String ("Welcome to the real World."));
+  dbox->AddText (String ("Il etait t'une foix Martial qui se balladait dans la forait. Puis il tomba sur le terrible Matt Ayou qui le menacait de lui faire la tete au carre"));
+  dbox->AddText (String ("Heureusement Lisa, la soeur de Martial arriva pour le sauver. S'ensuit une aventure romantique."));
+  dbox->SetBackground (*dboxBck);
+
   layout->AddChild (*label, LayoutBox::Align::CENTER);
   layout->AddChild (*pb, LayoutBox::Align::CENTER);
   layout->AddChild (*layouth, LayoutBox::Align::CENTER);
@@ -239,8 +250,9 @@ void TestScreen::HandleInit ()
   //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);
 
   
-  guiManager_->AddChild (*layout);
-  guiManager_->AddChild (*txtbox);
+  //guiManager_->AddChild (*layout);
+  //guiManager_->AddChild (*txtbox);
+  guiManager_->AddChild (*dbox);
   
   // guiManager_->AddChild (*bckgr);
 

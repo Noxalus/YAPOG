@@ -21,7 +21,7 @@ namespace yap
     virtual ~WidgetDialogBox ();
 
     virtual String GetContent () const;
-    virtual void AddText (String& contentArg);
+    virtual void AddText (const String& contentArg);
     virtual bool IsFocusable () const;
 
   protected:

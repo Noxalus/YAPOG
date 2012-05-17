@@ -220,6 +220,8 @@ namespace yap
         return true;
       if (txt == '\t')
         return false;
+      if (txt == '\r')
+        return false;
       if (curserPos_ > 0)
       {
         String firstPart = content_.substr (0, content_.length () - curserPos_);
