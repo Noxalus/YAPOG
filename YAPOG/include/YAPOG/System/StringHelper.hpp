@@ -24,6 +24,9 @@ namespace yap
         const String& delimiters,
         collection::Array<String>& result);
 
+      template <typename T>
+      static int compare_string (const T& s1, const T& s2);
+
     private:
 
       StringHelper ();
