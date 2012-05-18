@@ -27,7 +27,6 @@ namespace yap
 		};
 		typedef struct s_ChatManager 
 		{
-			bool					cmd;
 			t_buffer				request;
 			func					request_cmd;
 		} s_CM;

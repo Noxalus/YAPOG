@@ -10,7 +10,10 @@ namespace yap
 	void								ChatDisplayer::display(ChatDisplayer::t_buffer& s,
 															   ChatDisplayer::s_CM& c)
 	{
-		ChatCommand cc;
-		std::cout << cc.execcmd(s, c) << std::endl;
+		if (s.size() > 0)
+		{
+			ChatCommand cc;
+			std::cout << cc.execcmd(s, c) << std::endl;
+		}
 	}
 } // namespace yap
