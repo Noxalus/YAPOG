@@ -1,18 +1,23 @@
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
   WidgetBorder::WidgetBorder ()
     : border_ (nullptr)
-    , file_ ("NoImage")
+    , file_ ("")
+    , textures_ ()
+    , tms_ ()
     , tmTop_ (nullptr)
     , tmBottom_ (nullptr)
-    , tmRight_ (nullptr)
     , tmLeft_ (nullptr)
-    , isInit (false)
+    , tmRight_ (nullptr)
     , width_ (0)
+    , isInit (false)
     , basic_ (false)
+    , isScalable_ (true)
   {
   }
 
@@ -24,13 +29,16 @@ namespace yap
   WidgetBorder::WidgetBorder (String file)
     : border_ (nullptr)
     , file_ (file)
+    , textures_ ()
+    , tms_ ()
     , tmTop_ (nullptr)
     , tmBottom_ (nullptr)
-    , tmRight_ (nullptr)
     , tmLeft_ (nullptr)
-    , isInit (false)
+    , tmRight_ (nullptr)
     , width_ (0)
+    , isInit (false)
     , basic_ (true)
+    , isScalable_ (true)
   {
   }
 
@@ -49,10 +57,10 @@ namespace yap
     , tms_ ()
     , tmTop_ (nullptr)
     , tmBottom_ (nullptr)
-    , tmRight_ (nullptr)
     , tmLeft_ (nullptr)
-    , isInit (false)
+    , tmRight_ (nullptr)
     , width_ (0)
+    , isInit (false)
     , basic_ (false)
     , isScalable_ (isScalable)
   {
@@ -64,8 +72,6 @@ namespace yap
     textures_.Add (&botLeft);
     textures_.Add (&left);
     textures_.Add (&topLeft);
-
-
 
     if (!isScalable_)
       for (int i = 0; i < 8; i++)
@@ -87,10 +93,10 @@ namespace yap
       tmLeft_->Draw (context);
     }
     else if (isInit && !isScalable_)
-      for (TextureManager* txtr : tms_)    
+      for (TextureManager* txtr : tms_)
         txtr->Draw (context);
     else if (isInit)
-      for (Texture* txtr : textures_)    
+      for (Texture* txtr : textures_)
         txtr->Draw (context);
   }
 
@@ -108,10 +114,10 @@ namespace yap
       tmLeft_->Move (offset);
     }
     else if (isInit && !isScalable_)
-      for (TextureManager* txtr : tms_)    
-        txtr->Move (offset);      
+      for (TextureManager* txtr : tms_)
+        txtr->Move (offset);
     else if (isInit)
-      for (Texture* txtr : textures_)    
+      for (Texture* txtr : textures_)
         txtr->Move (offset);
   }
 
@@ -131,9 +137,9 @@ namespace yap
       }
       else if (isInit && !isScalable_)
         for (TextureManager* txtr : tms_)
-          txtr->SetSize (neo);   
+          txtr->SetSize (neo);
       else if (isInit)
-        for (Texture* txtr : textures_)    
+        for (Texture* txtr : textures_)
           txtr->Scale (neo);
     }
   }
@@ -153,7 +159,7 @@ namespace yap
     else if (textures_.Count () >= 1)
       return *textures_[0];
 
-    return Texture ();
+    YAPOG_THROW("No texture defined.");
   }
 
   uint WidgetBorder::GetWidth () const
@@ -210,7 +216,7 @@ namespace yap
     {
       width_ = textures_[0]->GetSize ().y;
       textures_[0]->SetSize (Vector2 (size.x, width_));
-      textures_[0]->SetPosition (GetPosition () - Vector2 (0, width_));      
+      textures_[0]->SetPosition (GetPosition () - Vector2 (0, width_));
 
       textures_[1]->SetPosition (GetPosition () - Vector2 (-size.x, width_));
 
@@ -227,7 +233,7 @@ namespace yap
       textures_[6]->SetSize (Vector2 ( width_, size.y));
       textures_[6]->SetPosition (GetPosition () - Vector2 (width_, 0));
 
-      textures_[7]->SetPosition (GetPosition () - Vector2 (width_, width_));    
+      textures_[7]->SetPosition (GetPosition () - Vector2 (width_, width_));
     }
 
     OnBorderSet (*this, EventArgsTexture (*textures_[1]));

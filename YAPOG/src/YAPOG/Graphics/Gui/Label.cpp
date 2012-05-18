@@ -1,7 +1,7 @@
-#include <SFML\Graphics\Text.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-#include "YAPOG\Graphics\Gui\Label.hpp"
-#include "YAPOG\Graphics\IDrawingContext.hpp"
+#include "YAPOG/Graphics/Gui/Label.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
@@ -112,7 +112,7 @@ namespace yap
     background_->SetBackground (GetSize ());
   }
 
-  void Label::SetText (String& content)
+  void Label::SetText (const String& content)
   {
     if (content == textContent_)
       return;

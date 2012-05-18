@@ -1,6 +1,8 @@
 #ifndef YAPOG_XMLREADER_HPP
 # define YAPOG_XMLREADER_HPP
 
+# include <memory>
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IOStream.hpp"
@@ -9,6 +11,9 @@
 
 namespace yap
 {
+  class XmlReader;
+  typedef std::shared_ptr<XmlReader> XmlReaderPtrType;
+
   class XmlReaderCollection;
 
   class YAPOG_LIB XmlReader : public IReader
@@ -17,14 +22,19 @@ namespace yap
 
     public:
 
+      XmlReader ();
       XmlReader (IStream& iStream, const String& rootName);
       virtual ~XmlReader ();
 
-      void ChangeRoot (const String& rootName);
+      XmlReaderPtrType ChangeRoot (const String& name);
 
       XmlReaderCollection& ReadNodes (
         const String& name,
         XmlReaderCollection& xmlReaderCollection);
+
+      bool NodeExists (const String& name) const;
+
+      const String& GetNode (int index) const;
 
       /// @name IReader members.
       /// @{
@@ -68,13 +78,15 @@ namespace yap
       virtual double ReadDouble (const String& name);
 
       virtual Vector2 ReadVector2 ();
-      /// @todo Determine representation of Vector2 in XML.
       virtual Vector2 ReadVector2 (const String& name);
+
+      virtual ID ReadID ();
+      virtual ID ReadID (const String& name);
       /// @}
 
     private:
 
-      XmlReader (const XmlTree& data);
+      XmlReader (const String& rootName, XmlTree& data);
 
       XmlTree data_;
   };

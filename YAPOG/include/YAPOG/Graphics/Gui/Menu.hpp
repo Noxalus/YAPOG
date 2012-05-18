@@ -46,7 +46,7 @@ namespace yap
     void SetUnformItem ();
 
     collection::Array<MenuItem*> itemz_;
-    int currentSelec_;
+    uint currentSelec_;
     LayoutBox* layout_;
 
     WidgetBackground* selecBckgrd_;

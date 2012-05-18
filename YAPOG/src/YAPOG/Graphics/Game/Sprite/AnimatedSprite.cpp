@@ -4,7 +4,7 @@
 namespace yap
 {
   const AnimatedSprite::PlayState AnimatedSprite::DEFAULT_PLAY_STATE =
-    PlayState::None;
+    PlayState::Loop;
   const AnimatedSprite::IndexType AnimatedSprite::DEFAULT_DEFAULT_INDEX = 0;
 
   AnimatedSprite::AnimatedSprite ()
@@ -21,9 +21,26 @@ namespace yap
   AnimatedSprite::~AnimatedSprite ()
   {
     delete frameSwitcher_;
+    frameSwitcher_ = nullptr;
 
     for (const ISprite* it : sprites_)
       delete it;
+  }
+
+  AnimatedSprite::AnimatedSprite (const AnimatedSprite& copy)
+    : BaseSprite (copy)
+    , sprites_ ()
+    , frameSwitcher_ (copy.frameSwitcher_->Clone ())
+    , currentState_ (copy.currentState_)
+    , currentIndex_ (DEFAULT_DEFAULT_INDEX)
+    , currentFrame_ (nullptr)
+    , defaultIndex_ (DEFAULT_DEFAULT_INDEX)
+  {
+    for (ISprite* sprite : copy.sprites_)
+      AddFrame (sprite->Clone ());
+
+    SetDefaultFrame (copy.defaultIndex_);
+    SetCurrentFrame (copy.currentIndex_);
   }
 
   void AnimatedSprite::AddFrame (ISprite* sprite)

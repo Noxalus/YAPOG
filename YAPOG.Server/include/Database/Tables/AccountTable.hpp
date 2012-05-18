@@ -1,45 +1,55 @@
 #ifndef YAPOG_ACCOUNTTABLE_HPP
 # define YAPOG_ACCOUNTTABLE_HPP
 
-# include "YAPOG/System/Time/DateTime.hpp"
-# include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Macros.hpp"
-# include "Database/ITable.hpp"
-# include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Game/ID.hpp"
+# include "YAPOG/System/String.hpp"
+# include "Database/Tables/ITable.hpp"
+# include "Account/AccountPermission.hpp"
 
-class AccountTable : public ITable
+namespace yse
 {
-	DISALLOW_COPY(AccountTable);
+  class AccountTable : public ITable
+  {
+    DISALLOW_COPY(AccountTable);
+  public:
+    AccountTable ();
 
-public:
-	AccountTable(const yap::ID& id,
-		const yap::String& name,
-		const yap::String& email,
-		const yap::String& password,
-		const yap::Int16& permissions,
-		const yap::DateTime& creationDate,
-		const yap::DateTime& lastLoginDate,
-		const yap::String& creationIp,
-		const yap::String& currentIp);
-	virtual ~AccountTable();
+    /// Getters
+    const yap::ID& GetID () const;
+    const yap::String& GetName () const;
+    const yap::String& GetPassword () const;
+    const yap::String& GetEmail () const;
+    const AccountPermission& GetPermissions () const;
+    const yap::String& GetCreationDate () const;
+    const yap::String& GetLastLoginDate () const;
+    const yap::String& GetCreationIP () const;
+    const yap::String& GetCurrentIP () const;
 
-	/// @name ISpatial members.
-	/// @{
-	virtual yap::ID Add () const;
-	virtual bool Remove () const;
-	virtual int GetInt (const yap::String& columnName) const;
-	virtual yap::DateTime GetDate (const yap::String& columnName) const;
-	/// @}
-private:
-	yap::ID id_;
-	yap::String name_;
-	yap::String email_;
-	yap::String password_;
-	yap::Int16 permissions_;
-	yap::DateTime creationDate_;
-	yap::DateTime lastLoginDate_;
-	yap::String creationIp_;
-	yap::String currentIp_;
-};
+    /// Setters
+    void SetID (const yap::ID& value);
+    void SetName (const yap::String& value);
+    void SetPassword (const yap::String& value);
+    void SetEmail (const yap::String& value);
+    void SetPermissions (const AccountPermission& value);
+    void SetCreationDate (const yap::String& value);
+    void SetLastLoginDate (const yap::String& value);
+    void SetCreationIP (const yap::String& value);
+    void SetCurrentIP (const yap::String& value);
 
-#endif // YAPOG_ITABLE_HPP
+    void DisplayData ();
+
+  private:
+    yap::ID id_;
+    yap::String name_;
+    yap::String password_;
+    yap::String email_;
+    AccountPermission permissions_;
+    yap::String creationDate_;
+    yap::String lastLoginDate_;
+    yap::String creationIP_;
+    yap::String currentIP_;
+  };
+} // namespace yse
+
+#endif // YAPOG_ACCOUNTTABLE_HPP

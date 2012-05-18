@@ -34,7 +34,7 @@ namespace yap
     bool GetExtensible ();
     void SetAlign (Align global);
     Align GetAlign ();
-    
+
 
   protected:
     virtual void GeneratePosition () = 0;
@@ -57,13 +57,13 @@ namespace yap
 
     collection::Map<IWidget*, Align> items_;
     collection::Array<IWidget*> focusables_;
-    Padding externPad_;
     Padding innerPad_;
+    Padding externPad_;
     Align globalAlign_;
 
     Vector2 realSize_;
     uint focusedChild_;
-    
+
   };
 } // namespace yap
 

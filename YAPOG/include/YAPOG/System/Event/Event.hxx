@@ -6,7 +6,7 @@ namespace yap
   template<typename SenderType,
            typename ArgsType,
            typename ReturnType>
-  Event<SenderType, ArgsType, ReturnType>::Event ()
+  inline Event<SenderType, ArgsType, ReturnType>::Event ()
     : sig_ ()
   {
   }
@@ -14,14 +14,14 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  Event<SenderType, ArgsType, ReturnType>::~Event ()
+  inline Event<SenderType, ArgsType, ReturnType>::~Event ()
   {
   }
 
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  Event<SenderType, ArgsType, ReturnType>&
+  inline Event<SenderType, ArgsType, ReturnType>&
   Event<SenderType, ArgsType, ReturnType>::operator+= (
     const HandlerType handler)
   {
@@ -33,7 +33,7 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  Event<SenderType, ArgsType, ReturnType>&
+  inline Event<SenderType, ArgsType, ReturnType>&
   Event<SenderType, ArgsType, ReturnType>::operator-= (
     const HandlerType handler)
   {
@@ -45,9 +45,10 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  ReturnType
-  Event<SenderType, ArgsType, ReturnType>::operator() (SenderType sender,
-                                                       ArgsType args)
+  inline ReturnType
+  Event<SenderType, ArgsType, ReturnType>::operator() (
+    SenderType sender,
+    ArgsType args)
   {
     return sig_ (sender, args);
   }

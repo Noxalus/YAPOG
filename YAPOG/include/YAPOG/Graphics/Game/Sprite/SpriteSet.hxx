@@ -14,10 +14,31 @@ namespace yap
   }
 
   template <typename K>
+  inline SpriteSet<K>::SpriteSet (const SpriteSet& copy)
+    : BaseSprite (copy)
+    , currentKey_ ()
+    , defaultKey_ ()
+    , currentSprite_ (nullptr)
+    , sprites_ ()
+  {
+    for (const auto& it : copy.sprites_)
+      AddSprite (it.first, it.second->Clone ());
+
+    SetDefaultKey (copy.defaultKey_);
+    SetCurrentSprite (copy.currentKey_);
+  }
+
+  template <typename K>
   inline SpriteSet<K>::~SpriteSet ()
   {
     for (const auto& it : sprites_)
       delete it.second;
+  }
+
+  template <typename K>
+  inline SpriteSet<K>* SpriteSet<K>::Clone () const
+  {
+    return new SpriteSet<K> (*this);
   }
 
   template <typename K>

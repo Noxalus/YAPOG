@@ -39,33 +39,34 @@ namespace yap
     value_ = value;
   }
 
-  bool ID::operator== (const ID& right)
+  bool ID::operator== (const ID& right) const
   {
     return value_ == right.value_;
   }
 
-  bool ID::operator!= (const ID& right)
+  bool ID::operator!= (const ID& right) const
   {
     return !(*this == right);
   }
 
-  bool ID::operator> (const ID& right)
+  bool ID::operator> (const ID& right) const
   {
     return value_ > right.value_;
   }
 
-  bool ID::operator< (const ID& right)
+  bool ID::operator< (const ID& right) const
   {
     return value_ < right.value_;
   }
 
-  bool ID::operator>= (const ID& right)
+  bool ID::operator>= (const ID& right) const
   {
     return !(*this < right);
   }
 
-  bool ID::operator<= (const ID& right)
+  bool ID::operator<= (const ID& right) const
   {
     return !(*this > right);
   }
+
 } // namespace yap

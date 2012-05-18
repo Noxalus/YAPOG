@@ -7,11 +7,14 @@
 namespace yap
 {
   const bool BaseWidget::DEFAULT_VISIBLE_STATE = true;
+  const bool BaseWidget::DEFAULT_ENABLED_STATE = true;
+
   const sf::Color BaseWidget::DEFAULT_COLOR = sf::Color ();
 
   BaseWidget::BaseWidget ()
     : spatialInfo_ ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
+    , isEnabled_ (DEFAULT_ENABLED_STATE)
     , color_ (DEFAULT_COLOR)
     , drawables_ ()
     , eventHandlers_ ()
@@ -204,7 +207,7 @@ namespace yap
 
   bool BaseWidget::OnEvent (const GuiEvent& guiEvent)
   {
-    if (!isEnable)
+    if (!isEnabled_)
       return false;
 
     for (IEventHandler* child : eventHandlers_)
@@ -224,7 +227,7 @@ namespace yap
 
   bool BaseWidget::OnPriorityEvent (const GuiEvent& guiEvent)
   {
-    if (!isEnable)
+    if (!isEnabled_)
       return false;
 
     if (HandleOnPriorityEvent (guiEvent))

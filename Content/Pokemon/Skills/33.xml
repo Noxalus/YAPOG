@@ -1,0 +1,14 @@
+<Skill id="33">
+	<name>CHARGE</name>
+	<description>Charge l'ennemi avec un violent plaquage.</description>
+	<power>50</power>
+	<pp>35</pp>
+	<maxPP>65</maxPP>
+	<accuracy>100</accuracy>
+	<type>1</type>
+	<category>1</category>
+	<target>2</target>
+	<effect>1</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

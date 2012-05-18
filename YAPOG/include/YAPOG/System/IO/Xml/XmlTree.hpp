@@ -1,6 +1,8 @@
 #ifndef YAPOG_XMLTREE_HPP
 # define YAPOG_XMLTREE_HPP
 
+# include <memory>
+
 # include <boost/property_tree/xml_parser.hpp>
 # include <boost/property_tree/ptree.hpp>
 
@@ -10,18 +12,25 @@
 
 namespace yap
 {
+  class XmlTree;
+  typedef std::shared_ptr<XmlTree> XmlTreePtrType;
+
   class YAPOG_LIB XmlTree
   {
-      DISALLOW_COPY(XmlTree);
+      DISALLOW_ASSIGN(XmlTree);
 
     public:
 
       typedef boost::property_tree::ptree DataType;
 
       XmlTree ();
+      XmlTree (const XmlTree& copy);
 
       template <typename T>
       const T Get (const String& name) const;
+
+      template <typename T>
+      const T Get () const;
 
       template <typename T>
       void Add (const String& name, const T& value);
@@ -29,17 +38,27 @@ namespace yap
       void Create (const String& rootName);
       void CreateFromStream (IStream& iStream, const String& rootName);
 
-      void CreateFromXmlTree (const XmlTree& copy);
+      void CreateFromXmlTree (const String& rootName, XmlTree& copy);
       void CreateFromRawData (DataType* data);
 
       /// @todo Enhance writing settings management.
       void Dump (OStream& oStream);
 
-      void ChangeRoot (const String& rootName);
+      XmlTreePtrType ChangeRoot (const String& rootName);
+
+      bool NodeExists (const String& name) const;
+
+      const String& GetNode (int index) const;
 
       DataType* GetRootRawData () const;
 
     private:
+
+      DataType& GetChild (const String& name);
+      DataType& AbsoluteGetChild (const String& name);
+
+      DataType& GetRootData ();
+      const DataType& GetRootData () const;
 
       DataType rootData_;
       DataType* data_;

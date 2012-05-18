@@ -6,12 +6,16 @@
 namespace yap
 {
   class XmlReader;
+  class Packet;
+  class DatabaseStream;
 
   struct YAPOG_LIB IReaderConstVisitor
   {
       virtual ~IReaderConstVisitor () {}
 
       virtual void Visit (const XmlReader& visitable) = 0;
+      virtual void Visit (const Packet& visitable) = 0;
+      virtual void Visit (const DatabaseStream& visitable) = 0;
   };
 } // namespace yap
 

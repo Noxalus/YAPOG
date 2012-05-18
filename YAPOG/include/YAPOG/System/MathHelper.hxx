@@ -6,15 +6,39 @@
 namespace yap
 {
   template <typename T>
-  const T& MathHelper::Max (const T& left, const T& right)
+  T MathHelper::Max (const T& left, const T& right)
   {
     return std::max (left, right);
   }
 
   template <typename T>
-  const T& MathHelper::Min (const T& left, const T& right)
+  T MathHelper::Min (const T& left, const T& right)
   {
     return std::min (left, right);
+  }
+
+  template <typename T>
+  T MathHelper::Clamp (const T& value, const T& min, const T& max)
+  {
+    return value < min ? min : (value > max ? max : value);
+  }
+
+  template <typename T>
+  T MathHelper::Floor (const T& number)
+  {
+    return std::floor (number);
+  }
+
+  template <typename T1, typename T2>
+  int MathHelper::Pow (const T1& number, const T2& pow)
+  {
+    return std::pow (number, pow);
+  }
+
+  template <typename T>
+  T MathHelper::Abs (const T& value)
+  {
+    return value < 0 ? -value : value;
   }
 } // namespace yap
 

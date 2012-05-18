@@ -4,18 +4,25 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/MapReader.hpp"
 
-class Map;
-
-class MapReader : public yap::MapReader
+namespace ycl
 {
-    DISALLOW_COPY(MapReader);
+  class Map;
 
-  public:
+  class MapReader : public yap::MapReader
+  {
+      DISALLOW_COPY(MapReader);
 
-    MapReader (Map& map);
-    virtual ~MapReader ();
+    public:
 
-    virtual void Visit (yap::XmlReader& visitable);
-};
+      MapReader (Map& map, const yap::String& xmlRootNodeName);
+      virtual ~MapReader ();
+
+      virtual void Visit (yap::XmlReader& visitable);
+
+    private:
+
+      Map& map_;
+  };
+} // namespace ycl
 
 #endif // YAPOG_CLIENT_MAP_READER_HPP

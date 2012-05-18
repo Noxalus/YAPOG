@@ -1,0 +1,15 @@
+<Map id="1">
+  <name>t</name>
+  <width>200</width>
+  <height>200</height>
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <layoutHandlerType>RandomTileLayoutHandler</layoutHandlerType>
+      <Tile id="1"/>
+      <Tile id="2"/>
+      <Tile id="3"/>
+      <Tile id="4"/>
+    </tileLayer>
+  </ground>
+</Map>

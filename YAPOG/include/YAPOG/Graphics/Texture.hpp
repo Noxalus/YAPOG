@@ -8,7 +8,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/ISpatial.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Factory/ILoadable.hpp"
+# include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
@@ -20,7 +20,7 @@ namespace yap
   /// Overlay of SFML Sprite.
   class YAPOG_LIB Texture : public ISpatial
                           , public IDrawable
-                          , public ILoadable
+                          , public IIDLoadable
   {
       DISALLOW_ASSIGN(Texture);
 
@@ -48,7 +48,7 @@ namespace yap
       virtual const Vector2& GetBottomRight () const;
       virtual const Vector2& GetCenter () const;
 
-      virtual const sf::FloatRect& GetRectangle () const;
+      virtual const FloatRect& GetRectangle () const;
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);

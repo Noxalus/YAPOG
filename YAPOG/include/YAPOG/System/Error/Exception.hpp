@@ -7,6 +7,12 @@
 # include "YAPOG/System/IOStream.hpp"
 # include "YAPOG/System/String.hpp"
 
+# define YAPOG_EXCEPTION_MESSAGE_PREFIX                                 \
+  "[YAPOG exception][" __FILE__ ":" +                                   \
+  yap::StringHelper::ToString (__LINE__) + "] "
+# define YAPOG_THROW(MESSAGE)                                   \
+  throw yap::Exception (YAPOG_EXCEPTION_MESSAGE_PREFIX MESSAGE)
+
 namespace yap
 {
   class YAPOG_LIB Exception : public std::exception

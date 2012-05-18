@@ -1,0 +1,14 @@
+<Skill id="75">
+	<name>TRANCH'HERBE</name>
+	<description>Tranche avec des feuilles. Taux de critiques élevé.</description>
+	<power>55</power>
+	<pp>25</pp>
+	<maxPP>40</maxPP>
+	<accuracy>95</accuracy>
+	<type>5</type>
+	<category>1</category>
+	<target>2</target>
+	<effect>43</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

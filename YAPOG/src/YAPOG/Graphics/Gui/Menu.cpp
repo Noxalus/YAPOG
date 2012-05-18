@@ -14,25 +14,25 @@ namespace yap
     : itemz_ ()
     , currentSelec_ (0)
     , layout_ (nullptr)
-    , selecBrdr_ (nullptr)
     , selecBckgrd_ (new WidgetBackground ("bckgrd.png", true))
+    , selecBrdr_ (nullptr)
     , selecBrdSize_ (16)
   {
     Texture* t = new Texture ();
     t->LoadFromFile ("T.png");
     Texture* tr = new Texture ();
     tr->LoadFromFile ("TR.png");
-    Texture* r = new Texture (); 
+    Texture* r = new Texture ();
     r->LoadFromFile ("R.png");
     Texture* br = new Texture ();
     br->LoadFromFile  ("BR.png");
-    Texture* b = new Texture (); 
+    Texture* b = new Texture ();
     b->LoadFromFile ("B.png");
-    Texture* bl = new Texture (); 
+    Texture* bl = new Texture ();
     bl->LoadFromFile ("BL.png");
     Texture* l = new Texture ();
     l->LoadFromFile ("L.png");
-    Texture* tl = new Texture (); 
+    Texture* tl = new Texture ();
     tl->LoadFromFile ("TL.png");
 
     selecBrdr_ = new WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
@@ -114,7 +114,7 @@ namespace yap
       }
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
-        if (currentSelec_ >= itemz_.Count () - 1)
+        if (itemz_.Count () == 0 || currentSelec_ >= itemz_.Count () - 1)
           return true;
 
         SetUnformItem ();

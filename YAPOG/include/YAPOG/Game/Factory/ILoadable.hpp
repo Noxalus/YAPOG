@@ -2,12 +2,11 @@
 # define YAPOG_ILOADABLE_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/Factory/ICloneable.hpp"
 
 namespace yap
 {
   /// @brief Interface for object that can be loaded from external resource.
-  struct YAPOG_LIB ILoadable : public ICloneable
+  struct YAPOG_LIB ILoadable
   {
       virtual ~ILoadable () {}
   };

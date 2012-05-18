@@ -15,6 +15,8 @@
 
 namespace yap
 {
+  class ID;
+
   class YAPOG_LIB ContentManager
   {
       DISALLOW_COPY(ContentManager);
@@ -25,6 +27,12 @@ namespace yap
 
       void Init (const Path& rootPath);
       const Path& GetContentPath () const;
+
+      void SetImagePath (const Path& path);
+      void SetTexturePath (const Path& path);
+      void SetFontPath (const Path& path);
+      void SetSoundBufferPath (const Path& path);
+      void SetMusicPath (const Path& path);
 
       sf::Image& LoadImage (const String& name);
       sf::Texture& LoadTexture (const String& name);
@@ -39,6 +47,10 @@ namespace yap
       void UnloadMusic (const String& name);
 
       IFStream& LoadFile (const String& name, IFStream& iFStream);
+      IFStream& LoadFile (
+        const Path& rootPath,
+        const ID& id,
+        IFStream& iFStream);
 
     private:
 
@@ -51,6 +63,8 @@ namespace yap
       static const Path DEFAULT_FONT_PATH;
       static const Path DEFAULT_SOUND_BUFFER_PATH;
       static const Path DEFAULT_MUSIC_PATH;
+
+      static const String DEFAULT_DATA_RESOURCE_FILE_EXTENSION;
 
       Path rootPath_;
 

@@ -1,6 +1,6 @@
-﻿#include <SFML\Graphics\Text.hpp>
-#include "YAPOG\Graphics\Gui\Label.hpp"
-#include "YAPOG\Graphics\IDrawingContext.hpp"
+#include <SFML/Graphics/Text.hpp>
+#include "YAPOG/Graphics/Gui/Label.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
@@ -17,7 +17,7 @@ namespace yap
 
   WidgetDialogBox::WidgetDialogBox (String content)
     : labels_ ()
-    , currentText_ (0)   
+    , currentText_ (0)
   {
     AddText (content);
   }
@@ -55,6 +55,10 @@ namespace yap
     Label* current = labels_[currentText_];
     current->ChangeColor (sf::Color (128, 32, 64));
     current->Draw (context);
+
+    if (IsVisible ())
+      labels_[currentText_]->Draw (context);
+
   }
 
   void WidgetDialogBox::HandleShow (bool isVisible)
@@ -103,14 +107,14 @@ namespace yap
         currentText_++;
         if (currentText_ == labels_.Count ())
         {
-          isVisible_ = false;  
+          isVisible_ = false;
         }
         else
         {
           isVisible_ = true;
         }
         return true;
-      }      
+      }
     }
     return false;
   }

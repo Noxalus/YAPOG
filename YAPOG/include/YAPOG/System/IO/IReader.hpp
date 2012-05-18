@@ -5,6 +5,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
@@ -56,6 +57,9 @@ namespace yap
 
       virtual Vector2 ReadVector2 () = 0;
       virtual Vector2 ReadVector2 (const String& name) = 0;
+
+      virtual ID ReadID () = 0;
+      virtual ID ReadID (const String& name) = 0;
   };
 } // namespace yap
 

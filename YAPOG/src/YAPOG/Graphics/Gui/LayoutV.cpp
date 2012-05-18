@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/LayoutV.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Collection/List.hpp"
-#include "YAPOG/System/MathHelper.hpp "
+#include "YAPOG/System/MathHelper.hpp"
 
 namespace yap
 {
@@ -24,7 +24,7 @@ namespace yap
   {
     float totalPad = 0;
 
-    
+
     if (globalAlign_ == Align::BOTTOM)
       totalPad = GetSize ().y - externPad_.bottom;
     else if (globalAlign_ == Align::CENTER)
@@ -32,7 +32,7 @@ namespace yap
       + externPad_.top;
     else
       totalPad = externPad_.top;
-    
+
 
     float leftAlign = externPad_.left;
     float rightAlign = GetSize ().x - externPad_.right;

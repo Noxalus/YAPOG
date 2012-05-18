@@ -136,11 +136,13 @@ namespace yap
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 
     static const bool DEFAULT_VISIBLE_STATE;
-    static const sf::Color DEFAULT_COLOR;    
+    static const bool DEFAULT_ENABLED_STATE;
+
+    static const sf::Color DEFAULT_COLOR;
 
     mutable SpatialInfo spatialInfo_;
     bool isVisible_;
-    bool isEnable;
+    bool isEnabled_;
     sf::Color color_;
     collection::List<IDrawable*> drawables_;
     collection::List<IEventHandler*> eventHandlers_;

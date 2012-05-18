@@ -1,5 +1,5 @@
-#include "YAPOG\Graphics\Gui\Label.hpp"
-#include "YAPOG\Graphics\IDrawingContext.hpp"
+#include "YAPOG/Graphics/Gui/Label.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
@@ -15,7 +15,7 @@ namespace yap
   {
     label_ = new Label ();
     label_->SetPosition (Vector2 (GetPosition ().x,
-      GetPosition ().y + label_->GetCharHeight () / 2));
+                                  GetPosition ().y + label_->GetCharHeight () / 2));
   }
 
   WidgetTextBox::WidgetTextBox (String content)
@@ -25,8 +25,10 @@ namespace yap
     , curserRelPos_ (0)
   {
     label_ = new Label ();
-    label_->SetPosition (Vector2 (GetPosition ().x,
-      GetPosition ().y + label_->GetCharHeight () / 2));
+    label_->SetPosition (
+      Vector2 (
+        GetPosition ().x,
+        GetPosition ().y + label_->GetCharHeight () / 2));
     SetText (content);
   }
 
@@ -49,7 +51,7 @@ namespace yap
   void WidgetTextBox::Refresh ()
   {
     label_->SetPosition (Vector2 (GetPosition ().x,
-      GetPosition ().y /*+ label_->GetCharHeight () / 2*/));
+                                  GetPosition ().y /*+ label_->GetCharHeight () / 2*/));
 
     uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
     while (label_->GetSize ().x > labelMaxWidth)
@@ -64,7 +66,7 @@ namespace yap
   {
     return GetUserSize ()
       + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+                                         * 2, border_->GetWidth () * 2) : Vector2 ());
   }
 
   void WidgetTextBox::HandleDraw (IDrawingContext& context)
@@ -74,7 +76,7 @@ namespace yap
     if (curser_ != nullptr)
     {
       curser_->SetPosition (label_->CharPos (
-        label_->Length () - curserRelPos_) - Vector2 (3, -5));
+                              label_->Length () - curserRelPos_) - Vector2 (3, -5));
       curser_->Draw (context);
     }
   }
@@ -122,55 +124,66 @@ namespace yap
           return true;
         uint contentLength = content_.length ();
         if (content_.length () > 0)
+        {
           if (curserPos_ == 0)
             content_ = content_.substr (0, content_.length () - 1);
           else
           {
-            String firstPart = content_.substr (0, content_.length () - curserPos_ - 1);
-            String lastPart = content_.substr (content_.length () - curserPos_);
+            String firstPart =
+              content_.substr (0, content_.length () - curserPos_ - 1);
+            String lastPart =
+              content_.substr (content_.length () - curserPos_);
 
             content_ = firstPart + lastPart;
           }
+        }
 
-          if (label_->Length () < contentLength)
+        if (label_->Length () < contentLength)
+        {
+          if (curserRelPos_ == 0)
           {
-            if (curserRelPos_ == 0)
-            {
-              String temp;
-              if (content_.length () == label_->Length ())
-                temp = content_.substr (0, 1);
-              else
-                temp = content_.substr
-                (content_.length () - label_->Length () - 1, 1);
-              String temp2 = label_->GetText ();
-              label_->SetText (temp + temp2.substr (0, temp2.length () - 1));
-
-              uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
-              Vector2 labelWidth (label_->CharPos (label_->Length () - curserRelPos_)
-                - label_->GetPosition ());
-              while (labelWidth.x > labelMaxWidth)
-              {
-                label_->SetText (label_->GetText ().substr (1));
-                labelWidth = label_->CharPos (label_->Length () - curserRelPos_)
-                  - label_->GetPosition ();
-              }
-            }
+            String temp;
+            if (content_.length () == label_->Length ())
+              temp = content_.substr (0, 1);
             else
+              temp = content_.substr
+                (content_.length () - label_->Length () - 1, 1);
+            String temp2 = label_->GetText ();
+            label_->SetText (temp + temp2.substr (0, temp2.length () - 1));
+
+            uint labelMaxWidth =
+              GetUserSize ().x - padding_->left - padding_->right;
+
+            Vector2 labelWidth (
+              label_->CharPos (label_->Length () - curserRelPos_)
+              - label_->GetPosition ());
+
+            while (labelWidth.x > labelMaxWidth)
             {
-              String temp = label_->GetText ();
-              String firstPart = temp.substr (0, temp.length () - curserRelPos_ - 1);
-              String lastPart = temp.substr (temp.length () - curserRelPos_);
-
-              int charleft = label_->Length () - curserRelPos_;
-              char first = content_.at (content_.length () - curserPos_ - charleft);
-
-              label_->SetText (first + firstPart + lastPart);
+              label_->SetText (label_->GetText ().substr (1));
+              labelWidth =
+                label_->CharPos (label_->Length () - curserRelPos_)
+                - label_->GetPosition ();
             }
           }
           else
-            label_->SetText (content_);
+          {
+            String temp = label_->GetText ();
+            String firstPart =
+              temp.substr (0, temp.length () - curserRelPos_ - 1);
+            String lastPart = temp.substr (temp.length () - curserRelPos_);
 
-          return true;
+            int charleft = label_->Length () - curserRelPos_;
+            char first =
+              content_.at (content_.length () - curserPos_ - charleft);
+
+            label_->SetText (first + firstPart + lastPart);
+          }
+        }
+        else
+          label_->SetText (content_);
+
+        return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
@@ -183,7 +196,8 @@ namespace yap
         else
         {
           int charleft = label_->Length () - curserRelPos_;
-          char first = content_.at (content_.length () - curserPos_ - charleft);
+          char first =
+            content_.at (content_.length () - curserPos_ - charleft);
 
           String temp = label_->GetText ().substr (0, label_->Length () - 1);
 
@@ -202,7 +216,7 @@ namespace yap
           curserRelPos_--;
         else
         {
-          char end = content_.at (content_.length () - curserPos_);          
+          char end = content_.at (content_.length () - curserPos_);
           label_->SetText (label_->GetText ().substr (1) + end);
         }
 
@@ -224,12 +238,13 @@ namespace yap
         return false;
       if (curserPos_ > 0)
       {
-        String firstPart = content_.substr (0, content_.length () - curserPos_);
+        String firstPart =
+          content_.substr (0, content_.length () - curserPos_);
         String lastPart = content_.substr (content_.length () - curserPos_);
 
         content_ = firstPart + txt + lastPart;
       }
-      else 
+      else
         content_ += txt;
 
       if (curserRelPos_ > 0)
@@ -249,7 +264,7 @@ namespace yap
 
       uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
       Vector2 labelWidth (label_->CharPos (label_->Length ())
-        - label_->GetPosition ());
+                          - label_->GetPosition ());
       while (labelWidth.x > labelMaxWidth)
       {
         label_->SetText (label_->GetText ().substr (1));
@@ -265,7 +280,7 @@ namespace yap
     return false;
   }
 
-  void WidgetTextBox::SetText (String& contentArg)
+  void WidgetTextBox::SetText (const String& contentArg)
   {
     if (contentArg.empty())
       return;
@@ -277,12 +292,12 @@ namespace yap
 
     String contentTemp = content_;
     uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
-    uint charWidth = (label_->GetCharWidth () > 0) ? label_->GetCharWidth () : 1;
 
     if (label_->GetSize ().x > labelMaxWidth)
     {
       uint endStrWidth = label_->GetSize ().x - labelMaxWidth;
-      uint posChar = (label_->GetSize ().x - endStrWidth) * label_->GetCharWidth ();
+      uint posChar =
+        (label_->GetSize ().x - endStrWidth) * label_->GetCharWidth ();
 
       contentTemp = contentTemp.substr (posChar);
       label_->SetText (contentTemp);

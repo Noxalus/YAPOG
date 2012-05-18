@@ -17,9 +17,6 @@ namespace yap
 
   bool GuiManager::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {
-    if (!isEnable)
-      return false;
-
     for (IWidget* child : childen_)
     {
       if (child->IsFocusable ())

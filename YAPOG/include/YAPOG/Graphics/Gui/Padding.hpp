@@ -1,8 +1,8 @@
 #ifndef YAPOG_PADDING_HPP
 # define YAPOG_PADDING_HPP
 
-# include "YAPOG\Macros.hpp"
-# include "YAPOG\System\IntTypes.hpp"
+# include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {

@@ -1,5 +1,7 @@
 #include "YAPOG/Content/ContentManager.hpp"
 #include "YAPOG/System/Error/ContentLoadingFailException.hpp"
+#include "YAPOG/Game/ID.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -9,6 +11,9 @@ namespace yap
   const Path ContentManager::DEFAULT_FONT_PATH = Path ("Font/");
   const Path ContentManager::DEFAULT_SOUND_BUFFER_PATH = Path ("Sound/");
   const Path ContentManager::DEFAULT_MUSIC_PATH = Path ("Sound/");
+
+  const String ContentManager::DEFAULT_DATA_RESOURCE_FILE_EXTENSION =
+    ".xml";
 
   ContentManager::ContentManager (const Path& rootPath)
     : rootPath_ (rootPath)
@@ -58,6 +63,31 @@ namespace yap
   const Path& ContentManager::GetContentPath () const
   {
     return rootPath_;
+  }
+
+  void ContentManager::SetImagePath (const Path& path)
+  {
+    imagePath_ = path;
+  }
+
+  void ContentManager::SetTexturePath (const Path& path)
+  {
+    texturePath_ = path;
+  }
+
+  void ContentManager::SetFontPath (const Path& path)
+  {
+    fontPath_ = path;
+  }
+
+  void ContentManager::SetSoundBufferPath (const Path& path)
+  {
+    soundBufferPath_ = path;
+  }
+
+  void ContentManager::SetMusicPath (const Path& path)
+  {
+    musicPath_ = path;
   }
 
   sf::Image& ContentManager::LoadImage (const String& name)
@@ -180,5 +210,17 @@ namespace yap
       throw ContentLoadingFailException (path);
 
     return iFStream;
+  }
+
+  IFStream& ContentManager::LoadFile (
+    const Path& rootPath,
+    const ID& id,
+    IFStream& iFStream)
+  {
+    return LoadFile (
+      (rootPath +
+       Path (StringHelper::ToString (id.GetValue ())) +
+       DEFAULT_DATA_RESOURCE_FILE_EXTENSION).GetValue (),
+      iFStream);
   }
 } // namespace yap

@@ -32,10 +32,12 @@ namespace yap
   void WidgetBackground::HandleDraw (IDrawingContext& context)
   {
     if (isInit)
+    {
       if (resize_)
         background_.Draw (context);
       else
         tm_->Draw (context);
+    }
   }
 
   void WidgetBackground::HandleShow (bool isVisible)
@@ -45,10 +47,12 @@ namespace yap
   void WidgetBackground::HandleMove (const Vector2& offset)
   {
     if (isInit)
+    {
       if (resize_)
         background_.Move (offset);
       else
         tm_->Move (offset);
+    }
   }
 
   void WidgetBackground::HandleScale (const Vector2& factor)
@@ -57,10 +61,12 @@ namespace yap
     Vector2 neo (base.x * factor.x, base.y * factor.y);
 
     if (isInit)
+    {
       if (resize_)
         background_.SetSize (neo);
       else
         tm_->SetSize (neo);
+    }
   }
 
   void WidgetBackground::HandleUpdate (const Time& dt)

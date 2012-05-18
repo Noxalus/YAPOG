@@ -1,11 +1,11 @@
 #ifndef YAPOG_LABEL_HPP
 # define YAPOG_LABEL_HPP
 
-# include <SFML\Graphics\Color.hpp>
-# include <SFML\Graphics\Text.hpp>
+# include <SFML/Graphics/Color.hpp>
+# include <SFML/Graphics/Text.hpp>
 
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
-# include "YAPOG\System\String.hpp"
+# include "YAPOG/System/String.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
@@ -32,7 +32,7 @@ namespace yap
     virtual ~Label ();
     virtual bool IsFocusable () const;
 
-    void SetText (String& content);
+    void SetText (const String& content);
     String GetText () const;
     Event<const Label&, const EventArgsString&> OnTextChanged;
     float GetCharWidth () const;

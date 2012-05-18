@@ -58,6 +58,9 @@ namespace yap
 
       virtual void Write (const Vector2& value);
       virtual void Write (const String& name, const Vector2& value);
+
+      virtual void Write (const ID& value);
+      virtual void Write (const String& name, const ID& value);
       /// @}
 
       template <typename T>

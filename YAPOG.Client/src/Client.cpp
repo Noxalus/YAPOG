@@ -7,13 +7,16 @@ int main ()
 {
   try
   {
-    TestGame game ("YAPOG");
+    ycl::TestGame game ("YAPOG");
+
     game.Init ();
+
     game.Launch ();
   }
   catch (yap::Exception& ex)
   {
     ex.GetMessage (std::cout) << std::endl;
+    getchar ();
   }
 
   getchar ();

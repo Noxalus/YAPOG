@@ -14,6 +14,12 @@ namespace yap
     }
 
     template <typename T>
+    inline Array<T>::Array (SizeType capacity, const T& value)
+      : data_ (capacity, value)
+    {
+    }
+
+    template <typename T>
     inline Array<T>::Array (const Array<T>& copy)
       : data_ (copy.data_)
     {
