@@ -13,8 +13,17 @@ namespace yap
     const PokemonFighter& defender)
   {
     float stab = 1.f;
+
+    if (move.GetType () == attacker.GetType1 () 
+      || move.GetType () == attacker.GetType1 ())
+      stab = 1.5f;
+
     float type = defender.GetTypeEffectFactor (move.GetType ());
     float critical = 1.f;
+
+    if (RandomHelper::Pourcentage (6.25f))
+      critical = 2.f;
+
     float other = 1.f;
     float rand = RandomHelper::GetNext (0.85f, 1.0f);
     float modifier = stab * type * critical * other * rand;

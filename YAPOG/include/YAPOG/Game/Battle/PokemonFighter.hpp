@@ -20,6 +20,8 @@ namespace yap
     UInt16 GetCurrentHP () const;
     UInt16 GetMaxHP () const;
     const collection::Array<PokemonSkill*>& GetMoves () const;
+    const TypeInfo& GetType1 () const;
+    const TypeInfo& GetType2 () const;
     float GetTypeEffectFactor (const TypeInfo& type) const;
     /// }
 

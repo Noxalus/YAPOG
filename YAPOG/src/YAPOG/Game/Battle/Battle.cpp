@@ -12,7 +12,7 @@ namespace yap
   {
   }
 
-    void Battle::Run ()
+  void Battle::Run ()
   {
     BattleCore bc;
 
@@ -69,8 +69,9 @@ namespace yap
       default:
         cout << "Error" << endl;
         break;
-
       }
+
+      getchar ();
     }
   }
 

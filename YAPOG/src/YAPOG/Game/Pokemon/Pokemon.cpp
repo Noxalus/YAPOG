@@ -150,6 +150,16 @@ namespace yap
     YAPOG_THROW("PokemonInfo is not initialized.");
   }
 
+  const TypeInfo& Pokemon::GetType1 () const
+  {
+    return type_.GetType1 ();
+  }
+
+  const TypeInfo& Pokemon::GetType2 () const
+  {
+    return type_.GetType2 ();
+  }
+
   float Pokemon::GetTypeEffectFactor (const TypeInfo& type) const
   {
     return type.GetTypeEffect (type_.GetType1 ().GetID ()) *
