@@ -15,7 +15,7 @@ namespace yap
 	public:
 		ChatDisplayer();
 		
-		void								display(t_buffer& s, s_CM& c);
+		void								Display(t_buffer& s, sCM& c);
 	};
 } // namespace yap
 

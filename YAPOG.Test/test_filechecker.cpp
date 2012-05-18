@@ -15,9 +15,9 @@ int main()
 	yap::FileChecker fc (client);
 	
 	// List of name file needed to be download by the client
-	yap::FileChecker::t_vs vc = fs.sendfiletodownload(fc);
+	yap::FileChecker::t_vs vc = fs.SendFileToDownload(fc);
 	// Network test
-	fc.update(vc);
+	fc.Update(vc);
 	
 	getchar();
 	return 0;

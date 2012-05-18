@@ -12,25 +12,25 @@
 
 namespace yap
 {
-	class YAPOG_LIB MD5
+	class YAPOG_LIB Md5
 	{
-		DISALLOW_COPY(MD5);
+		DISALLOW_COPY(Md5);
 	public:
-		MD5();
-		MD5(const std::string& source);
-		MD5(std::ifstream& file);
-		MD5(const unsigned char* source, uint32 len);
+		Md5();
+		Md5(const std::string& source);
+		Md5(std::ifstream& file);
+		Md5(const unsigned char* source, uint32 len);
 
 		std::string Calculate(const std::string& source);
 		std::string Calculate(std::ifstream& file);
 		std::string Calculate(const unsigned char* source, uint32 len);
 
 		std::string GetHash() const;
-		const unsigned char* GetRawHash() const { return m_rawHash; }
+		const unsigned char* GetRawHash() const { return mrawHash_; }
 
 	private:
-		std::string     m_sHash;
-		unsigned char m_rawHash[16];
+		std::string     msHash_;
+		unsigned char   mrawHash_[16];
 	};
 } // namespace yap
 

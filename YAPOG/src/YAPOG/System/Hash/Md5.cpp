@@ -16,31 +16,31 @@ namespace yap
 	void MD5Update (MD5_CTX *, const unsigned char *, unsigned int);
 	void MD5Final (unsigned char [16], MD5_CTX *);
 
-	MD5::MD5()
+	Md5::Md5()
 	{
 	}
 
-	MD5::MD5(const std::string& source)
+	Md5::Md5(const std::string& source)
 	{
 		Calculate(source);
 	}
 
-	MD5::MD5(const unsigned char* source, uint32 len)
+	Md5::Md5(const unsigned char* source, uint32 len)
 	{
 		Calculate(source, len);
 	}
 
-	MD5::MD5(std::ifstream& file)
+	Md5::Md5(std::ifstream& file)
 	{
 		Calculate(file);
 	}
 
-	std::string MD5::Calculate(const std::string& source)
+	std::string Md5::Calculate(const std::string& source)
 	{
 		return Calculate((const unsigned char*)source.c_str(), source.size());
 	}
 
-	std::string MD5::Calculate(std::ifstream& file)
+	std::string Md5::Calculate(std::ifstream& file)
 	{
 		file.seekg(0, std::ios::end);
 
@@ -53,32 +53,32 @@ namespace yap
 		file.read(buffer, length);
 		Calculate((unsigned char*) buffer, length);
 		delete [] buffer;
-		return m_sHash;
+		return msHash_;
 	}
 
-	std::string MD5::Calculate(const unsigned char* source, uint32 len)
+	std::string Md5::Calculate(const unsigned char* source, uint32 len)
 	{
 		MD5_CTX context;
 
 		MD5Init(&context);
 		MD5Update(&context, source, len);
-		MD5Final(m_rawHash, &context);
+		MD5Final(mrawHash_, &context);
 
-		m_sHash.clear();
-		m_sHash.reserve(32);
+		msHash_.clear();
+		msHash_.reserve(32);
 		char buffer[3];
 		buffer[2] = '\0';
 		for (int i = 0; i < 16; ++i)
 		{
-			sprintf(buffer, "%02x", m_rawHash[i]);
-			m_sHash += buffer;
+			sprintf(buffer, "%02x", mrawHash_[i]);
+			msHash_ += buffer;
 		}
-		return m_sHash;
+		return msHash_;
 	}
 
-	std::string MD5::GetHash() const
+	std::string Md5::GetHash() const
 	{
-		return m_sHash;
+		return msHash_;
 	}
 
 #define S11 7
@@ -101,8 +101,8 @@ namespace yap
 	static void MD5Transform (UINT4 [4], const unsigned char [64]);
 	static void Encode (unsigned char *, const UINT4 *, unsigned int);
 	static void Decode (UINT4 *, const unsigned char *, unsigned int);
-	static void MD5_memcpy (POINTER, POINTER, unsigned int);
-	static void MD5_memset (POINTER, int, unsigned int);
+	static void MD5Memcpy (POINTER, POINTER, unsigned int);
+	static void MD5Memset (POINTER, int, unsigned int);
 
 	static unsigned char PADDING[64] = {
 		0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -186,7 +186,7 @@ namespace yap
 		/* Transform as many times as possible.
 		*/
 		if (inputLen >= partLen) {
-			MD5_memcpy
+			MD5Memcpy
 				((POINTER)&context->buffer[index], (POINTER)input, partLen);
 			MD5Transform (context->state, context->buffer);
 
@@ -199,7 +199,7 @@ namespace yap
 			i = 0;
 
 		/* Buffer remaining input */
-		MD5_memcpy
+		MD5Memcpy
 			((POINTER)&context->buffer[index], (POINTER)&input[i],
 			inputLen-i);
 	}
@@ -228,7 +228,7 @@ namespace yap
 
 		/* Zeroize sensitive information.
 		*/
-		MD5_memset ((POINTER)context, 0, sizeof (*context));
+		MD5Memset ((POINTER)context, 0, sizeof (*context));
 	}
 
 	/* MD5 basic transformation. Transforms state based on block.
@@ -318,7 +318,7 @@ namespace yap
 
 		/* Zeroize sensitive information.
 		*/
-		MD5_memset ((POINTER)x, 0, sizeof (x));
+		MD5Memset ((POINTER)x, 0, sizeof (x));
 	}
 
 	/* Encodes input (UINT4) into output (unsigned char). Assumes len is
@@ -351,7 +351,7 @@ namespace yap
 	/* Note: Replace "for loop" with standard memcpy if possible.
 	*/
 
-	static void MD5_memcpy (POINTER output, POINTER input, unsigned int len)
+	static void MD5Memcpy (POINTER output, POINTER input, unsigned int len)
 	{
 		unsigned int i;
 
@@ -361,7 +361,7 @@ namespace yap
 
 	/* Note: Replace "for loop" with standard memset if possible.
 	*/
-	static void MD5_memset (POINTER output, int value, unsigned int len)
+	static void MD5Memset (POINTER output, int value, unsigned int len)
 	{
 		unsigned int i;
 

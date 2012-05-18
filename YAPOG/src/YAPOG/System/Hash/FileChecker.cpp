@@ -5,7 +5,7 @@ namespace yap
 	FileChecker::FileChecker(boost::filesystem::path path)
 	{
 		path_ = path;
-		getfiletodownload();
+		GetFileToDownload();
 		filename_ = "";
 		md5_ = "";
 		filesize_ = 0;
@@ -35,11 +35,11 @@ namespace yap
 
 	FileChecker::~FileChecker()
 	{
-		t_vf::iterator it(v_.begin());
-		t_vf::iterator it_end(v_.end());
+		t_vf::iterator it(vfile_.begin());
+		t_vf::iterator it_end(vfile_.end());
 		
-		t_vs::iterator its(vs_.begin());
-		t_vs::iterator its_end(vs_.end());
+		t_vs::iterator its(vstring_.begin());
+		t_vs::iterator its_end(vstring_.end());
 
 		for (; it != it_end; it++)
 			delete(*it);
@@ -47,50 +47,50 @@ namespace yap
 			delete(*its);
 	}
 
-	void FileChecker::setfilename(std::string filename)
+	void FileChecker::SetFilename(std::string filename)
 	{
 		filename_ = filename;
 	}
 
-	void FileChecker::setmd5(std::string md5)
+	void FileChecker::SetMd5(std::string md5)
 	{
 		md5_ = md5;
 	}
 
-	std::string FileChecker::getfilename()
+	std::string FileChecker::GetFilename()
 	{
 		return filename_;
 	}
 
-	std::string FileChecker::getmd5()
+	std::string FileChecker::GetMd5()
 	{
 		return md5_;
 	}
 	
-	int FileChecker::getfilesize()
+	int FileChecker::GetFilesize()
 	{
 		return filesize_;
 	}
 
-	FileChecker::t_vf FileChecker::getv()
+	FileChecker::t_vf FileChecker::GetVfile()
 	{
-		return v_;
+		return vfile_;
 	}
 
-	bool FileChecker::compare(FileChecker* const c, FileChecker* const s)
+	bool FileChecker::Compare(FileChecker* const c, FileChecker* const s)
 	{
-		return (c->getfilename() == s->getfilename()
-			&& c->getmd5() == s->getmd5());
+		return (c->GetFilename() == s->GetFilename()
+			&& c->GetMd5 () == s->GetMd5());
 	}
 
-	void FileChecker::getfiletodownload()
+	void FileChecker::GetFileToDownload()
 	{
 		t_vp vp;
 		try
 		{
 			if(boost::filesystem::exists(path_))
 			{
-				yap::MD5 md5;
+				yap::Md5 md5;
 				std::copy(
 					boost::filesystem::recursive_directory_iterator(path_),
 					boost::filesystem::recursive_directory_iterator(),
@@ -110,7 +110,7 @@ namespace yap
 						std::ifstream f;
 						f.open(((*it).string()).c_str());
 						std::string mymd5 = md5.Calculate(f);
-						v_.push_back(
+						vfile_.push_back(
 							new FileChecker (((*it).string()).
 							substr(path_.string().length() + 1, i),
 							mymd5, boost::filesystem::file_size((*it).string()))
@@ -122,7 +122,7 @@ namespace yap
 						int i = ((*it).string()).length() + 1;
 						int j = path_.string().length();
 						i -= j;
-						v_.push_back(
+						vfile_.push_back(
 							new FileChecker (((*it).string()).
 							substr(path_.string().length() + 1, i),
 							std::string ("0"), 0)
@@ -137,7 +137,7 @@ namespace yap
 		}
 	}
 
-	std::string FileChecker::vectorfind(t_vf vc, FileChecker* elt)
+	std::string FileChecker::VectorFind(t_vf vc, FileChecker* elt)
 	{
 		t_vf::iterator it(vc.begin());
 		t_vf::iterator it_end(vc.end());
@@ -145,23 +145,23 @@ namespace yap
 
 		for (; it != it_end; it++)
 		{
-			name = (*it)->getfilename();
-			if (name == elt->getfilename())
-				if ((*it)->getmd5() != elt->getmd5())
+			name = (*it)->GetFilename();
+			if (name == elt->GetFilename())
+				if ((*it)->GetMd5() != elt->GetMd5())
 				{
 					std::replace(name.begin(), name.end(), '\\', '/');
-					return ((*it)->getmd5().compare("0") == 0 ? name + "0" : name);
+					return ((*it)->GetMd5().compare("0") == 0 ? name + "0" : name);
 				}
 				else
 					return "";
 		}
 
-		name = elt->getfilename();
+		name = elt->GetFilename();
 		std::replace(name.begin(), name.end(), '\\', '/');
-		return (elt->getmd5().compare("0") == 0 ? name + "0" : name);
+		return (elt->GetMd5().compare("0") == 0 ? name + "0" : name);
 	}
 
-	FileChecker::t_vs FileChecker::sendfiletodownload(FileChecker& fc)
+	FileChecker::t_vs FileChecker::SendFileToDownload(FileChecker& fc)
 	{
 		FileChecker::t_vs vbis;
 
@@ -169,14 +169,14 @@ namespace yap
 		{
 			if(boost::filesystem::exists(path_))
 			{
-				t_vf::iterator it(v_.begin());
-				t_vf::iterator it_end(v_.end());
+				t_vf::iterator it(vfile_.begin());
+				t_vf::iterator it_end(vfile_.end());
 
 				for (; it != it_end; it++)
 				{
-					std::string ret = vectorfind(fc.getv(), (*it));
+					std::string ret = VectorFind(fc.GetVfile(), (*it));
 					if (!ret.empty())
-						vbis.push_back(new MyFile(ret, (*it)->getfilesize()));
+						vbis.push_back(new MyFile(ret, (*it)->GetFilesize()));
 				}
 			}
 		}
@@ -188,7 +188,7 @@ namespace yap
 		return vbis;
 	}
 
-	bool FileChecker::updateFTP(FileChecker::t_vs vs)
+	bool FileChecker::UpdateFTP(FileChecker::t_vs vs)
 	{
 		sf::Ftp server;
 		FileChecker::t_vs::const_iterator it(vs.begin());
@@ -248,7 +248,7 @@ namespace yap
 		return true;
 	}
 
-	bool FileChecker::update(FileChecker::t_vs vs)
+	bool FileChecker::Update(FileChecker::t_vs vs)
 	{
 		try
 		{

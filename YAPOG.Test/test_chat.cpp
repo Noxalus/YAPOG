@@ -12,7 +12,7 @@ int main()
 		if (line.compare("exit") == 0)
 			break;
 		yap::Chat mychat (line);
-		displayer.display(mychat.getbuf(), mychat.parse());
+		displayer.Display(mychat.GetBuf(), mychat.Parse());
 	}
 
 	return EXIT_SUCCESS;

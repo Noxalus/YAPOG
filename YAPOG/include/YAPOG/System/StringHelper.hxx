@@ -18,7 +18,7 @@ namespace yap
 	}
 
 	template <typename T>
-	inline int StringHelper::compare_string(const T& s1, const T& s2)
+	inline int StringHelper::CompareString(const T& s1, const T& s2)
 	{
 		std::string::const_iterator it1=s1.begin();
 		std::string::const_iterator it2=s2.begin();

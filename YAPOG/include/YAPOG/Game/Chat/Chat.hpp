@@ -18,16 +18,16 @@ namespace yap
 		Chat ();
 		Chat (std::string b);
 
-		s_CM								parse();
-		t_buffer							getbuf();
+		sCM								      Parse();
+		t_buffer							  GetBuf();
 
 	private:
-		void								setbuf(std::string b);
+		void								    SetBuf(std::string b);
 		// Check if the user's entry is a command
-		bool								check();
+		bool								    Check();
 
 		yap::String							entry_;
-		t_buffer							buffer_;
+		t_buffer							  buffer_;
 		yap::String							output_;
 	};
 } // namespace yap

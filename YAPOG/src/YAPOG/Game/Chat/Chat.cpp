@@ -10,15 +10,15 @@ namespace yap
 	
 	Chat::Chat(std::string b)
 	{
-		setbuf(b);
+		SetBuf(b);
 	}
 
-	Chat::t_buffer						Chat::getbuf()
+	Chat::t_buffer						Chat::GetBuf()
 	{
 		return buffer_;
 	}
 
-	void								Chat::setbuf(std::string b)
+	void								Chat::SetBuf(std::string b)
 	{
 		entry_ = b;
 		std::string w;
@@ -31,20 +31,20 @@ namespace yap
 		}
 	}
 
-	Chat::s_CM							Chat::parse()
+	Chat::sCM							Chat::Parse()
 	{
-		s_CM ret;
+		sCM ret;
 		ChatCommand cc;
 
-		if (check() && buffer_.at(0).size() > 2)
+		if (Check() && buffer_.at(0).size() > 2)
 		{
-			ret.request_cmd = cc.getCmd(buffer_.at(0).substr(1).c_str());
+			ret.request_cmd = cc.GetCmd(buffer_.at(0).substr(1).c_str());
 			if (buffer_.size() > 1)
 				ret.request = buffer_;
 		}
 		else
 		{
-			ret.request_cmd = cc.getCmd("echo");
+			ret.request_cmd = cc.GetCmd("echo");
 			ret.request = buffer_;
 		}
 
@@ -52,7 +52,7 @@ namespace yap
 		return ret;
 	}
 
-	bool								Chat::check()
+	bool								Chat::Check()
 	{
 		return (buffer_.size() > 0 && buffer_.at(0)[0] == '/');
 	}

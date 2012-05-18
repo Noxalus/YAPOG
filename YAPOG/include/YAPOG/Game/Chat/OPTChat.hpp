@@ -18,18 +18,18 @@ namespace yap
 		OPTChat();
 		typedef std::vector<yap::String>	t_buffer;
 		
-		enum e_Cmds
+		enum eCmds
 		{
 			c_Help,
 			c_Trade,
 			c_Echo,
 			c_Unknown,
 		};
-		typedef struct s_ChatManager 
+		typedef struct sChatManager
 		{
 			t_buffer				request;
-			func					request_cmd;
-		} s_CM;
+			func					  request_cmd;
+		} sCM;
 	};
 } // namespace yap
 

@@ -19,25 +19,25 @@ namespace yap
 		DISALLOW_COPY(ChatCommand);
 	public:
 		typedef yap::String (ChatCommand::*func)(t_buffer b);
-		typedef struct s_MyCmd
+		typedef struct sMyCmd
 		{
-			e_Cmds m_Key;
+			eCmds m_Key;
 			yap::String m_ptS;
-		} s_MC;
+		} sMC;
 		ChatCommand();
 
 		// Commands
-		yap::String							help(t_buffer b);
-		yap::String							unknown(t_buffer b);
-		yap::String							trade(t_buffer b);
-		yap::String							echo(t_buffer b);
+		yap::String							Help(t_buffer b);
+		yap::String							Unknown(t_buffer b);
+		yap::String							Trade(t_buffer b);
+		yap::String							Echo(t_buffer b);
 
 		// Get the command
-		func								getCmd (const char *pString);
+		func								    GetCmd (const char *pString);
 		// Execute the command
-		yap::String							execcmd(t_buffer b, s_CM f);
+		yap::String							ExecCmd(t_buffer b, sCM f);
 	private:
-		s_MC tab[NBCMDS];
+		sMC                     tab_[NBCMDS];
 	};
 } // namespace yap
 
