@@ -129,11 +129,18 @@ namespace yap
 
     uint LabelMaxSize = GetUserSize ().x - padding_->left - padding_->right;
     uint charNumb = (LabelMaxSize / lb->GetCharWidth ());
-    charNumb += (charNumb / 2);
+
+    uint subPos = charNumb;
+    sf::Text width (txt.substr (0, subPos));
+    
+    while (width.getLocalBounds ().width < LabelMaxSize)
+    {
+
+    }
 
     for (int i = 1; i < contentArg.length (); i++)
     {
-      sf::Text widh
+      //sf::Text widh
       int tess = i % charNumb;
       if (i % charNumb == 0)
         txt.insert (i, "\n");
