@@ -84,6 +84,6 @@ namespace yap
 
 	yap::String						ChatCommand::ExecCmd(t_buffer b, sCM c)
 	{
-		return (this->*c.request_cmd)(b);
+    return (this->*c.request_cmd)(c.request);
 	}
 } // namespace yap

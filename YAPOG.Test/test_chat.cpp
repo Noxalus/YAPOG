@@ -6,12 +6,13 @@ int main()
 {
 	yap::ChatDisplayer displayer;
 	std::string line;
+	yap::Chat mychat;
 	while (true)
 	{
 		std::getline(std::cin, line);
 		if (line.compare("exit") == 0)
 			break;
-		yap::Chat mychat (line);
+    mychat.SetBuf(line);
 		displayer.Display(mychat.GetBuf(), mychat.Parse());
 	}
 
