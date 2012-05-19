@@ -131,7 +131,7 @@ namespace yap
 
   void Pokemon::SpecifyGender ()
   {
-    if (RandomHelper::Pourcentage (pokemonInfo_->GetGenderProbability ()))
+    if (RandomHelper::Percentage (pokemonInfo_->GetGenderProbability ()))
       gender_ = Gender::Female;
     else
       gender_ = Gender::Male;

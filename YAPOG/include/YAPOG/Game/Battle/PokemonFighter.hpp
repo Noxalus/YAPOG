@@ -2,12 +2,13 @@
 # define YAPOG_POKEMONFIGHTER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Battle/IBattleEntity.hpp"
 # include "YAPOG/Game/Pokemon/Pokemon.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB PokemonFighter
+  class YAPOG_LIB PokemonFighter : public IBattleEntity
   {
   public:
     PokemonFighter (Pokemon* originalPokemon);

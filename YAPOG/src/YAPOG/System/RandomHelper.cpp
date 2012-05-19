@@ -29,9 +29,9 @@ namespace yap
     return rand ();
   }
 
-  bool RandomHelper::Pourcentage (const float& pourcentage)
+  bool RandomHelper::Percentage (const float& percentage)
   {
-    return (GetNext (0.f, 100.f) <= pourcentage) ? true : false;
+    return (GetNext (0.f, 100.f) <= percentage) ? true : false;
   }
 
 } // namespace yap
