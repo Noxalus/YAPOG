@@ -130,21 +130,26 @@ namespace yap
     uint LabelMaxSize = GetUserSize ().x - padding_->left - padding_->right;
     uint charNumb = (LabelMaxSize / lb->GetCharWidth ());
 
+    uint previousPos = 0;
     uint subPos = charNumb;
     sf::Text width (txt.substr (0, subPos));
-    
-    while (width.getLocalBounds ().width < LabelMaxSize)
-    {
 
+    while (true)
+    {
+      while (width.getLocalBounds ().width < LabelMaxSize)
+      {
+        if (previousPos + subPos + 1 >= txt.length ())
+          break;
+        width.setString (txt.substr (previousPos, ++subPos));
+      }
+      if (previousPos + subPos + 1 >= txt.length ())
+        break;
+      txt.insert (previousPos + subPos - 1, "\n");
+      previousPos += subPos;
+      subPos = 1;
+      width.setString (txt.substr (previousPos, subPos));
     }
 
-    for (int i = 1; i < contentArg.length (); i++)
-    {
-      //sf::Text widh
-      int tess = i % charNumb;
-      if (i % charNumb == 0)
-        txt.insert (i, "\n");
-    }
     lb->SetText (txt);
     labels_.Add (lb);
     Refresh ();

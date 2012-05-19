@@ -1,4 +1,4 @@
-#include "YAPOG/System/IOStream.hpp"
+﻿#include "YAPOG/System/IOStream.hpp"
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Gui/LayoutH.hpp"
@@ -10,6 +10,7 @@
 #include "YAPOG/Graphics/Gui/MenuItem.hpp"
 #include "YAPOG/Graphics/Gui/WidgetTextBox.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
+#include "YAPOG/Graphics/Gui/WidgetDialogBox.hpp"
 
 #include "GameScreen/LoginScreen.hpp"
 #include "Client/Session.hpp"
@@ -124,9 +125,17 @@ namespace ycl
     //yap::widgetbackground* bckgr = new widgetbackground ();
     //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);
 
+    yap::WidgetDialogBox* dialog = new yap::WidgetDialogBox ();
+    dialog->SetSize (yap::Vector2 (256, 128));
+    yap::WidgetBackground* dialogbck = new yap::WidgetBackground ("bckgrd.png", true);
+    dialog->SetBackground (*dialogbck);
+    dialog->AddText (yap::String ("Il était une fois l'histoire de Mohammed Ali (baba)."));
+    dialog->AddText (yap::String ("Ali alla à la halle à alakazham."));
+    dialog->AddText (yap::String ("C'était sans compté sur la mise à jour de la divinité."));
 
     guiManager_->AddChild (*layout);
     guiManager_->AddChild (*txtbox);
+    guiManager_->AddChild (*dialog);
 
     // guiManager_->AddChild (*bckgr);
   }
