@@ -3,17 +3,43 @@
 
 namespace yap
 {
-	ChatDisplayer::ChatDisplayer()
-	{
-	}
-	
-	void								ChatDisplayer::Display(ChatDisplayer::t_buffer& s,
-															               ChatDisplayer::sCM& c)
-	{
-		if (s.size() > 0)
-		{
-			ChatCommand cc;
-			std::cout << cc.ExecCmd(s, c) << std::endl;
-		}
-	}
+  ChatDisplayer::ChatDisplayer()
+  {
+    chans_.Add(new CMType ());
+    chans_.Add(new CMType ("Group", "Green"));
+    chans_.Add(new CMType ("Business", "Blue"));
+    chans_.Add(new CMType ("Info", "Yellow"));
+  }
+
+  ChatDisplayer::~ChatDisplayer()
+  {
+    ChansType::ItType it (chans_.Begin());
+    ChansType::ItType ite (chans_.End());
+
+    for (; it < ite; it++)
+      delete (*it);
+  }
+
+  ChatDisplayer::ChanManager::ChanManager()
+  {
+    Name = "Global";
+    Color = "White";
+  }
+
+  ChatDisplayer::ChanManager::ChanManager(String name,
+                                          String color)
+  {
+    Name = name;
+    Color = color;
+  }
+
+  void								ChatDisplayer::Display(ChatDisplayer::BufferType& b,
+                                             ChatDisplayer::ChatManagerType& c)
+  {
+    ChatCommand cc;
+    if (b.Count() > 0)
+    {
+      std::cout << cc.ExecCmd(b, c) << std::endl;
+    }
+  }
 } // namespace yap

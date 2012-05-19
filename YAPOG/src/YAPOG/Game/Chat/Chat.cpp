@@ -3,135 +3,131 @@
 
 namespace yap
 {
-	Chat::Chat()
-	{
-		entry_ = "";
+  Chat::Chat()
+  {
+    entry_ = "";
     index_ = 0;
     offset_ = 0;
-	}
-	
-	Chat::Chat(std::string b)
-	{
-		SetBuf(b);
+  }
+
+  Chat::Chat(String b)
+  {
+    SetBuf(b);
     index_ = 0;
     offset_ = 0;
-	}
+  }
 
   Chat::~Chat ()
   {
   }
 
-	Chat::t_buffer						Chat::GetBuf()
-	{
-		return buffer_;
-	}
-
-	void								Chat::SetBuf(std::string b)
-	{
-		entry_ = b;
-    t_buffer tmp;
-		std::string w;
-		std::stringstream ss(b);
-		yap::String word = "";
-
-		while(ss >> w)
-			tmp.push_back(w);
-
-    buffer_ = tmp;
-	}
-
-  void                  Chat::IncOff()
+  Chat::BufferType			Chat::GetBuf()
   {
-    offset_++;
-    if (offset_ == HISTORYMAX)
-      offset_ = 0;
+    return buffer_;
   }
 
-	Chat::sCM							Chat::Parse()
-	{
-		sCM ret;
-		ChatCommand cc;
-    
-    /* Test Up arrow history */
-    if (buffer_.at(0).compare("/up") == 0)
-    {
-      t_buffer bufftosend;
-			ret.request_cmd = cc.GetCmd("echo");
-      bufftosend.push_back("UP : '" + GetUpHistory() + "'");
-      ret.request = bufftosend;
-      std::cout << "index " << index_ << std::endl;
-      return ret;
-    }
-    /* End Test */
-    
-    if (history_.size() < HISTORYMAX)
-      history_.push_back(entry_);
-    else
-      history_[offset_] = entry_;
-    IncOff();
-    
-    /* Test History */
-    if (buffer_.at(0).compare("/history") == 0)
-    {
-			ret.request_cmd = cc.GetCmd("echo");
-      ret.request = GetBufHistory();
-      return ret;
-    }
-    /* End TEST */
-
-		if (Check() && buffer_.at(0).size() > 2)
-		{
-			ret.request_cmd = cc.GetCmd(buffer_.at(0).substr(1).c_str());
-			if (buffer_.size() > 1)
-				ret.request = buffer_;
-		}
-		else
-		{
-			ret.request_cmd = cc.GetCmd("echo");
-			ret.request = buffer_;
-		}
-    index_ = offset_;
-
-		// Send the request
-		return ret;
-	}
-
-  yap::String         Chat::GetUpHistory()
+  void								  Chat::SetBuf(String b)
   {
-    if ((index_-- - 1) < 0)
+    entry_ = StringHelper::Trim(b);
+    BufferType* tmp = new BufferType;
+    String w;
+    std::stringstream ss(entry_);
+
+    while(ss >> w)
+      tmp->Add(w);
+
+    buffer_ = *tmp;
+  }
+
+  Chat::ChatManagerType	Chat::Parse()
+  {
+    ChatManagerType ret;
+    ChatCommand cc;
+
+    if (entry_.size() > 0)
     {
-      if (offset_ > 0)
+      /* Test Up arrow history */
+      if (buffer_[0].compare("/up") == 0)
       {
-        index_ = offset_;
-        return (history_[--index_]);
+        BufferType bufftosend;
+        ret.Request_cmd = cc.GetCmd("echo");
+        bufftosend.Add("UP : '" + GetUpHistory() + "'");
+        ret.Request = bufftosend;
+        std::cout << "index " << index_ << std::endl;
+        return ret;
+      }
+      /* End Test */
+
+      if (history_.Count() < HISTORYMAX)
+        history_.Add(entry_);
+      else
+        history_[offset_++] = entry_;
+      offset_ = offset_ == HISTORYMAX ? 0 : offset_;
+      index_ = offset_;
+
+      /* Test History */
+      if (buffer_[0].compare("/history") == 0)
+      {
+        ret.Request_cmd = cc.GetCmd("echo");
+        ret.Request = GetBufHistory();
+        return ret;
+      }
+      /* End TEST */
+
+      if (Check())
+      {
+        ret.Request_cmd = cc.GetCmd(buffer_[0].substr(1).c_str());
+        if (buffer_.Count() > 1)
+          ret.Request = buffer_;
       }
       else
       {
-        index_ = 0;
-        return "";
+        ret.Request_cmd = cc.GetCmd("echo");
+        ret.Request = buffer_;
       }
+      // Send the request
+      return ret;
+    }
+    else
+    {
+      ret.Request_cmd = cc.GetCmd("echo");
+      ret.Request = *(new BufferType);
+    }
+
+    return ret;
+  }
+
+  String                Chat::GetUpHistory()
+  {
+    if ((index_-- - 1) < 0)
+    {
+      index_ = history_.Count();
+      if (index_ > 0)
+        return (history_[--index_]);
+      else
+        return "";
     }
 
     return history_[index_];
   }
-  
-  Chat::t_buffer      Chat::GetBufHistory()
+
+  Chat::BufferType      Chat::GetBufHistory()
   {
-    t_buffer bufftosend;
-    bufftosend.push_back("History :\r\n");
-    for (size_t i = 0; i < history_.size() - 1; i++)
-      bufftosend.push_back(history_[i] + "\r\n");
-    bufftosend.push_back(history_[offset_ - 1]);
+    BufferType bufftosend;
+    bufftosend.Add("History :\r\n");
+    for (size_t i = 0; i < history_.Count() - 1; i++)
+      bufftosend.Add(history_[i] + "\r\n");
+    bufftosend.Add(history_[history_.Count() - 1]);
     return bufftosend;
   }
 
-  Chat::t_vs          Chat::GetHistory()
+  Chat::VStringType     Chat::GetHistory()
   {
     return history_;
   }
 
-	bool								Chat::Check()
-	{
-		return (buffer_.size() > 0 && buffer_.at(0)[0] == '/');
-	}
+  bool								  Chat::Check()
+  {
+    return (buffer_.Count() > 0 && buffer_[0][0] == '/');
+  }
 } // namespace yap

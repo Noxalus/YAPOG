@@ -8,7 +8,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
-# define NBCMDS 3
+# define NBCMDS 4
 
 namespace yap
 {
@@ -18,26 +18,27 @@ namespace yap
 	{
 		DISALLOW_COPY(ChatCommand);
 	public:
-		typedef yap::String (ChatCommand::*func)(t_buffer b);
+		typedef String (ChatCommand::*func)(BufferType b);
 		typedef struct sMyCmd
 		{
-			eCmds m_Key;
-			yap::String m_ptS;
+			MyCmds m_Key;
+			String m_ptS;
 		} sMC;
 		ChatCommand();
 
 		// Commands
-		yap::String							Help(t_buffer b);
-		yap::String							Unknown(t_buffer b);
-		yap::String							Trade(t_buffer b);
-		yap::String							Echo(t_buffer b);
+		String							Help(BufferType b);
+		String							Unknown(BufferType b);
+		String							Trade(BufferType b);
+		String							ChangeChan(BufferType b);
+		String							Echo(BufferType b);
 
 		// Get the command
-		func								    GetCmd (const char *pString);
+		func								GetCmd (const char *pString);
 		// Execute the command
-		yap::String							ExecCmd(t_buffer b, sCM f);
+		String							ExecCmd(BufferType b, ChatManagerType f);
 	private:
-		sMC                     tab_[NBCMDS];
+		sMC                 tab_[NBCMDS];
 	};
 } // namespace yap
 

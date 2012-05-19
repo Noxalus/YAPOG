@@ -8,20 +8,32 @@ namespace yap
 {
   class YAPOG_LIB StringHelper
   {
-      DISALLOW_COPY(StringHelper);
+    DISALLOW_COPY(StringHelper);
 
-    public:
+  public:
 
-      template <typename T>
-      static String ToString (const T& value);
+    template <typename T>
+    static String ToString (const T& value);
 
-	  template <typename T>
-	  static int CompareString (const T& s1, const T& s2);
+    template <typename T>
+    static int CompareString (const T& s1, const T& s2);
+    template <typename T>
+    static String& Ltrim(T& s);
+    template <typename T>
+    static String& Rtrim(T& s);
+    template <typename T>
+    static String& Trim(T& s);
+    template <typename T>
+    static String Trim(const T& s);
+    template <typename T>
+    static String Rtrim(const T& s);
+    template <typename T>
+    static String Ltrim(const T& s);
 
-    private:
+  private:
 
-      StringHelper ();
-      ~StringHelper ();
+    StringHelper ();
+    ~StringHelper ();
   };
 } // namespace yap
 

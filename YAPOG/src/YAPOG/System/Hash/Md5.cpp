@@ -2,63 +2,64 @@
 
 namespace yap
 {
-	typedef unsigned char *POINTER;
-	typedef unsigned short int UINT2;
-	typedef unsigned long int UINT4;
+  typedef struct {
+		Int64 state[4];
+		Int64 count[2];
+		uchar buffer[64];
+	} sMd5CTX;
 
-	typedef struct {
-		UINT4 state[4];
-		UINT4 count[2];
-		unsigned char buffer[64];
-	} MD5_CTX;
-
-	void MD5Init (MD5_CTX *);
-	void MD5Update (MD5_CTX *, const unsigned char *, unsigned int);
-	void MD5Final (unsigned char [16], MD5_CTX *);
+	void                  MD5Init (sMd5CTX *);
+	void                  MD5Update (sMd5CTX *,
+                                   const uchar *,
+                                   Int32);
+	void                  MD5Final (uchar [16],
+                                  sMd5CTX *);
 
 	Md5::Md5()
 	{
 	}
 
-	Md5::Md5(const std::string& source)
+	Md5::Md5(const String& source)
 	{
 		Calculate(source);
 	}
 
-	Md5::Md5(const unsigned char* source, uint32 len)
+	Md5::Md5(const uchar* source,
+           Int32 len)
 	{
 		Calculate(source, len);
 	}
 
-	Md5::Md5(std::ifstream& file)
+	Md5::Md5(IFStream& file)
 	{
 		Calculate(file);
 	}
 
-	std::string Md5::Calculate(const std::string& source)
+	String                Md5::Calculate(const String& source)
 	{
-		return Calculate((const unsigned char*)source.c_str(), source.size());
+		return Calculate((const uchar*)source.c_str(), source.size());
 	}
 
-	std::string Md5::Calculate(std::ifstream& file)
+	String                Md5::Calculate(IFStream& file)
 	{
 		file.seekg(0, std::ios::end);
 
-		int length = file.tellg();
+		Int32 length = file.tellg();
 
 		file.seekg(0, std::ios::beg);
 
 		char* buffer = new char [length];
 
 		file.read(buffer, length);
-		Calculate((unsigned char*) buffer, length);
+		Calculate((uchar*) buffer, length);
 		delete [] buffer;
 		return msHash_;
 	}
 
-	std::string Md5::Calculate(const unsigned char* source, uint32 len)
+	String                Md5::Calculate(const uchar* source,
+                                       Int32 len)
 	{
-		MD5_CTX context;
+		sMd5CTX context;
 
 		MD5Init(&context);
 		MD5Update(&context, source, len);
@@ -68,7 +69,7 @@ namespace yap
 		msHash_.reserve(32);
 		char buffer[3];
 		buffer[2] = '\0';
-		for (int i = 0; i < 16; ++i)
+		for (Int32 i = 0; i < 16; ++i)
 		{
 			sprintf(buffer, "%02x", mrawHash_[i]);
 			msHash_ += buffer;
@@ -76,11 +77,17 @@ namespace yap
 		return msHash_;
 	}
 
-	std::string Md5::GetHash() const
+	String                Md5::GetHash() const
 	{
 		return msHash_;
 	}
 
+  const uchar*          Md5::GetRawHash() const
+  {
+    return mrawHash_;
+  }
+
+#pragma region Definition
 #define S11 7
 #define S12 12
 #define S13 17
@@ -98,13 +105,13 @@ namespace yap
 #define S43 15
 #define S44 21
 
-	static void MD5Transform (UINT4 [4], const unsigned char [64]);
-	static void Encode (unsigned char *, const UINT4 *, unsigned int);
-	static void Decode (UINT4 *, const unsigned char *, unsigned int);
-	static void MD5Memcpy (POINTER, POINTER, unsigned int);
-	static void MD5Memset (POINTER, int, unsigned int);
+	static void           MD5Transform (Int64 [4], const uchar [64]);
+	static void           Encode (uchar *, const Int64 *, Int32);
+	static void           Decode (Int64 *, const uchar *, Int32);
+	static void MD5Memcpy (uchar*, uchar*, Int32);
+	static void MD5Memset (uchar*, Int32, Int32);
 
-	static unsigned char PADDING[64] = {
+	static uchar PADDING[64] = {
 		0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -131,33 +138,32 @@ namespace yap
 	Rotation is separate from addition to prevent recomputation.
 	*/
 #define FF(a, b, c, d, x, s, ac) { \
-	(a) += F ((b), (c), (d)) + (x) + (UINT4)(ac); \
+	(a) += F ((b), (c), (d)) + (x) + (Int64)(ac); \
 	(a) = ROTATE_LEFT ((a), (s)); \
 	(a) += (b); \
 		}
 #define GG(a, b, c, d, x, s, ac) { \
-	(a) += G ((b), (c), (d)) + (x) + (UINT4)(ac); \
+	(a) += G ((b), (c), (d)) + (x) + (Int64)(ac); \
 	(a) = ROTATE_LEFT ((a), (s)); \
 	(a) += (b); \
 		}
 #define HH(a, b, c, d, x, s, ac) { \
-	(a) += H ((b), (c), (d)) + (x) + (UINT4)(ac); \
+	(a) += H ((b), (c), (d)) + (x) + (Int64)(ac); \
 	(a) = ROTATE_LEFT ((a), (s)); \
 	(a) += (b); \
 		}
 #define II(a, b, c, d, x, s, ac) { \
-	(a) += I ((b), (c), (d)) + (x) + (UINT4)(ac); \
+	(a) += I ((b), (c), (d)) + (x) + (Int64)(ac); \
 	(a) = ROTATE_LEFT ((a), (s)); \
 	(a) += (b); \
 		}
+#pragma endregion
 
-	/* MD5 initialization. Begins an MD5 operation, writing a new context.
-	*/
-	void MD5Init (MD5_CTX *context)
+	/* MD5 initialization. Begins an MD5 operation, writing a new context. */
+	void                  MD5Init (sMd5CTX *context)
 	{
 		context->count[0] = context->count[1] = 0;
-		/* Load magic initialization constants.
-		*/
+		/* Load magic initialization constants. */
 		context->state[0] = 0x67452301;
 		context->state[1] = 0xefcdab89;
 		context->state[2] = 0x98badcfe;
@@ -166,28 +172,30 @@ namespace yap
 
 	/* MD5 block update operation. Continues an MD5 message-digest
 	operation, processing another message block, and updating the
-	context.
-	*/
-	void MD5Update (MD5_CTX *context, const unsigned char *input, unsigned int inputLen)
+	context. */
+	void                  MD5Update (sMd5CTX *context,
+                                   const uchar *input,
+                                   Int32 inputLen)
 	{
-		unsigned int i, index, partLen;
+		Int32 i = 0;
+    Int32 index = 0;
+    Int32 partLen = 0;
 
 		/* Compute number of bytes mod 64 */
-		index = (unsigned int)((context->count[0] >> 3) & 0x3F);
+		index = (Int32)((context->count[0] >> 3) & 0x3F);
 
 		/* Update number of bits */
-		if ((context->count[0] += ((UINT4)inputLen << 3))
-			< ((UINT4)inputLen << 3))
+		if ((context->count[0] += ((Int64)inputLen << 3))
+			< ((Int64)inputLen << 3))
 			context->count[1]++;
-		context->count[1] += ((UINT4)inputLen >> 29);
+		context->count[1] += ((Int64)inputLen >> 29);
 
 		partLen = 64 - index;
 
-		/* Transform as many times as possible.
-		*/
+		/* Transform as many times as possible. */
 		if (inputLen >= partLen) {
 			MD5Memcpy
-				((POINTER)&context->buffer[index], (POINTER)input, partLen);
+				((uchar*)&context->buffer[index], (uchar*)input, partLen);
 			MD5Transform (context->state, context->buffer);
 
 			for (i = partLen; i + 63 < inputLen; i += 64)
@@ -195,29 +203,28 @@ namespace yap
 
 			index = 0;
 		}
-		else
-			i = 0;
 
 		/* Buffer remaining input */
 		MD5Memcpy
-			((POINTER)&context->buffer[index], (POINTER)&input[i],
+			((uchar*)&context->buffer[index], (uchar*)&input[i],
 			inputLen-i);
 	}
 
 	/* MD5 finalization. Ends an MD5 message-digest operation, writing the
-	the message digest and zeroizing the context.
-	*/
-	void MD5Final (unsigned char digest[16], MD5_CTX *context)
+	the message digest and zeroizing the context. */
+	void                  MD5Final (uchar digest[16],
+                                  sMd5CTX *context)
 	{
-		unsigned char bits[8];
-		unsigned int index, padLen;
+		uchar bits[8];
+		Int32 index = 0;
+    Int32 padLen = 0;
 
 		/* Save number of bits */
 		Encode (bits, context->count, 8);
 
 		/* Pad out to 56 mod 64.
 		*/
-		index = (unsigned int)((context->count[0] >> 3) & 0x3f);
+		index = (Int32)((context->count[0] >> 3) & 0x3f);
 		padLen = (index < 56) ? (56 - index) : (120 - index);
 		MD5Update (context, PADDING, padLen);
 
@@ -228,14 +235,18 @@ namespace yap
 
 		/* Zeroize sensitive information.
 		*/
-		MD5Memset ((POINTER)context, 0, sizeof (*context));
+		MD5Memset ((uchar*)context, 0, sizeof (*context));
 	}
 
-	/* MD5 basic transformation. Transforms state based on block.
-	*/
-	static void MD5Transform (UINT4 state[4], const unsigned char block[64])
+	/* MD5 basic transformation. Transforms state based on block. */
+	static void           MD5Transform (Int64 state[4],
+                                      const uchar block[64])
 	{
-		UINT4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
+		Int64 a = state[0];
+    Int64 b = state[1];
+    Int64 c = state[2];
+    Int64 d = state[3];
+    Int64 x[16];
 
 		Decode (x, block, 64);
 
@@ -316,54 +327,56 @@ namespace yap
 		state[2] += c;
 		state[3] += d;
 
-		/* Zeroize sensitive information.
-		*/
-		MD5Memset ((POINTER)x, 0, sizeof (x));
+		/* Zeroize sensitive information. */
+		MD5Memset ((uchar*)x, 0, sizeof (x));
 	}
 
-	/* Encodes input (UINT4) into output (unsigned char). Assumes len is
-	a multiple of 4.
-	*/
-	static void Encode (unsigned char *output, const UINT4 *input, unsigned int len)
+	/* Encodes input (Int64) into output (uchar). Assumes len is
+	a multiple of 4. */
+	static void           Encode (uchar *output,
+                                const Int64 *input,
+                                Int32 len)
 	{
-		unsigned int i, j;
+		Int32 i, j;
 
 		for (i = 0, j = 0; j < len; i++, j += 4) {
-			output[j] = (unsigned char)(input[i] & 0xff);
-			output[j+1] = (unsigned char)((input[i] >> 8) & 0xff);
-			output[j+2] = (unsigned char)((input[i] >> 16) & 0xff);
-			output[j+3] = (unsigned char)((input[i] >> 24) & 0xff);
+			output[j] = (uchar)(input[i] & 0xff);
+			output[j+1] = (uchar)((input[i] >> 8) & 0xff);
+			output[j+2] = (uchar)((input[i] >> 16) & 0xff);
+			output[j+3] = (uchar)((input[i] >> 24) & 0xff);
 		}
 	}
 
-	/* Decodes input (unsigned char) into output (UINT4). Assumes len is
-	a multiple of 4.
-	*/
-	static void Decode (UINT4 *output, const unsigned char *input, unsigned int len)
+	/* Decodes input (uchar) into output (Int64). Assumes len is
+	a multiple of 4. */
+	static void           Decode (Int64 *output,
+                                const uchar *input,
+                                Int32 len)
 	{
-		unsigned int i, j;
+		Int32 i, j;
 
 		for (i = 0, j = 0; j < len; i++, j += 4)
-			output[i] = ((UINT4)input[j]) | (((UINT4)input[j+1]) << 8) |
-			(((UINT4)input[j+2]) << 16) | (((UINT4)input[j+3]) << 24);
+			output[i] = ((Int64)input[j]) | (((Int64)input[j+1]) << 8) |
+			(((Int64)input[j+2]) << 16) | (((Int64)input[j+3]) << 24);
 	}
 
-	/* Note: Replace "for loop" with standard memcpy if possible.
-	*/
-
-	static void MD5Memcpy (POINTER output, POINTER input, unsigned int len)
+	/* Note: Replace "for loop" with standard memcpy if possible. */
+	static void           MD5Memcpy (uchar* output,
+                                   uchar* input,
+                                   Int32 len)
 	{
-		unsigned int i;
+		Int32 i;
 
 		for (i = 0; i < len; i++)
 			output[i] = input[i];
 	}
 
-	/* Note: Replace "for loop" with standard memset if possible.
-	*/
-	static void MD5Memset (POINTER output, int value, unsigned int len)
+	/* Note: Replace "for loop" with standard memset if possible. */
+	static void           MD5Memset (uchar* output,
+                                   Int32 value,
+                                   Int32 len)
 	{
-		unsigned int i;
+		Int32 i;
 
 		for (i = 0; i < len; i++)
 			((char *)output)[i] = (char)value;

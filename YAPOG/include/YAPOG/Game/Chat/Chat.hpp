@@ -8,8 +8,6 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
-# define HISTORYMAX 1000
-
 namespace yap
 {
 	class ChatCommand;
@@ -17,34 +15,33 @@ namespace yap
 	{
 		DISALLOW_COPY(Chat);
 	public:
-    typedef std::vector<yap::String> t_vs;
+    typedef collection::Array<String> VStringType;
 		Chat ();
-		Chat (std::string b);
+		Chat (String b);
     ~Chat ();
 
     // Parse chat line
-		sCM								      Parse();
+		ChatManagerType Parse();
     
     // Getter & Setter for buffer_
-		t_buffer							  GetBuf();
-		void								    SetBuf(std::string b);
+		BufferType			GetBuf();
+		void            SetBuf(String b);
 
     // Chat History
-    yap::String             GetUpHistory();
-    t_buffer                GetBufHistory();
-    t_vs                    GetHistory();
+    String          GetUpHistory();
+    BufferType      GetBufHistory();
+    VStringType     GetHistory();
 
 	private:
-    void                    IncOff();
 		// Check if the user's entry is a command
-		bool								    Check();
+		bool						Check();
 
-		yap::String							entry_;
-		t_buffer							  buffer_;
-		yap::String							output_;
-    t_vs                    history_;
-    size_t                  offset_;
-    int                     index_;
+		String					entry_;
+		BufferType			buffer_;
+		String					output_;
+    VStringType     history_;
+    size_t          offset_;
+    Int32           index_;
 	};
 } // namespace yap
 

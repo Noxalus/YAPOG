@@ -2,7 +2,7 @@
 
 namespace yap
 {
-	FileChecker::FileChecker(boost::filesystem::path path)
+	FileChecker::FileChecker(PathType path)
 	{
 		path_ = path;
 		GetFileToDownload();
@@ -11,7 +11,7 @@ namespace yap
 		filesize_ = 0;
 	}
 
-	FileChecker::FileChecker(std::string filename)
+	FileChecker::FileChecker(String filename)
 	{
 		path_ = "";
 		filename_ = filename;
@@ -19,7 +19,9 @@ namespace yap
 		filesize_ = 0;
 	}
 
-	FileChecker::FileChecker(std::string filename, std::string md5, size_t filesize)
+	FileChecker::FileChecker(String filename,
+                           String md5,
+                           size_t filesize)
 	{
 		path_ = "";
 		filename_ = filename;
@@ -27,19 +29,20 @@ namespace yap
 		filesize_ = filesize;
 	}
 
-	FileChecker::MyFile::MyFile(std::string fn, size_t fs)
+	FileChecker::MyFile::MyFile(String fn,
+                              size_t fs)
 	{
-		filename = fn;
-		filesize = fs;
+		Filename = fn;
+		Filesize = fs;
 	}
 
 	FileChecker::~FileChecker()
 	{
-		t_vf::iterator it(vfile_.begin());
-		t_vf::iterator it_end(vfile_.end());
+    VFilesType::ItType it(vfile_.begin());
+    VFilesType::ItType it_end(vfile_.end());
 		
-		t_vs::iterator its(vstring_.begin());
-		t_vs::iterator its_end(vstring_.end());
+    VFileType::ItType its(vstring_.begin());
+    VFileType::ItType its_end(vstring_.end());
 
 		for (; it != it_end; it++)
 			delete(*it);
@@ -47,45 +50,46 @@ namespace yap
 			delete(*its);
 	}
 
-	void FileChecker::SetFilename(std::string filename)
+	void                    FileChecker::SetFilename(String filename)
 	{
 		filename_ = filename;
 	}
 
-	void FileChecker::SetMd5(std::string md5)
+	void                    FileChecker::SetMd5(String md5)
 	{
 		md5_ = md5;
 	}
 
-	std::string FileChecker::GetFilename()
+	String                  FileChecker::GetFilename()
 	{
 		return filename_;
 	}
 
-	std::string FileChecker::GetMd5()
+	String                  FileChecker::GetMd5()
 	{
 		return md5_;
 	}
 	
-	int FileChecker::GetFilesize()
+	int                     FileChecker::GetFilesize()
 	{
 		return filesize_;
 	}
 
-	FileChecker::t_vf FileChecker::GetVfile()
+	FileChecker::VFilesType FileChecker::GetVfile()
 	{
 		return vfile_;
 	}
 
-	bool FileChecker::Compare(FileChecker* const c, FileChecker* const s)
+	bool                    FileChecker::Compare(FileChecker* const c,
+                                               FileChecker* const s)
 	{
 		return (c->GetFilename() == s->GetFilename()
 			&& c->GetMd5 () == s->GetMd5());
 	}
 
-	void FileChecker::GetFileToDownload()
+	void                    FileChecker::GetFileToDownload()
 	{
-		t_vp vp;
+		VPathType vp;
 		try
 		{
 			if(boost::filesystem::exists(path_))
@@ -97,8 +101,8 @@ namespace yap
 					std::back_inserter(vp)
 					);
 
-				t_vp::const_iterator it(vp.begin());
-				t_vp::const_iterator it_end(vp.end());
+        VPathType::const_iterator it(vp.begin());
+        VPathType::const_iterator it_end(vp.end());
 
 				for (; it != it_end; it++)
 				{
@@ -109,11 +113,12 @@ namespace yap
 						i -= j;
 						std::ifstream f;
 						f.open(((*it).string()).c_str());
-						std::string mymd5 = md5.Calculate(f);
-						vfile_.push_back(
-							new FileChecker (((*it).string()).
-							substr(path_.string().length() + 1, i),
-							mymd5, boost::filesystem::file_size((*it).string()))
+						String mymd5 = md5.Calculate(f);
+						vfile_.Add(
+							new FileChecker (
+              ((*it).string()).substr(path_.string().length() + 1, i),
+							mymd5,
+              boost::filesystem::file_size((*it).string()))
 							);
 						f.close();
 					}
@@ -122,10 +127,10 @@ namespace yap
 						int i = ((*it).string()).length() + 1;
 						int j = path_.string().length();
 						i -= j;
-						vfile_.push_back(
+						vfile_.Add(
 							new FileChecker (((*it).string()).
 							substr(path_.string().length() + 1, i),
-							std::string ("0"), 0)
+							String ("0"), 0)
 							);
 					}
 				}
@@ -137,11 +142,12 @@ namespace yap
 		}
 	}
 
-	std::string FileChecker::VectorFind(t_vf vc, FileChecker* elt)
+	String                  FileChecker::VectorFind(VFilesType vc,
+                                                  FileChecker* elt)
 	{
-		t_vf::iterator it(vc.begin());
-		t_vf::iterator it_end(vc.end());
-		std::string name;
+    VFilesType::ItType it(vc.begin());
+    VFilesType::ItType it_end(vc.end());
+		String name;
 
 		for (; it != it_end; it++)
 		{
@@ -161,22 +167,22 @@ namespace yap
 		return (elt->GetMd5().compare("0") == 0 ? name + "0" : name);
 	}
 
-	FileChecker::t_vs FileChecker::SendFileToDownload(FileChecker& fc)
+	FileChecker::VFileType  FileChecker::SendFileToDownload(FileChecker& fc)
 	{
-		FileChecker::t_vs vbis;
+		FileChecker::VFileType vbis;
 
 		try
 		{
 			if(boost::filesystem::exists(path_))
 			{
-				t_vf::iterator it(vfile_.begin());
-				t_vf::iterator it_end(vfile_.end());
+        VFilesType::ItType it(vfile_.begin());
+        VFilesType::ItType it_end(vfile_.end());
 
 				for (; it != it_end; it++)
 				{
-					std::string ret = VectorFind(fc.GetVfile(), (*it));
+					String ret = VectorFind(fc.GetVfile(), (*it));
 					if (!ret.empty())
-						vbis.push_back(new MyFile(ret, (*it)->GetFilesize()));
+						vbis.Add(new MyFile(ret, (*it)->GetFilesize()));
 				}
 			}
 		}
@@ -188,15 +194,15 @@ namespace yap
 		return vbis;
 	}
 
-	bool FileChecker::UpdateFTP(FileChecker::t_vs vs)
+	bool                    FileChecker::UpdateFTP(VFileType vs)
 	{
 		sf::Ftp server;
-		FileChecker::t_vs::const_iterator it(vs.begin());
-		FileChecker::t_vs::const_iterator it_end(vs.end());
-		std::string path = "D:\\git\\YAPOG_downloadtest";
-		std::string address = "";
-		std::string login = "";
-		std::string pw = "";
+    FileChecker::VFileType::ConstItType it(vs.begin());
+    FileChecker::VFileType::ConstItType it_end(vs.end());
+		String path = path_.string();
+		String address = "";
+		String login = "";
+		String pw = "";
 		std::replace(path.begin(), path.end(), '\\', '/');
 
 		if (server.connect(address).isOk())
@@ -207,13 +213,13 @@ namespace yap
 				server.keepAlive();
 				for (; it != it_end; it++)
 				{
-					std::string n = (*it)->filename;
+					String n = (*it)->Filename;
 					std::replace (n.begin(), n.end(), '\\', '/');
-					std::string newpath = "";
+					String newpath = "";
 
 					int i = n.rfind('/');
 					bool dl = true;
-					std::string name = n;
+					String name = n;
 					server.keepAlive();
 					if (n[n.size() - 1] == '0')
 					{
@@ -223,7 +229,7 @@ namespace yap
 					}
 					else
 					{
-						if (i != std::string::npos)
+						if (i != String::npos)
 						{
 							name.assign(n, i + 1, n.size());
 							newpath.assign(n, 0, i);
@@ -248,7 +254,7 @@ namespace yap
 		return true;
 	}
 
-	bool FileChecker::Update(FileChecker::t_vs vs)
+	bool                    FileChecker::Update(VFileType vs)
 	{
 		try
 		{
@@ -256,8 +262,8 @@ namespace yap
 
 			// Get a list of endpoints corresponding to the server name.
 			// Try each endpoint until we successfully establish a connection.
-			FileChecker::t_vs::const_iterator it(vs.begin());
-			FileChecker::t_vs::const_iterator it_end(vs.end());
+      FileChecker::VFileType::ConstItType it(vs.begin());
+			FileChecker::VFileType::ConstItType it_end(vs.end());
 
 			for (; it != it_end; it++)
 			{
@@ -268,16 +274,15 @@ namespace yap
 				boost::asio::connect(socket, endpoint_iterator);
 
 				boost::asio::streambuf request;
-				std::ostream request_stream(&request);
-				std::string n = (*it)->filename;
+				OStream request_stream(&request);
+        String n = (*it)->Filename;
 				std::replace (n.begin(), n.end(), '\\', '/');
-				std::string path = path_.string();//"D:/git/YAPOG_downloadtest";
-				std::string newpath = "";
+				String path = path_.string();//"D:/git/YAPOG_downloadtest";
+				String newpath = "";
 
-				std::cout << path << std::endl;
 				int i = n.rfind('/');
 				bool dl = true;
-				std::string name = n;
+				String name = n;
 				if (n[n.size() - 1] == '0')
 				{
 					dl = false;
@@ -286,7 +291,7 @@ namespace yap
 				}
 				else
 				{
-					if (i != std::string::npos)
+					if (i != String::npos)
 					{
 						name.assign(n, i + 1, n.size());
 						newpath.assign(n, 0, i);
@@ -303,30 +308,33 @@ namespace yap
 
 					boost::asio::streambuf response;
 					boost::asio::read_until(socket, response, "\r\n");
-
-					std::istream response_stream(&response);
-					std::string http_version;
+          
+					IStream response_stream(&response);
+					String http_version;
 					response_stream >> http_version;
-					unsigned int status_code;
+					UInt32 status_code;
 					response_stream >> status_code;
-					std::string status_message;
+					String status_message;
 					std::getline(response_stream, status_message);
 					if (!response_stream || http_version.substr(0, 5) != "HTTP/")
 					{
-						std::cout << "Invalid response\n";
+						std::cout << "Invalid response\r\n";
 						return false;
 					}
 					if (status_code != 200)
 					{
-						std::cout << "Response returned with status code " << status_code << "\n";
+						std::cout << "Response returned with status code "
+                      << status_code << "\r\n";
 						return false;
 					}
 
-					size_t bytes = (*it)->filesize;
+          size_t bytes = (*it)->Filesize;
 					boost::system::error_code error;
-					std::ofstream outfile;
-					outfile.open((newpath.empty() ? path + "/" + name : (path + "/" + newpath + "/" + name)), std::ios::binary);
-					while (boost::asio::read(socket, response,
+					OFStream outfile;
+					outfile.open((newpath.empty() ? path + "/" + name : 
+                                          (path + "/" + newpath + "/" + name)),
+                       std::ios::binary);
+          while (boost::asio::read(socket, response,
 						boost::asio::transfer_exactly(bytes), error))
 					{
 						if (response.size() > bytes)

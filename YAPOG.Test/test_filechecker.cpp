@@ -15,10 +15,10 @@ int main()
 	yap::FileChecker fc (client);
 	
 	// List of name file needed to be download by the client
-	yap::FileChecker::t_vs vc = fs.SendFileToDownload(fc);
+	yap::FileChecker::VFileType vc = fs.SendFileToDownload(fc);
 	// Network test
 	fc.Update(vc);
 	
 	getchar();
-	return 0;
+  return 0;
 }

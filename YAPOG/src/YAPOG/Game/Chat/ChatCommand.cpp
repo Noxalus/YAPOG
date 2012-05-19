@@ -7,19 +7,19 @@ namespace yap
 	{
 		sMC tabs [] =
 		{
-			{c_Help, "help"},
-			{c_Trade, "trade"},
-			{c_Echo, "echo"}
+			{MyCmds::c_Help, "help"},
+			{MyCmds::c_Trade, "trade"},
+			{MyCmds::c_Echo, "echo"}
 		};
 
 		for (unsigned i = 0; i < NBCMDS; i++)
 			tab_[i] = tabs[i];
 	}
 
-	yap::String							ChatCommand::Help(ChatCommand::t_buffer s)
+	String							ChatCommand::Help(ChatCommand::BufferType s)
 	{
-		yap::String ret = "";
-		std::string nl = "\r\n";
+		String ret = "";
+		String nl = "\r\n";
 
 
 		ret = "Command list: " + nl
@@ -29,40 +29,40 @@ namespace yap
 		return ret;
 	}
 
-	yap::String							ChatCommand::Echo(ChatCommand::t_buffer b)
+	String							ChatCommand::Echo(ChatCommand::BufferType b)
 	{
-		yap::String str = "";
-    unsigned i = 0;
+		String str = "";
+    UInt32 i = 0;
 
-    if (b.at(i).compare("/echo") == 0)
+    if (b[i].compare("/echo") == 0)
       i++;
 
-		if (b.size() > 0)
+		if (b.Count() > 0)
 			str += b[i++];
-		for (; i < b.size(); i++)
+		for (; i < b.Count(); i++)
 			str += " " + b[i];
 
 		return str;
 	}
 
-	yap::String							ChatCommand::Unknown(ChatCommand::t_buffer s)
+	String							ChatCommand::Unknown(ChatCommand::BufferType s)
 	{
-		return ("Command " + s.at(0).substr(1) + " not exist.");
+		return ("Command " + s[0].substr(1) + " not exist.");
 	}
 
-	yap::String							ChatCommand::Trade(ChatCommand::t_buffer name)
+	String							ChatCommand::Trade(ChatCommand::BufferType name)
 	{
-		if (name.size() > 2)
+		if (name.Count() > 2)
 			return ("Unable to trade with so much people!!");
-		if (name.size() < 2)
+		if (name.Count() < 2)
 			return ("Unable to trade with nobody...");
-		return ("Trying to trade with " + name.at(1) + ".");
+		return ("Trying to trade with " + name[1] + ".");
 	}
 
 	ChatCommand::func					ChatCommand::GetCmd (const char *pString)
 	{
-		yap::String s(pString);
-		eCmds c = c_Unknown;
+		String s(pString);
+		MyCmds c = MyCmds::c_Unknown;
 
 		for (unsigned i = 0; i < NBCMDS; i++)
 		{
@@ -75,15 +75,15 @@ namespace yap
 
 		switch (c)
 		{
-		case yap::OPTChat::c_Help: return &ChatCommand::Help;
-		case yap::OPTChat::c_Trade: return &ChatCommand::Trade;
-		case yap::OPTChat::c_Echo: return &ChatCommand::Echo;
+    case yap::OPTChat::MyCmds::c_Help: return &ChatCommand::Help;
+    case yap::OPTChat::MyCmds::c_Trade: return &ChatCommand::Trade;
+		case yap::OPTChat::MyCmds::c_Echo: return &ChatCommand::Echo;
 		default: return &ChatCommand::Unknown;
 		}
 	}
 
-	yap::String						ChatCommand::ExecCmd(t_buffer b, sCM c)
+	String						ChatCommand::ExecCmd(BufferType b, ChatManagerType c)
 	{
-    return (this->*c.request_cmd)(c.request);
+    return (this->*c.Request_cmd)(c.Request);
 	}
 } // namespace yap

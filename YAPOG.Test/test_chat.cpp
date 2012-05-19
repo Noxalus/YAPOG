@@ -13,7 +13,9 @@ int main()
 		if (line.compare("exit") == 0)
 			break;
     mychat.SetBuf(line);
-		displayer.Display(mychat.GetBuf(), mychat.Parse());
+    mychat.GetBuf();
+    mychat.Parse();
+		//displayer.Display(mychat.GetBuf(), mychat.Parse());
 	}
 
 	return EXIT_SUCCESS;
