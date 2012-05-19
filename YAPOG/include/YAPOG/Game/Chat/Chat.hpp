@@ -4,13 +4,13 @@
 # include <iostream>
 # include <sstream>
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Chat/ChatCommand.hpp"
 # include "YAPOG/Game/Chat/OPTChat.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
-	class ChatCommand;
 	class YAPOG_LIB Chat : public OPTChat
 	{
 		DISALLOW_COPY(Chat);
@@ -21,27 +21,32 @@ namespace yap
     ~Chat ();
 
     // Parse chat line
-		ChatManagerType Parse();
+		ChatManagerType*  Parse();
     
     // Getter & Setter for buffer_
-		BufferType			GetBuf();
-		void            SetBuf(String b);
+		//BufferType			GetBuf();
+		void              SetBuf(String b);
 
     // Chat History
-    String          GetUpHistory();
-    BufferType      GetBufHistory();
-    VStringType     GetHistory();
+    String            GetUpHistory();
+    String            GetStringHistory();
+    BufferType        GetBufHistory();
+    VStringType       GetHistory();
+    bool              ChangeChan();
 
 	private:
+    void              IncOff();
 		// Check if the user's entry is a command
-		bool						Check();
-
-		String					entry_;
-		BufferType			buffer_;
-		String					output_;
-    VStringType     history_;
-    size_t          offset_;
-    Int32           index_;
+		bool					  	Check();
+    
+    ChatManagerType*  chatmanager_;
+    size_t            offset_;
+    Int32             index_;
+    Int32             chan_;
+		String					  entry_;
+		String					  output_;
+		BufferType			  buffer_;
+    VStringType       history_;
 	};
 } // namespace yap
 

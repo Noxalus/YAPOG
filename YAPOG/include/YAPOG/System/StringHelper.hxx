@@ -20,8 +20,8 @@ namespace yap
   template <typename T>
   inline int StringHelper::CompareString(const T& s1, const T& s2)
   {
-    std::String::const_iterator it1 = s1.begin();
-    std::String::const_iterator it2 = s2.begin();
+    String::const_iterator it1 = s1.begin();
+    String::const_iterator it2 = s2.begin();
 
     while ((it1 != s1.end()) && (it2 != s2.end())) { 
       if(::toupper(*it1) != ::toupper(*it2)) 

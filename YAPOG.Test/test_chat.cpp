@@ -5,17 +5,18 @@
 int main()
 {
 	yap::ChatDisplayer displayer;
-	std::string line;
+	std::string line = "";
 	yap::Chat mychat;
 	while (true)
 	{
-		std::getline(std::cin, line);
+    while (line.compare("") == 0)
+		  std::getline(std::cin, line);
 		if (line.compare("exit") == 0)
 			break;
     mychat.SetBuf(line);
-    mychat.GetBuf();
-    mychat.Parse();
-		//displayer.Display(mychat.GetBuf(), mychat.Parse());
+    if (!mychat.ChangeChan())
+		  displayer.Display(mychat.Parse());
+    line = "";
 	}
 
 	return EXIT_SUCCESS;

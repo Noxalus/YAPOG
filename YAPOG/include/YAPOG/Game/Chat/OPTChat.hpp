@@ -22,20 +22,13 @@ namespace yap
 		typedef collection::Array<String>	BufferType;
     typedef collection::Array<Int16>	ChanType;
 	  typedef String (ChatCommand::*func)(BufferType b);
-		
-		enum class MyCmds
-		{
-			c_Help,
-			c_Trade,
-			c_Echo,
-      c_ChangeChan,
-			c_Unknown,
-		};
 		typedef struct ChatManager
 		{
+      ChatManager();
+
       UInt32            ChanNb;
 			BufferType				Request;
-			func					    Request_cmd;
+			func					    RequestCmd;
 		} ChatManagerType;
 	};
 } // namespace yap

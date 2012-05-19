@@ -8,37 +8,37 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
-# define NBCMDS 4
+# define NBCMDS 3
 
 namespace yap
 {
 	class Chat;
+  class ChatDisplayer;
 
 	class YAPOG_LIB ChatCommand : public OPTChat
 	{
 		DISALLOW_COPY(ChatCommand);
 	public:
 		typedef String (ChatCommand::*func)(BufferType b);
-		typedef struct sMyCmd
+		typedef struct MyCmd
 		{
-			MyCmds m_Key;
-			String m_ptS;
-		} sMC;
+			String  PtrString;
+      func    PtrFunc;
+		} MyCmdType;
 		ChatCommand();
 
 		// Commands
 		String							Help(BufferType b);
 		String							Unknown(BufferType b);
 		String							Trade(BufferType b);
-		String							ChangeChan(BufferType b);
 		String							Echo(BufferType b);
 
 		// Get the command
 		func								GetCmd (const char *pString);
 		// Execute the command
-		String							ExecCmd(BufferType b, ChatManagerType f);
+		String							ExecCmd(ChatDisplayer* cd, ChatManagerType* f);
 	private:
-		sMC                 tab_[NBCMDS];
+		MyCmdType           tab_[NBCMDS];
 	};
 } // namespace yap
 

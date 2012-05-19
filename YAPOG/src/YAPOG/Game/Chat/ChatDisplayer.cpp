@@ -33,13 +33,11 @@ namespace yap
     Color = color;
   }
 
-  void								ChatDisplayer::Display(ChatDisplayer::BufferType& b,
-                                             ChatDisplayer::ChatManagerType& c)
+  void								ChatDisplayer::Display(ChatManagerType* c)
   {
     ChatCommand cc;
-    if (b.Count() > 0)
-    {
-      std::cout << cc.ExecCmd(b, c) << std::endl;
-    }
+    String strToDisp = cc.ExecCmd(this, c);
+    chans_[c->ChanNb]->Buff.Add(strToDisp);
+    std::cout << c->ChanNb << " (" << chans_[c->ChanNb]->Color << ") :: "<< strToDisp << std::endl;
   }
 } // namespace yap

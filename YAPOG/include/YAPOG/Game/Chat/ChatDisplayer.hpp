@@ -26,7 +26,7 @@ namespace yap
 		ChatDisplayer();
     ~ChatDisplayer();
 		
-		void								Display(BufferType& s, ChatManagerType& c);
+		void								Display(ChatManagerType* c);
   private:
     ChansType           chans_;
 	};

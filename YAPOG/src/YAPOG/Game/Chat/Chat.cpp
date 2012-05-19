@@ -8,6 +8,7 @@ namespace yap
     entry_ = "";
     index_ = 0;
     offset_ = 0;
+    chatmanager_ = new ChatManager();
   }
 
   Chat::Chat(String b)
@@ -15,21 +16,17 @@ namespace yap
     SetBuf(b);
     index_ = 0;
     offset_ = 0;
+    chatmanager_ = new ChatManager();
   }
 
   Chat::~Chat ()
   {
   }
 
-  Chat::BufferType			Chat::GetBuf()
+  void								    Chat::SetBuf(String b)
   {
-    return buffer_;
-  }
-
-  void								  Chat::SetBuf(String b)
-  {
-    entry_ = StringHelper::Trim(b);
     BufferType* tmp = new BufferType;
+    entry_ = b;
     String w;
     std::stringstream ss(entry_);
 
@@ -39,62 +36,100 @@ namespace yap
     buffer_ = *tmp;
   }
 
-  Chat::ChatManagerType	Chat::Parse()
+  bool                    Chat::ChangeChan()
   {
-    ChatManagerType ret;
+    if (buffer_.Count() > 0 && Check())
+    {
+      String cmd = buffer_[0].substr(1);
+
+      if (StringHelper::CompareString(cmd, String ("ChangeChan")) == 0)
+      {
+        if (buffer_.Count() == 1)
+        {
+          BufferType bufftodisp = *(new BufferType);
+
+          bufftodisp.Add("/echo");
+          bufftodisp.Add("Chan number is missing.");
+
+          return false;
+        }
+        if (buffer_.Count() > 2)
+        {
+          BufferType bufftodisp = *(new BufferType);
+
+          bufftodisp.Add("/echo");
+          bufftodisp.Add("Too much argument.");
+
+          return false;
+        }
+        if (buffer_.Count() == 2)
+        {
+          String chanNb = buffer_[1];
+        }
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  void                    Chat::IncOff()
+  {
+    if (history_.Count() < HISTORYMAX)
+      history_.Add(entry_);
+    else
+      history_[offset_++] = entry_;
+    offset_ = offset_ == HISTORYMAX ? 0 : offset_;
+    index_ = offset_;
+  }
+
+  Chat::ChatManagerType*	Chat::Parse()
+  {
     ChatCommand cc;
 
-    if (entry_.size() > 0)
+    if (buffer_.Count() == 0)
     {
-      /* Test Up arrow history */
-      if (buffer_[0].compare("/up") == 0)
-      {
-        BufferType bufftosend;
-        ret.Request_cmd = cc.GetCmd("echo");
-        bufftosend.Add("UP : '" + GetUpHistory() + "'");
-        ret.Request = bufftosend;
-        std::cout << "index " << index_ << std::endl;
-        return ret;
-      }
-      /* End Test */
+      chatmanager_->RequestCmd = cc.GetCmd("echo");
+      chatmanager_->Request.Add(entry_);
+      IncOff();
+      return chatmanager_;
+    }
+    /* Test Up arrow history */
+    if (Check() && StringHelper::CompareString(buffer_[0], String ("/up")) == 0)
+    {
+      chatmanager_->RequestCmd = cc.GetCmd("echo");
+      chatmanager_->Request.Add("UP : '" + GetUpHistory() + "'");
+      std::cout << "index " << index_ << std::endl;
 
-      if (history_.Count() < HISTORYMAX)
-        history_.Add(entry_);
-      else
-        history_[offset_++] = entry_;
-      offset_ = offset_ == HISTORYMAX ? 0 : offset_;
-      index_ = offset_;
+      return chatmanager_;
+    }
+    /* End Test */
+    
+    IncOff();
 
-      /* Test History */
-      if (buffer_[0].compare("/history") == 0)
-      {
-        ret.Request_cmd = cc.GetCmd("echo");
-        ret.Request = GetBufHistory();
-        return ret;
-      }
-      /* End TEST */
+    /* Test History */
+    if (Check() && StringHelper::CompareString(buffer_[0], String ("/history")) == 0)
+    {
+      chatmanager_->RequestCmd = cc.GetCmd("echo");
+      chatmanager_->Request.Add(GetStringHistory());
 
-      if (Check())
-      {
-        ret.Request_cmd = cc.GetCmd(buffer_[0].substr(1).c_str());
-        if (buffer_.Count() > 1)
-          ret.Request = buffer_;
-      }
-      else
-      {
-        ret.Request_cmd = cc.GetCmd("echo");
-        ret.Request = buffer_;
-      }
-      // Send the request
-      return ret;
+      return chatmanager_;
+    }
+    /* End TEST */
+
+    if (Check())
+    {
+      chatmanager_->RequestCmd = cc.GetCmd(buffer_[0].substr(1).c_str());
+      chatmanager_->Request = buffer_;
     }
     else
     {
-      ret.Request_cmd = cc.GetCmd("echo");
-      ret.Request = *(new BufferType);
+      chatmanager_->RequestCmd = cc.GetCmd("echo");
+      chatmanager_->Request.Add(entry_);
     }
+    // Send the request
 
-    return ret;
+    return chatmanager_;
   }
 
   String                Chat::GetUpHistory()
@@ -111,9 +146,20 @@ namespace yap
     return history_[index_];
   }
 
+  String                Chat::GetStringHistory()
+  {
+    String stringtosend = "";
+    stringtosend += "History :\r\n";
+    for (size_t i = 0; i < history_.Count() - 1; i++)
+      stringtosend += history_[i] + "\r\n";
+    stringtosend += history_[history_.Count() - 1];
+    return stringtosend;
+  }
+
   Chat::BufferType      Chat::GetBufHistory()
   {
     BufferType bufftosend;
+    std::cout << history_.Count() << std::endl;
     bufftosend.Add("History :\r\n");
     for (size_t i = 0; i < history_.Count() - 1; i++)
       bufftosend.Add(history_[i] + "\r\n");
@@ -128,6 +174,6 @@ namespace yap
 
   bool								  Chat::Check()
   {
-    return (buffer_.Count() > 0 && buffer_[0][0] == '/');
+    return (buffer_.Count() > 0 && entry_[0] == '/');
   }
 } // namespace yap
