@@ -20,8 +20,10 @@ namespace yap
 
     // from server to client
     ServerInfoLoginValidation,
+    ServerInfoLoginError,
 
     ServerInfoStartInfo,
+    ServerInfoChangeMap,
 
     ServerInfoObjectMove
   };

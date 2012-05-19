@@ -1,10 +1,13 @@
 #ifndef YAPOG_SERVER_CLIENTSESSION_HPP
 # define YAPOG_SERVER_CLIENTSESSION_HPP
 
+# include <SFML/Network/SocketSelector.hpp>
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 # include "YAPOG/System/Network/ClientSocket.hpp"
+# include "YAPOG/System/Network/NetworkHandler.hpp"
 
 # include "Server/User.hpp"
 
@@ -21,6 +24,10 @@ namespace yse
 
       void Init ();
 
+      void Refresh ();
+
+      void HandleReception ();
+
       yap::ClientSocket& GetSocket ();
 
       /// @name IPacketHandler members.
@@ -34,11 +41,12 @@ namespace yse
 
     private:
 
-      void HandleNone (yap::IPacket& packet);
+      void HandleClientInfoDeconnection (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 
       yap::ClientSocket socket_;
+      yap::NetworkHandler networkHandler_;
 
       User user_;
   };

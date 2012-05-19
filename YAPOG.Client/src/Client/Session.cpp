@@ -4,10 +4,13 @@
 
 #include "Client/Session.hpp"
 
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace ycl
 {
   const yap::String Session::DEFAULT_REMOTE_IP = "localhost";
   const yap::Int16 Session::DEFAULT_REMOTE_PORT = 8008;
+
+  const yap::Time Session::DEFAULT_DATA_WAITING_DELAY = yap::Time (2.0f);
 
   Session::Session ()
     : packetHandler_ ()
@@ -15,9 +18,11 @@ namespace ycl
     , receptionIsActive_ (false)
     , socket_ ()
     , networkHandler_ (socket_)
-    , socketSelector_ ()
     , user_ ()
   {
+    ADD_HANDLER(
+      ServerInfoLoginValidation,
+      Session::HandleServerInfoLoginValidation);
   }
 
   Session::~Session ()
@@ -34,8 +39,14 @@ namespace ycl
   void Session::Refresh ()
   {
     while (!networkHandler_.IsEmpty ())
-      if (!HandlePacket (*networkHandler_.GetPacket ()))
+    {
+      yap::PacketPtrType packet (networkHandler_.GetPacket ());
+      yap::DebugLogger::Instance ().LogLine (
+        "Packet: " +
+        yap::StringHelper::ToString (static_cast<int> (packet->GetType ())));
+      if (!HandlePacket (*packet))
         YAPOG_THROW("Wrong packet received.");
+    }
   }
 
   void Session::Login (const yap::String& login)
@@ -84,17 +95,33 @@ namespace ycl
 
     AddRelay (&user_);
 
-    socketSelector_.add (socket_.GetInnerSocket ());
-
     receptionIsActive_ = true;
     receptionThread_.Launch ();
 
     return true;
   }
 
+  void Session::Disconnect ()
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ClientInfoDeconnection);
+    SendPacket (packet);
+
+    socket_.Disconnect ();
+
+    receptionIsActive_ = false;
+  }
+
   void Session::HandleReception ()
   {
     while (receptionIsActive_)
-      networkHandler_.Refresh (socketSelector_);
+      networkHandler_.Refresh ();
+  }
+
+  void Session::HandleServerInfoLoginValidation (yap::IPacket& packet)
+  {
+    yap::Packet tmppacket;
+    tmppacket.CreateFromType (yap::PacketType::None);
+    SendPacket (tmppacket);
   }
 } // namespace ycl

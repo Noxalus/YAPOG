@@ -18,18 +18,18 @@ namespace yap
 
       const Vector2& GetForce () const;
 
-      void SetValue (float value);
+      void SetValue (const Vector2& value);
 
     protected:
 
       WorldObjectMoveController ();
 
       Vector2 force_;
-      float value_;
+      Vector2 value_;
 
     private:
 
-      static const float DEFAULT_VALUE;
+      static const Vector2 DEFAULT_VALUE;
   };
 } // namespace yap
 

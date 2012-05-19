@@ -18,6 +18,7 @@ namespace yse
     , socket_ ()
     , listeningThread_ ([&] () { HandleListening (); })
     , port_ (DEFAULT_PORT)
+    , clients_ ()
     , world_ ()
   {
   }
@@ -37,17 +38,19 @@ namespace yse
 
     listeningThread_.Launch ();
 
+    clients_.LaunchReception ();
+
     while (isRunning_)
     {
-      break;
+      clients_.Refresh ();
     }
+
+    clients_.Dispose ();
   }
 
   void Server::AddClient (ClientSession* client)
   {
-    client->Init ();
-
-    clients_.Add (client);
+    clients_.AddClient (client);
   }
 
   void Server::HandleListening ()
@@ -57,11 +60,21 @@ namespace yse
       ClientSession* client = new ClientSession ();
 
       if (!socket_.Accept (client->GetSocket ()))
-        YAPOG_THROW("Failed to accept client `xxx'");
+        YAPOG_THROW("Failed to accept client `" +
+                    client->GetSocket ().GetRemoteAddress () +
+                    "'.");
 
-      yap::DebugLogger::Instance ().LogLine ("new commer");
+      yap::DebugLogger::Instance ().LogLine (
+        "Client connected: `" +
+        client->GetSocket ().GetRemoteAddress () +
+        "'.");
 
       AddClient (client);
+
+      /// @todo erase (tmp)
+      yap::Packet packet;
+      packet.CreateFromType (yap::PacketType::ServerInfoLoginValidation);
+      client->SendPacket (packet);
     }
   }
 } // namespace yse

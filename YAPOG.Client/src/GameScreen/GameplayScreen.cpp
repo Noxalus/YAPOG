@@ -1,8 +1,10 @@
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
+#include "Client/Session.hpp"
 
 namespace ycl
 {
@@ -14,6 +16,14 @@ namespace ycl
     , cameraController_ (worldCamera)
     , moveController_ ()
   {
+    session_.GetUser ().OnPlayerCreated += [&] (
+      const User& sender,
+      Player* args)
+    {
+      SetPlayer (args);
+    };
+
+    session_.GetUser ().SetWorld (&world_);
   }
 
   GameplayScreen::~GameplayScreen ()
@@ -24,8 +34,10 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    // tmp
-    world_.ChangeMap (yap::ID (1));
+    SetPlayer (objectFactory_.Create<Player> ("Player", yap::ID (1)));
+
+    Map* map = objectFactory_.Get<Map> ("Map", yap::ID (1));
+    map->AddPlayer (player_);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -33,10 +45,12 @@ namespace ycl
     yap::IDrawingContext& context)
   {
     world_.Update (dt);
-    world_.Draw (context);
 
-    /// @todo add a move controller, player etc, map loading
-    /// and send applied forces to the server.
+    cameraController_.Update (dt);
+
+    UpdatePlayer (dt);
+
+    world_.Draw (context);
 
     return BaseScreen::HandleRun (dt, context);
   }
@@ -110,8 +124,15 @@ namespace ycl
     return false;
   }
 
+  Map& GameplayScreen::GetCurrentMap ()
+  {
+    return world_.GetCurrentMap ();
+  }
+
   void GameplayScreen::SetCurrentMap (Map& map)
   {
+    world_.ChangeMap (map.GetID ());
+
     cameraController_.SetBounds (
       yap::FloatRect (
         yap::Vector2 (),
@@ -129,7 +150,14 @@ namespace ycl
       SetCurrentMap (*args.Current);
     };
 
+    moveController_.SetValue (player_->GetMaxVelocity ());
+
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
+  }
+
+  void GameplayScreen::UpdatePlayer (const yap::Time& dt)
+  {
+    player_->ApplyForce (moveController_.GetForce ());
   }
 } // namespace ycl

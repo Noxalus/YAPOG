@@ -2,7 +2,8 @@
 
 namespace yap
 {
-  const float WorldObjectMoveController::DEFAULT_VALUE = 0.0f;
+  const Vector2 WorldObjectMoveController::DEFAULT_VALUE =
+    Vector2 (0.0f, 0.0f);
 
   WorldObjectMoveController::WorldObjectMoveController ()
     : force_ ()
@@ -19,7 +20,7 @@ namespace yap
     return force_;
   }
 
-  void WorldObjectMoveController::SetValue (float value)
+  void WorldObjectMoveController::SetValue (const Vector2& value)
   {
     value_ = value;
   }

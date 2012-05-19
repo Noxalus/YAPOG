@@ -22,6 +22,7 @@ namespace ycl
       virtual ~World ();
 
       void ChangeMap (const yap::ID& id);
+      Map& GetCurrentMap ();
 
       /// @name IDrawable members.
       /// @{

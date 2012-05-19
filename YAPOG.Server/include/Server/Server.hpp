@@ -8,6 +8,7 @@
 # include "YAPOG/System/Thread/Thread.hpp"
 
 # include "World/World.hpp"
+# include "Server/ClientManager.hpp"
 
 namespace yse
 {
@@ -39,7 +40,7 @@ namespace yse
 
       yap::Int16 port_;
 
-      yap::collection::List<ClientSession*> clients_;
+      ClientManager clients_;
 
       World world_;
   };

@@ -35,6 +35,11 @@ namespace ycl
     currentMap_ = maps_[currentMapID_];
   }
 
+  Map& World::GetCurrentMap ()
+  {
+    return *currentMap_;
+  }
+
   void World::AddMap (const yap::ID& id)
   {
     AddMap (yap::ObjectFactory::Instance ().Get<Map> ("Map", id));
@@ -74,12 +79,14 @@ namespace ycl
 
   void World::HandleUpdate (const yap::Time& dt)
   {
-    currentMap_->Update (dt);
+    if (currentMap_ != nullptr)
+      currentMap_->Update (dt);
   }
 
   void World::HandleDraw (yap::IDrawingContext& context)
   {
-    currentMap_->Draw (context);
+    if (currentMap_ != nullptr)
+      currentMap_->Draw (context);
   }
 
   void World::HandleShow (bool isVisible)

@@ -46,6 +46,8 @@ ${src_root}/Database/Requests/Updates/PlayerDataUpdateRequest.cpp
 
 ${inc_root}/Server/Server.hpp
 ${src_root}/Server/Server.cpp
+${inc_root}/Server/ClientManager.hpp
+${src_root}/Server/ClientManager.cpp
 ${inc_root}/Server/ClientSession.hpp
 ${src_root}/Server/ClientSession.cpp
 ${inc_root}/Server/User.hpp

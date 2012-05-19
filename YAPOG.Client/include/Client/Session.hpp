@@ -1,8 +1,6 @@
 #ifndef YAPOG_CLIENT_SESSION_HPP
 # define YAPOG_CLIENT_SESSION_HPP
 
-# include <SFML/Network/SocketSelector.hpp>
-
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
@@ -26,6 +24,7 @@ namespace ycl
       void Refresh ();
 
       void Login (const yap::String& login);
+      void Disconnect ();
 
       User& GetUser ();
 
@@ -46,8 +45,12 @@ namespace ycl
       bool Connect ();
       void HandleReception ();
 
+      void HandleServerInfoLoginValidation (yap::IPacket& packet);
+
       static const yap::String DEFAULT_REMOTE_IP;
       static const yap::Int16 DEFAULT_REMOTE_PORT;
+
+      static const yap::Time DEFAULT_DATA_WAITING_DELAY;
 
       yap::PacketHandler packetHandler_;
 
@@ -56,7 +59,6 @@ namespace ycl
 
       yap::ClientSocket socket_;
       yap::NetworkHandler networkHandler_;
-      sf::SocketSelector socketSelector_;
 
       User user_;
   };

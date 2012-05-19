@@ -1,3 +1,7 @@
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
+
 #include "Server/ClientSession.hpp"
 
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
@@ -6,6 +10,7 @@ namespace yse
   ClientSession::ClientSession ()
     : packetHandler_ ()
     , socket_ ()
+    , networkHandler_ (socket_)
     , user_ ()
   {
   }
@@ -16,9 +21,30 @@ namespace yse
 
   void ClientSession::Init ()
   {
-    AddRelay (&user_);
+//    AddRelay (&user_);
 
-    ADD_HANDLER(None, ClientSession::HandleNone);
+//    ADD_HANDLER(
+//      ClientInfoDeconnection,
+//      ClientSession::HandleClientInfoDeconnection);
+  }
+
+  void ClientSession::Refresh ()
+  {
+//    yap::DebugLogger::Instance ().LogLine ("session_refresh");
+    while (!networkHandler_.IsEmpty ())
+    {
+      yap::PacketPtrType packet (networkHandler_.GetPacket ());
+
+      yap::DebugLogger::Instance ().LogLine (
+        "Packet: " + yap::StringHelper::ToString (static_cast<int> (packet->GetType ())));
+      if (!HandlePacket (*packet));
+//        YAPOG_THROW("Wrong packet received.");
+    }
+  }
+
+  void ClientSession::HandleReception ()
+  {
+    networkHandler_.Refresh ();
   }
 
   yap::ClientSocket& ClientSession::GetSocket ()
@@ -46,9 +72,10 @@ namespace yse
     packetHandler_.SetParent (parent);
   }
 
-  /// @brief test.
-  void ClientSession::HandleNone (yap::IPacket& packet)
+  void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)
   {
-    yap::DebugLogger::Instance ().LogLine ("toto");
+    yap::DebugLogger::Instance ().LogLine ("Client disconnected: `" +
+                                           socket_.GetRemoteAddress () +
+                                           "'.");
   }
 } // namespace yse

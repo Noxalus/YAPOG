@@ -8,6 +8,7 @@
 
 namespace ycl
 {
+  class World;
   class Player;
 
   class User : public yap::IPacketHandler
@@ -19,6 +20,8 @@ namespace ycl
       User ();
       virtual ~User ();
 
+      void SetWorld (World* world);
+
       /// @name IPacketHandler members.
       /// @{
       virtual bool HandlePacket (yap::IPacket& packet);
@@ -28,14 +31,17 @@ namespace ycl
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
 
-      yap::Event<const User&, const Player*> OnPlayerCreated;
+      yap::Event<const User&, Player*> OnPlayerCreated;
 
     private:
+
+      World& GetWorld ();
 
       void SetPlayer (Player* player);
 
       yap::PacketHandler packetHandler_;
 
+      World* world_;
       Player* player_;
   };
 } // namespace ycl

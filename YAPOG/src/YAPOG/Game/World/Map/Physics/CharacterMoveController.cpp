@@ -62,10 +62,10 @@ namespace yap
 
     switch (currentDirection)
     {
-      case Direction::North: force_ = Vector2 (0.0f, -value_); break;
-      case Direction::East: force_ = Vector2 (value_, 0.0f); break;
-      case Direction::South: force_ = Vector2 (0.0f, value_); break;
-      case Direction::West: force_ = Vector2 (-value_, 0.0f); break;
+      case Direction::North: force_ = Vector2 (0.0f, -value_.y); break;
+      case Direction::East: force_ = Vector2 (value_.x, 0.0f); break;
+      case Direction::South: force_ = Vector2 (0.0f, value_.y); break;
+      case Direction::West: force_ = Vector2 (-value_.x, 0.0f); break;
       default: break;
     }
   }

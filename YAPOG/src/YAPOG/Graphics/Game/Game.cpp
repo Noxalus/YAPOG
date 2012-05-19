@@ -49,7 +49,7 @@ namespace yap
         GameInputManager::Instance ().Update (guiEvent);
 
         screenManager_->OnPriorityEvent (guiEvent);
-          
+
         if (!screenManager_->OnEvent (guiEvent))
           HandleOnEvent (guiEvent);
       }
@@ -64,10 +64,21 @@ namespace yap
 
       window_->display ();
     }
+
+    Dispose ();
+  }
+
+  void Game::Dispose ()
+  {
+    HandleDispose ();
   }
 
   void Game::HandleRun (const Time& dt, IDrawingContext& context)
   {
     screenManager_->Run (dt, context);
+  }
+
+  void Game::HandleDispose ()
+  {
   }
 } // namespace yap
