@@ -10,6 +10,12 @@ namespace yap
   }
 
   template <typename T>
+  inline const T XmlTree::Get () const
+  {
+    return data_->get_value <T> ();
+  }
+
+  template <typename T>
   inline void XmlTree::Add (const String& name, const T& value)
   {
     data_->put (name, value);

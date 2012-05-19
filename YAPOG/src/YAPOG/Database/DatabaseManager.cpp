@@ -6,19 +6,27 @@ namespace yap
 	DatabaseManager::DatabaseManager ()
 		: dl_ (nullptr)
 	{
-		try
-		{
-			connection_.connect("dbname=yapog user=postgres password=COUCOU port=5432");
-		}
-		catch (pg_excpt e)
-		{
-			std::cerr << e.errmsg ();
-		}
 	}
 
 	DatabaseManager::~DatabaseManager ()
 	{
 	}
+
+  void DatabaseManager::Connect ()
+  {
+    try
+		{
+			connection_.connect(
+        "dbname=yapog "
+        "user=postgres "
+        "password=COUCOU "
+        "port=5432");
+		}
+		catch (pgs::pg_excpt e)
+		{
+      std::cerr << e.full_error_txt ();
+		}
+  }
 
 	void DatabaseManager::SetLogStream (OStream& os)
 	{
@@ -28,7 +36,7 @@ namespace yap
 		dl_ = new DatabaseLogger (os);
 	}
 
-	pg_cnx& DatabaseManager::GetConnection ()
+	pgs::pg_cnx& DatabaseManager::GetConnection ()
 	{
 		return connection_;
 	}

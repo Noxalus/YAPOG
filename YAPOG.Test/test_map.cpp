@@ -14,4 +14,7 @@ int main ()
   }
 
   std::cout << v.Count () << std::endl;
+
+  v[20] = 3.0;
+  std::cout << 2 + v[20] << std::endl;
 }

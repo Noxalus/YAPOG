@@ -12,6 +12,7 @@ namespace yap
 {
   struct IGameScreenManager;
   struct IDrawingContext;
+
   class Time;
   class GuiEvent;
 
@@ -33,20 +34,19 @@ namespace yap
 
     protected:
 
+      virtual void HandleInit () = 0;
+      virtual void HandleRun (const Time& dt, IDrawingContext& context);
+      virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+
       IGameScreenManager* screenManager_;
 
       IDrawingContext* drawingContext_;
-      /// Handle of the RenderWindow.
-      /// MUST NOT be deleted from here.
+
       sf::RenderWindow* window_;
 
       const String name_;
 
     private:
-
-      virtual void HandleInit () = 0;
-      virtual void HandleRun (const Time& dt, IDrawingContext& context);
-      virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
 
       bool isRunning_;
       Timer timer_;

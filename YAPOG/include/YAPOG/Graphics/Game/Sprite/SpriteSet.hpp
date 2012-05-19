@@ -10,9 +10,9 @@ namespace yap
   /// @brief Maps ISprite with keys.
   /// Represents an ISprite that changes of state over the time.
   template <typename K>
-  class YAPOG_LIB SpriteSet : public BaseSprite
+  class SpriteSet : public BaseSprite
   {
-      DISALLOW_COPY(SpriteSet);
+      DISALLOW_ASSIGN(SpriteSet);
 
     public:
 
@@ -28,7 +28,14 @@ namespace yap
       void SetDefaultKey (const KeyType& key);
       void SetDefaultSprite ();
 
-    private:
+      /// @name ICloneable members.
+      /// @{
+      virtual SpriteSet* Clone () const;
+      /// @}
+
+    protected:
+
+      SpriteSet (const SpriteSet& copy);
 
       virtual Vector2 HandleGetSize () const;
 
@@ -41,6 +48,8 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color);
 
       virtual void HandleUpdate (const Time& dt);
+
+    private:
 
       KeyType currentKey_;
       KeyType defaultKey_;

@@ -6,9 +6,26 @@ namespace yap
     : BaseWidget ()
   {
   }
+  bool GuiManager::IsFocusable () const
+  {
+    return false;
+  }
 
   GuiManager::~GuiManager ()
   {
+  }
+
+  bool GuiManager::HandleOnPriorityEvent (const GuiEvent& guiEvent)
+  {
+    for (IWidget* child : childen_)
+    {
+      if (child->IsFocusable ())
+      {
+        child->SetFocused (true);
+        return false;
+      }
+    }
+    return false;
   }
 
   void GuiManager::HandleMove (const Vector2& offset)
@@ -29,16 +46,6 @@ namespace yap
 
   void GuiManager::HandleChangeColor (const sf::Color& color)
   {
-  }
-
-  bool GuiManager::HandleOnEvent (const GuiEvent& guiEvent)
-  {
-    return false;
-  }
-
-  bool GuiManager::HandleOnPriorityEvent (const GuiEvent& guiEvent)
-  {
-    return false;
   }
 
   void GuiManager::HandleUpdate (const Time& dt)

@@ -10,12 +10,13 @@ namespace yap
 {
   class YAPOG_LIB SpatialInfo
   {
-      DISALLOW_COPY(SpatialInfo);
-
     public:
 
       SpatialInfo ();
       SpatialInfo (const Vector2& position, const Vector2& size);
+
+      SpatialInfo (const SpatialInfo& copy);
+      SpatialInfo& operator= (const SpatialInfo& copy);
 
       const Vector2& GetPosition () const;
       const Vector2& GetSize () const;
@@ -24,7 +25,7 @@ namespace yap
       const Vector2& GetBottomRight () const;
       const Vector2& GetCenter () const;
 
-      const sf::FloatRect& GetRectangle () const;
+      const FloatRect& GetRectangle () const;
 
       void SetPosition (const Vector2& position);
       void SetSize (const Vector2& size);

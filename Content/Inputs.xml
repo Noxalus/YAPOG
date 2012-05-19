@@ -1,0 +1,17 @@
+<inputs>
+  <entry>
+    <type>keyboard</type>
+    <action>Action</action>
+    <key>A</key>
+  </entry>
+  <entry>
+    <type>keyboard</type>
+    <action>MoveLeft</action>
+    <key>Left</key>
+  </entry>
+  <entry>
+    <type>keyboard</type>
+    <action>MoveRight</action>
+    <key>Right</key>
+  </entry>
+<inputs/>

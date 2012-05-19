@@ -1,0 +1,14 @@
+<Skill id="36">
+	<name>BELIER</name>
+	<description>Une charge violente qui blesse aussi le lanceur.</description>
+	<power>90</power>
+	<pp>20</pp>
+	<maxPP>32</maxPP>
+	<accuracy>85</accuracy>
+	<type>1</type>
+	<category>1</category>
+	<target>2</target>
+	<effect>48</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

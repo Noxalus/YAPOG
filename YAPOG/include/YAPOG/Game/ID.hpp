@@ -21,12 +21,13 @@ namespace yap
       const ValueType& GetValue () const;
       void SetValue (ValueType value);
 
-      bool operator== (const ID& right);
-      bool operator!= (const ID& right);
-      bool operator> (const ID& right);
-      bool operator< (const ID& right);
-      bool operator>= (const ID& right);
-      bool operator<= (const ID& right);
+      bool operator== (const ID& right) const;
+      bool operator!= (const ID& right) const;
+      bool operator> (const ID& right) const;
+      bool operator< (const ID& right) const;
+      bool operator>= (const ID& right) const;
+      bool operator<= (const ID& right) const;
+
     private:
 
       static const ValueType DEFAULT_VALUE;

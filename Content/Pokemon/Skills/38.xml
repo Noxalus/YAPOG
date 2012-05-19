@@ -1,0 +1,14 @@
+<Skill id="38">
+	<name>DAMOCLES</name>
+	<description>Une dangereuse charge qui blesse aussi le lanceur.</description>
+	<power>120</power>
+	<pp>15</pp>
+	<maxPP>24</maxPP>
+	<accuracy>100</accuracy>
+	<type>1</type>
+	<category>1</category>
+	<target>2</target>
+	<effect>198</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

@@ -26,6 +26,7 @@ namespace yap
 		ChatDisplayer();
     ~ChatDisplayer();
 		
+    int                 GetChanNb();
 		void								Display(ChatManagerType* c);
   private:
     ChansType           chans_;

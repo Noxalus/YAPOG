@@ -1,5 +1,4 @@
 #include "YAPOG/Game/Chat/Chat.hpp"
-#include "YAPOG/Game/Chat/ChatCommand.hpp"
 
 namespace yap
 {
@@ -36,7 +35,7 @@ namespace yap
     buffer_ = *tmp;
   }
 
-  bool                    Chat::ChangeChan()
+  bool                    Chat::ChangeChan(ChatDisplayer& displayer)
   {
     if (buffer_.Count() > 0 && Check())
     {
@@ -45,31 +44,54 @@ namespace yap
       if (StringHelper::CompareString(cmd, String ("ChangeChan")) == 0)
       {
         if (buffer_.Count() == 1)
-        {
-          BufferType bufftodisp = *(new BufferType);
-
-          bufftodisp.Add("/echo");
-          bufftodisp.Add("Chan number is missing.");
-
-          return false;
-        }
+          entry_ = "Chan number is missing.";
         if (buffer_.Count() > 2)
-        {
-          BufferType bufftodisp = *(new BufferType);
-
-          bufftodisp.Add("/echo");
-          bufftodisp.Add("Too much argument.");
-
-          return false;
-        }
+          entry_ = "Too much argument.";
         if (buffer_.Count() == 2)
         {
           String chanNb = buffer_[1];
+
+          if (StringFilter::IsNumeric(chanNb))
+          {
+            std::istringstream buf(chanNb);
+            UInt32 tmp = 0;
+            buf >> tmp;
+            if (tmp >= 0 && tmp < displayer.GetChanNb())
+            {
+              chatmanager_->ChanNb = tmp;
+              std::cout << "Channel changed to channel number : "
+                        << chatmanager_->ChanNb << std::endl;
+              return true;
+            }
+            else
+              entry_ = tmp + " is not an chan number.";
+          }
+          else
+            entry_ = "Bad argument.";
         }
-        return true;
+      }
+      else
+      {
+        String chanNb = cmd;
+          
+        if (StringFilter::IsNumeric(chanNb))
+        {
+          std::istringstream buf(chanNb);
+          UInt32 tmp = 0;
+          buf >> tmp;
+          if (tmp >= 0 && tmp < displayer.GetChanNb())
+          {
+            chatmanager_->ChanNb = tmp;
+            std::cout << "Channel changed to channel number : "
+                      << chatmanager_->ChanNb << std::endl;
+            entry_ = entry_.substr(2 + chanNb.size());
+            SetBuf(entry_);
+          }
+          else
+            entry_ = tmp + " is not an chan number.";
+        }
       }
     }
-
     return false;
   }
 

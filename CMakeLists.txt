@@ -13,7 +13,7 @@ if( WIN32 )
 endif()
 
 if( UNIX )
-    SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x -Wall" )
+    SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x -Wall -Wextra -Wno-unused-parameter" )
     if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
         SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb" )
 	endif()
@@ -56,10 +56,10 @@ if( WIN32 )
 
 	SET( boost_filesystem_lib_debug_name libboost_filesystem-vc110-mt-gd-1_49 )
 	SET( boost_filesystem_lib_release_name libboost_filesystem-vc110-mt-1_49 )
-	
+
 	SET( boost_regex_lib_debug_name libboost_regex-vc110-mt-gd-1_49 )
 	SET( boost_regex_lib_release_name libboost_regex-vc110-mt-1_49 )
-	
+
 	SET( boost_system_lib_debug_name libboost_system-vc110-mt-gd-1_49 )
 	SET( boost_system_lib_release_name libboost_system-vc110-mt-1_49 )
 
@@ -69,18 +69,18 @@ endif()
 if( UNIX )
 	SET( boost_signals_lib_debug_name "boost_signals" CACHE STRING "Boost signals lib debug." )
 	SET( boost_signals_lib_release_name "boost_signals" CACHE STRING "Boost signals lib release." )
-	
+
 	SET( boost_date_time_lib_debug_name "boost_date_time" CACHE STRING "Boost date_time lib debug." )
 	SET( boost_date_time_lib_release_name "boost_date_time" CACHE STRING "Boost date_time lib release." )
 
 	SET( boost_filesystem_lib_debug_name "boost_filesystem" CACHE STRING "Boost filesystem lib debug." )
 	SET( boost_filesystem_lib_release_name "boost_filesystem" CACHE STRING "Boost filesystem lib release." )
-	
+
 	SET( boost_regex_lib_debug_name "boost_regex" CACHE STRING "Boost regex lib debug." )
 	SET( boost_regex_lib_release_name "boost_regex" CACHE STRING "Boost regex lib release." )
-	
+
 	SET( boost_system_lib_debug_name "boost_system" CACHE STRING "Boost system lib debug" )
-	SET( boost_system_lib_release_namee "boost_system" CACHE STRING "Boost system lib release")
+	SET( boost_system_lib_release_name "boost_system" CACHE STRING "Boost system lib release")
 
 	SET( pgsql_lib debug pq optimized pq )
 endif()
@@ -118,7 +118,7 @@ SET(
 	${sfml_audio_lib}
 	${boost_signals_lib}
 	${boost_date_time_lib}
-    ${boost_filesystem_lib}
+        ${boost_filesystem_lib}
 	${boost_regex_lib}
 	${boost_system_lib}
 	${pgsql_lib}
@@ -127,4 +127,7 @@ SET(
 ADD_SUBDIRECTORY( YAPOG )
 ADD_SUBDIRECTORY( YAPOG.Client )
 ADD_SUBDIRECTORY( YAPOG.Server )
-ADD_SUBDIRECTORY( YAPOG.Test )
+
+if( WIN32 )
+	ADD_SUBDIRECTORY( YAPOG.Test )
+endif()

@@ -11,7 +11,7 @@ namespace yap
   {
     /// @brief Wrapper for std::vector.
     template <typename T>
-    class YAPOG_LIB Array
+    class Array
     {
       public:
 
@@ -23,6 +23,8 @@ namespace yap
 
         /// @brief Constructs an empty Array.
         Array ();
+
+        Array (SizeType capacity, const T& value);
 
         /// @brief Constructs an Array from another one with the same size
         /// and a copy of each element of the source Array.

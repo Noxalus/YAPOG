@@ -18,7 +18,6 @@ namespace yap
       XmlWriter (OStream& oStream, const String& rootName);
       virtual ~XmlWriter ();
 
-      void ChangeRoot (const String& rootName);
       void Dump ();
 
       /// @name IWriter members.
@@ -63,8 +62,10 @@ namespace yap
       virtual void Write (const String& name, const double& value);
 
       virtual void Write (const Vector2& value);
-      /// @todo Determine representation of Vector2 in XML.
       virtual void Write (const String& name, const Vector2& value);
+
+      virtual void Write (const ID& value);
+      virtual void Write (const String& name, const ID& value);
       /// @}
 
     private:

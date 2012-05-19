@@ -177,4 +177,15 @@ namespace yap
     throw InvalidMethodCallException (
       "Logger::Write (const String&, const Vector2&)");
   }
+
+  void Logger::Write (const ID& value)
+  {
+    Write (value.GetValue ());
+  }
+
+  void Logger::Write (const String& name, const ID& value)
+  {
+    throw InvalidMethodCallException (
+      "Logger::Write (const String&, const ID&)");
+  }
 } // namespace yap

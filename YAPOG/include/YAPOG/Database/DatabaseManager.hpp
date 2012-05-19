@@ -16,11 +16,12 @@ namespace yap
 		DatabaseManager ();
 		~DatabaseManager ();
 
-		pg_cnx& GetConnection ();
+    void Connect ();
+		pgs::pg_cnx& GetConnection ();
 		DatabaseLogger& GetDatabaseLogger ();
 		void SetLogStream (OStream& os);
 	private:
-		pg_cnx connection_;
+		pgs::pg_cnx connection_;
 		DatabaseLogger* dl_;
 	};
 } // namespace yap

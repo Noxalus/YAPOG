@@ -1,0 +1,80 @@
+<PokemonInfo id="2">
+	<name>Herbizarre</name>
+	<description>Herbizarre a les pattes musclées afin de supporter le poids du bourgeon qu'il a sur le dos. S'il se prélasse au soleil, son bourgeon va donner naissance à une fleur.</description>
+	<species>Graine</species>
+	<height>1.0</height>
+	<weight>13.0</weight>
+	<gender>12.5</gender>
+	<effortValues>
+		<hp>0</hp>
+		<attack>0</attack>
+		<defense>0</defense>
+		<speed>0</speed>
+		<specialAttack>1</specialAttack>
+		<specialDefense>1</specialDefense>
+	</effortValues>
+	<baseStats>
+		<hp>60</hp>
+		<attack>62</attack>
+		<defense>63</defense>
+		<speed>60</speed>
+		<specialAttack>80</specialAttack>
+		<specialDefense>80</specialDefense>
+	</baseStats>
+	<evolution level="32">3</evolution>
+	<experience>141</experience>
+	<experienceType>MediumSlow</experienceType>
+	<rarity>45</rarity>
+	<types>
+		<type1>5</type1>
+		<type2>8</type2>
+	</types>
+	<baseSkills>
+		<skill level="1">33</skill>
+		<skill level="1">45</skill>
+		<skill level="1">73</skill>
+		<skill level="3">45</skill>
+		<skill level="7">73</skill>
+		<skill level="9">22</skill>
+		<skill level="13">77</skill>
+		<skill level="13">79</skill>
+		<skill level="15">36</skill>
+		<skill level="20">75</skill>
+		<skill level="23">230</skill>
+		<skill level="28">74</skill>
+		<skill level="31">38</skill>
+		<skill level="36">388</skill>
+		<skill level="39">235</skill>
+		<skill level="44">76</skill>
+	</baseSkills>
+	<learnableSkills>
+		<skill>6</skill>
+		<skill>9</skill>
+		<skill>10</skill>
+		<skill>11</skill>
+		<skill>16</skill>
+		<skill>17</skill>
+		<skill>20</skill>
+		<skill>21</skill>
+		<skill>22</skill>
+		<skill>27</skill>
+		<skill>32</skill>
+		<skill>36</skill>
+		<skill>42</skill>
+		<skill>44</skill>
+		<skill>45</skill>
+		<skill>48</skill>
+		<skill>49</skill>
+		<skill>53</skill>
+		<skill>70</skill>
+		<skill>75</skill>
+		<skill>86</skill>
+		<skill>87</skill>
+		<skill>90</skill>
+		<skill>94</skill>
+	</learnableSkills>
+	<learnableCapacities>
+		<capacity>1</capacity>
+		<capacity>4</capacity>
+	</learnableCapacities>
+</PokemonInfo>

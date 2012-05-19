@@ -11,12 +11,21 @@ LINK_DIRECTORIES(
     ${EXT_LIB_DIR}
 )
 
+if( WIN32 )
+ADD_DEFINITIONS(
+	-DDLLEXPORT
+)
+endif()
+
 SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/YAPOG )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/YAPOG )
 SET( pgstream_inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/pgstream )
 SET( pgstream_src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src/pgstream )
 SET(
 source_files
+${pgstream_inc_root}/pgstream.hpp
+${pgstream_src_root}/pgstream.cpp
+
 ${inc_root}/Collection/Array.hpp
 ${inc_root}/Collection/Array.hxx
 ${inc_root}/Collection/List.hpp
@@ -29,13 +38,25 @@ ${inc_root}/Collection/Queue.hxx
 ${inc_root}/Content/ContentManager.hpp
 ${src_root}/Content/ContentManager.cpp
 
+${inc_root}/Game/Factory/ICloneable.hpp
+${inc_root}/Game/Factory/ILoadable.hpp
+${inc_root}/Game/Factory/IIDLoadable.hpp
+${inc_root}/Game/Factory/IObjectIDLoader.hpp
+${inc_root}/Game/Factory/IObjectLoader.hpp
+${inc_root}/Game/Factory/ObjectFactory.hpp
+${inc_root}/Game/Factory/ObjectFactory.hxx
+${src_root}/Game/Factory/ObjectFactory.cpp
+${inc_root}/Game/Factory/XmlObjectIDLoader.hpp
+${inc_root}/Game/Factory/XmlObjectIDLoader.hxx
+${inc_root}/Game/Factory/XmlObjectLoader.hpp
+${inc_root}/Game/Factory/XmlObjectLoader.hxx
 ${inc_root}/Game/ID.hpp
 ${src_root}/Game/ID.cpp
-${inc_root}/Game/IDReader.hpp
-${src_root}/Game/IDReader.cpp
-${inc_root}/Game/IDWriter.hpp
-${src_root}/Game/IDWriter.cpp
 ${inc_root}/Game/IUpdateable.hpp
+${inc_root}/Game/World/Map/Character.hpp
+${src_root}/Game/World/Map/Character.cpp
+${inc_root}/Game/World/Map/CharacterReader.hpp
+${src_root}/Game/World/Map/CharacterReader.cpp
 ${inc_root}/Game/Chat/Chat.hpp
 ${src_root}/Game/Chat/Chat.cpp
 ${inc_root}/Game/Chat/ChatCommand.hpp
@@ -45,14 +66,120 @@ ${src_root}/Game/Chat/ChatDisplayer.cpp
 ${inc_root}/Game/Chat/OPTChat.hpp
 ${src_root}/Game/Chat/OPTChat.cpp
 ${inc_root}/Game/World/Map/Direction.hpp
+${inc_root}/Game/World/Map/DynamicWorldObject.hpp
+${src_root}/Game/World/Map/DynamicWorldObject.cpp
+${inc_root}/Game/World/Map/DynamicWorldObjectCollection.hpp
+${src_root}/Game/World/Map/DynamicWorldObjectCollection.cpp
+${inc_root}/Game/World/Map/DynamicWorldObjectReader.hpp
+${src_root}/Game/World/Map/DynamicWorldObjectReader.cpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
+${inc_root}/Game/World/Map/Physics/BoundingBox.hpp
+${src_root}/Game/World/Map/Physics/BoundingBox.cpp
+${inc_root}/Game/World/Map/Physics/BoundingBoxCollection.hpp
+${src_root}/Game/World/Map/Physics/BoundingBoxCollection.cpp
+${inc_root}/Game/World/Map/Physics/BasicPhysicsCore.hpp
+${src_root}/Game/World/Map/Physics/BasicPhysicsCore.cpp
+${inc_root}/Game/World/Map/Physics/CharacterMoveController.hpp
+${src_root}/Game/World/Map/Physics/CharacterMoveController.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
+${inc_root}/Game/World/Map/Physics/PhysicsCore.hpp
+${src_root}/Game/World/Map/Physics/PhysicsCore.cpp
+${inc_root}/Game/World/Map/Physics/WorldObjectMoveController.hpp
+${src_root}/Game/World/Map/Physics/WorldObjectMoveController.cpp
+${inc_root}/Game/World/Map/WorldObject.hpp
+${src_root}/Game/World/Map/WorldObject.cpp
+${inc_root}/Game/World/Map/WorldObjectState.hpp
+${src_root}/Game/World/Map/WorldObjectState.cpp
+${inc_root}/Game/World/Map/WorldObjectStateFactory.hpp
+${src_root}/Game/World/Map/WorldObjectStateFactory.cpp
+${inc_root}/Game/World/Map/WorldObjectReader.hpp
+${src_root}/Game/World/Map/WorldObjectReader.cpp
+${inc_root}/Game/World/ISpatial3.hpp
+${inc_root}/Game/World/Spatial3Info.hpp
+${src_root}/Game/World/Spatial3Info.cpp
+${inc_root}/Game/World/World.hpp
+${src_root}/Game/World/World.cpp
+${src_root}/Game/Pokemon/Pokemon.cpp
+${inc_root}/Game/Pokemon/Pokemon.hpp
+${src_root}/Game/Pokemon/PokemonInfo.cpp
+${inc_root}/Game/Pokemon/PokemonInfo.hpp
+${src_root}/Game/Pokemon/PokemonInfoReader.cpp
+${inc_root}/Game/Pokemon/PokemonInfoReader.hpp
+${src_root}/Game/Pokemon/TypeInfoReader.cpp
+${inc_root}/Game/Pokemon/TypeInfoReader.hpp
+${src_root}/Game/Pokemon/TypeInfo.cpp
+${inc_root}/Game/Pokemon/TypeInfo.hpp
+${src_root}/Game/Pokemon/PokemonType.cpp
+${inc_root}/Game/Pokemon/PokemonType.hpp
+${inc_root}/Game/Pokemon/Gender.hpp
+${inc_root}/Game/Pokemon/Status.hpp
+${src_root}/Game/Pokemon/SkillInfoReader.cpp
+${inc_root}/Game/Pokemon/SkillInfoReader.hpp
+${src_root}/Game/Pokemon/SkillInfo.cpp
+${inc_root}/Game/Pokemon/SkillInfo.hpp
+${src_root}/Game/Pokemon/PokemonSkill.cpp
+${inc_root}/Game/Pokemon/PokemonSkill.hpp
+${src_root}/Game/Pokemon/PokemonStat.cpp
+${inc_root}/Game/Pokemon/PokemonStat.hpp
+${src_root}/Game/Pokemon/BaseStat.cpp
+${inc_root}/Game/Pokemon/BaseStat.hpp
+${src_root}/Game/Pokemon/HitPoint.cpp
+${inc_root}/Game/Pokemon/HitPoint.hpp
+${src_root}/Game/Pokemon/Attack.cpp
+${inc_root}/Game/Pokemon/Attack.hpp
+${src_root}/Game/Pokemon/Defense.cpp
+${inc_root}/Game/Pokemon/Defense.hpp
+${src_root}/Game/Pokemon/Speed.cpp
+${inc_root}/Game/Pokemon/Speed.hpp
+${src_root}/Game/Pokemon/SpecialAttack.cpp
+${inc_root}/Game/Pokemon/SpecialAttack.hpp
+${src_root}/Game/Pokemon/SpecialDefense.cpp
+${inc_root}/Game/Pokemon/SpecialDefense.hpp
+${src_root}/Game/Pokemon/Ability.cpp
+${inc_root}/Game/Pokemon/Ability.hpp
+${src_root}/Game/Pokemon/NatureInfoReader.cpp
+${inc_root}/Game/Pokemon/NatureInfoReader.hpp
+${src_root}/Game/Pokemon/NatureInfo.cpp
+${inc_root}/Game/Pokemon/NatureInfo.hpp
+${src_root}/Game/Pokemon/Gender.cpp
+${inc_root}/Game/Pokemon/Gender.hpp
+${src_root}/Game/Pokemon/PokemonExperience.cpp
+${inc_root}/Game/Pokemon/PokemonExperience.hpp
+${inc_root}/Game/Pokemon/ExperienceType.hpp
+${src_root}/Game/Pokemon/ExperienceFast.cpp
+${inc_root}/Game/Pokemon/ExperienceFast.hpp
+${src_root}/Game/Pokemon/ExperienceErratic.cpp
+${inc_root}/Game/Pokemon/ExperienceErratic.hpp
+${src_root}/Game/Pokemon/ExperienceFluctuating.cpp
+${inc_root}/Game/Pokemon/ExperienceFluctuating.hpp
+${src_root}/Game/Pokemon/ExperienceSlow.cpp
+${inc_root}/Game/Pokemon/ExperienceSlow.hpp
+${src_root}/Game/Pokemon/ExperienceMediumSlow.cpp
+${inc_root}/Game/Pokemon/ExperienceMediumSlow.hpp
+${src_root}/Game/Pokemon/ExperienceMediumFast.cpp
+${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
+${src_root}/Game/Pokemon/PokemonTeam.cpp
+${inc_root}/Game/Pokemon/PokemonTeam.hpp
+${src_root}/Game/Battle/BattleCore.cpp
+${inc_root}/Game/Battle/BattleCore.hpp
+${src_root}/Game/Battle/WildBattle.cpp
+${inc_root}/Game/Battle/WildBattle.hpp
+${src_root}/Game/Battle/TrainerBattle.cpp
+${inc_root}/Game/Battle/TrainerBattle.hpp
+${src_root}/Game/Battle/PokemonFighter.cpp
+${inc_root}/Game/Battle/PokemonFighter.hpp
+${src_root}/Game/Battle/Battle.cpp
+${inc_root}/Game/Battle/Battle.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
+${inc_root}/Graphics/CameraController.hpp
+${src_root}/Graphics/CameraController.cpp
+${inc_root}/Graphics/CenteredCameraController.hpp
+${src_root}/Graphics/CenteredCameraController.cpp
 ${inc_root}/Graphics/DrawingContext.hpp
 ${src_root}/Graphics/DrawingContext.cpp
 ${inc_root}/Graphics/Game/Game.hpp
@@ -64,18 +191,22 @@ ${src_root}/Graphics/Game/GameScreenManager.cpp
 ${inc_root}/Graphics/Game/IGame.hpp
 ${inc_root}/Graphics/Game/IGameScreen.hpp
 ${inc_root}/Graphics/Game/IGameScreenManager.hpp
+${inc_root}/Game/Factory/ILoadable.hpp
+${inc_root}/Game/Factory/ICloneable.hpp
 ${inc_root}/Graphics/Game/Sprite/AnimatedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/AnimatedSprite.cpp
+${inc_root}/Graphics/Game/Sprite/AnimatedSpriteReader.hpp
+${src_root}/Graphics/Game/Sprite/AnimatedSpriteReader.cpp
 ${inc_root}/Graphics/Game/Sprite/AnyFrameSwitcher.hpp
 ${src_root}/Graphics/Game/Sprite/AnyFrameSwitcher.cpp
 ${inc_root}/Graphics/Game/Sprite/BaseSprite.hpp
 ${src_root}/Graphics/Game/Sprite/BaseSprite.cpp
+${inc_root}/Graphics/Game/Sprite/BaseSpriteReader.hpp
+${src_root}/Graphics/Game/Sprite/BaseSpriteReader.cpp
 ${inc_root}/Graphics/Game/Sprite/ComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/ComposedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/DelayedFrameSwitcher.hpp
 ${src_root}/Graphics/Game/Sprite/DelayedFrameSwitcher.cpp
-${inc_root}/Graphics/Game/Sprite/DirectionalSpriteSet.hpp
-${src_root}/Graphics/Game/Sprite/DirectionalSpriteSet.cpp
 ${inc_root}/Graphics/Game/Sprite/FrameSwitcher.hpp
 ${src_root}/Graphics/Game/Sprite/FrameSwitcher.cpp
 ${inc_root}/Graphics/Game/Sprite/HorizontalComposedSprite.hpp
@@ -85,14 +216,64 @@ ${inc_root}/Graphics/Game/Sprite/RegularAnimatedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/RegularAnimatedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/Sprite.hpp
 ${src_root}/Graphics/Game/Sprite/Sprite.cpp
+${inc_root}/Graphics/Game/Sprite/SpriteReader.hpp
+${src_root}/Graphics/Game/Sprite/SpriteReader.cpp
 ${inc_root}/Graphics/Game/Sprite/SpriteSet.hpp
 ${inc_root}/Graphics/Game/Sprite/SpriteSet.hxx
+${inc_root}/Graphics/Game/Sprite/SpriteSetReader.hpp
+${inc_root}/Graphics/Game/Sprite/SpriteSetReader.hxx
 ${inc_root}/Graphics/Game/Sprite/SquareComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/SquareComposedSprite.cpp
 ${inc_root}/Graphics/Game/Sprite/VerticalComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/VerticalComposedSprite.cpp
+${inc_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/IDrawableWorldObject.hpp
+${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp
+${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.cpp
+${inc_root}/Graphics/Game/World/Map/TileFamily.hpp
+${src_root}/Graphics/Game/World/Map/TileFamily.cpp
+${inc_root}/Graphics/Game/World/Map/Tile.hpp
+${src_root}/Graphics/Game/World/Map/Tile.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayer.hpp
+${src_root}/Graphics/Game/World/Map/TileLayer.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayerStack.hpp
+${src_root}/Graphics/Game/World/Map/TileLayerStack.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/TileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/TileLayoutHandlerReader.hpp
+${src_root}/Graphics/Game/World/Map/TileLayoutHandlerReader.cpp
+${inc_root}/Graphics/Game/World/Map/TileReader.hpp
+${src_root}/Graphics/Game/World/Map/TileReader.cpp
 ${inc_root}/Graphics/Gui/BaseWidget.hpp
 ${src_root}/Graphics/Gui/BaseWidget.cpp
+${inc_root}/Graphics/Gui/Label.hpp
+${src_root}/Graphics/Gui/Label.cpp
+${inc_root}/Graphics/Gui/LayoutBox.hpp
+${src_root}/Graphics/Gui/LayoutBox.cpp
+${inc_root}/Graphics/Gui/WidgetDialogBox.hpp
+${src_root}/Graphics/Gui/WidgetDialogBox.cpp
+${inc_root}/Graphics/Gui/LayoutH.hpp
+${src_root}/Graphics/Gui/LayoutH.cpp
+${inc_root}/Graphics/Gui/LayoutV.hpp
+${src_root}/Graphics/Gui/LayoutV.cpp
+${inc_root}/Graphics/Gui/TextureManager.hpp
+${src_root}/Graphics/Gui/TextureManager.cpp
+${inc_root}/Graphics/Gui/PictureBox.hpp
+${src_root}/Graphics/Gui/PictureBox.cpp
+${inc_root}/Graphics/Gui/Menu.hpp
+${inc_root}/Graphics/Gui/MenuItem.hpp
+${src_root}/Graphics/Gui/MenuItem.cpp
+${src_root}/Graphics/Gui/Menu.cpp
+${inc_root}/Graphics/Gui/WidgetBackground.hpp
+${src_root}/Graphics/Gui/WidgetBackground.cpp
+${inc_root}/Graphics/Gui/WidgetTextBox.hpp
+${src_root}/Graphics/Gui/WidgetTextBox.cpp
+${inc_root}/Graphics/Gui/WidgetBorder.hpp
+${src_root}/Graphics/Gui/WidgetBorder.cpp
+${inc_root}/Graphics/Gui/Padding.hpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp
 ${src_root}/Graphics/Gui/GameInput/GameInputEntry.cpp
 ${inc_root}/Graphics/Gui/GameInput/GameInput.hpp
@@ -111,15 +292,22 @@ ${src_root}/Graphics/Gui/GuiEvent.cpp
 ${inc_root}/Graphics/Gui/GuiManager.hpp
 ${src_root}/Graphics/Gui/GuiManager.cpp
 ${inc_root}/Graphics/Gui/IEventHandler.hpp
+${inc_root}/Graphics/Gui/IGuiManager.hpp
 ${inc_root}/Graphics/Gui/IWidget.hpp
 ${inc_root}/Graphics/ICamera.hpp
 ${inc_root}/Graphics/IDrawable.hpp
 ${inc_root}/Graphics/IDrawingContext.hpp
 ${inc_root}/Graphics/ISpatial.hpp
+${inc_root}/Graphics/ProgressiveCameraController.hpp
+${src_root}/Graphics/ProgressiveCameraController.cpp
+${inc_root}/Graphics/RectReader.hpp
+${inc_root}/Graphics/RectReader.hxx
 ${inc_root}/Graphics/SpatialInfo.hpp
 ${src_root}/Graphics/SpatialInfo.cpp
 ${inc_root}/Graphics/Texture.hpp
 ${src_root}/Graphics/Texture.cpp
+${inc_root}/Graphics/TextureReader.hpp
+${src_root}/Graphics/TextureReader.cpp
 ${inc_root}/Graphics/Vector2.hpp
 ${src_root}/Graphics/Vector2.cpp
 
@@ -131,9 +319,20 @@ ${inc_root}/System/Error/Exception.hpp
 ${src_root}/System/Error/Exception.cpp
 ${inc_root}/System/Error/InvalidMethodCallException.hpp
 ${src_root}/System/Error/InvalidMethodCallException.cpp
+${inc_root}/System/Error/DatabaseException.hpp
+${src_root}/System/Error/DatabaseException.cpp
 ${inc_root}/System/Event/Event.hpp
 ${inc_root}/System/Event/Event.hxx
 ${inc_root}/System/IntTypes.hpp
+${inc_root}/System/IO/BaseReaderConstVisitor.hpp
+${src_root}/System/IO/BaseReaderConstVisitor.cpp
+${inc_root}/System/IO/BaseReaderVisitor.hpp
+${src_root}/System/IO/BaseReaderVisitor.cpp
+${inc_root}/System/IO/BaseWriterConstVisitor.hpp
+${src_root}/System/IO/BaseWriterConstVisitor.cpp
+${inc_root}/System/IO/BaseWriterVisitor.hpp
+${src_root}/System/IO/BaseWriterVisitor.cpp
+${inc_root}/System/IO/IReaderConstVisitor.hpp
 ${inc_root}/System/IO/IReaderConstVisitor.hpp
 ${inc_root}/System/IO/IReader.hpp
 ${inc_root}/System/IO/IReaderVisitor.hpp
@@ -169,15 +368,39 @@ ${src_root}/System/IO/Xml/XmlWriter.cpp
 ${inc_root}/System/IOStream.hpp
 ${inc_root}/System/MathHelper.hpp
 ${inc_root}/System/MathHelper.hxx
+${inc_root}/System/Network/ClientSocket.hpp
+${src_root}/System/Network/ClientSocket.cpp
+${inc_root}/System/Network/IPacket.hpp
+${inc_root}/System/Network/IPacketHandler.hpp
+${inc_root}/System/Network/ISocket.hpp
+${inc_root}/System/Network/NetworkHandler.hpp
+${src_root}/System/Network/NetworkHandler.cpp
+${inc_root}/System/Network/Packet.hpp
+${inc_root}/System/Network/Packet.hxx
+${src_root}/System/Network/Packet.cpp
+${inc_root}/System/Network/PacketHandler.hpp
+${src_root}/System/Network/PacketHandler.cpp
+${inc_root}/System/Network/PacketType.hpp
+${inc_root}/System/Network/ServerSocket.hpp
+${src_root}/System/Network/ServerSocket.cpp
+${inc_root}/System/Network/Socket.hpp
+${src_root}/System/Network/Socket.cpp
 ${inc_root}/System/Path.hpp
 ${src_root}/System/Path.cpp
+${inc_root}/System/RandomHelper.hpp
+${src_root}/System/RandomHelper.cpp
 ${inc_root}/System/StringHelper.hpp
 ${inc_root}/System/StringHelper.hxx
+${src_root}/System/StringHelper.cpp
+${inc_root}/System/StringFilter.hpp
+${src_root}/System/StringFilter.cpp
 ${inc_root}/System/String.hpp
 ${inc_root}/System/Time/DateTimeHelper.hpp
 ${src_root}/System/Time/DateTimeHelper.cpp
 ${inc_root}/System/Time/DateTime.hpp
 ${src_root}/System/Time/DateTime.cpp
+${inc_root}/System/Thread/Thread.hpp
+${src_root}/System/Thread/Thread.cpp
 ${inc_root}/System/Time/Time.hpp
 ${src_root}/System/Time/Time.cpp
 ${inc_root}/System/Time/Timer.hpp
@@ -192,6 +415,9 @@ ${pgstream_inc_root}/pgstream.hpp
 ${pgstream_src_root}/pgstream.cpp
 ${inc_root}/Database/DatabaseManager.hpp
 ${src_root}/Database/DatabaseManager.cpp
+${inc_root}/Database/DatabaseStream.hpp
+${inc_root}/Database/DatabaseStream.hxx
+${src_root}/Database/DatabaseStream.cpp
 )
 
 ADD_LIBRARY(
@@ -210,9 +436,9 @@ ADD_CUSTOM_COMMAND(
 	TARGET
 	${PROJECT_NAME}
 	POST_BUILD
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Client\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Server\\bin\\\$\(Configuration\)
+	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the YAPOG DLL file in the good directory !"
 )
 
@@ -230,12 +456,12 @@ ADD_CUSTOM_COMMAND(
 	TARGET
 	${PROJECT_NAME}
 	PRE_BUILD
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) 
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) 
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\) 
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
+							\$\(SolutionDir\)YAPOG.Client\\bin\\\$\(Configuration\)
+	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
+							\$\(SolutionDir\)YAPOG.Server\\bin\\\$\(Configuration\)
+	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
+							\$\(SolutionDir\)YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the SFML2 DLL files in the good directory !"
 )
 
@@ -244,11 +470,11 @@ ADD_CUSTOM_COMMAND(
 	${PROJECT_NAME}
 	PRE_BUILD
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Client\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)\\YAPOG.Client\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Server\\bin\\\$\(Configuration\)
+							\$\(SolutionDir\)\\YAPOG.Server\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(MSBuildStartupDirectory\)\\YAPOG.Test\\bin\\\$\(Configuration\)
-	COMMENT "Copy the SFML2 DLL files in the good directory !"
+							\$\(SolutionDir\)\\YAPOG.Test\\bin\\\$\(Configuration\)
+	COMMENT "Copy the Postgre DLL files in the good directory !"
 )
 endif()

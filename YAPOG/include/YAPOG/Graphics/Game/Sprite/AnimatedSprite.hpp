@@ -13,7 +13,7 @@ namespace yap
   /// playing predetertmined ISprite.
   class YAPOG_LIB AnimatedSprite : public BaseSprite
   {
-      DISALLOW_COPY(AnimatedSprite);
+      DISALLOW_ASSIGN(AnimatedSprite);
 
     public:
 
@@ -38,6 +38,7 @@ namespace yap
     protected:
 
       AnimatedSprite ();
+      AnimatedSprite (const AnimatedSprite& copy);
 
       void SetFrameSwitcher (FrameSwitcher* frameSwitcher);
 

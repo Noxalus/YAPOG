@@ -1,10 +1,13 @@
 ﻿#ifndef YAPOG_ACCOUNTPERMISSION_HPP
 # define YAPOG_ACCOUNTPERMISSION_HPP
 
-enum class AccountPermission
+namespace yse
 {
-  Normal,
-	Admin
-};
+  enum class AccountPermission : int
+  {
+    Normal,
+    Admin
+  };
+} // namespace yse
 
 #endif // YAPOG_ACCOUNTPERMISSION_HPP

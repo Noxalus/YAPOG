@@ -3,13 +3,14 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/Graphics/SpatialInfo.hpp"
 
 namespace yap
 {
   class YAPOG_LIB BaseSprite : public ISprite
   {
-      DISALLOW_COPY(BaseSprite);
+      DISALLOW_ASSIGN(BaseSprite);
 
     public:
 
@@ -25,7 +26,7 @@ namespace yap
       virtual const Vector2& GetBottomRight () const;
       virtual const Vector2& GetCenter () const;
 
-      virtual const sf::FloatRect& GetRectangle () const;
+      virtual const FloatRect& GetRectangle () const;
 
       virtual void Move (const Vector2& offset);
       virtual void Scale (const Vector2& factor);
@@ -49,7 +50,9 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
-    private:
+    protected:
+
+      BaseSprite (const BaseSprite& copy);
 
       virtual Vector2 HandleGetSize () const;
 
@@ -62,6 +65,8 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color) = 0;
 
       virtual void HandleUpdate (const Time& dt) = 0;
+
+    private:
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;

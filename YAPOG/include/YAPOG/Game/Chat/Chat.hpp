@@ -5,8 +5,10 @@
 # include <sstream>
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Chat/ChatCommand.hpp"
+# include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 # include "YAPOG/Game/Chat/OPTChat.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/System/StringFilter.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
@@ -32,7 +34,7 @@ namespace yap
     String            GetStringHistory();
     BufferType        GetBufHistory();
     VStringType       GetHistory();
-    bool              ChangeChan();
+    bool              ChangeChan(ChatDisplayer& display);
 
 	private:
     void              IncOff();

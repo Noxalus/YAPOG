@@ -1,16 +1,12 @@
 #ifndef YAPOG_XMLREADERCOLLECTION_HPP
 # define YAPOG_XMLREADERCOLLECTION_HPP
 
-# include <memory>
-
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/System/IO/Xml/XmlReader.hpp"
 
 namespace yap
 {
-  typedef std::shared_ptr<XmlReader> XmlReaderPtrType;
-
   class YAPOG_LIB XmlReaderCollection
   {
       DISALLOW_COPY(XmlReaderCollection);

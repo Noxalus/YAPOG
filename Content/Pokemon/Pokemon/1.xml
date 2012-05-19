@@ -1,0 +1,78 @@
+<PokemonInfo id="1">
+	<name>Bulbizarre</name>
+	<description>Bulbizarre passe son temps à faire la sieste sous le soleil. Il absorbe les rayons de soleil pour faire doucement pousser la graine qu'il a sur son dos.</description>
+	<species>Graine</species>
+	<height>0.7</height>
+	<weight>6.9</weight>
+	<gender>12.5</gender>
+	<effortValues>
+		<hp>0</hp>
+		<attack>0</attack>
+		<defense>0</defense>
+		<speed>0</speed>
+		<specialAttack>1</specialAttack>
+		<specialDefense>0</specialDefense>
+	</effortValues>
+	<baseStats>
+		<hp>45</hp>
+		<attack>49</attack>
+		<defense>49</defense>
+		<speed>45</speed>
+		<specialAttack>65</specialAttack>
+		<specialDefense>65</specialDefense>
+	</baseStats>
+	<evolution level="16">2</evolution>
+	<experience>64</experience>
+	<experienceType>MediumSlow</experienceType>
+	<rarity>45</rarity>
+	<types>
+		<type1>5</type1>
+		<type2>8</type2>
+	</types>
+	<baseSkills>
+		<skill level="1">33</skill>
+		<skill level="3">45</skill>
+		<skill level="7">73</skill>
+		<skill level="9">22</skill>
+		<skill level="13">77</skill>
+		<skill level="13">79</skill>
+		<skill level="15">36</skill>
+		<skill level="19">75</skill>
+		<skill level="21">230</skill>
+		<skill level="25">74</skill>
+		<skill level="27">38</skill>
+		<skill level="31">388</skill>
+		<skill level="33">235</skill>
+		<skill level="37">402</skill>
+	</baseSkills>
+	<learnableSkills>
+		<skill>6</skill>
+		<skill>9</skill>
+		<skill>10</skill>
+		<skill>11</skill>
+		<skill>16</skill>
+		<skill>17</skill>
+		<skill>20</skill>
+		<skill>21</skill>
+		<skill>22</skill>
+		<skill>27</skill>
+		<skill>32</skill>
+		<skill>36</skill>
+		<skill>42</skill>
+		<skill>44</skill>
+		<skill>45</skill>
+		<skill>48</skill>
+		<skill>49</skill>
+		<skill>53</skill>
+		<skill>70</skill>
+		<skill>75</skill>
+		<skill>86</skill>
+		<skill>87</skill>
+		<skill>90</skill>
+		<skill>94</skill>
+	</learnableSkills>
+	<learnableCapacities>
+		<capacity>1</capacity>
+		<capacity>4</capacity>
+	</learnableCapacities>
+</PokemonInfo>

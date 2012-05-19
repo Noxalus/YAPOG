@@ -3,7 +3,13 @@
 
 # include <sstream>
 
+# include <boost/lexical_cast.hpp>
+
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/World/Map/Direction.hpp"
+# include "YAPOG/System/Error/Exception.hpp"
+# include "YAPOG/Game/World/Map/Direction.hpp"
+# include "YAPOG/Game/Pokemon/ExperienceType.hpp"
 
 namespace yap
 {
@@ -80,21 +86,70 @@ namespace yap
   inline String StringHelper::Trim(const T& s)
   {
     String str = s;
-    return trim(str);
+    return Trim(str);
   }
 
   template <typename T>
   inline String StringHelper::Rtrim(const T& s)
   {
     String str = s;
-    return rtrim(str);
+    return Rtrim(str);
   }
 
   template <typename T>
   inline String StringHelper::Ltrim(const T& s)
   {
     String str = s;
-    return ltrim(str);
+    return Ltrim(str);
+  }
+  
+  template <typename T>
+  inline T StringHelper::Parse (const String& str)
+  {
+    return boost::lexical_cast <T> (str);
+  }
+
+  template <>
+  inline String StringHelper::ToString<Direction> (const Direction& value)
+  {
+    switch (value)
+    {
+    case Direction::North: return "North";
+    case Direction::NorthEast: return "NorthEast";
+    case Direction::East: return "East";
+    case Direction::SouthEast: return "SouthEast";
+    case Direction::South: return "South";
+    case Direction::SouthWest: return "SouthWest";
+    case Direction::West: return "West";
+    case Direction::NorthWest: return "NorthWest";
+    default: YAPOG_THROW("Not a valid direction.");
+    }
+  }
+
+  template <>
+  inline Direction StringHelper::Parse<Direction> (const String& str)
+  {
+    if (str == "North") return Direction::North;
+    if (str == "NorthEast") return Direction::NorthEast;
+    if (str == "East") return Direction::East;
+    if (str == "SouthEast") return Direction::SouthEast;
+    if (str == "South") return Direction::South;
+    if (str == "SouthWest") return Direction::SouthWest;
+    if (str == "West") return Direction::West;
+    if (str == "NorthWest") return Direction::NorthWest;
+    YAPOG_THROW("Not a valid direction: " + str);
+  }
+
+  template <>
+  inline ExperienceType StringHelper::Parse<ExperienceType> (const String& str)
+  {
+    if (str == "Slow") return ExperienceType::Slow;
+    if (str == "MediumSlow") return ExperienceType::MediumSlow;
+    if (str == "MediumFast") return ExperienceType::MediumFast;
+    if (str == "Fast") return ExperienceType::Fast;
+    if (str == "Fluctuating") return ExperienceType::Fluctuating;
+    if (str == "Erratic") return ExperienceType::Erratic;
+    YAPOG_THROW("Not a valid experience type: " + str);
   }
 } // namespace yap
 

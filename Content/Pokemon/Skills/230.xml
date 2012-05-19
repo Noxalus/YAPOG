@@ -1,0 +1,14 @@
+<Skill id="230">
+	<name>DOUX PARFUM</name>
+	<description>Séduit l'ennemi pour baisser son esquive.</description>
+	<power>0</power>
+	<pp>20</pp>
+	<maxPP>32</maxPP>
+	<accuracy>100</accuracy>
+	<type>1</type>
+	<category>3</category>
+	<target>2</target>
+	<effect>24</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

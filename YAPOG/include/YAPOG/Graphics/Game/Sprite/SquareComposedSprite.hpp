@@ -19,7 +19,7 @@ namespace yap
         ISprite* bottomRight);
       virtual ~SquareComposedSprite ();
 
-    private:
+    protected:
 
       virtual Vector2 HandleGetSize () const;
 

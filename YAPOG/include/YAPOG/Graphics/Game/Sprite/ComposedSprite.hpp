@@ -26,8 +26,6 @@ namespace yap
       ISprite& GetSprite (
         const collection::Array<ISprite*>::SizeType& index) const;
 
-    private:
-
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
 
@@ -39,6 +37,8 @@ namespace yap
       virtual void HandleUpdate (const Time& dt);
 
       virtual void UpdatePosition () = 0;
+
+    private:
 
       collection::Array<ISprite*> sprites_;
   };

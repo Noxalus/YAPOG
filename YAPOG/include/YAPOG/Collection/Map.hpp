@@ -10,7 +10,7 @@ namespace yap
   namespace collection
   {
     template <typename K, typename V>
-    class YAPOG_LIB Map
+    class Map
     {
       public:
 

@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/Collection/Array.hpp"
 
 namespace yap
 {
@@ -14,6 +15,14 @@ namespace yap
 
     template <typename T>
     static String ToString (const T& value);
+
+    template <typename T>
+    static T Parse (const String& str);
+
+    static void Split (
+      const String& str,
+      const String& delimiters,
+      collection::Array<String>& result);
 
     template <typename T>
     static int CompareString (const T& s1, const T& s2);

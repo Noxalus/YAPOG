@@ -33,6 +33,11 @@ namespace yap
     Color = color;
   }
 
+  int                 ChatDisplayer::GetChanNb()
+  {
+    return chans_.Count();
+  }
+
   void								ChatDisplayer::Display(ChatManagerType* c)
   {
     ChatCommand cc;

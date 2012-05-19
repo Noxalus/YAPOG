@@ -2,11 +2,11 @@
 # define YAPOG_ICOLLIDABLE_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/ISpatial.hpp"
+# include "YAPOG/Game/World/ISpatial3.hpp"
 
 namespace yap
 {
-  struct YAPOG_LIB ICollidable : public ISpatial
+  struct YAPOG_LIB ICollidable : public ISpatial3
   {
       virtual ~ICollidable () {}
   };

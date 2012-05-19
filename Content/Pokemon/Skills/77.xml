@@ -1,0 +1,14 @@
+<Skill id="77">
+	<name>POUDRE TOXIK</name>
+	<description>Répand une poudre toxique pouvant empoisonner.</description>
+	<power>0</power>
+	<pp>35</pp>
+	<maxPP>56</maxPP>
+	<accuracy>75</accuracy>
+	<type>1</type>
+	<category>3</category>
+	<target>2</target>
+	<effect>66</effect>
+	<use>1</use>
+	<priority>6</priority>
+</Skill>

@@ -2,6 +2,7 @@
 #include "YAPOG/System/Error/InvalidMethodCallException.hpp"
 #include "YAPOG/System/IO/IWriterVisitor.hpp"
 #include "YAPOG/System/IO/IWriterConstVisitor.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -14,11 +15,6 @@ namespace yap
 
   XmlWriter::~XmlWriter ()
   {
-  }
-
-  void XmlWriter::ChangeRoot (const String& rootName)
-  {
-    data_.ChangeRoot (rootName);
   }
 
   void XmlWriter::Dump ()
@@ -163,7 +159,21 @@ namespace yap
 
   void XmlWriter::Write (const String& name, const Vector2& value)
   {
-    /// @todo
-    Write (value);
+    String data =
+      StringHelper::ToString (value.x) +
+      "," +
+      StringHelper::ToString (value.y);
+
+    Write (name, data);
+  }
+
+  void XmlWriter::Write (const ID& value)
+  {
+    throw InvalidMethodCallException ("XmlWriter::Write (const ID&)");
+  }
+
+  void XmlWriter::Write (const String& name, const ID& value)
+  {
+    Write (name, value.GetValue ());
   }
 } // namespace yap
