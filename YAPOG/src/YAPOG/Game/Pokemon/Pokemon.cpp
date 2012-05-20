@@ -131,7 +131,7 @@ namespace yap
 
   void Pokemon::SpecifyGender ()
   {
-    if (RandomHelper::Pourcentage (pokemonInfo_->GetGenderProbability ()))
+    if (RandomHelper::Percentage (pokemonInfo_->GetGenderProbability ()))
       gender_ = Gender::Female;
     else
       gender_ = Gender::Male;
@@ -148,6 +148,16 @@ namespace yap
     }
 
     YAPOG_THROW("PokemonInfo is not initialized.");
+  }
+
+  const TypeInfo& Pokemon::GetType1 () const
+  {
+    return type_.GetType1 ();
+  }
+
+  const TypeInfo& Pokemon::GetType2 () const
+  {
+    return type_.GetType2 ();
   }
 
   float Pokemon::GetTypeEffectFactor (const TypeInfo& type) const

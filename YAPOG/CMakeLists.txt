@@ -163,6 +163,12 @@ ${src_root}/Game/Pokemon/ExperienceMediumFast.cpp
 ${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
 ${src_root}/Game/Pokemon/PokemonTeam.cpp
 ${inc_root}/Game/Pokemon/PokemonTeam.hpp
+
+${src_root}/Game/Battle/BattlePhase.cpp
+${inc_root}/Game/Battle/BattlePhase.hpp
+${src_root}/Game/Battle/BattlePhaseManager.cpp
+${inc_root}/Game/Battle/BattlePhaseManager.hpp
+${inc_root}/Game/Battle/BattlePhaseState.hpp
 ${src_root}/Game/Battle/BattleCore.cpp
 ${inc_root}/Game/Battle/BattleCore.hpp
 ${src_root}/Game/Battle/WildBattle.cpp
@@ -173,6 +179,21 @@ ${src_root}/Game/Battle/PokemonFighter.cpp
 ${inc_root}/Game/Battle/PokemonFighter.hpp
 ${src_root}/Game/Battle/Battle.cpp
 ${inc_root}/Game/Battle/Battle.hpp
+${src_root}/Game/Battle/ActionPhase.cpp
+${inc_root}/Game/Battle/ActionPhase.hpp
+${src_root}/Game/Battle/BeginBattlePhase.cpp
+${inc_root}/Game/Battle/BeginBattlePhase.hpp
+${src_root}/Game/Battle/BeginTurnPhase.cpp
+${inc_root}/Game/Battle/BeginTurnPhase.hpp
+${src_root}/Game/Battle/EndBattlePhase.cpp
+${inc_root}/Game/Battle/EndBattlePhase.hpp
+${src_root}/Game/Battle/EndTurnPhase.cpp
+${inc_root}/Game/Battle/EndTurnPhase.hpp
+${src_root}/Game/Battle/SelectionPhase.cpp
+${inc_root}/Game/Battle/SelectionPhase.hpp
+${inc_root}/Game/Battle/IBattleEntity.hpp
+${src_root}/Game/Battle/PokemonFighterTeam.cpp
+${inc_root}/Game/Battle/PokemonFighterTeam.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

@@ -27,6 +27,8 @@ namespace yap
     Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
 
     const String& GetName () const;
+    const TypeInfo& GetType1 () const;
+    const TypeInfo& GetType2 () const;
     float GetTypeEffectFactor (const TypeInfo& type) const;
     const uint& GetTotalExperience () const;
     const uint& GetExperienceToNextLevel () const;

@@ -32,6 +32,8 @@ namespace yap
     void SetName (const String& name);
     void AddTypeEffect (const ID& typeID, const float& effect);
 
+    bool operator== (const TypeInfo& right) const;
+
   private:
     ID staticID_;
     String name_;

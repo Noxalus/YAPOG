@@ -64,8 +64,21 @@ int main ()
   team.AddPokemon (new Pokemon (ID (2), 42, false));
   team.AddPokemon (new Pokemon (ID (16), 32, true));
 
-  WildBattle wildBattle (team, *GeneratePokemon ());
-  wildBattle.Run ();
+  try 
+  {
+    WildBattle wildBattle (team, *GeneratePokemon ());
+    wildBattle.Run ();
 
-  getchar ();
+    getchar ();
+  }
+  catch (const yap::Exception& e)
+  {
+    e.GetMessage (std::cerr) << std::endl;
+    getchar ();
+  }
+  catch (const std::exception& e)
+  {
+    std::cerr << e.what () << std::endl;
+    getchar ();
+  }
 }

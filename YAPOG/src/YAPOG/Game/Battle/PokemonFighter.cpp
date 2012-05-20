@@ -1,4 +1,6 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -6,13 +8,15 @@ namespace yap
     : originalPokemon_ (originalPokemon)
     , stats_ ()
   {
+    if (originalPokemon == nullptr)
+      YAPOG_THROW("The original Pokemon doesn't exist !");
     /*
     stats_.SetHitPoint (originalPokemon->GetStats ().GetHitPoint ());
     stats_.SetAttack (originalPokemon->GetStats ().GetAttack ());
     stats_.SetSpecialAttack 
-      (originalPokemon->GetStats ().GetSpecialAttack ());
+    (originalPokemon->GetStats ().GetSpecialAttack ());
     stats_.SetSpecialDefense 
-      (originalPokemon->GetStats ().GetSpecialDefense ());
+    (originalPokemon->GetStats ().GetSpecialDefense ());
     stats_.SetSpeed (originalPokemon->GetStats ().GetSpeed ());
     */
   }
@@ -64,19 +68,14 @@ namespace yap
     }
   }
 
-  void PokemonFighter::PrintBattleStats ()
+  const TypeInfo& PokemonFighter::GetType1 () const
   {
-    std::cout 
-      << GetName () << " ("
-      << GetStringFromGender (GetGender ()) << ")"
-      << " N." << GetLevel () << std::endl
-      << "PV: " << GetCurrentHP () << "/" << GetMaxHP ()
-      << std::endl;
+    return originalPokemon_->GetType1 ();
   }
 
-  void PokemonFighter::PrintStats ()
+  const TypeInfo& PokemonFighter::GetType2 () const
   {
-    originalPokemon_->PrintStats ();
+    return originalPokemon_->GetType2 ();
   }
 
   float PokemonFighter::GetTypeEffectFactor (const TypeInfo& type) const
@@ -106,6 +105,22 @@ namespace yap
   const Speed& PokemonFighter::GetSpeed () const
   {
     return stats_.GetSpeed ();
+  }
+
+  /// Displaying
+  void PokemonFighter::PrintBattleStats ()
+  {
+    std::cout 
+      << GetName () << " ("
+      << GetStringFromGender (GetGender ()) << ")"
+      << " N." << GetLevel () << std::endl
+      << "PV: " << GetCurrentHP () << "/" << GetMaxHP ()
+      << std::endl;
+  }
+
+  void PokemonFighter::PrintStats ()
+  {
+    originalPokemon_->PrintStats ();
   }
 
 } // namespace yap
