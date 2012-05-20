@@ -10,6 +10,8 @@
 
 namespace ycl
 {
+  class Map;
+
   class Character : public yap::Character
                   , public yap::IDrawableWorldObject
   {
@@ -22,6 +24,8 @@ namespace ycl
       void AddSprite (
         const yap::String& state,
         yap::SpriteSet<yap::Direction>* directionSprite);
+
+      void SetMap (Map* map);
 
       /// @name IDrawable members.
       /// @{
@@ -76,6 +80,8 @@ namespace ycl
       yap::collection::Map<
         yap::String,
         yap::SpriteSet<yap::Direction>*> directionSprites_;
+
+      Map* map_;
   };
 } // namespace ycl
 

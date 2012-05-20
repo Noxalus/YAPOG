@@ -21,4 +21,9 @@ namespace yap
   {
     thread_.wait ();
   }
+
+  void Thread::Sleep (const Time& dt)
+  {
+    sf::sleep (sf::seconds (dt.GetValue ()));
+  }
 } // namespace yap

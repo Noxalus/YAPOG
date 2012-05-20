@@ -8,7 +8,8 @@
 namespace yse
 {
   ClientSession::ClientSession ()
-    : packetHandler_ ()
+    : OnDisconnected ()
+    , packetHandler_ ()
     , socket_ ()
     , networkHandler_ (socket_)
     , user_ ()
@@ -21,25 +22,40 @@ namespace yse
 
   void ClientSession::Init ()
   {
-//    AddRelay (&user_);
+    AddRelay (&user_);
+    user_.SetParent (this);
 
-//    ADD_HANDLER(
-//      ClientInfoDeconnection,
-//      ClientSession::HandleClientInfoDeconnection);
+    ADD_HANDLER(ClientRequestLogin, ClientSession::HandleClientRequestLogin);
+    ADD_HANDLER(
+      ClientInfoDeconnection,
+      ClientSession::HandleClientInfoDeconnection);
   }
 
   void ClientSession::Refresh ()
   {
-//    yap::DebugLogger::Instance ().LogLine ("session_refresh");
     while (!networkHandler_.IsEmpty ())
     {
       yap::PacketPtrType packet (networkHandler_.GetPacket ());
 
       yap::DebugLogger::Instance ().LogLine (
-        "Packet: " + yap::StringHelper::ToString (static_cast<int> (packet->GetType ())));
-      if (!HandlePacket (*packet));
-//        YAPOG_THROW("Wrong packet received.");
+        "Packet: " + yap::StringHelper::ToString (
+          static_cast<int> (packet->GetType ())));
+
+      try
+      {
+        if (!HandlePacket (*packet))
+          YAPOG_THROW("Wrong packet received.");
+      }
+      catch (const yap::Exception& ex)
+      {
+        ex.GetMessage (std::cout) << std::endl;
+      }
     }
+  }
+
+  User& ClientSession::GetUser ()
+  {
+    return user_;
   }
 
   void ClientSession::HandleReception ()
@@ -67,15 +83,72 @@ namespace yse
     packetHandler_.AddRelay (relay);
   }
 
+  void ClientSession::RemoveRelay (yap::IPacketHandler* relay)
+  {
+    relay->SetParent (nullptr);
+
+    packetHandler_.RemoveRelay (relay);
+  }
+
   void ClientSession::SetParent (yap::IPacketHandler* parent)
   {
-    packetHandler_.SetParent (parent);
+    YAPOG_THROW("Unallowed to set parent for ClientSession.");
+  }
+
+  void ClientSession::Disconnect ()
+  {
+    socket_.Disconnect ();
+
+    OnDisconnected (*this, yap::EmptyEventArgs ());
+  }
+
+  void ClientSession::HandleClientRequestLogin (yap::IPacket& packet)
+  {
+    yap::String login (packet.ReadString ());
+
+    if (user_.Login (login))
+    {
+      yap::Packet loginValidationPacket;
+      loginValidationPacket.CreateFromType (
+        yap::PacketType::ServerInfoLoginValidation);
+      SendPacket (loginValidationPacket);
+
+      yap::Packet primaryDataPacket;
+      primaryDataPacket.CreateFromType (
+        yap::PacketType::ServerInfoPrimaryData);
+
+      SendObjectFactoryTypes (
+        primaryDataPacket,
+        yap::ObjectFactory::Instance ());
+
+      SendPacket (primaryDataPacket);
+    }
+
+    yap::DebugLogger::Instance ().LogLine ("Client logged: `" + login + "'.");
   }
 
   void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)
   {
-    yap::DebugLogger::Instance ().LogLine ("Client disconnected: `" +
-                                           socket_.GetRemoteAddress () +
-                                           "'.");
+    yap::DebugLogger::Instance ().LogLine (
+      "Client disconnected: `" +
+      user_.GetLogin () +
+      "'.");
+
+    Disconnect ();
+  }
+
+  void ClientSession::SendObjectFactoryTypes (
+    yap::IPacket& packet,
+    const yap::ObjectFactory& objectFactory)
+  {
+    const auto& types = objectFactory.GetTypes ();
+
+    packet.Write (static_cast<yap::UInt64> (types.Count ()));
+
+    for (const auto& it : types)
+    {
+      packet.Write (it.first);
+      packet.Write (it.second);
+    }
   }
 } // namespace yse

@@ -8,6 +8,8 @@
 # include "YAPOG/System/Network/NetworkHandler.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/System/Thread/Thread.hpp"
+# include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 # include "Client/User.hpp"
 
@@ -34,6 +36,7 @@ namespace ycl
       virtual bool SendPacket (yap::IPacket& packet);
 
       virtual void AddRelay (yap::IPacketHandler* relay);
+      virtual void RemoveRelay (yap::IPacketHandler* relay);
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
 
@@ -46,11 +49,17 @@ namespace ycl
       void HandleReception ();
 
       void HandleServerInfoLoginValidation (yap::IPacket& packet);
+      void HandleServerInfoLoginError (yap::IPacket& packet);
+
+      void HandleServerInfoPrimaryData (yap::IPacket& packet);
+      void UpdateObjectFactory (
+        yap::IPacket& packet,
+        yap::ObjectFactory& objectFactory);
 
       static const yap::String DEFAULT_REMOTE_IP;
       static const yap::Int16 DEFAULT_REMOTE_PORT;
 
-      static const yap::Time DEFAULT_DATA_WAITING_DELAY;
+      static const yap::Time DEFAULT_RECEPTION_SLEEP_DELAY;
 
       yap::PacketHandler packetHandler_;
 

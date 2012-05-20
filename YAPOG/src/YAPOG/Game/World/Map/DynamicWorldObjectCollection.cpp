@@ -43,9 +43,15 @@ namespace yap
     objects_.Add (object->GetWorldID (), object);
   }
 
-  DynamicWorldObject& DynamicWorldObjectCollection::GetObject (const ID& id)
+  void DynamicWorldObjectCollection::RemoveObject (const ID& worldID)
   {
-    return *objects_[id];
+    objects_.Remove (worldID);
+  }
+
+  DynamicWorldObject& DynamicWorldObjectCollection::GetObject (
+    const ID& worldID)
+  {
+    return *objects_[worldID];
   }
 
   void DynamicWorldObjectCollection::Update (const Time& dt)

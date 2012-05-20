@@ -61,8 +61,16 @@ ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
 ${inc_root}/World/Map/Map.hpp
 ${src_root}/World/Map/Map.cpp
+${inc_root}/World/Map/MapReader.hpp
+${src_root}/World/Map/MapReader.cpp
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp
+${inc_root}/World/Map/CharacterReader.hpp
+${src_root}/World/Map/CharacterReader.cpp
+${inc_root}/World/Map/Player.hpp
+${src_root}/World/Map/Player.cpp
+${inc_root}/World/Map/PlayerReader.hpp
+${src_root}/World/Map/PlayerReader.cpp
 )
 
 ADD_EXECUTABLE(

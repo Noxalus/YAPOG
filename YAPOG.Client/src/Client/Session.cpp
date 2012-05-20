@@ -10,7 +10,7 @@ namespace ycl
   const yap::String Session::DEFAULT_REMOTE_IP = "localhost";
   const yap::Int16 Session::DEFAULT_REMOTE_PORT = 8008;
 
-  const yap::Time Session::DEFAULT_DATA_WAITING_DELAY = yap::Time (2.0f);
+  const yap::Time Session::DEFAULT_RECEPTION_SLEEP_DELAY = yap::Time (0.005f);
 
   Session::Session ()
     : packetHandler_ ()
@@ -23,6 +23,8 @@ namespace ycl
     ADD_HANDLER(
       ServerInfoLoginValidation,
       Session::HandleServerInfoLoginValidation);
+    ADD_HANDLER(ServerInfoLoginError, Session::HandleServerInfoLoginError);
+    ADD_HANDLER(ServerInfoPrimaryData, Session::HandleServerInfoPrimaryData);
   }
 
   Session::~Session ()
@@ -45,21 +47,24 @@ namespace ycl
         "Packet: " +
         yap::StringHelper::ToString (static_cast<int> (packet->GetType ())));
       if (!HandlePacket (*packet))
+      {
+        Disconnect ();
         YAPOG_THROW("Wrong packet received.");
+      }
     }
   }
 
   void Session::Login (const yap::String& login)
   {
     if (!Connect ())
-      YAPOG_THROW("Failed to connect to the serveur `"
+      YAPOG_THROW("Failed to connect to the server `"
                   + DEFAULT_REMOTE_IP
                   + "'.");
 
     /// @todo login request
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ClientRequestLogin);
-
+    packet.Write (login);
     SendPacket (packet);
   }
 
@@ -83,9 +88,16 @@ namespace ycl
     packetHandler_.AddRelay (relay);
   }
 
+  void Session::RemoveRelay (yap::IPacketHandler* relay)
+  {
+    relay->SetParent (nullptr);
+
+    packetHandler_.RemoveRelay (relay);
+  }
+
   void Session::SetParent (yap::IPacketHandler* parent)
   {
-    packetHandler_.SetParent (parent);
+    YAPOG_THROW("Unallowed to set parent for Session.");
   }
 
   bool Session::Connect ()
@@ -94,6 +106,7 @@ namespace ycl
       return false;
 
     AddRelay (&user_);
+    user_.SetParent (this);
 
     receptionIsActive_ = true;
     receptionThread_.Launch ();
@@ -115,13 +128,44 @@ namespace ycl
   void Session::HandleReception ()
   {
     while (receptionIsActive_)
+    {
+      yap::Thread::Sleep (DEFAULT_RECEPTION_SLEEP_DELAY);
+
       networkHandler_.Refresh ();
+    }
   }
 
   void Session::HandleServerInfoLoginValidation (yap::IPacket& packet)
   {
-    yap::Packet tmppacket;
-    tmppacket.CreateFromType (yap::PacketType::None);
-    SendPacket (tmppacket);
+    yap::DebugLogger::Instance ().LogLine ("Login successful !");
+
+    yap::Packet response;
+    response.CreateFromType (yap::PacketType::ClientRequestStartInfo);
+    SendPacket (response);
+  }
+
+  void Session::HandleServerInfoLoginError (yap::IPacket& packet)
+  {
+    yap::DebugLogger::Instance ().LogLine ("Wrong login.");
+  }
+
+  void Session::HandleServerInfoPrimaryData (yap::IPacket& packet)
+  {
+    UpdateObjectFactory (packet, yap::ObjectFactory::Instance ());
+  }
+
+  void Session::UpdateObjectFactory (
+    yap::IPacket& packet,
+    yap::ObjectFactory& objectFactory)
+  {
+    yap::UInt64 typeCount = packet.ReadUInt64 ();
+
+    for (yap::UInt64 count = 0; count < typeCount; ++count)
+    {
+      yap::ID id = packet.ReadID ();
+      yap::String type = packet.ReadString ();
+
+      objectFactory.AddType (id, type);
+    }
   }
 } // namespace ycl

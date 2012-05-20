@@ -10,6 +10,7 @@ namespace ycl
 
   World::World ()
     : yap::World ()
+    , OnMapChanged ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
     , currentMapID_ ()
@@ -22,17 +23,18 @@ namespace ycl
   {
   }
 
-  void World::ChangeMap (const yap::ID& id)
+  void World::ChangeMap (const yap::ID& worldID)
   {
-    if (currentMapID_ == id)
+    if (currentMapID_ == worldID)
       return;
 
-    currentMapID_ = id;
+    Map* oldMap = currentMap_;
 
-    if (!maps_.Contains (currentMapID_))
-      AddMap (currentMapID_);
+    currentMapID_ = worldID;
 
     currentMap_ = maps_[currentMapID_];
+
+    OnMapChanged (*this, yap::ChangeEventArgs<Map*> (oldMap, currentMap_));
   }
 
   Map& World::GetCurrentMap ()
@@ -40,14 +42,20 @@ namespace ycl
     return *currentMap_;
   }
 
-  void World::AddMap (const yap::ID& id)
+  void World::AddMap (const yap::ID& worldID, const yap::ID& id)
   {
-    AddMap (yap::ObjectFactory::Instance ().Get<Map> ("Map", id));
+    if (maps_.Contains (worldID))
+      return;
+
+    Map* map = yap::ObjectFactory::Instance ().Get<Map> ("Map", id);
+    map->SetWorldID (worldID);
+
+    AddMap (map);
   }
 
   void World::AddMap (Map* map)
   {
-    maps_.Add (map->GetID (), map);
+    maps_.Add (map->GetWorldID (), map);
   }
 
   void World::Draw (yap::IDrawingContext& context)

@@ -32,6 +32,9 @@ namespace yap
       const String& GetName () const;
       void SetName (const String& name);
 
+      const ID& GetWorldID () const;
+      void SetWorldID (const ID& worldID);
+
       const uint& GetWidth () const;
       const uint& GetHeight () const;
       void SetSize (uint width, uint height);
@@ -52,12 +55,24 @@ namespace yap
 
       Map (const ID& id);
 
-      virtual void AddObject (WorldObject* object);
-      virtual void AddDynamicObject (DynamicWorldObject* object);
-      virtual void AddUpdateable (IUpdateable* updateable);
+      void AddObject (WorldObject* object);
+      void AddDynamicObject (DynamicWorldObject* object);
+      void AddUpdateable (IUpdateable* updateable);
+
+      void RemoveObject (WorldObject* object);
+      void RemoveDynamicObject (DynamicWorldObject* object);
+      void RemoveUpdateable (IUpdateable* updateable);
 
       virtual void HandleSetSize (uint width, uint height);
       virtual void HandleUpdate (const Time& dt);
+
+      virtual void HandleAddObject (WorldObject* object);
+      virtual void HandleAddDynamicObject (DynamicWorldObject* object);
+      virtual void HandleAddUpdateable (IUpdateable* updateable);
+
+      virtual void HandleRemoveObject (WorldObject* object);
+      virtual void HandleRemoveDynamicObject (DynamicWorldObject* object);
+      virtual void HandleRemoveUpdateable (IUpdateable* updateable);
 
     private:
 
@@ -70,6 +85,8 @@ namespace yap
 
       ID id_;
       String name_;
+
+      ID worldID_;
 
       uint width_;
       uint height_;

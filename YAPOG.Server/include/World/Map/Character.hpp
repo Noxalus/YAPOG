@@ -6,6 +6,8 @@
 
 namespace yse
 {
+  class Map;
+
   class Character : public yap::Character
   {
       DISALLOW_ASSIGN(Character);
@@ -14,10 +16,16 @@ namespace yse
 
       virtual ~Character ();
 
+      void SetMap (Map* map);
+
     protected:
 
       explicit Character (const yap::ID& id);
       Character (const Character& copy);
+
+    private:
+
+      Map* map_;
   };
 } // namespace yse
 

@@ -21,17 +21,18 @@ namespace yap
 
   bool ClientSocket::Connect (const String& ipAddress, UInt16 port)
   {
-    while (true)
-    {
-      if (socket_.connect (
-            sf::IpAddress (ipAddress),
-            port,
-            sf::seconds (
-              DEFAULT_CONNECTION_TIMEOUT.GetValue ())) == sf::Socket::Done)
-        return true;
-    }
+    socket_.setBlocking (true);
 
-    return false;
+    if (socket_.connect (
+          sf::IpAddress (ipAddress),
+          port,
+          sf::seconds (
+            DEFAULT_CONNECTION_TIMEOUT.GetValue ())) != sf::Socket::Done)
+      return false;
+
+    socket_.setBlocking (DEFAULT_BLOCKING_STATE);
+
+    return true;
   }
 
   void ClientSocket::Disconnect ()

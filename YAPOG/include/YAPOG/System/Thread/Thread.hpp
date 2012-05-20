@@ -3,9 +3,10 @@
 
 # include <functional>
 
-# include <SFML/System/Thread.hpp>
+# include <SFML/System.hpp>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/Time/Time.hpp"
 
 namespace yap
 {
@@ -23,6 +24,8 @@ namespace yap
       void Stop ();
 
       void Wait ();
+
+      static void Sleep (const Time& delay);
 
     private:
 

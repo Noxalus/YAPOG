@@ -52,13 +52,16 @@ namespace yap
   void PacketHandler::AddRelay (IPacketHandler* relay)
   {
     relays_.Add (relay);
+  }
 
-    relay->SetParent (this);
+  void PacketHandler::RemoveRelay (IPacketHandler* relay)
+  {
+    relays_.Remove (relay);
   }
 
   void PacketHandler::SetParent (IPacketHandler* parent)
   {
-    if (parent_ != nullptr)
+    if (parent != nullptr && parent_ != nullptr)
       YAPOG_THROW("Parent already exists.");
 
     parent_ = parent;

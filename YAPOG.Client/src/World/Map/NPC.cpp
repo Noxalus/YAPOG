@@ -2,6 +2,8 @@
 
 namespace ycl
 {
+  const yap::String NPC::OBJECT_FACTORY_TYPE_NAME = "NPC";
+
   NPC::NPC (const yap::ID& id)
     : Character (id)
   {
@@ -19,5 +21,10 @@ namespace ycl
   NPC* NPC::Clone () const
   {
     return new NPC (*this);
+  }
+
+  yap::String NPC::GetObjectFactoryTypeName () const
+  {
+    return OBJECT_FACTORY_TYPE_NAME;
   }
 } // namespace ycl

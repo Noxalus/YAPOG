@@ -24,6 +24,8 @@ namespace yap
 
       bool Accept (ClientSocket& client);
 
+      void Close ();
+
     private:
 
       sf::TcpListener listener_;

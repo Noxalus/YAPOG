@@ -1,10 +1,12 @@
+#include "YAPOG/System/Network/IPacket.hpp"
+
 #include "Server/ClientManager.hpp"
 #include "Server/ClientSession.hpp"
 
 namespace yse
 {
-  const yap::Time ClientManager::DEFAULT_DATA_WAITING_DELAY =
-    yap::Time (100.0f);
+  const yap::Time ClientManager::DEFAULT_RECEPTION_SLEEP_DELAY =
+    yap::Time (0.05f);
 
   ClientManager::ClientManager ()
     : clients_ ()
@@ -21,8 +23,6 @@ namespace yse
 
   void ClientManager::AddClient (ClientSession* client)
   {
-    client->Init ();
-
     clients_.Add (client);
   }
 
@@ -51,7 +51,11 @@ namespace yse
   void ClientManager::HandleReception ()
   {
     while (receptionIsActive_)
+    {
+      yap::Thread::Sleep (DEFAULT_RECEPTION_SLEEP_DELAY);
+
       for (ClientSession* client : clients_)
         client->HandleReception ();
+    }
   }
 } // namespace yse

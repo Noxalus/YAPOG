@@ -23,6 +23,12 @@ namespace ycl
     protected:
 
       NPC (const NPC& copy);
+
+      virtual yap::String GetObjectFactoryTypeName () const;
+
+    private:
+
+      static const yap::String OBJECT_FACTORY_TYPE_NAME;
   };
 } // namespace ycl
 

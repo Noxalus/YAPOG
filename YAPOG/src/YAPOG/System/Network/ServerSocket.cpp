@@ -22,4 +22,9 @@ namespace yap
   {
     return listener_.accept (client.GetInnerSocket ()) == sf::Socket::Done;
   }
+
+  void ServerSocket::Close ()
+  {
+    listener_.close ();
+  }
 } // namespace yap

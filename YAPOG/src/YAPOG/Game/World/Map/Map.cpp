@@ -14,6 +14,7 @@ namespace yap
   Map::Map (const ID& id)
     : id_ (id)
     , name_ (DEFAULT_NAME)
+    , worldID_ ()
     , width_ (DEFAULT_WIDTH)
     , height_ (DEFAULT_HEIGHT)
     , size_ ()
@@ -50,6 +51,16 @@ namespace yap
   void Map::SetName (const String& name)
   {
     name_ = name;
+  }
+
+  const ID& Map::GetWorldID () const
+  {
+    return worldID_;
+  }
+
+  void Map::SetWorldID (const ID& worldID)
+  {
+    worldID_ = worldID;
   }
 
   const uint& Map::GetWidth () const
@@ -99,6 +110,8 @@ namespace yap
   void Map::AddObject (WorldObject* object)
   {
     objects_.Add (object);
+
+    HandleAddObject (object);
   }
 
   void Map::AddDynamicObject (DynamicWorldObject* object)
@@ -106,11 +119,62 @@ namespace yap
     AddObject (object);
     dynamicObjects_.AddObject (object);
     AddUpdateable (object);
+
+    HandleAddDynamicObject (object);
   }
 
   void Map::AddUpdateable (IUpdateable* updateable)
   {
     updateables_.Add (updateable);
+
+    HandleAddUpdateable (updateable);
+  }
+
+  void Map::RemoveObject (WorldObject* object)
+  {
+    objects_.Remove (object);
+
+    HandleRemoveObject (object);
+  }
+
+  void Map::RemoveDynamicObject (DynamicWorldObject* object)
+  {
+    RemoveObject (object);
+    dynamicObjects_.RemoveObject (object->GetWorldID ());
+    RemoveUpdateable (object);
+
+    HandleRemoveDynamicObject (object);
+  }
+
+  void Map::RemoveUpdateable (IUpdateable* updateable)
+  {
+    updateables_.Remove (updateable);
+
+    HandleRemoveUpdateable (updateable);
+  }
+
+  void Map::HandleAddObject (WorldObject* object)
+  {
+  }
+
+  void Map::HandleAddDynamicObject (DynamicWorldObject* object)
+  {
+  }
+
+  void Map::HandleAddUpdateable (IUpdateable* updateable)
+  {
+  }
+
+  void Map::HandleRemoveObject (WorldObject* object)
+  {
+  }
+
+  void Map::HandleRemoveDynamicObject (DynamicWorldObject* object)
+  {
+  }
+
+  void Map::HandleRemoveUpdateable (IUpdateable* updateable)
+  {
   }
 
   void Map::UpdateSize ()

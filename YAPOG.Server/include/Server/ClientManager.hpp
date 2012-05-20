@@ -2,6 +2,7 @@
 # define YAPOG_SERVER_CLIENTMANAGER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/Network/IPacket.hpp"
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/System/Thread/Thread.hpp"
 # include "YAPOG/System/Time/Time.hpp"
@@ -31,7 +32,7 @@ namespace yse
 
       void HandleReception ();
 
-      static const yap::Time DEFAULT_DATA_WAITING_DELAY;
+      static const yap::Time DEFAULT_RECEPTION_SLEEP_DELAY;
 
       yap::collection::List<ClientSession*> clients_;
 

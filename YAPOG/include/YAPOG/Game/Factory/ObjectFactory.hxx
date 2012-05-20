@@ -33,6 +33,12 @@ namespace yap
   }
 
   template <typename T>
+  inline T* ObjectFactory::Create (const ID& typeID, const ID& id)
+  {
+    return Create<T> (GetType (typeID), id);
+  }
+
+  template <typename T>
   inline T* ObjectFactory::Create (
     const String& typeName,
     IReader& reader,

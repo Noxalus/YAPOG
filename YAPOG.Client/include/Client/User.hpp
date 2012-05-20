@@ -28,6 +28,7 @@ namespace ycl
       virtual bool SendPacket (yap::IPacket& packet);
 
       virtual void AddRelay (yap::IPacketHandler* relay);
+      virtual void RemoveRelay (yap::IPacketHandler* relay);
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
 
@@ -39,9 +40,16 @@ namespace ycl
 
       void SetPlayer (Player* player);
 
+      void HandleServerInfoStartInfo (yap::IPacket& packet);
+      void HandleServerInfoChangeMap (yap::IPacket& packet);
+      void HandleServerInfoAddObject (yap::IPacket& packet);
+      void HandleServerInfoAddPlayer (yap::IPacket& packet);
+
       yap::PacketHandler packetHandler_;
 
       World* world_;
+
+      yap::ID playerWorldID_;
       Player* player_;
   };
 } // namespace ycl

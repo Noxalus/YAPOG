@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 namespace yap
 {
@@ -41,6 +42,11 @@ namespace yap
   void DynamicWorldObject::SetWorldID (const ID& id)
   {
     worldID_ = id;
+  }
+
+  const ID& DynamicWorldObject::GetTypeID () const
+  {
+    return ObjectFactory::Instance ().GetID (GetObjectFactoryTypeName ());
   }
 
   const Vector2& DynamicWorldObject::GetMaxVelocity () const
