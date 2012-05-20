@@ -45,8 +45,7 @@ namespace yap
   Vector2 WidgetDialogBox::HandleGetSize () const
   {
     return GetUserSize ()
-      + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+      + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
   void WidgetDialogBox::HandleDraw (IDrawingContext& context)

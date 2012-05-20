@@ -13,6 +13,7 @@ namespace yap
 
   public:
     MenuItem ();
+    MenuItem (bool isScalable);
     virtual ~MenuItem ();
     virtual void Do ();
     virtual bool IsFocusable () const;
@@ -34,6 +35,7 @@ namespace yap
 
   private:
     Label label_;
+    bool isScalable_;
 
   };
 } // namespace yap

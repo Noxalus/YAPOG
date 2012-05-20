@@ -27,6 +27,9 @@ namespace yap
   {
     Texture* base = baseTexture_;
 
+    if (base->GetSize () == Vector2 (1, 1))
+      return;
+
     width = width_ / base->GetSize ().x;
     height = height_ / base->GetSize ().y;
 
@@ -39,6 +42,9 @@ namespace yap
   void TextureManager::Init ()
   {
     Texture* base = baseTexture_;
+
+    if (base->GetSize () == Vector2 (1, 1))
+      return;
 
     int widthIt = 0;
     int heightIt = 0;
@@ -59,6 +65,9 @@ namespace yap
   void TextureManager::UpdatePosition ()
   {
     Texture* base = baseTexture_;
+
+    if (base->GetSize () == Vector2 (1, 1))
+      return;
 
     int widthIt = 0;
     int heightIt = 0;

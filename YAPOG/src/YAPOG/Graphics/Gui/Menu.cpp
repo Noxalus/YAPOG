@@ -65,8 +65,7 @@ namespace yap
 
   Vector2 Menu::HandleGetSize () const
   {
-    return layout_->GetSize () + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+    return layout_->GetSize () + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
   void Menu::SetFormItem ()
@@ -120,6 +119,11 @@ namespace yap
         SetUnformItem ();
         currentSelec_++;
         SetFormItem ();
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {
+        itemz_[currentSelec_]->Do ();
         return true;
       }
     }

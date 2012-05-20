@@ -33,27 +33,60 @@ namespace ycl
     BaseScreen::HandleInit ();
 
     yap::Menu* menu = new yap::Menu (
-      yap::Menu::Type::HORIZONTAL,
+      yap::Menu::Type::VERTICAL,
       yap::Padding (1, 1, 1, 1),
       yap::Padding (5, 5, 5, 5),
       false);
 
-    menu->SetSize (yap::Vector2 (400, 88));
-    yap::MenuItem* item1 = new yap::MenuItem ();
-    yap::MenuItem* item2 = new yap::MenuItem ();
-    yap::MenuItem* item3 = new yap::MenuItem ();
+    menu->SetSize (yap::Vector2 (200, 512));
+    yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
+    yap::WidgetBackground* menuItemBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
 
-    item1->SetSize (yap::Vector2 (88, 64));
-    item2->SetSize (yap::Vector2 (88, 64));
-    item3->SetSize (yap::Vector2 (88, 64));
+    yap::Texture* ti = new yap::Texture ();
+    yap::Texture* tri = new yap::Texture ();
+    yap::Texture* ri = new yap::Texture ();    
+    yap::Texture* bri = new yap::Texture ();    
+    yap::Texture* bi = new yap::Texture ();    
+    yap::Texture* bli = new yap::Texture ();    
+    yap::Texture* li = new yap::Texture ();
+    li->LoadFromFile ("menuCursor.png");
+    yap::Texture* tli = new yap::Texture ();
+    yap::WidgetBorder* menuItemBrd = new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
-    item1->SetContent ("Item 1");
-    item2->SetContent ("Item 2");
-    item3->SetContent ("Item 3");
+    menu->SetSelectedBackground (*menuItemBck);
+    menu->SetSelectedBorder (*menuItemBrd);
+    menu->SetBackground (*menuBck);
+    yap::Texture* t = new yap::Texture ();
+    t->LoadFromFile ("T.png");
+    yap::Texture* tr = new yap::Texture ();
+    tr->LoadFromFile ("TR.png");
+    yap::Texture* r = new yap::Texture ();
+    r->LoadFromFile ("R.png");
+    yap::Texture* br = new yap::Texture ();
+    br->LoadFromFile  ("BR.png");
+    yap::Texture* b = new yap::Texture ();
+    b->LoadFromFile ("B.png");
+    yap::Texture* bl = new yap::Texture ();
+    bl->LoadFromFile ("BL.png");
+    yap::Texture* l = new yap::Texture ();
+    l->LoadFromFile ("L.png");
+    yap::Texture* tl = new yap::Texture ();
+    tl->LoadFromFile ("TL.png");
 
-    item1->ChangeColor (sf::Color (128, 64, 32));
-    item2->ChangeColor (sf::Color (128, 64, 32));
-    item3->ChangeColor (sf::Color (128, 64, 32));
+    yap::WidgetBorder* menuBorder = new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+    menu->SetBorder (*menuBorder);
+
+    yap::MenuItem* item1 = new yap::MenuItem (true);
+    yap::MenuItem* item2 = new yap::MenuItem (true);
+    yap::MenuItem* item3 = new yap::MenuItem (true);
+
+    item1->SetContent ("POKeDEX");
+    item2->SetContent ("SAC");
+    item3->SetContent ("SAVE");
+
+    item1->ChangeColor (sf::Color (128, 128, 128));
+    item2->ChangeColor (sf::Color (128, 128, 128));
+    item3->ChangeColor (sf::Color (128, 128, 128));
 
     menu->AddChild (*item1, yap::LayoutBox::Align::LEFT);
     menu->AddChild (*item2, yap::LayoutBox::Align::LEFT);
@@ -78,6 +111,7 @@ namespace ycl
     pb->Scale (yap::Vector2 (1, 1));
 
     yap::WidgetBorder* border = new yap::WidgetBorder ("heart.gif");
+    border->SetScalable (false);
     pb->SetBorder (*border, 16);
 
     yap::LayoutH* layouth = new yap::LayoutH (
@@ -86,8 +120,8 @@ namespace ycl
 
     yap::WidgetBackground* bckgr5 =
       new yap::WidgetBackground (
-        "bckgrd5.png",
-        true);
+      "bckgrd5.png",
+      true);
 
     yap::WidgetTextBox* ts = new yap::WidgetTextBox ("Element1");
     ts->SetSize (yap::Vector2 (100, 32));
@@ -144,7 +178,7 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-//    Login ();
+    //    Login ();
 
     return BaseScreen::HandleRun (dt, context);
   }

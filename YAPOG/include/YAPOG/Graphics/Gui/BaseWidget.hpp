@@ -158,7 +158,7 @@ namespace yap
     bool isFocused_;
 
   private:
-    void SetPosAfterBorder (uint width);
+    void SetPosAfterBorder (uint width, uint height);
   };
 } // namespace yap
 

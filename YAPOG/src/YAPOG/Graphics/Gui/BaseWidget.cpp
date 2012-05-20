@@ -315,7 +315,7 @@ namespace yap
   }
 
 
-  void BaseWidget::SetPosAfterBorder (uint width)
+  void BaseWidget::SetPosAfterBorder (uint width, uint height)
   {
     if (spatialInfo_.GetPosition ().x > width)
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
@@ -324,12 +324,12 @@ namespace yap
       Move (Vector2 (width - GetPosition ().x, 0));
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
     }
-    if (spatialInfo_.GetPosition ().y > width)
-      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
+    if (spatialInfo_.GetPosition ().y > height)
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
     else
     {
-      Move (Vector2 (0, width - GetPosition ().y));
-      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
+      Move (Vector2 (0, height - GetPosition ().y));
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
     }
 
     Refresh ();
@@ -344,19 +344,29 @@ namespace yap
     else
       border_->SetBorder (GetUserSize (), width);
 
-    SetPosAfterBorder (width);
+    uint paddingBorder = border.GetSize ().y > 0
+      ? border.GetSize ().y : border.GetSize ().x;
+    if (border.GetSize ().y == 0)
+      SetPosAfterBorder (paddingBorder, 0);
+    else
+      SetPosAfterBorder (paddingBorder, paddingBorder);
   }
 
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
-    border_ = &border;
-    border_->SetPosition (GetPosition ());
-    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
-      border_->SetBorder (GetSize ());
-    else
-      border_->SetBorder (GetUserSize ());
 
-    SetPosAfterBorder (border.GetBorder ().GetSize ().y);
+    border.SetPosition (GetPosition ());
+    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
+      border.SetBorder (GetSize ());
+    else
+      border.SetBorder (GetUserSize ());
+    border_ = &border;
+    uint paddingBorder = border.GetSize ().y > 0
+      ? border.GetSize ().y : border.GetSize ().x;
+    if (border.GetSize ().y == 0)
+      SetPosAfterBorder (paddingBorder, 0);
+    else
+      SetPosAfterBorder (paddingBorder, paddingBorder);
   }
 
   bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)
