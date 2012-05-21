@@ -25,7 +25,10 @@ namespace yap
     individualValue_ = RandomHelper::GetNext (0, 32);
   }
 
-  BaseStat::BaseStat (const UInt16& value, const UInt16& iv, const UInt16& ev)
+  BaseStat::BaseStat (
+    const UInt16& value, 
+    const UInt16& iv, 
+    const UInt16& ev)
     : value_ (value)
     , individualValue_ (iv)
     , effortValue_ (ev)
@@ -71,7 +74,15 @@ namespace yap
     SetValue (result);
   }
 
-  void BaseStat::ComputeValue (const int& base, const UInt16 level, const float& natureFactor)
+  void BaseStat::AddValue (int value)
+  {
+    value_ += value;
+  }
+
+  void BaseStat::ComputeValue (
+    const int& base, 
+    const UInt16 level, 
+    const float& natureFactor)
   {
     UInt16 result = MathHelper::Floor (((individualValue_ + (2 * base) + 
       MathHelper::Floor (effortValue_ / 4)) * level) / 100) + 5;

@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Battle/Battle.hpp"
+# include "YAPOG/Game/Battle/BattlePhase.hpp"
 #include "YAPOG/Game/Battle/BattlePhaseManager.hpp"
 #include "YAPOG/Game/Battle/BeginBattlePhase.hpp"
 #include "YAPOG/Game/Battle/BeginTurnPhase.hpp"
@@ -6,34 +7,77 @@
 #include "YAPOG/Game/Battle/ActionPhase.hpp"
 #include "YAPOG/Game/Battle/EndTurnPhase.hpp"
 #include "YAPOG/Game/Battle/EndBattlePhase.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
   const BattlePhaseState BattlePhaseManager::DEFAULT_BATTLE_PHASE 
-    = BattlePhaseState::None;
+    = BattlePhaseState::BeginBattle;
 
-  BattlePhaseManager::BattlePhaseManager (Battle& battle)
-    : currentPhase_ (DEFAULT_BATTLE_PHASE)
+  BattlePhaseManager::BattlePhaseManager ()
+    : battle_ (nullptr)
+    , currentPhaseState_ (DEFAULT_BATTLE_PHASE)
+    , currentBattlePhase_ (nullptr)
     , battlePhases_ ()
-    , battle_ (battle)
   {
-    battlePhases_.Add (BattlePhaseState::BeginBattle, new BeginBattlePhase ());
-    battlePhases_.Add (BattlePhaseState::BeginTurn, new BeginTurnPhase ());
-    battlePhases_.Add (BattlePhaseState::Selection, new SelectionPhase ());
-    //battlePhases_.Add (BattlePhaseState::Action, new ActionPhase ());
-    battlePhases_.Add (BattlePhaseState::EndTurn, new EndTurnPhase ());
-    battlePhases_.Add (BattlePhaseState::EndBattle, new EndBattlePhase ());
-
-    currentPhase_ = BattlePhaseState::BeginBattle;
   }
 
-  const BattlePhaseState& BattlePhaseManager::GetCurrentPhase () const
+  void BattlePhaseManager::SetCurrentPhaseState (
+    const BattlePhaseState& battlePhaseState)
   {
-    return currentPhase_;
+    currentPhaseState_ = battlePhaseState;
+    currentBattlePhase_ = battlePhases_[currentPhaseState_];
   }
 
-  void BattlePhaseManager::Update ()
+  const BattlePhaseState& BattlePhaseManager::GetCurrentPhaseState () const
   {
-    battlePhases_[currentPhase_]->Update ();
+    return currentPhaseState_;
+  }
+
+  void BattlePhaseManager::SetBattle (Battle* battle)
+  {
+    battle_ = battle;
+  }
+
+  void BattlePhaseManager::SwitchPhase (
+    const BattlePhaseState& battlePhaseState)
+  {
+    if (currentPhaseState_ == battlePhaseState)
+      return;
+
+    currentBattlePhase_->End ();
+
+    SetCurrentPhaseState (battlePhaseState);
+
+    if (!battlePhases_.Contains (currentPhaseState_))
+      YAPOG_THROW("This Battle doesn't contains this phase.");
+
+    currentBattlePhase_->Start ();
+  }
+
+  void BattlePhaseManager::Update (const Time& dt)
+  {
+    if (battlePhases_.IsEmpty ())
+      return;
+
+    currentBattlePhase_->Update (dt);
+    SwitchPhase (currentBattlePhase_->GetNext ());
+  }
+
+  void BattlePhaseManager::AddPhase (
+    const BattlePhaseState& battlePhaseState, 
+    BattlePhase* battlePhase)
+  {
+    battlePhase->SetBattle (battle_);
+
+    bool wasEmpty = battlePhases_.IsEmpty ();
+    battlePhases_.Add (battlePhaseState, battlePhase);
+
+    if (wasEmpty)
+    {
+      SetCurrentPhaseState (battlePhaseState);
+      currentBattlePhase_->Start ();
+    }
   }
 }

@@ -111,14 +111,16 @@ namespace yap
   {
     int i = level;
     int skillNumber = 0;
-    while (i >= 1 && skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER)
+    while (i >= 1 && skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER - 1)
     {
       if (baseSkills_.Contains (i))
       {
         for (const ID& skillID : baseSkills_[i])
         {
           moveSet[skillNumber] = new PokemonSkill (skillID);
-          skillNumber++;
+
+          if (skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER - 1)
+            skillNumber++;
         }
       }
 

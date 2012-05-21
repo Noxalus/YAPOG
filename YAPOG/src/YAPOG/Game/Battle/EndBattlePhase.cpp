@@ -3,6 +3,7 @@
 namespace yap
 {
   EndBattlePhase::EndBattlePhase ()
+    : BattlePhase (BattlePhaseState::EndBattle)
   {
   }
 }

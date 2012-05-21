@@ -290,6 +290,14 @@ namespace yap
     Reset ();
   }
 
+  void Pokemon::TakeDamage (int damage)
+  {
+    if (damage < 0)
+      YAPOG_THROW("A Pokemon cannot take negative damages !");
+
+    stats_.ModifyHitPoint (damage);
+  }
+
   static String GetStringFromExperienceType (
     const ExperienceType& experienceType)
   {

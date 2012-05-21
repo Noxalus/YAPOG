@@ -51,6 +51,8 @@ namespace yap
     void SetSpecialDefense (const SpecialDefense& value);
     void SetSpeed (const Speed& value);
 
+    void ModifyHitPoint (int value);
+
     /// @brief Computes all the statistics of the Pokemon
     /// from its base statistics, its level and its nature
     /// @param pokeInfo Base statistics of the Pokemon.

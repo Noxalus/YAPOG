@@ -24,7 +24,10 @@ namespace yap
 
   public:
     Pokemon (const ID& staticID);
-    Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
+    Pokemon (
+      const ID& staticID, 
+      const UInt16& level, 
+      const bool& shiny);
 
     const String& GetName () const;
     const TypeInfo& GetType1 () const;
@@ -42,6 +45,7 @@ namespace yap
     bool LearnSkill (const ID& skillID);
     void ReplaceSkill (const ID& skillID, int index);
 
+    void TakeDamage (int damage);
 
     void AddExperience (const Int32& value);
 
@@ -70,7 +74,6 @@ namespace yap
     PokemonInfo* pokemonInfo_;
     NatureInfo* nature_;
     PokemonExperience* exp_;
-
   };
 } // namespace yap
 

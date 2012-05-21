@@ -10,15 +10,6 @@ namespace yap
   {
     if (originalPokemon == nullptr)
       YAPOG_THROW("The original Pokemon doesn't exist !");
-    /*
-    stats_.SetHitPoint (originalPokemon->GetStats ().GetHitPoint ());
-    stats_.SetAttack (originalPokemon->GetStats ().GetAttack ());
-    stats_.SetSpecialAttack 
-    (originalPokemon->GetStats ().GetSpecialAttack ());
-    stats_.SetSpecialDefense 
-    (originalPokemon->GetStats ().GetSpecialDefense ());
-    stats_.SetSpeed (originalPokemon->GetStats ().GetSpeed ());
-    */
   }
 
   const String& PokemonFighter::GetName () const
