@@ -284,6 +284,14 @@ namespace yap
     OnChildAdded (*this, EventArgsIWidget (child));
   }
 
+  void BaseWidget::RemoveChild (IWidget& child)
+  {
+    childen_.Remove (&child);
+    drawables_.Remove (&child);
+    updatables_.Remove (&child);
+    eventHandlers_.Remove (&child);
+  }
+
   IWidget& BaseWidget::GetRoot () const
   {
     return *root_;

@@ -64,8 +64,7 @@ namespace yap
   Vector2 LayoutBox::HandleGetSize () const
   {
     if (isExtensible_)
-      return realSize_ + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+      return realSize_ + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
 
     return spatialInfo_.GetSize ();
   }
@@ -81,7 +80,16 @@ namespace yap
     GeneratePosition ();
   }
  
- 
+ void LayoutBox::RemoveChild (IWidget& child)
+ {
+   BaseWidget::RemoveChild (child);
+   items_.Remove (&child);
+
+   if (child.IsFocusable ())
+     focusables_.Remove (&child);
+
+   GeneratePosition ();
+ }
 
   bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {

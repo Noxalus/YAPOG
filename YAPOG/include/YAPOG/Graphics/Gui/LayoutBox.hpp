@@ -30,6 +30,8 @@ namespace yap
     virtual bool IsFocusable () const;
 
     virtual void AddChild (IWidget& child, Align align = Align::CENTER);
+    void RemoveChild (IWidget& child);
+    virtual uint GetWidthItem () = 0;
     void SetExtensible (bool isExt);
     bool GetExtensible ();
     void SetAlign (Align global);

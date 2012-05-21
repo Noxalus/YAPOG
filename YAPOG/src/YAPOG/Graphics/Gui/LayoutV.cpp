@@ -16,6 +16,12 @@ namespace yap
   {
   }
 
+  uint LayoutV::GetWidthItem ()
+  {
+    for (auto itMap = items_.begin (); itMap != items_.end (); itMap++)
+      return (*itMap).first->GetSize ().y;
+  }
+
   LayoutV::~LayoutV ()
   {
   }

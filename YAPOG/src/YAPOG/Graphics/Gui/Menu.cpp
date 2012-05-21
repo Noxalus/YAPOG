@@ -10,13 +10,15 @@
 namespace yap
 {
 
-  Menu::Menu (Type type, Padding ext, Padding in, bool extend)
+  Menu::Menu (Type type, Padding ext, Padding in, bool fixed)
     : itemz_ ()
     , currentSelec_ (0)
     , layout_ (nullptr)
     , selecBckgrd_ (new WidgetBackground ("bckgrd.png", true))
     , selecBrdr_ (nullptr)
     , selecBrdSize_ (16)
+    , isFixed_ (fixed)
+    , type_ (type)
   {
     Texture* t = new Texture ();
     t->LoadFromFile ("T.png");
@@ -37,11 +39,16 @@ namespace yap
 
     selecBrdr_ = new WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
     if (type == Type::HORIZONTAL)
-      layout_ = new LayoutH (ext, in, extend);
+      layout_ = new LayoutH (ext, in, !fixed);
     else if (type == Type::VERTICAL)
-      layout_ = new LayoutV (ext, in, extend);
+      layout_ = new LayoutV (ext, in, !fixed);
 
     BaseWidget::AddChild (*layout_);
+  }
+
+  void Menu::SetFixed (bool state)
+  {
+    isFixed_ = state;
   }
 
   bool Menu::IsFocusable () const
@@ -65,6 +72,8 @@ namespace yap
 
   Vector2 Menu::HandleGetSize () const
   {
+    if (isFixed_)
+      return GetUserSize ();
     return layout_->GetSize () + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
@@ -86,8 +95,17 @@ namespace yap
   void Menu::AddChild (MenuItem& child, LayoutBox::Align align)
   {
     itemz_.Add (&child);
-    layout_->AddChild (child, align);
 
+    layout_->AddChild (child, align);/*
+    if (isFixed_ && type_ == Type::VERTICAL)
+    {
+      if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().y > GetUserSize ().y)
+        layout_->RemoveChild (child);
+    }
+    else if (isFixed_ && type_ == Type::HORIZONTAL)
+      if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().x > GetUserSize ().x)
+        layout_->RemoveChild (child);
+    */
     if (itemz_.Count () == 1)
       SetFormItem ();
   }
@@ -103,9 +121,11 @@ namespace yap
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
+        
         if (currentSelec_ <= 0)
           return true;
 
+        layout_->Move (Vector2 (0, layout_->GetWidthItem ()));
         SetUnformItem ();
         currentSelec_--;
         SetFormItem ();
@@ -116,6 +136,7 @@ namespace yap
         if (itemz_.Count () == 0 || currentSelec_ >= itemz_.Count () - 1)
           return true;
 
+        layout_->Move (Vector2 (0, -layout_->GetWidthItem ()));
         SetUnformItem ();
         currentSelec_++;
         SetFormItem ();

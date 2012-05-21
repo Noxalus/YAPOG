@@ -30,6 +30,7 @@ namespace yap
     void SetSelectedBorder (WidgetBorder& border);
     virtual bool IsFocusable () const;
 
+    void SetFixed (bool state);
   private:
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
@@ -52,6 +53,9 @@ namespace yap
     WidgetBackground* selecBckgrd_;
     WidgetBorder* selecBrdr_;
     uint selecBrdSize_;
+    bool isFixed_;
+    Type type_;
+
   };
 } // namespace yap
 

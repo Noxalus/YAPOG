@@ -109,6 +109,7 @@ namespace yap
 
     virtual void AddDrawable (IDrawable& drawable);
     virtual void AddChild (IWidget& child);
+    virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
     virtual void SetPadding (Padding* padding);
