@@ -46,12 +46,13 @@ namespace yap
     if (currentPhaseState_ == battlePhaseState)
       return;
 
-    if (!battlePhases_.Contains (currentPhaseState_))
-      YAPOG_THROW("This Battle doesn't have this state.");
-
     currentBattlePhase_->End ();
 
     SetCurrentPhaseState (battlePhaseState);
+
+    if (!battlePhases_.Contains (currentPhaseState_))
+      YAPOG_THROW("This Battle doesn't contains this phase.");
+
     currentBattlePhase_->Start ();
   }
 
@@ -61,6 +62,7 @@ namespace yap
       return;
 
     currentBattlePhase_->Update (dt);
+    SwitchPhase (currentBattlePhase_->GetNext ());
   }
 
   void BattlePhaseManager::AddPhase (

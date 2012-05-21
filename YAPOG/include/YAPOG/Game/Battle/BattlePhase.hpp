@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Game/Battle/BattlePhaseState.hpp"
 
 namespace yap
 {
@@ -11,7 +12,10 @@ namespace yap
   class YAPOG_LIB BattlePhase : public IUpdateable
   {
   public:
-    BattlePhase ();
+    BattlePhase (const BattlePhaseState& battlePhaseState);
+
+    /// Getters
+    const BattlePhaseState& GetNext () const;
 
     void Start ();
     void End ();
@@ -27,6 +31,8 @@ namespace yap
     virtual void HandleEnd ();
     virtual void HandleUpdate (const Time& dt);
     Battle& GetBattle ();
+    BattlePhaseState state_;
+    BattlePhaseState nextPhase_;
 
   private:
     Battle* battle_;

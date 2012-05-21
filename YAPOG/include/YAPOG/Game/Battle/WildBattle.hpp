@@ -20,7 +20,6 @@ namespace yap
   protected:
     virtual void HandleInit ();
     virtual void HandleUpdate (const Time& dt);
-
   };
 } // namespace yap
 

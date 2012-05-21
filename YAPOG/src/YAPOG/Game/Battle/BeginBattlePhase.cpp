@@ -3,6 +3,7 @@
 namespace yap
 {
   BeginBattlePhase::BeginBattlePhase ()
+    : BattlePhase (BattlePhaseState::BeginBattle)
   {
   }
 
@@ -10,6 +11,11 @@ namespace yap
   {
     BattlePhase::HandleStart ();
     std::cout << "BEGIN !" << std::endl;
+  }
+
+  void BeginBattlePhase::HandleUpdate (const Time& dt)
+  {
+    nextPhase_ = BattlePhaseState::BeginTurn;
   }
 
   void BeginBattlePhase::HandleEnd ()

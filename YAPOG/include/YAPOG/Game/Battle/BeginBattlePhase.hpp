@@ -14,6 +14,7 @@ namespace yap
     /// @name BattlePhase members.
     /// @{
     virtual void HandleStart ();
+    virtual void HandleUpdate (const Time& dt);
     virtual void HandleEnd ();
     /// @}
   };

@@ -3,6 +3,7 @@
 namespace yap
 {
   EndTurnPhase::EndTurnPhase ()
+    : BattlePhase (BattlePhaseState::EndTurn)
   {
   }
 }
