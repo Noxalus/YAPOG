@@ -2,7 +2,6 @@
 # define YAPOG_PACKET_HPP
 
 # include <SFML/Network/Packet.hpp>
-# include <SFML/Network/SocketSelector.hpp>
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacket.hpp"
@@ -21,9 +20,7 @@ namespace yap
       virtual ~Packet ();
 
       void CreateFromType (PacketType type);
-      bool CreateFromSocket (
-        const sf::SocketSelector selector,
-        ClientSocket& socket);
+      bool CreateFromSocket (ClientSocket& socket);
 
       /// @name IPacket members.
       /// @{

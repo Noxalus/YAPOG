@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  const bool ClientSocket::DEFAULT_BLOCKING_STATE = true;
+  const bool ClientSocket::DEFAULT_BLOCKING_STATE = false;
   const Time ClientSocket::DEFAULT_CONNECTION_TIMEOUT = Time (5.0f);
 
   ClientSocket::ClientSocket ()
@@ -19,13 +19,20 @@ namespace yap
   {
   }
 
-  bool ClientSocket::Connect (const String& ipAddress, Int16 port)
+  bool ClientSocket::Connect (const String& ipAddress, UInt16 port)
   {
-    return socket_.connect (
-      sf::IpAddress (ipAddress),
-      port,
-      sf::seconds (
-        DEFAULT_CONNECTION_TIMEOUT.GetValue ())) == sf::Socket::Done;
+    socket_.setBlocking (true);
+
+    if (socket_.connect (
+          sf::IpAddress (ipAddress),
+          port,
+          sf::seconds (
+            DEFAULT_CONNECTION_TIMEOUT.GetValue ())) != sf::Socket::Done)
+      return false;
+
+    socket_.setBlocking (DEFAULT_BLOCKING_STATE);
+
+    return true;
   }
 
   void ClientSocket::Disconnect ()
@@ -38,14 +45,19 @@ namespace yap
     return socket_.send (packet.GetInnerPacket ()) == sf::Socket::Done;
   }
 
-  bool ClientSocket::Receive (
-    const sf::SocketSelector& selector,
-    IPacket& packet)
+  bool ClientSocket::Receive (IPacket& packet)
   {
-    if (!selector.isReady (GetInnerSocket ()))
-        return false;
-
     return socket_.receive (packet.GetInnerPacket ()) == sf::Socket::Done;
+  }
+
+  String ClientSocket::GetRemoteAddress () const
+  {
+    return socket_.getRemoteAddress ().toString ();
+  }
+
+  UInt16 ClientSocket::GetRemotePort () const
+  {
+    return socket_.getRemotePort ();
   }
 
   sf::TcpSocket& ClientSocket::GetInnerSocket ()

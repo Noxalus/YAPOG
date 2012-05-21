@@ -30,6 +30,7 @@ namespace yap
       /// @{
       virtual void Init ();
       virtual void Launch ();
+      virtual void Dispose ();
       /// @}
 
     protected:
@@ -37,6 +38,7 @@ namespace yap
       virtual void HandleInit () = 0;
       virtual void HandleRun (const Time& dt, IDrawingContext& context);
       virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+      virtual void HandleDispose ();
 
       IGameScreenManager* screenManager_;
 

@@ -2,7 +2,6 @@
 # define YAPOG_CLIENTSOCKET_HPP
 
 # include <SFML/Network/TcpSocket.hpp>
-# include <SFML/Network/SocketSelector.hpp>
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/Socket.hpp"
@@ -23,11 +22,14 @@ namespace yap
       ClientSocket ();
       virtual ~ClientSocket ();
 
-      bool Connect (const String& ipAddress, Int16 port);
+      bool Connect (const String& ipAddress, UInt16 port);
       void Disconnect ();
 
       bool Send (IPacket& packet);
-      bool Receive (const sf::SocketSelector& selector, IPacket& packet);
+      bool Receive (IPacket& packet);
+
+      String GetRemoteAddress () const;
+      UInt16 GetRemotePort () const;
 
       sf::TcpSocket& GetInnerSocket ();
 

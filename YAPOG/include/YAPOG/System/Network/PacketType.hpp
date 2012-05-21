@@ -20,10 +20,18 @@ namespace yap
 
     // from server to client
     ServerInfoLoginValidation,
+    ServerInfoLoginError,
 
+    ServerInfoPrimaryData,
     ServerInfoStartInfo,
 
-    ServerInfoObjectMove
+    ServerInfoChangeMap,
+
+    ServerInfoMoveObject,
+    ServerInfoAddObject,
+    ServerInfoRemoveObject,
+    ServerInfoAddPlayer,
+    ServerInfoRemovePlayer
   };
 } // namespace yap
 

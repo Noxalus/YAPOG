@@ -116,6 +116,13 @@ namespace ycl
     session_.Refresh ();
   }
 
+  void TestGame::HandleDispose ()
+  {
+    yap::Game::HandleDispose ();
+
+    session_.Disconnect ();
+  }
+
   void TestGame::InitRandom ()
   {
     yap::RandomHelper::Init (time (nullptr));

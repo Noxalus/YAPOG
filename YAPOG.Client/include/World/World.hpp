@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Game/ID.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace ycl
 {
@@ -21,7 +22,10 @@ namespace ycl
       World ();
       virtual ~World ();
 
-      void ChangeMap (const yap::ID& id);
+      void AddMap (const yap::ID& worldID, const yap::ID& id);
+
+      void ChangeMap (const yap::ID& worldID);
+      Map& GetCurrentMap ();
 
       /// @name IDrawable members.
       /// @{
@@ -33,9 +37,10 @@ namespace ycl
       virtual void ChangeColor (const sf::Color& color);
       /// @}
 
+      yap::Event<const World&, const yap::ChangeEventArgs<Map*>&> OnMapChanged;
+
     private:
 
-      void AddMap (const yap::ID& id);
       void AddMap (Map* map);
 
       virtual void HandleUpdate (const yap::Time& dt);

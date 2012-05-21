@@ -23,6 +23,9 @@ namespace yap
       const ID& GetWorldID () const;
       void SetWorldID (const ID& id);
 
+      /// @brief Returns the ID of this type from the ObjectFactory.
+      const ID& GetTypeID () const;
+
       const Vector2& GetMaxVelocity () const;
       void SetMaxVelocity (const Vector2& maxVelocity);
 
@@ -49,6 +52,8 @@ namespace yap
       explicit DynamicWorldObject (const ID& id);
 
       DynamicWorldObject (const DynamicWorldObject& copy);
+
+      virtual String GetObjectFactoryTypeName () const = 0;
 
       virtual void HandleUpdate (const Time& dt);
       virtual void HandleSetState (const String& state);

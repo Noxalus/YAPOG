@@ -33,8 +33,11 @@ namespace ycl
 
     private:
 
+      Map& GetCurrentMap ();
       void SetCurrentMap (Map& map);
       void SetPlayer (Player* player);
+
+      void UpdatePlayer (const yap::Time& dt);
 
       static const yap::ScreenType DEFAULT_NAME;
 
