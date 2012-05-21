@@ -5,8 +5,9 @@
 
 namespace yap
 {
-  class YAPOG_LIB IBattleEntity
+  struct YAPOG_LIB IBattleEntity
   {
+    virtual ~IBattleEntity () {}
   };
 } // namespace yap
 

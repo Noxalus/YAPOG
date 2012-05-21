@@ -13,13 +13,8 @@ namespace yap
   {
   public:
     WildBattle (
-      PokemonTeam& playerTeam, 
-      Pokemon& wildPokemon);
-
-    virtual void DisplayBeginMessage ();
-
-  private:
-    Pokemon& wildPokemon_;
+      IBattleEntity& playerTeam, 
+      IBattleEntity& wildPokemon);
   };
 } // namespace yap
 

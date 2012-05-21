@@ -2,10 +2,11 @@
 # define YAPOG_BEGINBATTLEPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Battle/BattlePhase.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB BeginBattlePhase
+  class YAPOG_LIB BeginBattlePhase : public BattlePhase
   {
   public:
     BeginBattlePhase ();

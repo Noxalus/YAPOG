@@ -66,8 +66,10 @@ int main ()
 
   try 
   {
+    /*
     WildBattle wildBattle (team, *GeneratePokemon ());
     wildBattle.Run ();
+    */
 
     getchar ();
   }

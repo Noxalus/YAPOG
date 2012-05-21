@@ -34,4 +34,7 @@
 #  pragma warning(disable : 4251)
 # endif
 
+// Temporary
+#include <iostream>
+
 #endif // YAPOG_MACROS_HPP

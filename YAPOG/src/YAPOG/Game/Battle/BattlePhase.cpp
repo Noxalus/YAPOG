@@ -5,4 +5,8 @@ namespace yap
   BattlePhase::BattlePhase ()
   {
   }
+
+  void BattlePhase::Update ()
+  {
+  }
 }

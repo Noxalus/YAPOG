@@ -9,6 +9,8 @@ namespace yap
   {
   public:
     BattlePhase ();
+
+    virtual void Update ();
   };
 } // namespace yap
 

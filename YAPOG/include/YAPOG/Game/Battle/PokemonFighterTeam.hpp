@@ -3,6 +3,8 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Battle/IBattleEntity.hpp"
+# include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+# include "YAPOG/Game/Battle/PokemonFighter.hpp"
 
 namespace yap
 {
@@ -10,6 +12,16 @@ namespace yap
   {
   public:
     PokemonFighterTeam ();
+    PokemonFighterTeam (const PokemonTeam& pokemonTeam);
+
+    PokemonFighter* GetPokemon (int index) const;
+    const collection::Array<PokemonFighter*>& GetTeam () const;
+    bool AddPokemon (PokemonFighter* pokemon);
+
+    /// Debug
+    void PrintTeam ();
+  private:
+    collection::Array<PokemonFighter*> pokemons_;
   };
 } // namespace yap
 

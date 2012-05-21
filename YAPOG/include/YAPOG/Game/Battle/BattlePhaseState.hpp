@@ -7,6 +7,7 @@ namespace yap
 {
   enum class BattlePhaseState : int
   {
+    None,
     BeginBattle,
     BeginTurn,
     Selection,

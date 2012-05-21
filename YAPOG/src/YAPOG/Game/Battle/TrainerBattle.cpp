@@ -2,8 +2,10 @@
 
 namespace yap
 {
-  TrainerBattle::TrainerBattle (PokemonTeam& playerTeam)
-    : Battle (playerTeam)
+  TrainerBattle::TrainerBattle (
+    IBattleEntity& playerTeam, 
+    IBattleEntity& opponentTeam)
+    : Battle (playerTeam, opponentTeam)
   {
   }
 
