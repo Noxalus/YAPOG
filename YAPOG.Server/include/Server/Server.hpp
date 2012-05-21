@@ -6,8 +6,19 @@
 # include "YAPOG/System/Network/ServerSocket.hpp"
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/System/Thread/Thread.hpp"
+# include "YAPOG/System/Path.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 
 # include "World/World.hpp"
+# include "Server/ClientManager.hpp"
+
+namespace yap
+{
+  class ContentManager;
+  class ObjectFactory;
+  class WorldObjectStateFactory;
+  class Logger;
+} // namespace yap
 
 namespace yse
 {
@@ -23,6 +34,7 @@ namespace yse
 
       void Init ();
       void Launch ();
+      void Stop ();
 
     private:
 
@@ -30,8 +42,21 @@ namespace yse
 
       void HandleListening ();
 
+      void Dispose ();
+
+      void InitRandom ();
+      void InitContentManager (const yap::Path& contentRootPath);
+      void InitObjectFactory ();
+      void InitWorldObjectStateFactory ();
+
+      void InitLoggerManager ();
+
+      void LoadMaps ();
+
       static const bool DEFAULT_RUNNING_STATE;
       static const yap::Int16 DEFAULT_PORT;
+
+      static const float DEFAULT_WORLD_UPDATE_RATE;
 
       bool isRunning_;
       yap::ServerSocket socket_;
@@ -39,9 +64,16 @@ namespace yse
 
       yap::Int16 port_;
 
-      yap::collection::List<ClientSession*> clients_;
+      ClientManager clients_;
 
       World world_;
+
+      yap::ContentManager& contentManager_;
+
+      yap::ObjectFactory& objectFactory_;
+      yap::WorldObjectStateFactory& worldObjectStateFactory_;
+
+      yap::Logger& logger_;
   };
 } // namespace yse
 

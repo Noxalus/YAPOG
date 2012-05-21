@@ -17,7 +17,7 @@ namespace yap
       static int GetNext (const int& min, const int& max);
       static float GetNext (const float& min, const float& max);
       static double GetNext (const double& min, const double& max);
-      static bool Pourcentage (const float& pourcentage);
+      static bool Percentage (const float& percentage);
 
     private:
 

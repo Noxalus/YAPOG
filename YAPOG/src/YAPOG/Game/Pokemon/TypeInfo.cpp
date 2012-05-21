@@ -65,4 +65,10 @@ namespace yap
     typeEffect_.Add (typeID, effect);
   }
 
+  bool TypeInfo::operator== (const TypeInfo& right) const
+  {
+    return staticID_ == right.GetID ();
+  }
+
+
 } // namespace yap

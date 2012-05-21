@@ -33,6 +33,8 @@ namespace ycl
         const yap::Time& dt,
         yap::IDrawingContext& context);
 
+      virtual void HandleDispose ();
+
     private:
 
       void InitRandom ();

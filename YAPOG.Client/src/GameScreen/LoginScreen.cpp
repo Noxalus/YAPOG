@@ -178,7 +178,8 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    //    Login ();
+    Login ();
+
 
     return BaseScreen::HandleRun (dt, context);
   }
