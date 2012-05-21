@@ -11,10 +11,14 @@ namespace yap
   PokemonFighterTeam::PokemonFighterTeam (const PokemonTeam& pokemonTeam)
     : pokemons_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
   {
-    for (int i = 0; i < PokemonTeam::MAX_POKEMON_TEAM_NUMBER; i++)
+    int i = 0;
+    for (Pokemon* p : pokemonTeam.GetTeam ())
     {
-      if (pokemonTeam.GetPokemon (i) != nullptr)
-        AddPokemon (new PokemonFighter (pokemonTeam.GetPokemon (i)));
+      if (p == nullptr)
+        break;
+
+      pokemons_[i] = new PokemonFighter (p);
+      i++;
     }
   }
 
@@ -23,14 +27,14 @@ namespace yap
     /*
     if (index >= PokemonTeam::MAX_POKEMON_TEAM_NUMBER)
     {
-      YAPOG_THROW("Pokemon Team: index out of bound (" + 
-      StringHelper::ToString (index) + ")");
+    YAPOG_THROW("Pokemon Team: index out of bound (" + 
+    StringHelper::ToString (index) + ")");
     }
 
     if (pokemons_[index] == nullptr)
     {
-      YAPOG_THROW("Pokemon Team: no Pokemon at this index (" + 
-      StringHelper::ToString (index) + ")");
+    YAPOG_THROW("Pokemon Team: no Pokemon at this index (" + 
+    StringHelper::ToString (index) + ")");
     }
     */
 

@@ -16,6 +16,8 @@
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Battle/WildBattle.hpp"
+#include "YAPOG/Game/Battle/PokemonFighter.hpp"
+#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
 using namespace yap;
 using namespace yap::collection;
@@ -64,12 +66,19 @@ int main ()
   team.AddPokemon (new Pokemon (ID (2), 42, false));
   team.AddPokemon (new Pokemon (ID (16), 32, true));
 
-  try 
+  try
   {
-    /*
-    WildBattle wildBattle (team, *GeneratePokemon ());
-    wildBattle.Run ();
-    */
+    PokemonFighter wildPokemon (GeneratePokemon ());
+    PokemonFighterTeam playerFighterTeam (team);
+
+    team.GetPokemon (0)->PrintStats ();
+    std::cout << "---------- Fighter ----------" << std::endl;
+    playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
+
+    WildBattle wildBattle (playerFighterTeam, wildPokemon);
+    wildBattle.Init ();
+
+    while (42) wildBattle.Update (Time ());
 
     getchar ();
   }

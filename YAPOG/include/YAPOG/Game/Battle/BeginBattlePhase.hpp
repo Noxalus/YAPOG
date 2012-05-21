@@ -10,6 +10,12 @@ namespace yap
   {
   public:
     BeginBattlePhase ();
+
+    /// @name BattlePhase members.
+    /// @{
+    virtual void HandleStart ();
+    virtual void HandleEnd ();
+    /// @}
   };
 } // namespace yap
 

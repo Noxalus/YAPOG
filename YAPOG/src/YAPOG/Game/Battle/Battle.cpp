@@ -8,16 +8,27 @@ namespace yap
     : playerTeam_ (playerTeam)
     , opponent_ (opponent)
     , turnCount_ (0)
-    , battlePhaseManager_ (*this)
+    , battlePhaseManager_ ()
   {
   }
 
-  void Battle::Run ()
+  void Battle::Init ()
   {
-    /*
-    battlePhaseManager_.Init ();
+    battlePhaseManager_.SetBattle (this);
+    HandleInit ();
+  }
 
-    while (battlePhaseManager_.GetCurrentPhase () != BattlePhaseState::EndBattle)
+  void Battle::HandleInit ()
+  {
+  }
+
+  void Battle::Update (const Time& dt)
+  {
+    HandleUpdate (dt);
+    battlePhaseManager_.Update (dt);
+    /*
+    while (battlePhaseManager_.GetCurrentPhase () != 
+      BattlePhaseState::EndBattle)
     {
       battlePhaseManager_.Update ();
     }
@@ -83,6 +94,17 @@ namespace yap
     getchar ();
     }
     */
+  }
+
+  void Battle::AddPhase (
+      const BattlePhaseState& battlePhaseState, 
+      BattlePhase* battlePhase)
+  {
+    battlePhaseManager_.AddPhase (battlePhaseState, battlePhase);
+  }
+
+  void Battle::HandleUpdate (const Time& dt)
+  {
   }
 
   void Battle::DisplayMoves ()
