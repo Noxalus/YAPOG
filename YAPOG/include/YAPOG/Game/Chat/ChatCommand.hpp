@@ -3,7 +3,7 @@
 
 # include <iostream>
 # include <sstream>
-# include "YAPOG/Game/Chat/OPTChat.hpp"
+# include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringHelper.hpp"
@@ -15,7 +15,7 @@ namespace yap
 	class Chat;
   class ChatDisplayer;
 
-	class YAPOG_LIB ChatCommand : public OPTChat
+	class YAPOG_LIB ChatCommand : public ChatHeader
 	{
 		DISALLOW_COPY(ChatCommand);
 	public:

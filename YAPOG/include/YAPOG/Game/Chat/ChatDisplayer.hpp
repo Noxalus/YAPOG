@@ -3,13 +3,13 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Chat/Chat.hpp"
-# include "YAPOG/Game/Chat/OPTChat.hpp"
+# include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/System/IOStream.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
-	class YAPOG_LIB ChatDisplayer : public OPTChat
+	class YAPOG_LIB ChatDisplayer : public ChatHeader
 	{
 		DISALLOW_COPY(ChatDisplayer);
 	public:

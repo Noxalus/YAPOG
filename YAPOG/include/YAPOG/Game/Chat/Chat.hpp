@@ -6,14 +6,14 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Chat/ChatCommand.hpp"
 # include "YAPOG/Game/Chat/ChatDisplayer.hpp"
-# include "YAPOG/Game/Chat/OPTChat.hpp"
+# include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringFilter.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
-	class YAPOG_LIB Chat : public OPTChat
+	class YAPOG_LIB Chat : public ChatHeader
 	{
 		DISALLOW_COPY(Chat);
 	public:

@@ -1,4 +1,4 @@
-#include "YAPOG/Game/Chat/OPTChat.hpp"
+#include "YAPOG/Game/Chat/ChatHeader.hpp"
 #include "YAPOG/Game/Chat/Chat.hpp"
 #include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 
