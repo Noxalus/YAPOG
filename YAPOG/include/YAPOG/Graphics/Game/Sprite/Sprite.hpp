@@ -43,6 +43,8 @@ namespace yap
 
       virtual void HandleUpdate (const Time& dt);
 
+      Vector2 HandleGetSize () const;
+
       Texture* texture_;
   };
 } // namespace yap

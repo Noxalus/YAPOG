@@ -12,12 +12,37 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/WidgetDialogBox.hpp"
 
+#include "YAPOG/System/RandomHelper.hpp"
+
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
+#include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+#include "YAPOG/Game/Battle/PokemonFighter.hpp"
+#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
+
 #include "GameScreen/LoginScreen.hpp"
 #include "Client/Session.hpp"
+
+#include "Battle/WildBattle.hpp"
 
 namespace ycl
 {
   const yap::ScreenType LoginScreen::DEFAULT_NAME = "Login";
+
+  /// @TODO Remove this battle test
+  WildBattle* wildBattle_ = nullptr;
+  yap::Pokemon* GeneratePokemon ()
+  {
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
+
+    if (staticID == yap::ID (4))
+      staticID = yap::ID (16);
+
+    int level = yap::RandomHelper::GetNext (1, 100);
+
+    yap::Pokemon* p = new yap::Pokemon (staticID, level, false);
+
+    return p;
+  }
 
   LoginScreen::LoginScreen ()
     : BaseScreen (DEFAULT_NAME)
@@ -32,11 +57,26 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
+    yap::PokemonTeam team;
+    team.AddPokemon (new yap::Pokemon (yap::ID (2), 42, false));
+    team.AddPokemon (new yap::Pokemon (yap::ID (16), 32, true));
+
+    yap::PokemonFighter wildPokemon (GeneratePokemon ());
+    yap::PokemonFighterTeam playerFighterTeam (team);
+
+    team.GetPokemon (0)->PrintStats ();
+    std::cout << "---------- Fighter ----------" << std::endl;
+    playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
+
+    wildBattle_ = new WildBattle (playerFighterTeam, wildPokemon);
+    wildBattle_->Init ();
+
+    /*
     yap::Menu* menu = new yap::Menu (
-      yap::Menu::Type::VERTICAL,
-      yap::Padding (1, 1, 1, 1),
-      yap::Padding (5, 5, 5, 5),
-      false);
+    yap::Menu::Type::VERTICAL,
+    yap::Padding (1, 1, 1, 1),
+    yap::Padding (5, 5, 5, 5),
+    false);
 
     menu->SetSize (yap::Vector2 (200, 512));
     yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
@@ -93,8 +133,8 @@ namespace ycl
     menu->AddChild (*item3, yap::LayoutBox::Align::LEFT);
 
     yap::LayoutV* layout = new yap::LayoutV (
-      yap::Padding (2, 2, 2, 2),
-      yap::Padding (9, 9 , 9, 9), false);
+    yap::Padding (2, 2, 2, 2),
+    yap::Padding (9, 9 , 9, 9), false);
 
     yap::WidgetBackground* bckgrd4 = new yap::WidgetBackground ("bckgrd4.png", true);
     layout->SetBackground (*bckgrd4);
@@ -115,21 +155,21 @@ namespace ycl
     pb->SetBorder (*border, 16);
 
     yap::LayoutH* layouth = new yap::LayoutH (
-      yap::Padding (20, 20, 20, 20),
-      yap::Padding (9, 9 , 9, 9), true);
+    yap::Padding (20, 20, 20, 20),
+    yap::Padding (9, 9 , 9, 9), true);
 
     yap::WidgetBackground* bckgr5 =
-      new yap::WidgetBackground (
-      "bckgrd5.png",
-      true);
+    new yap::WidgetBackground (
+    "bckgrd5.png",
+    true);
 
     yap::WidgetTextBox* ts = new yap::WidgetTextBox ("Element1");
     ts->SetSize (yap::Vector2 (100, 32));
     yap::WidgetTextBox* ts3 = new yap::WidgetTextBox ("Element2");
     ts3->SetSize (yap::Vector2 (100, 32));
     yap::WidgetBackground* bckgr = new yap::WidgetBackground (
-      "bckgrd3.png",
-      false);
+    "bckgrd3.png",
+    false);
 
     ts->SetBackground (*bckgr);
 
@@ -152,8 +192,8 @@ namespace ycl
     cursor->LoadFromFile ("cursor.png");
     txtbox->SetCursor (*cursor);
     yap::WidgetBackground* bckgrd = new yap::WidgetBackground (
-      "bckgrd.png",
-      true);
+    "bckgrd.png",
+    true);
     txtbox->SetBackground (*bckgrd);
 
     //yap::widgetbackground* bckgr = new widgetbackground ();
@@ -172,6 +212,7 @@ namespace ycl
     guiManager_->AddChild (*dialog);
 
     // guiManager_->AddChild (*bckgr);
+    */
   }
 
   const yap::ScreenType& LoginScreen::HandleRun (
@@ -180,6 +221,8 @@ namespace ycl
   {
     //Login ();
 
+    wildBattle_->Update (dt);
+    wildBattle_->Draw (context);
 
     return BaseScreen::HandleRun (dt, context);
   }

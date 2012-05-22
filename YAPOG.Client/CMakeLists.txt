@@ -17,11 +17,19 @@ SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
 SET(
 source_files
+${inc_root}/Battle/WildBattle.hpp
+${src_root}/Battle/WildBattle.cpp
+${inc_root}/Battle/BattlePhaseManager.hpp
+${src_root}/Battle/BattlePhaseManager.cpp
+${inc_root}/Battle/Phase/BeginBattlePhase.hpp
+${src_root}/Battle/Phase/BeginBattlePhase.cpp
+
 ${src_root}/Client.cpp
 ${inc_root}/Client/Session.hpp
 ${src_root}/Client/Session.cpp
 ${inc_root}/Client/User.hpp
 ${src_root}/Client/User.cpp
+
 ${inc_root}/GameInput/GameInputReader.hpp
 ${src_root}/GameInput/GameInputReader.cpp
 ${inc_root}/GameScreen/BaseScreen.hpp
@@ -38,8 +46,10 @@ ${inc_root}/GameScreen/GameplayScreen.hpp
 ${src_root}/GameScreen/GameplayScreen.cpp
 ${inc_root}/GameScreen/BattleScreen.hpp
 ${src_root}/GameScreen/BattleScreen.cpp
+
 ${inc_root}/TestGame.hpp
 ${src_root}/TestGame.cpp
+
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp
 ${inc_root}/World/Map/CharacterReader.hpp

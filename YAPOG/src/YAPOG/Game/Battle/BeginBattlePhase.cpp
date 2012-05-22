@@ -7,6 +7,10 @@ namespace yap
   {
   }
 
+   BeginBattlePhase::~BeginBattlePhase ()
+   {
+   }
+
   void BeginBattlePhase::HandleStart ()
   {
     BattlePhase::HandleStart ();
