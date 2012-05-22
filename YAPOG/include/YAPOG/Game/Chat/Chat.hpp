@@ -7,17 +7,18 @@
 # include "YAPOG/Game/Chat/ChatCommand.hpp"
 # include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 # include "YAPOG/Game/Chat/ChatHeader.hpp"
+# include "YAPOG/Game/Chat/ChatManager.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringFilter.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
-	class YAPOG_LIB Chat : public ChatHeader
+	class YAPOG_LIB Chat
 	{
 		DISALLOW_COPY(Chat);
 	public:
-    typedef collection::Array<String> VStringType;
+    typedef collection::Array<String> BufferType;
 		Chat ();
 		Chat (String b);
     ~Chat ();
@@ -33,7 +34,7 @@ namespace yap
     String            GetUpHistory();
     String            GetStringHistory();
     BufferType        GetBufHistory();
-    VStringType       GetHistory();
+    BufferType       GetHistory();
     bool              ChangeChan(ChatDisplayer& display);
 
 	private:
@@ -48,7 +49,7 @@ namespace yap
 		String					  entry_;
 		String					  output_;
 		BufferType			  buffer_;
-    VStringType       history_;
+    BufferType       history_;
 	};
 } // namespace yap
 

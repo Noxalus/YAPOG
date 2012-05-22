@@ -16,7 +16,7 @@ namespace yap
       tab_[i] = tabs[i];
   }
 
-  String							ChatCommand::Help(ChatCommand::BufferType s)
+  String							ChatCommand::Help(BufferType s)
   {
     String ret = "";
     String nl = "\r\n";
@@ -29,7 +29,7 @@ namespace yap
     return ret;
   }
 
-  String							ChatCommand::Echo(ChatCommand::BufferType b)
+  String							ChatCommand::Echo(BufferType b)
   {
     if (b[0].compare(0, 4, "/echo") == 0)
       return b[0].substr(5);
@@ -37,12 +37,12 @@ namespace yap
     return b[0];
   }
 
-  String							ChatCommand::Unknown(ChatCommand::BufferType s)
+  String							ChatCommand::Unknown(BufferType s)
   {
     return ("Command " + s[0].substr(1) + " not exist.");
   }
 
-  String							ChatCommand::Trade(ChatCommand::BufferType name)
+  String							ChatCommand::Trade(BufferType name)
   {
     if (name.Count() > 2)
       return ("Unable to trade with so much people!!");
@@ -51,7 +51,7 @@ namespace yap
     return ("Trying to trade with " + name[1] + ".");
   }
 
-  ChatCommand::func					ChatCommand::GetCmd (const char *pString)
+  func					     ChatCommand::GetCmd (const char *pString)
   {
     String s(pString);
 

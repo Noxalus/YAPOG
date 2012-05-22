@@ -2,31 +2,24 @@
 # define YAPOG_CHATDISPLAYER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Chat/ChanManager.hpp"
 # include "YAPOG/Game/Chat/Chat.hpp"
 # include "YAPOG/Game/Chat/ChatHeader.hpp"
+# include "YAPOG/Game/Chat/ChatManager.hpp"
 # include "YAPOG/System/IOStream.hpp"
 # include "YAPOG/System/String.hpp"
 
 namespace yap
 {
-	class YAPOG_LIB ChatDisplayer : public ChatHeader
+	class YAPOG_LIB ChatDisplayer
 	{
 		DISALLOW_COPY(ChatDisplayer);
 	public:
-    typedef struct ChanManager
-    {
-      ChanManager ();
-      ChanManager (String name, String color);
-
-      String       Name;
-      String       Color;
-      BufferType   Buff;
-    } CMType;
-    typedef collection::Array<CMType*> ChansType;
+    typedef collection::Array<CMType*>  ChansType; // Channel type
 		ChatDisplayer();
     ~ChatDisplayer();
 		
-    int                 GetChanNb();
+    UInt32              GetChanNb();
 		void								Display(ChatManagerType* c);
   private:
     ChansType           chans_;

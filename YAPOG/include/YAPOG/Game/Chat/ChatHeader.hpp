@@ -1,5 +1,5 @@
-#ifndef YAPOG_OPTCHAT_HPP
-# define YAPOG_OPTCHAT_HPP
+#ifndef YAPOG_CHATHEADER_HPP
+# define YAPOG_CHATHEADER_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Array.hpp"
@@ -11,26 +11,15 @@
 
 namespace yap
 {
-	class ChatCommand;
-	typedef collection::Array<String>		BufferType;
-
-	class YAPOG_LIB ChatHeader
-	{
-		DISALLOW_COPY(ChatHeader);
-	public:
-		ChatHeader();
-		typedef collection::Array<String>	BufferType;
-    typedef collection::Array<Int16>	ChanType;
-	  typedef String (ChatCommand::*func)(BufferType b);
-		typedef struct ChatManager
-		{
-      ChatManager();
-
-      UInt32            ChanNb;
-			BufferType				Request;
-			func					    RequestCmd;
-		} ChatManagerType;
-	};
+  class ChatCommand;
+  class ChatCommandLoc;
+  typedef collection::Array<String>   BufferType;
+  typedef collection::Array<Int16>    ChanType; // Which chan to display
+  // Pointers on functions
+  // Local
+  typedef String (ChatCommandLoc::*funcloc)(BufferType b);
+  // Request
+  typedef String (ChatCommand::*func)(BufferType b);
 } // namespace yap
 
-#endif // YAPOG_OPTCHAT_HPP
+#endif // YAPOG_CHATHEADER_HPP

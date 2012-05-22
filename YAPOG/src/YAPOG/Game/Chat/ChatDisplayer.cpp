@@ -5,10 +5,11 @@ namespace yap
 {
   ChatDisplayer::ChatDisplayer()
   {
-    chans_.Add(new CMType ());
+    chans_.Add(new CMType ()); // Global, White
     chans_.Add(new CMType ("Group", "Green"));
     chans_.Add(new CMType ("Business", "Blue"));
     chans_.Add(new CMType ("Info", "Yellow"));
+    chans_.Add(new CMType ("MP", "Purple"));
   }
 
   ChatDisplayer::~ChatDisplayer()
@@ -20,20 +21,7 @@ namespace yap
       delete (*it);
   }
 
-  ChatDisplayer::ChanManager::ChanManager()
-  {
-    Name = "Global";
-    Color = "White";
-  }
-
-  ChatDisplayer::ChanManager::ChanManager(String name,
-                                          String color)
-  {
-    Name = name;
-    Color = color;
-  }
-
-  int                 ChatDisplayer::GetChanNb()
+  UInt32              ChatDisplayer::GetChanNb()
   {
     return chans_.Count();
   }
@@ -43,6 +31,8 @@ namespace yap
     ChatCommand cc;
     String strToDisp = cc.ExecCmd(this, c);
     chans_[c->ChanNb]->Buff.Add(strToDisp);
-    std::cout << c->ChanNb << " (" << chans_[c->ChanNb]->Color << ") :: "<< strToDisp << std::endl;
+    std::cout << chans_[c->ChanNb]->Name 
+              << " (" << chans_[c->ChanNb]->Color 
+              << ") :: "<< strToDisp << std::endl;
   }
 } // namespace yap

@@ -105,7 +105,7 @@ namespace yap
     index_ = offset_;
   }
 
-  Chat::ChatManagerType*	Chat::Parse()
+  ChatManagerType*	      Chat::Parse()
   {
     ChatCommand cc;
 
@@ -154,7 +154,7 @@ namespace yap
     return chatmanager_;
   }
 
-  String                Chat::GetUpHistory()
+  String                  Chat::GetUpHistory()
   {
     if ((index_-- - 1) < 0)
     {
@@ -168,7 +168,7 @@ namespace yap
     return history_[index_];
   }
 
-  String                Chat::GetStringHistory()
+  String                  Chat::GetStringHistory()
   {
     String stringtosend = "";
     stringtosend += "History :\r\n";
@@ -178,7 +178,7 @@ namespace yap
     return stringtosend;
   }
 
-  Chat::BufferType      Chat::GetBufHistory()
+  BufferType              Chat::GetBufHistory()
   {
     BufferType bufftosend;
     std::cout << history_.Count() << std::endl;
@@ -189,12 +189,12 @@ namespace yap
     return bufftosend;
   }
 
-  Chat::VStringType     Chat::GetHistory()
+  BufferType              Chat::GetHistory()
   {
     return history_;
   }
 
-  bool								  Chat::Check()
+  bool								    Chat::Check()
   {
     return (buffer_.Count() > 0 && entry_[0] == '/');
   }

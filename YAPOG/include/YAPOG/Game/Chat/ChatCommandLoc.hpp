@@ -1,5 +1,5 @@
-#ifndef YAPOG_CHATCOMMAND_HPP
-# define YAPOG_CHATCOMMAND_HPP
+#ifndef YAPOG_CHATCOMMANDLOC_HPP
+# define YAPOG_CHATCOMMANDLOC_HPP
 
 # include <iostream>
 # include <sstream>
@@ -9,37 +9,35 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
-# define NBCMDS 3
+# define NBCMDSLOC 1
 
 namespace yap
 {
 	class Chat;
   class ChatDisplayer;
 
-	class YAPOG_LIB ChatCommand
+	class YAPOG_LIB ChatCommandLoc
 	{
-		DISALLOW_COPY(ChatCommand);
+		DISALLOW_COPY(ChatCommandLoc);
 	public:
 		typedef struct MyCmd
 		{
 			String  PtrString;
-      func    PtrFunc;
+      funcloc PtrFunc;
 		} MyCmdType;
-		ChatCommand();
+		ChatCommandLoc();
 
 		// Commands
 		String							Help(BufferType b);
 		String							Unknown(BufferType b);
-		String							Trade(BufferType b);
-		String							Echo(BufferType b);
 
 		// Get the command
-		func								GetCmd (const char *pString);
+		funcloc							GetCmd (const char *pString);
 		// Execute the command
 		String							ExecCmd(ChatDisplayer* cd, ChatManagerType* f);
 	private:
-		MyCmdType           tab_[NBCMDS];
+		MyCmdType           tab_[NBCMDSLOC];
 	};
 } // namespace yap
 
-#endif // YAPOG_CHATCOMMAND_HPP
+#endif // YAPOG_CHATCOMMANDLOC_HPP

@@ -1,17 +1,15 @@
-#include "YAPOG/Game/Chat/Chat.hpp"
 #include "YAPOG/Game/Chat/ChatCommand.hpp"
+#include "YAPOG/Game/Chat/ChatCommandLoc.hpp"
+#include "YAPOG/Game/Chat/ChatManager.hpp"
 
 namespace yap
 {
-	ChatHeader::ChatHeader()
-	{
-	}
-
-  ChatHeader::ChatManager::ChatManager()
+  ChatManager::ChatManager()
   {
     ChanNb = DEFAULTCHAN;
     Request = *(new BufferType);
     RequestCmd = &ChatCommand::Unknown;
+    RequestCmdLoc = &ChatCommandLoc::Unknown;
   }
   
 } // namespace yap
