@@ -14,30 +14,12 @@ namespace yap
     : itemz_ ()
     , currentSelec_ (0)
     , layout_ (nullptr)
-    , selecBckgrd_ (new WidgetBackground ("bckgrd.png", true))
+    , selecBckgrd_ (nullptr)
     , selecBrdr_ (nullptr)
     , selecBrdSize_ (16)
     , isFixed_ (fixed)
     , type_ (type)
-  {
-    Texture* t = new Texture ();
-    t->LoadFromFile ("T.png");
-    Texture* tr = new Texture ();
-    tr->LoadFromFile ("TR.png");
-    Texture* r = new Texture ();
-    r->LoadFromFile ("R.png");
-    Texture* br = new Texture ();
-    br->LoadFromFile  ("BR.png");
-    Texture* b = new Texture ();
-    b->LoadFromFile ("B.png");
-    Texture* bl = new Texture ();
-    bl->LoadFromFile ("BL.png");
-    Texture* l = new Texture ();
-    l->LoadFromFile ("L.png");
-    Texture* tl = new Texture ();
-    tl->LoadFromFile ("TL.png");
-
-    selecBrdr_ = new WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+  {  
     if (type == Type::HORIZONTAL)
       layout_ = new LayoutH (ext, in, !fixed);
     else if (type == Type::VERTICAL)
@@ -81,8 +63,10 @@ namespace yap
   {
     MenuItem* curItem = itemz_[currentSelec_];
 
-    curItem->SetBackground (*selecBckgrd_);
-    curItem->SetBorder (*selecBrdr_);
+    if (selecBckgrd_ != nullptr)
+      curItem->SetBackground (*selecBckgrd_);
+    if (selecBrdr_ != nullptr)
+      curItem->SetBorder (*selecBrdr_);
   }
 
   void Menu::SetUnformItem ()
@@ -94,20 +78,23 @@ namespace yap
 
   void Menu::AddChild (MenuItem& child, LayoutBox::Align align)
   {
+    if (selecBrdr_ != nullptr)
+      child.SetBorder (*selecBrdr_);
     itemz_.Add (&child);
-
-    layout_->AddChild (child, align);/*
+    layout_->AddChild (child, align);
+    /*
     if (isFixed_ && type_ == Type::VERTICAL)
     {
-      if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().y > GetUserSize ().y)
-        layout_->RemoveChild (child);
+    if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().y > GetUserSize ().y)
+    layout_->RemoveChild (child);
     }
     else if (isFixed_ && type_ == Type::HORIZONTAL)
-      if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().x > GetUserSize ().x)
-        layout_->RemoveChild (child);
+    if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().x > GetUserSize ().x)
+    layout_->RemoveChild (child);
     */
-    if (itemz_.Count () == 1)
-      SetFormItem ();
+    child.UnsetBorder ();    
+    SetFormItem ();
+
   }
 
   void Menu::HandleDraw (IDrawingContext& context)
@@ -121,11 +108,10 @@ namespace yap
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
-        
+
         if (currentSelec_ <= 0)
           return true;
 
-        layout_->Move (Vector2 (0, layout_->GetWidthItem ()));
         SetUnformItem ();
         currentSelec_--;
         SetFormItem ();
@@ -136,7 +122,6 @@ namespace yap
         if (itemz_.Count () == 0 || currentSelec_ >= itemz_.Count () - 1)
           return true;
 
-        layout_->Move (Vector2 (0, -layout_->GetWidthItem ()));
         SetUnformItem ();
         currentSelec_++;
         SetFormItem ();
