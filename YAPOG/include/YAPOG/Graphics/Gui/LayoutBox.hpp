@@ -36,6 +36,7 @@ namespace yap
     bool GetExtensible ();
     void SetAlign (Align global);
     Align GetAlign ();
+    void Clear ();
 
 
   protected:

@@ -19,6 +19,7 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
+#include "GameScreen/GameMainMenu.hpp"
 #include "GameScreen/LoginScreen.hpp"
 #include "Client/Session.hpp"
 
@@ -180,11 +181,12 @@ namespace ycl
 
     yap::WidgetTextBox* ts2 = new yap::WidgetTextBox ("Last Element");
     ts2->SetSize (yap::Vector2 (100, 32));
+    layout->AddChild (*menu, yap::LayoutBox::Align::CENTER);
     layout->AddChild (*label, yap::LayoutBox::Align::CENTER);
     layout->AddChild (*pb, yap::LayoutBox::Align::CENTER);
     layout->AddChild (*layouth, yap::LayoutBox::Align::CENTER);
     layout->AddChild (*ts2, yap::LayoutBox::Align::CENTER);
-    layout->AddChild (*menu, yap::LayoutBox::Align::CENTER);
+    
 
     yap::WidgetTextBox* txtbox = new yap::WidgetTextBox ();
     txtbox->SetSize (yap::Vector2 (256, 64));

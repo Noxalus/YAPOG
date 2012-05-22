@@ -33,6 +33,18 @@ namespace yap
     BaseWidget::Refresh ();
   }
 
+  void LayoutBox::Clear ()
+  {
+    items_.Clear ();
+    focusables_.Clear ();
+
+    drawables_.Clear ();
+    childen_.Clear();    
+    updatables_.Clear();
+    eventHandlers_.Clear();
+
+  }
+
   bool LayoutBox::IsFocusable () const
   {
     return true;
