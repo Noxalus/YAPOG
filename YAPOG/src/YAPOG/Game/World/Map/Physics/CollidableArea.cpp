@@ -10,9 +10,11 @@ namespace yap
   {
   }
 
-  void CollidableArea::SetSize (uint width, uint height)
+  void CollidableArea::SetSize (const Vector2& size)
   {
-    HandleSetSize (width, height);
+    size_ = size;
+
+    HandleSetSize (size);
   }
 
   void CollidableArea::AddCollidable (ICollidable* collidable)
@@ -20,7 +22,7 @@ namespace yap
     HandleAddCollidable (collidable);
   }
 
-  void CollidableArea::HandleSetSize (uint width, uint height)
+  void CollidableArea::HandleSetSize (const Vector2& size)
   {
   }
 } // namespace yap

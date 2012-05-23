@@ -15,9 +15,4 @@ namespace yse
     : yap::Character (copy)
   {
   }
-
-  void Character::SetMap (Map* map)
-  {
-    map_ = map;
-  }
 } // namespace yse

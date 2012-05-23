@@ -16,6 +16,7 @@ namespace yap
   class WorldObject;
   class StaticWorldObject;
   class DynamicWorldObject;
+  class CollidableArea;
 
   /// @brief Base Map class for both client and server.
   class YAPOG_LIB Map : public IUpdateable
@@ -41,6 +42,8 @@ namespace yap
       void SetSize (uint width, uint height);
 
       const Vector2& GetSize () const;
+
+      void SetCollidableArea (CollidableArea* collidableArea);
 
       /// @name IUpdateable members.
       /// @{
@@ -101,6 +104,8 @@ namespace yap
       DynamicWorldObjectCollection dynamicObjects_;
 
       collection::List<IUpdateable*> updateables_;
+
+      CollidableArea* collidableArea_;
   };
 } // namespace yap
 

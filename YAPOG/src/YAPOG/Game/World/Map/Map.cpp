@@ -4,6 +4,7 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
 
 namespace yap
 {
@@ -22,11 +23,14 @@ namespace yap
     , objects_ ()
     , dynamicObjects_ ()
     , updateables_ ()
+    , collidableArea_ (nullptr)
   {
   }
 
   Map::~Map ()
   {
+    delete collidableArea_;
+    collidableArea_ = nullptr;
   }
 
   Map* Map::Clone () const
@@ -87,9 +91,16 @@ namespace yap
     return size_;
   }
 
+  void Map::SetCollidableArea (CollidableArea* collidableArea)
+  {
+    collidableArea_ = collidableArea;
+  }
+
   void Map::HandleSetSize (uint width, uint height)
   {
     UpdateSize ();
+
+    collidableArea_->SetSize (GetSize ());
   }
 
   void Map::Update (const Time& dt)

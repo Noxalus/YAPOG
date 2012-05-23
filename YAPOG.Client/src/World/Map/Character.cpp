@@ -11,7 +11,6 @@ namespace ycl
     , color_ (DEFAULT_COLOR)
     , sprites_ (new yap::SpriteSet<yap::String> ())
     , directionSprites_ ()
-    , map_ (nullptr)
   {
   }
 
@@ -27,7 +26,6 @@ namespace ycl
     , color_ (copy.color_)
     , sprites_ (new yap::SpriteSet<yap::String> ())
     , directionSprites_ ()
-    , map_ (nullptr)
   {
     for (auto& it : copy.directionSprites_)
       AddSprite (it.first, it.second->Clone ());
@@ -39,11 +37,6 @@ namespace ycl
   {
     sprites_->AddSprite (state, directionSprite);
     directionSprites_.Add (state, directionSprite);
-  }
-
-  void Character::SetMap (Map* map)
-  {
-    map_ = map;
   }
 
   void Character::Draw (yap::IDrawingContext& context)

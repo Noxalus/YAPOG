@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 
 namespace yap
 {
@@ -16,7 +17,7 @@ namespace yap
 
       virtual ~CollidableArea ();
 
-      void SetSize (uint width, uint height);
+      void SetSize (const Vector2& size);
 
       void AddCollidable (ICollidable* collidable);
 
@@ -24,9 +25,13 @@ namespace yap
 
       CollidableArea ();
 
-      virtual void HandleSetSize (uint width, uint height);
+      virtual void HandleSetSize (const Vector2& size);
 
       virtual void HandleAddCollidable (ICollidable* collidable) = 0;
+
+    private:
+
+      Vector2 size_;
   };
 } // namespace yap
 

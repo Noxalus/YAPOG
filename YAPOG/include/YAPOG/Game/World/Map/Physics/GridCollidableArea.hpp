@@ -19,20 +19,19 @@ namespace yap
       GridCollidableArea ();
       virtual ~GridCollidableArea ();
 
-      void SetSize (const Vector2& size);
+      void SetSegmentCount (uint vSegmentCount, uint hSegmentCount);
 
     protected:
 
-      virtual void HandleSetSize (uint width, uint height);
+      virtual void HandleSetSize (const Vector2& size);
 
       virtual void HandleAddCollidable (ICollidable* collidable);
 
     private:
 
-      static const Vector2 DEFAULT_SIZE;
-      static const Vector2 DEFAULT_CELL_SIZE;
+      uint vSegmentCount_;
+      uint hSegmentCount_;
 
-      Vector2 size_;
       Vector2 cellSize_;
 
       collection::Matrix<CollidableAreaCell*> cells_;

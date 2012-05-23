@@ -1,15 +1,12 @@
 #include "YAPOG/Game/World/Map/Physics/GridCollidableArea.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableAreaCell.hpp"
+#include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 
 namespace yap
 {
-  const Vector2 GridCollidableArea::DEFAULT_SIZE = Vector2 ();
-  const Vector2 GridCollidableArea::DEFAULT_CELL_SIZE = Vector2 ();
-
   GridCollidableArea::GridCollidableArea ()
     : CollidableArea ()
-    , size_ (DEFAULT_SIZE)
-    , cellSize_ (DEFAULT_CELL_SIZE)
+    , cellSize_ ()
     , cells_ (0, 0, nullptr)
   {
   }
@@ -18,22 +15,42 @@ namespace yap
   {
   }
 
-  void GridCollidableArea::SetSize (const Vector2& size)
+  void GridCollidableArea::SetSegmentCount (
+    uint vSegmentCount,
+    uint hSegmentCount)
   {
-    size_ = size;
+    vSegmentCount_ = vSegmentCount;
+    hSegmentCount_ = hSegmentCount;
+
+    cells_.Resize (
+      hSegmentCount_,
+      vSegmentCount_,
+      new CollidableAreaCell ());
   }
 
-  void GridCollidableArea::HandleSetSize (uint width, uint height)
+  void GridCollidableArea::HandleSetSize (const Vector2& size)
   {
-    CollidableArea::HandleSetSize (width, height);
+    CollidableArea::HandleSetSize (size);
 
-    cellSize_ = Vector2 (size_.x / width, size_.y / height);
-
-    cells_.Resize (width, height, new CollidableAreaCell ());
+    cellSize_ = Vector2 (size.x / hSegmentCount_, size.y / vSegmentCount_);
   }
 
   void GridCollidableArea::HandleAddCollidable (ICollidable* collidable)
   {
-    /// @todo Add collidable in all cells where it is "present".
+    UIntRect collidableRect (
+      collidable->GetTopLeft ().x / cellSize_.x,
+      collidable->GetTopLeft ().y / cellSize_.y,
+      (collidable->GetBottomRight ().x - collidable->GetTopLeft ().x) /
+      cellSize_.x,
+      (collidable->GetBottomRight ().y - collidable->GetTopLeft ().y) /
+      cellSize_.y);
+
+    for (uint y = collidableRect.top;
+         y < collidableRect.top + collidableRect.height;
+         ++y)
+      for (uint x = collidableRect.left;
+           x < collidableRect.left + collidableRect.width;
+           ++x)
+        cells_ (x, y)->AddCollidable (collidable);
   }
 } // namespace yap

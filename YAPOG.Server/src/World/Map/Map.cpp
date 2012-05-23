@@ -20,7 +20,6 @@ namespace yse
   {
     player->AddRelay (this);
 
-    player->SetMap (this);
     players_.Add (player);
     AddDynamicObject (player);
 
@@ -31,7 +30,6 @@ namespace yse
   {
     player->RemoveRelay (this);
 
-    player->SetMap (nullptr);
     players_.Remove (player);
     RemoveDynamicObject (player);
 
