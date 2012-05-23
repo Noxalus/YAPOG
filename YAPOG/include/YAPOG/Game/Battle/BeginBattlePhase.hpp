@@ -8,9 +8,12 @@ namespace yap
 {
   class YAPOG_LIB BeginBattlePhase : public BattlePhase
   {
-  public:
+    DISALLOW_COPY(BeginBattlePhase);
+  protected:
     BeginBattlePhase ();
+    ~BeginBattlePhase ();
 
+  public:
     /// @name BattlePhase members.
     /// @{
     virtual void HandleStart ();

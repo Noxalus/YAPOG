@@ -16,6 +16,7 @@ namespace yap
     WildBattle (
       IBattleEntity& playerTeam, 
       IBattleEntity& wildPokemon);
+    virtual ~WildBattle ();
 
   protected:
     virtual void HandleInit ();

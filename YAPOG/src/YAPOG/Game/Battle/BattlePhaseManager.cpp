@@ -27,6 +27,10 @@ namespace yap
     const BattlePhaseState& battlePhaseState)
   {
     currentPhaseState_ = battlePhaseState;
+
+    if (!battlePhases_.Contains (currentPhaseState_))
+      YAPOG_THROW("This Battle doesn't contains this phase.");
+
     currentBattlePhase_ = battlePhases_[currentPhaseState_];
   }
 
@@ -50,8 +54,17 @@ namespace yap
 
     SetCurrentPhaseState (battlePhaseState);
 
-    if (!battlePhases_.Contains (currentPhaseState_))
-      YAPOG_THROW("This Battle doesn't contains this phase.");
+    int i = 1;
+    for (auto& bp : battlePhases_)
+    {
+      std::cout << "Element #" << i << std::endl;
+      if (bp.first == BattlePhaseState::BeginBattle)
+        std::cout << "BEGIN BATTLE !" << std::endl;
+      if (bp.first == BattlePhaseState::Selection)
+        std::cout << "SELECTION !" << std::endl;
+
+      i++;
+    }
 
     currentBattlePhase_->Start ();
   }

@@ -51,7 +51,7 @@ namespace yap
   void WidgetTextBox::Refresh ()
   {
     label_->SetPosition (Vector2 (GetPosition ().x,
-                                  GetPosition ().y /*+ label_->GetCharHeight () / 2*/));
+                                  GetPosition ().y));
 
     uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
     while (label_->GetSize ().x > labelMaxWidth)

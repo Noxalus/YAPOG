@@ -11,7 +11,7 @@
 namespace yap
 {
   class Texture;
-  class IDrawingContext;
+  struct IDrawingContext;
 
   class YAPOG_LIB TextureManager :
     public IDrawable,

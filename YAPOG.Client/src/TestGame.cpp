@@ -27,6 +27,19 @@
 #include "YAPOG/Graphics/TextureReader.hpp"
 #include "YAPOG/Graphics/Game/Sprite/RegularAnimatedSprite.hpp"
 
+#include "YAPOG/Game/Pokemon/PokemonInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Game/Pokemon/NatureInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/NatureInfo.hpp"
+#include "YAPOG/Game/Pokemon/TypeInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/TypeInfo.hpp"
+#include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/SkillInfo.hpp"
+#include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+#include "YAPOG/Game/Battle/WildBattle.hpp"
+#include "YAPOG/Game/Battle/PokemonFighter.hpp"
+#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
+
 #include "TestGame.hpp"
 #include "GameScreen/LoadingScreen.hpp"
 #include "GameScreen/UpdateScreen.hpp"
@@ -42,6 +55,8 @@
 
 namespace ycl
 {
+  const yap::Vector2 TestGame::SCREEN_SIZE = yap::Vector2 (800, 600);
+
   TestGame::TestGame (const yap::String& name)
     : yap::Game (name)
     , session_ (Session::Instance ())
@@ -185,6 +200,26 @@ namespace ycl
       "Tile",
       new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
         yap::Path ("Tile"), "Tile"));
+
+    objectFactory_.RegisterLoader 
+    ("PokemonInfo",
+    new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
+    (yap::Path ("Pokemon/Pokemon"), "PokemonInfo"));
+
+  objectFactory_.RegisterLoader 
+    ("NatureInfo",
+    new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader>
+    (yap::Path ("Pokemon/Nature"), "Nature"));
+
+  objectFactory_.RegisterLoader 
+    ("TypeInfo",
+    new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader>
+    (yap::Path ("Pokemon/Types"), "Type"));
+
+  objectFactory_.RegisterLoader 
+    ("SkillInfo",
+    new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader>
+    (yap::Path ("Pokemon/Skills"), "Skill"));
   }
 
   void TestGame::InitWorldObjectStateFactory ()

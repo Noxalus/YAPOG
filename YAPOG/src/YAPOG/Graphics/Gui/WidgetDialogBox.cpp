@@ -36,7 +36,7 @@ namespace yap
     for (Label* text : labels_)
     {
       text->SetPosition (Vector2 (GetPosition ().x + padding_->left,
-        GetPosition ().y  + padding_->top/*+ label_->GetCharHeight () / 2*/));
+        GetPosition ().y + padding_->top/*+ label_->GetCharHeight () / 2*/));
     }
 
     BaseWidget::Refresh ();
