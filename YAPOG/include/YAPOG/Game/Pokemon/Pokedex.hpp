@@ -14,6 +14,7 @@ namespace yap
   {
   public:
     Pokedex ();
+    Pokedex::~Pokedex ();
 
     void SetPokemonSeenInfoList (const collection::Map<ID, Pokedex*>& pokSeen);
     void SetPokemonCaughtInfoList (const collection::Map<ID, Pokedex*>& pokCaught);
