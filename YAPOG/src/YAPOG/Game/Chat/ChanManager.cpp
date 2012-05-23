@@ -2,14 +2,14 @@
 
 namespace yap
 {
-  ChanManager::ChanManager()
+  ChanManager::ChanManager ()
   {
     Name = "Global";
     Color = "White";
   }
 
-  ChanManager::ChanManager(String name,
-                           String color)
+  ChanManager::ChanManager (String name,
+                            String color)
   {
     Name = name;
     Color = color;

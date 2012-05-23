@@ -14,43 +14,46 @@
 
 namespace yap
 {
-	class YAPOG_LIB Chat
-	{
-		DISALLOW_COPY(Chat);
-	public:
+  class YAPOG_LIB Chat
+  {
+    DISALLOW_COPY(Chat);
+  public:
     typedef collection::Array<String> BufferType;
-		Chat ();
-		Chat (String b);
+    Chat ();
+    Chat (String b);
     ~Chat ();
 
     // Parse chat line
-		ChatManagerType*  Parse();
-    
+    ChatManagerType*  Parse ();
+    // Execute the line
+    bool              Exec (ChatDisplayer& display);
+
     // Getter & Setter for buffer_
-		//BufferType			GetBuf();
-		void              SetBuf(String b);
+    //BufferType			GetBuf();
+    void              SetBuf (String b);
 
     // Chat History
-    String            GetUpHistory();
-    String            GetStringHistory();
-    BufferType        GetBufHistory();
-    BufferType       GetHistory();
-    bool              ChangeChan(ChatDisplayer& display);
+    String            GetUpHistory ();
+    String            GetDownHistory ();
+    String            GetStringHistory ();
+    BufferType        GetBufHistory ();
+    BufferType        GetHistory ();
+    bool              ChangeChan (ChatDisplayer& display);
 
-	private:
-    void              IncOff();
-		// Check if the user's entry is a command
-		bool					  	Check();
-    
+  private:
+    void              IncOff ();
+    // Check if the user's entry is a command
+    bool					  	Check ();
+
     ChatManagerType*  chatmanager_;
     size_t            offset_;
     Int32             index_;
     Int32             chan_;
-		String					  entry_;
-		String					  output_;
-		BufferType			  buffer_;
-    BufferType       history_;
-	};
+    String					  entry_;
+    String					  output_;
+    BufferType			  buffer_;
+    BufferType        history_;
+  };
 } // namespace yap
 
 #endif // YAPOG_CHAT_HPP

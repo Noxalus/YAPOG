@@ -16,6 +16,22 @@ namespace yap
       tab_[i] = tabs[i];
   }
 
+  String              argmiss()
+  {
+    return "Argument is missing.";
+  }
+  String              toomucharg()
+  {
+    return "Too much argument.";
+  }
+  String              testarg(BufferType b, Int32 nbarg)
+  {
+    if (b.Count() > 2)
+      return toomucharg();
+    if (b.Count() < 2)
+      return argmiss();
+  }
+
   String							ChatCommand::Help(BufferType s)
   {
     String ret = "";
@@ -31,10 +47,26 @@ namespace yap
 
   String							ChatCommand::Echo(BufferType b)
   {
-    if (b[0].compare(0, 4, "/echo") == 0)
-      return b[0].substr(5);
+    String toret = "";
 
-    return b[0];
+    if (b.Count() > 0)
+    {
+      if (b[0].compare("/echo") == 0)
+      {
+        if (b.Count() == 1)
+          toret = argmiss();
+        else
+        {
+          toret += b[1];
+          for (size_t i = 2; i < b.Count(); i++)
+            toret += " " + b[i];
+        }
+      }
+      else
+        toret = b[0];
+    }
+
+    return toret;
   }
 
   String							ChatCommand::Unknown(BufferType s)
@@ -44,14 +76,19 @@ namespace yap
 
   String							ChatCommand::Trade(BufferType name)
   {
-    if (name.Count() > 2)
-      return ("Unable to trade with so much people!!");
-    if (name.Count() < 2)
-      return ("Unable to trade with nobody...");
+    if (name.Count() != 2)
+      return testarg(name, 2);
     return ("Trying to trade with " + name[1] + ".");
   }
 
-  func					     ChatCommand::GetCmd (const char *pString)
+  String              ChatCommand::ChangeChan(BufferType b)
+  {
+    if (b.Count() != 2)
+      return testarg(b, 2);
+    return "";
+  }
+
+  func					      ChatCommand::GetCmd (const char *pString)
   {
     String s(pString);
 

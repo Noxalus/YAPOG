@@ -10,14 +10,15 @@
 namespace yap
 {
   class ChatCommand;
+
   typedef struct ChatManager
   {
-    ChatManager();
+    ChatManager ();
 
+    bool              Local;
     UInt32            ChanNb;
     BufferType				Request;
     func					    RequestCmd;
-    funcloc 			    RequestCmdLoc;
   } ChatManagerType;
 } // namespace yap
 

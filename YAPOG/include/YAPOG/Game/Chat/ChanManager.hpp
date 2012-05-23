@@ -10,7 +10,7 @@
 namespace yap
 {
   class ChatCommand;
-  class ChatCommandLoc;
+
   typedef struct ChanManager
   {
     ChanManager ();
@@ -19,6 +19,7 @@ namespace yap
     String       Name;
     String       Color;
     BufferType   Buff;
+    size_t       Offset;
   } CMType;
 } // namespace yap
 

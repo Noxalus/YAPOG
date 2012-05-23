@@ -2,138 +2,92 @@
 
 namespace yap
 {
-  Chat::Chat()
+  Chat::Chat ()
+    : chatmanager_ (new ChatManager ())
+    , offset_ (0)
+    , index_ (0)
+    , chan_ (0)
+    , entry_ ("")
+    , output_ ("")
+    , buffer_ ()
+    , history_ ()
   {
-    entry_ = "";
-    index_ = 0;
-    offset_ = 0;
-    chatmanager_ = new ChatManager();
   }
 
-  Chat::Chat(String b)
+  Chat::Chat (String b)
+    : chatmanager_ (new ChatManager ())
+    , offset_ (0)
+    , index_ (0)
+    , chan_ (0)
+    , entry_ ("")
+    , output_ ("")
+    , buffer_ ()
+    , history_ (*(new BufferType ()))
   {
-    SetBuf(b);
-    index_ = 0;
-    offset_ = 0;
-    chatmanager_ = new ChatManager();
+    SetBuf (b);
   }
 
   Chat::~Chat ()
   {
+    delete (chatmanager_);
   }
 
-  void								    Chat::SetBuf(String b)
+  void								    Chat::SetBuf (String b)
   {
     BufferType* tmp = new BufferType;
     entry_ = b;
     String w;
-    std::stringstream ss(entry_);
+    std::stringstream ss (entry_);
 
-    while(ss >> w)
-      tmp->Add(w);
+    while (ss >> w)
+      tmp->Add (w);
 
     buffer_ = *tmp;
   }
 
-  bool                    Chat::ChangeChan(ChatDisplayer& displayer)
+  void                    Chat::IncOff ()
   {
-    if (buffer_.Count() > 0 && Check())
-    {
-      String cmd = buffer_[0].substr(1);
-
-      if (StringHelper::CompareString(cmd, String ("ChangeChan")) == 0)
-      {
-        if (buffer_.Count() == 1)
-          entry_ = "Chan number is missing.";
-        if (buffer_.Count() > 2)
-          entry_ = "Too much argument.";
-        if (buffer_.Count() == 2)
-        {
-          String chanNb = buffer_[1];
-
-          if (StringFilter::IsNumeric(chanNb))
-          {
-            std::istringstream buf(chanNb);
-            UInt32 tmp = 0;
-            buf >> tmp;
-            if (tmp >= 0 && tmp < displayer.GetChanNb())
-            {
-              chatmanager_->ChanNb = tmp;
-              std::cout << "Channel changed to channel number : "
-                        << chatmanager_->ChanNb << std::endl;
-              return true;
-            }
-            else
-              entry_ = tmp + " is not an chan number.";
-          }
-          else
-            entry_ = "Bad argument.";
-        }
-      }
-      else
-      {
-        String chanNb = cmd;
-          
-        if (StringFilter::IsNumeric(chanNb))
-        {
-          std::istringstream buf(chanNb);
-          UInt32 tmp = 0;
-          buf >> tmp;
-          if (tmp >= 0 && tmp < displayer.GetChanNb())
-          {
-            chatmanager_->ChanNb = tmp;
-            std::cout << "Channel changed to channel number : "
-                      << chatmanager_->ChanNb << std::endl;
-            entry_ = entry_.substr(2 + chanNb.size());
-            SetBuf(entry_);
-          }
-          else
-            entry_ = tmp + " is not an chan number.";
-        }
-      }
-    }
-    return false;
-  }
-
-  void                    Chat::IncOff()
-  {
-    if (history_.Count() < HISTORYMAX)
-      history_.Add(entry_);
+    if (history_.Count () < HISTORYMAX)
+      history_.Add (entry_);
     else
       history_[offset_++] = entry_;
-    offset_ = offset_ == HISTORYMAX ? 0 : offset_;
+
+    if (offset_ == HISTORYMAX)
+      offset_ = 0;
     index_ = offset_;
   }
 
-  ChatManagerType*	      Chat::Parse()
+  ChatManagerType*	      Chat::Parse ()
   {
     ChatCommand cc;
 
-    if (buffer_.Count() == 0)
+    if (buffer_.Count () == 0)
     {
-      chatmanager_->RequestCmd = cc.GetCmd("echo");
-      chatmanager_->Request.Add(entry_);
-      IncOff();
+      chatmanager_->RequestCmd = cc.GetCmd ("echo");
+      chatmanager_->Request.Add (entry_);
+      IncOff ();
       return chatmanager_;
     }
     /* Test Up arrow history */
-    if (Check() && StringHelper::CompareString(buffer_[0], String ("/up")) == 0)
+    if (Check () && 
+        StringHelper::CompareString (buffer_[0], String ("/up")) == 0)
     {
-      chatmanager_->RequestCmd = cc.GetCmd("echo");
-      chatmanager_->Request.Add("UP : '" + GetUpHistory() + "'");
+      chatmanager_->RequestCmd = cc.GetCmd ("echo");
+      chatmanager_->Request.Add ("UP : '" + GetUpHistory() + "'");
       std::cout << "index " << index_ << std::endl;
 
       return chatmanager_;
     }
     /* End Test */
-    
-    IncOff();
+
+    IncOff ();
 
     /* Test History */
-    if (Check() && StringHelper::CompareString(buffer_[0], String ("/history")) == 0)
+    if (Check () &&
+        StringHelper::CompareString (buffer_[0], String ("/history")) == 0)
     {
-      chatmanager_->RequestCmd = cc.GetCmd("echo");
-      chatmanager_->Request.Add(GetStringHistory());
+      chatmanager_->RequestCmd = cc.GetCmd ("echo");
+      chatmanager_->Request.Add (GetStringHistory ());
 
       return chatmanager_;
     }
@@ -154,7 +108,17 @@ namespace yap
     return chatmanager_;
   }
 
-  String                  Chat::GetUpHistory()
+  bool                    Chat::Exec (ChatDisplayer& display)
+  {
+    bool  toret = false;
+    ChatCommand cc;
+
+    String test = cc.ExecCmd (&display, chatmanager_);
+
+    return toret;
+  }
+
+  String                  Chat::GetUpHistory ()
   {
     if ((index_-- - 1) < 0)
     {
@@ -168,7 +132,21 @@ namespace yap
     return history_[index_];
   }
 
-  String                  Chat::GetStringHistory()
+  String                  Chat::GetDownHistory ()
+  {
+    if ((index_++ + 1) > history_.Count ())
+    {
+      index_ = history_.Count ();
+      if (index_ > 0)
+        return (history_[index_++]);
+      else
+        return "";
+    }
+
+    return history_[index_];
+  }
+
+  String                  Chat::GetStringHistory ()
   {
     String stringtosend = "";
     stringtosend += "History :\r\n";
@@ -178,7 +156,7 @@ namespace yap
     return stringtosend;
   }
 
-  BufferType              Chat::GetBufHistory()
+  BufferType              Chat::GetBufHistory ()
   {
     BufferType bufftosend;
     std::cout << history_.Count() << std::endl;
@@ -189,12 +167,12 @@ namespace yap
     return bufftosend;
   }
 
-  BufferType              Chat::GetHistory()
+  BufferType              Chat::GetHistory ()
   {
     return history_;
   }
 
-  bool								    Chat::Check()
+  bool								    Chat::Check ()
   {
     return (buffer_.Count() > 0 && entry_[0] == '/');
   }

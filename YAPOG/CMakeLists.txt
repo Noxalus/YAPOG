@@ -63,8 +63,6 @@ ${inc_root}/Game/Chat/Chat.hpp
 ${src_root}/Game/Chat/Chat.cpp
 ${inc_root}/Game/Chat/ChatCommand.hpp
 ${src_root}/Game/Chat/ChatCommand.cpp
-${inc_root}/Game/Chat/ChatCommandLoc.hpp
-${src_root}/Game/Chat/ChatCommandLoc.cpp
 ${inc_root}/Game/Chat/ChatDisplayer.hpp
 ${src_root}/Game/Chat/ChatDisplayer.cpp
 ${inc_root}/Game/Chat/ChatHeader.hpp

@@ -12,14 +12,11 @@
 namespace yap
 {
   class ChatCommand;
-  class ChatCommandLoc;
   typedef collection::Array<String>   BufferType;
-  typedef collection::Array<Int16>    ChanType; // Which chan to display
+  // Which chan to display
+  typedef collection::Array<Int16>    ChanType;
   // Pointers on functions
-  // Local
-  typedef String (ChatCommandLoc::*funcloc)(BufferType b);
-  // Request
-  typedef String (ChatCommand::*func)(BufferType b);
+  typedef String (ChatCommand::*func) (BufferType b);
 } // namespace yap
 
 #endif // YAPOG_CHATHEADER_HPP

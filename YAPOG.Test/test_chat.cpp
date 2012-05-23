@@ -14,8 +14,9 @@ int main()
 		if (line.compare("exit") == 0)
 			break;
     mychat.SetBuf(line);
-    if (!mychat.ChangeChan(displayer))
-		  displayer.Display(mychat.Parse());
+    mychat.Parse();
+    mychat.Exec(displayer);
+		displayer.Display();
     line = "";
 	}
 
