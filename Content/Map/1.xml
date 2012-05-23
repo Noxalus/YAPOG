@@ -12,4 +12,24 @@
       <Tile id="4"/>
     </tileLayer>
   </ground>
+  <objects>
+    <MapElement id="1">
+      <position>200,534</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>200,234</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>150,334</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>150,134</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>300,534</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>500,434</position>
+    </MapElement>
+  </objects>
 </Map>

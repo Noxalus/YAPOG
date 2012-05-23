@@ -3,12 +3,12 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
-# include "YAPOG/Game/World/ISpatial3.hpp"
+# include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB BoundingBox : public ISpatial3
+  class YAPOG_LIB BoundingBox : public ICollidable
   {
       DISALLOW_ASSIGN(BoundingBox);
 

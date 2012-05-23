@@ -1,5 +1,6 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "World/Map/MapElement.hpp"
 
 namespace ycl
 {
@@ -27,6 +28,12 @@ namespace ycl
 
     AddDynamicObject (player);
     AddDrawableObject (player);
+  }
+
+  void Map::AddMapElement (MapElement* mapElement)
+  {
+    AddStaticObject (mapElement);
+    AddDrawableObject (mapElement);
   }
 
   void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)

@@ -1,0 +1,6 @@
+<MapElement>
+  <spriteType>Sprite</spriteType>
+  <Sprite>
+    <Texture id="25"/>
+  </Sprite>
+</MapElement>

@@ -101,5 +101,7 @@ namespace ycl
       SetPlayer (player);
 
     world_->GetCurrentMap ().AddPlayer (player);
+
+    player->SetPosition (packet.ReadVector2 ());
   }
 } // namespace ycl

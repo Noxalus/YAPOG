@@ -37,6 +37,8 @@ namespace yap
 
   const Vector2& WorldObject::GetSize () const
   {
+    spatial3Info_.SetSize (HandleGetSize ());
+
     return spatial3Info_.GetSize ();
   }
 
@@ -112,6 +114,11 @@ namespace yap
     spatial3Info_.SetH (h);
 
     HandleSetH (h);
+  }
+
+  Vector2 WorldObject::HandleGetSize () const
+  {
+    return spatial3Info_.GetSize ();
   }
 
   void WorldObject::HandleMove (const Vector2& offset)

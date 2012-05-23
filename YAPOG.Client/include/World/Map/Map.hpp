@@ -12,6 +12,7 @@
 namespace ycl
 {
   class Player;
+  class MapElement;
 
   class Map : public yap::Map
             , public yap::IDrawable
@@ -28,6 +29,7 @@ namespace ycl
         yap::TileLayoutHandler* tileLayoutHandler);
 
       void AddPlayer (Player* player);
+      void AddMapElement (MapElement* mapElement);
 
       /// @name IDrawable members.
       /// @{

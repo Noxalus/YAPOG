@@ -1,5 +1,3 @@
-#include "World/Map/MapReader.hpp"
-#include "World/Map/Map.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
@@ -9,6 +7,10 @@
 #include "YAPOG/Graphics/Game/World/Map/Tile.hpp"
 #include "YAPOG/System/IntTypes.hpp"
 #include "YAPOG/Graphics/Game/World/Map/TileLayoutHandler.hpp"
+
+#include "World/Map/MapReader.hpp"
+#include "World/Map/Map.hpp"
+#include "World/Map/MapElement.hpp"
 
 namespace ycl
 {
@@ -28,10 +30,10 @@ namespace ycl
 
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
-    reader = reader->ChangeRoot ("ground");
+    auto groundReader = reader->ChangeRoot ("ground");
 
     yap::XmlReaderCollection tileSetReaders;
-    reader->ReadNodes ("tileLayer", tileSetReaders);
+    groundReader->ReadNodes ("tileLayer", tileSetReaders);
     for (auto& tileSetReader : tileSetReaders)
     {
       yap::uint height = tileSetReader->ReadUInt ("height");
@@ -45,6 +47,28 @@ namespace ycl
           "tileLayer");
 
       map_.AddTileLayer (height, tileLayoutHandler);
+    }
+
+    auto objectsReader = reader->ChangeRoot ("objects");
+
+    yap::XmlReaderCollection mapElementReaders;
+    objectsReader->ReadNodes ("MapElement", mapElementReaders);
+    for (auto& mapElementReader : mapElementReaders)
+    {
+      yap::ID mapElementID = mapElementReader->ReadID (
+        yap::XmlHelper::GetAttrNodeName ("id"));
+
+      MapElement* mapElement =
+        yap::ObjectFactory::Instance ().Create<MapElement> (
+          "MapElement",
+          mapElementID);
+
+      yap::Vector2 mapElementPosition = mapElementReader->ReadVector2 (
+        "position");
+
+      mapElement->SetPosition (mapElementPosition);
+
+      map_.AddMapElement (mapElement);
     }
   }
 } // namespace ycl

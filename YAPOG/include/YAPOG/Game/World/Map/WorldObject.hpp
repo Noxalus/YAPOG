@@ -63,6 +63,7 @@ namespace yap
       explicit WorldObject (const ID& id);
       WorldObject (const WorldObject& copy);
 
+      Vector2 HandleGetSize () const;
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
       virtual void HandleSetZ (int z);
@@ -71,7 +72,7 @@ namespace yap
     private:
 
       ID id_;
-      Spatial3Info spatial3Info_;
+      mutable Spatial3Info spatial3Info_;
 
       BoundingBoxCollection boundingBoxes_;
   };

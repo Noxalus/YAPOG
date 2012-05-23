@@ -14,6 +14,7 @@
 namespace yap
 {
   class WorldObject;
+  class StaticWorldObject;
   class DynamicWorldObject;
 
   /// @brief Base Map class for both client and server.
@@ -56,10 +57,12 @@ namespace yap
       Map (const ID& id);
 
       void AddObject (WorldObject* object);
+      void AddStaticObject (StaticWorldObject* object);
       void AddDynamicObject (DynamicWorldObject* object);
       void AddUpdateable (IUpdateable* updateable);
 
       void RemoveObject (WorldObject* object);
+      void RemoveStaticObject (StaticWorldObject* object);
       void RemoveDynamicObject (DynamicWorldObject* object);
       void RemoveUpdateable (IUpdateable* updateable);
 
@@ -67,10 +70,12 @@ namespace yap
       virtual void HandleUpdate (const Time& dt);
 
       virtual void HandleAddObject (WorldObject* object);
+      virtual void HandleAddStaticObject (StaticWorldObject* object);
       virtual void HandleAddDynamicObject (DynamicWorldObject* object);
       virtual void HandleAddUpdateable (IUpdateable* updateable);
 
       virtual void HandleRemoveObject (WorldObject* object);
+      virtual void HandleRemoveStaticObject (StaticWorldObject* object);
       virtual void HandleRemoveDynamicObject (DynamicWorldObject* object);
       virtual void HandleRemoveUpdateable (IUpdateable* updateable);
 

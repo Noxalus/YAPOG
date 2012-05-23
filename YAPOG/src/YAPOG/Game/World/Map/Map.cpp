@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/Map.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/StaticWorldObject.hpp"
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
@@ -114,6 +115,14 @@ namespace yap
     HandleAddObject (object);
   }
 
+  void Map::AddStaticObject (StaticWorldObject* object)
+  {
+    AddObject (object);
+    AddUpdateable (object);
+
+    HandleAddStaticObject (object);
+  }
+
   void Map::AddDynamicObject (DynamicWorldObject* object)
   {
     AddObject (object);
@@ -137,6 +146,14 @@ namespace yap
     HandleRemoveObject (object);
   }
 
+  void Map::RemoveStaticObject (StaticWorldObject* object)
+  {
+    RemoveObject (object);
+    RemoveUpdateable (object);
+
+    HandleRemoveStaticObject (object);
+  }
+
   void Map::RemoveDynamicObject (DynamicWorldObject* object)
   {
     RemoveObject (object);
@@ -157,6 +174,10 @@ namespace yap
   {
   }
 
+  void Map::HandleAddStaticObject (StaticWorldObject* object)
+  {
+  }
+
   void Map::HandleAddDynamicObject (DynamicWorldObject* object)
   {
   }
@@ -166,6 +187,10 @@ namespace yap
   }
 
   void Map::HandleRemoveObject (WorldObject* object)
+  {
+  }
+
+  void Map::HandleRemoveStaticObject (StaticWorldObject* object)
   {
   }
 

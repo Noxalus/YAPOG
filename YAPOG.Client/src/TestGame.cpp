@@ -39,6 +39,8 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/PlayerReader.hpp"
+#include "World/Map/MapElement.hpp"
+#include "World/Map/MapElementReader.hpp"
 
 namespace ycl
 {
@@ -152,7 +154,14 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
-        yap::Path ("Map"), "Map"));
+        yap::Path ("Map"),
+        "Map"));
+
+    objectFactory_.RegisterLoader (
+      "MapElement",
+      new yap::XmlObjectIDLoader<MapElement, MapElementReader> (
+        yap::Path ("MapElement"),
+        "MapElement"));
 
     objectFactory_.RegisterLoader (
       "Player",
@@ -179,12 +188,14 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Texture",
       new yap::XmlObjectIDLoader<yap::Texture, yap::TextureReader> (
-        yap::Path ("Texture"), "Texture"));
+        yap::Path ("Texture"),
+        "Texture"));
 
     objectFactory_.RegisterLoader (
       "Tile",
       new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
-        yap::Path ("Tile"), "Tile"));
+        yap::Path ("Tile"),
+        "Tile"));
   }
 
   void TestGame::InitWorldObjectStateFactory ()

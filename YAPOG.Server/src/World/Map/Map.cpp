@@ -77,7 +77,7 @@ namespace yse
     addPlayerPacket.Write (player->GetWorldID ());
     addPlayerPacket.Write (player->GetTypeID ());
     addPlayerPacket.Write (player->GetID ());
-    addPlayerPacket.Write (player->GetPosition ());
+    addPlayerPacket.Write (yap::Vector2 (100.0f, 100.0f));
 //    addPlayerPacket.Write (player->GetState ());
 //    addPlayerPacket.Write (player->GetDirection ());
 

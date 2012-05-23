@@ -46,6 +46,10 @@ ${inc_root}/World/Map/CharacterReader.hpp
 ${src_root}/World/Map/CharacterReader.cpp
 ${inc_root}/World/Map/Map.hpp
 ${src_root}/World/Map/Map.cpp
+${inc_root}/World/Map/MapElement.hpp
+${src_root}/World/Map/MapElement.cpp
+${inc_root}/World/Map/MapElementReader.hpp
+${src_root}/World/Map/MapElementReader.cpp
 ${inc_root}/World/Map/MapReader.hpp
 ${src_root}/World/Map/MapReader.cpp
 ${inc_root}/World/Map/NPC.hpp

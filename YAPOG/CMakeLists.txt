@@ -32,6 +32,8 @@ ${inc_root}/Collection/List.hpp
 ${inc_root}/Collection/List.hxx
 ${inc_root}/Collection/Map.hpp
 ${inc_root}/Collection/Map.hxx
+${inc_root}/Collection/Matrix.hpp
+${inc_root}/Collection/Matrix.hxx
 ${inc_root}/Collection/Queue.hpp
 ${inc_root}/Collection/Queue.hxx
 
@@ -74,6 +76,10 @@ ${inc_root}/Game/World/Map/DynamicWorldObjectReader.hpp
 ${src_root}/Game/World/Map/DynamicWorldObjectReader.cpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp
+${inc_root}/Game/World/Map/MapElement.hpp
+${src_root}/Game/World/Map/MapElement.cpp
+${inc_root}/Game/World/Map/MapElementReader.hpp
+${src_root}/Game/World/Map/MapElementReader.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
 ${inc_root}/Game/World/Map/Physics/BoundingBox.hpp
@@ -84,11 +90,21 @@ ${inc_root}/Game/World/Map/Physics/BasicPhysicsCore.hpp
 ${src_root}/Game/World/Map/Physics/BasicPhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/CharacterMoveController.hpp
 ${src_root}/Game/World/Map/Physics/CharacterMoveController.cpp
+${inc_root}/Game/World/Map/Physics/CollidableArea.hpp
+${src_root}/Game/World/Map/Physics/CollidableArea.cpp
+${inc_root}/Game/World/Map/Physics/CollidableAreaCell.hpp
+${src_root}/Game/World/Map/Physics/CollidableAreaCell.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
+${inc_root}/Game/World/Map/Physics/GridCollidableArea.hpp
+${src_root}/Game/World/Map/Physics/GridCollidableArea.cpp
 ${inc_root}/Game/World/Map/Physics/PhysicsCore.hpp
 ${src_root}/Game/World/Map/Physics/PhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/WorldObjectMoveController.hpp
 ${src_root}/Game/World/Map/Physics/WorldObjectMoveController.cpp
+${inc_root}/Game/World/Map/StaticWorldObject.hpp
+${src_root}/Game/World/Map/StaticWorldObject.cpp
+${inc_root}/Game/World/Map/StaticWorldObjectReader.hpp
+${src_root}/Game/World/Map/StaticWorldObjectReader.cpp
 ${inc_root}/Game/World/Map/WorldObject.hpp
 ${src_root}/Game/World/Map/WorldObject.cpp
 ${inc_root}/Game/World/Map/WorldObjectState.hpp
