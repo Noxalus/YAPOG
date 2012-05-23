@@ -1,22 +1,26 @@
-#ifndef YAPOG_CLIENT_WILDBATTLE_HPP
-# define YAPOG_CLIENT_WILDBATTLE_HPP
+#ifndef YAPOG_CLIENT_SELECTIONPHASE_HPP
+# define YAPOG_CLIENT_SELECTIONPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-
-# include "Battle/Battle.hpp"
+# include "YAPOG/Game/Battle/SelectionPhase.hpp"
 
 namespace ycl
 {
-  class WildBattle 
-    : public yap::IDrawable
-    , public Battle
+  class SelectionPhase
+    : public yap::SelectionPhase
+    , public yap::IDrawable
   {
   public:
-    WildBattle (
-      yap::IBattleEntity& playerTeam, 
-      yap::IBattleEntity& wildPokemon);
-    virtual ~WildBattle ();
+    SelectionPhase ();
+    virtual ~SelectionPhase ();
+
+    /// @name BattlePhase members.
+    /// @{
+    virtual void HandleStart ();
+    virtual void HandleUpdate (const yap::Time& dt);
+    virtual void HandleEnd ();
+    /// @}
 
     /// @name IDrawable members.
     /// @{
@@ -29,9 +33,6 @@ namespace ycl
     /// @}
 
   protected:
-    virtual void HandleInit ();
-    virtual void HandleUpdate (const yap::Time& dt);
-
     virtual void HandleDraw (yap::IDrawingContext& context);
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
@@ -44,4 +45,4 @@ namespace ycl
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_WILDBATTLE_HPP
+#endif // YAPOG_CLIENT_SELECTIONPHASE_HPP

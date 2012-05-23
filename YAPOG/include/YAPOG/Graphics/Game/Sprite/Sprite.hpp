@@ -17,7 +17,9 @@ namespace yap
       Sprite ();
       explicit Sprite (Texture* texture);
       explicit Sprite (const String& textureName);
-      Sprite (const String& textureName, const sf::IntRect& textureRect);
+      Sprite (
+        const String& textureName, 
+        const sf::IntRect& textureRect);
       virtual ~Sprite ();
 
       void SetTexture (Texture* texture);

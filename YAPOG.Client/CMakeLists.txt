@@ -17,12 +17,35 @@ SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
 SET(
 source_files
-${inc_root}/Battle/WildBattle.hpp
-${src_root}/Battle/WildBattle.cpp
+${inc_root}/Battle/Battle.hpp
+${src_root}/Battle/Battle.cpp
+${inc_root}/Battle/BaseBattleWidget.hpp
+${src_root}/Battle/BaseBattleWidget.cpp
+${inc_root}/Battle/BattleBackgroundWidget.hpp
+${src_root}/Battle/BattleBackgroundWidget.cpp
+${inc_root}/Battle/BattleInterface.hpp
+${src_root}/Battle/BattleInteface.cpp
 ${inc_root}/Battle/BattlePhaseManager.hpp
 ${src_root}/Battle/BattlePhaseManager.cpp
+${inc_root}/Battle/WildBattle.hpp
+${src_root}/Battle/WildBattle.cpp
+${inc_root}/Battle/Phase/EndBattlePhase.hpp
+${src_root}/Battle/Phase/EndBattlePhase.cpp
+${inc_root}/Battle/Phase/BattlePhase.hpp
+${src_root}/Battle/Phase/BattlePhase.cpp
 ${inc_root}/Battle/Phase/BeginBattlePhase.hpp
 ${src_root}/Battle/Phase/BeginBattlePhase.cpp
+${inc_root}/Battle/Phase/BeginTurnPhase.hpp
+${src_root}/Battle/Phase/BeginTurnPhase.cpp
+${inc_root}/Battle/Phase/SelectionPhase.hpp
+${src_root}/Battle/Phase/SelectionPhase.cpp
+${inc_root}/Battle/Phase/ActionPhase.hpp
+${src_root}/Battle/Phase/ActionPhase.cpp
+${inc_root}/Battle/Phase/EndTurnPhase.hpp
+${src_root}/Battle/Phase/EndTurnPhase.cpp
+${inc_root}/Battle/Phase/EndBattlePhase.hpp
+${src_root}/Battle/Phase/EndBattlePhase.cpp
+
 
 ${src_root}/Client.cpp
 ${inc_root}/Client/Session.hpp
@@ -46,6 +69,9 @@ ${inc_root}/GameScreen/GameplayScreen.hpp
 ${src_root}/GameScreen/GameplayScreen.cpp
 ${inc_root}/GameScreen/BattleScreen.hpp
 ${src_root}/GameScreen/BattleScreen.cpp
+
+${inc_root}/Pokemon/Pokemon.hpp
+${src_root}/Pokemon/Pokemon.cpp
 
 ${inc_root}/TestGame.hpp
 ${src_root}/TestGame.cpp

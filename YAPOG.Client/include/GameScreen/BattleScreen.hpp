@@ -4,21 +4,34 @@
 # include "YAPOG/Macros.hpp"
 
 # include "GameScreen/BaseScreen.hpp"
+# include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
+  class Battle;
+
   class BattleScreen : public BaseScreen
   {
-      DISALLOW_COPY(BattleScreen);
+    DISALLOW_COPY(BattleScreen);
 
-    public:
+  public:
 
-      BattleScreen ();
-      virtual ~BattleScreen ();
+    BattleScreen ();
+    virtual ~BattleScreen ();
 
-    private:
+  protected:
 
-      static const yap::ScreenType DEFAULT_NAME;
+    virtual void HandleInit ();
+
+    virtual const yap::ScreenType& HandleRun (
+      const yap::Time& dt,
+      yap::IDrawingContext& context);
+
+  private:
+    Battle* battle_;
+    BattleInterface* battleInterface_;
+
+    static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

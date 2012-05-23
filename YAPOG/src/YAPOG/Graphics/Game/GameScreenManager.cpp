@@ -1,4 +1,6 @@
 #include "YAPOG/Graphics/Game/GameScreenManager.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -52,6 +54,10 @@ namespace yap
       currentScreen_->Deactivate ();
 
     currentScreenType_ = screenType;
+
+    // If this screen doesn't exist
+    if (!screens_.Contains (currentScreenType_))
+      YAPOG_THROW("This screen doesn't exist !");
 
     currentScreen_ = screens_[currentScreenType_];
 

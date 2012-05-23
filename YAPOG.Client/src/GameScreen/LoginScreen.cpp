@@ -29,22 +29,6 @@ namespace ycl
 {
   const yap::ScreenType LoginScreen::DEFAULT_NAME = "Login";
 
-  /// @TODO Remove this battle test
-  WildBattle* wildBattle_ = nullptr;
-  yap::Pokemon* GeneratePokemon ()
-  {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
-
-    if (staticID == yap::ID (4))
-      staticID = yap::ID (16);
-
-    int level = yap::RandomHelper::GetNext (1, 100);
-
-    yap::Pokemon* p = new yap::Pokemon (staticID, level, false);
-
-    return p;
-  }
-
   LoginScreen::LoginScreen ()
     : BaseScreen (DEFAULT_NAME)
   {
@@ -57,20 +41,6 @@ namespace ycl
   void LoginScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-
-    yap::PokemonTeam team;
-    team.AddPokemon (new yap::Pokemon (yap::ID (2), 42, false));
-    team.AddPokemon (new yap::Pokemon (yap::ID (16), 32, true));
-
-    yap::PokemonFighter wildPokemon (GeneratePokemon ());
-    yap::PokemonFighterTeam playerFighterTeam (team);
-
-    team.GetPokemon (0)->PrintStats ();
-    std::cout << "---------- Fighter ----------" << std::endl;
-    playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
-
-    wildBattle_ = new WildBattle (playerFighterTeam, wildPokemon);
-    wildBattle_->Init ();
 
     /*
     yap::Menu* menu = new yap::Menu (
@@ -186,7 +156,7 @@ namespace ycl
     layout->AddChild (*pb, yap::LayoutBox::Align::CENTER);
     layout->AddChild (*layouth, yap::LayoutBox::Align::CENTER);
     layout->AddChild (*ts2, yap::LayoutBox::Align::CENTER);
-    
+
 
     yap::WidgetTextBox* txtbox = new yap::WidgetTextBox ();
     txtbox->SetSize (yap::Vector2 (256, 64));
@@ -222,9 +192,6 @@ namespace ycl
     yap::IDrawingContext& context)
   {
     //Login ();
-
-    wildBattle_->Update (dt);
-    wildBattle_->Draw (context);
 
     return BaseScreen::HandleRun (dt, context);
   }
