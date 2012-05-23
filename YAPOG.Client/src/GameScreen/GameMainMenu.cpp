@@ -8,14 +8,18 @@ namespace ycl
 {
 
   GameMainMenu::GameMainMenu ()
-    : Menu (yap::Menu::Type::VERTICAL, yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), false)
+    : Menu (yap::Menu::Type::VERTICAL, 
+    yap::Padding (5, 5, 5, 5), 
+    yap::Padding (5, 5, 5, 5), 
+    false)
+  
   {  
   }
 
   void GameMainMenu::Init (yap::String playerName)
   {
     yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
-//    yap::WidgetBackground* menuItemBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
+    //    yap::WidgetBackground* menuItemBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
@@ -47,7 +51,7 @@ namespace ycl
 
     yap::WidgetBorder* menuBorder = new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-//    SetSelectedBackground (*menuItemBck);
+    //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);
 
     yap::MenuItem* item1 = new yap::MenuItem (true);

@@ -12,10 +12,10 @@ namespace ycl
 
     public:
       GameMainMenu();
-      void Init (yap::String playerName);
       virtual ~GameMainMenu ();
 
-    private:
+      void Init (yap::String playerName);
+      
   };
 } // namespace ycl
 

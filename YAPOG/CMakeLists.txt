@@ -277,6 +277,10 @@ ${inc_root}/Graphics/Gui/LayoutBox.hpp
 ${src_root}/Graphics/Gui/LayoutBox.cpp
 ${inc_root}/Graphics/Gui/WidgetDialogBox.hpp
 ${src_root}/Graphics/Gui/WidgetDialogBox.cpp
+${inc_root}/Graphics/Gui/PartialLayoutManager.hpp
+${src_root}/Graphics/Gui/PartialLayoutManager.cpp
+${inc_root}/Game/Pokemon/Pokedex.hpp
+${src_root}/Game/Pokemon/Pokedex.cpp
 ${inc_root}/Graphics/Gui/LayoutH.hpp
 ${src_root}/Graphics/Gui/LayoutH.cpp
 ${inc_root}/Graphics/Gui/LayoutV.hpp

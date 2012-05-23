@@ -12,6 +12,7 @@ namespace yap
     , layout_ (&layout)
     , stock_ ()
     , itemz_ ()
+    , isEnable_ (true)
   {
   }
 
@@ -19,29 +20,36 @@ namespace yap
   {
   }
 
+  void PartialLayoutManager::SetEnable (bool state)
+  {
+    isEnable_ = state;
+  }
   void PartialLayoutManager::Refresh ()
   {
-    layout_->Clear ();
-    uint itemBeforeCount = (itemCount_ - 1) / 2;
-    uint itemAfterCount = itemCount_ - itemBeforeCount - 1;
-    uint it = MathHelper::Clamp<uint>(cursorCurSel_ - itemBeforeCount, 0, itemCount_);
-
-    while (it < cursorCurSel_)
+    if (isEnable_)
     {
-      layout_->AddChild (*itemz_[it]);
-    }
-    
-    it = cursorCurSel_;
+      layout_->Clear ();
+      uint itemBeforeCount = (itemCount_ - 1) / 2;
+      uint itemAfterCount = itemCount_ - itemBeforeCount - 1;
+      uint it = MathHelper::Clamp<uint>(cursorCurSel_ - itemBeforeCount, 0, itemCount_);
 
-    while (it < MathHelper::Clamp<uint>(cursorCurSel_ + itemAfterCount, 0, itemCount_))
-    {
-      layout_->AddChild (*itemz_[it]);
+      while (it < cursorCurSel_)
+      {
+        layout_->AddChild (*itemz_[it]);
+      }
+
+      it = cursorCurSel_;
+
+      while (it < MathHelper::Clamp<uint>(cursorCurSel_ + itemAfterCount, 0, itemCount_))
+      {
+        layout_->AddChild (*itemz_[it]);
+      }
     }
   }
 
-  void PartialLayoutManager::SetItems (collection::Array<IWidget*>& items)
+  void PartialLayoutManager::AddItem (IWidget* items)
   {
-    itemz_ = items;
+    itemz_.Add (items);
   }
 
   void PartialLayoutManager::SetCurrentSel (uint curr)

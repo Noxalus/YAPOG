@@ -17,8 +17,9 @@ namespace yap
     virtual ~PartialLayoutManager ();
 
     void SetCurrentSel (uint curr);
+    void SetEnable (bool state);
     void SetSize (uint size);
-    void SetItems (collection::Array<IWidget*>& items);
+    void AddItem (IWidget* item);
     uint GetSize () const;
     void Refresh ();
 
@@ -31,6 +32,7 @@ namespace yap
 
     collection::Array<IWidget*> stock_;
     collection::Array<IWidget*> itemz_;
+    bool isEnable_;
   };
 } // namespace yap
 

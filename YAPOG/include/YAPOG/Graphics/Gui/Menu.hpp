@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/Gui/MenuItem.hpp"
 # include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 # include "YAPOG/Graphics/Gui/Padding.hpp"
+# include "YAPOG/Graphics/Gui/PartialLayoutManager.hpp"
 
 namespace yap
 {
@@ -46,7 +47,7 @@ namespace yap
     void SetFormItem ();
     void SetUnformItem ();
 
-    collection::Array<MenuItem*> itemz_;
+    collection::Array<MenuItem*> itemz_;    
     uint currentSelec_;
     LayoutBox* layout_;
 
@@ -55,6 +56,7 @@ namespace yap
     uint selecBrdSize_;
     bool isFixed_;
     Type type_;
+    PartialLayoutManager* layoutManager_;
 
   };
 } // namespace yap

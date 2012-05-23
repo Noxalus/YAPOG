@@ -2,11 +2,12 @@
 # define YAPOG_CLIENT_WIDGETPOKEDEX_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Gui/Menu.hpp"
 
 namespace ycl
 {
-  class WidgetPokedex
+  class WidgetPokedex : public yap::BaseWidget
   {
       DISALLOW_COPY(WidgetPokedex);
 

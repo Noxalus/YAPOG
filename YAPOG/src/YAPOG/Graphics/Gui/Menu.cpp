@@ -18,13 +18,16 @@ namespace yap
     , selecBrdr_ (nullptr)
     , selecBrdSize_ (16)
     , isFixed_ (fixed)
-    , type_ (type)
+    , type_ (type)    
+    , layoutManager_ (nullptr)
   {  
     if (type == Type::HORIZONTAL)
       layout_ = new LayoutH (ext, in, !fixed);
     else if (type == Type::VERTICAL)
       layout_ = new LayoutV (ext, in, !fixed);
 
+    layoutManager_ = new PartialLayoutManager (*layout_);
+    layoutManager_->SetEnable (fixed);
     BaseWidget::AddChild (*layout_);
   }
 
@@ -82,6 +85,8 @@ namespace yap
       child.SetBorder (*selecBrdr_);
     itemz_.Add (&child);
     layout_->AddChild (child, align);
+    layoutManager_->AddItem (&child);
+
     /*
     if (isFixed_ && type_ == Type::VERTICAL)
     {
@@ -95,6 +100,11 @@ namespace yap
     child.UnsetBorder ();    
     SetFormItem ();
 
+    if (type_ == Menu::Type::HORIZONTAL)
+      layoutManager_->SetSize (layout_->GetSize ().x);
+    if (type_== Menu::Type::VERTICAL)
+      layoutManager_->SetSize (layout_->GetSize ().y);
+    
   }
 
   void Menu::HandleDraw (IDrawingContext& context)
@@ -114,6 +124,7 @@ namespace yap
 
         SetUnformItem ();
         currentSelec_--;
+        layoutManager_->SetCurrentSel (currentSelec_);
         SetFormItem ();
         return true;
       }
@@ -124,6 +135,7 @@ namespace yap
 
         SetUnformItem ();
         currentSelec_++;
+        layoutManager_->SetCurrentSel (currentSelec_);
         SetFormItem ();
         return true;
       }
