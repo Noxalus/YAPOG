@@ -12,14 +12,14 @@ namespace yap
   class YAPOG_LIB BattlePhase : public IUpdateable
   {
   public:
-    BattlePhase (const BattlePhaseState& battlePhaseState);
+    BattlePhase (Battle& battle, const BattlePhaseState& battlePhaseState);
 
     /// Getters
     const BattlePhaseState& GetNext () const;
 
     void Start ();
     void End ();
-    void SetBattle (Battle* battle);
+    //void SetBattle (Battle* battle);
 
     /// @name IUpdateable members.
     /// @{
@@ -35,7 +35,7 @@ namespace yap
     BattlePhaseState nextPhase_;
 
   private:
-    Battle* battle_;
+    Battle& battle_;
   };
 } // namespace yap
 

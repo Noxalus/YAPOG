@@ -8,12 +8,15 @@
 
 namespace ycl
 {
+  class BattleInterface;
+
   class WildBattle 
     : public yap::IDrawable
     , public Battle
   {
   public:
     WildBattle (
+      BattleInterface& battleInterface,
       yap::IBattleEntity& playerTeam, 
       yap::IBattleEntity& wildPokemon);
     virtual ~WildBattle ();
@@ -41,6 +44,8 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+    BattleInterface& battleInterface_;
   };
 } // namespace ycl
 

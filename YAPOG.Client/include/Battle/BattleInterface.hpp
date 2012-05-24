@@ -19,6 +19,7 @@ namespace ycl
   public:
     BattleInterface ();
 
+    yap::WidgetDialogBox* GetBattleInfoDialogBox () const;
   private:
     yap::WidgetDialogBox* battleInfoDialogBox_;
   };

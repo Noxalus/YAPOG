@@ -1,12 +1,14 @@
 #include "Battle/Phase/BeginTurnPhase.hpp"
+#include "Battle/Battle.hpp"
 
 namespace ycl
 {
   const bool BeginTurnPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color BeginTurnPhase::DEFAULT_COLOR = sf::Color ();
 
-  BeginTurnPhase::BeginTurnPhase ()
-    : yap::BeginTurnPhase ()
+  BeginTurnPhase::BeginTurnPhase (Battle& battle)
+    : yap::BeginTurnPhase (battle)
+    , battle_ (battle)
   {
   }
 

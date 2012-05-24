@@ -1,4 +1,5 @@
 #include "Battle/Phase/BattlePhase.hpp"
+#include "Battle/Battle.hpp"
 
 namespace ycl
 {
@@ -7,14 +8,17 @@ namespace ycl
   const yap::BattlePhaseState BattlePhase::DEFAULT_BATTLE_PHASE_STATE
     = yap::BattlePhaseState::BeginBattle;
 
-  BattlePhase::BattlePhase ()
-    : yap::BattlePhase (DEFAULT_BATTLE_PHASE_STATE)
+  BattlePhase::BattlePhase (Battle& battle)
+    : yap::BattlePhase (battle, DEFAULT_BATTLE_PHASE_STATE)
+    , battle_ (battle)
   {
   }
 
   BattlePhase::BattlePhase (
+    Battle& battle, 
     const yap::BattlePhaseState& battlePhaseState)
-    : yap::BattlePhase (battlePhaseState)
+    : yap::BattlePhase (battle, battlePhaseState)
+    , battle_ (battle)
   {
   }
 

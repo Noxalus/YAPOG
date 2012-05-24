@@ -13,7 +13,6 @@ namespace ycl
   const yap::Vector2 Battle::DEFAULT_OPPONENT_GROUND_SPRITES_SCALE
     = yap::Vector2 (0.75f, 0.75f);
 
-
   Battle::Battle (
     yap::IBattleEntity& playerTeam, 
     yap::IBattleEntity& opponent)
@@ -45,21 +44,44 @@ namespace ycl
 
     /// Adjust sprites
     background_->SetSize (TestGame::SCREEN_SIZE);
-
-    playerGround_->SetPosition (
-      yap::Vector2 (0, 
-      TestGame::SCREEN_SIZE.y - (TestGame::SCREEN_SIZE.y / 4) -
-      ((playerGround_->GetSize ().y) / 2)));
-
     opponentGround_->Scale (DEFAULT_OPPONENT_GROUND_SPRITES_SCALE);
-    opponentGround_->SetPosition (
-      yap::Vector2 (
-      TestGame::SCREEN_SIZE.x - 2 *
-      ((playerGround_->GetSize ().x * 
-      DEFAULT_OPPONENT_GROUND_SPRITES_SCALE.x) / 2), 
-      TestGame::SCREEN_SIZE.y / 3 - 
-      ((playerGround_->GetSize ().y * 
-      DEFAULT_OPPONENT_GROUND_SPRITES_SCALE.y) / 2)));
+  }
+
+  /// Getters
+  yap::ISprite* Battle::GetBackground () const
+  {
+    return background_;
+  }
+
+  yap::ISprite* Battle::GetPlayerGround () const
+  {
+    return playerGround_;
+  }
+
+  yap::ISprite* Battle::GetOpponentGround () const
+  {
+    return opponentGround_;
+  }
+
+  const yap::Vector2& Battle::GetPlayerGroundPosition () const
+  {
+    return playerGroundPosition_;
+  }
+
+  const yap::Vector2& Battle::GetOpponentGroundPosition () const
+  {
+    return opponentGroundPosition_;
+  }
+
+  /// Setters
+  void Battle::SetPlayerGroundPosition (const yap::Vector2& position)
+  {
+    playerGroundPosition_ = position;
+  }
+
+  void Battle::SetOpponentGroundPosition (const yap::Vector2& position)
+  {
+    opponentGroundPosition_ = position;
   }
 
   void Battle::Draw (yap::IDrawingContext& context)

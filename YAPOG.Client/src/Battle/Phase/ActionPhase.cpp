@@ -1,12 +1,13 @@
 #include "Battle/Phase/ActionPhase.hpp"
+#include "Battle/Battle.hpp"
 
 namespace ycl
 {
   const bool ActionPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color ActionPhase::DEFAULT_COLOR = sf::Color ();
 
-  ActionPhase::ActionPhase ()
-    : yap::ActionPhase ()
+  ActionPhase::ActionPhase (Battle& battle)
+    : yap::ActionPhase (battle)
   {
   }
 

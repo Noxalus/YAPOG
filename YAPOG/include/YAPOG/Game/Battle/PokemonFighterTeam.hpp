@@ -14,6 +14,11 @@ namespace yap
     PokemonFighterTeam ();
     PokemonFighterTeam (const PokemonTeam& pokemonTeam);
 
+    /// @name IBattleEntity members
+    /// @{
+    virtual const String& GetName () const;
+    /// @}
+
     PokemonFighter* GetPokemon (int index) const;
     const collection::Array<PokemonFighter*>& GetTeam () const;
     bool AddPokemon (PokemonFighter* pokemon);
@@ -21,7 +26,10 @@ namespace yap
     /// Debug
     void PrintTeam ();
   private:
-    collection::Array<PokemonFighter*> pokemons_;
+    PokemonFighter* GetCurrentFighter () const;
+
+    int currentFighterIndex_;
+    collection::Array<PokemonFighter*> fighters_;
   };
 } // namespace yap
 

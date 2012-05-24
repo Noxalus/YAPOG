@@ -1,12 +1,14 @@
 #include "Battle/Phase/EndBattlePhase.hpp"
+#include "Battle/Battle.hpp"
 
 namespace ycl
 {
   const bool EndBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color EndBattlePhase::DEFAULT_COLOR = sf::Color ();
 
-  EndBattlePhase::EndBattlePhase ()
-    : yap::EndBattlePhase ()
+  EndBattlePhase::EndBattlePhase (Battle& battle)
+    : yap::EndBattlePhase (battle)
+    , battle_ (battle)
   {
   }
 

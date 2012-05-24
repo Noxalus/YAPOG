@@ -54,10 +54,10 @@ namespace ycl
     std::cout << "---------- Fighter ----------" << std::endl;
     playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
 
-    battle_ = new WildBattle (playerFighterTeam, wildPokemon);
-    battle_->Init ();
-
     battleInterface_ = new BattleInterface ();
+
+    battle_ = new WildBattle (*battleInterface_, playerFighterTeam, wildPokemon);
+    battle_->Init ();
 
     guiManager_->AddChild (*battleInterface_);
   }

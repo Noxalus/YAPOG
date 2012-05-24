@@ -2,8 +2,8 @@
 
 namespace yap
 {
-  EndBattlePhase::EndBattlePhase ()
-    : BattlePhase (BattlePhaseState::EndBattle)
+  EndBattlePhase::EndBattlePhase (Battle& battle)
+    : BattlePhase (battle, BattlePhaseState::EndBattle)
   {
   }
 

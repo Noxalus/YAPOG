@@ -7,12 +7,14 @@
 
 namespace ycl
 {
+  class Battle;
+
   class SelectionPhase
     : public yap::SelectionPhase
     , public yap::IDrawable
   {
   public:
-    SelectionPhase ();
+    explicit SelectionPhase (Battle& battle);
     virtual ~SelectionPhase ();
 
     /// @name BattlePhase members.
@@ -42,6 +44,9 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+  private:
+    Battle& battle_;
   };
 } // namespace ycl
 

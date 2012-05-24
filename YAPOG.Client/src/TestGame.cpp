@@ -148,6 +148,7 @@ namespace ycl
     contentManager_.Init (contentRootPath);
 
     contentManager_.SetTexturePath (yap::Path ("Graphics"));
+    contentManager_.SetFontPath (yap::Path ("Graphics/Fonts"));
   }
 
   void TestGame::InitObjectFactory ()

@@ -7,12 +7,15 @@
 
 namespace ycl
 {
+  class Battle;
+  class BattleInterface;
+
   class BeginBattlePhase
     : public yap::BeginBattlePhase
     , public yap::IDrawable
   {
   public:
-    BeginBattlePhase ();
+    BeginBattlePhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~BeginBattlePhase ();
 
     /// @name BattlePhase members.
@@ -42,6 +45,10 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+  private:
+    Battle& battle_;
+    BattleInterface& battleInterface_;
   };
 } // namespace ycl
 

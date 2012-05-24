@@ -7,12 +7,14 @@
 
 namespace ycl
 {
+  class Battle;
+
   class EndBattlePhase
     : public yap::EndBattlePhase
     , public yap::IDrawable
   {
   public:
-    EndBattlePhase ();
+    EndBattlePhase (Battle& battle);
     virtual ~EndBattlePhase ();
 
     /// @name BattlePhase members.
@@ -42,6 +44,9 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+  private:
+    Battle& battle_;
   };
 } // namespace ycl
 

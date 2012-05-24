@@ -30,6 +30,19 @@ namespace ycl
     virtual void ChangeColor (const sf::Color& color);
     /// @}
 
+    /// Getters
+    yap::ISprite* GetBackground () const;
+    yap::ISprite* GetPlayerGround () const;
+    yap::ISprite* GetOpponentGround () const;
+    const yap::Vector2& GetPlayerGroundPosition () const;
+    const yap::Vector2& GetOpponentGroundPosition () const;
+
+
+    /// Setters
+    void SetPlayerGroundPosition (const yap::Vector2& position);
+    void SetOpponentGroundPosition (const yap::Vector2& position);
+
+    static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;
   protected:
     virtual void HandleInit ();
     virtual void HandleUpdate (const yap::Time& dt);
@@ -50,7 +63,10 @@ namespace ycl
     yap::ISprite* playerGround_;
     yap::ISprite* opponentGround_;
 
-    static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;
+    /// Sprite positions
+    yap::Vector2 playerGroundPosition_;
+    yap::Vector2 opponentGroundPosition_;
+
   };
 } // namespace ycl
 

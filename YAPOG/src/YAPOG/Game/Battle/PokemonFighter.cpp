@@ -12,11 +12,6 @@ namespace yap
       YAPOG_THROW("The original Pokemon doesn't exist !");
   }
 
-  const String& PokemonFighter::GetName () const
-  {
-    return originalPokemon_->GetName ();
-  }
-
   const Gender& PokemonFighter::GetGender () const
   {
     return originalPokemon_->GetGender ();
@@ -113,5 +108,13 @@ namespace yap
   {
     originalPokemon_->PrintStats ();
   }
+
+  /// @name IBattleEntity members
+  /// @{
+  const yap::String& PokemonFighter::GetName () const
+  {
+    return originalPokemon_->GetName ();
+  }
+  /// @}
 
 } // namespace yap

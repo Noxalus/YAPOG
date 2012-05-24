@@ -3,8 +3,11 @@
 
 namespace yap
 {
-  BattlePhase::BattlePhase (const BattlePhaseState& battlePhaseState)
+  BattlePhase::BattlePhase (
+    Battle& battle, 
+    const BattlePhaseState& battlePhaseState)
     : state_ (battlePhaseState)
+    , battle_ (battle)
   {
   }
 
@@ -38,16 +41,18 @@ namespace yap
 
   Battle& BattlePhase::GetBattle ()
   {
-    return *battle_;
+    return battle_;
   }
 
-   void BattlePhase::SetBattle (Battle* battle)
-   {
-     battle_ = battle;
-   }
+  /*
+  void BattlePhase::SetBattle (Battle* battle)
+  {
+  battle_ = battle;
+  }
+  */
 
-   const BattlePhaseState& BattlePhase::GetNext () const
-   {
-     return nextPhase_;
-   }
+  const BattlePhaseState& BattlePhase::GetNext () const
+  {
+    return nextPhase_;
+  }
 }

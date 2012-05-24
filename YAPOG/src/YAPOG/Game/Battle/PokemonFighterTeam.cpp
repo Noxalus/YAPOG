@@ -4,12 +4,14 @@
 namespace yap
 {
   PokemonFighterTeam::PokemonFighterTeam ()
-    : pokemons_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
+    : fighters_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
+    , currentFighterIndex_ (0)
   {
   }
 
   PokemonFighterTeam::PokemonFighterTeam (const PokemonTeam& pokemonTeam)
-    : pokemons_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
+    : fighters_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
+    , currentFighterIndex_ (0)
   {
     int i = 0;
     for (Pokemon* p : pokemonTeam.GetTeam ())
@@ -17,7 +19,7 @@ namespace yap
       if (p == nullptr)
         break;
 
-      pokemons_[i] = new PokemonFighter (p);
+      fighters_[i] = new PokemonFighter (p);
       i++;
     }
   }
@@ -31,23 +33,23 @@ namespace yap
     StringHelper::ToString (index) + ")");
     }
 
-    if (pokemons_[index] == nullptr)
+    if (fighters_[index] == nullptr)
     {
     YAPOG_THROW("Pokemon Team: no Pokemon at this index (" + 
     StringHelper::ToString (index) + ")");
     }
     */
 
-    return pokemons_[index];
+    return fighters_[index];
   }
 
   bool PokemonFighterTeam::AddPokemon (PokemonFighter* pokemonFighter)
   {
     for (int i = 0; i < PokemonTeam::MAX_POKEMON_TEAM_NUMBER; i++)
     {
-      if (pokemons_[i] == nullptr)
+      if (fighters_[i] == nullptr)
       {
-        pokemons_[i] = pokemonFighter;
+        fighters_[i] = pokemonFighter;
         return true;
       }
     }
@@ -57,7 +59,7 @@ namespace yap
 
   const collection::Array<PokemonFighter*>& PokemonFighterTeam::GetTeam () const
   {
-    return pokemons_;
+    return fighters_;
   }
 
   /// Debug
@@ -65,16 +67,29 @@ namespace yap
   {
     for (int i = 0; i < PokemonTeam::MAX_POKEMON_TEAM_NUMBER; i++)
     {
-      if (pokemons_[i] != nullptr)
+      if (fighters_[i] != nullptr)
       {
-        std::cout << pokemons_[i]->GetName () 
-          << " (lvl. " << pokemons_[i]->GetLevel () << ")"
+        std::cout << fighters_[i]->GetName () 
+          << " (lvl. " << fighters_[i]->GetLevel () << ")"
           << std::endl;
 
-        pokemons_[i]->PrintStats ();
+        fighters_[i]->PrintStats ();
       }
       else
         std::cout << "[NO POKEMON] " << std::endl;
     }
   }
+
+  PokemonFighter* PokemonFighterTeam::GetCurrentFighter () const
+  {
+    return fighters_[currentFighterIndex_];
+  }
+
+  /// @name IBattleEntity members
+  /// @{
+  const String& PokemonFighterTeam::GetName () const
+  {
+    return GetCurrentFighter ()->GetName ();
+  }
+  /// @}
 }

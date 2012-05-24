@@ -7,12 +7,14 @@
 
 namespace ycl
 {
+  class Battle;
+
   class ActionPhase
     : public yap::ActionPhase
     , public yap::IDrawable
   {
   public:
-    ActionPhase ();
+    explicit ActionPhase (Battle& battle);
     virtual ~ActionPhase ();
 
     /// @name BattlePhase members.

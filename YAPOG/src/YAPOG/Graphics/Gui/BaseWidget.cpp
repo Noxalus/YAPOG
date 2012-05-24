@@ -73,10 +73,13 @@ namespace yap
     {
       child->Move (offset);
     }
+
     if (border_ != nullptr)
       border_->Move (offset);
+
     if (background_ != nullptr)
       background_->Move (offset);
+
     spatialInfo_.SetPosition (GetPosition () + offset);
     OnMoved (*this, EventArgs (offset));
     HandleMove (offset);
@@ -279,7 +282,7 @@ namespace yap
     updatables_.Add (&child);
     eventHandlers_.Add (&child);
 
-    child.SetPosition (GetPosition ());
+    //child.SetPosition (GetPosition ());
     child.SetParent (*this);
     OnChildAdded (*this, EventArgsIWidget (child));
   }

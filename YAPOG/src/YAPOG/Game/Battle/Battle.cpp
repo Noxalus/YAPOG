@@ -28,9 +28,9 @@ namespace yap
     battlePhaseManager_.Update (dt);
     /*
     while (battlePhaseManager_.GetCurrentPhase () != 
-      BattlePhaseState::EndBattle)
+    BattlePhaseState::EndBattle)
     {
-      battlePhaseManager_.Update ();
+    battlePhaseManager_.Update ();
     }
 
     /*
@@ -97,8 +97,8 @@ namespace yap
   }
 
   void Battle::AddPhase (
-      const BattlePhaseState& battlePhaseState, 
-      BattlePhase* battlePhase)
+    const BattlePhaseState& battlePhaseState, 
+    BattlePhase* battlePhase)
   {
     battlePhaseManager_.AddPhase (battlePhaseState, battlePhase);
   }
@@ -113,8 +113,8 @@ namespace yap
     int i = 1;
     for (PokemonSkill* pk : currentPokemon_.GetMoves ())
     {
-      cout << "[" << i << "]" << pk->GetName () << endl;
-      i++;
+    cout << "[" << i << "]" << pk->GetName () << endl;
+    i++;
     }
     */
   }
@@ -125,10 +125,16 @@ namespace yap
     int i = 1;
     for (Pokemon* p : playerTeam_.GetTeam ())
     {
-      if (p != nullptr)
-        cout << "[" << i << "]" << p->GetName () << endl;
-      i++;
+    if (p != nullptr)
+    cout << "[" << i << "]" << p->GetName () << endl;
+    i++;
     }
     */
   }
+
+  IBattleEntity& Battle::GetPlayerTeam () const
+  { return playerTeam_; }
+
+  IBattleEntity& Battle::GetOpponent () const
+  { return opponent_; }
 } // namespace yap

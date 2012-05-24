@@ -23,17 +23,17 @@ namespace ycl
 
     battleInfoDialogBox_->SetPadding (new yap::Padding (35, 35, 25, 25));
 
-    battleInfoDialogBox_->AddText ("Un Roucoul sauvage apparaît !");
-    battleInfoDialogBox_->AddText ("Bulbizarre, GO !");
-    battleInfoDialogBox_->AddText ("Que foit faire Bulbizarre ?");
-    
+    battleInfoDialogBox_->SetPosition (
+      yap::Vector2 (0, TestGame::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
+
     battleInfoDialogBox_->SetBackground (
     *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
 
-    
-    battleInfoDialogBox_->SetPosition (
-      yap::Vector2 (0, TestGame::SCREEN_SIZE.y - this->GetSize ().y));
-
     this->AddChild (*battleInfoDialogBox_);
+  }
+
+  yap::WidgetDialogBox* BattleInterface::GetBattleInfoDialogBox () const
+  {
+    return battleInfoDialogBox_;
   }
 }

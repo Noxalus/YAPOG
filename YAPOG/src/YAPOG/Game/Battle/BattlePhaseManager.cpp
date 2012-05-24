@@ -82,8 +82,6 @@ namespace yap
     const BattlePhaseState& battlePhaseState, 
     BattlePhase* battlePhase)
   {
-    battlePhase->SetBattle (battle_);
-
     bool wasEmpty = battlePhases_.IsEmpty ();
     battlePhases_.Add (battlePhaseState, battlePhase);
 

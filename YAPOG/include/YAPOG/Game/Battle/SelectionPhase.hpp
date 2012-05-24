@@ -9,7 +9,7 @@ namespace yap
   class YAPOG_LIB SelectionPhase : public BattlePhase
   {
   public:
-    SelectionPhase ();
+    SelectionPhase (Battle& battle);
 
     /// @name BattlePhase members.
     /// @{

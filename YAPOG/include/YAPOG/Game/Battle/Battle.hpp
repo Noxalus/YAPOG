@@ -22,6 +22,10 @@ namespace yap
     virtual void Update (const Time& dt);
     /// @}
 
+    /// Getters
+    IBattleEntity& GetPlayerTeam () const;
+    IBattleEntity& GetOpponent () const;
+
   protected:
     virtual void HandleUpdate (const Time& dt);
     virtual void HandleInit ();

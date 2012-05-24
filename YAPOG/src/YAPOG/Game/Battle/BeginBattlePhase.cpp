@@ -2,8 +2,8 @@
 
 namespace yap
 {
-  BeginBattlePhase::BeginBattlePhase ()
-    : BattlePhase (BattlePhaseState::BeginBattle)
+  BeginBattlePhase::BeginBattlePhase (Battle& battle)
+    : BattlePhase (battle, BattlePhaseState::BeginBattle)
   {
   }
 

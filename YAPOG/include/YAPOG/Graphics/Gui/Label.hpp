@@ -59,6 +59,8 @@ namespace yap
     String textContent_;
     sf::Text drawableText_;
     bool isPosSet_;
+
+    static const String DEFAULT_FONT;
   };
 } // namespace yap
 

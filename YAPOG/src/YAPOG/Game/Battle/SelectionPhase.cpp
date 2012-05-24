@@ -2,8 +2,8 @@
 
 namespace yap
 {
-  SelectionPhase::SelectionPhase ()
-    : BattlePhase (BattlePhaseState::Selection)
+  SelectionPhase::SelectionPhase (Battle& battle)
+    : BattlePhase (battle, BattlePhaseState::Selection)
   {
   }
 

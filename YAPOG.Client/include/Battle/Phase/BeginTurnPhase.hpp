@@ -7,12 +7,14 @@
 
 namespace ycl
 {
+  class Battle;
+
   class BeginTurnPhase
     : public yap::BeginTurnPhase
     , public yap::IDrawable
   {
   public:
-    BeginTurnPhase ();
+    explicit BeginTurnPhase (Battle& battle);
     virtual ~BeginTurnPhase ();
 
     /// @name BattlePhase members.
@@ -42,6 +44,9 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+  private:
+    Battle& battle_;
   };
 } // namespace ycl
 

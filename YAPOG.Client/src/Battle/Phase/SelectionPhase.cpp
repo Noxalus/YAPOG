@@ -1,12 +1,14 @@
 #include "Battle/Phase/SelectionPhase.hpp"
+#include "Battle/Battle.hpp"
 
 namespace ycl
 {
   const bool SelectionPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color SelectionPhase::DEFAULT_COLOR = sf::Color ();
 
-  SelectionPhase::SelectionPhase ()
-    : yap::SelectionPhase ()
+  SelectionPhase::SelectionPhase (Battle& battle)
+    : yap::SelectionPhase (battle)
+    , battle_ (battle)
   {
   }
 

@@ -10,7 +10,7 @@ namespace yap
   {
     DISALLOW_COPY(BeginBattlePhase);
   protected:
-    BeginBattlePhase ();
+    BeginBattlePhase (Battle& battle);
     ~BeginBattlePhase ();
 
   public:

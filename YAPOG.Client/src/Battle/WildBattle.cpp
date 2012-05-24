@@ -3,14 +3,18 @@
 #include "Battle/WildBattle.hpp"
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/Battle.hpp"
+#include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   WildBattle::WildBattle (
+    BattleInterface& battleInterface,
     yap::IBattleEntity& playerTeam, 
     yap::IBattleEntity& wildPokemon)
     : Battle (playerTeam, wildPokemon)
+    , battleInterface_ (battleInterface)
   {
+    // DO NOT INIT BATTLE PHASE HERE !
   }
 
   WildBattle::~WildBattle ()
@@ -21,7 +25,7 @@ namespace ycl
   {
     Battle::HandleInit ();
 
-    BeginBattlePhase* beginBattlePhase = new BeginBattlePhase ();
+    BeginBattlePhase* beginBattlePhase = new BeginBattlePhase (*this, battleInterface_);
 
     AddPhase (yap::BattlePhaseState::BeginBattle, beginBattlePhase);
   }

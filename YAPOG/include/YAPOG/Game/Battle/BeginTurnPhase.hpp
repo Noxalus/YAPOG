@@ -9,7 +9,7 @@ namespace yap
   class YAPOG_LIB BeginTurnPhase : public BattlePhase
   {
   public:
-    BeginTurnPhase ();
+    BeginTurnPhase (Battle& battle);
 
     /// @name BattlePhase members.
     /// @{
