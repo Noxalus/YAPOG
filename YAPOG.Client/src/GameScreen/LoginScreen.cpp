@@ -41,7 +41,8 @@ namespace ycl
   void LoginScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-    
+   
+    /*
     yap::Menu* menu = new yap::Menu (
     yap::Menu::Type::VERTICAL,
     yap::Padding (1, 1, 1, 1),
@@ -181,7 +182,7 @@ namespace ycl
     guiManager_->AddChild (*layout);
     guiManager_->AddChild (*txtbox);
     guiManager_->AddChild (*dialog);
-
+    */
     // guiManager_->AddChild (*bckgr);    
   }
 

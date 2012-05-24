@@ -49,6 +49,7 @@ namespace ycl
       battle_.GetOpponentGroundPosition ().y));
 
     yap::String pokemonName = battle_.GetOpponent ().GetName ();
+    battleInterface_.GetBattleInfoDialogBox ()->SetEnable (false);
     battleInterface_.GetBattleInfoDialogBox ()->
       AddText ("Un " + pokemonName + " sauvage\napparaît !");
   }
@@ -83,8 +84,13 @@ namespace ycl
         yap::Vector2 (battle_.GetOpponentGround ()->GetPosition ()));
     }
 
-    if (true)
-    {}
+    if (battle_.GetPlayerGround ()->GetPosition () == 
+      battle_.GetPlayerGroundPosition () &&
+      battle_.GetOpponentGround ()->GetPosition () ==
+      battle_.GetOpponentGroundPosition ())
+    {
+      battleInterface_.GetBattleInfoDialogBox ()->SetEnable (true);
+    }
 
     //nextPhase_ = yap::BattlePhaseState::BeginBattle;
   }

@@ -389,4 +389,22 @@ namespace yap
   {
     return false;
   }
+
+  void BaseWidget::SetEnable (bool enable)
+  {
+    isEnabled_ = enable;
+  }
+
+  void BaseWidget::Open ()
+  {
+    SetEnable (true);
+    Show (true);
+  }
+
+  void BaseWidget::Close ()
+  {
+    SetEnable (false);
+    Show (false);
+  }
+
 } // namespace yap

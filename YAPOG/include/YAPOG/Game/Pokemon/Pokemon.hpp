@@ -52,14 +52,8 @@ namespace yap
     void PrintStats ();
 
     static const int MAX_POKEMON_MOVE_NUMBER;
-  private:
-    void Init ();
-    void InitExperience ();
-    void InitMoveSet ();
-    void Reset ();
-    void Evolve ();
-    void SpecifyGender ();
 
+  protected:
     ID uniqueID_;
     ID staticID_;
     String nickname_;
@@ -74,6 +68,13 @@ namespace yap
     PokemonInfo* pokemonInfo_;
     NatureInfo* nature_;
     PokemonExperience* exp_;
+  private:
+    void Init ();
+    void InitExperience ();
+    void InitMoveSet ();
+    void Reset ();
+    void Evolve ();
+    void SpecifyGender ();
   };
 } // namespace yap
 

@@ -25,6 +25,8 @@ ${inc_root}/Battle/BattleInterface.hpp
 ${src_root}/Battle/BattleInteface.cpp
 ${inc_root}/Battle/BattlePhaseManager.hpp
 ${src_root}/Battle/BattlePhaseManager.cpp
+${inc_root}/Battle/PokemonFighter.hpp
+${src_root}/Battle/PokemonFighter.cpp
 ${inc_root}/Battle/WildBattle.hpp
 ${src_root}/Battle/WildBattle.cpp
 ${inc_root}/Battle/Phase/EndBattlePhase.hpp

@@ -4,6 +4,11 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Pokemon/Pokemon.hpp"
 
+namespace yap
+{
+  class ISprite;
+}
+
 namespace ycl
 {
   class Pokemon : public yap::Pokemon
@@ -17,6 +22,14 @@ namespace ycl
       const yap::UInt16& level, 
       const bool& shiny);
     virtual ~Pokemon ();
+
+    void LoadSprites ();
+
+  private:
+    yap::ISprite* icon_;
+    yap::ISprite* battleBack_;
+    yap::ISprite* battleFront_;
+
   };
 } // namespace ycl
 
