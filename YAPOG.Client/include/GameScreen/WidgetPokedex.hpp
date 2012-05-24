@@ -3,7 +3,11 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
-# include "YAPOG/Graphics/Gui/Menu.hpp"
+
+namespace yap
+{
+  class Pokedex;
+}
 
 namespace ycl
 {
@@ -17,6 +21,7 @@ namespace ycl
       virtual ~WidgetPokedex();
 
     private:
+      yap::Pokedex* pokedex_
   };
 } // namespace ycl
 

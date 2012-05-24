@@ -11,17 +11,33 @@ namespace yap
 
   }
 
-  void Pokedex::SetPokemonSeenInfoList (const collection::Map<ID, Pokedex*>& pokSeen)
+
+  void Pokedex::AddPokemon (PokemonInfo* pok)
+  {
+    pokList_.Add (pok);
+  }
+
+  void Pokedex::AddPokemonSeen (PokemonInfo* pokSeen)
+  {
+    pokSeen_.Add (pokSeen->GetID (), pokSeen);
+  }
+
+  void Pokedex::AddPokemonCaught (PokemonInfo* pokCaught)
+  {
+    pokCaught_.Add (pokCaught->GetID (), pokCaught);
+  }
+
+  void Pokedex::SetPokemonSeenInfoList (const collection::Map<ID, PokemonInfo*>& pokSeen)
   {
     pokSeen_ = pokSeen;
   }
 
-  void Pokedex::SetPokemonCaughtInfoList (const collection::Map<ID, Pokedex*>& pokCaught)
+  void Pokedex::SetPokemonCaughtInfoList (const collection::Map<ID, PokemonInfo*>& pokCaught)
   {
     pokCaught_ = pokCaught;
   }
 
-  void Pokedex::SetPokemonList (const collection::Array<Pokedex*>& pokList)
+  void Pokedex::SetPokemonList (const collection::Array<PokemonInfo*>& pokList)
   {
     pokList_ = pokList;
   }

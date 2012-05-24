@@ -14,16 +14,21 @@ namespace yap
   {
   public:
     Pokedex ();
+    ~Pokedex ();
 
-    void SetPokemonSeenInfoList (const collection::Map<ID, Pokedex*>& pokSeen);
-    void SetPokemonCaughtInfoList (const collection::Map<ID, Pokedex*>& pokCaught);
-    void SetPokemonList (const collection::Array<Pokedex*>& pokList);
+    void SetPokemonSeenInfoList (const collection::Map<ID, PokemonInfo*>& pokSeen);
+    void SetPokemonCaughtInfoList (const collection::Map<ID, PokemonInfo*>& pokCaught);
+    void SetPokemonList (const collection::Array<PokemonInfo*>& pokList);
+
+    void AddPokemon (PokemonInfo* pok);
+    void AddPokemonSeen (PokemonInfo* pokSeen);
+    void AddPokemonCaught (PokemonInfo* pokCaught);
     void Init ();
 
   private:
-    collection::Map<ID, Pokedex*> pokSeen_;
-    collection::Map<ID, Pokedex*> pokCaught_;
-    collection::Array<Pokedex*> pokList_;
+    collection::Map<ID, PokemonInfo*> pokSeen_;
+    collection::Map<ID, PokemonInfo*> pokCaught_;
+    collection::Array<PokemonInfo*> pokList_;
   };
 } // namespace yap
 
