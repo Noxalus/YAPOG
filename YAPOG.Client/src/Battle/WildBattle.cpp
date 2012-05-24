@@ -26,11 +26,6 @@ namespace ycl
     AddPhase (yap::BattlePhaseState::BeginBattle, beginBattlePhase);
   }
 
-  void WildBattle::HandleUpdate (const yap::Time& dt)
-  {
-    Battle::HandleUpdate (dt);
-  }
-
   void WildBattle::Draw (yap::IDrawingContext& context)
   {
     if (!IsVisible ())
@@ -58,14 +53,14 @@ namespace ycl
     HandleChangeColor (color);
   }
 
+  void WildBattle::HandleUpdate (const yap::Time& dt)
+  {
+    Battle::HandleUpdate (dt);
+  }
+
   void WildBattle::HandleDraw (yap::IDrawingContext& context)
   {
-    /*
-    background_->Draw (context);
-    playerGround_->Draw (context);
-    opponentGround_->Draw (context);
-    */
-    //battleTextLabel_->Draw (context);
+    Battle::HandleDraw (context);
   }
 
   void WildBattle::HandleShow (bool isVisible)

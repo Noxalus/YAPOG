@@ -57,17 +57,18 @@ namespace ycl
     battle_ = new WildBattle (playerFighterTeam, wildPokemon);
     battle_->Init ();
 
-    /*
     battleInterface_ = new BattleInterface ();
-    
+
     guiManager_->AddChild (*battleInterface_);
-    */
   }
 
   const yap::ScreenType& BattleScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
+    battle_->Update (dt);
+    battle_->Draw (context);
+
     return BaseScreen::HandleRun (dt, context);
   }
 
