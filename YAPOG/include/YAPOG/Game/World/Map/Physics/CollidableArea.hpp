@@ -20,6 +20,7 @@ namespace yap
       void SetSize (const Vector2& size);
 
       void AddCollidable (ICollidable* collidable);
+      void RemoveCollidable (ICollidable* collidable);
 
     protected:
 
@@ -28,6 +29,7 @@ namespace yap
       virtual void HandleSetSize (const Vector2& size);
 
       virtual void HandleAddCollidable (ICollidable* collidable) = 0;
+      virtual void HandleRemoveCollidable (ICollidable* collidable) = 0;
 
     private:
 

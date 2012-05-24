@@ -10,6 +10,8 @@
 
 namespace yap
 {
+  class CollidableArea;
+
   class YAPOG_LIB WorldObject : public ICollidable
                               , public IIDLoadable
   {
@@ -21,6 +23,10 @@ namespace yap
 
       const ID& GetID () const;
       void SetID (const ID& id);
+
+      void SetCollidableArea (CollidableArea* collidableArea);
+      void AddBoundingBox (BoundingBox* boundingBox);
+      void RemoveBoundingBox (BoundingBox* boundingBox);
 
       /// @name ISpatial members.
       /// @{

@@ -67,6 +67,7 @@ namespace yse
     packetHandler_.SetParent (parent);
   }
 
+  /// @todo Write state/direction
   void Map::SendAddPlayer (Player* player)
   {
     yap::Packet addPlayerPacket;
@@ -75,6 +76,8 @@ namespace yse
     addPlayerPacket.Write (player->GetWorldID ());
     addPlayerPacket.Write (player->GetTypeID ());
     addPlayerPacket.Write (player->GetID ());
+
+    /// @todo To send position, tmp
     addPlayerPacket.Write (yap::Vector2 (100.0f, 100.0f));
 //    addPlayerPacket.Write (player->GetState ());
 //    addPlayerPacket.Write (player->GetDirection ());

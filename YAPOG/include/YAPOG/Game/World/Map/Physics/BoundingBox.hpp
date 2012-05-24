@@ -14,6 +14,7 @@ namespace yap
 
     public:
 
+      BoundingBox ();
       BoundingBox (
         const Vector2& position,
         const Vector2& size,

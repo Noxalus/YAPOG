@@ -15,6 +15,9 @@ namespace yap
 
       virtual ~Character ();
 
+      virtual void Accept (IDynamicWorldObjectVisitor& visitor);
+      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const;
+
     protected:
 
       explicit Character (const ID& id);

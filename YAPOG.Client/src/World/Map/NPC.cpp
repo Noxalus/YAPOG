@@ -23,7 +23,7 @@ namespace ycl
     return new NPC (*this);
   }
 
-  yap::String NPC::GetObjectFactoryTypeName () const
+  const yap::String& NPC::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;
   }

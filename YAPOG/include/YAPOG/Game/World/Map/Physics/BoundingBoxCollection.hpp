@@ -9,12 +9,16 @@
 namespace yap
 {
   class BoundingBox;
+  class CollidableArea;
 
   class YAPOG_LIB BoundingBoxCollection : public ISpatial3
   {
       DISALLOW_ASSIGN(BoundingBoxCollection);
 
     public:
+
+      typedef collection::List<BoundingBox*>::ItType ItType;
+      typedef collection::List<BoundingBox*>::ConstItType ConstItType;
 
       BoundingBoxCollection ();
       virtual ~BoundingBoxCollection ();
@@ -23,6 +27,13 @@ namespace yap
 
       void AddBoundingBox (BoundingBox* boundingBox);
       void RemoveBoundingBox (BoundingBox* boundingBox);
+
+      void SetCollidableArea (CollidableArea* collidableArea);
+
+      ItType begin ();
+      ConstItType begin () const;
+      ItType end ();
+      ConstItType end () const;
 
       /// @name ISpatial members.
       /// @{
@@ -53,9 +64,14 @@ namespace yap
 
     private:
 
+      void AddBoundingBoxesToCollidableArea ();
+      void RemoveBoundingBoxesFromCollidableArea ();
+
       Spatial3Info spatial3Info_;
 
       collection::List<BoundingBox*> boundingBoxes_;
+
+      CollidableArea* collidableArea_;
   };
 } // namespace yap
 

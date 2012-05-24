@@ -25,7 +25,7 @@ namespace ycl
 
       Player (const Player& copy);
 
-      virtual yap::String GetObjectFactoryTypeName () const;
+      virtual const yap::String& GetObjectFactoryTypeName () const;
 
     private:
 

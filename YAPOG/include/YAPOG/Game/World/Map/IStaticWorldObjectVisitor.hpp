@@ -5,7 +5,6 @@
 
 namespace yap
 {
-  class Character;
   class MapElement;
 
   struct IStaticWorldObjectVisitor

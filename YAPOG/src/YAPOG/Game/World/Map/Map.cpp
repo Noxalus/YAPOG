@@ -183,6 +183,7 @@ namespace yap
 
   void Map::HandleAddObject (WorldObject* object)
   {
+    object->SetCollidableArea (collidableArea_);
   }
 
   void Map::HandleAddStaticObject (StaticWorldObject* object)
@@ -199,6 +200,7 @@ namespace yap
 
   void Map::HandleRemoveObject (WorldObject* object)
   {
+    object->SetCollidableArea (nullptr);
   }
 
   void Map::HandleRemoveStaticObject (StaticWorldObject* object)

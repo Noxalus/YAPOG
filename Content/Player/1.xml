@@ -1,4 +1,11 @@
 <Player>
+  <boundingBoxes>
+    <BoundingBox>
+      <rect>0,0,28,20</rect>
+      <z>0</z>
+      <h>0</h>
+    </BoundingBox>
+  </boundingBoxes>
   <maxVelocity>150,150</maxVelocity>
   <spriteType>StringSpriteSet</spriteType>
   <StringSpriteSet>

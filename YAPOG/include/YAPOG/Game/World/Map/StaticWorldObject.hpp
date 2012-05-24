@@ -8,6 +8,9 @@
 
 namespace yap
 {
+  struct IStaticWorldObjectVisitor;
+  struct IStaticWorldObjectConstVisitor;
+
   class StaticWorldObject : public WorldObject
                           , public IUpdateable
   {
@@ -16,6 +19,9 @@ namespace yap
     public:
 
       virtual ~StaticWorldObject ();
+
+      virtual void Accept (IStaticWorldObjectVisitor& visitor) = 0;
+      virtual void Accept (IStaticWorldObjectConstVisitor& visitor) const = 0;
 
       /// @name IUpdateable members.
       /// @{

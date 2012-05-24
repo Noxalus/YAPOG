@@ -15,6 +15,9 @@ namespace yap
 
       virtual ~MapElement ();
 
+      virtual void Accept (IStaticWorldObjectVisitor& visitor);
+      virtual void Accept (IStaticWorldObjectConstVisitor& visitor) const;
+
     protected:
 
       explicit MapElement (const ID& id);

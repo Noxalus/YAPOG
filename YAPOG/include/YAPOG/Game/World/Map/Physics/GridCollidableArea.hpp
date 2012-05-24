@@ -26,8 +26,14 @@ namespace yap
       virtual void HandleSetSize (const Vector2& size);
 
       virtual void HandleAddCollidable (ICollidable* collidable);
+      virtual void HandleRemoveCollidable (ICollidable* collidable);
 
     private:
+
+      void GetRectangle (ICollidable* collidable, UIntRect& rectangle);
+
+      static const uint MIN_VSEGMENT_COUNT;
+      static const uint MIN_HSEGMENT_COUNT;
 
       uint vSegmentCount_;
       uint hSegmentCount_;

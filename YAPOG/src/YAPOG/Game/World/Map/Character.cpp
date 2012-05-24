@@ -1,4 +1,6 @@
 #include "YAPOG/Game/World/Map/Character.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 
 namespace yap
 {
@@ -18,6 +20,16 @@ namespace yap
     : DynamicWorldObject (copy)
     , direction_ (copy.direction_)
   {
+  }
+
+  void Character::Accept (IDynamicWorldObjectVisitor& visitor)
+  {
+    visitor.Visit (*this);
+  }
+
+  void Character::Accept (IDynamicWorldObjectConstVisitor& visitor) const
+  {
+    visitor.Visit (*this);
   }
 
   const Direction& Character::GetDirection () const

@@ -24,7 +24,7 @@ namespace ycl
 
       NPC (const NPC& copy);
 
-      virtual yap::String GetObjectFactoryTypeName () const;
+      virtual const yap::String& GetObjectFactoryTypeName () const;
 
     private:
 

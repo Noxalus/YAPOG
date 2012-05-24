@@ -22,6 +22,11 @@ namespace yap
     HandleAddCollidable (collidable);
   }
 
+  void CollidableArea::RemoveCollidable (ICollidable* collidable)
+  {
+    HandleRemoveCollidable (collidable);
+  }
+
   void CollidableArea::HandleSetSize (const Vector2& size)
   {
   }

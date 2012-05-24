@@ -30,6 +30,21 @@ namespace yap
     id_ = id;
   }
 
+  void WorldObject::SetCollidableArea (CollidableArea* collidableArea)
+  {
+    boundingBoxes_.SetCollidableArea (collidableArea);
+  }
+
+  void WorldObject::AddBoundingBox (BoundingBox* boundingBox)
+  {
+    boundingBoxes_.AddBoundingBox (boundingBox);
+  }
+
+  void WorldObject::RemoveBoundingBox (BoundingBox* boundingBox)
+  {
+    boundingBoxes_.RemoveBoundingBox (boundingBox);
+  }
+
   const Vector2& WorldObject::GetPosition () const
   {
     return spatial3Info_.GetPosition ();

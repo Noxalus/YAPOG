@@ -2,6 +2,11 @@
 
 namespace yap
 {
+  BoundingBox::BoundingBox ()
+    : spatial3Info_ ()
+  {
+  }
+
   BoundingBox::BoundingBox (
     const Vector2& position,
     const Vector2& size,

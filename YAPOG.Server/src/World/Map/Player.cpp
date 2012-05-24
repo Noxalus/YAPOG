@@ -48,7 +48,7 @@ namespace yse
     packetHandler_.SetParent (parent);
   }
 
-  yap::String Player::GetObjectFactoryTypeName () const
+  const yap::String& Player::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;
   }

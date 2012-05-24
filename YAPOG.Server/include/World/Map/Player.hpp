@@ -38,7 +38,7 @@ namespace yse
 
       Player (const Player& copy);
 
-      yap::String GetObjectFactoryTypeName () const;
+      const yap::String& GetObjectFactoryTypeName () const;
 
     private:
 

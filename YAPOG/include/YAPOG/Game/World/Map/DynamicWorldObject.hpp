@@ -9,6 +9,9 @@
 
 namespace yap
 {
+  struct IDynamicWorldObjectVisitor;
+  struct IDynamicWorldObjectConstVisitor;
+
   class PhysicsCore;
 
   class YAPOG_LIB DynamicWorldObject : public WorldObject
@@ -19,6 +22,9 @@ namespace yap
     public:
 
       virtual ~DynamicWorldObject ();
+
+      virtual void Accept (IDynamicWorldObjectVisitor& visitor) = 0;
+      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const = 0;
 
       const ID& GetWorldID () const;
       void SetWorldID (const ID& id);
@@ -53,7 +59,7 @@ namespace yap
 
       DynamicWorldObject (const DynamicWorldObject& copy);
 
-      virtual String GetObjectFactoryTypeName () const = 0;
+      virtual const String& GetObjectFactoryTypeName () const = 0;
 
       virtual void HandleUpdate (const Time& dt);
       virtual void HandleSetState (const String& state);

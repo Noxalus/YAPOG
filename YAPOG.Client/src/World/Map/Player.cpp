@@ -23,7 +23,7 @@ namespace ycl
     return new Player (*this);
   }
 
-  yap::String Player::GetObjectFactoryTypeName () const
+  const yap::String& Player::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;
   }
