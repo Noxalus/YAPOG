@@ -7,54 +7,33 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 #include "Battle/BattleInterface.hpp"
-#include "Battle/BattleBackgroundWidget.hpp"
+
 #include "TestGame.hpp"
 
 namespace ycl
 {
-  const yap::Vector2 BattleInterface::DEFAULT_OPPONENT_GROUND_SPRITES_SCALE
-    = yap::Vector2 (0.75f, 0.75f);
-
   BattleInterface::BattleInterface ()
+    : battleInfoDialogBox_ (nullptr)
   {
-    background_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (42)));
-
-    opponentGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (43)));
-    playerGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (43)));
-
-    background_->SetSize (TestGame::SCREEN_SIZE);
-
-    playerGround_->SetPosition (
-      yap::Vector2 (0, 
-      TestGame::SCREEN_SIZE.y - (TestGame::SCREEN_SIZE.y / 4) -
-      ((playerGround_->GetSize ().y) / 2)));
-
-    opponentGround_->Scale (DEFAULT_OPPONENT_GROUND_SPRITES_SCALE);
-    opponentGround_->SetPosition (
-      yap::Vector2 (
-      TestGame::SCREEN_SIZE.x - 2 *
-      ((playerGround_->GetSize ().x * 
-      DEFAULT_OPPONENT_GROUND_SPRITES_SCALE.x) / 2), 
-      TestGame::SCREEN_SIZE.y / 3 - 
-      ((playerGround_->GetSize ().y * 
-      DEFAULT_OPPONENT_GROUND_SPRITES_SCALE.y) / 2)));
-
-    battleTextDialogBox_ = new yap::WidgetDialogBox ();
-    yap::WidgetBackground* battleTextDialogBoxBackground_ = 
-      new yap::WidgetBackground ("WindowSkins/dummy1.png", true);
+    battleInfoDialogBox_ = new yap::WidgetDialogBox ();
 
     // Init Battle Text Dialog
-    battleTextDialogBox_->SetSize (
+    battleInfoDialogBox_->SetSize (
       yap::Vector2 (TestGame::SCREEN_SIZE.x, TestGame::SCREEN_SIZE.y / 4));
-    battleTextDialogBox_->SetPosition (
-      yap::Vector2 (0, TestGame::SCREEN_SIZE.y));
-    battleTextDialogBox_->SetPadding (new yap::Padding (35, 35, 25, 25));
-    battleTextDialogBox_->AddText ("COUCOU !!");
-    battleTextDialogBox_->SetBackground (*battleTextDialogBoxBackground_);
 
-    //this->AddChild (*battleTextDialogBox_);
+    battleInfoDialogBox_->SetPadding (new yap::Padding (35, 35, 25, 25));
+
+    battleInfoDialogBox_->AddText ("Un Roucoul sauvage apparaît !");
+    battleInfoDialogBox_->AddText ("Bulbizarre, GO !");
+    battleInfoDialogBox_->AddText ("Que foit faire Bulbizarre ?");
+    
+    battleInfoDialogBox_->SetBackground (
+    *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
+
+    
+    battleInfoDialogBox_->SetPosition (
+      yap::Vector2 (0, TestGame::SCREEN_SIZE.y - this->GetSize ().y));
+
+    this->AddChild (*battleInfoDialogBox_);
   }
 }

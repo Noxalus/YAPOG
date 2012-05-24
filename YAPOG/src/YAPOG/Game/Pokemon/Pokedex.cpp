@@ -2,11 +2,12 @@
 
 namespace yap
 {
-  Pokedex::Pokedex ()  
+  Pokedex::Pokedex ()
   {
 
   }
-  Pokedex::~Pokedex ()  
+
+  Pokedex::~Pokedex ()
   {
 
   }
