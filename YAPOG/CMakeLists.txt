@@ -132,6 +132,7 @@ ${inc_root}/Game/World/Spatial3Info.hpp
 ${src_root}/Game/World/Spatial3Info.cpp
 ${inc_root}/Game/World/World.hpp
 ${src_root}/Game/World/World.cpp
+
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp
 ${src_root}/Game/Pokemon/PokemonInfo.cpp
@@ -306,6 +307,10 @@ ${inc_root}/Graphics/Gui/LayoutBox.hpp
 ${src_root}/Graphics/Gui/LayoutBox.cpp
 ${inc_root}/Graphics/Gui/WidgetDialogBox.hpp
 ${src_root}/Graphics/Gui/WidgetDialogBox.cpp
+${inc_root}/Graphics/Gui/PartialLayoutManager.hpp
+${src_root}/Graphics/Gui/PartialLayoutManager.cpp
+${inc_root}/Game/Pokemon/Pokedex.hpp
+${src_root}/Game/Pokemon/Pokedex.cpp
 ${inc_root}/Graphics/Gui/LayoutH.hpp
 ${src_root}/Graphics/Gui/LayoutH.cpp
 ${inc_root}/Graphics/Gui/LayoutV.hpp

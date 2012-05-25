@@ -9,6 +9,14 @@ namespace yap
 {
   MenuItem::MenuItem ()
     : label_ ("")
+    , isScalable_ (false)
+  {
+    label_.SetPosition (GetPosition ());
+  }
+
+  MenuItem::MenuItem (bool isScalable)
+    : label_ ("")
+    , isScalable_ (isScalable)
   {
     label_.SetPosition (GetPosition ());
   }
@@ -19,10 +27,16 @@ namespace yap
 
   void MenuItem::Refresh ()
   {
-    label_.SetPosition (GetPosition ()
+    if (!isScalable_)
+      label_.SetPosition (GetPosition ()
       + Vector2 (GetUserSize ().x / 2 - label_.GetSize ().x / 2 + 7,
       GetUserSize ().y / 2
       - label_.GetSize ().y / 2 + label_.GetCharHeight ()));
+    else
+    {
+      label_.SetPosition (GetPosition () +
+        ((border_ != nullptr) ? border_->GetSize () : Vector2 ()));
+    }
     BaseWidget::Refresh ();
   }
 
@@ -39,9 +53,7 @@ namespace yap
   void MenuItem::SetContent (String content)
   {
     label_.SetText (content);
-    label_.SetPosition (GetPosition ()
-      + Vector2 (GetUserSize ().x / 2 - label_.GetSize ().x / 2 + 7,
-      GetUserSize ().y / 2 - label_.GetSize ().y / 2));
+    Refresh ();
   }
 
   bool MenuItem::IsFocusable () const
@@ -51,9 +63,14 @@ namespace yap
 
   Vector2 MenuItem::HandleGetSize () const
   {
-    return GetUserSize ()
-      + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+    Vector2 result;
+    if (!isScalable_)
+      result =  GetUserSize ()
+      + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
+    else
+      result = label_.GetSize ()
+      + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
+    return result;
   }
 
   void MenuItem::HandleDraw (IDrawingContext& context)

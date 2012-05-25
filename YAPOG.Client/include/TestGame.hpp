@@ -35,6 +35,7 @@ namespace ycl
 
       virtual void HandleDispose ();
 
+      static const yap::Vector2 SCREEN_SIZE;
     private:
 
       void InitRandom ();

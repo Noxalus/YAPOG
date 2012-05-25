@@ -51,7 +51,7 @@ namespace yap
   void WidgetTextBox::Refresh ()
   {
     label_->SetPosition (Vector2 (GetPosition ().x,
-                                  GetPosition ().y /*+ label_->GetCharHeight () / 2*/));
+                                  GetPosition ().y));
 
     uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
     while (label_->GetSize ().x > labelMaxWidth)
@@ -65,8 +65,7 @@ namespace yap
   Vector2 WidgetTextBox::HandleGetSize () const
   {
     return GetUserSize ()
-      + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-                                         * 2, border_->GetWidth () * 2) : Vector2 ());
+      + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
   void WidgetTextBox::HandleDraw (IDrawingContext& context)
@@ -233,6 +232,8 @@ namespace yap
       if (txt == '\b')
         return true;
       if (txt == '\t')
+        return false;
+      if (txt == '\r')
         return false;
       if (curserPos_ > 0)
       {

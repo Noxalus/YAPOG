@@ -109,6 +109,7 @@ namespace yap
 
     virtual void AddDrawable (IDrawable& drawable);
     virtual void AddChild (IWidget& child);
+    virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
     virtual void SetPadding (Padding* padding);
@@ -119,6 +120,10 @@ namespace yap
     virtual void UnsetBorder ();
     virtual bool IsFocusable () const = 0;
     Vector2 GetUserSize () const;
+
+    virtual void SetEnable (bool enable);
+    virtual void Open ();
+    virtual void Close ();
   protected:
 
     virtual void SetFocused (bool state);
@@ -158,7 +163,7 @@ namespace yap
     bool isFocused_;
 
   private:
-    void SetPosAfterBorder (uint width);
+    void SetPosAfterBorder (uint width, uint height);
   };
 } // namespace yap
 

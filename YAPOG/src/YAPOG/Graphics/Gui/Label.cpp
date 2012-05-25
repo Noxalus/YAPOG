@@ -5,14 +5,19 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Content/ContentManager.hpp"
 
 namespace yap
 {
+  const String Label::DEFAULT_FONT = "pkmnemn.ttf";
+
   Label::Label ()
     : textContent_ ()
     , drawableText_ ()
     , isPosSet_ (false)
   {
+    drawableText_.setFont 
+      (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
   }
 
   Label::Label (String content)
@@ -26,6 +31,9 @@ namespace yap
       GetPosition ().y - drawableText_.getCharacterSize ()
       + drawableText_.getGlobalBounds ().height);
     isPosSet_ = true;
+
+    drawableText_.setFont 
+      (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
   }
 
   Label::~Label ()

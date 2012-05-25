@@ -6,6 +6,7 @@
 # include "YAPOG/Graphics/Gui/MenuItem.hpp"
 # include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 # include "YAPOG/Graphics/Gui/Padding.hpp"
+# include "YAPOG/Graphics/Gui/PartialLayoutManager.hpp"
 
 namespace yap
 {
@@ -30,6 +31,7 @@ namespace yap
     void SetSelectedBorder (WidgetBorder& border);
     virtual bool IsFocusable () const;
 
+    void SetFixed (bool state);
   private:
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
@@ -45,13 +47,17 @@ namespace yap
     void SetFormItem ();
     void SetUnformItem ();
 
-    collection::Array<MenuItem*> itemz_;
+    collection::Array<MenuItem*> itemz_;    
     uint currentSelec_;
     LayoutBox* layout_;
 
     WidgetBackground* selecBckgrd_;
     WidgetBorder* selecBrdr_;
     uint selecBrdSize_;
+    bool isFixed_;
+    Type type_;
+    PartialLayoutManager* layoutManager_;
+
   };
 } // namespace yap
 

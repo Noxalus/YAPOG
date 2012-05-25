@@ -13,9 +13,13 @@ namespace yap
   public:
     PokemonFighter (Pokemon* originalPokemon);
 
+    /// @name IBattleEntity members
+    /// @{
+    virtual const String& GetName () const;
+    /// @}
+
     /// @brief Specifics to the Original Pokemon
     /// {
-    const String& GetName () const;
     const UInt16& GetLevel () const;
     const Gender& GetGender () const;
     UInt16 GetCurrentHP () const;

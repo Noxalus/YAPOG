@@ -24,7 +24,10 @@ namespace yap
 
   public:
     Pokemon (const ID& staticID);
-    Pokemon (const ID& staticID, const UInt16& level, const bool& shiny);
+    Pokemon (
+      const ID& staticID, 
+      const UInt16& level, 
+      const bool& shiny);
 
     const String& GetName () const;
     const TypeInfo& GetType1 () const;
@@ -42,20 +45,15 @@ namespace yap
     bool LearnSkill (const ID& skillID);
     void ReplaceSkill (const ID& skillID, int index);
 
+    void TakeDamage (int damage);
 
     void AddExperience (const Int32& value);
 
     void PrintStats ();
 
     static const int MAX_POKEMON_MOVE_NUMBER;
-  private:
-    void Init ();
-    void InitExperience ();
-    void InitMoveSet ();
-    void Reset ();
-    void Evolve ();
-    void SpecifyGender ();
 
+  protected:
     ID uniqueID_;
     ID staticID_;
     String nickname_;
@@ -70,7 +68,13 @@ namespace yap
     PokemonInfo* pokemonInfo_;
     NatureInfo* nature_;
     PokemonExperience* exp_;
-
+  private:
+    void Init ();
+    void InitExperience ();
+    void InitMoveSet ();
+    void Reset ();
+    void Evolve ();
+    void SpecifyGender ();
   };
 } // namespace yap
 

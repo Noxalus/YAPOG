@@ -2,11 +2,15 @@
 # define YAPOG_IBATTLEENTITYE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB IBattleEntity
+  struct YAPOG_LIB IBattleEntity
   {
+    virtual ~IBattleEntity () {}
+
+    virtual const String& GetName () const = 0;
   };
 } // namespace yap
 

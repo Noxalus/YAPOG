@@ -75,6 +75,11 @@ namespace yap
   void PokemonStat::SetSpeed (const Speed& value)
   { speed_ = value; }
 
+  void PokemonStat::ModifyHitPoint (int value)
+  {
+    hitPoint_.AddValue (value);
+  }
+
   void PokemonStat::ComputeStats (
     const PokemonInfo& pokeInfo, 
     const UInt16& level, 

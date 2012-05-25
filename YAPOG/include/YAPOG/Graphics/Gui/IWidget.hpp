@@ -32,6 +32,9 @@ namespace yap
     virtual void Refresh () = 0;
     virtual bool IsFocusable () const = 0;
     virtual void SetFocused (bool state) = 0;
+    virtual void SetEnable (bool enable) = 0;
+    virtual void Open () = 0;
+    virtual void Close () = 0;
   };
 } // namespace yap
 

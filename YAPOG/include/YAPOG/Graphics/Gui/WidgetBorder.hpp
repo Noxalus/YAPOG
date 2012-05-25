@@ -43,9 +43,12 @@ namespace yap
     void SetBorder (Vector2 size, uint width);
     void SetBorder (Vector2 size);
     const Texture& GetBorder () const;
+    void SetScalable (bool state);
     uint GetWidth () const;
 
   private:
+    uint GetTextureWidth () const;
+    virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 

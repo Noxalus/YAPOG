@@ -33,6 +33,18 @@ namespace yap
     BaseWidget::Refresh ();
   }
 
+  void LayoutBox::Clear ()
+  {
+    items_.Clear ();
+    focusables_.Clear ();
+
+    drawables_.Clear ();
+    childen_.Clear();    
+    updatables_.Clear();
+    eventHandlers_.Clear();
+
+  }
+
   bool LayoutBox::IsFocusable () const
   {
     return true;
@@ -64,8 +76,7 @@ namespace yap
   Vector2 LayoutBox::HandleGetSize () const
   {
     if (isExtensible_)
-      return realSize_ + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+      return realSize_ + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
 
     return spatialInfo_.GetSize ();
   }
@@ -81,7 +92,16 @@ namespace yap
     GeneratePosition ();
   }
  
- 
+ void LayoutBox::RemoveChild (IWidget& child)
+ {
+   BaseWidget::RemoveChild (child);
+   items_.Remove (&child);
+
+   if (child.IsFocusable ())
+     focusables_.Remove (&child);
+
+   GeneratePosition ();
+ }
 
   bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {
