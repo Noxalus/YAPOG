@@ -51,6 +51,11 @@ namespace yap
       virtual void SetH (int h);
       /// @}
 
+      /// @name ICollidable members.
+      /// @{
+      virtual bool CollidesWith (const ICollidable& other) const;
+      /// @}
+
     private:
 
       Spatial3Info spatial3Info_;

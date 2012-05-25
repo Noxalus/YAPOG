@@ -34,7 +34,7 @@ namespace yap
     if (hSegmentCount < MIN_HSEGMENT_COUNT)
       YAPOG_THROW(
         "Invalid horizontal segment count: `" +
-        StringHelper::ToString (vSegmentCount) +
+        StringHelper::ToString (hSegmentCount) +
         "'.");
 
     vSegmentCount_ = vSegmentCount;
@@ -44,6 +44,23 @@ namespace yap
       hSegmentCount_,
       vSegmentCount_,
       new CollidableAreaCell ());
+  }
+
+  bool GridCollidableArea::CollidesWith (const ICollidable& collidable) const
+  {
+    UIntRect collidableRect;
+    GetCollidableRectangle (collidable, collidableRect);
+
+    for (uint y = collidableRect.top;
+         y <= collidableRect.top + collidableRect.height;
+         ++y)
+      for (uint x = collidableRect.left;
+           x <= collidableRect.left + collidableRect.width;
+           ++x)
+        if (cells_ (x, y)->CollidesWith (collidable))
+          return true;
+
+    return false;
   }
 
   void GridCollidableArea::HandleSetSize (const Vector2& size)
@@ -56,13 +73,13 @@ namespace yap
   void GridCollidableArea::HandleAddCollidable (ICollidable* collidable)
   {
     UIntRect collidableRect;
-    GetRectangle (collidable, collidableRect);
+    GetCollidableRectangle (*collidable, collidableRect);
 
     for (uint y = collidableRect.top;
-         y < collidableRect.top + collidableRect.height;
+         y <= collidableRect.top + collidableRect.height;
          ++y)
       for (uint x = collidableRect.left;
-           x < collidableRect.left + collidableRect.width;
+           x <= collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->AddCollidable (collidable);
   }
@@ -70,41 +87,41 @@ namespace yap
   void GridCollidableArea::HandleRemoveCollidable (ICollidable* collidable)
   {
     UIntRect collidableRect;
-    GetRectangle (collidable, collidableRect);
+    GetCollidableRectangle (*collidable, collidableRect);
 
     for (uint y = collidableRect.top;
-         y < collidableRect.top + collidableRect.height;
+         y <= collidableRect.top + collidableRect.height;
          ++y)
       for (uint x = collidableRect.left;
-           x < collidableRect.left + collidableRect.width;
+           x <= collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->RemoveCollidable (collidable);
   }
 
-  void GridCollidableArea::GetRectangle (
-    ICollidable* collidable,
-    UIntRect& rectangle)
+  void GridCollidableArea::GetCollidableRectangle (
+    const ICollidable& collidable,
+    UIntRect& rectangle) const
   {
     rectangle.left = MathHelper::Clamp (
-      static_cast<uint> (collidable->GetTopLeft ().x / cellSize_.x),
+      static_cast<uint> (collidable.GetTopLeft ().x / cellSize_.x),
       static_cast<uint> (0),
       hSegmentCount_ - 1);
 
     rectangle.top = MathHelper::Clamp (
-      static_cast<uint> (collidable->GetTopLeft ().y / cellSize_.y),
+      static_cast<uint> (collidable.GetTopLeft ().y / cellSize_.y),
       static_cast<uint> (0),
       vSegmentCount_ - 1);
 
     rectangle.width = MathHelper::Clamp (
       static_cast<uint> (
-        (collidable->GetBottomRight ().x - collidable->GetTopLeft ().x) /
+        (collidable.GetBottomRight ().x - collidable.GetTopLeft ().x) /
         cellSize_.x),
       static_cast<uint> (0),
       hSegmentCount_ - rectangle.left);
 
     rectangle.height = MathHelper::Clamp (
       static_cast<uint> (
-        (collidable->GetBottomRight ().y - collidable->GetTopLeft ().y) /
+        (collidable.GetBottomRight ().y - collidable.GetTopLeft ().y) /
         cellSize_.y),
       static_cast<uint> (0),
       vSegmentCount_ - rectangle.top);

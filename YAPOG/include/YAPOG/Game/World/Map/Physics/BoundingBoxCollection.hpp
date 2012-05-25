@@ -2,7 +2,7 @@
 # define YAPOG_BOUNDINGBOXCOLLECTION_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/World/ISpatial3.hpp"
+# include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 # include "YAPOG/Collection/List.hpp"
 
@@ -11,7 +11,7 @@ namespace yap
   class BoundingBox;
   class CollidableArea;
 
-  class YAPOG_LIB BoundingBoxCollection : public ISpatial3
+  class YAPOG_LIB BoundingBoxCollection : public ICollidable
   {
       DISALLOW_ASSIGN(BoundingBoxCollection);
 
@@ -60,6 +60,11 @@ namespace yap
 
       virtual const int& GetH () const;
       virtual void SetH (int h);
+      /// @}
+
+      /// @name ICollidable members.
+      /// @{
+      virtual bool CollidesWith (const ICollidable& other) const;
       /// @}
 
     private:

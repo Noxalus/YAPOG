@@ -26,10 +26,13 @@ namespace yap
 
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
+    if (!reader->NodeExists ("boundingBoxes"))
+      return;
+
     auto boundingBoxesReader = reader->ChangeRoot ("boundingBoxes");
 
     XmlReaderCollection boundingBoxReaders;
-    boundingBoxesReader->ReadNodes ("BoundingBox", boundingBoxReaders);
+    boundingBoxesReader->ReadNodes ("entry", boundingBoxReaders);
     for (auto& xmlBoundingBoxReader : boundingBoxReaders)
     {
       BoundingBox* boundingBox = new BoundingBox ();

@@ -100,4 +100,12 @@ namespace yap
   {
     spatial3Info_.SetH (h);
   }
+
+  bool BoundingBox::CollidesWith (const ICollidable& other) const
+  {
+    /// @todo Check Z/H.
+    /// @todo Check "holders".
+
+    return spatial3Info_.GetRectangle ().intersects (other.GetRectangle ());
+  }
 } // namespace yap

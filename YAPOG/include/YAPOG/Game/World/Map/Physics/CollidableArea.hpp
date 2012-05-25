@@ -22,6 +22,8 @@ namespace yap
       void AddCollidable (ICollidable* collidable);
       void RemoveCollidable (ICollidable* collidable);
 
+      virtual bool CollidesWith (const ICollidable& collidable) const = 0;
+
     protected:
 
       CollidableArea ();

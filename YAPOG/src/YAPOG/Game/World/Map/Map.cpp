@@ -110,7 +110,17 @@ namespace yap
 
     for (auto& it : dynamicObjects_)
       if (it.second->IsMoving ())
-        it.second->Move (it.second->GetMove ());
+      {
+        /// @todo Move decomposition: dedicated classes.
+
+        /// @todo Replace CollidesWith by GetDistance (implement it).
+        /// + debug
+
+        /// @todo Travers bounding boxes, else CollidesWith is performed
+        /// directly on the world object (does not work).
+        if (!collidableArea_->CollidesWith (*it.second))
+          it.second->Move (it.second->GetMove ());
+      }
 
     HandleUpdate (dt);
   }

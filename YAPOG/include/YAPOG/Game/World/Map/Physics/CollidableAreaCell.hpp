@@ -22,6 +22,8 @@ namespace yap
       void AddCollidable (ICollidable* collidable);
       void RemoveCollidable (ICollidable* collidable);
 
+      bool CollidesWith (const ICollidable& collidable) const;
+
       void Clear ();
 
       ItType begin ();

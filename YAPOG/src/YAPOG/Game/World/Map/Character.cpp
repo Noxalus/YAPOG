@@ -57,9 +57,6 @@ namespace yap
 
   void Character::UpdateDirection (const Vector2& offset)
   {
-    if (offset == Vector2 (0.0f, 0.0f))
-      return;
-
     if (offset.x < 0.0f)
       SetDirection (Direction::West);
     else if (offset.y < 0.0f)

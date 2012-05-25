@@ -1,6 +1,7 @@
 #include "YAPOG/Game/World/Map/Physics/BoundingBoxReader.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/Graphics/RectReader.hpp"
 
 namespace yap
 {
@@ -8,8 +9,8 @@ namespace yap
     BoundingBox& boundingBox,
     const String& xmlRootNodeName)
     : BaseReaderVisitor ()
-    , boundingBox_ (boundingBox)
     , xmlRootNodeName_ (xmlRootNodeName)
+    , boundingBox_ (boundingBox)
   {
 
   }
@@ -25,11 +26,11 @@ namespace yap
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     FloatRect rect;
-    RectReader rectReader (rect, "rect");
+    RectReader<float> rectReader (rect, "rect");
     reader->Accept (rectReader);
 
-    boundingBox_.SetPosition (rect.left, rect.top);
-    boundingBox_.SetSize (rect.width, rect.height);
+    boundingBox_.SetPosition (Vector2 (rect.left, rect.top));
+    boundingBox_.SetSize (Vector2 (rect.width, rect.height));
 
     boundingBox_.SetZ (reader->ReadInt ("z"));
     boundingBox_.SetH (reader->ReadInt ("h"));

@@ -23,7 +23,7 @@ namespace yap
     , boundingBoxes_ ()
     , collidableArea_ (nullptr)
   {
-    for (BoundingBox* boundingBox : boundingBoxes_)
+    for (BoundingBox* boundingBox : copy.boundingBoxes_)
       AddBoundingBox (new BoundingBox (*boundingBox));
   }
 
@@ -31,14 +31,16 @@ namespace yap
   {
     boundingBoxes_.Add (boundingBox);
 
-    collidableArea_->AddCollidable (boundingBox);
+    if (collidableArea_ != nullptr)
+      collidableArea_->AddCollidable (boundingBox);
   }
 
   void BoundingBoxCollection::RemoveBoundingBox (BoundingBox* boundingBox)
   {
     boundingBoxes_.Remove (boundingBox);
 
-    collidableArea_->RemoveCollidable (boundingBox);
+    if (collidableArea_ != nullptr)
+      collidableArea_->RemoveCollidable (boundingBox);
   }
 
   void BoundingBoxCollection::SetCollidableArea (
@@ -184,14 +186,29 @@ namespace yap
     AddBoundingBoxesToCollidableArea ();
   }
 
+  bool BoundingBoxCollection::CollidesWith (const ICollidable& other) const
+  {
+    for (BoundingBox* boundingBox : boundingBoxes_)
+      if (boundingBox->CollidesWith (other))
+        return true;
+
+    return false;
+  }
+
   void BoundingBoxCollection::AddBoundingBoxesToCollidableArea ()
   {
+    if (collidableArea_ == nullptr)
+      return;
+
     for (BoundingBox* boundingBox : boundingBoxes_)
       collidableArea_->AddCollidable (boundingBox);
   }
 
   void BoundingBoxCollection::RemoveBoundingBoxesFromCollidableArea ()
   {
+    if (collidableArea_ == nullptr)
+      return;
+
     for (BoundingBox* boundingBox : boundingBoxes_)
       collidableArea_->RemoveCollidable (boundingBox);
   }

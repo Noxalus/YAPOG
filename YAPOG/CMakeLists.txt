@@ -86,6 +86,8 @@ ${inc_root}/Game/World/Map/Physics/BoundingBox.hpp
 ${src_root}/Game/World/Map/Physics/BoundingBox.cpp
 ${inc_root}/Game/World/Map/Physics/BoundingBoxCollection.hpp
 ${src_root}/Game/World/Map/Physics/BoundingBoxCollection.cpp
+${inc_root}/Game/World/Map/Physics/BoundingBoxReader.hpp
+${src_root}/Game/World/Map/Physics/BoundingBoxReader.cpp
 ${inc_root}/Game/World/Map/Physics/BasicPhysicsCore.hpp
 ${src_root}/Game/World/Map/Physics/BasicPhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/CharacterMoveController.hpp

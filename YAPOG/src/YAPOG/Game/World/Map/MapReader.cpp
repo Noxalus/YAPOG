@@ -15,7 +15,8 @@ namespace yap
   const String MapReader::DEFAULT_XML_HEIGHT_NODE_NAME = "height";
 
   MapReader::MapReader (Map& map, const String& xmlRootNodeName)
-    : xmlRootNodeName_ (xmlRootNodeName)
+    : BaseReaderVisitor ()
+    , xmlRootNodeName_ (xmlRootNodeName)
     , map_ (map)
   {
   }
@@ -26,6 +27,8 @@ namespace yap
 
   void MapReader::Visit (XmlReader& visitable)
   {
+    BaseReaderVisitor::Visit (visitable);
+
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     map_.SetID (
@@ -34,7 +37,7 @@ namespace yap
 
     map_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    /// @todo Integrate CollidableArea in xml loading.
+    /// @todo Integrate CollidableArea in xml loading (remove inclusion).
     GridCollidableArea* gridCollidableArea = new GridCollidableArea ();
     gridCollidableArea->SetSegmentCount (10, 10);
     map_.SetCollidableArea (gridCollidableArea);

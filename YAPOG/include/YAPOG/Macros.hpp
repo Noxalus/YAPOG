@@ -18,7 +18,7 @@
 # endif // _MSC_VER
 
 /// WIN32 dll export
-# ifdef _MSC_VER
+# ifdef YAPOG_WIN
 #  define YAPOG_LIB_EXPORT __declspec(dllexport)
 #  define YAPOG_LIB_IMPORT __declspec(dllimport)
 #  ifdef DLLEXPORT
@@ -28,7 +28,7 @@
 #  endif  // DLLEXPORT
 # else
 #  define YAPOG_LIB
-# endif // _MSC_VER
+# endif // YAPOG_WIN
 
 # ifdef YAPOG_WIN
 #  pragma warning(disable : 4251)

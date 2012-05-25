@@ -79,6 +79,9 @@ namespace yap
 
   void WorldObject::Move (const Vector2& offset)
   {
+    if (offset == Vector2 ())
+      return;
+
     spatial3Info_.SetPosition (GetPosition () + offset);
 
     HandleMove (offset);
@@ -129,6 +132,11 @@ namespace yap
     spatial3Info_.SetH (h);
 
     HandleSetH (h);
+  }
+
+  bool WorldObject::CollidesWith (const ICollidable& other) const
+  {
+    return boundingBoxes_.CollidesWith (other);
   }
 
   Vector2 WorldObject::HandleGetSize () const

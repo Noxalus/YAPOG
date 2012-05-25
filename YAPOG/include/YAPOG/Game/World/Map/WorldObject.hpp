@@ -57,6 +57,7 @@ namespace yap
 
       /// @name ICollidable members.
       /// @{
+      virtual bool CollidesWith (const ICollidable& other) const;
       /// @}
 
       /// @name ICloneable members.
