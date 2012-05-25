@@ -63,6 +63,25 @@ namespace yap
     return false;
   }
 
+  bool GridCollidableArea::CollidesWith (
+    const ICollidable& collidable,
+    const Vector2& offset) const
+  {
+    UIntRect collidableRect;
+    GetCollidableRectangle (collidable, collidableRect);
+
+    for (uint y = collidableRect.top;
+         y <= collidableRect.top + collidableRect.height;
+         ++y)
+      for (uint x = collidableRect.left;
+           x <= collidableRect.left + collidableRect.width;
+           ++x)
+        if (cells_ (x, y)->CollidesWith (collidable))
+          return true;
+
+    return false;
+  }
+
   void GridCollidableArea::HandleSetSize (const Vector2& size)
   {
     CollidableArea::HandleSetSize (size);

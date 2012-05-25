@@ -195,6 +195,22 @@ namespace yap
     return false;
   }
 
+  bool BoundingBoxCollection::CollidesWith (
+    const ICollidable& other,
+    const Vector2& offset) const
+  {
+    for (BoundingBox* boundingBox : boundingBoxes_)
+      if (boundingBox->CollidesWith (other, offset))
+        return true;
+
+    return false;
+  }
+
+  bool BoundingBoxCollection::Collides (const Vector2& offset) const
+  {
+
+  }
+
   void BoundingBoxCollection::AddBoundingBoxesToCollidableArea ()
   {
     if (collidableArea_ == nullptr)

@@ -139,6 +139,18 @@ namespace yap
     return boundingBoxes_.CollidesWith (other);
   }
 
+  bool WorldObject::CollidesWith (
+    const ICollidable& other,
+    const Vector2& offset) const
+  {
+    return boundingBoxes_.CollidesWith (other, offset);
+  }
+
+  const BoundingBoxCollection& WorldObject::GetBoundingBoxes () const
+  {
+    return boundingBoxes_;
+  }
+
   Vector2 WorldObject::HandleGetSize () const
   {
     return spatial3Info_.GetSize ();

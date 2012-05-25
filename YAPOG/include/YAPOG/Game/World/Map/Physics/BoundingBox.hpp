@@ -54,6 +54,9 @@ namespace yap
       /// @name ICollidable members.
       /// @{
       virtual bool CollidesWith (const ICollidable& other) const;
+      virtual bool CollidesWith (
+        const ICollidable& other,
+        const Vector2& offset) const;
       /// @}
 
     private:

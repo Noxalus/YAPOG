@@ -58,6 +58,9 @@ namespace yap
       /// @name ICollidable members.
       /// @{
       virtual bool CollidesWith (const ICollidable& other) const;
+      virtual bool CollidesWith (
+        const ICollidable& other,
+        const Vector2& offset) const;
       /// @}
 
       /// @name ICloneable members.
@@ -69,6 +72,8 @@ namespace yap
 
       explicit WorldObject (const ID& id);
       WorldObject (const WorldObject& copy);
+
+      const BoundingBoxCollection& GetBoundingBoxes () const;
 
       Vector2 HandleGetSize () const;
       virtual void HandleMove (const Vector2& offset);

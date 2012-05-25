@@ -141,6 +141,11 @@ namespace yap
     return GetLogicalState () == "Moving";
   }
 
+  bool DynamicWorldObject::CanMove (const Vector2& offset) const
+  {
+    return !GetBoundingBoxes ().Collides (offset);
+  }
+
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);

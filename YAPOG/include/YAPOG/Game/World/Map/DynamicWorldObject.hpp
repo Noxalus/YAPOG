@@ -47,6 +47,7 @@ namespace yap
       bool IsActive () const;
 
       bool IsMoving () const;
+      bool CanMove (const Vector2& offset) const;
 
       /// @name IUpdateable members.
       /// @{
