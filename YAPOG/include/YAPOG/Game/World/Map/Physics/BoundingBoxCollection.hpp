@@ -70,8 +70,6 @@ namespace yap
         const Vector2& offset) const;
       /// @}
 
-      bool Collides (const Vector2& offset) const;
-
     private:
 
       void AddBoundingBoxesToCollidableArea ();

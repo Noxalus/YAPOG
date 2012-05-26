@@ -118,7 +118,12 @@ namespace yap
 
         /// @todo Travers bounding boxes, else CollidesWith is performed
         /// directly on the world object (does not work).
-        if (it.second->CanMove (it.second->GetMove ()))
+
+        /// @todo Erase.
+//        if (it.second->CanMove (it.second->GetMove ()))
+        if (!collidableArea_->CollidesWithObject (
+              *it.second,
+              it.second->GetMove ()))
           it.second->Move (it.second->GetMove ());
       }
 

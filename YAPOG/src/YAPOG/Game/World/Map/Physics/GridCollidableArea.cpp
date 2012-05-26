@@ -1,6 +1,7 @@
 #include "YAPOG/Game/World/Map/Physics/GridCollidableArea.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableAreaCell.hpp"
 #include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
@@ -46,37 +47,37 @@ namespace yap
       new CollidableAreaCell ());
   }
 
-  bool GridCollidableArea::CollidesWith (const ICollidable& collidable) const
+  bool GridCollidableArea::CollidesWithObject (const WorldObject& object) const
   {
-    UIntRect collidableRect;
-    GetCollidableRectangle (collidable, collidableRect);
+    UIntRect objectRect;
+    GetCollidableRectangle (object, objectRect);
 
-    for (uint y = collidableRect.top;
-         y <= collidableRect.top + collidableRect.height;
+    for (uint y = objectRect.top;
+         y <= objectRect.top + objectRect.height;
          ++y)
-      for (uint x = collidableRect.left;
-           x <= collidableRect.left + collidableRect.width;
+      for (uint x = objectRect.left;
+           x <= objectRect.left + objectRect.width;
            ++x)
-        if (cells_ (x, y)->CollidesWith (collidable))
+        if (cells_ (x, y)->CollidesWithObject (object))
           return true;
 
     return false;
   }
 
-  bool GridCollidableArea::CollidesWith (
-    const ICollidable& collidable,
+  bool GridCollidableArea::CollidesWithObject (
+    const WorldObject& object,
     const Vector2& offset) const
   {
-    UIntRect collidableRect;
-    GetCollidableRectangle (collidable, collidableRect);
+    UIntRect objectRect;
+    GetCollidableRectangle (object, offset, objectRect);
 
-    for (uint y = collidableRect.top;
-         y <= collidableRect.top + collidableRect.height;
+    for (uint y = objectRect.top;
+         y <= objectRect.top + objectRect.height;
          ++y)
-      for (uint x = collidableRect.left;
-           x <= collidableRect.left + collidableRect.width;
+      for (uint x = objectRect.left;
+           x <= objectRect.left + objectRect.width;
            ++x)
-        if (cells_ (x, y)->CollidesWith (collidable))
+        if (cells_ (x, y)->CollidesWithObject (object, offset))
           return true;
 
     return false;
@@ -121,27 +122,36 @@ namespace yap
     const ICollidable& collidable,
     UIntRect& rectangle) const
   {
+    GetCollidableRectangle (collidable, Vector2 (), rectangle);
+  }
+
+  void GridCollidableArea::GetCollidableRectangle (
+    const ICollidable& collidable,
+    const Vector2& offset,
+    UIntRect& rectangle) const
+  {
+    uint left = collidable.GetTopLeft ().x + offset.x;
+    uint top = collidable.GetTopLeft ().y + offset.y;
+    uint right = collidable.GetBottomRight ().x + offset.x;
+    uint bottom = collidable.GetBottomRight ().y + offset.y;
+
     rectangle.left = MathHelper::Clamp (
-      static_cast<uint> (collidable.GetTopLeft ().x / cellSize_.x),
+      static_cast<uint> (left / cellSize_.x),
       static_cast<uint> (0),
       hSegmentCount_ - 1);
 
     rectangle.top = MathHelper::Clamp (
-      static_cast<uint> (collidable.GetTopLeft ().y / cellSize_.y),
+      static_cast<uint> (top / cellSize_.y),
       static_cast<uint> (0),
       vSegmentCount_ - 1);
 
     rectangle.width = MathHelper::Clamp (
-      static_cast<uint> (
-        (collidable.GetBottomRight ().x - collidable.GetTopLeft ().x) /
-        cellSize_.x),
+      static_cast<uint> ((right - left) / cellSize_.x),
       static_cast<uint> (0),
       hSegmentCount_ - rectangle.left);
 
     rectangle.height = MathHelper::Clamp (
-      static_cast<uint> (
-        (collidable.GetBottomRight ().y - collidable.GetTopLeft ().y) /
-        cellSize_.y),
+      static_cast<uint> ((bottom - top) / cellSize_.y),
       static_cast<uint> (0),
       vSegmentCount_ - rectangle.top);
   }

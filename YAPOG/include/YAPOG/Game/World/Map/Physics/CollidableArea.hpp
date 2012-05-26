@@ -9,7 +9,8 @@ namespace yap
 {
   struct ICollidable;
 
-  /// @todo Inherit from ICollidable.
+  class WorldObject;
+
   class YAPOG_LIB CollidableArea
   {
       DISALLOW_COPY(CollidableArea);
@@ -23,9 +24,9 @@ namespace yap
       void AddCollidable (ICollidable* collidable);
       void RemoveCollidable (ICollidable* collidable);
 
-      virtual bool CollidesWith (const ICollidable& collidable) const = 0;
-      virtual bool CollidesWith (
-        const ICollidable& collidable,
+      virtual bool CollidesWithObject (const WorldObject& object) const = 0;
+      virtual bool CollidesWithObject (
+        const WorldObject& object,
         const Vector2& offset) const = 0;
 
     protected:

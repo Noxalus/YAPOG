@@ -3,10 +3,13 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 
 namespace yap
 {
   struct ICollidable;
+
+  class WorldObject;
 
   class CollidableAreaCell
   {
@@ -22,7 +25,10 @@ namespace yap
       void AddCollidable (ICollidable* collidable);
       void RemoveCollidable (ICollidable* collidable);
 
-      bool CollidesWith (const ICollidable& collidable) const;
+      bool CollidesWithObject (const WorldObject& object) const;
+      bool CollidesWithObject (
+        const WorldObject& object,
+        const Vector2& offset) const;
 
       void Clear ();
 

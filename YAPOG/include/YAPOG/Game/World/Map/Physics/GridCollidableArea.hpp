@@ -21,7 +21,10 @@ namespace yap
 
       void SetSegmentCount (uint vSegmentCount, uint hSegmentCount);
 
-      virtual bool CollidesWith (const ICollidable& collidable) const;
+      virtual bool CollidesWithObject (const WorldObject& object) const;
+      virtual bool CollidesWithObject (
+        const WorldObject& object,
+        const Vector2& offset) const;
 
     protected:
 
@@ -34,6 +37,10 @@ namespace yap
 
       void GetCollidableRectangle (
         const ICollidable& collidable,
+        UIntRect& rectangle) const;
+      void GetCollidableRectangle (
+        const ICollidable& collidable,
+        const Vector2& offset,
         UIntRect& rectangle) const;
 
       static const uint MIN_VSEGMENT_COUNT;

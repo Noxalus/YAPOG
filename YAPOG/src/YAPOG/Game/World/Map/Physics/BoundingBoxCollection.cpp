@@ -206,11 +206,6 @@ namespace yap
     return false;
   }
 
-  bool BoundingBoxCollection::Collides (const Vector2& offset) const
-  {
-
-  }
-
   void BoundingBoxCollection::AddBoundingBoxesToCollidableArea ()
   {
     if (collidableArea_ == nullptr)

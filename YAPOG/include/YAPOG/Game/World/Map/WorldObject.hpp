@@ -27,6 +27,7 @@ namespace yap
       void SetCollidableArea (CollidableArea* collidableArea);
       void AddBoundingBox (BoundingBox* boundingBox);
       void RemoveBoundingBox (BoundingBox* boundingBox);
+      /// @todo CollidesWithArea (...)...
 
       /// @name ISpatial members.
       /// @{

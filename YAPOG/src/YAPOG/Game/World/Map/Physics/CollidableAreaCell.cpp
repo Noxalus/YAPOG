@@ -1,5 +1,5 @@
 #include "YAPOG/Game/World/Map/Physics/CollidableAreaCell.hpp"
-#include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 
 namespace yap
 {
@@ -18,10 +18,21 @@ namespace yap
     collidables_.Remove (collidable);
   }
 
-  bool CollidableAreaCell::CollidesWith (const ICollidable& collidable) const
+  bool CollidableAreaCell::CollidesWithObject (const WorldObject& object) const
   {
-    for (ICollidable* cellCollidable : collidables_)
-      if (collidable.CollidesWith (*cellCollidable))
+    for (ICollidable* collidable : collidables_)
+      if (object.CollidesWith (*collidable))
+        return true;
+
+    return false;
+  }
+
+  bool CollidableAreaCell::CollidesWithObject (
+    const WorldObject& object,
+    const Vector2& offset) const
+  {
+    for (ICollidable* collidable : collidables_)
+      if (object.CollidesWith (*collidable, offset))
         return true;
 
     return false;

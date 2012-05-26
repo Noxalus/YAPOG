@@ -26,7 +26,6 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/TextureReader.hpp"
 #include "YAPOG/Graphics/Game/Sprite/RegularAnimatedSprite.hpp"
-
 #include "YAPOG/Game/Pokemon/PokemonInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Game/Pokemon/NatureInfoReader.hpp"
@@ -210,32 +209,32 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Tile",
       new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
-<<<<<<< HEAD
         yap::Path ("Tile"),
         "Tile"));
-=======
-        yap::Path ("Tile"), "Tile"));
 
-    objectFactory_.RegisterLoader 
-    ("PokemonInfo",
-    new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader>
-    (yap::Path ("Pokemon/Pokemon"), "PokemonInfo"));
+    objectFactory_.RegisterLoader (
+      "PokemonInfo",
+      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader> (
+        yap::Path ("Pokemon/Pokemon"),
+        "PokemonInfo"));
 
-  objectFactory_.RegisterLoader 
-    ("NatureInfo",
-    new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader>
-    (yap::Path ("Pokemon/Nature"), "Nature"));
+  objectFactory_.RegisterLoader (
+    "NatureInfo",
+    new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader> (
+      yap::Path ("Pokemon/Nature"),
+      "Nature"));
 
-  objectFactory_.RegisterLoader 
-    ("TypeInfo",
-    new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader>
-    (yap::Path ("Pokemon/Types"), "Type"));
+  objectFactory_.RegisterLoader (
+    "TypeInfo",
+    new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader> (
+      yap::Path ("Pokemon/Types"),
+      "Type"));
 
-  objectFactory_.RegisterLoader 
-    ("SkillInfo",
-    new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader>
-    (yap::Path ("Pokemon/Skills"), "Skill"));
->>>>>>> badabbc195e5e3d953b54041ebb3b668e5d0ab20
+  objectFactory_.RegisterLoader (
+    "SkillInfo",
+    new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader> (
+      yap::Path ("Pokemon/Skills"),
+      "Skill"));
   }
 
   void TestGame::InitWorldObjectStateFactory ()
@@ -246,7 +245,7 @@ namespace ycl
 
   void TestGame::InitGameInputManager ()
   {
-    /// @todo Load inputs xml.
+    /// @todo Load `inputs' xml.
 
     gameInputManager_.AddGameInput (
       new yap::GameInput (
