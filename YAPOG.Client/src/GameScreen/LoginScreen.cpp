@@ -19,7 +19,7 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
-#include "GameScreen/GameMainMenu.hpp"
+#include "Gui/GameMainMenu.hpp"
 #include "GameScreen/LoginScreen.hpp"
 #include "Client/Session.hpp"
 
@@ -41,7 +41,7 @@ namespace ycl
   void LoginScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-   
+
     /*
     yap::Menu* menu = new yap::Menu (
     yap::Menu::Type::VERTICAL,
@@ -55,10 +55,10 @@ namespace ycl
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
-    yap::Texture* ri = new yap::Texture ();    
-    yap::Texture* bri = new yap::Texture ();    
-    yap::Texture* bi = new yap::Texture ();    
-    yap::Texture* bli = new yap::Texture ();    
+    yap::Texture* ri = new yap::Texture ();
+    yap::Texture* bri = new yap::Texture ();
+    yap::Texture* bi = new yap::Texture ();
+    yap::Texture* bli = new yap::Texture ();
     yap::Texture* li = new yap::Texture ();
     li->LoadFromFile ("menuCursor.png");
     yap::Texture* tli = new yap::Texture ();
@@ -183,14 +183,14 @@ namespace ycl
     guiManager_->AddChild (*txtbox);
     guiManager_->AddChild (*dialog);
     */
-    // guiManager_->AddChild (*bckgr);    
+    // guiManager_->AddChild (*bckgr);
   }
 
   const yap::ScreenType& LoginScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    //Login ();
+    Login ();
 
     return BaseScreen::HandleRun (dt, context);
   }

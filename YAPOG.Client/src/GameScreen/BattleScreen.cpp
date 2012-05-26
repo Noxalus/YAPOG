@@ -6,7 +6,7 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/BattleScreen.hpp"
-#include "TestGame.hpp"
+#include "Game.hpp"
 #include "Battle/WildBattle.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Pokemon/Pokemon.hpp"
@@ -43,6 +43,9 @@ namespace ycl
   void BattleScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
+
+    /// @todo Remove.
+    return;
 
     yap::PokemonTeam team;
     team.AddPokemon (new yap::Pokemon (yap::ID (2), 42, false));

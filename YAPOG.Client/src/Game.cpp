@@ -39,7 +39,7 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
-#include "TestGame.hpp"
+#include "Game.hpp"
 #include "GameScreen/LoadingScreen.hpp"
 #include "GameScreen/UpdateScreen.hpp"
 #include "GameScreen/OptionScreen.hpp"
@@ -56,9 +56,9 @@
 
 namespace ycl
 {
-  const yap::Vector2 TestGame::SCREEN_SIZE = yap::Vector2 (800, 600);
+  const yap::Vector2 Game::SCREEN_SIZE = yap::Vector2 (800, 600);
 
-  TestGame::TestGame (const yap::String& name)
+  Game::Game (const yap::String& name)
     : yap::Game (name)
     , session_ (Session::Instance ())
     , contentManager_ (yap::ContentManager::Instance ())
@@ -69,11 +69,11 @@ namespace ycl
   {
   }
 
-  TestGame::~TestGame ()
+  Game::~Game ()
   {
   }
 
-  void TestGame::HandleInit ()
+  void Game::HandleInit ()
   {
     InitRandom ();
 #ifndef YAPOG_WIN
@@ -90,7 +90,7 @@ namespace ycl
     InitLoggerManager ();
   }
 
-  bool TestGame::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  bool Game::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     switch (guiEvent.type)
     {
@@ -123,7 +123,7 @@ namespace ycl
     return false;
   }
 
-  void TestGame::HandleRun (
+  void Game::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
@@ -132,19 +132,19 @@ namespace ycl
     session_.Refresh ();
   }
 
-  void TestGame::HandleDispose ()
+  void Game::HandleDispose ()
   {
     yap::Game::HandleDispose ();
 
     session_.Disconnect ();
   }
 
-  void TestGame::InitRandom ()
+  void Game::InitRandom ()
   {
     yap::RandomHelper::Init (time (nullptr));
   }
 
-  void TestGame::InitContentManager (const yap::Path& contentRootPath)
+  void Game::InitContentManager (const yap::Path& contentRootPath)
   {
     contentManager_.Init (contentRootPath);
 
@@ -152,7 +152,7 @@ namespace ycl
     contentManager_.SetFontPath (yap::Path ("Graphics/Fonts"));
   }
 
-  void TestGame::InitObjectFactory ()
+  void Game::InitObjectFactory ()
   {
     objectFactory_.RegisterLoader (
       "AnimatedSprite",
@@ -237,13 +237,13 @@ namespace ycl
       "Skill"));
   }
 
-  void TestGame::InitWorldObjectStateFactory ()
+  void Game::InitWorldObjectStateFactory ()
   {
     worldObjectStateFactory_.AddState ("Inactive", "Inactive");
     worldObjectStateFactory_.AddState ("Moving", "Moving");
   }
 
-  void TestGame::InitGameInputManager ()
+  void Game::InitGameInputManager ()
   {
     /// @todo Load `inputs' xml.
 
@@ -273,7 +273,7 @@ namespace ycl
         new yap::KeyboardGameInputEntry (yap::Key::Right)));
   }
 
-  void TestGame::InitDrawingContext (const yap::Vector2& resolution)
+  void Game::InitDrawingContext (const yap::Vector2& resolution)
   {
     yap::DrawingContext* drawingContext = new yap::DrawingContext (
       resolution,
@@ -295,7 +295,7 @@ namespace ycl
     window_ = &drawingContext->GetWindow ();
   }
 
-  void TestGame::InitScreenManager ()
+  void Game::InitScreenManager ()
   {
     screenManager_ = new yap::GameScreenManager ();
 
@@ -309,10 +309,10 @@ namespace ycl
           "World")));
     screenManager_->AddGameScreen (new BattleScreen ());
 
-    screenManager_->Init ("Loading");
+    screenManager_->Init ("Login");
   }
 
-  void TestGame::InitLoggerManager ()
+  void Game::InitLoggerManager ()
   {
     logger_.AddMode (new yap::CountLoggerMode ());
     logger_.AddMode (new yap::TimeLoggerMode ());

@@ -8,7 +8,7 @@
 
 #include "Battle/BattleInterface.hpp"
 
-#include "TestGame.hpp"
+#include "Game.hpp"
 
 namespace ycl
 {
@@ -19,12 +19,12 @@ namespace ycl
 
     // Init Battle Text Dialog
     battleInfoDialogBox_->SetSize (
-      yap::Vector2 (TestGame::SCREEN_SIZE.x, TestGame::SCREEN_SIZE.y / 4));
+      yap::Vector2 (Game::SCREEN_SIZE.x, Game::SCREEN_SIZE.y / 4));
 
     battleInfoDialogBox_->SetPadding (new yap::Padding (35, 35, 25, 25));
 
     battleInfoDialogBox_->SetPosition (
-      yap::Vector2 (0, TestGame::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
+      yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
 
     battleInfoDialogBox_->SetBackground (
     *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));

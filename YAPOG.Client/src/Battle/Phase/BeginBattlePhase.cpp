@@ -4,7 +4,7 @@
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Battle/Battle.hpp"
-#include "TestGame.hpp"
+#include "Game.hpp"
 
 namespace ycl
 {
@@ -28,24 +28,24 @@ namespace ycl
 
     battle_.SetPlayerGroundPosition (
       yap::Vector2 (0,
-      TestGame::SCREEN_SIZE.y - (TestGame::SCREEN_SIZE.y / 4) -
+      Game::SCREEN_SIZE.y - (Game::SCREEN_SIZE.y / 4) -
       ((battle_.GetPlayerGround ()->GetSize ().y) / 2)));
 
     battle_.SetOpponentGroundPosition (
       yap::Vector2 (
-      TestGame::SCREEN_SIZE.x -
+      Game::SCREEN_SIZE.x -
       (battle_.GetOpponentGround ()->GetSize ().x),
-      TestGame::SCREEN_SIZE.y / 3 - 
+      Game::SCREEN_SIZE.y / 3 -
       (battle_.GetOpponentGround ()->GetSize ().y) / 2));
 
     battle_.GetPlayerGround ()->SetPosition (
       yap::Vector2 (
-      TestGame::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
+      Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
       ));
 
     battle_.GetOpponentGround ()->SetPosition (
       yap::Vector2 (
-      (-1) * battle_.GetOpponentGround ()->GetSize ().x, 
+      (-1) * battle_.GetOpponentGround ()->GetSize ().x,
       battle_.GetOpponentGroundPosition ().y));
 
     yap::String pokemonName = battle_.GetOpponent ().GetName ();
@@ -56,12 +56,12 @@ namespace ycl
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
   {
-    if (battle_.GetPlayerGround ()->GetPosition ().x > 
+    if (battle_.GetPlayerGround ()->GetPosition ().x >
       battle_.GetPlayerGroundPosition ().x)
     {
       battle_.GetPlayerGround ()->SetPosition (
         yap::Vector2 (
-        battle_.GetPlayerGround ()->GetPosition ().x - 1.f, 
+        battle_.GetPlayerGround ()->GetPosition ().x - 1.f,
         battle_.GetPlayerGround ()->GetPosition ().y));
     }
     else
@@ -70,12 +70,12 @@ namespace ycl
         yap::Vector2 ( battle_.GetPlayerGroundPosition ()));
     }
 
-    if (battle_.GetOpponentGround ()->GetPosition ().x < 
+    if (battle_.GetOpponentGround ()->GetPosition ().x <
       battle_.GetOpponentGroundPosition ().x)
     {
       battle_.GetOpponentGround ()->SetPosition (
         yap::Vector2 (
-        battle_.GetOpponentGround ()->GetPosition ().x + 1.f, 
+        battle_.GetOpponentGround ()->GetPosition ().x + 1.f,
         battle_.GetOpponentGround ()->GetPosition ().y));
     }
     else
@@ -84,7 +84,7 @@ namespace ycl
         yap::Vector2 (battle_.GetOpponentGround ()->GetPosition ()));
     }
 
-    if (battle_.GetPlayerGround ()->GetPosition () == 
+    if (battle_.GetPlayerGround ()->GetPosition () ==
       battle_.GetPlayerGroundPosition () &&
       battle_.GetOpponentGround ()->GetPosition () ==
       battle_.GetOpponentGroundPosition ())

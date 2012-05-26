@@ -1,5 +1,5 @@
-#ifndef YAPOG_CLIENT_DEMOGAME_HPP
-# define YAPOG_CLIENT_DEMOGAME_HPP
+#ifndef YAPOG_CLIENT_GAME_HPP
+# define YAPOG_CLIENT_GAME_HPP
 
 # include "YAPOG/Graphics/Game/Game.hpp"
 # include "YAPOG/System/Path.hpp"
@@ -19,12 +19,12 @@ namespace ycl
   class Session;
 
   /// @brief A game for testing.
-  class TestGame : public yap::Game
+  class Game : public yap::Game
   {
     public:
 
-      TestGame (const yap::String& name);
-      virtual ~TestGame ();
+      Game (const yap::String& name);
+      virtual ~Game ();
 
       virtual void HandleInit ();
       virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
@@ -61,4 +61,4 @@ namespace ycl
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_DEMOGAME_HPP
+#endif // YAPOG_CLIENT_GAME_HPP

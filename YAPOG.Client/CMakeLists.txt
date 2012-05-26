@@ -73,8 +73,8 @@ ${src_root}/GameScreen/BattleScreen.cpp
 ${inc_root}/Pokemon/Pokemon.hpp
 ${src_root}/Pokemon/Pokemon.cpp
 
-${inc_root}/TestGame.hpp
-${src_root}/TestGame.cpp
+${inc_root}/Game.hpp
+${src_root}/Game.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

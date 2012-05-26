@@ -113,14 +113,6 @@ namespace yap
       {
         /// @todo Move decomposition: dedicated classes.
 
-        /// @todo Replace CollidesWith by GetDistance (implement it).
-        /// + debug
-
-        /// @todo Travers bounding boxes, else CollidesWith is performed
-        /// directly on the world object (does not work).
-
-        /// @todo Erase.
-//        if (it.second->CanMove (it.second->GetMove ()))
         if (!collidableArea_->CollidesWithObject (
               *it.second,
               it.second->GetMove ()))

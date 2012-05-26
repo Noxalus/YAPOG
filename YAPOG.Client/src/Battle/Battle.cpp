@@ -3,7 +3,7 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
-#include "TestGame.hpp"
+#include "Game.hpp"
 #include "Battle/Battle.hpp"
 
 namespace ycl
@@ -14,7 +14,7 @@ namespace ycl
     = yap::Vector2 (0.75f, 0.75f);
 
   Battle::Battle (
-    yap::IBattleEntity& playerTeam, 
+    yap::IBattleEntity& playerTeam,
     yap::IBattleEntity& opponent)
     : yap::Battle (playerTeam, opponent)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
@@ -43,7 +43,7 @@ namespace ycl
       Create<yap::Texture> ("Texture", yap::ID (43)));
 
     /// Adjust sprites
-    background_->SetSize (TestGame::SCREEN_SIZE);
+    background_->SetSize (Game::SCREEN_SIZE);
     opponentGround_->Scale (DEFAULT_OPPONENT_GROUND_SPRITES_SCALE);
   }
 

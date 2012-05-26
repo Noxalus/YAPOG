@@ -3,7 +3,6 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/WorldObjectStateFactory.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
-# include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 
 #include "GameScreen/BaseScreen.hpp"
 #include "Client/Session.hpp"
