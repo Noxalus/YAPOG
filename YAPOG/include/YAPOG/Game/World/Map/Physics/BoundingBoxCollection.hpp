@@ -5,11 +5,13 @@
 # include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
 
 namespace yap
 {
   class BoundingBox;
   class CollidableArea;
+  class WorldObject;
 
   class YAPOG_LIB BoundingBoxCollection : public ICollidable
   {
@@ -28,7 +30,9 @@ namespace yap
       void AddBoundingBox (BoundingBox* boundingBox);
       void RemoveBoundingBox (BoundingBox* boundingBox);
 
-      void SetCollidableArea (CollidableArea* collidableArea);
+      void SetCollidableArea (
+        const WorldObject& parent,
+        CollidableArea* collidableArea);
 
       ItType begin ();
       ConstItType begin () const;
@@ -72,6 +76,8 @@ namespace yap
 
     private:
 
+      void AddBoundingBoxToCollidableArea (BoundingBox* boundingBox);
+
       void AddBoundingBoxesToCollidableArea ();
       void RemoveBoundingBoxesFromCollidableArea ();
 
@@ -79,6 +85,7 @@ namespace yap
 
       collection::List<BoundingBox*> boundingBoxes_;
 
+      const WorldObject* parent_;
       CollidableArea* collidableArea_;
   };
 } // namespace yap

@@ -18,7 +18,6 @@ namespace ycl
 {
   class Session;
 
-  /// @brief A game for testing.
   class Game : public yap::Game
   {
     public:
@@ -36,6 +35,7 @@ namespace ycl
       virtual void HandleDispose ();
 
       static const yap::Vector2 SCREEN_SIZE;
+
     private:
 
       void InitRandom ();

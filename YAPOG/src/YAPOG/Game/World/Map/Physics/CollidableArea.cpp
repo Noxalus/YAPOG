@@ -17,9 +17,11 @@ namespace yap
     HandleSetSize (size);
   }
 
-  void CollidableArea::AddCollidable (ICollidable* collidable)
+  void CollidableArea::AddCollidable (
+    ICollidable* collidable,
+    const MapCollidableInfo::PtrType& mapCollidableInfo)
   {
-    HandleAddCollidable (collidable);
+    HandleAddCollidable (collidable, mapCollidableInfo);
   }
 
   void CollidableArea::RemoveCollidable (ICollidable* collidable)

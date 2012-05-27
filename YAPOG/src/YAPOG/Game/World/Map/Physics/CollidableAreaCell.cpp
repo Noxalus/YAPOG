@@ -4,62 +4,48 @@
 namespace yap
 {
   CollidableAreaCell::CollidableAreaCell ()
-    : collidables_ ()
+    : physicsCollidables_ ()
   {
   }
 
-  void CollidableAreaCell::AddCollidable (ICollidable* collidable)
+  void CollidableAreaCell::AddPhysicsCollidable (
+    ICollidable* collidable,
+    const MapCollidableInfo::PtrType& mapCollidableInfo)
   {
-    collidables_.Add (collidable);
+    physicsCollidables_.Add (collidable, mapCollidableInfo);
   }
 
-  void CollidableAreaCell::RemoveCollidable (ICollidable* collidable)
+  void CollidableAreaCell::RemovePhysicsCollidable (ICollidable* collidable)
   {
-    collidables_.Remove (collidable);
+    physicsCollidables_.Remove (collidable);
   }
 
   bool CollidableAreaCell::CollidesWithObject (const WorldObject& object) const
   {
-    for (ICollidable* collidable : collidables_)
-      if (object.CollidesWith (*collidable))
-        return true;
-
-    return false;
+    return CollidesWithObject (object, Vector2 (0.0f, 0.0f));
   }
 
   bool CollidableAreaCell::CollidesWithObject (
     const WorldObject& object,
     const Vector2& offset) const
   {
-    for (ICollidable* collidable : collidables_)
-      if (object.CollidesWith (*collidable, offset))
+    for (auto& it : physicsCollidables_)
+    {
+      if (&it.second->GetParent () == &object)
+      {
+        // collidable belongs to object
+        continue;
+      }
+
+      if (object.CollidesWith (*it.first, offset))
         return true;
+    }
 
     return false;
   }
 
   void CollidableAreaCell::Clear ()
   {
-    collidables_.Clear ();
-  }
-
-  CollidableAreaCell::ItType CollidableAreaCell::begin ()
-  {
-    return collidables_.begin ();
-  }
-
-  CollidableAreaCell::ItType CollidableAreaCell::end ()
-  {
-    return collidables_.end ();
-  }
-
-  CollidableAreaCell::ConstItType CollidableAreaCell::begin () const
-  {
-    return collidables_.begin ();
-  }
-
-  CollidableAreaCell::ConstItType CollidableAreaCell::end () const
-  {
-    return collidables_.end ();
+    physicsCollidables_.Clear ();
   }
 } // namespace yap

@@ -2,8 +2,9 @@
 # define YAPOG_COLLIDABLEAREACELL_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
 
 namespace yap
 {
@@ -17,13 +18,12 @@ namespace yap
 
     public:
 
-      typedef collection::List<ICollidable*>::ConstItType ConstItType;
-      typedef collection::List<ICollidable*>::ItType ItType;
-
       CollidableAreaCell ();
 
-      void AddCollidable (ICollidable* collidable);
-      void RemoveCollidable (ICollidable* collidable);
+      void AddPhysicsCollidable (
+        ICollidable* collidable,
+        const MapCollidableInfo::PtrType& mapCollidableInfo);
+      void RemovePhysicsCollidable (ICollidable* collidable);
 
       bool CollidesWithObject (const WorldObject& object) const;
       bool CollidesWithObject (
@@ -32,15 +32,10 @@ namespace yap
 
       void Clear ();
 
-      ItType begin ();
-      ItType end ();
-
-      ConstItType begin () const;
-      ConstItType end () const;
-
     private:
 
-      collection::List<ICollidable*> collidables_;
+      collection::Map<ICollidable*,
+                      MapCollidableInfo::PtrType> physicsCollidables_;
   };
 } // namespace yap
 

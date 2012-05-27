@@ -85,6 +85,8 @@ namespace ycl
 
   void Character::HandleSetState (const yap::String& state)
   {
+    yap::Character::HandleSetState (state);
+
     sprites_->SetCurrentSprite (state);
   }
 
