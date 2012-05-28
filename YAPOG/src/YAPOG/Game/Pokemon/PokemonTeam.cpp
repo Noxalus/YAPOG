@@ -36,11 +36,6 @@ namespace yap
     return false;
   }
 
-  const collection::Array<Pokemon*>& PokemonTeam::GetTeam () const
-  {
-    return pokemonTeam_;
-  }
-
   /// Debug
   void PokemonTeam::PrintTeam ()
   {

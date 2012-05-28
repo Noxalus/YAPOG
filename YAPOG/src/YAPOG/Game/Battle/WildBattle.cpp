@@ -2,10 +2,8 @@
 
 namespace yap
 {
-  WildBattle::WildBattle (
-    IBattleEntity& playerTeam, 
-    IBattleEntity& wildPokemon)
-    : Battle (playerTeam, wildPokemon)
+  WildBattle::WildBattle ()
+    : Battle ()
   {
   }
 

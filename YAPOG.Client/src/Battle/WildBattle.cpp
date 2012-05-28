@@ -7,11 +7,8 @@
 
 namespace ycl
 {
-  WildBattle::WildBattle (
-    BattleInterface& battleInterface,
-    yap::IBattleEntity& playerTeam, 
-    yap::IBattleEntity& wildPokemon)
-    : Battle (playerTeam, wildPokemon)
+  WildBattle::WildBattle (BattleInterface& battleInterface)
+    : Battle ()
     , battleInterface_ (battleInterface)
   {
     // DO NOT INIT BATTLE PHASE HERE !

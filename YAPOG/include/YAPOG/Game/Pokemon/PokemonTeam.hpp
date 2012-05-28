@@ -14,10 +14,8 @@ namespace yap
   public:
     PokemonTeam ();
 
-    Pokemon* GetPokemon (int index) const;
-    const collection::Array<Pokemon*>& GetTeam () const;
-    bool AddPokemon (Pokemon* pokemon);
-
+    virtual Pokemon* GetPokemon (int index) const;
+    virtual bool AddPokemon (Pokemon* pokemon);
 
     static const int MAX_POKEMON_TEAM_NUMBER;
 

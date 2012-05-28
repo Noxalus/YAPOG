@@ -8,10 +8,13 @@
 
 namespace yap
 {
+  class PokemonFighter;
+  class PokemonFighterTeam;
+
   class YAPOG_LIB Battle : public  IUpdateable
   {
   public:
-    Battle (IBattleEntity& playerTeam, IBattleEntity& opponent);
+    Battle ();
 
     void Init ();
     void DisplayMoves ();
@@ -23,8 +26,13 @@ namespace yap
     /// @}
 
     /// Getters
-    IBattleEntity& GetPlayerTeam () const;
-    IBattleEntity& GetOpponent () const;
+    virtual IBattleEntity& GetPlayerTeam ();
+    virtual IBattleEntity& GetOpponent ();
+
+    /// Setters
+    void SetPlayerTeam (PokemonFighterTeam* playerTeam);
+    void SetOpponent (PokemonFighterTeam* opponent);
+    void SetOpponent (PokemonFighter* opponent);
 
   protected:
     virtual void HandleUpdate (const Time& dt);
@@ -34,8 +42,8 @@ namespace yap
       BattlePhase* battlePhase);
 
   private:
-    IBattleEntity& playerTeam_;
-    IBattleEntity& opponent_;
+    IBattleEntity* playerTeam_;
+    IBattleEntity* opponent_;
     int turnCount_;
     BattlePhaseManager battlePhaseManager_;
   };

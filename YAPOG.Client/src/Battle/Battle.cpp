@@ -4,6 +4,8 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 #include "TestGame.hpp"
+#include "Battle/PokemonFighter.hpp"
+#include "Battle/PokemonFighterTeam.hpp"
 #include "Battle/Battle.hpp"
 
 namespace ycl
@@ -13,15 +15,15 @@ namespace ycl
   const yap::Vector2 Battle::DEFAULT_OPPONENT_GROUND_SPRITES_SCALE
     = yap::Vector2 (0.75f, 0.75f);
 
-  Battle::Battle (
-    yap::IBattleEntity& playerTeam, 
-    yap::IBattleEntity& opponent)
-    : yap::Battle (playerTeam, opponent)
+  Battle::Battle ()
+    : yap::Battle ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
     , background_ (nullptr)
     , playerGround_ (nullptr)
     , opponentGround_ (nullptr)
+    , playerTeam_ (nullptr)
+    , opponent_ (nullptr)
   {
   }
 
@@ -82,6 +84,24 @@ namespace ycl
   void Battle::SetOpponentGroundPosition (const yap::Vector2& position)
   {
     opponentGroundPosition_ = position;
+  }
+
+  void Battle::SetDrawablePlayerTeam (PokemonFighterTeam* playerTeam)
+  {
+    yap::Battle::SetPlayerTeam (playerTeam);
+    playerTeam_ = playerTeam;
+  }
+
+  void Battle::SetDrawableOpponent (PokemonFighterTeam* opponent)
+  {
+    yap::Battle::SetOpponent (opponent);
+    opponent_ = opponent;
+  }
+
+  void Battle::SetDrawableOpponent (PokemonFighter* opponent)
+  {
+    yap::Battle::SetOpponent (opponent);
+    opponent_ = opponent;
   }
 
   void Battle::Draw (yap::IDrawingContext& context)

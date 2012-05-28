@@ -25,18 +25,22 @@ ${inc_root}/Battle/BattleInterface.hpp
 ${src_root}/Battle/BattleInteface.cpp
 ${inc_root}/Battle/BattlePhaseManager.hpp
 ${src_root}/Battle/BattlePhaseManager.cpp
+${inc_root}/Battle/IDrawableBattleEntity.hpp
 ${inc_root}/Battle/PokemonFighter.hpp
 ${src_root}/Battle/PokemonFighter.cpp
+${inc_root}/Battle/PokemonFighterTeam.hpp
+${src_root}/Battle/PokemonFighterTeam.cpp
 ${inc_root}/Battle/WildBattle.hpp
 ${src_root}/Battle/WildBattle.cpp
-${inc_root}/Battle/Phase/EndBattlePhase.hpp
-${src_root}/Battle/Phase/EndBattlePhase.cpp
+
 ${inc_root}/Battle/Phase/BattlePhase.hpp
 ${src_root}/Battle/Phase/BattlePhase.cpp
 ${inc_root}/Battle/Phase/BeginBattlePhase.hpp
 ${src_root}/Battle/Phase/BeginBattlePhase.cpp
 ${inc_root}/Battle/Phase/BeginTurnPhase.hpp
 ${src_root}/Battle/Phase/BeginTurnPhase.cpp
+${inc_root}/Battle/Phase/EndBattlePhase.hpp
+${src_root}/Battle/Phase/EndBattlePhase.cpp
 ${inc_root}/Battle/Phase/SelectionPhase.hpp
 ${src_root}/Battle/Phase/SelectionPhase.cpp
 ${inc_root}/Battle/Phase/ActionPhase.hpp
@@ -72,6 +76,8 @@ ${src_root}/GameScreen/BattleScreen.cpp
 
 ${inc_root}/Pokemon/Pokemon.hpp
 ${src_root}/Pokemon/Pokemon.cpp
+${inc_root}/Pokemon/PokemonTeam.hpp
+${src_root}/Pokemon/PokemonTeam.cpp
 
 ${inc_root}/TestGame.hpp
 ${src_root}/TestGame.cpp

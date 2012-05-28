@@ -51,4 +51,19 @@ namespace ycl
     }
   }
 
+  yap::ISprite& Pokemon::GetIcon () const
+  {
+    return *icon_;
+  }
+
+  yap::ISprite& Pokemon::GetBattleBack () const
+  {
+    return *battleBack_;
+  }
+
+  yap::ISprite& Pokemon::GetBattleFront () const
+  {
+    return *battleFront_;
+  }
+
 } // namespace ycl

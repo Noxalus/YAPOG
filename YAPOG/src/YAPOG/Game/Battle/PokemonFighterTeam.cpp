@@ -9,21 +9,6 @@ namespace yap
   {
   }
 
-  PokemonFighterTeam::PokemonFighterTeam (const PokemonTeam& pokemonTeam)
-    : fighters_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
-    , currentFighterIndex_ (0)
-  {
-    int i = 0;
-    for (Pokemon* p : pokemonTeam.GetTeam ())
-    {
-      if (p == nullptr)
-        break;
-
-      fighters_[i] = new PokemonFighter (p);
-      i++;
-    }
-  }
-
   PokemonFighter* PokemonFighterTeam::GetPokemon (int index) const
   {
     /*

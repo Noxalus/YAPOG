@@ -52,6 +52,8 @@ namespace ycl
     battleInterface_.GetBattleInfoDialogBox ()->SetEnable (false);
     battleInterface_.GetBattleInfoDialogBox ()->
       AddText ("Un " + pokemonName + " sauvage\napparaît !");
+
+    //battle_.GetOpponent ().SetPosition ();
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)

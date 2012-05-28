@@ -1,8 +1,5 @@
 #include "YAPOG/System/RandomHelper.hpp"
 
-#include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-#include "YAPOG/Game/Battle/PokemonFighter.hpp"
-#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/BattleScreen.hpp"
@@ -10,6 +7,9 @@
 #include "Battle/WildBattle.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Pokemon/Pokemon.hpp"
+#include "Pokemon/PokemonTeam.hpp"
+#include "Battle/PokemonFighter.hpp"
+#include "Battle/PokemonFighterTeam.hpp"
 
 namespace ycl
 {
@@ -44,20 +44,26 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    yap::PokemonTeam team;
-    team.AddPokemon (new yap::Pokemon (yap::ID (2), 42, false));
-    team.AddPokemon (new yap::Pokemon (yap::ID (16), 32, true));
+    PokemonTeam team;
+    team.AddPokemon (new Pokemon (yap::ID (2), 42, false));
+    team.AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
-    yap::PokemonFighter wildPokemon (GeneratePokemon ());
-    yap::PokemonFighterTeam playerFighterTeam (team);
+    PokemonFighter wildPokemon (GeneratePokemon ());
+    PokemonFighterTeam playerFighterTeam;
+    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(0)));
+    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(1)));
 
+    /*
     team.GetPokemon (0)->PrintStats ();
     std::cout << "---------- Fighter ----------" << std::endl;
     playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
+    */
 
     battleInterface_ = new BattleInterface ();
 
-    battle_ = new WildBattle (*battleInterface_, playerFighterTeam, wildPokemon);
+    battle_ = new WildBattle (*battleInterface_);
+    battle_->SetDrawablePlayerTeam (&playerFighterTeam);
+    battle_->SetDrawableOpponent (&wildPokemon);
     battle_->Init ();
 
     guiManager_->AddChild (*battleInterface_);

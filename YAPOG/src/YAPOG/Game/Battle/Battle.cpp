@@ -1,15 +1,32 @@
 #include "YAPOG/Game/Battle/Battle.hpp"
 #include "YAPOG/Game/Battle/BattleCore.hpp"
-using namespace std;
+#include "YAPOG/Game/Battle/PokemonFighter.hpp"
+#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
 namespace yap
 {
-  Battle::Battle (IBattleEntity& playerTeam, IBattleEntity& opponent)
-    : playerTeam_ (playerTeam)
-    , opponent_ (opponent)
+  Battle::Battle ()
+    : playerTeam_ (nullptr)
+    , opponent_ (nullptr)
     , turnCount_ (0)
     , battlePhaseManager_ ()
   {
+  }
+
+  /// Setters
+  void Battle::SetPlayerTeam (PokemonFighterTeam* playerTeam)
+  {
+    playerTeam_ = playerTeam;
+  }
+
+  void Battle::SetOpponent (PokemonFighterTeam* opponent)
+  {
+    opponent_ = opponent;
+  }
+
+  void Battle::SetOpponent (PokemonFighter* opponent)
+  {
+     opponent_ = opponent;
   }
 
   void Battle::Init ()
@@ -132,9 +149,9 @@ namespace yap
     */
   }
 
-  IBattleEntity& Battle::GetPlayerTeam () const
-  { return playerTeam_; }
+  IBattleEntity& Battle::GetPlayerTeam ()
+  { return *playerTeam_; }
 
-  IBattleEntity& Battle::GetOpponent () const
-  { return opponent_; }
+  IBattleEntity& Battle::GetOpponent ()
+  { return *opponent_; }
 } // namespace yap
