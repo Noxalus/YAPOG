@@ -1,10 +1,15 @@
 #ifndef YAPOG_COLLECTION_SET_HPP
 # define YAPOG_COLLECTION_SET_HPP
 
+# include <set>
+
 # include "YAPOG/Macros.hpp"
 
 namespace yap
 {
+  template <typename T>
+  class LessComparator;
+
   namespace collection
   {
     template <typename T>
@@ -54,5 +59,7 @@ namespace yap
     };
   } // namespace collection
 } // namespace yap
+
+# include "YAPOG/Collection/Set.hxx"
 
 #endif // YAPOG_COLLECTION_SET_HPP

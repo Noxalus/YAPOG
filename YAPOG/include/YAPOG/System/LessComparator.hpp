@@ -4,19 +4,20 @@
 # include <algorithm>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IComparator.hpp"
 
 namespace yap
 {
   template <typename T>
   class LessComparator : public std::less<T>
-                       , public IComparator
+                       , public IComparator<T>
   {
       DISALLOW_COPY(LessComparator);
 
     public:
 
       LessComparator ();
-      virtual ~IComparator ();
+      virtual ~LessComparator ();
 
       bool operator() (const T& left, const T& right) const;
 

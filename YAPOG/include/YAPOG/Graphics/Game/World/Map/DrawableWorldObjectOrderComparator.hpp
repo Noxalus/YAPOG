@@ -9,7 +9,7 @@ namespace yap
   struct IDrawableWorldObject;
 
   class DrawableWorldObjectOrderComparator
-    : LessComparator<IDrawableWorldObject>
+    : public LessComparator<IDrawableWorldObject*>
   {
       DISALLOW_COPY(DrawableWorldObjectOrderComparator);
 
@@ -21,8 +21,8 @@ namespace yap
     protected:
 
       virtual int HandleCompare (
-        const IDrawableWorldObject& left,
-        const IDrawableWorldObject& right) const;
+        IDrawableWorldObject* const& left,
+        IDrawableWorldObject* const& right) const;
   };
 } // namespace yap
 

@@ -44,9 +44,6 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    /// @todo Remove.
-    return;
-
     yap::PokemonTeam team;
     team.AddPokemon (new yap::Pokemon (yap::ID (2), 42, false));
     team.AddPokemon (new yap::Pokemon (yap::ID (16), 32, true));

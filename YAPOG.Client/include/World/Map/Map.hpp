@@ -7,7 +7,7 @@
 # include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
-# include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/Set.hpp"
 
 namespace ycl
 {
@@ -31,6 +31,9 @@ namespace ycl
       void AddPlayer (Player* player);
       void AddMapElement (MapElement* mapElement);
 
+      void RemovePlayer (Player* player);
+      void RemoveMapElement (MapElement* mapElement);
+
       /// @name IDrawable members.
       /// @{
       virtual void Draw (yap::IDrawingContext& context);
@@ -44,15 +47,18 @@ namespace ycl
     protected:
 
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
+      void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
 
       virtual void HandleSetSize (yap::uint width, yap::uint height);
       virtual void HandleUpdate (const yap::Time& dt);
 
     private:
 
+      static const yap::String DRAW_ORDER_HANDLER_NAME;
+
       yap::TileLayerStack tileLayers_;
 
-      yap::collection::List<yap::IDrawableWorldObject*> drawableObjects_;
+      yap::collection::Set<yap::IDrawableWorldObject*> drawableObjects_;
   };
 } // namespace ycl
 

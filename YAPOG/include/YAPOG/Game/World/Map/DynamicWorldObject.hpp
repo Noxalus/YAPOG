@@ -6,6 +6,7 @@
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Map/WorldObjectState.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -53,6 +54,8 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      Event<const DynamicWorldObject&, const Vector2&> OnMoved;
+
     protected:
 
       explicit DynamicWorldObject (const ID& id);
@@ -63,6 +66,8 @@ namespace yap
 
       virtual void HandleUpdate (const Time& dt);
       virtual void HandleSetState (const String& state);
+
+      virtual void HandleMove (const Vector2& offset);
 
     private:
 

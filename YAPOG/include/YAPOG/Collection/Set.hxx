@@ -14,7 +14,7 @@ namespace yap
     }
 
     template <typename T>
-    inline Set (const LessComparator<T>& comparator)
+    inline Set<T>::Set (const LessComparator<T>& comparator)
       : data_ (comparator)
     {
     }

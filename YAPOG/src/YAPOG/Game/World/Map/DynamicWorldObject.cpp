@@ -10,6 +10,7 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
+    , OnMoved ()
     , worldID_ ()
     , state_ (DEFAULT_INACTIVE_STATE)
     , physicsCore_ (nullptr)
@@ -25,6 +26,7 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const DynamicWorldObject& copy)
     : WorldObject (copy)
+    , OnMoved ()
     , worldID_ (copy.worldID_)
     , state_ (copy.state_)
     , physicsCore_ (nullptr)
@@ -153,5 +155,12 @@ namespace yap
 
   void DynamicWorldObject::HandleSetState (const String& state)
   {
+  }
+
+  void DynamicWorldObject::HandleMove (const Vector2& offset)
+  {
+    WorldObject::HandleMove (offset);
+
+    OnMoved (*this, offset);
   }
 } // namespace yap
