@@ -5,13 +5,24 @@ namespace yap
 {
   template <typename T>
   inline LessComparator<T>::LessComparator ()
-    : std::less<T> ()
   {
   }
 
   template <typename T>
   inline LessComparator<T>::~LessComparator ()
   {
+  }
+
+  template <typename T>
+  inline LessComparator<T>::LessComparator (const LessComparator<T>& copy)
+  {
+  }
+
+  template <typename T>
+  inline LessComparator<T>& LessComparator<T>::operator= (
+    const LessComparator<T>& copy)
+  {
+    return *this;
   }
 
   template <typename T>

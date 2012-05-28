@@ -3,15 +3,16 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Character.hpp"
-# include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
+# include "YAPOG/Graphics/Game/World/Map/IDrawableDynamicWorldObject.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
 # include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace ycl
 {
   class Character : public yap::Character
-                  , public yap::IDrawableWorldObject
+                  , public yap::IDrawableDynamicWorldObject
   {
       DISALLOW_ASSIGN(Character);
 
@@ -40,11 +41,22 @@ namespace ycl
       virtual float GetComparisonPoint () const;
       /// @}
 
+      /// @name IDrawableDynamicWorldObject members.
+      /// @{
+      virtual yap::Event<IDrawableDynamicWorldObject&,
+                         const yap::Vector2&>& OnMovedEvent ();
+      /// @}
+
+      yap::Event<IDrawableDynamicWorldObject&,
+                 const yap::Vector2&> OnMoved;
+
     protected:
 
       explicit Character (const yap::ID& id);
 
       Character (const Character& copy);
+
+      virtual yap::Vector2 HandleGetSize () const;
 
       virtual void HandleUpdate (const yap::Time& dt);
 

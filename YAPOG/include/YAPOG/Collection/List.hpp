@@ -4,6 +4,7 @@
 # include <list>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/LessComparator.hpp"
 
 namespace yap
 {
@@ -51,6 +52,9 @@ namespace yap
 
         bool IsEmpty () const;
         SizeType Count () const;
+
+        template <typename C>
+        void Sort ();
 
       private:
 
