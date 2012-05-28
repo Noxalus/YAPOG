@@ -7,7 +7,7 @@
 # include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
-# include "YAPOG/Collection/Set.hpp"
+# include "YAPOG/Collection/List.hpp"
 
 namespace ycl
 {
@@ -58,7 +58,7 @@ namespace ycl
 
       yap::TileLayerStack tileLayers_;
 
-      yap::collection::Set<yap::IDrawableWorldObject*> drawableObjects_;
+      yap::collection::List<yap::IDrawableWorldObject*> drawableObjects_;
   };
 } // namespace ycl
 

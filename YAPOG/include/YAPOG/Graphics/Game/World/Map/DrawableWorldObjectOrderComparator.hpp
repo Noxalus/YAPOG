@@ -11,12 +11,15 @@ namespace yap
   class YAPOG_LIB DrawableWorldObjectOrderComparator
     : public LessComparator<IDrawableWorldObject*>
   {
-      DISALLOW_COPY(DrawableWorldObjectOrderComparator);
-
     public:
 
       DrawableWorldObjectOrderComparator ();
       virtual ~DrawableWorldObjectOrderComparator ();
+
+      DrawableWorldObjectOrderComparator (
+        const DrawableWorldObjectOrderComparator& copy);
+      DrawableWorldObjectOrderComparator& operator= (
+        const DrawableWorldObjectOrderComparator& copy);
 
     protected:
 

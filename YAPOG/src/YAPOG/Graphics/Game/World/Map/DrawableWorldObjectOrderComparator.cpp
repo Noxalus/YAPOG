@@ -12,6 +12,24 @@ namespace yap
   {
   }
 
+  DrawableWorldObjectOrderComparator::DrawableWorldObjectOrderComparator (
+    const DrawableWorldObjectOrderComparator& copy)
+    : LessComparator<IDrawableWorldObject*> (copy)
+  {
+  }
+
+  DrawableWorldObjectOrderComparator&
+  DrawableWorldObjectOrderComparator::operator= (
+    const DrawableWorldObjectOrderComparator& copy)
+  {
+    if (this == &copy)
+      return *this;
+
+    LessComparator<IDrawableWorldObject*>::operator= (copy);
+
+    return *this;
+  }
+
   int DrawableWorldObjectOrderComparator::HandleCompare (
     IDrawableWorldObject* const& left,
     IDrawableWorldObject* const& right) const

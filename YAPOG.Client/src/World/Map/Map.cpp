@@ -1,5 +1,4 @@
 #include "YAPOG/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp"
-
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/MapElement.hpp"
@@ -11,7 +10,7 @@ namespace ycl
   Map::Map (const yap::ID& id)
     : yap::Map (id)
     , tileLayers_ ()
-    , drawableObjects_ (yap::DrawableWorldObjectOrderComparator ())
+    , drawableObjects_ ()
   {
   }
 
@@ -28,13 +27,13 @@ namespace ycl
 
   void Map::AddPlayer (Player* player)
   {
-    player->OnMoved.AddHandler (
+    player->OnMovedEvent ().AddHandler (
       DRAW_ORDER_HANDLER_NAME,
-      [&] (const yap::DynamicWorldObject& sender, const yap::Vector2& args)
+      [&] (yap::IDrawableDynamicWorldObject& sender,
+           const yap::Vector2& args)
       {
-        /// @todo Fix segfault.
-//        RemoveDrawableObject (player);
-//        AddDrawableObject (player);
+        /// @todo Sort by adding manually.
+        drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();
       });
 
     AddDynamicObject (player);
@@ -49,7 +48,7 @@ namespace ycl
 
   void Map::RemovePlayer (Player* player)
   {
-    player->OnMoved.RemoveHandler (DRAW_ORDER_HANDLER_NAME);
+    player->OnMovedEvent ().RemoveHandler (DRAW_ORDER_HANDLER_NAME);
 
     RemoveDrawableObject (player);
     RemoveDynamicObject (player);

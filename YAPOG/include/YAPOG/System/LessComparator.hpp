@@ -1,22 +1,16 @@
 #ifndef YAPOG_LESSCOMPARATOR_HPP
 # define YAPOG_LESSCOMPARATOR_HPP
 
-# include <algorithm>
-
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IComparator.hpp"
 
 namespace yap
 {
   template <typename T>
-  class LessComparator : public std::less<T>
-                       , public IComparator<T>
+  class LessComparator : public IComparator<T>
   {
-      DISALLOW_COPY(LessComparator);
-
     public:
 
-      LessComparator ();
       virtual ~LessComparator ();
 
       bool operator() (const T& left, const T& right) const;
@@ -27,6 +21,11 @@ namespace yap
       /// @}
 
     protected:
+
+      LessComparator ();
+
+      LessComparator (const LessComparator<T>& copy);
+      LessComparator<T>& operator= (const LessComparator<T>& copy);
 
       virtual int HandleCompare (const T& left, const T& right) const = 0;
   };
