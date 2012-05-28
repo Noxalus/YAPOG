@@ -11,7 +11,7 @@ namespace yap
   struct IStaticWorldObjectVisitor;
   struct IStaticWorldObjectConstVisitor;
 
-  class StaticWorldObject : public WorldObject
+  class YAPOG_LIB StaticWorldObject : public WorldObject
                           , public IUpdateable
   {
       DISALLOW_ASSIGN(StaticWorldObject);

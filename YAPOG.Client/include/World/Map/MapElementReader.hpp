@@ -8,7 +8,7 @@ namespace ycl
 {
   class MapElement;
 
-  class YAPOG_LIB MapElementReader : public yap::MapElementReader
+  class MapElementReader : public yap::MapElementReader
   {
       DISALLOW_COPY(MapElementReader);
 

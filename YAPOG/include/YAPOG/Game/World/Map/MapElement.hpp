@@ -7,7 +7,7 @@
 namespace yap
 {
   /// @brief A static map element that is just figurative.
-  class MapElement : public StaticWorldObject
+  class YAPOG_LIB MapElement : public StaticWorldObject
   {
       DISALLOW_ASSIGN(MapElement);
 
