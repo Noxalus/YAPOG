@@ -17,12 +17,13 @@ namespace yap
   public:
 
     WidgetDialogBox ();
-    WidgetDialogBox (String content);  
+    WidgetDialogBox (const String& content);  
     virtual ~WidgetDialogBox ();
 
     virtual String GetContent () const;
     virtual void AddText (const String& contentArg);
     virtual bool IsFocusable () const;
+    void SetShowText (bool state);
 
   protected:
     void Refresh ();
@@ -43,6 +44,7 @@ namespace yap
     collection::Array<Label*> labels_;
     uint currentText_;
     UpdateableTimer textSpeed_;
+    bool showText_;
 
   };
 } // namespace yap

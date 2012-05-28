@@ -5,6 +5,7 @@
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/LayoutH.hpp"
 #include "YAPOG/Graphics/Gui/LayoutV.hpp"
+#include "YAPOG/System/Event/Event.hpp"
 
 
 namespace yap
@@ -142,6 +143,7 @@ namespace yap
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
         itemz_[currentSelec_]->Do ();
+        itemz_[currentSelec_]->OnActivated (itemz_[currentSelec_], EmptyEventArgs ());
         return true;
       }
     }
