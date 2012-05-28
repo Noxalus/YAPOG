@@ -57,7 +57,7 @@ namespace yap
     cursorCurSel_ = curr;
     Refresh ();
   }
-  void PartialLayoutManager::SetSize (uint size)
+  void PartialLayoutManager::SetSize (float size)
   {
     size_ = size;    
     itemCount_ = size / layout_->GetWidthItem ();;

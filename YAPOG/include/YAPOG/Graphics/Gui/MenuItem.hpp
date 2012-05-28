@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -12,6 +13,9 @@ namespace yap
     DISALLOW_COPY(MenuItem);
 
   public:
+    Event<const MenuItem&, const EmptyEventArgs&> OnActivated;
+    Event<const MenuItem&, const EmptyEventArgs&> OnSelected;
+
     MenuItem ();
     MenuItem (bool isScalable);
     virtual ~MenuItem ();

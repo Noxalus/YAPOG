@@ -7,6 +7,7 @@ namespace yap
   BoundingBoxCollection::BoundingBoxCollection ()
     : spatial3Info_ ()
     , boundingBoxes_ ()
+    , parent_ (nullptr)
     , collidableArea_ (nullptr)
   {
   }
@@ -21,6 +22,7 @@ namespace yap
     const BoundingBoxCollection& copy)
     : spatial3Info_ (copy.spatial3Info_)
     , boundingBoxes_ ()
+    , parent_ (nullptr)
     , collidableArea_ (nullptr)
   {
     for (BoundingBox* boundingBox : copy.boundingBoxes_)
@@ -31,8 +33,7 @@ namespace yap
   {
     boundingBoxes_.Add (boundingBox);
 
-    if (collidableArea_ != nullptr)
-      collidableArea_->AddCollidable (boundingBox);
+    AddBoundingBoxToCollidableArea (boundingBox);
   }
 
   void BoundingBoxCollection::RemoveBoundingBox (BoundingBox* boundingBox)
@@ -44,8 +45,11 @@ namespace yap
   }
 
   void BoundingBoxCollection::SetCollidableArea (
+    const WorldObject& parent,
     CollidableArea* collidableArea)
   {
+    parent_ = &parent;
+
     if (collidableArea_ == collidableArea)
       return;
 
@@ -188,11 +192,7 @@ namespace yap
 
   bool BoundingBoxCollection::CollidesWith (const ICollidable& other) const
   {
-    for (BoundingBox* boundingBox : boundingBoxes_)
-      if (boundingBox->CollidesWith (other))
-        return true;
-
-    return false;
+    return CollidesWith (other, Vector2 (0.0f, 0.0f));
   }
 
   bool BoundingBoxCollection::CollidesWith (
@@ -206,13 +206,27 @@ namespace yap
     return false;
   }
 
+  void BoundingBoxCollection::AddBoundingBoxToCollidableArea (
+    BoundingBox* boundingBox)
+  {
+    if (collidableArea_ == nullptr)
+      return;
+
+    collidableArea_->AddCollidable (
+      boundingBox,
+      MapCollidableInfo::PtrType (
+        new MapCollidableInfo (
+          *boundingBox,
+          *parent_)));
+  }
+
   void BoundingBoxCollection::AddBoundingBoxesToCollidableArea ()
   {
     if (collidableArea_ == nullptr)
       return;
 
     for (BoundingBox* boundingBox : boundingBoxes_)
-      collidableArea_->AddCollidable (boundingBox);
+      AddBoundingBoxToCollidableArea (boundingBox);
   }
 
   void BoundingBoxCollection::RemoveBoundingBoxesFromCollidableArea ()

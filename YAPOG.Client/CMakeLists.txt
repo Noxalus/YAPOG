@@ -79,8 +79,15 @@ ${src_root}/Pokemon/Pokemon.cpp
 ${inc_root}/Pokemon/PokemonTeam.hpp
 ${src_root}/Pokemon/PokemonTeam.cpp
 
-${inc_root}/TestGame.hpp
-${src_root}/TestGame.cpp
+${inc_root}/Gui/GameMainMenu.hpp
+${src_root}/Gui/GameMainMenu.cpp
+${inc_root}/Gui/MainMenu.hpp
+${src_root}/Gui/MainMenu.cpp
+${inc_root}/Gui/WidgetPokedex.hpp
+${src_root}/Gui/WidgetPokedex.cpp
+
+${inc_root}/Game.hpp
+${src_root}/Game.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

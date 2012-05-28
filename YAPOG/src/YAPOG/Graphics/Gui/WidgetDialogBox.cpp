@@ -15,7 +15,7 @@ namespace yap
   {
   }
 
-  WidgetDialogBox::WidgetDialogBox (String content)
+  WidgetDialogBox::WidgetDialogBox (const String& content)
     : labels_ ()
     , currentText_ (0)
   {
@@ -24,6 +24,11 @@ namespace yap
 
   WidgetDialogBox::~WidgetDialogBox ()
   {
+  }
+
+  void WidgetDialogBox::SetShowText (bool state)
+  {
+    showText_ = state;
   }
 
   bool WidgetDialogBox::IsFocusable () const
@@ -49,13 +54,8 @@ namespace yap
   }
 
   void WidgetDialogBox::HandleDraw (IDrawingContext& context)
-  {
-    //if (isVisible_)
-    Label* current = labels_[currentText_];
-    current->ChangeColor (sf::Color (128, 32, 64));
-    current->Draw (context);
-
-    if (IsVisible ())
+  {      
+    if (showText_)
       labels_[currentText_]->Draw (context);
 
   }
@@ -97,7 +97,7 @@ namespace yap
 
   bool WidgetDialogBox::HandleOnEvent (const GuiEvent& guiEvent)
   {
-    if (!isVisible_)
+    if (!isVisible_ || !showText_)
       return false;
     if (guiEvent.type == sf::Event::KeyPressed)
     {

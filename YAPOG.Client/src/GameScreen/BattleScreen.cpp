@@ -3,7 +3,7 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/BattleScreen.hpp"
-#include "TestGame.hpp"
+#include "Game.hpp"
 #include "Battle/WildBattle.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Pokemon/Pokemon.hpp"

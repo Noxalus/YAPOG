@@ -8,6 +8,7 @@ namespace yap
            typename ReturnType>
   inline Event<SenderType, ArgsType, ReturnType>::Event ()
     : sig_ ()
+    , handlers_ ()
   {
   }
 
@@ -22,8 +23,7 @@ namespace yap
             typename ArgsType,
             typename ReturnType>
   inline Event<SenderType, ArgsType, ReturnType>&
-  Event<SenderType, ArgsType, ReturnType>::operator+= (
-    const HandlerType handler)
+  Event<SenderType, ArgsType, ReturnType>::operator+= (HandlerType handler)
   {
     sig_.connect (handler);
 
@@ -33,13 +33,24 @@ namespace yap
   template <typename SenderType,
             typename ArgsType,
             typename ReturnType>
-  inline Event<SenderType, ArgsType, ReturnType>&
-  Event<SenderType, ArgsType, ReturnType>::operator-= (
-    const HandlerType handler)
+  inline void Event<SenderType, ArgsType, ReturnType>::AddHandler (
+    const String& name,
+    HandlerType handler)
   {
-    sig_.disconnect (handler);
+    handlers_.Add (name, sig_.connect (handler));
+  }
 
-    return *this;
+  template <typename SenderType,
+            typename ArgsType,
+            typename ReturnType>
+  inline void Event<SenderType, ArgsType, ReturnType>::RemoveHandler (
+    const String& name)
+  {
+    ConnectionType connection = handlers_[name];
+
+    handlers_.Remove (name);
+
+    sig_.disconnect (connection);
   }
 
   template <typename SenderType,

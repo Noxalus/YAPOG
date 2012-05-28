@@ -48,6 +48,14 @@ namespace yap
   {
   }
 
+  void Character::HandleSetState (const String& state)
+  {
+    DynamicWorldObject::HandleSetState (state);
+
+    if (IsMoving ())
+      UpdateDirection (GetMove ());
+  }
+
   void Character::HandleMove (const Vector2& offset)
   {
     DynamicWorldObject::HandleMove (offset);

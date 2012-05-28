@@ -1,0 +1,7 @@
+- Clean repo
+
+- Gui:
+  - Rename Widget* into *Widget
+
+- Game:
+  - Create GameData settings class (reduce dependence with Game.hpp)

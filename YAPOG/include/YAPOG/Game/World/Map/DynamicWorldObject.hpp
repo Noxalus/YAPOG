@@ -64,6 +64,8 @@ namespace yap
       virtual void HandleUpdate (const Time& dt);
       virtual void HandleSetState (const String& state);
 
+      virtual void HandleMove (const Vector2& offset);
+
     private:
 
       void SetState (const String& state);

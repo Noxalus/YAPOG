@@ -36,6 +36,8 @@ ${inc_root}/Collection/Matrix.hpp
 ${inc_root}/Collection/Matrix.hxx
 ${inc_root}/Collection/Queue.hpp
 ${inc_root}/Collection/Queue.hxx
+${inc_root}/Collection/Set.hpp
+${inc_root}/Collection/Set.hxx
 
 ${inc_root}/Content/ContentManager.hpp
 ${src_root}/Content/ContentManager.cpp
@@ -99,6 +101,8 @@ ${src_root}/Game/World/Map/Physics/CollidableAreaCell.cpp
 ${inc_root}/Game/World/Map/Physics/ICollidable.hpp
 ${inc_root}/Game/World/Map/Physics/GridCollidableArea.hpp
 ${src_root}/Game/World/Map/Physics/GridCollidableArea.cpp
+${inc_root}/Game/World/Map/Physics/MapCollidableInfo.hpp
+${src_root}/Game/World/Map/Physics/MapCollidableInfo.cpp
 ${inc_root}/Game/World/Map/Physics/PhysicsCore.hpp
 ${src_root}/Game/World/Map/Physics/PhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/WorldObjectMoveController.hpp
@@ -280,7 +284,10 @@ ${inc_root}/Graphics/Game/Sprite/VerticalComposedSprite.hpp
 ${src_root}/Graphics/Game/Sprite/VerticalComposedSprite.cpp
 ${inc_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/BasicTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp
+${src_root}/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.cpp
 ${inc_root}/Graphics/Game/World/Map/IDrawableWorldObject.hpp
+${inc_root}/Graphics/Game/World/Map/IDrawableDynamicWorldObject.hpp
 ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.cpp
 ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp
@@ -380,6 +387,9 @@ ${src_root}/System/Error/DatabaseException.cpp
 ${inc_root}/System/Event/Event.hpp
 ${inc_root}/System/Event/Event.hxx
 ${inc_root}/System/IntTypes.hpp
+${inc_root}/System/IComparator.hpp
+${inc_root}/System/LessComparator.hpp
+${inc_root}/System/LessComparator.hxx
 ${inc_root}/System/IO/BaseReaderConstVisitor.hpp
 ${src_root}/System/IO/BaseReaderConstVisitor.cpp
 ${inc_root}/System/IO/BaseReaderVisitor.hpp
@@ -467,8 +477,10 @@ ${inc_root}/System/Hash/FileChecker.hpp
 ${src_root}/System/Hash/FileChecker.cpp
 ${inc_root}/System/Hash/Md5.hpp
 ${src_root}/System/Hash/Md5.cpp
+
 ${pgstream_inc_root}/pgstream.hpp
 ${pgstream_src_root}/pgstream.cpp
+
 ${inc_root}/Database/DatabaseManager.hpp
 ${src_root}/Database/DatabaseManager.cpp
 ${inc_root}/Database/DatabaseStream.hpp

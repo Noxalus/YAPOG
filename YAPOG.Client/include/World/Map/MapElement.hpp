@@ -52,6 +52,8 @@ namespace ycl
 
       virtual void HandleUpdate (const yap::Time& dt);
 
+      virtual yap::Vector2 HandleGetSize () const;
+
       virtual void HandleMove (const yap::Vector2& offset);
 
       virtual void HandleDraw (yap::IDrawingContext& context);

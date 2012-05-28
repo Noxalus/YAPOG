@@ -30,7 +30,9 @@ namespace yap
 
       virtual void HandleSetSize (const Vector2& size);
 
-      virtual void HandleAddCollidable (ICollidable* collidable);
+      virtual void HandleAddCollidable (
+        ICollidable* collidable,
+        const MapCollidableInfo::PtrType& mapCollidableInfo);
       virtual void HandleRemoveCollidable (ICollidable* collidable);
 
     private:

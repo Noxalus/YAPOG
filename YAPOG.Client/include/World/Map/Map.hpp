@@ -31,6 +31,9 @@ namespace ycl
       void AddPlayer (Player* player);
       void AddMapElement (MapElement* mapElement);
 
+      void RemovePlayer (Player* player);
+      void RemoveMapElement (MapElement* mapElement);
+
       /// @name IDrawable members.
       /// @{
       virtual void Draw (yap::IDrawingContext& context);
@@ -44,11 +47,14 @@ namespace ycl
     protected:
 
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
+      void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
 
       virtual void HandleSetSize (yap::uint width, yap::uint height);
       virtual void HandleUpdate (const yap::Time& dt);
 
     private:
+
+      static const yap::String DRAW_ORDER_HANDLER_NAME;
 
       yap::TileLayerStack tileLayers_;
 

@@ -1,30 +1,34 @@
-#ifndef YAPOG_LIST_HPP
-# define YAPOG_LIST_HPP
+#ifndef YAPOG_COLLECTION_SET_HPP
+# define YAPOG_COLLECTION_SET_HPP
 
-# include <list>
+# include <set>
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/LessComparator.hpp"
 
 namespace yap
 {
+  template <typename T>
+  class LessComparator;
+
   namespace collection
   {
-    template <typename T>
-    class List
+    template <typename T, typename C = std::less<T>>
+    class Set
     {
       public:
 
         typedef T DataType;
-        typedef std::list<DataType> InnerType;
+        typedef C ComparatorType;
+        typedef std::set<DataType, ComparatorType> InnerType;
         typedef typename InnerType::size_type SizeType;
         typedef typename InnerType::iterator ItType;
         typedef typename InnerType::const_iterator ConstItType;
 
-        List ();
+        Set ();
 
-        List (const List<T>& copy);
-        List& operator= (const List<T>& copy);
+        Set (const Set<T, C>& copy);
+
+        Set& operator= (const Set<T, C>& copy);
 
         ItType begin ();
         ConstItType begin () const;
@@ -37,24 +41,17 @@ namespace yap
         ConstItType End () const;
 
         void Add (const T& data);
-        void Add (const List<T>& data);
-        void AddFront (const T& data);
-        void AddFront (const List<T>& data);
+        void Add (const Set<T, C>& data);
 
         bool Contains (const T& data) const;
-        bool Contains (const List<T>& data) const;
+        bool Contains (const Set<T, C>& data) const;
 
         void Remove (const T& data);
-        void RemoveFront ();
-        void RemoveBack ();
 
         void Clear ();
 
         bool IsEmpty () const;
         SizeType Count () const;
-
-        template <typename C>
-        void Sort ();
 
       private:
 
@@ -63,6 +60,6 @@ namespace yap
   } // namespace collection
 } // namespace yap
 
-# include "YAPOG/Collection/List.hxx"
+# include "YAPOG/Collection/Set.hxx"
 
-#endif // YAPOG_LIST_HPP
+#endif // YAPOG_COLLECTION_SET_HPP

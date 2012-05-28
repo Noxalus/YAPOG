@@ -32,7 +32,7 @@ namespace yap
 
   void WorldObject::SetCollidableArea (CollidableArea* collidableArea)
   {
-    boundingBoxes_.SetCollidableArea (collidableArea);
+    boundingBoxes_.SetCollidableArea (*this, collidableArea);
   }
 
   void WorldObject::AddBoundingBox (BoundingBox* boundingBox)

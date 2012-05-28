@@ -84,6 +84,11 @@ namespace ycl
       sprite_->Update (dt);
   }
 
+  yap::Vector2 MapElement::HandleGetSize () const
+  {
+    return sprite_->GetSize ();
+  }
+
   void MapElement::HandleMove (const yap::Vector2& offset)
   {
     yap::MapElement::HandleMove (offset);

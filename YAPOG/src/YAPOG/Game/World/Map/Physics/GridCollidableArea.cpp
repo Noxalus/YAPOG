@@ -90,7 +90,9 @@ namespace yap
     cellSize_ = Vector2 (size.x / hSegmentCount_, size.y / vSegmentCount_);
   }
 
-  void GridCollidableArea::HandleAddCollidable (ICollidable* collidable)
+  void GridCollidableArea::HandleAddCollidable (
+    ICollidable* collidable,
+    const MapCollidableInfo::PtrType& mapCollidableInfo)
   {
     UIntRect collidableRect;
     GetCollidableRectangle (*collidable, collidableRect);
@@ -101,7 +103,7 @@ namespace yap
       for (uint x = collidableRect.left;
            x <= collidableRect.left + collidableRect.width;
            ++x)
-        cells_ (x, y)->AddCollidable (collidable);
+        cells_ (x, y)->AddPhysicsCollidable (collidable, mapCollidableInfo);
   }
 
   void GridCollidableArea::HandleRemoveCollidable (ICollidable* collidable)
@@ -115,7 +117,7 @@ namespace yap
       for (uint x = collidableRect.left;
            x <= collidableRect.left + collidableRect.width;
            ++x)
-        cells_ (x, y)->RemoveCollidable (collidable);
+        cells_ (x, y)->RemovePhysicsCollidable (collidable);
   }
 
   void GridCollidableArea::GetCollidableRectangle (

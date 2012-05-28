@@ -154,4 +154,9 @@ namespace yap
   void DynamicWorldObject::HandleSetState (const String& state)
   {
   }
+
+  void DynamicWorldObject::HandleMove (const Vector2& offset)
+  {
+    WorldObject::HandleMove (offset);
+  }
 } // namespace yap

@@ -2,9 +2,9 @@
   <boundingBoxes>
     <entry>
       <BoundingBox>
-        <rect>5,10,300,150</rect>
+        <rect>8,24,16,8</rect>
         <z>0</z>
-        <h>0</h>
+        <h>1</h>
       </BoundingBox>
     </entry>
   </boundingBoxes>

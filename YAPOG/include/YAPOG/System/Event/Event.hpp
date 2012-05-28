@@ -6,6 +6,8 @@
 # include <boost/signal.hpp>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yap
 {
@@ -35,7 +37,7 @@ namespace yap
       DISALLOW_COPY(Event);
 
       typedef boost::signal2<ReturnType, SenderType, ArgsType> SignalType;
-      typedef std::function<ReturnType (SenderType, ArgsType)> HandlerType;
+      typedef typename SignalType::slot_type HandlerType;
 
     public:
 
@@ -43,13 +45,19 @@ namespace yap
       ~Event ();
 
       Event& operator+= (const HandlerType handler);
-      Event& operator-= (const HandlerType handler);
+
+      void AddHandler (const String& name, const HandlerType handler);
+      void RemoveHandler (const String& name);
 
       ReturnType operator() (SenderType sender, ArgsType args);
 
     private:
 
+      typedef boost::signals::connection ConnectionType;
+
       SignalType sig_;
+
+      collection::Map<String, ConnectionType> handlers_;
   };
 } // namespace yap
 

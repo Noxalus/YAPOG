@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
 
 namespace yap
 {
@@ -21,7 +22,9 @@ namespace yap
 
       void SetSize (const Vector2& size);
 
-      void AddCollidable (ICollidable* collidable);
+      void AddCollidable (
+        ICollidable* collidable,
+        const MapCollidableInfo::PtrType& mapCollidableInfo);
       void RemoveCollidable (ICollidable* collidable);
 
       virtual bool CollidesWithObject (const WorldObject& object) const = 0;
@@ -35,7 +38,9 @@ namespace yap
 
       virtual void HandleSetSize (const Vector2& size);
 
-      virtual void HandleAddCollidable (ICollidable* collidable) = 0;
+      virtual void HandleAddCollidable (
+        ICollidable* collidable,
+        const MapCollidableInfo::PtrType& mapCollidableInfo) = 0;
       virtual void HandleRemoveCollidable (ICollidable* collidable) = 0;
 
     private:

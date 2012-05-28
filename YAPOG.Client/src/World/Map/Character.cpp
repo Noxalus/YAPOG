@@ -76,6 +76,17 @@ namespace ycl
     return HandleGetComparisonPoint ();
   }
 
+  yap::Event<yap::IDrawableDynamicWorldObject&,
+             const yap::Vector2&>& Character::OnMovedEvent ()
+  {
+    return OnMoved;
+  }
+
+  yap::Vector2 Character::HandleGetSize () const
+  {
+    return sprites_->GetSize ();
+  }
+
   void Character::HandleUpdate (const yap::Time& dt)
   {
     yap::Character::HandleUpdate (dt);
@@ -85,6 +96,8 @@ namespace ycl
 
   void Character::HandleSetState (const yap::String& state)
   {
+    yap::Character::HandleSetState (state);
+
     sprites_->SetCurrentSprite (state);
   }
 
@@ -93,6 +106,8 @@ namespace ycl
     yap::Character::HandleMove (offset);
 
     sprites_->Move (offset);
+
+    OnMovedEvent () (*this, offset);
   }
 
   void Character::HandleSetDirection (yap::Direction direction)
