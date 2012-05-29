@@ -31,7 +31,7 @@ namespace yap
 
     virtual void AddChild (IWidget& child, Align align = Align::CENTER);
     void RemoveChild (IWidget& child);
-    virtual uint GetWidthItem () = 0;
+    virtual float GetWidthItem () = 0;
     void SetExtensible (bool isExt);
     bool GetExtensible ();
     void SetAlign (Align global);

@@ -5,6 +5,8 @@
 # include "YAPOG/Game/Battle/Battle.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 
+#include "Battle/IDrawableBattleEntity.hpp"
+
 namespace yap
 {
   class ISprite;
@@ -12,12 +14,15 @@ namespace yap
 
 namespace ycl
 {
+  class PokemonFighterTeam;
+  class PokemonFighter;
+
   class Battle 
     : public yap::Battle
     , public yap::IDrawable
   {
   public:
-    Battle (yap::IBattleEntity& playerTeam, yap::IBattleEntity& opponent);
+    Battle ();
     virtual ~Battle ();
 
     /// @name IDrawable members.
@@ -30,17 +35,32 @@ namespace ycl
     virtual void ChangeColor (const sf::Color& color);
     /// @}
 
-    /// Getters
-    yap::ISprite* GetBackground () const;
-    yap::ISprite* GetPlayerGround () const;
-    yap::ISprite* GetOpponentGround () const;
+    /// @name Getters
+    /// @{
+    yap::ISprite& GetBackground () const;
+    yap::ISprite& GetPlayerGround () const;
+    yap::ISprite& GetOpponentGround () const;
+    yap::ISprite& GetPlayerTrainerBack () const;
+    yap::ISprite& GetPlayerHPBar () const;
+    yap::ISprite& GetOpponentHPBar () const;
+    yap::ISprite& GetPlayerInfo () const;
+    yap::ISprite& GetOpponentInfo () const;
     const yap::Vector2& GetPlayerGroundPosition () const;
     const yap::Vector2& GetOpponentGroundPosition () const;
+    const IDrawableBattleEntity& GetDrawablePlayerTeam () const;
+    const IDrawableBattleEntity& GetDrawableOpponent () const;
+    IDrawableBattleEntity& GetDrawablePlayerTeam ();
+    IDrawableBattleEntity& GetDrawableOpponent ();
+    /// @}
 
-
-    /// Setters
+    /// @name Setters
+    /// @{
     void SetPlayerGroundPosition (const yap::Vector2& position);
     void SetOpponentGroundPosition (const yap::Vector2& position);
+    void SetDrawablePlayerTeam (PokemonFighterTeam* pokemonTeam);
+    void SetDrawableOpponent (PokemonFighterTeam* pokemonFighterTeam);
+    void SetDrawableOpponent (PokemonFighter* pokemonFighter);
+    /// @}
 
     static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;
   protected:
@@ -58,15 +78,22 @@ namespace ycl
     sf::Color color_;
 
   private:
-    /// Sprites
+    /// General sprites
     yap::ISprite* background_;
     yap::ISprite* playerGround_;
     yap::ISprite* opponentGround_;
+    yap::ISprite* playerTrainerBack_;
+    yap::ISprite* playerHPBar_;
+    yap::ISprite* opponentHPBar_;
+    yap::ISprite* opponentInfo_;
+    yap::ISprite* playerInfo_;
 
     /// Sprite positions
     yap::Vector2 playerGroundPosition_;
     yap::Vector2 opponentGroundPosition_;
 
+    IDrawableBattleEntity* playerTeam_;
+    IDrawableBattleEntity* opponent_;
   };
 } // namespace ycl
 

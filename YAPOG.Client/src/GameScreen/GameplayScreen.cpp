@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/System/IO/Log/Logger.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -53,6 +54,8 @@ namespace ycl
     cameraController_.Update (dt);
 
     UpdatePlayer (dt);
+
+    logger_.LogLine (1.f/dt.GetValue ());
 
     world_.Draw (context);
 

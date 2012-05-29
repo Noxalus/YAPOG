@@ -1,25 +1,28 @@
-#ifndef YAPOG_CLIENT_POKEMONFIGHTER_HPP
-# define YAPOG_CLIENT_POKEMONFIGHTER_HPP
+#ifndef YAPOG_CLIENT_POKEMONFIGHTERTEAM_HPP
+# define YAPOG_CLIENT_POKEMONFIGHTERTEAM_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/System/String.hpp"
-# include "YAPOG/Game/Battle/PokemonFighter.hpp"
+# include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
 # include "Battle/IDrawableBattleEntity.hpp"
 
 namespace ycl
 {
   class Pokemon;
+  class PokemonFighter;
 
-  class PokemonFighter 
-    : public yap::PokemonFighter
+  class PokemonFighterTeam
+    : public yap::PokemonFighterTeam
     , public virtual IDrawableBattleEntity
   {
-    DISALLOW_COPY (PokemonFighter);
-
+    DISALLOW_COPY (PokemonFighterTeam);
   public:
-    PokemonFighter (Pokemon* originalPokemon);
-    virtual ~PokemonFighter ();
+    PokemonFighterTeam ();
+    virtual ~PokemonFighterTeam ();
+
+    virtual PokemonFighter* GetPokemon (int index) const;
+    virtual bool AddPokemon (PokemonFighter* pokemon);
 
     /// @name IDrawable members.
     /// @{
@@ -50,9 +53,11 @@ namespace ycl
     bool isVisible_;
     sf::Color color_;
 
+
   private:
-    Pokemon* originalPokemon_;
+    PokemonFighter* GetCurrentFighter () const;
+    yap::collection::Array<PokemonFighter*> fighters_;
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_POKEMONFIGHTER_HPP
+#endif // YAPOG_CLIENT_POKEMONFIGHTERTEAM_HPP

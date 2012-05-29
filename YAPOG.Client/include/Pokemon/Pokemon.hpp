@@ -23,9 +23,14 @@ namespace ycl
       const bool& shiny);
     virtual ~Pokemon ();
 
-    void LoadSprites ();
+    /// Getters
+    yap::ISprite& GetIcon () const;
+    yap::ISprite& GetBattleBack () const;
+    yap::ISprite& GetBattleFront () const;
 
   private:
+    void LoadSprites ();
+
     yap::ISprite* icon_;
     yap::ISprite* battleBack_;
     yap::ISprite* battleFront_;

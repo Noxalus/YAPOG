@@ -9,6 +9,7 @@ namespace ycl
   Pokemon::Pokemon (const yap::ID& staticID)
     : yap::Pokemon (staticID)
   {
+    LoadSprites ();
   }
 
   Pokemon::Pokemon (
@@ -17,6 +18,7 @@ namespace ycl
     const bool& shiny)
     : yap::Pokemon (staticID, level, shiny)
   {
+    LoadSprites ();
   }
 
   Pokemon::~Pokemon ()
@@ -49,6 +51,21 @@ namespace ycl
         new yap::Texture ("Pokemon/Back_Male/" + 
         yap::StringHelper::ToString (staticID_.GetValue ()) + ".png"));
     }
+  }
+
+  yap::ISprite& Pokemon::GetIcon () const
+  {
+    return *icon_;
+  }
+
+  yap::ISprite& Pokemon::GetBattleBack () const
+  {
+    return *battleBack_;
+  }
+
+  yap::ISprite& Pokemon::GetBattleFront () const
+  {
+    return *battleFront_;
   }
 
 } // namespace ycl

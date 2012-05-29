@@ -13,9 +13,7 @@ namespace yap
   class YAPOG_LIB WildBattle : public Battle
   {
   public:
-    WildBattle (
-      IBattleEntity& playerTeam, 
-      IBattleEntity& wildPokemon);
+    WildBattle ();
     virtual ~WildBattle ();
 
   protected:

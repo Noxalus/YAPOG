@@ -8,7 +8,7 @@ namespace yap
 {
   struct IDrawableWorldObject;
 
-  class DrawableWorldObjectOrderComparator
+  class YAPOG_LIB DrawableWorldObjectOrderComparator
     : public LessComparator<IDrawableWorldObject*>
   {
     public:

@@ -49,6 +49,8 @@ namespace ycl
   private:
     Battle& battle_;
     BattleInterface& battleInterface_;
+
+    static const float GROUND_SPEED;
   };
 } // namespace ycl
 

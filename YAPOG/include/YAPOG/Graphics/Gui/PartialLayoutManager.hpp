@@ -18,7 +18,7 @@ namespace yap
 
     void SetCurrentSel (uint curr);
     void SetEnable (bool state);
-    void SetSize (uint size);
+    void SetSize (float size);
     void AddItem (IWidget* item);
     uint GetSize () const;
     void Refresh ();
@@ -26,7 +26,7 @@ namespace yap
   protected:       
     uint cursorCurSel_;
     uint itemCount_;
-    uint size_;
+    float size_;
 
     LayoutBox* layout_;
 

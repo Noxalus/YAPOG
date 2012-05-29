@@ -10,15 +10,10 @@ namespace ycl
 {
   class BattleInterface;
 
-  class WildBattle 
-    : public yap::IDrawable
-    , public Battle
+  class WildBattle : public Battle
   {
   public:
-    WildBattle (
-      BattleInterface& battleInterface,
-      yap::IBattleEntity& playerTeam, 
-      yap::IBattleEntity& wildPokemon);
+    WildBattle (BattleInterface& battleInterface);
     virtual ~WildBattle ();
 
     /// @name IDrawable members.

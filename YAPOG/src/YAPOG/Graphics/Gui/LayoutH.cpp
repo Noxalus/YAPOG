@@ -20,10 +20,11 @@ namespace yap
   {
   }
 
-  uint LayoutH::GetWidthItem ()
+  float LayoutH::GetWidthItem ()
   {
     for (auto itMap = items_.begin (); itMap != items_.end (); itMap++)
-      return (*itMap).first->GetSize ().x;    
+      return (*itMap).first->GetSize ().x;
+    return 0;
   }
 
   void LayoutH::GeneratePosition ()

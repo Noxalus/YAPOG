@@ -16,7 +16,7 @@ namespace yap
     LayoutH (Padding ext, Padding in, bool isExt);
     virtual ~LayoutH ();
     virtual void GeneratePosition ();
-    virtual uint GetWidthItem ();
+    virtual float GetWidthItem ();
     
 
   private:

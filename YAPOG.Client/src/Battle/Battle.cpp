@@ -3,6 +3,8 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
+#include "Battle/PokemonFighter.hpp"
+#include "Battle/PokemonFighterTeam.hpp"
 #include "Game.hpp"
 #include "Battle/Battle.hpp"
 
@@ -13,15 +15,16 @@ namespace ycl
   const yap::Vector2 Battle::DEFAULT_OPPONENT_GROUND_SPRITES_SCALE
     = yap::Vector2 (0.75f, 0.75f);
 
-  Battle::Battle (
-    yap::IBattleEntity& playerTeam,
-    yap::IBattleEntity& opponent)
-    : yap::Battle (playerTeam, opponent)
+  Battle::Battle ()
+    : yap::Battle ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
     , background_ (nullptr)
     , playerGround_ (nullptr)
     , opponentGround_ (nullptr)
+    , playerTrainerBack_ (nullptr)
+    , playerTeam_ (nullptr)
+    , opponent_ (nullptr)
   {
   }
 
@@ -37,10 +40,27 @@ namespace ycl
     /// Load sprites
     background_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (42)));
+
     opponentGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (43)));
+
     playerGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (43)));
+
+    playerTrainerBack_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (44)));
+
+    playerHPBar_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (45)));
+
+    opponentHPBar_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (45)));
+
+    opponentInfo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (46)));
+
+    playerInfo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (47)));
 
     /// Adjust sprites
     background_->SetSize (Game::SCREEN_SIZE);
@@ -48,40 +68,71 @@ namespace ycl
   }
 
   /// Getters
-  yap::ISprite* Battle::GetBackground () const
-  {
-    return background_;
-  }
+  yap::ISprite& Battle::GetBackground () const
+  { return *background_; }
 
-  yap::ISprite* Battle::GetPlayerGround () const
-  {
-    return playerGround_;
-  }
+  yap::ISprite& Battle::GetPlayerGround () const
+  { return *playerGround_; }
 
-  yap::ISprite* Battle::GetOpponentGround () const
-  {
-    return opponentGround_;
-  }
+  yap::ISprite& Battle::GetOpponentGround () const
+  { return *opponentGround_; }
+
+  yap::ISprite& Battle::GetPlayerTrainerBack () const
+  { return *playerTrainerBack_; }
+
+  yap::ISprite& Battle::GetPlayerHPBar () const
+  { return *playerHPBar_; }
+
+  yap::ISprite& Battle::GetOpponentHPBar () const
+  { return *opponentHPBar_; }
+
+  yap::ISprite& Battle::GetPlayerInfo () const
+  { return *playerInfo_; }
+
+  yap::ISprite& Battle::GetOpponentInfo () const
+  { return *opponentInfo_; }
 
   const yap::Vector2& Battle::GetPlayerGroundPosition () const
-  {
-    return playerGroundPosition_;
-  }
+  { return playerGroundPosition_; }
 
   const yap::Vector2& Battle::GetOpponentGroundPosition () const
-  {
-    return opponentGroundPosition_;
-  }
+  { return opponentGroundPosition_; }
+
+  const IDrawableBattleEntity& Battle::GetDrawablePlayerTeam () const
+  { return *playerTeam_; }
+
+  IDrawableBattleEntity& Battle::GetDrawablePlayerTeam ()
+  { return *playerTeam_; }
+
+  const IDrawableBattleEntity& Battle::GetDrawableOpponent () const
+  { return *opponent_; }
+
+  IDrawableBattleEntity& Battle::GetDrawableOpponent ()
+  { return *opponent_; }
 
   /// Setters
   void Battle::SetPlayerGroundPosition (const yap::Vector2& position)
-  {
-    playerGroundPosition_ = position;
-  }
+  { playerGroundPosition_ = position; }
 
   void Battle::SetOpponentGroundPosition (const yap::Vector2& position)
+  { opponentGroundPosition_ = position; }
+
+  void Battle::SetDrawablePlayerTeam (PokemonFighterTeam* playerTeam)
   {
-    opponentGroundPosition_ = position;
+    yap::Battle::SetPlayerTeam (playerTeam);
+    playerTeam_ = playerTeam;
+  }
+
+  void Battle::SetDrawableOpponent (PokemonFighterTeam* opponent)
+  {
+    yap::Battle::SetOpponent (opponent);
+    opponent_ = opponent;
+  }
+
+  void Battle::SetDrawableOpponent (PokemonFighter* opponent)
+  {
+    yap::Battle::SetOpponent (opponent);
+    opponent_ = opponent;
   }
 
   void Battle::Draw (yap::IDrawingContext& context)
@@ -113,6 +164,7 @@ namespace ycl
   {
     background_->Update (dt);
     playerGround_->Update (dt);
+    playerTrainerBack_->Update (dt);
     opponentGround_->Update (dt);
   }
 
@@ -120,7 +172,12 @@ namespace ycl
   {
     background_->Draw (context);
     playerGround_->Draw (context);
+    playerTrainerBack_->Draw (context);
     opponentGround_->Draw (context);
+    /*
+    playerTeam_->Draw (context);
+    opponent_->Draw (context);
+    */
   }
 
   void Battle::HandleShow (bool isVisible)
