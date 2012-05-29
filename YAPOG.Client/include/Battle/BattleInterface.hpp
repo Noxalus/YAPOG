@@ -2,6 +2,7 @@
 # define YAPOG_CLIENT_BATTLEINTERFACE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Gui/Label.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
 
@@ -19,9 +20,18 @@ namespace ycl
   public:
     BattleInterface ();
 
-    yap::WidgetDialogBox* GetBattleInfoDialogBox () const;
+    /// @name Getters.
+    /// @{
+    yap::WidgetDialogBox& GetBattleInfoDialogBox ();
+    yap::Label& GetPokemonName ();
+    yap::Label& GetOpponentName ();
+    /// @}
+
   private:
     yap::WidgetDialogBox* battleInfoDialogBox_;
+    // Labels
+    yap::Label pokemonName_;
+    yap::Label opponentName_;
   };
 } // namespace ycl
 

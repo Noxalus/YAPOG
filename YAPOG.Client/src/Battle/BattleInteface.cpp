@@ -14,6 +14,8 @@ namespace ycl
 {
   BattleInterface::BattleInterface ()
     : battleInfoDialogBox_ (nullptr)
+    , pokemonName_ ()
+    , opponentName_ ()
   {
     battleInfoDialogBox_ = new yap::WidgetDialogBox ();
 
@@ -27,13 +29,26 @@ namespace ycl
       yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
 
     battleInfoDialogBox_->SetBackground (
-    *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
+      *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
 
     this->AddChild (*battleInfoDialogBox_);
+    this->AddChild (pokemonName_);
+    this->AddChild (opponentName_);
   }
 
-  yap::WidgetDialogBox* BattleInterface::GetBattleInfoDialogBox () const
+  /// Getters
+  yap::WidgetDialogBox& BattleInterface::GetBattleInfoDialogBox ()
   {
-    return battleInfoDialogBox_;
+    return *battleInfoDialogBox_;
+  }
+
+  yap::Label& BattleInterface::GetPokemonName ()
+  {
+    return pokemonName_;
+  }
+
+  yap::Label& BattleInterface::GetOpponentName ()
+  {
+    return opponentName_;
   }
 }
