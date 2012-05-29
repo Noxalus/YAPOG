@@ -36,8 +36,7 @@ namespace yap
     private:
 
       ScreenType currentScreenType_;
-      /// The IGameScreen currently run.
-      /// MUST NOT be deleted from here.
+
       IGameScreen* currentScreen_;
       collection::Map<ScreenType, IGameScreen*> screens_;
   };

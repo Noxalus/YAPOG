@@ -6,6 +6,7 @@
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Map/WorldObjectState.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -51,6 +52,13 @@ namespace yap
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
+      /// @}
+
+      /// @name Events.
+      /// @{
+      Event<DynamicWorldObject&,
+            const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
+      Event<DynamicWorldObject&, const String&> OnStateChanged;
       /// @}
 
     protected:

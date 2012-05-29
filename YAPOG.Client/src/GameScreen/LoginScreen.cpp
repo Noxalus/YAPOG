@@ -44,12 +44,12 @@ namespace ycl
   void LoginScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-
+/*
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
     guiManager_->AddChild (*mainMenu);
 
-    /*WidgetPokedex* pokedex = new WidgetPokedex ();
+    WidgetPokedex* pokedex = new WidgetPokedex ();
     pokedex->Init ();
     GameMainMenu* menu = new GameMainMenu ();
     menu->Init ("PsykoBlackMetal");
