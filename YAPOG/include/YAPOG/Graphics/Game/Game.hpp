@@ -50,6 +50,8 @@ namespace yap
 
     private:
 
+      static const sf::Color DEFAULT_CLEAR_COLOR;
+
       bool isRunning_;
       Timer timer_;
   };

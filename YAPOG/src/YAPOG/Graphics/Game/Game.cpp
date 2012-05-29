@@ -7,6 +7,8 @@
 
 namespace yap
 {
+  const sf::Color Game::DEFAULT_CLEAR_COLOR = sf::Color::White;
+
   Game::Game (const String& name)
     : screenManager_ (nullptr)
     , drawingContext_ (nullptr)
@@ -56,7 +58,7 @@ namespace yap
 
       GameInputManager::Instance ().EndUpdate ();
 
-      window_->clear ();
+      window_->clear (DEFAULT_CLEAR_COLOR);
 
       HandleRun (dt, *drawingContext_);
 
