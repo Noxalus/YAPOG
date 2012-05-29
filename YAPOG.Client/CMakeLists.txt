@@ -74,6 +74,15 @@ ${src_root}/GameScreen/GameplayScreen.cpp
 ${inc_root}/GameScreen/BattleScreen.hpp
 ${src_root}/GameScreen/BattleScreen.cpp
 
+${inc_root}/GameScreen/MainMenuScreen.hpp
+${src_root}/GameScreen/MainMenuScreen.cpp
+${inc_root}/GameScreen/SplashScreen.hpp
+${src_root}/GameScreen/SplashScreen.cpp
+${inc_root}/GameScreen/CreditScreen.hpp
+${src_root}/GameScreen/CreditScreen.cpp
+${inc_root}/GameScreen/RegistrationScreen.hpp
+${src_root}/GameScreen/RegistrationScreen.cpp
+
 ${inc_root}/Pokemon/Pokemon.hpp
 ${src_root}/Pokemon/Pokemon.cpp
 ${inc_root}/Pokemon/PokemonTeam.hpp

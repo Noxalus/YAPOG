@@ -46,6 +46,10 @@
 #include "GameScreen/LoginScreen.hpp"
 #include "GameScreen/GameplayScreen.hpp"
 #include "GameScreen/BattleScreen.hpp"
+#include "GameScreen/MainMenuScreen.hpp"
+#include "GameScreen/CreditScreen.hpp"
+#include "GameScreen/RegistrationScreen.hpp"
+#include "GameScreen/SplashScreen.hpp"
 #include "Client/Session.hpp"
 #include "World/Map/MapReader.hpp"
 #include "World/Map/Map.hpp"
@@ -308,8 +312,12 @@ namespace ycl
         drawingContext_->GetCamera (
           "World")));
     screenManager_->AddGameScreen (new BattleScreen ());
+    screenManager_->AddGameScreen (new MainMenuScreen ());
+    screenManager_->AddGameScreen (new RegistrationScreen ());
+    screenManager_->AddGameScreen (new SplashScreen ());
+    screenManager_->AddGameScreen (new CreditScreen ());
 
-    screenManager_->Init ("Login");
+    screenManager_->Init ("Loading");
   }
 
   void Game::InitLoggerManager ()

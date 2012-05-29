@@ -10,6 +10,7 @@ namespace ycl
 {
   const bool BeginBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color BeginBattlePhase::DEFAULT_COLOR = sf::Color ();
+  const float BeginBattlePhase::GROUND_SPEED = 500.f;
 
   BeginBattlePhase::BeginBattlePhase (Battle& battle, BattleInterface& battleInterface)
     : yap::BeginBattlePhase (battle)
@@ -75,14 +76,14 @@ namespace ycl
     {
       battle_.GetPlayerGround ().SetPosition (
         yap::Vector2 (
-        battle_.GetPlayerGround ().GetPosition ().x - 1.f,
+        battle_.GetPlayerGround ().GetPosition ().x - (GROUND_SPEED * dt.GetValue ()),
         battle_.GetPlayerGround ().GetPosition ().y));
 
       battle_.GetPlayerTrainerBack ().SetPosition (
         yap::Vector2 (
         battle_.GetPlayerGround ().GetPosition ().x +
         battle_.GetPlayerGround ().GetSize ().x / 2 -
-        battle_.GetPlayerTrainerBack ().GetSize ().x / 2 - 1.f,
+        battle_.GetPlayerTrainerBack ().GetSize ().x / 2 - (GROUND_SPEED * dt.GetValue ()),
         battle_.GetPlayerTrainerBack ().GetPosition ().y));
     }
     else
@@ -96,7 +97,7 @@ namespace ycl
     {
       battle_.GetOpponentGround ().SetPosition (
         yap::Vector2 (
-        battle_.GetOpponentGround ().GetPosition ().x + 1.f,
+        battle_.GetOpponentGround ().GetPosition ().x + (GROUND_SPEED * dt.GetValue ()),
         battle_.GetOpponentGround ().GetPosition ().y));
 
       /*

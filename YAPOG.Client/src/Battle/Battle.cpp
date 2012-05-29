@@ -40,13 +40,27 @@ namespace ycl
     /// Load sprites
     background_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (42)));
+
     opponentGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (43)));
+
     playerGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (43)));
 
     playerTrainerBack_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (44)));
+
+    playerHPBar_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (45)));
+
+    opponentHPBar_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (45)));
+
+    opponentInfo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (46)));
+
+    playerInfo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (47)));
 
     /// Adjust sprites
     background_->SetSize (Game::SCREEN_SIZE);
@@ -65,6 +79,18 @@ namespace ycl
 
   yap::ISprite& Battle::GetPlayerTrainerBack () const
   { return *playerTrainerBack_; }
+
+  yap::ISprite& Battle::GetPlayerHPBar () const
+  { return *playerHPBar_; }
+
+  yap::ISprite& Battle::GetOpponentHPBar () const
+  { return *opponentHPBar_; }
+
+  yap::ISprite& Battle::GetPlayerInfo () const
+  { return *playerInfo_; }
+
+  yap::ISprite& Battle::GetOpponentInfo () const
+  { return *opponentInfo_; }
 
   const yap::Vector2& Battle::GetPlayerGroundPosition () const
   { return playerGroundPosition_; }
@@ -86,14 +112,10 @@ namespace ycl
 
   /// Setters
   void Battle::SetPlayerGroundPosition (const yap::Vector2& position)
-  {
-    playerGroundPosition_ = position;
-  }
+  { playerGroundPosition_ = position; }
 
   void Battle::SetOpponentGroundPosition (const yap::Vector2& position)
-  {
-    opponentGroundPosition_ = position;
-  }
+  { opponentGroundPosition_ = position; }
 
   void Battle::SetDrawablePlayerTeam (PokemonFighterTeam* playerTeam)
   {
