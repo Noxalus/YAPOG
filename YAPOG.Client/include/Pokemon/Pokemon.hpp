@@ -27,10 +27,10 @@ namespace ycl
     yap::ISprite& GetIcon () const;
     yap::ISprite& GetBattleBack () const;
     yap::ISprite& GetBattleFront () const;
-    
-    void LoadSprites ();
 
   private:
+    void LoadSprites ();
+
     yap::ISprite* icon_;
     yap::ISprite* battleBack_;
     yap::ISprite* battleFront_;

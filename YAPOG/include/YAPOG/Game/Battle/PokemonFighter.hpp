@@ -13,6 +13,15 @@ namespace yap
   public:
     PokemonFighter (Pokemon* originalPokemon);
 
+    const Attack& GetAttack () const;
+    const Defense& GetDefense () const;
+    const SpecialAttack& GetSpecialAttack () const;
+    const SpecialDefense& GetSpecialDefense () const;
+    const Speed& GetSpeed () const;
+
+    void PrintBattleStats ();
+    void PrintStats ();
+
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;
@@ -30,14 +39,14 @@ namespace yap
     float GetTypeEffectFactor (const TypeInfo& type) const;
     /// }
 
-    const Attack& GetAttack () const;
-    const Defense& GetDefense () const;
-    const SpecialAttack& GetSpecialAttack () const;
-    const SpecialDefense& GetSpecialDefense () const;
-    const Speed& GetSpeed () const;
+    /// @name IUpdateable members.
+    /// @{
+    virtual void Update (const Time& dt);
+    /// @}
 
-    void PrintBattleStats ();
-    void PrintStats ();
+  protected:
+    virtual void HandleUpdate (const Time& dt);
+
   private:
     Pokemon* originalPokemon_;
     PokemonStat stats_;

@@ -22,6 +22,7 @@ namespace ycl
     , background_ (nullptr)
     , playerGround_ (nullptr)
     , opponentGround_ (nullptr)
+    , playerTrainerBack_ (nullptr)
     , playerTeam_ (nullptr)
     , opponent_ (nullptr)
   {
@@ -44,36 +45,44 @@ namespace ycl
     playerGround_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (43)));
 
+    playerTrainerBack_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+      Create<yap::Texture> ("Texture", yap::ID (44)));
+
     /// Adjust sprites
     background_->SetSize (Game::SCREEN_SIZE);
     opponentGround_->Scale (DEFAULT_OPPONENT_GROUND_SPRITES_SCALE);
   }
 
   /// Getters
-  yap::ISprite* Battle::GetBackground () const
-  {
-    return background_;
-  }
+  yap::ISprite& Battle::GetBackground () const
+  { return *background_; }
 
-  yap::ISprite* Battle::GetPlayerGround () const
-  {
-    return playerGround_;
-  }
+  yap::ISprite& Battle::GetPlayerGround () const
+  { return *playerGround_; }
 
-  yap::ISprite* Battle::GetOpponentGround () const
-  {
-    return opponentGround_;
-  }
+  yap::ISprite& Battle::GetOpponentGround () const
+  { return *opponentGround_; }
+
+  yap::ISprite& Battle::GetPlayerTrainerBack () const
+  { return *playerTrainerBack_; }
 
   const yap::Vector2& Battle::GetPlayerGroundPosition () const
-  {
-    return playerGroundPosition_;
-  }
+  { return playerGroundPosition_; }
 
   const yap::Vector2& Battle::GetOpponentGroundPosition () const
-  {
-    return opponentGroundPosition_;
-  }
+  { return opponentGroundPosition_; }
+
+  const IDrawableBattleEntity& Battle::GetDrawablePlayerTeam () const
+  { return *playerTeam_; }
+
+  IDrawableBattleEntity& Battle::GetDrawablePlayerTeam ()
+  { return *playerTeam_; }
+
+  const IDrawableBattleEntity& Battle::GetDrawableOpponent () const
+  { return *opponent_; }
+
+  IDrawableBattleEntity& Battle::GetDrawableOpponent ()
+  { return *opponent_; }
 
   /// Setters
   void Battle::SetPlayerGroundPosition (const yap::Vector2& position)
@@ -133,6 +142,7 @@ namespace ycl
   {
     background_->Update (dt);
     playerGround_->Update (dt);
+    playerTrainerBack_->Update (dt);
     opponentGround_->Update (dt);
   }
 
@@ -140,7 +150,12 @@ namespace ycl
   {
     background_->Draw (context);
     playerGround_->Draw (context);
+    playerTrainerBack_->Draw (context);
     opponentGround_->Draw (context);
+    /*
+    playerTeam_->Draw (context);
+    opponent_->Draw (context);
+    */
   }
 
   void Battle::HandleShow (bool isVisible)

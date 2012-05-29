@@ -26,7 +26,13 @@ namespace yap
     /// Debug
     void PrintTeam ();
 
+    /// @name IUpdateable members.
+    /// @{
+    virtual void Update (const Time& dt);
+    /// @}
+
   protected:
+    virtual void HandleUpdate (const Time& dt);
     int currentFighterIndex_;
 
   private:

@@ -144,7 +144,8 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    Login ();
+    nextScreen_ = "Battle";
+    //Login ();
 
     return BaseScreen::HandleRun (dt, context);
   }

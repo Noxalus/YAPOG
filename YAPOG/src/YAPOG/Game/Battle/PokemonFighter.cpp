@@ -117,4 +117,12 @@ namespace yap
   }
   /// @}
 
+  void PokemonFighter::Update (const Time& dt)
+  {
+    HandleUpdate (dt);
+  }
+
+  void PokemonFighter::HandleUpdate (const Time& dt)
+  {
+  }
 } // namespace yap

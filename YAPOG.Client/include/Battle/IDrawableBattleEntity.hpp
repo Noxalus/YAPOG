@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Battle/IBattleEntity.hpp"
+# include "YAPOG/Graphics/IDrawable.hpp"
 
 namespace yap
 {
@@ -11,7 +12,7 @@ namespace yap
 
 namespace ycl
 {
-  struct IDrawableBattleEntity
+  struct IDrawableBattleEntity : public yap::IDrawable
   {
     virtual ~IDrawableBattleEntity () {}
 

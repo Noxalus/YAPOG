@@ -29,23 +29,30 @@ namespace ycl
     battle_.SetPlayerGroundPosition (
       yap::Vector2 (0,
       Game::SCREEN_SIZE.y - (Game::SCREEN_SIZE.y / 4) -
-      ((battle_.GetPlayerGround ()->GetSize ().y) / 2)));
+      ((battle_.GetPlayerGround ().GetSize ().y) / 2)));
 
     battle_.SetOpponentGroundPosition (
       yap::Vector2 (
       Game::SCREEN_SIZE.x -
-      (battle_.GetOpponentGround ()->GetSize ().x),
+      (battle_.GetOpponentGround ().GetSize ().x),
       Game::SCREEN_SIZE.y / 3 -
-      (battle_.GetOpponentGround ()->GetSize ().y) / 2));
+      (battle_.GetOpponentGround ().GetSize ().y) / 2));
 
-    battle_.GetPlayerGround ()->SetPosition (
+    battle_.GetPlayerGround ().SetPosition (
       yap::Vector2 (
       Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
       ));
 
-    battle_.GetOpponentGround ()->SetPosition (
+    battle_.GetPlayerTrainerBack ().SetPosition (
       yap::Vector2 (
-      (-1) * battle_.GetOpponentGround ()->GetSize ().x,
+      Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
+      + battle_.GetPlayerGround ().GetSize ().y / 2
+      - battle_.GetPlayerTrainerBack ().GetSize ().y
+      ));
+
+    battle_.GetOpponentGround ().SetPosition (
+      yap::Vector2 (
+      (-1) * battle_.GetOpponentGround ().GetSize ().x,
       battle_.GetOpponentGroundPosition ().y));
 
     yap::String pokemonName = battle_.GetOpponent ().GetName ();
@@ -53,42 +60,61 @@ namespace ycl
     battleInterface_.GetBattleInfoDialogBox ()->
       AddText ("Un " + pokemonName + " sauvage\napparaît !");
 
-    //battle_.GetOpponent ().SetPosition ();
+    battle_.GetDrawableOpponent ().GetFrontSprite ().SetPosition (
+      yap::Vector2 (
+      Game::SCREEN_SIZE.x -
+      (battle_.GetOpponentGround ().GetSize ().x),
+      Game::SCREEN_SIZE.y / 3 -
+      (battle_.GetOpponentGround ().GetSize ().y) / 2));
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
   {
-    if (battle_.GetPlayerGround ()->GetPosition ().x >
+    if (battle_.GetPlayerGround ().GetPosition ().x >
       battle_.GetPlayerGroundPosition ().x)
     {
-      battle_.GetPlayerGround ()->SetPosition (
+      battle_.GetPlayerGround ().SetPosition (
         yap::Vector2 (
-        battle_.GetPlayerGround ()->GetPosition ().x - 1.f,
-        battle_.GetPlayerGround ()->GetPosition ().y));
+        battle_.GetPlayerGround ().GetPosition ().x - 1.f,
+        battle_.GetPlayerGround ().GetPosition ().y));
+
+      battle_.GetPlayerTrainerBack ().SetPosition (
+        yap::Vector2 (
+        battle_.GetPlayerGround ().GetPosition ().x +
+        battle_.GetPlayerGround ().GetSize ().x / 2 -
+        battle_.GetPlayerTrainerBack ().GetSize ().x / 2 - 1.f,
+        battle_.GetPlayerTrainerBack ().GetPosition ().y));
     }
     else
     {
-      battle_.GetPlayerGround ()->SetPosition (
+      battle_.GetPlayerGround ().SetPosition (
         yap::Vector2 ( battle_.GetPlayerGroundPosition ()));
     }
 
-    if (battle_.GetOpponentGround ()->GetPosition ().x <
+    if (battle_.GetOpponentGround ().GetPosition ().x <
       battle_.GetOpponentGroundPosition ().x)
     {
-      battle_.GetOpponentGround ()->SetPosition (
+      battle_.GetOpponentGround ().SetPosition (
+        yap::Vector2 (
+        battle_.GetOpponentGround ().GetPosition ().x + 1.f,
+        battle_.GetOpponentGround ().GetPosition ().y));
+
+      /*
+      battle_.GetDrawableOpponent ().GetFrontSprite ().SetPosition (
         yap::Vector2 (
         battle_.GetOpponentGround ()->GetPosition ().x + 1.f,
         battle_.GetOpponentGround ()->GetPosition ().y));
+        */
     }
     else
     {
-      battle_.GetOpponentGround ()->SetPosition (
-        yap::Vector2 (battle_.GetOpponentGround ()->GetPosition ()));
+      battle_.GetOpponentGround ().SetPosition (
+        yap::Vector2 (battle_.GetOpponentGround ().GetPosition ()));
     }
 
-    if (battle_.GetPlayerGround ()->GetPosition () ==
+    if (battle_.GetPlayerGround ().GetPosition () ==
       battle_.GetPlayerGroundPosition () &&
-      battle_.GetOpponentGround ()->GetPosition () ==
+      battle_.GetOpponentGround ().GetPosition () ==
       battle_.GetOpponentGroundPosition ())
     {
       battleInterface_.GetBattleInfoDialogBox ()->SetEnable (true);

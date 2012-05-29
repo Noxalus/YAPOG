@@ -9,6 +9,7 @@ namespace ycl
   Pokemon::Pokemon (const yap::ID& staticID)
     : yap::Pokemon (staticID)
   {
+    LoadSprites ();
   }
 
   Pokemon::Pokemon (
@@ -17,6 +18,7 @@ namespace ycl
     const bool& shiny)
     : yap::Pokemon (staticID, level, shiny)
   {
+    LoadSprites ();
   }
 
   Pokemon::~Pokemon ()

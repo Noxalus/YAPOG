@@ -8,6 +8,9 @@
 
 namespace ycl
 {
+  const bool PokemonFighterTeam::DEFAULT_VISIBLE_STATE = true;
+  const sf::Color PokemonFighterTeam::DEFAULT_COLOR = sf::Color ();
+
   PokemonFighterTeam::PokemonFighterTeam ()
     : yap::PokemonFighterTeam ()
     , fighters_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
@@ -42,6 +45,56 @@ namespace ycl
     return fighters_[currentFighterIndex_];
   }
 
+  /// @name IDrawableBattleEntity members
+  /// @{
+  void PokemonFighterTeam::Draw (yap::IDrawingContext& context)
+  {
+    if (!IsVisible ())
+      return;
+  }
+
+  bool PokemonFighterTeam::IsVisible () const
+  {
+    return isVisible_;
+  }
+
+  void PokemonFighterTeam::Show (bool isVisible)
+  {
+    isVisible_ = isVisible;
+
+    HandleShow (isVisible);
+  }
+
+  void PokemonFighterTeam::ChangeColor (const sf::Color& color)
+  {
+    color_ = color;
+
+    HandleChangeColor (color);
+  }
+  /// @}
+
+  void PokemonFighterTeam::HandleInit ()
+  {
+  }
+
+  void PokemonFighterTeam::HandleUpdate (const yap::Time& dt)
+  {
+  }
+
+  void PokemonFighterTeam::HandleDraw (yap::IDrawingContext& context)
+  {
+  }
+
+  void PokemonFighterTeam::HandleShow (bool isVisible)
+  {
+  }
+
+  void PokemonFighterTeam::HandleChangeColor (const sf::Color& color)
+  {
+  }
+
+  /// @name IDrawableBattleEntity members
+  /// @{
   yap::ISprite& PokemonFighterTeam::GetFrontSprite ()
   {
     return GetCurrentFighter ()->GetFrontSprite ();
@@ -51,5 +104,5 @@ namespace ycl
   {
     return GetCurrentFighter ()->GetBackSprite ();
   }
-
+  /// @}
 } // namespace yap

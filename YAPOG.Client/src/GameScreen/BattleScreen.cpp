@@ -25,7 +25,6 @@ namespace ycl
     int level = yap::RandomHelper::GetNext (1, 100);
 
     Pokemon* p = new Pokemon (staticID, level, false);
-    p->LoadSprites ();
 
     return p;
   }

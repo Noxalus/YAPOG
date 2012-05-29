@@ -77,4 +77,14 @@ namespace yap
     return GetCurrentFighter ()->GetName ();
   }
   /// @}
-}
+
+  void PokemonFighterTeam::Update (const Time& dt)
+  {
+    HandleUpdate (dt);
+  }
+
+  void PokemonFighterTeam::HandleUpdate (const Time& dt)
+  {
+  }
+
+} // namespace yap

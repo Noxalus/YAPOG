@@ -3,10 +3,11 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/Game/IUpdateable.hpp"
 
 namespace yap
 {
-  struct YAPOG_LIB IBattleEntity
+  struct YAPOG_LIB IBattleEntity : public IUpdateable
   {
     virtual ~IBattleEntity () {}
 
