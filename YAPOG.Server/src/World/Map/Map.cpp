@@ -3,6 +3,7 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yse
 {
   Map::Map (const yap::ID& id)
@@ -67,6 +68,14 @@ namespace yse
     packetHandler_.SetParent (parent);
   }
 
+  void Map::HandleAddDynamicObject (yap::DynamicWorldObject* object)
+  {
+    yap::Map::HandleAddDynamicObject (object);
+
+    /// @todo Now.
+    yap::DebugLogger::Instance ().LogLine ("MOVED!!");
+  }
+
   /// @todo Write state/direction
   void Map::SendAddPlayer (Player* player)
   {
@@ -78,7 +87,8 @@ namespace yse
     addPlayerPacket.Write (player->GetID ());
 
     /// @todo To send position, tmp
-    addPlayerPacket.Write (yap::Vector2 (100.0f, 100.0f));
+    addPlayerPacket.Write (
+      /*player->GetPosition ()*/yap::Vector2 (100.0f, 100.0f));
 //    addPlayerPacket.Write (player->GetState ());
 //    addPlayerPacket.Write (player->GetDirection ());
 
@@ -87,5 +97,12 @@ namespace yse
 
   void Map::SendRemovePlayer (Player* player)
   {
+    yap::Packet removePlayerPacket;
+    removePlayerPacket.CreateFromType (
+      yap::PacketType::ServerInfoRemovePlayer);
+
+    removePlayerPacket.Write (player->GetWorldID ());
+
+    SendPacket (removePlayerPacket);
   }
 } // namespace yse

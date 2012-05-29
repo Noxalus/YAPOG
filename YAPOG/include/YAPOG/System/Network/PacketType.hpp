@@ -27,6 +27,7 @@ namespace yap
 
     ServerInfoChangeMap,
 
+    ServerInfoUpdatePlayerState,
     ServerInfoMoveObject,
     ServerInfoAddObject,
     ServerInfoRemoveObject,

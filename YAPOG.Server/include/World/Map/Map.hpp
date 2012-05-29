@@ -33,6 +33,10 @@ namespace yse
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
 
+    protected:
+
+      virtual void HandleAddDynamicObject (yap::DynamicWorldObject* object);
+
     private:
 
       void SendAddPlayer (Player* player);

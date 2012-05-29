@@ -15,6 +15,7 @@ namespace ycl
     : BaseScreen (DEFAULT_NAME)
     , world_ ()
     , cameraController_ (worldCamera)
+    , player_ (nullptr)
     , moveController_ ()
   {
     session_.GetUser ().OnPlayerCreated += [&] (

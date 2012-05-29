@@ -35,8 +35,10 @@ namespace yap
 
       /// @name Events.
       /// @{
-      Event<const PhysicsCore&, const EmptyEventArgs&> OnStopping;
-      Event<const PhysicsCore&, const EmptyEventArgs&> OnMoving;
+      Event<const PhysicsCore&, const EmptyEventArgs&> OnStopped;
+      Event<const PhysicsCore&, const EmptyEventArgs&> OnMoved;
+      Event<const PhysicsCore&,
+            const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
       /// @}
 
     protected:
