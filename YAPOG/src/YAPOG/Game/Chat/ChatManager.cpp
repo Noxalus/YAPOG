@@ -3,12 +3,11 @@
 
 namespace yap
 {
-  ChatManager::ChatManager()
+  ChatManager::ChatManager ()
+    : Local (false)
+    , ChanNb (DEFAULTCHAN)
+    , Request ()
   {
-    Local = false;
-    ChanNb = DEFAULTCHAN;
-    Request = *(new BufferType);
-    RequestCmd = &ChatCommand::Unknown;
   }
   
 } // namespace yap

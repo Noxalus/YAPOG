@@ -24,9 +24,9 @@ namespace yap
     ~Chat ();
 
     // Parse chat line
-    ChatManagerType*  Parse ();
+    void              Parse ();
     // Execute the line
-    bool              Exec (ChatDisplayer& display);
+    void              Exec (ChatDisplayer& display);
 
     // Getter & Setter for buffer_
     //BufferType			GetBuf();
@@ -44,10 +44,15 @@ namespace yap
     void              IncOff ();
     // Check if the user's entry is a command
     bool					  	Check ();
+    // Execute Echo
+    void              ToEcho (String s);
+    // Test History
+    bool              TestHistoryChecker ();
 
     ChatManagerType*  chatmanager_;
+    ChatCommand*      chatcommand_;
     size_t            offset_;
-    Int32             index_;
+    UInt32            index_;
     Int32             chan_;
     String					  entry_;
     String					  output_;

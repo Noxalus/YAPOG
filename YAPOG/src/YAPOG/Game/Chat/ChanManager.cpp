@@ -3,15 +3,15 @@
 namespace yap
 {
   ChanManager::ChanManager ()
+    : Name ("System")
+    , Color ("Red")
   {
-    Name = "Global";
-    Color = "White";
   }
 
   ChanManager::ChanManager (String name,
                             String color)
+    : Name (name)
+    , Color (color)
   {
-    Name = name;
-    Color = color;
   }
 } // namespace yap

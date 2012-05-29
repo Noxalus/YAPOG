@@ -18,8 +18,6 @@ namespace yap
 
     String       Name;
     String       Color;
-    BufferType   Buff;
-    size_t       Offset;
   } CMType;
 } // namespace yap
 

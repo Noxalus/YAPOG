@@ -5,16 +5,57 @@ namespace yap
 {
   ChatDisplayer::ChatDisplayer ()
     : offset_ (0)
-    , buff_ (*(new  collection::Array<String> ()))
+    , buff_ ()
     , chans_ ()
+    , output_ ()
+    , chanbooltab_ (NBCHAN, false)
   {
-    chans_.Add(new CMType ()); // Global, White
+    chans_.Add(new CMType ()); // System, Red
+    chans_.Add(new CMType ("Global", "White"));
     chans_.Add(new CMType ("Group", "Green"));
     chans_.Add(new CMType ("Business", "Blue"));
-    chans_.Add(new CMType ("Info", "Yellow"));
+    chans_.Add(new CMType ("Info", "Yellow"));  
     chans_.Add(new CMType ("MP", "Purple"));
+
+    output_ = std::make_pair (chans_[0], "");
+    DISPLAYS (chanbooltab_.Count ());
   }
 
+  ChatDisplayer::ChatDisplayer (UInt32 c)
+    : offset_ (0)
+    , buff_ ()
+    , chans_ ()
+    , output_ ()
+    , chanbooltab_ (NBCHAN, false)
+  {
+    chans_.Add(new CMType ()); // System, Red
+    chans_.Add(new CMType ("Global", "White"));
+    chans_.Add(new CMType ("Group", "Green"));
+    chans_.Add(new CMType ("Business", "Blue"));
+    chans_.Add(new CMType ("Info", "Yellow"));  
+    chans_.Add(new CMType ("MP", "Purple"));
+
+    output_ = std::make_pair (chans_[0], "");
+    //chanbooltab_[c] = true;
+  }
+  
+  ChatDisplayer::ChatDisplayer (ChansBoolType chanbooltab)
+    : offset_ (0)
+    , buff_ ()
+    , chans_ ()
+    , output_ ()
+    , chanbooltab_ (chanbooltab)
+  {
+    chans_.Add(new CMType ()); // System, Red
+    chans_.Add(new CMType ("Global", "White"));
+    chans_.Add(new CMType ("Group", "Green"));
+    chans_.Add(new CMType ("Business", "Blue"));
+    chans_.Add(new CMType ("Info", "Yellow"));  
+    chans_.Add(new CMType ("MP", "Purple"));
+
+    output_ = std::make_pair (chans_[0], "");
+  }
+  
   ChatDisplayer::~ChatDisplayer ()
   {
     ChansType::ItType it (chans_.Begin ());
@@ -29,61 +70,93 @@ namespace yap
     return chans_.Count ();
   }
 
-  /*
-  void								ChatDisplayer::Display(ChatManagerType* c)
+  String              ChatDisplayer::GetLastStrChan (UInt32 c)
   {
-    ChatCommand cc;
-    String strToDisp = cc.ExecCmd(this, c);
+    CMType* cmt = buff_[c].first;
+    String* str = &buff_[c].second;
 
-    chans_[c->ChanNb]->Buff.Add(strToDisp);
-    std::cout << chans_[c->ChanNb]->Name 
-      << " (" << chans_[c->ChanNb]->Color 
-      << ") :: "<< strToDisp << std::endl;
-  }
-  */
-  String               ChatDisplayer::GetLastStrChan (Int32 c)
-  {
-    return (chans_[c]->Name 
-      + " (" + chans_[c]->Color
+    return (cmt->Name 
+      + " (" + cmt->Color
       + ") :: "
-      + chans_[c]->Buff[chans_[c]->Buff.Count ()]);
+      + *str);
   }
 
-  void                AddToBuff (size_t* off,
-                                 ChatDisplayer::ChanBuf b,
-                                 String s)
+  void                ChatDisplayer::AddChan (UInt32 c)
   {
-    b.Add(s);
-    (*off)++;
+    /*
+    if (c >= 0 && c <= NBCHAN)
+      chanbooltab_[c] = true;
+      */
   }
 
-  void                ChatDisplayer::AddToChan (Int32 c, String s)
+  void                ChatDisplayer::DisplayChanOn ()
   {
-    CMType* mychan = chans_[c];
-    UInt32 mychannb = mychan->Buff.Count ();
-    size_t* mychanoff = &(mychan->Offset);
-    BufferType* mychanbuf = &(mychan->Buff);
-
-    if (mychannb < CHANMAXBUF) AddToBuff (mychanoff, *mychanbuf, s);
-    else chans_[c]->Buff[chans_[c]->Offset] = s;
-
-    String strtoadd = GetLastStrChan (c);
-
-    if (buff_.Count () < CHANMAXBUF) AddToBuff (&offset_, buff_, strtoadd);
-    else buff_[offset_++] = strtoadd;
-    if (offset_ == CHANMAXBUF) offset_ = 0;
-    if (chans_[c]->Offset == CHANMAXBUF) chans_[c]->Offset = 0;
+    for (int i = 0; i < NBCHAN; i++)
+    {
+      std::stringstream ss;
+      ss << i;
+      DISPLAYS ("Chan " + ss.str () 
+        + " is " /*
+        + (chanbooltab_[i] ? "ON" : "OFF")*/);
+    }
   }
 
-  void                ChatDisplayer::DisplayChan (Int32 c)
+  void                ChatDisplayer::AddToChan (Int32 c, BufferType b)
   {
-    for (size_t i = 0; i < chans_[c]->Buff.Count (); i++)
-      std::cout << chans_[c]->Name
-      << " (" << chans_[c]->Color
-      << ") :: " << chans_[c]->Buff[i] << std::endl;
+    output_ = std::make_pair (chans_[0], "");
+    if (/*chanbooltab_[c] == */true)
+    {
+      CMType* mychan = chans_[c];
+      String  strtoadd = "";
+
+      for (size_t i = 0; i < b.Count (); i++)
+      {
+        String s = b[i];
+
+        strtoadd += + ((i == 0) ? "" : " ") + s;
+
+        if (buff_.Count () < CHANMAXBUF)
+        {
+          buff_.Add (std::make_pair (mychan, s));
+          offset_++;
+        }
+        else
+          buff_[offset_++] = std::make_pair (mychan, s);
+        if (offset_ == CHANMAXBUF)
+          offset_ = 0;
+      }
+      output_ = std::make_pair (mychan, strtoadd);
+    }
+  }
+
+  void                ChatDisplayer::MyDisplay (size_t index, size_t last)
+  {
+    for (size_t i = index; i < last ; i++)
+      DISPLAYS (buff_[i].first->Name
+      + " (" + buff_[i].first->Color
+      + ") :: " + buff_[i].second);
+  }
+
+  void                ChatDisplayer::DisplayChan ()
+  {
+    size_t size = buff_.Count ();
+    size_t i = 0;
+
+    if (size < CHANMAXBUF)
+      MyDisplay (i, size);
+    else
+    {
+      size_t index = offset_ + 1;
+      MyDisplay (index, size);
+      MyDisplay (i, index);
+    }
   }
 
   void                ChatDisplayer::Display ()
   {
+    if (!output_.second.empty ())
+      DISPLAYS (output_.first->Name
+      + " (" + output_.first->Color
+      + ") :: " + output_.second);
   }
 } // namespace yap

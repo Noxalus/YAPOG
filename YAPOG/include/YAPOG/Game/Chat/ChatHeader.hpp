@@ -1,6 +1,7 @@
 #ifndef YAPOG_CHATHEADER_HPP
 # define YAPOG_CHATHEADER_HPP
 
+# include <utility>
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/IntTypes.hpp"
@@ -16,7 +17,9 @@ namespace yap
   // Which chan to display
   typedef collection::Array<Int16>    ChanType;
   // Pointers on functions
-  typedef String (ChatCommand::*func) (BufferType b);
+  typedef std::pair<std::pair<bool, UInt32>,
+                    BufferType>       DisplayType;
+  typedef DisplayType                 (ChatCommand::*func) (BufferType b);
 } // namespace yap
 
 #endif // YAPOG_CHATHEADER_HPP

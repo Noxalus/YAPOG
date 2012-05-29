@@ -18,7 +18,6 @@ namespace yap
     bool              Local;
     UInt32            ChanNb;
     BufferType				Request;
-    func					    RequestCmd;
   } ChatManagerType;
 } // namespace yap
 

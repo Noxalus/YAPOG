@@ -3,113 +3,198 @@
 
 namespace yap
 {
-  ChatCommand::ChatCommand()
+  ChatCommand::ChatCommand ()
+    : tab_ ()
+    , command_ (&ChatCommand::Unknown)
   {
-    MyCmdType tabs [] =
+    MyCmdType tabs[] =
     {
-      {"help", &ChatCommand::Help},
-      {"trade", &ChatCommand::Trade},
-      {"echo", &ChatCommand::Echo}
+      {"help", &ChatCommand::Help, nullptr},
+      {"trade", &ChatCommand::Trade, nullptr},
+      {"echo", &ChatCommand::Echo, nullptr}
+    };
+    MyCmdType tabsloc[] =
+    {
+      {"changechan", &ChatCommand::ChangeChan, &ChatCommand::SwitchChan}
     };
 
+    for (unsigned i = 0; i < NBCMDSLOC; i++)
+      tab_[i] = tabsloc[i];
+
     for (unsigned i = 0; i < NBCMDS; i++)
-      tab_[i] = tabs[i];
+      tab_[NBCMDSLOC + i] = tabs[i];
   }
 
-  String              argmiss()
+  std::pair<std::pair<bool, UInt32>, BufferType> MyPair (bool b,
+    UInt32 i,
+    BufferType bt)
   {
-    return "Argument is missing.";
-  }
-  String              toomucharg()
-  {
-    return "Too much argument.";
-  }
-  String              testarg(BufferType b, Int32 nbarg)
-  {
-    if (b.Count() > 2)
-      return toomucharg();
-    if (b.Count() < 2)
-      return argmiss();
+    return std::make_pair (std::make_pair (b, i), bt);
   }
 
-  String							ChatCommand::Help(BufferType s)
+  DisplayType         ArgMiss ()
   {
-    String ret = "";
-    String nl = "\r\n";
+    BufferType bt;
+    bt.Add ("Argument is missing.");
 
-
-    ret = "Command list: " + nl
-      + "/help\t\t: to display command list" + nl
-      + "/trade x\t: to trade with the player x";
-
-    return ret;
+    return MyPair (false, 0, bt);
   }
 
-  String							ChatCommand::Echo(BufferType b)
+  DisplayType         TooMuchArg ()
   {
-    String toret = "";
+    BufferType bt;
+    bt.Add ("Too much argument.");
 
-    if (b.Count() > 0)
+    return MyPair (false, 0, bt);
+  }
+
+  DisplayType         TestArg (BufferType b, UInt32 nbarg)
+  {
+    BufferType bt;
+
+    if (b.Count () > nbarg)
+      return TooMuchArg ();
+    if (b.Count () < nbarg)
+      return ArgMiss ();
+
+    bt.Add ("Test argument failed.");
+
+    return MyPair (false, 0, bt);
+  }
+
+  DisplayType 				ChatCommand::Help (BufferType s)
+  {
+    DisplayType dt;
+    BufferType bt;
+
+    bt.Add ("Command list: ");
+    bt.Add ("/help\t\t: to display command list");
+    bt.Add ("/trade x\t: to trade with the player x");
+
+    return MyPair (false, 1, bt);
+
+    return dt;
+  }
+
+  DisplayType 				ChatCommand::Echo (BufferType b)
+  {
+    DisplayType toret;
+    BufferType bt;
+
+    if (b.Count () > 0)
     {
       if (b[0].compare("/echo") == 0)
       {
-        if (b.Count() == 1)
-          toret = argmiss();
+        if (b.Count () == 1)
+          return ArgMiss ();
         else
-        {
-          toret += b[1];
-          for (size_t i = 2; i < b.Count(); i++)
-            toret += " " + b[i];
-        }
+          for (size_t i = 1; i < b.Count (); i++)
+            bt.Add (b[i]);
       }
       else
-        toret = b[0];
+        bt.Add (b[0]);
     }
+
+    toret = MyPair (false, 1, bt);
 
     return toret;
   }
 
-  String							ChatCommand::Unknown(BufferType s)
+  DisplayType	  			ChatCommand::Unknown (BufferType s)
   {
-    return ("Command " + s[0].substr(1) + " not exist.");
+    BufferType bt;
+
+    bt.Add ("Command " + s[0].substr (1) + " not exist.");
+
+    return MyPair (false, 0, bt);
   }
 
-  String							ChatCommand::Trade(BufferType name)
+  DisplayType		  		ChatCommand::Trade (BufferType name)
   {
-    if (name.Count() != 2)
-      return testarg(name, 2);
-    return ("Trying to trade with " + name[1] + ".");
+    BufferType bt;
+
+    if (name.Count () != 2)
+      return TestArg (name, 2);
+
+    bt.Add ("Trying to trade with " + name[1] + ".");
+
+    return MyPair (false, 1, bt);
   }
 
-  String              ChatCommand::ChangeChan(BufferType b)
+  DisplayType         ChatCommand::ChangeChan (BufferType b)
   {
-    if (b.Count() != 2)
-      return testarg(b, 2);
-    return "";
+    BufferType bt;
+
+    if (b.Count () != 2)
+      return TestArg (b, 2);
+
+    bt.Add ("Change to channel : " + b[1] + ".");
+    bt.Add (b[1]);
+
+    return MyPair (true, 1, bt);
+  }
+
+  void								ChatCommand::SetCommand (func cmd)
+  {
+    command_ = cmd;
   }
 
   func					      ChatCommand::GetCmd (const char *pString)
   {
-    String s(pString);
+    String s (pString);
 
-    for (unsigned i = 0; i < NBCMDS; i++)
+    for (unsigned i = 0; i < NBCMDS + NBCMDSLOC; i++)
       if (StringHelper::CompareString(tab_[i].PtrString, s) == 0)
         return tab_[i].PtrFunc;
 
     return &ChatCommand::Unknown;
   }
 
-  String						ChatCommand::ExecCmd(ChatDisplayer* cd,
-                                         ChatManagerType* cm)
+  BufferType          ChatCommand::SwitchChan (BufferType b,
+    ChatManagerType* cm,
+    ChatDisplayer* cd)
   {
-    String response = 
-      cm->Request.IsEmpty() ? 
-      "" :
-      (this->*cm->RequestCmd)(cm->Request);
+    BufferType bt;
 
-    cm->RequestCmd = &ChatCommand::Unknown;
-    cm->Request = *(new BufferType);
+    if (b.Count() > 2)
+      bt.Add ("Too much argument.");
+    if (b.Count() == 2)
+    {
+      String chanNb = b[0];
 
-    return response;
+      if (StringFilter::IsNumeric(chanNb))
+      {
+        std::istringstream buf(chanNb);
+        UInt32 tmp = 0;
+        buf >> tmp;
+        if (tmp >= 0 && tmp < cd->GetChanNb())
+          cm->ChanNb = tmp;
+        else
+          bt.Add (tmp + " is not an chan number.");
+      }
+      else
+        bt.Add ("Bad argument.");
+    }
+
+    return bt;
+  }
+
+  void  						  ChatCommand::ExecCmd (ChatDisplayer* cd,
+    ChatManagerType* cm)
+  {
+    BufferType bt;
+
+    DisplayType response (
+      cm->Request.IsEmpty () ?
+      MyPair (false, 0, bt) :
+      (this->*command_) (cm->Request));
+
+    if (response.first.first)
+    {
+    }
+
+    // Re-init command line
+    SetCommand (&ChatCommand::Unknown);
+    cm->Request.Clear ();
   }
 } // namespace yap
