@@ -4,7 +4,7 @@
 namespace yap
 {
   ChatCommand::ChatCommand ()
-    : tab_ ()
+    : tab_ (new MyCmdType[NBCMDS + NBCMDSLOC])
     , command_ (&ChatCommand::Unknown)
   {
     MyCmdType tabs[] =
@@ -15,7 +15,9 @@ namespace yap
     };
     MyCmdType tabsloc[] =
     {
-      {"changechan", &ChatCommand::ChangeChan, &ChatCommand::SwitchChan}
+      {"switchtab", &ChatCommand::SwitchTab, &ChatCommand::SwitchTab},
+      {"addchan", &ChatCommand::AddChan, &ChatCommand::AddChan},
+      {"rmchan", &ChatCommand::RmChan, &ChatCommand::RmChan}
     };
 
     for (unsigned i = 0; i < NBCMDSLOC; i++)
@@ -25,11 +27,16 @@ namespace yap
       tab_[NBCMDSLOC + i] = tabs[i];
   }
 
-  std::pair<std::pair<bool, UInt32>, BufferType> MyPair (bool b,
-    UInt32 i,
+  std::pair<
+    std::pair<bool, UInt32>,
+    std::pair<UInt32, BufferType>> MyPair (bool b,
+    UInt32 fct,
+    UInt32 chan,
     BufferType bt)  
   {
-    return std::make_pair (std::make_pair (b, i), bt);
+    return std::make_pair (
+      std::make_pair (b, fct),
+      std::make_pair (chan, bt));
   }
 
   DisplayType         ArgMiss ()
@@ -37,7 +44,7 @@ namespace yap
     BufferType bt;
     bt.Add ("Argument is missing.");
 
-    return MyPair (false, 0, bt);
+    return MyPair (false, NBTOTCMDS + 1, 0, bt);
   }
 
   DisplayType         TooMuchArg ()
@@ -45,7 +52,7 @@ namespace yap
     BufferType bt;
     bt.Add ("Too much argument.");
 
-    return MyPair (false, 0, bt);
+    return MyPair (false, NBTOTCMDS + 1, 0, bt);
   }
 
   DisplayType         TestArg (BufferType b, UInt32 nbarg)
@@ -59,7 +66,7 @@ namespace yap
 
     bt.Add ("Test argument failed.");
 
-    return MyPair (false, 0, bt);
+    return MyPair (false, NBTOTCMDS + 1, 0, bt);
   }
 
   DisplayType 				ChatCommand::Help (BufferType s)
@@ -71,7 +78,7 @@ namespace yap
     bt.Add ("/help\t\t: to display command list");
     bt.Add ("/trade x\t: to trade with the player x");
 
-    return MyPair (false, 1, bt);
+    return MyPair (false, NBTOTCMDS + 1, 1, bt);
 
     return dt;
   }
@@ -97,7 +104,7 @@ namespace yap
         bt.Add (b[0]);
     }
 
-    toret = MyPair (false, channb, bt);
+    toret = MyPair (false, NBTOTCMDS + 1, channb, bt);
 
     return toret;
   }
@@ -108,7 +115,7 @@ namespace yap
 
     bt.Add ("Command " + s[0].substr (1) + " not exist.");
 
-    return MyPair (false, 0, bt);
+    return MyPair (false, NBTOTCMDS + 1, 0, bt);
   }
 
   DisplayType		  		ChatCommand::Trade (BufferType name)
@@ -121,10 +128,10 @@ namespace yap
 
     bt.Add ("Trying to trade with " + name[1] + ".");
 
-    return MyPair (false, 1, bt);
+    return MyPair (false, NBTOTCMDS + 1, 0, bt);
   }
 
-  DisplayType         ChatCommand::ChangeChan (BufferType b)
+  DisplayType         ChatCommand::SwitchTab (BufferType b)
   {
     BufferType bt;
     b.RemoveBack ();
@@ -132,10 +139,38 @@ namespace yap
     if (b.Count () != 2)
       return TestArg (b, 2);
 
-    bt.Add ("Change to channel : " + b[1] + ".");
+    bt.Add ("Switch to tab : " + b[1] + ".");
     bt.Add (b[1]);
 
-    return MyPair (true, 1, bt);
+    return MyPair (true, 0, 0, bt);
+  }
+
+  DisplayType         ChatCommand::AddChan (BufferType b)
+  {
+    BufferType bt;
+    b.RemoveBack ();
+
+    if (b.Count () != 2)
+      return TestArg (b, 2);
+
+    bt.Add ("Channel " + b[1] + " has been added.");
+    bt.Add (b[1]);
+
+    return MyPair (true, 1, 0, bt);
+  }
+
+  DisplayType         ChatCommand::RmChan (BufferType b)
+  {
+    BufferType bt;
+    b.RemoveBack ();
+
+    if (b.Count () != 2)
+      return TestArg (b, 2);
+
+    bt.Add ("Channel : " + b[1] + " has been removed.");
+    bt.Add (b[1]);
+
+    return MyPair (true, 1, 0, bt);
   }
 
   void								ChatCommand::SetCommand (func cmd)
@@ -154,7 +189,40 @@ namespace yap
     return &ChatCommand::Unknown;
   }
 
-  BufferType          ChatCommand::SwitchChan (BufferType* b,
+  BufferType          ChatCommand::SwitchTab (BufferType* b,
+    ChatManagerType* cm,
+    ChatDisplayer* cd)
+  {
+    BufferType bt;
+
+    if (b->Count() > 2)
+      bt.Add ("Too much argument.");
+    if (b->Count() == 2)
+    {
+      String chanNb = (*b)[1];
+
+      if (StringFilter::IsNumeric (chanNb))
+      {
+        std::istringstream buf (chanNb);
+        UInt32 tmp = 0;
+        buf >> tmp;
+        if (tmp >= 0 && tmp < cm->Count)
+        {
+          cm->TabNb = tmp;
+          b->RemoveBack ();
+        }
+        else
+          bt.Add (tmp + " is not an chan number.");
+      }
+      else
+        bt.Add ("Bad argument.");
+    }
+
+    return bt;
+  }
+
+  
+  BufferType          ChatCommand::AddChan (BufferType* b,
     ChatManagerType* cm,
     ChatDisplayer* cd)
   {
@@ -173,7 +241,7 @@ namespace yap
         buf >> tmp;
         if (tmp >= 0 && tmp < cd->GetChanNb())
         {
-          cm->ChanNb = tmp;
+          cd->AddChan (tmp);
           b->RemoveBack ();
         }
         else
@@ -186,8 +254,40 @@ namespace yap
     return bt;
   }
 
-  void  						  ChatCommand::ExecCmd (ChatDisplayer* cd,
-    ChatManagerType* cm)
+  
+  BufferType          ChatCommand::RmChan (BufferType* b,
+    ChatManagerType* cm,
+    ChatDisplayer* cd)
+  {
+    BufferType bt;
+
+    if (b->Count() > 2)
+      bt.Add ("Too much argument.");
+    if (b->Count() == 2)
+    {
+      String chanNb = (*b)[1];
+
+      if (StringFilter::IsNumeric (chanNb))
+      {
+        std::istringstream buf (chanNb);
+        UInt32 tmp = 0;
+        buf >> tmp;
+        if (tmp >= 0 && tmp < cd->GetChanNb())
+        {
+          cd->RmChan (tmp);
+          b->RemoveBack ();
+        }
+        else
+          bt.Add (tmp + " is not an chan number.");
+      }
+      else
+        bt.Add ("Bad argument.");
+    }
+
+    return bt;
+  }
+
+  void  						  ChatCommand::ExecCmd (ChatManagerType* cm)
   {
     BufferType bt;
 
@@ -195,15 +295,21 @@ namespace yap
 
     DisplayType response (
       cm->Request.IsEmpty () ?
-      MyPair (false, 0, bt) :
+      MyPair (false, NBTOTCMDS + 1, 0, bt) :
       (this->*command_) (cm->Request));
 
+    ChatDisplayer* cd = cm->Cd[cm->TabNb];
+
     if (response.first.first)
-      bt = SwitchChan (&response.second, cm, cd);
+      bt = (this->*(tab_[response.first.second].PtrFuncloc))
+      (&response.second.second, cm, cd);
     if (bt.Count () == 0)
     {
-      cd->AddToChan (response.first.second, response.second);
+      for (UInt32 i = 0; i < cm->Count; i++)
+        cm->Cd[i]->AddToChan (response.second.first, response.second.second);
       cd->Display ();
+      if (response.first.second == 0)
+        cm->Cd[cm->TabNb]->DisplayChan ();
     }
     else
     {

@@ -8,7 +8,8 @@
 # include "YAPOG/System/String.hpp"
 
 # define HISTORYMAX 1000
-# define DEFAULTCHAN 0
+# define DEFAULTCHAN 1
+# define DEFAULTTAB 0
 
 namespace yap
 {
@@ -17,8 +18,9 @@ namespace yap
   // Which chan to display
   typedef collection::Array<Int16>    ChanType;
   // Pointers on functions
-  typedef std::pair<std::pair<bool, UInt32>,
-                    BufferType>       DisplayType;
+  typedef std::pair<
+    std::pair<bool, UInt32>,
+    std::pair<UInt32, BufferType>>    DisplayType;
   typedef DisplayType                 (ChatCommand::*func) (BufferType b);
 } // namespace yap
 

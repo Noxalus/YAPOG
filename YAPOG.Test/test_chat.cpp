@@ -5,7 +5,6 @@
 
 int main()
 {
-	yap::ChatDisplayer displayer;
 	std::string line = "";
 	yap::Chat mychat;
 
@@ -17,7 +16,7 @@ int main()
 			break;
     mychat.SetBuf (line);
     mychat.Parse ();
-    mychat.Exec (displayer);
+    mychat.Exec ();
     line = "";
 	}
 

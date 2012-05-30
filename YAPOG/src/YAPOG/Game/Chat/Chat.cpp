@@ -124,12 +124,9 @@ namespace yap
       ToEcho (entry_);
   }
 
-  void                    Chat::Exec (ChatDisplayer& display)
+  void                    Chat::Exec ()
   {
-    for (UInt32 i = 0; i < 6; i++)
-      display.AddChan (i);
-
-    chatcommand_->ExecCmd (&display, chatmanager_);
+    chatcommand_->ExecCmd (chatmanager_);
   }
 
   String                  Chat::GetUpHistory ()

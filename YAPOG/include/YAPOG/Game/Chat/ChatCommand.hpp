@@ -11,7 +11,8 @@
 # include "YAPOG/System/StringHelper.hpp"
 
 # define NBCMDS 3
-# define NBCMDSLOC 1
+# define NBCMDSLOC 3
+# define NBTOTCMDS (NBCMDS + NBCMDSLOC)
 
 namespace yap
 {
@@ -39,7 +40,9 @@ namespace yap
     DisplayType					Echo (BufferType b);
     // Without request
     DisplayType					Help (BufferType b);
-    DisplayType         ChangeChan (BufferType b);
+    DisplayType         SwitchTab (BufferType b);
+    DisplayType         AddChan (BufferType b);
+    DisplayType         RmChan (BufferType b);
     DisplayType					Unknown (BufferType b);
     
     // Set the command
@@ -47,13 +50,21 @@ namespace yap
     // Get the command
     func								GetCmd (const char *pString);
     // Execute the command
-    void  							ExecCmd (ChatDisplayer* cd, ChatManagerType* cm);
+    void  							ExecCmd (ChatManagerType* cm);
   private:
-    BufferType          SwitchChan (BufferType* b,
-                                    ChatManagerType* cm,
-                                    ChatDisplayer* cd);
+    BufferType          SwitchTab (BufferType* b,
+                                   ChatManagerType* cm,
+                                   ChatDisplayer* cd);
 
-    MyCmdType           tab_[NBCMDS + NBCMDSLOC];
+    BufferType          AddChan (BufferType* b,
+                                 ChatManagerType* cm,
+                                 ChatDisplayer* cd);
+    
+    BufferType          RmChan (BufferType* b,
+                                ChatManagerType* cm,
+                                ChatDisplayer* cd);
+
+    MyCmdType*          tab_;
     func                command_;
   };
 } // namespace yap

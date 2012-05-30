@@ -26,7 +26,7 @@ namespace yap
     // Parse chat line
     void              Parse ();
     // Execute the line
-    void              Exec (ChatDisplayer& display);
+    void              Exec ();
 
     // Getter & Setter for buffer_
     //BufferType			GetBuf();

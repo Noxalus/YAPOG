@@ -30,8 +30,9 @@ namespace yap
 
     UInt32          GetChanNb ();
     void            AddToChan (Int32 c, BufferType b);
-    String          GetLastStrChan (UInt32 c); 
+    String          GetLastStrChan (UInt32 c);
     void            AddChan (UInt32 c);
+    void            RmChan (UInt32 c);
     void            DisplayChanOn ();
     void			    	DisplayChan ();
     void		    		Display ();
