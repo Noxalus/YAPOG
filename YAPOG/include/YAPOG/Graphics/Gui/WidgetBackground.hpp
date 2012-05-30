@@ -33,8 +33,12 @@ namespace yap
     void SetBackground (Vector2 size);
     const Texture& GetBackground () const;
     Event<const WidgetBackground&, const EventArgsTexture&> OnBackgroundSet;
+    void SetFixed (bool state);
+    bool GetFixed () const;
 
   private:
+    virtual Vector2 HandleGetSize () const;
+
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
 
@@ -49,6 +53,7 @@ namespace yap
     TextureManager* tm_;
     bool resize_;
     bool isInit;
+    bool fixed_;
 
   };
 } // namespace yap
