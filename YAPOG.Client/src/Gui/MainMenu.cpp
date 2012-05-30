@@ -30,9 +30,10 @@ namespace ycl
     yap::Texture* bi = new yap::Texture ();    
     yap::Texture* bli = new yap::Texture ();    
     yap::Texture* li = new yap::Texture ();
-    li->LoadFromFile ("menuCursor.png");
+    li->LoadFromFile ("cursor.png");
     yap::Texture* tli = new yap::Texture ();
-    yap::WidgetBorder* menuItemBrd = new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
+    yap::WidgetBorder* menuItemBrd = 
+      new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("T.png");
@@ -51,7 +52,8 @@ namespace ycl
     yap::Texture* tl = new yap::Texture ();
     tl->LoadFromFile ("TL.png");
 
-    yap::WidgetBorder* menuBorder = new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+    yap::WidgetBorder* menuBorder = 
+      new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);

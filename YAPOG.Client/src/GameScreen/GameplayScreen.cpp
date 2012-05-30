@@ -59,6 +59,8 @@ namespace ycl
 
     world_.Draw (context);
 
+    nextScreen_ = "Battle";
+
     return BaseScreen::HandleRun (dt, context);
   }
 

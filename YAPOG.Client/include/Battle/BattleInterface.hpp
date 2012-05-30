@@ -14,6 +14,8 @@ namespace yap
 namespace ycl
 {
   class BattleBackgroundWidget;
+  class PokemonBattleInfoWidget;
+  class OpponentBattleInfoWidget;
 
   class BattleInterface : public BaseBattleWidget
   {
@@ -23,15 +25,14 @@ namespace ycl
     /// @name Getters.
     /// @{
     yap::WidgetDialogBox& GetBattleInfoDialogBox ();
-    yap::Label& GetPokemonName ();
-    yap::Label& GetOpponentName ();
+    PokemonBattleInfoWidget& GetPokemonInfoWidget ();
+    OpponentBattleInfoWidget& GetOpponentInfoWidget ();
     /// @}
 
   private:
     yap::WidgetDialogBox* battleInfoDialogBox_;
-    // Labels
-    yap::Label pokemonName_;
-    yap::Label opponentName_;
+    PokemonBattleInfoWidget* pokemonInfoWidget_;
+    OpponentBattleInfoWidget* opponentInfoWidget_;
   };
 } // namespace ycl
 
