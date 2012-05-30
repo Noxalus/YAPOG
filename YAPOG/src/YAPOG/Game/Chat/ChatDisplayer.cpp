@@ -46,7 +46,6 @@ namespace yap
     chans_.Add(new CMType ("MP", "Purple"));
 
     output_ = std::make_pair (chans_[0], "");
-    InitTab (&chanbooltab_, NBCHAN, false);
     chanbooltab_[c] = true;
   }
   
@@ -57,7 +56,7 @@ namespace yap
     , buff_ ()
     , chans_ ()
     , output_ ()
-    , chanbooltab_ ()
+    , chanbooltab_ (new bool[NBCHAN])
   {
     chans_.Add(new CMType ()); // System, Red
     chans_.Add(new CMType ("Global", "White"));
@@ -67,7 +66,7 @@ namespace yap
     chans_.Add(new CMType ("MP", "Purple"));
 
     output_ = std::make_pair (chans_[0], "");
-    for (int i = 0; i < NBCHAN; i++)
+    for (size_t i = 0; i < NBCHAN; i++)
       chanbooltab_[i] = chanbooltab[i];
   }
 
