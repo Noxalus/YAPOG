@@ -22,20 +22,25 @@ namespace ycl
   {
   }
 
-   void SplashScreen::HandleInit ()
-   {
-     BaseScreen::HandleInit ();
+  void SplashScreen::HandleInit ()
+  {
+    BaseScreen::HandleInit ();
 
-     logo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (100)));
+    logo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
+                             Create<yap::Texture> ("Texture", yap::ID (100)));
 
-     logo_->Scale (yap::Vector2 (0.42f, 0.42f));
-     logo_->SetPosition (yap::Vector2 (
-       800 / 2 - logo_->GetSize ().x / 2, 
-       600 / 2 - logo_->GetSize ().y / 2));
+    logo_->Scale (yap::Vector2 (0.42f, 0.42f));
+    logo_->SetPosition (yap::Vector2 (
+                          800 / 2 - logo_->GetSize ().x / 2,
+                          600 / 2 - logo_->GetSize ().y / 2));
 
-     guiManager_->AddChild (splashText_);
-   }
+    splashText_.ChangeColor (sf::Color::Black);
+    splashText_.SetPosition (
+      yap::Vector2 (
+        400 - splashText_.GetSize ().x / 2,
+        450.0f));
+    guiManager_->AddChild (splashText_);
+  }
 
   const yap::ScreenType& SplashScreen::HandleRun (
     const yap::Time& dt,
@@ -48,8 +53,8 @@ namespace ycl
 
   bool SplashScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
-     if (gameInputManager_.GameInputIsActivated (
-       yap::GameInputType::Action,
+    if (gameInputManager_.GameInputIsActivated (
+          yap::GameInputType::Action,
           guiEvent))
     {
       nextScreen_ = "MainMenu";
