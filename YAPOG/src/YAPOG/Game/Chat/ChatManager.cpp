@@ -11,10 +11,19 @@ namespace yap
     , Count (4)
     , Cd ()
   {
-    Cd.Add (new ChatDisplayer (0));
-    Cd.Add (new ChatDisplayer (1));
-    Cd.Add (new ChatDisplayer (2));
-    Cd.Add (new ChatDisplayer (3));
+    Cd.Add (new ChatDisplayer ("Test 1", StringHelper::Parse<UInt32> ("0")));
+    Cd.Add (new ChatDisplayer ("Test 2", StringHelper::Parse<UInt32> ("1")));
+    Cd.Add (new ChatDisplayer ("Test 3", StringHelper::Parse<UInt32> ("2")));
+    Cd.Add (new ChatDisplayer ("Test 4", StringHelper::Parse<UInt32> ("3")));
   }
   
+  ChatManager::~ChatManager ()
+  {
+    ChatDisplayerType::ItType it (Cd.Begin ());
+    ChatDisplayerType::ItType ite (Cd.End ());
+
+    for (; it < ite; it++)
+      delete (*it);
+  }
+
 } // namespace yap

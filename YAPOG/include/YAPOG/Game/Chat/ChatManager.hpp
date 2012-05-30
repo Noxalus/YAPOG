@@ -17,6 +17,7 @@ namespace yap
   typedef struct ChatManager
   {
     ChatManager ();
+    ~ChatManager ();
 
     bool              Local;
     UInt32            ChanNb;

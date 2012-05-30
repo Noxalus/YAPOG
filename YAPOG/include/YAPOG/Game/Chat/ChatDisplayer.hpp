@@ -24,8 +24,9 @@ namespace yap
     typedef collection::Array<bool>           ChansBoolType;
 
     ChatDisplayer ();
-    ChatDisplayer (UInt32 c);
+    ChatDisplayer (String name, UInt32 c);
     //ChatDisplayer (ChansBoolType chanbooltab);
+    ChatDisplayer (String name, bool* chanbooltab);
     ~ChatDisplayer ();
 
     UInt32          GetChanNb ();
@@ -39,6 +40,7 @@ namespace yap
   private:
     void	  			  MyDisplay (size_t index, size_t last);
 
+    String          name_;
     size_t          offset_;
     ChanBufType     buff_;
     ChansType       chans_;
