@@ -22,15 +22,19 @@ namespace ycl
 
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
-    guiManager_->AddChild (*mainMenu);
 
+    mainMenu->GetLoginItem ().OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Login";
+    };
+
+    guiManager_->AddChild (*mainMenu);
   }
   const yap::ScreenType& MainMenuScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    nextScreen_ = "Battle";
-
     return BaseScreen::HandleRun (dt, context);
   }
 } // namespace ycl

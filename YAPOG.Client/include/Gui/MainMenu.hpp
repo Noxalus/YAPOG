@@ -8,14 +8,25 @@ namespace ycl
 {
   class MainMenu : public yap::Menu
   {
-      DISALLOW_COPY(MainMenu);
+    DISALLOW_COPY(MainMenu);
 
-    public:
-      MainMenu();
-      virtual ~MainMenu ();
+  public:
+    MainMenu();
+    virtual ~MainMenu ();
 
-      void Init ();
-      
+    void Init ();
+
+    /// @name Getters.
+    /// @{
+    yap::MenuItem& GetLoginItem ();
+    const yap::MenuItem& GetRegistrationItem () const;
+    const yap::MenuItem& GetExitItem () const;
+    /// @}
+
+  private:
+    yap::MenuItem* loginItem_;
+    yap::MenuItem* registrationItem_;
+    yap::MenuItem* exitItem_;
   };
 } // namespace ycl
 
