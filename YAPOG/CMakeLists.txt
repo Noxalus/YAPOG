@@ -104,6 +104,8 @@ ${src_root}/Game/World/Map/Physics/GridCollidableArea.cpp
 ${inc_root}/Game/World/Map/Physics/MapCollidableInfo.hpp
 ${src_root}/Game/World/Map/Physics/MapCollidableInfo.cpp
 ${inc_root}/Game/World/Map/Physics/PhysicsCore.hpp
+${src_root}/Game/World/Map/Physics/PersistentPhysicsCore.cpp
+${inc_root}/Game/World/Map/Physics/PersistentPhysicsCore.hpp
 ${src_root}/Game/World/Map/Physics/PhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/WorldObjectMoveController.hpp
 ${src_root}/Game/World/Map/Physics/WorldObjectMoveController.cpp

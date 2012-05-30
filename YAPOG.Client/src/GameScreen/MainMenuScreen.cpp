@@ -24,6 +24,7 @@ namespace ycl
     mainMenu->Init ();
     guiManager_->AddChild (*mainMenu);
   }
+
   const yap::ScreenType& MainMenuScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)

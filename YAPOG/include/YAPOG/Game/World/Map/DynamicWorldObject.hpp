@@ -74,6 +74,10 @@ namespace yap
 
       virtual void HandleMove (const Vector2& offset);
 
+      virtual void HandleOnVelocityChanged (
+        const Vector2& oldVelocity,
+        const Vector2& currentVelocity);
+
     private:
 
       void SetState (const String& state);

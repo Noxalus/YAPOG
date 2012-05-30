@@ -3,9 +3,11 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yse
 {
+  const yap::String Map::VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME =
+    "Sync";
+
   Map::Map (const yap::ID& id)
     : yap::Map (id)
     , players_ ()
@@ -24,7 +26,7 @@ namespace yse
     players_.Add (player);
     AddDynamicObject (player);
 
-    SendAddPlayer (player);
+    SendAddPlayer (*player);
   }
 
   void Map::RemovePlayer (Player* player)
@@ -34,7 +36,7 @@ namespace yse
     players_.Remove (player);
     RemoveDynamicObject (player);
 
-    SendRemovePlayer (player);
+    SendRemovePlayer (*player);
   }
 
   bool Map::HandlePacket (yap::IPacket& packet)
@@ -72,36 +74,73 @@ namespace yse
   {
     yap::Map::HandleAddDynamicObject (object);
 
-    /// @todo Now.
-    yap::DebugLogger::Instance ().LogLine ("MOVED!!");
+    object->OnVelocityChanged.AddHandler (
+      VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME,
+      [&] (yap::DynamicWorldObject& sender,
+           const yap::ChangeEventArgs<const yap::Vector2&>& args)
+    {
+      HandleOnObjectVelocityChanged (sender, args.Old, args.Current);
+    });
+  }
+
+  void Map::HandleRemoveDynamicObject (yap::DynamicWorldObject* object)
+  {
+    yap::Map::HandleRemoveDynamicObject (object);
+
+    object->OnVelocityChanged.RemoveHandler (
+      VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME);
+  }
+
+  void Map::HandleOnObjectVelocityChanged (
+    yap::DynamicWorldObject& sender,
+    const yap::Vector2& oldVelocity,
+    const yap::Vector2& currentVelocity)
+  {
   }
 
   /// @todo Write state/direction
-  void Map::SendAddPlayer (Player* player)
+  void Map::SendAddObject (
+    const yap::DynamicWorldObject& object,
+    yap::IPacket& packet)
+  {
+    packet.Write (object.GetWorldID ());
+    packet.Write (object.GetTypeID ());
+    packet.Write (object.GetID ());
+
+    /// @todo To send position, tmp
+    packet.Write (
+      /*player.GetPosition ()*/yap::Vector2 (100.0f, 100.0f));
+//    addPlayerPacket.Write (player.GetState ());
+//    addPlayerPacket.Write (player.GetDirection ());
+
+    SendPacket (packet);
+  }
+
+  void Map::SendRemoveObject (
+    const yap::DynamicWorldObject& object,
+    yap::IPacket& packet)
+  {
+
+  }
+
+  /// @todo Note: [future] add `AddObject (yap::DynamicWorldObject* object)'
+  /// public method for adding every type of dyn object except player.
+  /// (idem for static)
+  void Map::SendAddPlayer (const Player& player)
   {
     yap::Packet addPlayerPacket;
     addPlayerPacket.CreateFromType (yap::PacketType::ServerInfoAddPlayer);
 
-    addPlayerPacket.Write (player->GetWorldID ());
-    addPlayerPacket.Write (player->GetTypeID ());
-    addPlayerPacket.Write (player->GetID ());
-
-    /// @todo To send position, tmp
-    addPlayerPacket.Write (
-      /*player->GetPosition ()*/yap::Vector2 (100.0f, 100.0f));
-//    addPlayerPacket.Write (player->GetState ());
-//    addPlayerPacket.Write (player->GetDirection ());
-
-    SendPacket (addPlayerPacket);
+    SendAddObject (player, addPlayerPacket);
   }
 
-  void Map::SendRemovePlayer (Player* player)
+  void Map::SendRemovePlayer (const Player& player)
   {
     yap::Packet removePlayerPacket;
     removePlayerPacket.CreateFromType (
       yap::PacketType::ServerInfoRemovePlayer);
 
-    removePlayerPacket.Write (player->GetWorldID ());
+    removePlayerPacket.Write (player.GetWorldID ());
 
     SendPacket (removePlayerPacket);
   }

@@ -55,7 +55,7 @@ namespace ycl
 
     UpdatePlayer (dt);
 
-    logger_.LogLine (1.f/dt.GetValue ());
+//    logger_.LogLine (1.f/dt.GetValue ());
 
     world_.Draw (context);
 

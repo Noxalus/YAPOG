@@ -63,6 +63,11 @@ namespace yap
 
   void DynamicWorldObject::SetPhysicsCore (PhysicsCore* physicsCore)
   {
+    if (physicsCore_ == physicsCore)
+      return;
+
+    delete physicsCore_;
+
     physicsCore_ = physicsCore;
 
     physicsCore_->OnMoved +=
@@ -81,7 +86,7 @@ namespace yap
       [&] (const PhysicsCore& sender,
            const ChangeEventArgs<const Vector2&>& args)
     {
-      OnVelocityChanged (*this, args);
+      HandleOnVelocityChanged (args.Old, args.Current);
     };
   }
 
@@ -168,5 +173,16 @@ namespace yap
   void DynamicWorldObject::HandleMove (const Vector2& offset)
   {
     WorldObject::HandleMove (offset);
+  }
+
+  void DynamicWorldObject::HandleOnVelocityChanged (
+    const Vector2& oldVelocity,
+    const Vector2& currentVelocity)
+  {
+    OnVelocityChanged (
+      *this,
+      ChangeEventArgs<const Vector2&> (
+        oldVelocity,
+        currentVelocity));
   }
 } // namespace yap

@@ -7,7 +7,6 @@
 #include "YAPOG/Graphics/Gui/LayoutV.hpp"
 #include "YAPOG/System/Event/Event.hpp"
 
-
 namespace yap
 {
 
@@ -19,9 +18,9 @@ namespace yap
     , selecBrdr_ (nullptr)
     , selecBrdSize_ (16)
     , isFixed_ (fixed)
-    , type_ (type)    
+    , type_ (type)
     , layoutManager_ (nullptr)
-  {  
+  {
     if (type == Type::HORIZONTAL)
       layout_ = new LayoutH (ext, in, !fixed);
     else if (type == Type::VERTICAL)
@@ -98,14 +97,14 @@ namespace yap
     if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().x > GetUserSize ().x)
     layout_->RemoveChild (child);
     */
-    child.UnsetBorder ();    
+    child.UnsetBorder ();
     SetFormItem ();
 
     if (type_ == Menu::Type::HORIZONTAL)
       layoutManager_->SetSize (layout_->GetSize ().x);
     if (type_== Menu::Type::VERTICAL)
       layoutManager_->SetSize (layout_->GetSize ().y);
-    
+
   }
 
   void Menu::HandleDraw (IDrawingContext& context)

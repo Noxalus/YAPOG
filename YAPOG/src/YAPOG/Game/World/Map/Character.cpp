@@ -2,6 +2,8 @@
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 namespace yap
 {
   const Direction Character::DEFAULT_DIRECTION = Direction::South;
@@ -48,30 +50,25 @@ namespace yap
   {
   }
 
-  void Character::HandleSetState (const String& state)
+  void Character::HandleOnVelocityChanged (
+    const Vector2& oldVelocity,
+    const Vector2& currentVelocity)
   {
-    DynamicWorldObject::HandleSetState (state);
+    DynamicWorldObject::HandleOnVelocityChanged (oldVelocity, currentVelocity);
 
-    if (IsMoving ())
-      UpdateDirection (GetMove ());
+    UpdateDirection (currentVelocity);
+    yap::DebugLogger::Instance ().LogLine ("[velocity changed][" + StringHelper::ToString (oldVelocity.y) + "][" + StringHelper::ToString (currentVelocity.y) + "]");
   }
 
-  void Character::HandleMove (const Vector2& offset)
+  void Character::UpdateDirection (const Vector2& velocity)
   {
-    DynamicWorldObject::HandleMove (offset);
-
-    UpdateDirection (offset);
-  }
-
-  void Character::UpdateDirection (const Vector2& offset)
-  {
-    if (offset.x < 0.0f)
+    if (velocity.x < 0.0f)
       SetDirection (Direction::West);
-    else if (offset.y < 0.0f)
+    else if (velocity.y < 0.0f)
       SetDirection (Direction::North);
-    else if (offset.x > 0.0f)
+    else if (velocity.x > 0.0f)
       SetDirection (Direction::East);
-    else if (offset.y > 0.0f)
+    else if (velocity.y > 0.0f)
       SetDirection (Direction::South);
   }
 } // namespace yap

@@ -1,5 +1,6 @@
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 
 #include "Client/User.hpp"
 #include "World/World.hpp"
@@ -62,6 +63,12 @@ namespace ycl
   void User::SetPlayer (Player* player)
   {
     player_ = player;
+
+    yap::PhysicsCore* physicsCore = new yap::BasicPhysicsCore ();
+    physicsCore->SetVelocityBounds (
+      yap::Vector2 (),
+      player_->GetMaxVelocity ());
+    player_->SetPhysicsCore (physicsCore);
 
     OnPlayerCreated (*this, player_);
   }

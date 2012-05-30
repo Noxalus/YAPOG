@@ -36,6 +36,6 @@ namespace yap
 
   void BasicPhysicsCore::ResetVelocity (const Time& dt)
   {
-    SetVelocity (Vector2 ());
+    PhysicsCore::ResetVelocity (Vector2 ());
   }
 } // namespace yap

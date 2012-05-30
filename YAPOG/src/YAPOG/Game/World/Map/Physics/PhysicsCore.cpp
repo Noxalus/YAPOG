@@ -9,6 +9,7 @@ namespace yap
     , OnMoved ()
     , OnVelocityChanged ()
     , velocity_ ()
+    , lastVelocity_ ()
     , minVelocity_ ()
     , maxVelocity_ ()
     , move_ ()
@@ -24,6 +25,7 @@ namespace yap
     , OnMoved ()
     , OnVelocityChanged ()
     , velocity_ (copy.velocity_)
+    , lastVelocity_ (copy.lastVelocity_)
     , minVelocity_ (copy.minVelocity_)
     , maxVelocity_ (copy.maxVelocity_)
     , move_ (copy.move_)
@@ -68,6 +70,11 @@ namespace yap
     maxVelocity_ = max;
   }
 
+  void PhysicsCore::RawSetVelocity (const Vector2& velocity)
+  {
+    SetVelocity (velocity);
+  }
+
   const Vector2& PhysicsCore::GetVelocity () const
   {
     return velocity_;
@@ -75,20 +82,45 @@ namespace yap
 
   void PhysicsCore::SetVelocity (const Vector2& velocity)
   {
-    const Vector2 oldVelocity = velocity_;
+    if (velocity == velocity_)
+    {
+      if (velocity != lastVelocity_)
+        OnVelocityChanged (
+          *this,
+          ChangeEventArgs<const Vector2&> (
+            lastVelocity_,
+            velocity_));
 
-    velocity_ = Vector2 (
+      return;
+    }
+
+    BoundVelocity (velocity, velocity_);
+
+    if (velocity == lastVelocity_)
+      return;
+
+    OnVelocityChanged (
+      *this,
+      ChangeEventArgs<const Vector2&> (
+        lastVelocity_,
+        velocity_));
+  }
+
+  void PhysicsCore::ResetVelocity (const Vector2& velocity)
+  {
+    lastVelocity_ = velocity_;
+
+    BoundVelocity (velocity, velocity_);
+  }
+
+  void PhysicsCore::BoundVelocity (const Vector2& velocity, Vector2& result)
+  {
+    result = Vector2 (
       velocity.x < 0 ?
       MathHelper::Clamp (velocity.x, -maxVelocity_.x, -minVelocity_.x) :
       MathHelper::Clamp (velocity.x, minVelocity_.x, maxVelocity_.x),
       velocity.y < 0 ?
       MathHelper::Clamp (velocity.y, -maxVelocity_.y, -minVelocity_.y) :
       MathHelper::Clamp (velocity.y, minVelocity_.y, maxVelocity_.y));
-
-    OnVelocityChanged (
-      *this,
-      ChangeEventArgs<const Vector2&> (
-        oldVelocity,
-        velocity_));
   }
 } // namespace yap

@@ -29,8 +29,9 @@ namespace yap
 
       virtual void HandleSetDirection (Direction direction);
 
-      virtual void HandleSetState (const String& state);
-      virtual void HandleMove (const Vector2& offset);
+      virtual void HandleOnVelocityChanged (
+        const Vector2& oldVelocity,
+        const Vector2& currentVelocity);
 
     private:
 

@@ -8,6 +8,7 @@ namespace yap
 {
   enum class YAPOG_LIB PacketType : Int16
   {
+    // reserved
     None = 0,
 
     // from client to server
@@ -27,8 +28,9 @@ namespace yap
 
     ServerInfoChangeMap,
 
-    ServerInfoUpdatePlayerState,
-    ServerInfoMoveObject,
+    ServerInfoUpdateObjectState,
+    ServerInfoObjectMoveInfo,
+
     ServerInfoAddObject,
     ServerInfoRemoveObject,
     ServerInfoAddPlayer,

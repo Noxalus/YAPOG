@@ -36,11 +36,26 @@ namespace yse
     protected:
 
       virtual void HandleAddDynamicObject (yap::DynamicWorldObject* object);
+      virtual void HandleRemoveDynamicObject (yap::DynamicWorldObject* object);
 
     private:
 
-      void SendAddPlayer (Player* player);
-      void SendRemovePlayer (Player* player);
+      void HandleOnObjectVelocityChanged (
+        yap::DynamicWorldObject& sender,
+        const yap::Vector2& oldVelocity,
+        const yap::Vector2& currentVelocity);
+
+      void SendAddObject (
+        const yap::DynamicWorldObject& object,
+        yap::IPacket& packet);
+      void SendRemoveObject (
+        const yap::DynamicWorldObject& object,
+        yap::IPacket& packet);
+
+      void SendAddPlayer (const Player& player);
+      void SendRemovePlayer (const Player& player);
+
+      static const yap::String VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
 
       yap::collection::List<Player*> players_;
 
