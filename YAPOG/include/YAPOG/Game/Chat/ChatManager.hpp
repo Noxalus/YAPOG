@@ -1,6 +1,7 @@
 #ifndef YAPOG_CHATMANAGER_HPP
 # define YAPOG_CHATMANAGER_HPP
 
+# include <boost/filesystem.hpp>
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/Game/Chat/ChatDisplayer.hpp"

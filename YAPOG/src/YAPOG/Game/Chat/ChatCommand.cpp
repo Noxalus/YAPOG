@@ -16,6 +16,7 @@ namespace yap
     MyCmdType tabsloc[] =
     {
       {"switchtab", &ChatCommand::SwitchTab, &ChatCommand::SwitchTab},
+      {"switchchan", &ChatCommand::SwitchChan, &ChatCommand::SwitchChan},
       {"addchan", &ChatCommand::AddChan, &ChatCommand::AddChan},
       {"rmchan", &ChatCommand::RmChan, &ChatCommand::RmChan}
     };
@@ -145,6 +146,20 @@ namespace yap
     return MyPair (true, 0, 0, bt);
   }
 
+  DisplayType         ChatCommand::SwitchChan (BufferType b)
+  {
+    BufferType bt;
+    b.RemoveBack ();
+
+    if (b.Count () != 2)
+      return TestArg (b, 2);
+
+    bt.Add ("Switch to chan : " + b[1] + ".");
+    bt.Add (b[1]);
+
+    return MyPair (true, 1, 0, bt);
+  }
+
   DisplayType         ChatCommand::AddChan (BufferType b)
   {
     BufferType bt;
@@ -156,7 +171,7 @@ namespace yap
     bt.Add ("Channel " + b[1] + " has been added.");
     bt.Add (b[1]);
 
-    return MyPair (true, 1, 0, bt);
+    return MyPair (true, 2, 0, bt);
   }
 
   DisplayType         ChatCommand::RmChan (BufferType b)
@@ -170,7 +185,7 @@ namespace yap
     bt.Add ("Channel : " + b[1] + " has been removed.");
     bt.Add (b[1]);
 
-    return MyPair (true, 1, 0, bt);
+    return MyPair (true, 3, 0, bt);
   }
 
   void								ChatCommand::SetCommand (func cmd)
@@ -189,7 +204,8 @@ namespace yap
     return &ChatCommand::Unknown;
   }
 
-  BufferType          ChatCommand::SwitchTab (BufferType* b,
+  BufferType          ChatCommand::SwitchTab (UInt32* channb,
+    BufferType* b,
     ChatManagerType* cm,
     ChatDisplayer* cd)
   {
@@ -212,6 +228,40 @@ namespace yap
           b->RemoveBack ();
         }
         else
+          bt.Add (tmp + " is not an tab number.");
+      }
+      else
+        bt.Add ("Bad argument.");
+    }
+
+    return bt;
+  }
+
+  BufferType          ChatCommand::SwitchChan (UInt32* channb,
+    BufferType* b,
+    ChatManagerType* cm,
+    ChatDisplayer* cd)
+  {
+    BufferType bt;
+
+    if (b->Count() > 2)
+      bt.Add ("Too much argument.");
+    if (b->Count() == 2)
+    {
+      String chanNb = (*b)[1];
+
+      if (StringFilter::IsNumeric (chanNb))
+      {
+        std::istringstream buf (chanNb);
+        UInt32 tmp = 0;
+        buf >> tmp;
+        if (tmp >= 0 && tmp < cd->GetChanNb ())
+        {
+          (*channb) = tmp;
+          cm->ChanNb = tmp;
+          b->RemoveBack ();
+        }
+        else
           bt.Add (tmp + " is not an chan number.");
       }
       else
@@ -221,8 +271,8 @@ namespace yap
     return bt;
   }
 
-  
-  BufferType          ChatCommand::AddChan (BufferType* b,
+  BufferType          ChatCommand::AddChan (UInt32* channb,
+    BufferType* b,
     ChatManagerType* cm,
     ChatDisplayer* cd)
   {
@@ -254,8 +304,9 @@ namespace yap
     return bt;
   }
 
-  
-  BufferType          ChatCommand::RmChan (BufferType* b,
+
+  BufferType          ChatCommand::RmChan (UInt32* channb,
+    BufferType* b,
     ChatManagerType* cm,
     ChatDisplayer* cd)
   {
@@ -302,7 +353,7 @@ namespace yap
 
     if (response.first.first)
       bt = (this->*(tab_[response.first.second].PtrFuncloc))
-      (&response.second.second, cm, cd);
+      (&response.second.first, &response.second.second, cm, cd);
     if (bt.Count () == 0)
     {
       for (UInt32 i = 0; i < cm->Count; i++)

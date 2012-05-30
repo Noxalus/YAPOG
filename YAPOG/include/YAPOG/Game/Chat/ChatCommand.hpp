@@ -11,14 +11,15 @@
 # include "YAPOG/System/StringHelper.hpp"
 
 # define NBCMDS 3
-# define NBCMDSLOC 3
+# define NBCMDSLOC 4
 # define NBTOTCMDS (NBCMDS + NBCMDSLOC)
 
 namespace yap
 {
   class Chat;
   class ChatDisplayer;
-  typedef BufferType         (ChatCommand::*funcloc) (BufferType* b,
+  typedef BufferType         (ChatCommand::*funcloc) (UInt32* channb,
+                                                      BufferType* b,
                                                       ChatManager* cm,
                                                       ChatDisplayer* cd);
 
@@ -41,6 +42,7 @@ namespace yap
     // Without request
     DisplayType					Help (BufferType b);
     DisplayType         SwitchTab (BufferType b);
+    DisplayType         SwitchChan (BufferType b);
     DisplayType         AddChan (BufferType b);
     DisplayType         RmChan (BufferType b);
     DisplayType					Unknown (BufferType b);
@@ -52,15 +54,23 @@ namespace yap
     // Execute the command
     void  							ExecCmd (ChatManagerType* cm);
   private:
-    BufferType          SwitchTab (BufferType* b,
+    BufferType          SwitchTab (UInt32* channb,
+                                   BufferType* b,
                                    ChatManagerType* cm,
                                    ChatDisplayer* cd);
 
-    BufferType          AddChan (BufferType* b,
+    BufferType          SwitchChan (UInt32* channb,
+                                    BufferType* b,
+                                    ChatManagerType* cm,
+                                    ChatDisplayer* cd);
+
+    BufferType          AddChan (UInt32* channb,
+                                 BufferType* b,
                                  ChatManagerType* cm,
                                  ChatDisplayer* cd);
     
-    BufferType          RmChan (BufferType* b,
+    BufferType          RmChan (UInt32* channb,
+                                BufferType* b,
                                 ChatManagerType* cm,
                                 ChatDisplayer* cd);
 

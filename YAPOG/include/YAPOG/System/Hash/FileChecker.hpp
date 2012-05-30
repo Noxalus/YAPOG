@@ -24,7 +24,7 @@ namespace yap
 			MyFile(String fn, size_t fs);
 
 			String        Filename;
-			size_t		    Filesize;
+			size_t	    Filesize;
 		} MyFileType;
     
 		typedef boost::filesystem::path PathType;
@@ -40,7 +40,7 @@ namespace yap
 		void		          SetFilename(String filename);
 		void		          SetMd5(String md5);
 		String	          GetFilename();
-		Int32			        GetFilesize();
+		size_t  	        GetFilesize();
 		String	          GetMd5();
 		VFilesType		    GetVfile();
 		
@@ -58,7 +58,7 @@ namespace yap
 		VFileType		      vstring_;
 		PathType          path_;
 		String            filename_;
-		size_t		        filesize_;
+		size_t  	        filesize_;
 		String            md5_;
 	};
 } // namespace yap

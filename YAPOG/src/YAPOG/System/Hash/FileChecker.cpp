@@ -70,7 +70,7 @@ namespace yap
 		return md5_;
 	}
 	
-	int                     FileChecker::GetFilesize ()
+	size_t                  FileChecker::GetFilesize ()
 	{
 		return filesize_;
 	}
@@ -116,9 +116,9 @@ namespace yap
 						String mymd5 = md5.Calculate (f);
 						vfile_.Add(
 							new FileChecker (
-              ((*it).string ()).substr(path_.string ().length () + 1, i),
+              ((*it).string ()).substr (path_.string ().length () + 1, i),
 							mymd5,
-              boost::filesystem::file_size((*it).string ()))
+              boost::filesystem::file_size ((*it).string ()))
 							);
 						f.close ();
 					}
@@ -338,7 +338,7 @@ namespace yap
 						boost::asio::transfer_exactly (bytes), error))
 					{
 						if (response.size () > bytes)
-							response.consume(response.size () - bytes);
+							response.consume (response.size () - bytes);
 						outfile << &response;
 					}
 					outfile.close();
