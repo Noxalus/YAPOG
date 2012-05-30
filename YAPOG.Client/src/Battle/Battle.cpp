@@ -23,14 +23,8 @@ namespace ycl
     , playerGround_ (nullptr)
     , opponentGround_ (nullptr)
     , playerTrainerBack_ (nullptr)
-    , playerHPBar_ (nullptr)
-    , opponentHPBar_ (nullptr)
-    , playerInfo_ (nullptr)
-    , opponentInfo_ (nullptr)
     , playerGroundPosition_ ()
     , opponentGroundPosition_ ()
-    , playerInfoPosition_ ()
-    , opponentInfoPosition_ ()
     , playerTeam_ (nullptr)
     , opponent_ (nullptr)
   {
@@ -58,18 +52,6 @@ namespace ycl
     playerTrainerBack_ = new yap::Sprite (yap::ObjectFactory::Instance ().
       Create<yap::Texture> ("Texture", yap::ID (44)));
 
-    playerHPBar_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (47)));
-
-    opponentHPBar_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (47)));
-
-    opponentInfo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (46)));
-
-    playerInfo_ = new yap::Sprite (yap::ObjectFactory::Instance ().
-      Create<yap::Texture> ("Texture", yap::ID (45)));
-
     /// Adjust sprites
     background_->SetSize (Game::SCREEN_SIZE);
     opponentGround_->Scale (DEFAULT_OPPONENT_GROUND_SPRITES_SCALE);
@@ -83,18 +65,6 @@ namespace ycl
       (opponentGround_->GetSize ().x),
       Game::SCREEN_SIZE.y / 3 -
       (opponentGround_->GetSize ().y) / 2);
-
-    /*
-    playerInfoPosition_ = yap::Vector2 (0,
-      Game::SCREEN_SIZE.y - (Game::SCREEN_SIZE.y / 4) -
-      ((playerGround_->GetSize ().y) / 2));
-    */
-
-    opponentInfoPosition_ = yap::Vector2 (
-      opponentGroundPosition_.x -
-      (opponentInfo_->GetSize ().x),
-      opponentGroundPosition_.y -
-      1.5f * (opponentInfo_->GetSize ().y));
   }
 
   /// Getters
@@ -110,29 +80,11 @@ namespace ycl
   yap::ISprite& Battle::GetPlayerTrainerBack () const
   { return *playerTrainerBack_; }
 
-  yap::ISprite& Battle::GetPlayerHPBar () const
-  { return *playerHPBar_; }
-
-  yap::ISprite& Battle::GetOpponentHPBar () const
-  { return *opponentHPBar_; }
-
-  yap::ISprite& Battle::GetPlayerInfo () const
-  { return *playerInfo_; }
-
-  yap::ISprite& Battle::GetOpponentInfo () const
-  { return *opponentInfo_; }
-
   const yap::Vector2& Battle::GetPlayerGroundPosition () const
   { return playerGroundPosition_; }
 
   const yap::Vector2& Battle::GetOpponentGroundPosition () const
   { return opponentGroundPosition_; }
-
-  const yap::Vector2& Battle::GetPlayerInfoPosition () const
-  { return playerGroundPosition_; }
-
-  const yap::Vector2& Battle::GetOpponentInfoPosition () const
-  { return opponentInfoPosition_; }
 
   const IDrawableBattleEntity& Battle::GetDrawablePlayerTeam () const
   { return *playerTeam_; }
@@ -196,10 +148,6 @@ namespace ycl
     playerGround_->Update (dt);
     playerTrainerBack_->Update (dt);
     opponentGround_->Update (dt);
-    playerInfo_->Update (dt);
-    playerHPBar_->Update (dt);
-    opponentInfo_->Update (dt);
-    opponentHPBar_->Update (dt);
   }
 
   void Battle::HandleDraw (yap::IDrawingContext& context)
@@ -208,10 +156,6 @@ namespace ycl
     playerGround_->Draw (context);
     playerTrainerBack_->Draw (context);
     opponentGround_->Draw (context);
-    playerInfo_->Draw (context);
-    playerHPBar_->Draw (context);
-    opponentInfo_->Draw (context);
-    opponentHPBar_->Draw (context);
     /*
     playerTeam_->Draw (context);
     opponent_->Draw (context);

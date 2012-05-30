@@ -43,8 +43,6 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    return;
-
     PokemonTeam team;
     team.AddPokemon (new Pokemon (yap::ID (2), 42, false));
     team.AddPokemon (new Pokemon (yap::ID (16), 32, true));

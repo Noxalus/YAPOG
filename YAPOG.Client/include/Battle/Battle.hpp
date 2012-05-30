@@ -41,14 +41,8 @@ namespace ycl
     yap::ISprite& GetPlayerGround () const;
     yap::ISprite& GetOpponentGround () const;
     yap::ISprite& GetPlayerTrainerBack () const;
-    yap::ISprite& GetPlayerHPBar () const;
-    yap::ISprite& GetOpponentHPBar () const;
-    yap::ISprite& GetPlayerInfo () const;
-    yap::ISprite& GetOpponentInfo () const;
     const yap::Vector2& GetPlayerGroundPosition () const;
     const yap::Vector2& GetOpponentGroundPosition () const;
-    const yap::Vector2& GetPlayerInfoPosition () const;
-    const yap::Vector2& GetOpponentInfoPosition () const;
     const IDrawableBattleEntity& GetDrawablePlayerTeam () const;
     const IDrawableBattleEntity& GetDrawableOpponent () const;
     IDrawableBattleEntity& GetDrawablePlayerTeam ();
@@ -83,16 +77,10 @@ namespace ycl
     yap::ISprite* playerGround_;
     yap::ISprite* opponentGround_;
     yap::ISprite* playerTrainerBack_;
-    yap::ISprite* playerHPBar_;
-    yap::ISprite* opponentHPBar_;
-    yap::ISprite* playerInfo_;
-    yap::ISprite* opponentInfo_;
 
     /// Sprite positions
     yap::Vector2 playerGroundPosition_;
     yap::Vector2 opponentGroundPosition_;
-    yap::Vector2 playerInfoPosition_;
-    yap::Vector2 opponentInfoPosition_;
 
     IDrawableBattleEntity* playerTeam_;
     IDrawableBattleEntity* opponent_;

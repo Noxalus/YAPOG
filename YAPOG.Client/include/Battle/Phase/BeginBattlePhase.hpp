@@ -47,6 +47,8 @@ namespace ycl
     sf::Color color_;
 
   private:
+    void UpdatePlayerTrainerBack ();
+
     Battle& battle_;
     BattleInterface& battleInterface_;
 
