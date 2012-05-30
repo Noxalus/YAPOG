@@ -27,7 +27,7 @@ namespace yap
 
   std::pair<std::pair<bool, UInt32>, BufferType> MyPair (bool b,
     UInt32 i,
-    BufferType bt)
+    BufferType bt)  
   {
     return std::make_pair (std::make_pair (b, i), bt);
   }
@@ -79,8 +79,10 @@ namespace yap
   DisplayType 				ChatCommand::Echo (BufferType b)
   {
     DisplayType toret;
+    UInt32 channb = StringHelper::Parse<int> (b[b.Count () - 1]);
     BufferType bt;
 
+    b.RemoveBack ();
     if (b.Count () > 0)
     {
       if (b[0].compare("/echo") == 0)
@@ -95,7 +97,7 @@ namespace yap
         bt.Add (b[0]);
     }
 
-    toret = MyPair (false, 1, bt);
+    toret = MyPair (false, channb, bt);
 
     return toret;
   }
@@ -112,6 +114,7 @@ namespace yap
   DisplayType		  		ChatCommand::Trade (BufferType name)
   {
     BufferType bt;
+    name.RemoveBack ();
 
     if (name.Count () != 2)
       return TestArg (name, 2);
@@ -124,6 +127,7 @@ namespace yap
   DisplayType         ChatCommand::ChangeChan (BufferType b)
   {
     BufferType bt;
+    b.RemoveBack ();
 
     if (b.Count () != 2)
       return TestArg (b, 2);
@@ -150,25 +154,28 @@ namespace yap
     return &ChatCommand::Unknown;
   }
 
-  BufferType          ChatCommand::SwitchChan (BufferType b,
+  BufferType          ChatCommand::SwitchChan (BufferType* b,
     ChatManagerType* cm,
     ChatDisplayer* cd)
   {
     BufferType bt;
 
-    if (b.Count() > 2)
+    if (b->Count() > 2)
       bt.Add ("Too much argument.");
-    if (b.Count() == 2)
+    if (b->Count() == 2)
     {
-      String chanNb = b[0];
+      String chanNb = (*b)[1];
 
-      if (StringFilter::IsNumeric(chanNb))
+      if (StringFilter::IsNumeric (chanNb))
       {
-        std::istringstream buf(chanNb);
+        std::istringstream buf (chanNb);
         UInt32 tmp = 0;
         buf >> tmp;
         if (tmp >= 0 && tmp < cd->GetChanNb())
+        {
           cm->ChanNb = tmp;
+          b->RemoveBack ();
+        }
         else
           bt.Add (tmp + " is not an chan number.");
       }
@@ -184,13 +191,24 @@ namespace yap
   {
     BufferType bt;
 
+    cm->Request.Add (StringHelper::ToString (cm->ChanNb));
+
     DisplayType response (
       cm->Request.IsEmpty () ?
       MyPair (false, 0, bt) :
       (this->*command_) (cm->Request));
 
     if (response.first.first)
+      bt = SwitchChan (&response.second, cm, cd);
+    if (bt.Count () == 0)
     {
+      cd->AddToChan (response.first.second, response.second);
+      cd->Display ();
+    }
+    else
+    {
+      cd->AddToChan (0, bt);
+      cd->Display ();
     }
 
     // Re-init command line

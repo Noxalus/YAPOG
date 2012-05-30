@@ -17,7 +17,7 @@ namespace yap
 {
   class Chat;
   class ChatDisplayer;
-  typedef BufferType         (ChatCommand::*funcloc) (BufferType b,
+  typedef BufferType         (ChatCommand::*funcloc) (BufferType* b,
                                                       ChatManager* cm,
                                                       ChatDisplayer* cd);
 
@@ -49,7 +49,7 @@ namespace yap
     // Execute the command
     void  							ExecCmd (ChatDisplayer* cd, ChatManagerType* cm);
   private:
-    BufferType          SwitchChan (BufferType b,
+    BufferType          SwitchChan (BufferType* b,
                                     ChatManagerType* cm,
                                     ChatDisplayer* cd);
 

@@ -73,7 +73,6 @@ namespace yap
     if (Check () && 
         StringHelper::CompareString (buffer_[0], String ("/up")) == 0)
     {
-      //ToEcho (chatcommand_, "UP : '" + GetUpHistory () + "'");
       std::cout << "UP : '" << GetUpHistory () << "'" << std::endl;
       std::cout << "index " << index_ << std::endl;
 
@@ -82,7 +81,6 @@ namespace yap
     if (Check () && 
         StringHelper::CompareString (buffer_[0], String ("/down")) == 0)
     {
-      //ToEcho (chatcommand_, "DOWN : '" + GetDownHistory () + "'");
       std::cout << "DOWN : '" << GetDownHistory () << "'" << std::endl;
       std::cout << "index " << index_ << std::endl;
 
@@ -127,11 +125,9 @@ namespace yap
   }
 
   void                    Chat::Exec (ChatDisplayer& display)
-  { 
-    display.DisplayChanOn ();
+  {
     for (UInt32 i = 0; i < 6; i++)
       display.AddChan (i);
-    display.DisplayChanOn ();
 
     chatcommand_->ExecCmd (&display, chatmanager_);
   }

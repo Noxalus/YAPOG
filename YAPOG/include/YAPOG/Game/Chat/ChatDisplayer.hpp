@@ -25,7 +25,7 @@ namespace yap
 
     ChatDisplayer ();
     ChatDisplayer (UInt32 c);
-    ChatDisplayer (ChansBoolType chanbooltab);
+    //ChatDisplayer (ChansBoolType chanbooltab);
     ~ChatDisplayer ();
 
     UInt32          GetChanNb ();
@@ -42,7 +42,8 @@ namespace yap
     ChanBufType     buff_;
     ChansType       chans_;
     ChanOutputType  output_;
-    ChansBoolType   chanbooltab_;
+    //ChansBoolType   chanbooltab_;
+    bool*           chanbooltab_;
   };
 } // namespace yap
 
