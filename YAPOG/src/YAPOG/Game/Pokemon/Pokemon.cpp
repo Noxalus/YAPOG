@@ -172,7 +172,7 @@ namespace yap
       return exp_->GetValue ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () +
+      YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -183,7 +183,7 @@ namespace yap
       return exp_->GetExperienceToNextLevel ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () +
+      YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -253,7 +253,7 @@ namespace yap
     }
     else
     {
-      throw Exception ("The Pokémon " + GetName () +
+      YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }

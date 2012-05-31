@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
 #include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
@@ -318,7 +318,7 @@ namespace yap
       parent_->Refresh ();
   }
 
-  void BaseWidget::SetBackground (WidgetBackground& background)
+  void BaseWidget::SetBackground (BackgroundWidget& background)
   {
     background_= &background;
     background_->SetPosition (GetPosition ());
@@ -348,7 +348,7 @@ namespace yap
     Refresh ();
   }
 
-  void BaseWidget::SetBorder (WidgetBorder& border, uint width)
+  void BaseWidget::SetBorder (BorderWidget& border, uint width)
   {
     border_ = &border;
     border_->SetPosition (GetPosition ());
@@ -365,7 +365,7 @@ namespace yap
       SetPosAfterBorder (paddingBorder, paddingBorder);
   }
 
-  void BaseWidget::SetBorder (WidgetBorder& border)
+  void BaseWidget::SetBorder (BorderWidget& border)
   {
 
     border.SetPosition (GetPosition ());

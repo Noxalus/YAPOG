@@ -1,19 +1,18 @@
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
-#include "YAPOG/Graphics/Gui/LayoutH.hpp"
-#include "YAPOG/Graphics/Gui/LayoutV.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+#include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
-#include "Gui/WidgetPokedex.hpp"
+#include "Gui/PokedexWidget.hpp"
 
 namespace ycl
 {
 
-  WidgetPokedex::WidgetPokedex ()
+  PokedexWidget::PokedexWidget ()
     : pokedex_ (new yap::Pokedex ())
   {
     yap::collection::Array<yap::PokemonInfo*> pokList;
@@ -39,19 +38,19 @@ namespace ycl
     pokedex_->SetPokemonList (pokList);
   }
 
-  WidgetPokedex::~WidgetPokedex ()
+  PokedexWidget::~PokedexWidget ()
   {
   }
 
-  void WidgetPokedex::Init ()
+  void PokedexWidget::Init ()
   {
-    yap::WidgetBackground* background = new yap::WidgetBackground ("pokedexSet/Background.png", true);
+    yap::BackgroundWidget* background = new yap::BackgroundWidget ("pokedexSet/Background.png", true);
     SetBackground (*background);
 
-    yap::LayoutH* firstHLayout = new yap::LayoutH (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
-    yap::LayoutH* secondHLayout = new yap::LayoutH (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
-    yap::LayoutV* firstVLayout = new yap::LayoutV (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
-    yap::LayoutV* secondVLayout = new yap::LayoutV (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
+    yap::HorizontalLayout* firstHLayout = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
+    yap::HorizontalLayout* secondHLayout = new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
+    yap::VerticalLayout* firstVLayout = new yap::VerticalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
+    yap::VerticalLayout* secondVLayout = new yap::VerticalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
 
     yap::PictureBox* title = new yap::PictureBox ();
     title->SetPicture ("pokedexSet/Title.png");
@@ -59,7 +58,7 @@ namespace ycl
     yap::PictureBox* boxInfo = new yap::PictureBox ();
     title->SetPicture ("pokedexSet/PokemonBoxBackground.png");
 
-    yap::WidgetBackground* menuBackground = new yap::WidgetBackground ("pokedexSet/ListBackground.png", true);
+    yap::BackgroundWidget* menuBackground = new yap::BackgroundWidget ("pokedexSet/ListBackground.png", true);
     yap::Menu* menu = new yap::Menu (yap::Menu::Type::VERTICAL, yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), false);
     menu->SetSize (yap::Vector2 (128, GetUserSize ().y - GetUserSize ().y / 10));
     menu->SetBackground (*menuBackground);
@@ -76,36 +75,36 @@ namespace ycl
     AddChild (*firstHLayout);
   }
 
-  bool WidgetPokedex::IsFocusable () const
+  bool PokedexWidget::IsFocusable () const
   {
     return true;
   }
 
-  yap::Vector2 WidgetPokedex::HandleGetSize () const
+  yap::Vector2 PokedexWidget::HandleGetSize () const
   {
     return yap::Vector2 (600, 300);
   }
-  void WidgetPokedex::HandleMove (const yap::Vector2& offset)
+  void PokedexWidget::HandleMove (const yap::Vector2& offset)
   {
 
   }
-  void WidgetPokedex::HandleScale (const yap::Vector2& factor)
+  void PokedexWidget::HandleScale (const yap::Vector2& factor)
   {
 
   }
-  void WidgetPokedex::HandleDraw (yap::IDrawingContext& context)
+  void PokedexWidget::HandleDraw (yap::IDrawingContext& context)
   {
 
   }
-  void WidgetPokedex::HandleShow (bool isVisible)
+  void PokedexWidget::HandleShow (bool isVisible)
   {
 
   }
-  void WidgetPokedex::HandleChangeColor (const sf::Color& color)
+  void PokedexWidget::HandleChangeColor (const sf::Color& color)
   {
 
   }
-  void WidgetPokedex::HandleUpdate (const yap::Time& dt)
+  void PokedexWidget::HandleUpdate (const yap::Time& dt)
   {
 
   }

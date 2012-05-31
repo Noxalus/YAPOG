@@ -1,5 +1,5 @@
-#include "YAPOG/Graphics/Gui/WidgetDialogBox.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
@@ -21,7 +21,7 @@ namespace ycl
     , pokemonInfoWidget_ (nullptr)
     , opponentInfoWidget_ (nullptr)
   {
-    battleInfoDialogBox_ = new yap::WidgetDialogBox ();
+    battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
     // Init Battle Text Dialog
     /*
@@ -37,7 +37,7 @@ namespace ycl
     */
 
     battleInfoDialogBox_->SetBackground (
-      *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
+      *(new yap::BackgroundWidget ("WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
 
     battleInfoDialogBox_->SetBorder (*new yap::WidgetBorder ("red.png"));
 
@@ -56,7 +56,7 @@ namespace ycl
   }
 
   /// Getters
-  yap::WidgetDialogBox& BattleInterface::GetBattleInfoDialogBox ()
+  yap::DialogBoxWidget& BattleInterface::GetBattleInfoDialogBox ()
   {
     return *battleInfoDialogBox_;
   }

@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/System/MathHelper.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
 
 namespace yap
 {

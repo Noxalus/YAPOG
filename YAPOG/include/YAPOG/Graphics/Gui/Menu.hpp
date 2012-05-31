@@ -27,8 +27,8 @@ namespace yap
       = LayoutBox::Align::CENTER);
     virtual ~Menu ();
 
-    void SetSelectedBackground (WidgetBackground& background);
-    void SetSelectedBorder (WidgetBorder& border);
+    void SetSelectedBackground (BackgroundWidget& background);
+    void SetSelectedBorder (BorderWidget& border);
     virtual bool IsFocusable () const;
 
     void SetFixed (bool state);
@@ -51,8 +51,8 @@ namespace yap
     uint currentSelec_;
     LayoutBox* layout_;
 
-    WidgetBackground* selecBckgrd_;
-    WidgetBorder* selecBrdr_;
+    BackgroundWidget* selecBckgrd_;
+    BorderWidget* selecBrdr_;
     uint selecBrdSize_;
     bool isFixed_;
     Type type_;

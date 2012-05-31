@@ -12,14 +12,14 @@ namespace yap
 
 namespace ycl
 {
-  class WidgetPokedex : public yap::BaseWidget
+  class PokedexWidget : public yap::BaseWidget
   {
-    DISALLOW_COPY(WidgetPokedex);
+    DISALLOW_COPY(PokedexWidget);
 
   public:
-    WidgetPokedex ();
+    PokedexWidget ();
     void Init ();
-    virtual ~WidgetPokedex();
+    virtual ~PokedexWidget();
     virtual bool IsFocusable () const;
 
   protected:

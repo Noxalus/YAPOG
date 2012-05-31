@@ -1,13 +1,13 @@
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
-#include "YAPOG/Graphics/Gui/WidgetTextBox.hpp"
+#include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 
 namespace yap
 {
-  WidgetTextBox::WidgetTextBox ()
+  TextBoxWidget::TextBoxWidget ()
     : label_ (nullptr)
     , curser_ (nullptr)
     , curserPos_ (0)
@@ -18,7 +18,7 @@ namespace yap
                                   GetPosition ().y + label_->GetCharHeight () / 2));
   }
 
-  WidgetTextBox::WidgetTextBox (String content)
+  TextBoxWidget::TextBoxWidget (String content)
     : label_ (nullptr)
     , curser_ (nullptr)
     , curserPos_ (0)
@@ -32,23 +32,23 @@ namespace yap
     SetText (content);
   }
 
-  WidgetTextBox::~WidgetTextBox ()
+  TextBoxWidget::~TextBoxWidget ()
   {
   }
 
-  bool WidgetTextBox::IsFocusable () const
+  bool TextBoxWidget::IsFocusable () const
   {
     return true;
   }
 
-  void WidgetTextBox::SetCursor (Texture& cursor)
+  void TextBoxWidget::SetCursor (Texture& cursor)
   {
     cursor.SetSize (Vector2 (cursor.GetSize ().x, label_->GetCharHeight ()));
     cursor.SetPosition (GetPosition ());
     curser_ = &cursor;
   }
 
-  void WidgetTextBox::Refresh ()
+  void TextBoxWidget::Refresh ()
   {
     label_->SetPosition (Vector2 (GetPosition ().x,
                                   GetPosition ().y));
@@ -62,13 +62,13 @@ namespace yap
     BaseWidget::Refresh ();
   }
 
-  Vector2 WidgetTextBox::HandleGetSize () const
+  Vector2 TextBoxWidget::HandleGetSize () const
   {
     return GetUserSize ()
       + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
-  void WidgetTextBox::HandleDraw (IDrawingContext& context)
+  void TextBoxWidget::HandleDraw (IDrawingContext& context)
   {
     label_->Draw (context);
 
@@ -80,11 +80,11 @@ namespace yap
     }
   }
 
-  void WidgetTextBox::HandleShow (bool isVisible)
+  void TextBoxWidget::HandleShow (bool isVisible)
   {
   }
 
-  void WidgetTextBox::HandleMove (const Vector2& offset)
+  void TextBoxWidget::HandleMove (const Vector2& offset)
   {
     label_->Move (offset);
     if (curser_ != nullptr)
@@ -92,28 +92,28 @@ namespace yap
     //drawableText_.setPosition (GetPosition() + offset);
   }
 
-  void WidgetTextBox::HandleScale (const Vector2& factor)
+  void TextBoxWidget::HandleScale (const Vector2& factor)
   {
     label_->Scale (factor);
     if (curser_ != nullptr)
       curser_->Scale (factor);
   }
 
-  void WidgetTextBox::HandleUpdate (const Time& dt)
+  void TextBoxWidget::HandleUpdate (const Time& dt)
   {
   }
 
-  void WidgetTextBox::HandleChangeColor (const sf::Color& color)
+  void TextBoxWidget::HandleChangeColor (const sf::Color& color)
   {
     label_->ChangeColor (color);
   }
 
-  String WidgetTextBox::GetContent () const
+  String TextBoxWidget::GetContent () const
   {
     return label_->GetText ();
   }
 
-  bool WidgetTextBox::HandleOnEvent (const GuiEvent& guiEvent)
+  bool TextBoxWidget::HandleOnEvent (const GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
@@ -279,7 +279,7 @@ namespace yap
     return false;
   }
 
-  void WidgetTextBox::SetText (const String& contentArg)
+  void TextBoxWidget::SetText (const String& contentArg)
   {
     if (contentArg.empty())
       return;

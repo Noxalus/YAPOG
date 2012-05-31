@@ -12,8 +12,8 @@
 namespace yap
 {
   class Padding;
-  class WidgetBackground;
-  class WidgetBorder;
+  class BackgroundWidget;
+  class BorderWidget;
 
   class YAPOG_LIB BaseWidget : public IWidget
   {
@@ -113,9 +113,9 @@ namespace yap
     virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
     virtual void SetPadding (Padding* padding);
-    virtual void SetBackground (WidgetBackground& background);
-    virtual void SetBorder  (WidgetBorder& border, uint width);
-    virtual void SetBorder  (WidgetBorder& border);
+    virtual void SetBackground (BackgroundWidget& background);
+    virtual void SetBorder  (BorderWidget& border, uint width);
+    virtual void SetBorder  (BorderWidget& border);
     virtual void UnsetBackground ();
     virtual void UnsetBorder ();
     virtual bool IsFocusable () const = 0;
@@ -156,8 +156,8 @@ namespace yap
     IWidget* root_;
     IWidget* parent_;
     Padding* padding_;
-    WidgetBackground* background_;
-    WidgetBorder* border_;
+    BackgroundWidget* background_;
+    BorderWidget* border_;
     Vector2 userSize_;
     bool isExtensible_;
     bool isFocused_;

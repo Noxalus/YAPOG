@@ -96,8 +96,8 @@ ${inc_root}/Gui/GameMainMenu.hpp
 ${src_root}/Gui/GameMainMenu.cpp
 ${inc_root}/Gui/MainMenu.hpp
 ${src_root}/Gui/MainMenu.cpp
-${inc_root}/Gui/WidgetPokedex.hpp
-${src_root}/Gui/WidgetPokedex.cpp
+${inc_root}/Gui/PokedexWidget.hpp
+${src_root}/Gui/PokedexWidget.cpp
 
 ${inc_root}/Game.hpp
 ${src_root}/Game.cpp

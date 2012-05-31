@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
 
 #include "Gui/GameMainMenu.hpp"
 
@@ -20,8 +20,8 @@ namespace ycl
   void GameMainMenu::Init (yap::String playerName)
   {
     /*
-    yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
-    //    yap::WidgetBackground* menuItemBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
+    yap::BackgroundWidget* menuBck = new yap::BackgroundWidget ("whiteBckgrd.png", true);
+    //    yap::BackgroundWidget* menuItemBck = new yap::BackgroundWidget ("whiteBckgrd.png", true);
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
@@ -32,7 +32,7 @@ namespace ycl
     yap::Texture* li = new yap::Texture ();
     li->LoadFromFile ("menuCursor.png");
     yap::Texture* tli = new yap::Texture ();
-    yap::WidgetBorder* menuItemBrd = new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
+    yap::BorderWidget* menuItemBrd = new yap::BorderWidget (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("T.png");
@@ -51,7 +51,7 @@ namespace ycl
     yap::Texture* tl = new yap::Texture ();
     tl->LoadFromFile ("TL.png");
 
-    yap::WidgetBorder* menuBorder = new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+    yap::BorderWidget* menuBorder = new yap::BorderWidget (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);

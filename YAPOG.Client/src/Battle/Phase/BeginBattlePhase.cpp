@@ -1,5 +1,5 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
-#include "YAPOG/Graphics/Gui/WidgetDialogBox.hpp"
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/BattleInterface.hpp"

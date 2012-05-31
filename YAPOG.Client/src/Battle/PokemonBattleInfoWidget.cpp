@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
 
 #include "Battle/PokemonBattleInfoWidget.hpp"
 
@@ -14,7 +14,7 @@ namespace ycl
   {
     horizontalLayout_.SetSize (yap::Vector2 (100.f, 200.f));
     verticalLayout_.SetBackground (
-      *new yap::WidgetBackground ("Pictures/pokemon_battle_info.png", false));
+      *new yap::BackgroundWidget ("Pictures/pokemon_battle_info.png", false));
 
     this->AddChild (pokemonName_);
     this->AddChild (verticalLayout_);

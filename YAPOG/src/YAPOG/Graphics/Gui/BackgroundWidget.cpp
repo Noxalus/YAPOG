@@ -1,9 +1,9 @@
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 
 namespace yap
 {
-  WidgetBackground::WidgetBackground ()
+  BackgroundWidget::BackgroundWidget ()
     : background_ ()
     , tm_ (nullptr)
     , resize_ (true)
@@ -12,20 +12,20 @@ namespace yap
   {
   }
 
-  bool WidgetBackground::IsFocusable () const
+  bool BackgroundWidget::IsFocusable () const
   {
     return false;
   }
 
-  Vector2 WidgetBackground::HandleGetSize () const
+  Vector2 BackgroundWidget::HandleGetSize () const
   {    
       return background_.GetSize ();
   }
-  void WidgetBackground::SetFixed (bool state)
+  void BackgroundWidget::SetFixed (bool state)
   {
     fixed_ = state;
   }
-  WidgetBackground::WidgetBackground (String file, bool resize)
+  BackgroundWidget::BackgroundWidget (String file, bool resize)
     : background_ ()
     , tm_ (nullptr)
     , resize_ (resize)
@@ -34,11 +34,11 @@ namespace yap
     background_.LoadFromFile (file);
   }
 
-  WidgetBackground::~WidgetBackground ()
+  BackgroundWidget::~BackgroundWidget ()
   {
   }
 
-  void WidgetBackground::HandleDraw (IDrawingContext& context)
+  void BackgroundWidget::HandleDraw (IDrawingContext& context)
   {
     if (isInit)
     {
@@ -49,11 +49,11 @@ namespace yap
     }
   }
 
-  void WidgetBackground::HandleShow (bool isVisible)
+  void BackgroundWidget::HandleShow (bool isVisible)
   {
   }
 
-  void WidgetBackground::HandleMove (const Vector2& offset)
+  void BackgroundWidget::HandleMove (const Vector2& offset)
   {
     if (isInit)
     {
@@ -64,7 +64,7 @@ namespace yap
     }
   }
 
-  void WidgetBackground::HandleScale (const Vector2& factor)
+  void BackgroundWidget::HandleScale (const Vector2& factor)
   {
     Vector2 base = background_.GetSize ();
     Vector2 neo (base.x * factor.x, base.y * factor.y);
@@ -78,25 +78,25 @@ namespace yap
     }
   }
 
-  void WidgetBackground::HandleUpdate (const Time& dt)
+  void BackgroundWidget::HandleUpdate (const Time& dt)
   {
   }
 
-  void WidgetBackground::HandleChangeColor (const sf::Color& color)
+  void BackgroundWidget::HandleChangeColor (const sf::Color& color)
   {
   }
 
-  bool WidgetBackground::GetFixed () const
+  bool BackgroundWidget::GetFixed () const
   {
     return fixed_;
   }
 
-  const Texture& WidgetBackground::GetBackground () const
+  const Texture& BackgroundWidget::GetBackground () const
   {
     return background_;
   }
 
-  void WidgetBackground::SetBackground (Vector2 size)
+  void BackgroundWidget::SetBackground (Vector2 size)
   {
     background_.SetPosition (GetPosition ());
     if (resize_)
@@ -111,7 +111,7 @@ namespace yap
     isInit = true;
   }
 
-  void WidgetBackground::SetBackground (String file
+  void BackgroundWidget::SetBackground (String file
     , uint width
     , uint height
     , bool resize)
