@@ -3,8 +3,8 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
-# include "YAPOG/Graphics/Gui/LayoutH.hpp";
-# include "YAPOG/Graphics/Gui/LayoutV.hpp";
+# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp";
+# include "YAPOG/Graphics/Gui/VerticalLayout.hpp";
 
 # include "Battle/BaseBattleWidget.hpp"
 
@@ -30,8 +30,8 @@ namespace ycl
 
     /// @name Layouts.
     /// @{
-    yap::LayoutH horizontalLayout_;
-    yap::LayoutV verticalLayout_;
+    yap::HorizontalLayout horizontalLayout_;
+    yap::VerticalLayout verticalLayout_;
     /// @}
   };
 } // namespace ycl

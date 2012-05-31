@@ -74,7 +74,7 @@ namespace yap
         return node.first;
     }
 
-    throw Exception ("Index out of bound: " + StringHelper::ToString (index));
+    YAPOG_THROW("Index out of bound: " + StringHelper::ToString (index));
   }
 
   XmlTree::DataType* XmlTree::GetRootRawData () const

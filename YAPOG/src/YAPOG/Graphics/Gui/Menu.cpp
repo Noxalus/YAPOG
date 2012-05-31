@@ -1,10 +1,10 @@
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/System/MathHelper.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-#include "YAPOG/Graphics/Gui/LayoutH.hpp"
-#include "YAPOG/Graphics/Gui/LayoutV.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+#include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/System/Event/Event.hpp"
 
 
@@ -23,9 +23,9 @@ namespace yap
     , layoutManager_ (nullptr)
   {  
     if (type == Type::HORIZONTAL)
-      layout_ = new LayoutH (ext, in, !fixed);
+      layout_ = new HorizontalLayout (ext, in, !fixed);
     else if (type == Type::VERTICAL)
-      layout_ = new LayoutV (ext, in, !fixed);
+      layout_ = new VerticalLayout (ext, in, !fixed);
 
     layoutManager_ = new PartialLayoutManager (*layout_);
     layoutManager_->SetEnable (fixed);
@@ -46,12 +46,12 @@ namespace yap
   {
   }
 
-  void Menu::SetSelectedBackground (WidgetBackground& background)
+  void Menu::SetSelectedBackground (BackgroundWidget& background)
   {
     selecBckgrd_ = &background;
   }
 
-  void Menu::SetSelectedBorder (WidgetBorder& border)
+  void Menu::SetSelectedBorder (BorderWidget& border)
   {
     selecBrdr_ = &border;
   }

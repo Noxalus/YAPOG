@@ -53,13 +53,13 @@ namespace yap
     TileLayoutHandler* layoutHandler)
   {
     if (height > DEFAULT_MAX_HEIGHT)
-      throw Exception (
+      YAPOG_THROW(
         "TileLayer level `" +
         StringHelper::ToString (height) +
         "' is too high.");
 
     if (tileLayers_.Contains (height))
-      throw Exception (
+      YAPOG_THROW(
         "TileLayer `" + StringHelper::ToString (height) + "' already exists.");
 
     TileLayer* tileLayer = new TileLayer (width_, height_);

@@ -6,6 +6,7 @@
 # include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
 # include "YAPOG/Game/Factory/IObjectLoader.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
+# include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -13,7 +14,7 @@ namespace yap
   T* ObjectFactory::Get (const String& typeName, const ID& id)
   {
     if (!objectIDLoaders_.Contains (typeName))
-      throw Exception ("Loader `" + typeName + "' does not exist.");
+      YAPOG_THROW("Loader `" + typeName + "' does not exist.");
 
     return static_cast<T*> (objectIDLoaders_[typeName]->Load (id));
   }
@@ -22,7 +23,7 @@ namespace yap
   inline T* ObjectFactory::Create (const String& typeName, const ID& id)
   {
     if (!objectIDLoaders_.Contains (typeName))
-      throw Exception ("Loader `" + typeName + "' does not exist.");
+      YAPOG_THROW("Loader `" + typeName + "' does not exist.");
 
     IObjectIDLoader* loader = objectIDLoaders_[typeName];
 
@@ -45,7 +46,7 @@ namespace yap
     const String& rootNodeName)
   {
     if (!objectLoaders_.Contains (typeName))
-      throw Exception ("Loader `" + typeName + "' does not exist.");
+      YAPOG_THROW("Loader `" + typeName + "' does not exist.");
 
     IObjectLoader* loader = objectLoaders_[typeName];
 

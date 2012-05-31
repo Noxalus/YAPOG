@@ -3,8 +3,8 @@
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
 
 namespace yap
@@ -111,7 +111,7 @@ namespace yap
     return textContent_;
   }
 
-  void Label::SetBackground (WidgetBackground& background)
+  void Label::SetBackground (BackgroundWidget& background)
   {
     background_= &background;
     background_->SetPosition (GetPosition ()/* + Vector2 (0,

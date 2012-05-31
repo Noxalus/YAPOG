@@ -7,8 +7,8 @@
 namespace yap
 {
   class ISprite;
-  class WidgetDialogBox;
-  class WidgetBackground;
+  class DialogBoxWidget;
+  class BackgroundWidget;
   class IDrawingContext;
   class Time;
 } // namespace yap

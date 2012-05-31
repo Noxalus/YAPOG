@@ -1,5 +1,5 @@
-#include <iostream>
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -31,7 +31,7 @@ namespace yap
 	void DatabaseManager::SetLogStream (OStream& os)
 	{
 		if (dl_ != nullptr)
-			throw Exception ("The log stream is already set !");
+			YAPOG_THROW("The log stream is already set !");
 
 		dl_ = new DatabaseLogger (os);
 	}

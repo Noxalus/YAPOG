@@ -9,9 +9,9 @@
 
 namespace yap
 {
-  class YAPOG_LIB WidgetBackground : public BaseWidget
+  class YAPOG_LIB BackgroundWidget : public BaseWidget
   {
-    DISALLOW_COPY(WidgetBackground);
+    DISALLOW_COPY(BackgroundWidget);
 
   public:
 
@@ -24,15 +24,15 @@ namespace yap
       }
     };
 
-    WidgetBackground ();
-    WidgetBackground (String file, bool resize);
-    virtual ~WidgetBackground ();
+    BackgroundWidget ();
+    BackgroundWidget (String file, bool resize);
+    virtual ~BackgroundWidget ();
 
     virtual bool IsFocusable () const;
           void SetBackground (String file, uint width, uint height, bool resize);
     void SetBackground (Vector2 size);
     const Texture& GetBackground () const;
-    Event<const WidgetBackground&, const EventArgsTexture&> OnBackgroundSet;
+    Event<const BackgroundWidget&, const EventArgsTexture&> OnBackgroundSet;
     void SetFixed (bool state);
     bool GetFixed () const;
 

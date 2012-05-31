@@ -1,4 +1,4 @@
-#include "YAPOG/Graphics/Gui/LayoutV.hpp"
+#include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Collection/List.hpp"
 #include "YAPOG/System/MathHelper.hpp"
@@ -6,28 +6,28 @@
 namespace yap
 {
 
-  LayoutV::LayoutV ()
+  VerticalLayout::VerticalLayout ()
     : LayoutBox ()
   {
   }
 
-  LayoutV::LayoutV (Padding ext, Padding in, bool isExt)
+  VerticalLayout::VerticalLayout (Padding ext, Padding in, bool isExt)
     : LayoutBox (ext, in, isExt)
   {
   }
 
-  float LayoutV::GetWidthItem ()
+  float VerticalLayout::GetWidthItem ()
   {
     for (auto itMap = items_.begin (); itMap != items_.end (); itMap++)
       return (*itMap).first->GetSize ().y;
     return 0;
   }
 
-  LayoutV::~LayoutV ()
+  VerticalLayout::~VerticalLayout ()
   {
   }
 
-  void LayoutV::GeneratePosition ()
+  void VerticalLayout::GeneratePosition ()
   {
     float totalPad = 0;
 
@@ -70,27 +70,27 @@ namespace yap
     BaseWidget::Refresh ();
   }
 
-  void LayoutV::HandleDraw (IDrawingContext& context)
+  void VerticalLayout::HandleDraw (IDrawingContext& context)
   {
   }
 
-  void LayoutV::HandleShow (bool isVisible)
+  void VerticalLayout::HandleShow (bool isVisible)
   {
   }
 
-  void LayoutV::HandleMove (const Vector2& offset)
+  void VerticalLayout::HandleMove (const Vector2& offset)
   {
   }
 
-  void LayoutV::HandleScale (const Vector2& factor)
+  void VerticalLayout::HandleScale (const Vector2& factor)
   {
   }
 
-  void LayoutV::HandleUpdate (const Time& dt)
+  void VerticalLayout::HandleUpdate (const Time& dt)
   {
   }
 
-  void LayoutV::HandleChangeColor (const sf::Color& color)
+  void VerticalLayout::HandleChangeColor (const sf::Color& color)
   {
   }
 } //namespace yap

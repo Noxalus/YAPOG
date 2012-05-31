@@ -1,22 +1,23 @@
-#ifndef YAPOG_LAYOUT_V_HPP
-# define YAPOG_LAYOUT_V_HPP
+#ifndef YAPOG_LAYOUT_H_HPP
+# define YAPOG_LAYOUT_H_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB LayoutV : public LayoutBox
+  class YAPOG_LIB HorizontalLayout : public LayoutBox
   {
-    DISALLOW_COPY(LayoutV);
+    DISALLOW_COPY(HorizontalLayout);
 
   public:
 
-    LayoutV ();
-    LayoutV (Padding ext, Padding in, bool isExt);
-    virtual ~LayoutV ();
+    HorizontalLayout ();
+    HorizontalLayout (Padding ext, Padding in, bool isExt);
+    virtual ~HorizontalLayout ();
     virtual void GeneratePosition ();
     virtual float GetWidthItem ();
+    
 
   private:
 
@@ -32,4 +33,4 @@ namespace yap
   };
 } // namespace yap
 
-#endif /* YAPOG_LAYOUT_V_HPP! */
+#endif /* YAPOG_LAYOUT_H! */

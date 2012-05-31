@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
 
 #include "Gui/MainMenu.hpp"
 
@@ -21,7 +21,7 @@ namespace ycl
 
   void MainMenu::Init ()
   {
-    yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
+    yap::BackgroundWidget* menuBck = new yap::BackgroundWidget ("WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
@@ -30,30 +30,30 @@ namespace ycl
     yap::Texture* bi = new yap::Texture ();    
     yap::Texture* bli = new yap::Texture ();    
     yap::Texture* li = new yap::Texture ();
-    li->LoadFromFile ("cursor.png");
+    li->LoadFromFile ("WindowSkins/BasicSkin/Global/Cursor.png");
     yap::Texture* tli = new yap::Texture ();
-    yap::WidgetBorder* menuItemBrd = 
-      new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
+    yap::BorderWidget* menuItemBrd = 
+      new yap::BorderWidget (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
     yap::Texture* t = new yap::Texture ();
-    t->LoadFromFile ("T.png");
+    t->LoadFromFile ("WindowSkins/BasicSkin/Global/TopBorder.png");
     yap::Texture* tr = new yap::Texture ();
-    tr->LoadFromFile ("TR.png");
+    tr->LoadFromFile ("WindowSkins/BasicSkin/Global/TopRightCorner.png");
     yap::Texture* r = new yap::Texture ();
-    r->LoadFromFile ("R.png");
+    r->LoadFromFile ("WindowSkins/BasicSkin/Global/RightBorder.png");
     yap::Texture* br = new yap::Texture ();
-    br->LoadFromFile  ("BR.png");
+    br->LoadFromFile  ("WindowSkins/BasicSkin/Global/BottomRightCorner.png");
     yap::Texture* b = new yap::Texture ();
-    b->LoadFromFile ("B.png");
+    b->LoadFromFile ("WindowSkins/BasicSkin/Global/BottomBorder.png");
     yap::Texture* bl = new yap::Texture ();
-    bl->LoadFromFile ("BL.png");
+    bl->LoadFromFile ("WindowSkins/BasicSkin/Global/BottomLeftCorner.png");
     yap::Texture* l = new yap::Texture ();
-    l->LoadFromFile ("L.png");
+    l->LoadFromFile ("WindowSkins/BasicSkin/Global/LeftBorder.png");
     yap::Texture* tl = new yap::Texture ();
-    tl->LoadFromFile ("TL.png");
+    tl->LoadFromFile ("WindowSkins/BasicSkin/Global/TopLeftCorner.png");
 
-    yap::WidgetBorder* menuBorder = 
-      new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+    yap::BorderWidget* menuBorder = 
+      new yap::BorderWidget (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);

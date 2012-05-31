@@ -1,27 +1,29 @@
-#ifndef YAPOG_WIDGET_TEXT_BOX_HPP
-# define YAPOG_WIDGET_TEXT_BOX_HPP
+#ifndef YAPOG_WIDGET_DIALOG_BOX_HPP
+# define YAPOG_WIDGET_DIALOG_BOX_HPP
 
 # include "YAPOG/Graphics/Texture.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/System/Time/UpdateableTimer.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB WidgetTextBox : public BaseWidget
+  class YAPOG_LIB DialogBoxWidget : public BaseWidget
   {
-    DISALLOW_COPY(WidgetTextBox);
+    DISALLOW_COPY(DialogBoxWidget);
 
   public:
 
-    WidgetTextBox ();
-    WidgetTextBox (String content);
-    virtual ~WidgetTextBox ();
+    DialogBoxWidget ();
+    DialogBoxWidget (const String& content);  
+    virtual ~DialogBoxWidget ();
 
     virtual String GetContent () const;
-    virtual void SetText (const String& contentArg);
-    void SetCursor (Texture& cursor);
+    virtual void AddText (const String& contentArg);
     virtual bool IsFocusable () const;
+    void SetShowText (bool state);
 
   protected:
     void Refresh ();
@@ -39,10 +41,10 @@ namespace yap
 
   private:
     String content_;
-    Label* label_;
-    Texture* curser_;
-    uint curserPos_;
-    uint curserRelPos_;
+    collection::Array<Label*> labels_;
+    uint currentText_;
+    UpdateableTimer textSpeed_;
+    bool showText_;
 
   };
 } // namespace yap
