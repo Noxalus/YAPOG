@@ -11,8 +11,8 @@
 namespace yap
 {
   class Padding;
-  class BackgroundWidget;
-  class BorderWidget;
+  class WidgetBackground;
+  class WidgetBorder;
   /// @brief Base element of the graphical user interface.
   struct YAPOG_LIB IWidget :
     public ISpatial,
@@ -26,9 +26,9 @@ namespace yap
     virtual void AddChild (IWidget& child) = 0;
     virtual IWidget& GetRoot () const = 0;
     virtual void SetParent (IWidget& parent) = 0;
-    virtual void SetPadding (Padding* padding) = 0;
-    virtual void SetBackground (BackgroundWidget& background) = 0;
-    virtual void SetBorder  (BorderWidget& border, uint width) = 0;
+    virtual void SetPadding (const Padding& padding) = 0;
+    virtual void SetBackground (WidgetBackground& background) = 0;
+    virtual void SetBorder  (WidgetBorder& border, uint width) = 0;
     virtual void Refresh () = 0;
     virtual bool IsFocusable () const = 0;
     virtual void SetFocused (bool state) = 0;

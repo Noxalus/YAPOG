@@ -1,5 +1,5 @@
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
-#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
@@ -24,22 +24,17 @@ namespace ycl
     battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
     // Init Battle Text Dialog
-    /*
+
     battleInfoDialogBox_->SetSize (
-    yap::Vector2 (Game::SCREEN_SIZE.x, Game::SCREEN_SIZE.y / 4));
-    */
+      yap::Vector2 (Game::SCREEN_SIZE.x, Game::SCREEN_SIZE.y / 4));
 
-    battleInfoDialogBox_->SetPadding (new yap::Padding (35, 35, 25, 25));
-
-    /*
     battleInfoDialogBox_->SetPosition (
-    yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
-    */
+      yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
 
+    battleInfoDialogBox_->SetPadding (yap::Padding (35, 35, 25, 25));
+    battleInfoDialogBox_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     battleInfoDialogBox_->SetBackground (
-      *(new yap::BackgroundWidget ("WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
-
-    battleInfoDialogBox_->SetBorder (*new yap::WidgetBorder ("red.png"));
+      *(new yap::WidgetBackground ("WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
 
     std::cout << "Size: " 
       << battleInfoDialogBox_->GetSize ().x << ", "
@@ -50,7 +45,7 @@ namespace ycl
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
     //this->AddChild (*pokemonInfoWidget_);
-    //this->AddChild (*opponentInfoWidget_);
+    this->AddChild (*opponentInfoWidget_);
 
     this->AddChild (*battleInfoDialogBox_);
   }

@@ -330,12 +330,12 @@ ${inc_root}/Graphics/Gui/Menu.hpp
 ${inc_root}/Graphics/Gui/MenuItem.hpp
 ${src_root}/Graphics/Gui/MenuItem.cpp
 ${src_root}/Graphics/Gui/Menu.cpp
-${inc_root}/Graphics/Gui/BackgroundWidget.hpp
-${src_root}/Graphics/Gui/BackgroundWidget.cpp
+${inc_root}/Graphics/Gui/WidgetBackground.hpp
+${src_root}/Graphics/Gui/WidgetBackground.cpp
 ${inc_root}/Graphics/Gui/TextBoxWidget.hpp
 ${src_root}/Graphics/Gui/TextBoxWidget.cpp
-${inc_root}/Graphics/Gui/BorderWidget.hpp
-${src_root}/Graphics/Gui/BorderWidget.cpp
+${inc_root}/Graphics/Gui/WidgetBorder.hpp
+${src_root}/Graphics/Gui/WidgetBorder.cpp
 ${inc_root}/Graphics/Gui/Padding.hpp
 ${inc_root}/Graphics/Gui/GameInput/GameInputEntry.hpp
 ${src_root}/Graphics/Gui/GameInput/GameInputEntry.cpp

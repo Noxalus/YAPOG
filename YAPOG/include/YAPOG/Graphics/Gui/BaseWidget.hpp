@@ -8,12 +8,12 @@
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
-{
-  class Padding;
-  class BackgroundWidget;
-  class BorderWidget;
+{  
+  class WidgetBackground;
+  class WidgetBorder;
 
   class YAPOG_LIB BaseWidget : public IWidget
   {
@@ -112,10 +112,10 @@ namespace yap
     virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
-    virtual void SetPadding (Padding* padding);
-    virtual void SetBackground (BackgroundWidget& background);
-    virtual void SetBorder  (BorderWidget& border, uint width);
-    virtual void SetBorder  (BorderWidget& border);
+    virtual void SetPadding (const Padding& padding);
+    virtual void SetBackground (WidgetBackground& background);
+    virtual void SetBorder  (WidgetBorder& border, uint width);
+    virtual void SetBorder  (WidgetBorder& border);
     virtual void UnsetBackground ();
     virtual void UnsetBorder ();
     virtual bool IsFocusable () const = 0;
@@ -155,9 +155,9 @@ namespace yap
     collection::List<IUpdateable*> updatables_;
     IWidget* root_;
     IWidget* parent_;
-    Padding* padding_;
-    BackgroundWidget* background_;
-    BorderWidget* border_;
+    Padding padding_;
+    WidgetBackground* background_;
+    WidgetBorder* border_;
     Vector2 userSize_;
     bool isExtensible_;
     bool isFocused_;

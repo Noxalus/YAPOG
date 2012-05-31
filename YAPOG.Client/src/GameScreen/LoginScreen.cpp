@@ -4,8 +4,8 @@
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/MenuItem.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
@@ -58,7 +58,7 @@ namespace ycl
     yap::Padding (2, 2, 2, 2),
     yap::Padding (9, 9 , 9, 9), false);
 
-    yap::BackgroundWidget* bckgrd4 = new yap::BackgroundWidget ("bckgrd4.png", true);
+    yap::WidgetBackground* bckgrd4 = new yap::WidgetBackground ("bckgrd4.png", true);
     layout->SetBackground (*bckgrd4);
 
     layout->SetSize (yap::Vector2 (1024, 768));
@@ -72,7 +72,7 @@ namespace ycl
     pb->SetPicture (yap::String("jarri_j.png"));
     pb->Scale (yap::Vector2 (1, 1));
 
-    yap::BorderWidget* border = new yap::BorderWidget ("heart.gif");
+    yap::WidgetBorder* border = new yap::WidgetBorder ("heart.gif");
     border->SetScalable (false);
     pb->SetBorder (*border, 16);
 
@@ -80,8 +80,8 @@ namespace ycl
     yap::Padding (20, 20, 20, 20),
     yap::Padding (9, 9 , 9, 9), true);
 
-    yap::BackgroundWidget* bckgr5 =
-    new yap::BackgroundWidget (
+    yap::WidgetBackground* bckgr5 =
+    new yap::WidgetBackground (
     "bckgrd5.png",
     true);
 
@@ -89,7 +89,7 @@ namespace ycl
     ts->SetSize (yap::Vector2 (100, 32));
     yap::TextBoxWidget* ts3 = new yap::TextBoxWidget ("Element2");
     ts3->SetSize (yap::Vector2 (100, 32));
-    yap::BackgroundWidget* bckgr = new yap::BackgroundWidget (
+    yap::WidgetBackground* bckgr = new yap::WidgetBackground (
     "bckgrd3.png",
     false);
 
@@ -114,17 +114,17 @@ namespace ycl
     yap::Texture* cursor = new yap::Texture ();
     cursor->LoadFromFile ("cursor.png");
     txtbox->SetCursor (*cursor);
-    yap::BackgroundWidget* bckgrd = new yap::BackgroundWidget (
+    yap::WidgetBackground* bckgrd = new yap::WidgetBackground (
     "bckgrd.png",
     true);
     txtbox->SetBackground (*bckgrd);
 
-    //yap::BackgroundWidget* bckgr = new BackgroundWidget ();
+    //yap::WidgetBackground* bckgr = new WidgetBackground ();
     //bckgr->setbackground ("jarri_j.jpg", 1024, 512, false);
 
     yap::DialogBoxWidget* dialog = new yap::DialogBoxWidget ();
     dialog->SetSize (yap::Vector2 (256, 128));
-    yap::BackgroundWidget* dialogbck = new yap::BackgroundWidget ("bckgrd.png", true);
+    yap::WidgetBackground* dialogbck = new yap::WidgetBackground ("bckgrd.png", true);
     dialog->SetBackground (*dialogbck);
     dialog->AddText (yap::String ("Il était une fois l'histoire de Mohammed Ali (baba)."));
     dialog->AddText (yap::String ("Ali alla à la halle à alakazham."));

@@ -2,7 +2,7 @@
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
@@ -40,8 +40,8 @@ namespace yap
   {
     for (Label* text : labels_)
     {
-      text->SetPosition (Vector2 (GetPosition ().x + padding_->left,
-        GetPosition ().y + padding_->top/*+ label_->GetCharHeight () / 2*/));
+      text->SetPosition (Vector2 (GetPosition ().x + padding_.left,
+        GetPosition ().y + padding_.top/*+ label_->GetCharHeight () / 2*/));
     }
 
     BaseWidget::Refresh ();
@@ -126,7 +126,7 @@ namespace yap
     String txt = contentArg;
     Label* lb = new Label ();
 
-    uint LabelMaxSize = GetUserSize ().x - padding_->left - padding_->right;
+    uint LabelMaxSize = GetUserSize ().x - padding_.left - padding_.right;
     uint charNumb = (LabelMaxSize / lb->GetCharWidth ());
 
     uint previousPos = 0;

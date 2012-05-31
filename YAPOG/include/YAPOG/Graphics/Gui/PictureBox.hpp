@@ -4,7 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
-# include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+# include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 
 namespace yap

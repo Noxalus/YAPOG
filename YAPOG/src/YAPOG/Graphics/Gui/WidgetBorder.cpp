@@ -1,11 +1,11 @@
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
-  BorderWidget::BorderWidget ()
+  WidgetBorder::WidgetBorder ()
     : border_ (nullptr)
     , file_ ("")
     , textures_ ()
@@ -21,12 +21,12 @@ namespace yap
   {
   }
 
-  bool BorderWidget::IsFocusable () const
+  bool WidgetBorder::IsFocusable () const
   {
     return false;
   }
 
-  BorderWidget::BorderWidget (String file)
+  WidgetBorder::WidgetBorder (String file)
     : border_ (nullptr)
     , file_ (file)
     , textures_ ()
@@ -42,7 +42,7 @@ namespace yap
   {
   }
 
-  BorderWidget::BorderWidget (Texture& top,
+  WidgetBorder::WidgetBorder (Texture& top,
     Texture& topRight,
     Texture& right,
     Texture& botRight,
@@ -79,11 +79,11 @@ namespace yap
   }
 
 
-  BorderWidget::~BorderWidget ()
+  WidgetBorder::~WidgetBorder ()
   {
   }
 
-  void BorderWidget::HandleDraw (IDrawingContext& context)
+  void WidgetBorder::HandleDraw (IDrawingContext& context)
   {
     if (isInit && basic_ && !isScalable_)
     {
@@ -100,11 +100,11 @@ namespace yap
         txtr->Draw (context);
   }
 
-  void BorderWidget::HandleShow (bool isVisible)
+  void WidgetBorder::HandleShow (bool isVisible)
   {
   }
 
-  void BorderWidget::HandleMove (const Vector2& offset)
+  void WidgetBorder::HandleMove (const Vector2& offset)
   {
     if (isInit && basic_ && !isScalable_)
     {
@@ -121,11 +121,11 @@ namespace yap
         txtr->Move (offset);
   }
 
-  void BorderWidget::SetScalable (bool state)
+  void WidgetBorder::SetScalable (bool state)
   {
     isScalable_ = state;
   }
-  void BorderWidget::HandleScale (const Vector2& factor)
+  void WidgetBorder::HandleScale (const Vector2& factor)
   {
     if (border_ != nullptr)
     {
@@ -148,15 +148,15 @@ namespace yap
     }
   }
 
-  void BorderWidget::HandleUpdate (const Time& dt)
+  void WidgetBorder::HandleUpdate (const Time& dt)
   {
   }
 
-  void BorderWidget::HandleChangeColor (const sf::Color& color)
+  void WidgetBorder::HandleChangeColor (const sf::Color& color)
   {
   }
 
-  const Texture& BorderWidget::GetBorder () const
+  const Texture& WidgetBorder::GetBorder () const
   {
     if (border_ != nullptr)
       return *border_;
@@ -166,7 +166,7 @@ namespace yap
     YAPOG_THROW("No texture defined.");
   }
 
-  uint BorderWidget::GetWidth () const
+  uint WidgetBorder::GetWidth () const
   {
     if (width_ > 0)
       return width_;
@@ -175,7 +175,7 @@ namespace yap
       return GetTextureWidth ();
     }
   }
-  Vector2 BorderWidget::HandleGetSize () const
+  Vector2 WidgetBorder::HandleGetSize () const
   {
     if (basic_)
     {
@@ -199,7 +199,7 @@ namespace yap
     }
   }
 
-  uint BorderWidget::GetTextureWidth () const
+  uint WidgetBorder::GetTextureWidth () const
   {
     uint maxWidth = 0;
     uint currentSize = 0;
@@ -216,7 +216,7 @@ namespace yap
     return maxWidth;
   }
 
-  void BorderWidget::SetBorder (Vector2 size)
+  void WidgetBorder::SetBorder (Vector2 size)
   {
     if (basic_)
     {
@@ -289,7 +289,7 @@ namespace yap
     isInit = true;
   }
 
-  void BorderWidget::SetBorder (Vector2 size, uint width)
+  void WidgetBorder::SetBorder (Vector2 size, uint width)
   {
     if (!basic_)
       return;

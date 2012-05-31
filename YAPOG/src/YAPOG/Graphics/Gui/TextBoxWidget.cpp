@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 
@@ -53,7 +53,7 @@ namespace yap
     label_->SetPosition (Vector2 (GetPosition ().x,
                                   GetPosition ().y));
 
-    uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
+    uint labelMaxWidth = GetUserSize ().x - padding_.left - padding_.right;
     while (label_->GetSize ().x > labelMaxWidth)
     {
       label_->SetText (label_->GetText ().substr (1));
@@ -151,7 +151,7 @@ namespace yap
             label_->SetText (temp + temp2.substr (0, temp2.length () - 1));
 
             uint labelMaxWidth =
-              GetUserSize ().x - padding_->left - padding_->right;
+              GetUserSize ().x - padding_.left - padding_.right;
 
             Vector2 labelWidth (
               label_->CharPos (label_->Length () - curserRelPos_)
@@ -261,7 +261,7 @@ namespace yap
       else
         label_->SetText (label_->GetText () + txt);
 
-      uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
+      uint labelMaxWidth = GetUserSize ().x - padding_.left - padding_.right;
       Vector2 labelWidth (label_->CharPos (label_->Length ())
                           - label_->GetPosition ());
       while (labelWidth.x > labelMaxWidth)
@@ -290,7 +290,7 @@ namespace yap
     label_->SetText (content_);
 
     String contentTemp = content_;
-    uint labelMaxWidth = GetUserSize ().x - padding_->left - padding_->right;
+    uint labelMaxWidth = GetUserSize ().x - padding_.left - padding_.right;
 
     if (label_->GetSize ().x > labelMaxWidth)
     {

@@ -39,7 +39,7 @@ namespace yap
     uint GetCharHeight () const;
     Vector2 CharPos (uint pos) const;
     uint Length () const;
-    virtual void SetBackground (BackgroundWidget& background);
+    virtual void SetBackground (WidgetBackground& background);
 
   private:
 

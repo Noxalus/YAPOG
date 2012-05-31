@@ -3,7 +3,7 @@
 #include "YAPOG/Graphics/Gui/MenuItem.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
 namespace yap
 {

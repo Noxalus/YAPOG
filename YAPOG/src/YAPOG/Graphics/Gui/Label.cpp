@@ -3,8 +3,8 @@
 #include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
-#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
 
 namespace yap
@@ -25,8 +25,8 @@ namespace yap
     , drawableText_ (content)
     , isPosSet_ (false)
   {
-    /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
-    GetPosition ().y + padding_->top));*/
+    /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
+    GetPosition ().y + padding_.top));*/
     drawableText_.setPosition (GetPosition ().x,
       GetPosition ().y - drawableText_.getCharacterSize ()
       + drawableText_.getGlobalBounds ().height);
@@ -66,12 +66,12 @@ namespace yap
 
   Vector2 Label::HandleGetSize () const
   {
-    return Vector2 (padding_->left
+    return Vector2 (padding_.left
       + drawableText_.getGlobalBounds ().width
-      + padding_->right,
-      padding_->top
+      + padding_.right,
+      padding_.top
       + drawableText_.getGlobalBounds ().height
-      + padding_->bottom)
+      + padding_.bottom)
       + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
       * 2, border_->GetWidth () * 2) : Vector2 ());
   }
@@ -111,7 +111,7 @@ namespace yap
     return textContent_;
   }
 
-  void Label::SetBackground (BackgroundWidget& background)
+  void Label::SetBackground (WidgetBackground& background)
   {
     background_= &background;
     background_->SetPosition (GetPosition ()/* + Vector2 (0,
@@ -127,8 +127,8 @@ namespace yap
 
     textContent_ = content;
     drawableText_.setString (content);
-    /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_->left,
-    GetPosition ().y + padding_->top));*/
+    /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
+    GetPosition ().y + padding_.top));*/
     if (isPosSet_)
 
     {

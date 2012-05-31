@@ -1,5 +1,5 @@
-#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
@@ -44,7 +44,7 @@ namespace ycl
 
   void PokedexWidget::Init ()
   {
-    yap::BackgroundWidget* background = new yap::BackgroundWidget ("pokedexSet/Background.png", true);
+    yap::WidgetBackground* background = new yap::WidgetBackground ("pokedexSet/Background.png", true);
     SetBackground (*background);
 
     yap::HorizontalLayout* firstHLayout = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
@@ -58,7 +58,7 @@ namespace ycl
     yap::PictureBox* boxInfo = new yap::PictureBox ();
     title->SetPicture ("pokedexSet/PokemonBoxBackground.png");
 
-    yap::BackgroundWidget* menuBackground = new yap::BackgroundWidget ("pokedexSet/ListBackground.png", true);
+    yap::WidgetBackground* menuBackground = new yap::WidgetBackground ("pokedexSet/ListBackground.png", true);
     yap::Menu* menu = new yap::Menu (yap::Menu::Type::VERTICAL, yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), false);
     menu->SetSize (yap::Vector2 (128, GetUserSize ().y - GetUserSize ().y / 10));
     menu->SetBackground (*menuBackground);

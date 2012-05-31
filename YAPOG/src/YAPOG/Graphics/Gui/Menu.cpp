@@ -1,8 +1,8 @@
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/System/MathHelper.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
-#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/System/Event/Event.hpp"
@@ -46,12 +46,12 @@ namespace yap
   {
   }
 
-  void Menu::SetSelectedBackground (BackgroundWidget& background)
+  void Menu::SetSelectedBackground (WidgetBackground& background)
   {
     selecBckgrd_ = &background;
   }
 
-  void Menu::SetSelectedBorder (BorderWidget& border)
+  void Menu::SetSelectedBorder (WidgetBorder& border)
   {
     selecBrdr_ = &border;
   }

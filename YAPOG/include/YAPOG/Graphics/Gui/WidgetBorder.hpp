@@ -9,9 +9,9 @@
 
 namespace yap
 {
-  class YAPOG_LIB BorderWidget : public BaseWidget
+  class YAPOG_LIB WidgetBorder : public BaseWidget
   {
-    DISALLOW_COPY(BorderWidget);
+    DISALLOW_COPY(WidgetBorder);
 
   public:
 
@@ -24,9 +24,9 @@ namespace yap
       }
     };
 
-    BorderWidget ();
-    BorderWidget (String file);
-    BorderWidget (Texture& top,
+    WidgetBorder ();
+    WidgetBorder (String file);
+    WidgetBorder (Texture& top,
       Texture& topRight,
       Texture& right,
       Texture& botRight,
@@ -36,10 +36,10 @@ namespace yap
       Texture& topLeft,
       bool isScalable);
 
-    virtual ~BorderWidget ();
+    virtual ~WidgetBorder ();
 
     virtual bool IsFocusable () const;
-    Event<const BorderWidget&, const EventArgsTexture&> OnBorderSet;
+    Event<const WidgetBorder&, const EventArgsTexture&> OnBorderSet;
     void SetBorder (Vector2 size, uint width);
     void SetBorder (Vector2 size);
     const Texture& GetBorder () const;

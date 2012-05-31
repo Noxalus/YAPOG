@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Gui/BackgroundWidget.hpp"
-#include "YAPOG/Graphics/Gui/BorderWidget.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
@@ -21,14 +21,13 @@ namespace yap
     , childen_ ()
     , root_ (nullptr)
     , parent_ (nullptr)
-    , padding_ (nullptr)
+    , padding_ ()
     , background_ (nullptr)
     , border_ (nullptr)
     , userSize_ (0, 0)
     , isExtensible_ (false)
     , isFocused_ (true)
   {
-    padding_ = new Padding ();
   }
 
   BaseWidget::~BaseWidget ()
@@ -306,7 +305,7 @@ namespace yap
     root_ = &parent.GetRoot ();
   }
 
-  void BaseWidget::SetPadding (Padding* padding)
+  void BaseWidget::SetPadding (const Padding& padding)
   {
     padding_ = padding;
     Refresh ();
@@ -318,7 +317,7 @@ namespace yap
       parent_->Refresh ();
   }
 
-  void BaseWidget::SetBackground (BackgroundWidget& background)
+  void BaseWidget::SetBackground (WidgetBackground& background)
   {
     background_= &background;
     background_->SetPosition (GetPosition ());
@@ -348,7 +347,7 @@ namespace yap
     Refresh ();
   }
 
-  void BaseWidget::SetBorder (BorderWidget& border, uint width)
+  void BaseWidget::SetBorder (WidgetBorder& border, uint width)
   {
     border_ = &border;
     border_->SetPosition (GetPosition ());
@@ -365,7 +364,7 @@ namespace yap
       SetPosAfterBorder (paddingBorder, paddingBorder);
   }
 
-  void BaseWidget::SetBorder (BorderWidget& border)
+  void BaseWidget::SetBorder (WidgetBorder& border)
   {
 
     border.SetPosition (GetPosition ());
