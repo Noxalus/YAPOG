@@ -22,6 +22,13 @@ namespace ycl
 
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
+
+    mainMenu->GetLoginItem ().OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Login";
+    };
+
     guiManager_->AddChild (*mainMenu);
   }
 

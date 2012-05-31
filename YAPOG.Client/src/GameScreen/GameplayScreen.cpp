@@ -18,6 +18,7 @@ namespace ycl
     , cameraController_ (worldCamera)
     , player_ (nullptr)
     , moveController_ ()
+    , lastForce_ ()
   {
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
@@ -159,6 +160,29 @@ namespace ycl
     if (player_ == nullptr)
       return;
 
-    player_->ApplyForce (moveController_.GetForce ());
+    const yap::Vector2& force = moveController_.GetForce ();
+
+    if (force == yap::VECTOR2_ZERO)
+    {
+      lastForce_ = force;
+      return;
+    }
+
+    if (lastForce_ != force)
+      SendApplyForce (force);
+
+    player_->ApplyForce (force);
+
+    lastForce_ = force;
+  }
+
+  void GameplayScreen::SendApplyForce (const yap::Vector2& force)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ClientInfoApplyForce);
+
+    packet.Write (force);
+
+    session_.SendPacket (packet);
   }
 } // namespace ycl

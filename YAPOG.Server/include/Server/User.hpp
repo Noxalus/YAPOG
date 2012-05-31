@@ -43,6 +43,7 @@ namespace yse
       void SetPlayer (Player* player);
 
       void HandleClientRequestStartInfo (yap::IPacket& packet);
+      void HandleClientInfoApplyForce (yap::IPacket& packet);
 
       void SendChangeMap (Map& map);
 

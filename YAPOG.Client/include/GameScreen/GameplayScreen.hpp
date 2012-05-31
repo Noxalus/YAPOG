@@ -39,6 +39,8 @@ namespace ycl
 
       void UpdatePlayer (const yap::Time& dt);
 
+      void SendApplyForce (const yap::Vector2& force);
+
       static const yap::ScreenType DEFAULT_NAME;
 
       World world_;
@@ -47,6 +49,7 @@ namespace ycl
 
       Player* player_;
       yap::CharacterMoveController moveController_;
+      yap::Vector2 lastForce_;
   };
 } // namespace ycl
 

@@ -10,6 +10,8 @@ namespace yse
 {
   class Player;
 
+  /// @brief Server side Map.
+  /// Enabled to send packets to all player inside it.
   class Map : public yap::Map
             , public yap::IPacketHandler
   {
@@ -20,7 +22,11 @@ namespace yse
       Map (const yap::ID& id);
       virtual ~Map ();
 
+      /// @brief Adds Player @a player to this Map.
+      /// @param player Player to add to this Map.
       void AddPlayer (Player* player);
+      /// @brief Removes Player @a player from this Map.
+      /// @param player Player to remove from this Map.
       void RemovePlayer (Player* player);
 
       /// @name IPacketHandler members.
@@ -44,6 +50,8 @@ namespace yse
         yap::DynamicWorldObject& sender,
         const yap::Vector2& oldVelocity,
         const yap::Vector2& currentVelocity);
+
+      void SendObjectMoveInfo (const yap::DynamicWorldObject& object);
 
       void SendAddObject (
         const yap::DynamicWorldObject& object,

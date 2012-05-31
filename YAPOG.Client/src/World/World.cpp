@@ -16,6 +16,7 @@ namespace ycl
     , currentMapID_ ()
     , currentMap_ (nullptr)
     , maps_ ()
+    , packetHandler_ ()
   {
   }
 
@@ -55,7 +56,18 @@ namespace ycl
 
   void World::AddMap (Map* map)
   {
+    map->AddRelay (this);
+
     maps_.Add (map->GetWorldID (), map);
+  }
+
+  void World::RemoveMap (const yap::ID& worldID)
+  {
+    Map* map = maps_[worldID];
+
+    map->RemoveRelay (this);
+
+    maps_.Remove (worldID);
   }
 
   void World::Draw (yap::IDrawingContext& context)
@@ -83,6 +95,31 @@ namespace ycl
     color_ = color;
 
     HandleChangeColor (color);
+  }
+
+  bool World::HandlePacket (yap::IPacket& packet)
+  {
+    return packetHandler_.HandlePacket (packet);
+  }
+
+  bool World::SendPacket (yap::IPacket& packet)
+  {
+    return packetHandler_.SendPacket (packet);
+  }
+
+  void World::AddRelay (yap::IPacketHandler* relay)
+  {
+    packetHandler_.AddRelay (relay);
+  }
+
+  void World::RemoveRelay (yap::IPacketHandler* relay)
+  {
+    packetHandler_.RemoveRelay (relay);
+  }
+
+  void World::SetParent (yap::IPacketHandler* parent)
+  {
+    packetHandler_.SetParent (parent);
   }
 
   void World::HandleUpdate (const yap::Time& dt)

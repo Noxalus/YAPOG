@@ -322,6 +322,8 @@ namespace yap
   {
     background_= &background;
     background_->SetPosition (GetPosition ());
+    if (background_->GetFixed ())
+      SetSize (background_->GetSize ());
     background_->SetBackground (GetSize ());
   }
 

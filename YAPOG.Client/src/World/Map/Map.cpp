@@ -11,7 +11,9 @@ namespace ycl
     : yap::Map (id)
     , tileLayers_ ()
     , drawableObjects_ ()
+    , packetHandler_ ()
   {
+    ADD_HANDLER(ServerInfoObjectMoveInfo, Map::HandleServerInfoObjectMoveInfo);
   }
 
   Map::~Map ()
@@ -27,6 +29,8 @@ namespace ycl
 
   void Map::AddPlayer (Player* player)
   {
+    player->AddRelay (this);
+
     player->OnMovedEvent ().AddHandler (
       DRAW_ORDER_HANDLER_NAME,
       [&] (yap::IDrawableDynamicWorldObject& sender,
@@ -48,6 +52,8 @@ namespace ycl
 
   void Map::RemovePlayer (Player* player)
   {
+    player->RemoveRelay (this);
+
     player->OnMovedEvent ().RemoveHandler (DRAW_ORDER_HANDLER_NAME);
 
     RemoveDrawableObject (player);
@@ -88,6 +94,31 @@ namespace ycl
   {
   }
 
+  bool Map::HandlePacket (yap::IPacket& packet)
+  {
+    return packetHandler_.HandlePacket (packet);
+  }
+
+  bool Map::SendPacket (yap::IPacket& packet)
+  {
+    return packetHandler_.SendPacket (packet);
+  }
+
+  void Map::AddRelay (yap::IPacketHandler* relay)
+  {
+    packetHandler_.AddRelay (relay);
+  }
+
+  void Map::RemoveRelay (yap::IPacketHandler* relay)
+  {
+    packetHandler_.RemoveRelay (relay);
+  }
+
+  void Map::SetParent (yap::IPacketHandler* parent)
+  {
+    packetHandler_.SetParent (parent);
+  }
+
   void Map::HandleSetSize (yap::uint width, yap::uint height)
   {
     yap::Map::HandleSetSize (width, height);
@@ -98,5 +129,10 @@ namespace ycl
   void Map::HandleUpdate (const yap::Time& dt)
   {
     yap::Map::HandleUpdate (dt);
+  }
+
+  void Map::HandleServerInfoObjectMoveInfo (yap::IPacket& packet)
+  {
+
   }
 } // namespace ycl

@@ -8,6 +8,8 @@
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/System/Network/IPacketHandler.hpp"
+# include "YAPOG/System/Network/PacketHandler.hpp"
 
 namespace ycl
 {
@@ -16,6 +18,7 @@ namespace ycl
 
   class Map : public yap::Map
             , public yap::IDrawable
+            , public yap::IPacketHandler
   {
       DISALLOW_COPY(Map);
 
@@ -44,6 +47,16 @@ namespace ycl
       virtual void ChangeColor (const sf::Color& color);
       /// @}
 
+      /// @name IPacketHandler members.
+      /// @{
+      virtual bool HandlePacket (yap::IPacket& packet);
+      virtual bool SendPacket (yap::IPacket& packet);
+
+      virtual void AddRelay (yap::IPacketHandler* relay);
+      virtual void RemoveRelay (yap::IPacketHandler* relay);
+      virtual void SetParent (yap::IPacketHandler* parent);
+      /// @}
+
     protected:
 
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
@@ -54,11 +67,15 @@ namespace ycl
 
     private:
 
+      void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
+
       static const yap::String DRAW_ORDER_HANDLER_NAME;
 
       yap::TileLayerStack tileLayers_;
 
       yap::collection::List<yap::IDrawableWorldObject*> drawableObjects_;
+
+      yap::PacketHandler packetHandler_;
   };
 } // namespace ycl
 

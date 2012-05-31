@@ -96,6 +96,15 @@ namespace yse
     const yap::Vector2& oldVelocity,
     const yap::Vector2& currentVelocity)
   {
+    SendObjectMoveInfo (sender);
+  }
+
+  void Map::SendObjectMoveInfo (const yap::DynamicWorldObject& object)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoObjectMoveInfo);
+
+    SendPacket (packet);
   }
 
   /// @todo Write state/direction

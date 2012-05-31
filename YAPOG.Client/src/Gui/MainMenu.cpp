@@ -10,18 +10,18 @@ namespace ycl
 
   MainMenu::MainMenu ()
     : Menu (yap::Menu::Type::VERTICAL,
-    yap::Padding (5, 5, 5, 5),
-    yap::Padding (5, 5, 5, 5),
-    false)
-
+            yap::Padding (5, 5, 5, 5),
+            yap::Padding (5, 5, 5, 5),
+            false)
+    , loginItem_ (nullptr)
+    , registrationItem_ (nullptr)
+    , exitItem_ (nullptr)
   {
   }
 
   void MainMenu::Init ()
   {
-    return;
     yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
-    //    yap::WidgetBackground* menuItemBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
@@ -30,9 +30,10 @@ namespace ycl
     yap::Texture* bi = new yap::Texture ();
     yap::Texture* bli = new yap::Texture ();
     yap::Texture* li = new yap::Texture ();
-    li->LoadFromFile ("menuCursor.png");
+    li->LoadFromFile ("cursor.png");
     yap::Texture* tli = new yap::Texture ();
-    yap::WidgetBorder* menuItemBrd = new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
+    yap::WidgetBorder* menuItemBrd =
+      new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("T.png");
@@ -51,26 +52,27 @@ namespace ycl
     yap::Texture* tl = new yap::Texture ();
     tl->LoadFromFile ("TL.png");
 
-    yap::WidgetBorder* menuBorder = new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+    yap::WidgetBorder* menuBorder =
+      new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);
 
-    yap::MenuItem* item1 = new yap::MenuItem (true);
-    yap::MenuItem* item2 = new yap::MenuItem (true);
-    yap::MenuItem* item3 = new yap::MenuItem (true);
+    loginItem_ = new yap::MenuItem (true);
+    registrationItem_ = new yap::MenuItem (true);
+    exitItem_ = new yap::MenuItem (true);
 
-    item1->SetContent ("Connexion");
-    item2->SetContent ("Inscription");
-    item3->SetContent ("Sortie");
+    loginItem_->SetContent ("Connexion");
+    registrationItem_->SetContent ("Inscription");
+    exitItem_->SetContent ("Sortie");
 
-    item1->ChangeColor (sf::Color (128, 128, 128));
-    item2->ChangeColor (sf::Color (128, 128, 128));
-    item3->ChangeColor (sf::Color (128, 128, 128));
+    loginItem_->ChangeColor (sf::Color (128, 128, 128));
+    registrationItem_->ChangeColor (sf::Color (128, 128, 128));
+    exitItem_->ChangeColor (sf::Color (128, 128, 128));
 
-    AddChild (*item1, yap::LayoutBox::Align::LEFT);
-    AddChild (*item2, yap::LayoutBox::Align::LEFT);
-    AddChild (*item3, yap::LayoutBox::Align::LEFT);
+    AddChild (*loginItem_, yap::LayoutBox::Align::LEFT);
+    AddChild (*registrationItem_, yap::LayoutBox::Align::LEFT);
+    AddChild (*exitItem_, yap::LayoutBox::Align::LEFT);
 
     SetBackground (*menuBck);
     SetBorder (*menuBorder);
@@ -79,4 +81,15 @@ namespace ycl
   MainMenu::~MainMenu ()
   {
   }
+
+  /// Getters
+  yap::MenuItem& MainMenu::GetLoginItem ()
+  { return *loginItem_; }
+
+  const yap::MenuItem& MainMenu::GetRegistrationItem () const
+  { return *registrationItem_; }
+
+  const yap::MenuItem& MainMenu::GetExitItem () const
+  { return *exitItem_; }
+
 } // namespace ycl

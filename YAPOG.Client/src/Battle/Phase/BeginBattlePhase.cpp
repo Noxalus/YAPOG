@@ -27,46 +27,36 @@ namespace ycl
   {
     BattlePhase::HandleStart ();
 
-    battle_.SetPlayerGroundPosition (
-      yap::Vector2 (0,
-      Game::SCREEN_SIZE.y - (Game::SCREEN_SIZE.y / 4) -
-      ((battle_.GetPlayerGround ().GetSize ().y) / 2)));
-
-    battle_.SetOpponentGroundPosition (
-      yap::Vector2 (
-      Game::SCREEN_SIZE.x -
-      (battle_.GetOpponentGround ().GetSize ().x),
-      Game::SCREEN_SIZE.y / 3 -
-      (battle_.GetOpponentGround ().GetSize ().y) / 2));
-
     battle_.GetPlayerGround ().SetPosition (
       yap::Vector2 (
       Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
       ));
 
-    battle_.GetPlayerTrainerBack ().SetPosition (
-      yap::Vector2 (
-      Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
-      + battle_.GetPlayerGround ().GetSize ().y / 2
-      - battle_.GetPlayerTrainerBack ().GetSize ().y
-      ));
+    UpdatePlayerTrainerBack ();
 
     battle_.GetOpponentGround ().SetPosition (
       yap::Vector2 (
       (-1) * battle_.GetOpponentGround ().GetSize ().x,
       battle_.GetOpponentGroundPosition ().y));
 
-    yap::String pokemonName = battle_.GetOpponent ().GetName ();
-    battleInterface_.GetBattleInfoDialogBox ()->SetEnable (false);
-    battleInterface_.GetBattleInfoDialogBox ()->
-      AddText ("Un " + pokemonName + " sauvage\napparaît !");
+    yap::String opponentName = battle_.GetOpponent ().GetName ();
 
+    //battleInterface_.GetPokemonName ().SetText (opponentName);
+    //battleInterface_.GetPokemonName ().ChangeColor (sf::Color::Black);
+
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+    battleInterface_.GetBattleInfoDialogBox ().
+      AddText ("Un " + opponentName + 
+      " sauvage apparait !");
+
+    /*
     battle_.GetDrawableOpponent ().GetFrontSprite ().SetPosition (
-      yap::Vector2 (
-      Game::SCREEN_SIZE.x -
-      (battle_.GetOpponentGround ().GetSize ().x),
-      Game::SCREEN_SIZE.y / 3 -
-      (battle_.GetOpponentGround ().GetSize ().y) / 2));
+    yap::Vector2 (
+    Game::SCREEN_SIZE.x -
+    (battle_.GetOpponentGround ().GetSize ().x),
+    Game::SCREEN_SIZE.y / 3 -
+    (battle_.GetOpponentGround ().GetSize ().y) / 2));
+    */
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -79,17 +69,14 @@ namespace ycl
         battle_.GetPlayerGround ().GetPosition ().x - (GROUND_SPEED * dt.GetValue ()),
         battle_.GetPlayerGround ().GetPosition ().y));
 
-      battle_.GetPlayerTrainerBack ().SetPosition (
-        yap::Vector2 (
-        battle_.GetPlayerGround ().GetPosition ().x +
-        battle_.GetPlayerGround ().GetSize ().x / 2 -
-        battle_.GetPlayerTrainerBack ().GetSize ().x / 2 - (GROUND_SPEED * dt.GetValue ()),
-        battle_.GetPlayerTrainerBack ().GetPosition ().y));
+      UpdatePlayerTrainerBack ();
     }
     else
     {
       battle_.GetPlayerGround ().SetPosition (
-        yap::Vector2 ( battle_.GetPlayerGroundPosition ()));
+        battle_.GetPlayerGroundPosition ());
+
+      UpdatePlayerTrainerBack ();
     }
 
     if (battle_.GetOpponentGround ().GetPosition ().x <
@@ -99,18 +86,11 @@ namespace ycl
         yap::Vector2 (
         battle_.GetOpponentGround ().GetPosition ().x + (GROUND_SPEED * dt.GetValue ()),
         battle_.GetOpponentGround ().GetPosition ().y));
-
-      /*
-      battle_.GetDrawableOpponent ().GetFrontSprite ().SetPosition (
-        yap::Vector2 (
-        battle_.GetOpponentGround ()->GetPosition ().x + 1.f,
-        battle_.GetOpponentGround ()->GetPosition ().y));
-        */
     }
     else
     {
       battle_.GetOpponentGround ().SetPosition (
-        yap::Vector2 (battle_.GetOpponentGround ().GetPosition ()));
+        battle_.GetOpponentGroundPosition ());
     }
 
     if (battle_.GetPlayerGround ().GetPosition () ==
@@ -118,10 +98,10 @@ namespace ycl
       battle_.GetOpponentGround ().GetPosition () ==
       battle_.GetOpponentGroundPosition ())
     {
-      battleInterface_.GetBattleInfoDialogBox ()->SetEnable (true);
-    }
+      battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
 
-    //nextPhase_ = yap::BattlePhaseState::BeginBattle;
+      nextPhase_ = yap::BattlePhaseState::BeginBattle;
+    }
   }
 
   void BeginBattlePhase::HandleEnd ()
@@ -167,5 +147,18 @@ namespace ycl
 
   void BeginBattlePhase::HandleChangeColor (const sf::Color& color)
   {
+  }
+
+  void BeginBattlePhase::UpdatePlayerTrainerBack ()
+  {
+    battle_.GetPlayerTrainerBack ().SetPosition (
+      yap::Vector2 (
+      battle_.GetPlayerGround ().GetPosition ().x +
+      battle_.GetPlayerGround ().GetSize ().x / 2 -
+      battle_.GetPlayerTrainerBack ().GetSize ().x / 2
+      , battle_.GetPlayerGroundPosition ().y + 
+      battle_.GetPlayerGround ().GetSize ().y / 2 -
+      battle_.GetPlayerTrainerBack ().GetSize ().y
+      ));
   }
 }

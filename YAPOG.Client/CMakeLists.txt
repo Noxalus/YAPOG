@@ -26,6 +26,10 @@ ${src_root}/Battle/BattleInteface.cpp
 ${inc_root}/Battle/BattlePhaseManager.hpp
 ${src_root}/Battle/BattlePhaseManager.cpp
 ${inc_root}/Battle/IDrawableBattleEntity.hpp
+${inc_root}/Battle/PokemonBattleInfoWidget.hpp
+${src_root}/Battle/PokemonBattleInfoWidget.cpp
+${inc_root}/Battle/OpponentBattleInfoWidget.hpp
+${src_root}/Battle/OpponentBattleInfoWidget.cpp
 ${inc_root}/Battle/PokemonFighter.hpp
 ${src_root}/Battle/PokemonFighter.cpp
 ${inc_root}/Battle/PokemonFighterTeam.hpp

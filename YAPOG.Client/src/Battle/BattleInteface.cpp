@@ -7,6 +7,8 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 #include "Battle/BattleInterface.hpp"
+#include "Battle/PokemonBattleInfoWidget.hpp"
+#include "Battle/OpponentBattleInfoWidget.hpp"
 
 #include "Game.hpp"
 
@@ -14,6 +16,8 @@ namespace ycl
 {
   BattleInterface::BattleInterface ()
     : battleInfoDialogBox_ (nullptr)
+    , pokemonInfoWidget_ (nullptr)
+    , opponentInfoWidget_ (nullptr)
   {
     battleInfoDialogBox_ = new yap::WidgetDialogBox ();
 
@@ -27,13 +31,29 @@ namespace ycl
       yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
 
     battleInfoDialogBox_->SetBackground (
-    *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
+      *(new yap::WidgetBackground ("WindowSkins/dummy1.png", true)));
+
+    pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
+    opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
     this->AddChild (*battleInfoDialogBox_);
+    //this->AddChild (*pokemonInfoWidget_);
+    this->AddChild (*opponentInfoWidget_);
   }
 
-  yap::WidgetDialogBox* BattleInterface::GetBattleInfoDialogBox () const
+  /// Getters
+  yap::WidgetDialogBox& BattleInterface::GetBattleInfoDialogBox ()
   {
-    return battleInfoDialogBox_;
+    return *battleInfoDialogBox_;
+  }
+
+  PokemonBattleInfoWidget& BattleInterface::GetPokemonInfoWidget ()
+  {
+    return *pokemonInfoWidget_;
+  }
+
+  OpponentBattleInfoWidget& BattleInterface::GetOpponentInfoWidget ()
+  {
+    return *opponentInfoWidget_;
   }
 }

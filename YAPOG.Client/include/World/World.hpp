@@ -7,6 +7,8 @@
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/Event/Event.hpp"
+# include "YAPOG/System/Network/IPacketHandler.hpp"
+# include "YAPOG/System/Network/PacketHandler.hpp"
 
 namespace ycl
 {
@@ -14,6 +16,7 @@ namespace ycl
 
   class World : public yap::World
               , public yap::IDrawable
+              , public yap::IPacketHandler
   {
       DISALLOW_COPY(World);
 
@@ -37,11 +40,25 @@ namespace ycl
       virtual void ChangeColor (const sf::Color& color);
       /// @}
 
+      /// @name IPacketHandler members.
+      /// @{
+      virtual bool HandlePacket (yap::IPacket& packet);
+      virtual bool SendPacket (yap::IPacket& packet);
+
+      virtual void AddRelay (yap::IPacketHandler* relay);
+      virtual void RemoveRelay (yap::IPacketHandler* relay);
+      virtual void SetParent (yap::IPacketHandler* parent);
+      /// @}
+
+      /// @name Events.
+      /// @{
       yap::Event<const World&, const yap::ChangeEventArgs<Map*>&> OnMapChanged;
+      /// @}
 
     private:
 
       void AddMap (Map* map);
+      void RemoveMap (const yap::ID& worldID);
 
       virtual void HandleUpdate (const yap::Time& dt);
 
@@ -59,6 +76,8 @@ namespace ycl
       yap::ID currentMapID_;
       Map* currentMap_;
       yap::collection::Map<yap::ID, Map*> maps_;
+
+      yap::PacketHandler packetHandler_;
   };
 } // namespace ycl
 

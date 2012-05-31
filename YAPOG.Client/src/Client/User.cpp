@@ -19,6 +19,7 @@ namespace ycl
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
     ADD_HANDLER(ServerInfoAddPlayer, User::HandleServerInfoAddPlayer);
+//    ADD_HANDLER(ServerInfoMoveInfo, User::HandleServerInfoMoveInfo);
   }
 
   User::~User ()
@@ -63,6 +64,9 @@ namespace ycl
   void User::SetPlayer (Player* player)
   {
     player_ = player;
+
+    AddRelay (player_);
+    player_->SetParent (this);
 
     yap::PhysicsCore* physicsCore = new yap::BasicPhysicsCore ();
     physicsCore->SetVelocityBounds (

@@ -43,6 +43,7 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
+    /// @warning /!/ RETURN OF THE DEATH /!/
     return;
 
     PokemonTeam team;

@@ -14,6 +14,7 @@ namespace yap
   typedef sf::FloatRect FloatRect;
   typedef sf::Rect<uint> UIntRect;
 
+  static const Vector2 VECTOR2_ZERO = Vector2 (0.0f, 0.0f);
   static const Vector2 DEFAULT_POSITION = Vector2 (0.0f, 0.0f);
   static const Vector2 DEFAULT_SIZE = Vector2 (1.0f, 1.0f);
 

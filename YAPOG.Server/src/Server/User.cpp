@@ -16,6 +16,7 @@ namespace yse
     , player_ (nullptr)
   {
     ADD_HANDLER(ClientRequestStartInfo, User::HandleClientRequestStartInfo);
+    ADD_HANDLER(ClientInfoApplyForce, User::HandleClientInfoApplyForce);
   }
 
   User::~User ()
@@ -108,6 +109,13 @@ namespace yse
     SendChangeMap (world_->GetMap (playerMapWorldID));
 
     world_->GetMap (playerMapWorldID).AddPlayer (player_);
+  }
+
+  void User::HandleClientInfoApplyForce (yap::IPacket& packet)
+  {
+    yap::Vector2 force = packet.ReadVector2 ();
+
+    player_->ApplyForce (force);
   }
 
   void User::SendChangeMap (Map& map)
