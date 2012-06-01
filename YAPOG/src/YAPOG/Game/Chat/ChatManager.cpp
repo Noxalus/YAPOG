@@ -31,7 +31,7 @@ namespace yap
     , Count (4)
     , Cd ()
   {
-    boost::filesystem::path path ("D:\\git\\YAPOG_chat");
+    boost::filesystem::path path (""/*current_dir*/);
     if (!boost::filesystem::exists (path))
     {
       std::cout << "toto" << std::endl;
