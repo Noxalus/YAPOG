@@ -1,18 +1,17 @@
 #ifndef YAPOG_FILECHECKER_HPP
 # define YAPOG_FILECHECKER_HPP
 
-# include <cstdio>
-# include <cstdlib>
-# include <algorithm>
-# include <string>
-# include <vector>
-# include <boost/filesystem.hpp>
 # include <boost/asio.hpp>
-# include <fstream>
+# include <boost/filesystem.hpp>
 # include <sstream>
+# include <vector>
 # include <SFML/Network.hpp>
-# include "YAPOG/System/Hash/Md5.hpp"
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/System/IOStream.hpp"
+# include "YAPOG/System/String.hpp"
+# include "YAPOG/System/Hash/Md5.hpp"
 
 namespace yap
 {
@@ -20,46 +19,47 @@ namespace yap
 	{
 		DISALLOW_COPY(FileChecker);
 	public:
-		struct MyFile
+		typedef struct  MyFile
 		{
-			MyFile(std::string fn, size_t fs);
+			MyFile(String fn, size_t fs);
 
-			std::string filename;
-			size_t		filesize;
-		};
+			String        Filename;
+			size_t	    Filesize;
+		} MyFileType;
+    
+		typedef boost::filesystem::path PathType;
+		typedef std::vector<PathType> VPathType;
+		typedef collection::Array<FileChecker*> VFilesType;
+		typedef collection::Array<MyFileType*> VFileType;
 
-		typedef std::vector<boost::filesystem::path> t_vp;
-		typedef std::vector<FileChecker*> t_vf;
-		typedef std::vector<MyFile*> t_vs;
-
-		FileChecker(boost::filesystem::path path);
-		FileChecker(std::string filename);
-		FileChecker(std::string filename, std::string md5, size_t filesize);
+		FileChecker(PathType path);
+		FileChecker(String filename);
+		FileChecker(String filename, String md5, size_t filesize);
 		~FileChecker();
 
-		void		setfilename(std::string filename);
-		void		setmd5(std::string md5);
-		std::string	getfilename();
-		int			getfilesize();
-		std::string	getmd5();
-		t_vf		getv();
+		void		          SetFilename(String filename);
+		void		          SetMd5(String md5);
+		String	          GetFilename();
+		size_t  	        GetFilesize();
+		String	          GetMd5();
+		VFilesType		    GetVfile();
 		
-		t_vs		sendfiletodownload(FileChecker& fc);
-		bool		update(t_vs vs);
+		VFileType		      SendFileToDownload(FileChecker& fc);
+		bool		          Update(VFileType vs);
 
 	private:
 		// Server checking.
-		void		getfiletodownload();
-		bool		compare(FileChecker* const c, FileChecker* const s);
-		std::string	vectorfind(t_vf vp, FileChecker* p);
-		bool		updateFTP(t_vs vs);
+		void		          GetFileToDownload();
+		bool		          Compare(FileChecker* const c, FileChecker* const s);
+		String	          VectorFind(VFilesType vp, FileChecker* p);
+		bool		          UpdateFTP(VFileType vs);
 
-		t_vf		v_;
-		t_vs		vs_;
-		boost::filesystem::path path_;
-		std::string filename_;
-		size_t		filesize_;
-		std::string md5_;
+		VFilesType		    vfile_;
+		VFileType		      vstring_;
+		PathType          path_;
+		String            filename_;
+		size_t  	        filesize_;
+		String            md5_;
 	};
 } // namespace yap
 
