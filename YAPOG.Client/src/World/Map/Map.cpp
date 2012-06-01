@@ -1,4 +1,6 @@
 #include "YAPOG/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp"
+#include "YAPOG/System/Network/IPacket.hpp"
+
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/MapElement.hpp"
@@ -31,17 +33,8 @@ namespace ycl
   {
     player->AddRelay (this);
 
-    player->OnMovedEvent ().AddHandler (
-      DRAW_ORDER_HANDLER_NAME,
-      [&] (yap::IDrawableDynamicWorldObject& sender,
-           const yap::Vector2& args)
-      {
-        /// @todo Sort by adding manually.
-        drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();
-      });
-
     AddDynamicObject (player);
-    AddDrawableObject (player);
+    AddDrawableDynamicObject (player);
   }
 
   void Map::AddMapElement (MapElement* mapElement)
@@ -58,6 +51,21 @@ namespace ycl
 
     RemoveDrawableObject (player);
     RemoveDynamicObject (player);
+  }
+
+  void Map::AddDrawableDynamicObject (
+    yap::IDrawableDynamicWorldObject* drawableObject)
+  {
+    drawableObject->OnMovedEvent ().AddHandler (
+      DRAW_ORDER_HANDLER_NAME,
+      [&] (yap::IDrawableDynamicWorldObject& sender,
+           const yap::Vector2& args)
+      {
+        /// @todo Sort by adding manually.
+        drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();
+      });
+
+    AddDrawableObject (drawableObject);
   }
 
   void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
@@ -133,6 +141,13 @@ namespace ycl
 
   void Map::HandleServerInfoObjectMoveInfo (yap::IPacket& packet)
   {
+    yap::ID objectWorldID = packet.ReadID ();
+    yap::Vector2 objectPosition = packet.ReadVector2 ();
+    yap::Vector2 objectVelocity = packet.ReadVector2 ();
 
+    yap::DynamicWorldObject& object = GetObject (objectWorldID);
+
+    object.SetPosition (objectPosition);
+    object.RawSetVelocity (objectVelocity);
   }
 } // namespace ycl

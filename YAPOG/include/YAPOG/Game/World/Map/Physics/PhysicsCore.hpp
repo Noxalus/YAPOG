@@ -79,7 +79,11 @@ namespace yap
       virtual void HandleApplyForce (const Vector2& force) = 0;
       virtual void ResetVelocity (const Time& dt) = 0;
 
+      static const Vector2 DEFAULT_MIN_VELOCITY_BOUNDS;
+      static const Vector2 DEFAULT_MAX_VELOCITY_BOUNDS;
+
       Vector2 velocity_;
+
       Vector2 lastVelocity_;
       Vector2 minVelocity_;
       Vector2 maxVelocity_;

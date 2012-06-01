@@ -4,14 +4,19 @@
 
 namespace yap
 {
+  const Vector2 PhysicsCore::DEFAULT_MIN_VELOCITY_BOUNDS =
+    Vector2 (0.0f, 0.0f);
+  const Vector2 PhysicsCore::DEFAULT_MAX_VELOCITY_BOUNDS =
+    Vector2 (150.0f, 150.0f);
+
   PhysicsCore::PhysicsCore ()
     : OnStopped ()
     , OnMoved ()
     , OnVelocityChanged ()
     , velocity_ ()
     , lastVelocity_ ()
-    , minVelocity_ ()
-    , maxVelocity_ ()
+    , minVelocity_ (DEFAULT_MIN_VELOCITY_BOUNDS)
+    , maxVelocity_ (DEFAULT_MAX_VELOCITY_BOUNDS)
     , move_ ()
   {
   }

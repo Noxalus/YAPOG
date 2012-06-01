@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/Battle/IBattleEntity.hpp"
 # include "YAPOG/Game/Battle/BattlePhaseManager.hpp"
 
@@ -38,7 +39,7 @@ namespace yap
     virtual void HandleUpdate (const Time& dt);
     virtual void HandleInit ();
     void AddPhase (
-      const BattlePhaseState& battlePhaseState, 
+      const BattlePhaseState& battlePhaseState,
       BattlePhase* battlePhase);
 
   private:

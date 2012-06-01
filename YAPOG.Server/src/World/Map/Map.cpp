@@ -3,6 +3,8 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 namespace yse
 {
   const yap::String Map::VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME =
@@ -96,13 +98,23 @@ namespace yse
     const yap::Vector2& oldVelocity,
     const yap::Vector2& currentVelocity)
   {
-    SendObjectMoveInfo (sender);
+    SendObjectMoveInfo (sender, currentVelocity);
   }
 
-  void Map::SendObjectMoveInfo (const yap::DynamicWorldObject& object)
+  void Map::SendObjectMoveInfo (
+    const yap::DynamicWorldObject& object,
+    const yap::Vector2& velocity)
   {
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ServerInfoObjectMoveInfo);
+
+    yap::DebugLogger::Instance ().LogLine (
+      "POSITION: [" + yap::StringHelper::ToString (object.GetPosition ().x) +
+      "][" + yap::StringHelper::ToString (object.GetPosition ().y) + "]");
+
+    packet.Write (object.GetWorldID ());
+    packet.Write (object.GetPosition ());
+    packet.Write (velocity);
 
     SendPacket (packet);
   }
@@ -117,8 +129,7 @@ namespace yse
     packet.Write (object.GetID ());
 
     /// @todo To send position, tmp
-    packet.Write (
-      /*player.GetPosition ()*/yap::Vector2 (100.0f, 100.0f));
+    packet.Write (object.GetPosition ());
 //    addPlayerPacket.Write (player.GetState ());
 //    addPlayerPacket.Write (player.GetDirection ());
 
@@ -152,5 +163,18 @@ namespace yse
     removePlayerPacket.Write (player.GetWorldID ());
 
     SendPacket (removePlayerPacket);
+  }
+
+  void Map::SendLoadObjects (yap::IPacket& packet)
+  {
+    packet.Write (static_cast<yap::UInt64> (GetDynamicObjects ().Count ()));
+
+    for (const auto& it : GetDynamicObjects ())
+    {
+      packet.Write (it.second->GetWorldID ());
+      packet.Write (it.second->GetTypeID ());
+      packet.Write (it.second->GetID ());
+      packet.Write (it.second->GetPosition ());
+    }
   }
 } // namespace yse

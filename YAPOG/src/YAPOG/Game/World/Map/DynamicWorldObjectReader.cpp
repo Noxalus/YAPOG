@@ -1,6 +1,6 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObjectReader.hpp"
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
-#include "YAPOG/Game/World/Map/Physics/PersistentPhysicsCore.hpp"
+#include "YAPOG/Game/World/Map/Physics/ForceToVelocityPhysicsCore.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
 
 namespace yap
@@ -30,7 +30,7 @@ namespace yap
       reader->ReadVector2 (
         DEFAULT_XML_MAX_VELOCITY_NODE_NAME));
 
-    PhysicsCore* physicsCore = new PersistentPhysicsCore ();
+    PhysicsCore* physicsCore = new ForceToVelocityPhysicsCore ();
     physicsCore->SetVelocityBounds (
       Vector2 (),
       dynamicWorldObject_.GetMaxVelocity ());

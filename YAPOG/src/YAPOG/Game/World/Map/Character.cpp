@@ -2,8 +2,6 @@
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
-#include "YAPOG/System/StringHelper.hpp"
 namespace yap
 {
   const Direction Character::DEFAULT_DIRECTION = Direction::South;
@@ -57,7 +55,6 @@ namespace yap
     DynamicWorldObject::HandleOnVelocityChanged (oldVelocity, currentVelocity);
 
     UpdateDirection (currentVelocity);
-    yap::DebugLogger::Instance ().LogLine ("[velocity changed][" + StringHelper::ToString (oldVelocity.y) + "][" + StringHelper::ToString (currentVelocity.y) + "]");
   }
 
   void Character::UpdateDirection (const Vector2& velocity)

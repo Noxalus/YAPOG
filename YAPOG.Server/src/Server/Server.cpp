@@ -34,6 +34,7 @@ namespace yse
     , port_ (DEFAULT_PORT)
     , clients_ ()
     , world_ ()
+    , worldUpdateTimer_ ()
     , contentManager_ (yap::ContentManager::Instance ())
     , objectFactory_ (yap::ObjectFactory::Instance ())
     , worldObjectStateFactory_ (yap::WorldObjectStateFactory::Instance ())
@@ -73,9 +74,16 @@ namespace yse
 
     while (isRunning_)
     {
+      yap::Time dt = worldUpdateTimer_.GetCurrentTime ();
+      worldUpdateTimer_.Reset ();
+
       clients_.Refresh ();
 
-      yap::Thread::Sleep (yap::Time (1.0f / DEFAULT_WORLD_UPDATE_RATE));
+      world_.Update (dt);
+
+      yap::Time sleepTime = yap::Time (1.0f / DEFAULT_WORLD_UPDATE_RATE) - dt;
+      if (sleepTime.GetValue () > 0.0f)
+        yap::Thread::Sleep (sleepTime);
     }
 
     Dispose ();

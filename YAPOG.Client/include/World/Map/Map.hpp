@@ -5,6 +5,7 @@
 # include "YAPOG/Game/World/Map/Map.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Graphics/Game/World/Map/IDrawableWorldObject.hpp"
+# include "YAPOG/Graphics/Game/World/Map/IDrawableDynamicWorldObject.hpp"
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/List.hpp"
@@ -59,6 +60,8 @@ namespace ycl
 
     protected:
 
+      void AddDrawableDynamicObject (
+        yap::IDrawableDynamicWorldObject* drawableObject);
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
       void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
 

@@ -40,6 +40,8 @@ namespace yap
       void ApplyForce (const Vector2& force);
       const Vector2& GetMove () const;
 
+      void RawSetVelocity (const Vector2& velocity);
+
       const String& GetState () const;
       const String& GetLogicalState () const;
       bool TryChangeState (const String& state);
@@ -68,6 +70,8 @@ namespace yap
       DynamicWorldObject (const DynamicWorldObject& copy);
 
       virtual const String& GetObjectFactoryTypeName () const = 0;
+
+      virtual void HandleApplyForce (const Vector2& force);
 
       virtual void HandleUpdate (const Time& dt);
       virtual void HandleSetState (const String& state);

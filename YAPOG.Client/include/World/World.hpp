@@ -55,17 +55,17 @@ namespace ycl
       yap::Event<const World&, const yap::ChangeEventArgs<Map*>&> OnMapChanged;
       /// @}
 
-    private:
-
-      void AddMap (Map* map);
-      void RemoveMap (const yap::ID& worldID);
-
       virtual void HandleUpdate (const yap::Time& dt);
 
       virtual void HandleDraw (yap::IDrawingContext& context);
 
       virtual void HandleShow (bool isVisible);
       virtual void HandleChangeColor (const sf::Color& color);
+
+    private:
+
+      void AddMap (Map* map);
+      void RemoveMap (const yap::ID& worldID);
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;

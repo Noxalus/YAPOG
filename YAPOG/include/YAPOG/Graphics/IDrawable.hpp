@@ -4,7 +4,6 @@
 # include <SFML/Graphics/Color.hpp>
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/ISpatial.hpp"
 
 namespace yap
 {

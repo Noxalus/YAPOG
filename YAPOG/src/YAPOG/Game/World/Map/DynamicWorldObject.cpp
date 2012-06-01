@@ -93,11 +93,18 @@ namespace yap
   void DynamicWorldObject::ApplyForce (const Vector2& force)
   {
     physicsCore_->ApplyForce (force);
+
+    HandleApplyForce (force);
   }
 
   const Vector2& DynamicWorldObject::GetMove () const
   {
     return physicsCore_->GetMove ();
+  }
+
+  void DynamicWorldObject::RawSetVelocity (const Vector2& velocity)
+  {
+    physicsCore_->RawSetVelocity (velocity);
   }
 
   bool DynamicWorldObject::IsActive () const
@@ -158,6 +165,10 @@ namespace yap
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);
+  }
+
+  void DynamicWorldObject::HandleApplyForce (const Vector2& force)
+  {
   }
 
   void DynamicWorldObject::HandleUpdate (const Time& dt)

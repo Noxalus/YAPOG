@@ -38,11 +38,10 @@ namespace ycl
       character_.AddSprite (
         state,
         yap::ObjectFactory::Instance ().Create<
-          yap::SpriteSet<
-            yap::Direction>> (
-              spriteType,
-              *directionSpriteReader,
-              spriteType));
+          yap::SpriteSet<yap::Direction>> (
+            spriteType,
+            *directionSpriteReader,
+            spriteType));
     }
   }
 } // namespace ycl

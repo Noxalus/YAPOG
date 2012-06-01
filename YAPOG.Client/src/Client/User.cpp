@@ -19,7 +19,6 @@ namespace ycl
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
     ADD_HANDLER(ServerInfoAddPlayer, User::HandleServerInfoAddPlayer);
-//    ADD_HANDLER(ServerInfoMoveInfo, User::HandleServerInfoMoveInfo);
   }
 
   User::~User ()
@@ -68,12 +67,6 @@ namespace ycl
     AddRelay (player_);
     player_->SetParent (this);
 
-    yap::PhysicsCore* physicsCore = new yap::BasicPhysicsCore ();
-    physicsCore->SetVelocityBounds (
-      yap::Vector2 (),
-      player_->GetMaxVelocity ());
-    player_->SetPhysicsCore (physicsCore);
-
     OnPlayerCreated (*this, player_);
   }
 
@@ -91,10 +84,31 @@ namespace ycl
 
     world_->AddMap (mapWorldID, mapID);
     world_->ChangeMap (mapWorldID);
+
+    Map& map = world_->GetCurrentMap ();
+
+    /// @todo get object count + read all objects
+    /// MAKE A VISITOR
   }
 
   void User::HandleServerInfoAddObject (yap::IPacket& packet)
   {
+    /// @todo
+
+/*
+    yap::ID worldID = packet.ReadID ();
+    yap::ID typeID = packet.ReadID ();
+    yap::ID id = packet.ReadID ();
+
+    yap::DynamicWorldObject* object =
+      yap::ObjectFactory::Instance ().Create<yap::DynamicWorldObject> (
+        typeID,
+        id);
+    object->SetWorldID (worldID);
+
+    world_->GetCurrentMap ().AddPlayer (player);
+
+    player->SetPosition (packet.ReadVector2 ());*/
   }
 
   void User::HandleServerInfoAddPlayer (yap::IPacket& packet)

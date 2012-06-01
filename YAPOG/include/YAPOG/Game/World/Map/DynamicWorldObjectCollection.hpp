@@ -14,10 +14,10 @@ namespace yap
   {
       DISALLOW_COPY(DynamicWorldObjectCollection);
 
-      typedef collection::Map<ID, DynamicWorldObject*>::ItType ItType;
-      typedef collection::Map<
-        ID,
-        DynamicWorldObject*>::ConstItType ConstItType;
+      typedef collection::Map<ID, DynamicWorldObject*> InnerCollectionType;
+      typedef InnerCollectionType::SizeType SizeType;
+      typedef InnerCollectionType::ItType ItType;
+      typedef InnerCollectionType::ConstItType ConstItType;
 
     public:
 
@@ -28,6 +28,8 @@ namespace yap
       ConstItType begin () const;
       ItType end ();
       ConstItType end () const;
+
+      SizeType Count () const;
 
       void AddObject (DynamicWorldObject* object);
       void RemoveObject (const ID& worldID);

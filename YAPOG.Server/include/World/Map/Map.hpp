@@ -29,6 +29,8 @@ namespace yse
       /// @param player Player to remove from this Map.
       void RemovePlayer (Player* player);
 
+      void SendLoadObjects (yap::IPacket& packet);
+
       /// @name IPacketHandler members.
       /// @{
       virtual bool HandlePacket (yap::IPacket& packet);
@@ -51,7 +53,10 @@ namespace yse
         const yap::Vector2& oldVelocity,
         const yap::Vector2& currentVelocity);
 
-      void SendObjectMoveInfo (const yap::DynamicWorldObject& object);
+      /// @todo Visitors for all Send methods...
+      void SendObjectMoveInfo (
+        const yap::DynamicWorldObject& object,
+        const yap::Vector2& velocity);
 
       void SendAddObject (
         const yap::DynamicWorldObject& object,

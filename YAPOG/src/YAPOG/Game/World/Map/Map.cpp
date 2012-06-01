@@ -126,6 +126,16 @@ namespace yap
   {
   }
 
+  DynamicWorldObject& Map::GetObject (const ID& worldID)
+  {
+    return dynamicObjects_.GetObject (worldID);
+  }
+
+  const DynamicWorldObjectCollection& Map::GetDynamicObjects () const
+  {
+    return dynamicObjects_;
+  }
+
   void Map::AddObject (WorldObject* object)
   {
     objects_.Add (object);

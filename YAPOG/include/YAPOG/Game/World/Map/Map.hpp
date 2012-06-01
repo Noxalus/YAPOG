@@ -59,6 +59,9 @@ namespace yap
 
       Map (const ID& id);
 
+      DynamicWorldObject& GetObject (const ID& worldID);
+      const DynamicWorldObjectCollection& GetDynamicObjects () const;
+
       void AddObject (WorldObject* object);
       void AddStaticObject (StaticWorldObject* object);
       void AddDynamicObject (DynamicWorldObject* object);

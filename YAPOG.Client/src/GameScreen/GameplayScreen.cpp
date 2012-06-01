@@ -162,14 +162,10 @@ namespace ycl
 
     const yap::Vector2& force = moveController_.GetForce ();
 
-    if (force == yap::VECTOR2_ZERO)
-    {
-      lastForce_ = force;
+    if (lastForce_ == force)
       return;
-    }
 
-    if (lastForce_ != force)
-      SendApplyForce (force);
+    SendApplyForce (force);
 
     player_->ApplyForce (force);
 

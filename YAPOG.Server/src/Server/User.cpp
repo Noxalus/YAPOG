@@ -128,6 +128,8 @@ namespace yse
 
     /// @todo Send dynamic objects.
 
+    map.SendLoadObjects (changeMapPacket);
+
     SendPacket (changeMapPacket);
   }
 } // namespace yse

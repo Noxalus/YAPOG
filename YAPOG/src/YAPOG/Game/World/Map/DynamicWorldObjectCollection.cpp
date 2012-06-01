@@ -17,25 +17,31 @@ namespace yap
   DynamicWorldObjectCollection::ItType
   DynamicWorldObjectCollection::begin ()
   {
-    return objects_.begin ();
+    return objects_.Begin ();
   }
 
   DynamicWorldObjectCollection::ConstItType
   DynamicWorldObjectCollection::begin () const
   {
-    return objects_.begin ();
+    return objects_.Begin ();
   }
 
   DynamicWorldObjectCollection::ItType
   DynamicWorldObjectCollection::end ()
   {
-    return objects_.end ();
+    return objects_.End ();
   }
 
   DynamicWorldObjectCollection::ConstItType
   DynamicWorldObjectCollection::end () const
   {
-    return objects_.end ();
+    return objects_.End ();
+  }
+
+  DynamicWorldObjectCollection::SizeType
+  DynamicWorldObjectCollection::Count () const
+  {
+    return objects_.Count ();
   }
 
   void DynamicWorldObjectCollection::AddObject (DynamicWorldObject* object)
