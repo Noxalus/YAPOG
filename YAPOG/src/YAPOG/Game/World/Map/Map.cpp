@@ -1,8 +1,10 @@
 #include "YAPOG/Game/World/Map/Map.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/StaticWorldObject.hpp"
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
 
 namespace yap
 {
@@ -14,17 +16,21 @@ namespace yap
   Map::Map (const ID& id)
     : id_ (id)
     , name_ (DEFAULT_NAME)
+    , worldID_ ()
     , width_ (DEFAULT_WIDTH)
     , height_ (DEFAULT_HEIGHT)
     , size_ ()
     , objects_ ()
     , dynamicObjects_ ()
     , updateables_ ()
+    , collidableArea_ (nullptr)
   {
   }
 
   Map::~Map ()
   {
+    delete collidableArea_;
+    collidableArea_ = nullptr;
   }
 
   Map* Map::Clone () const
@@ -52,6 +58,16 @@ namespace yap
     name_ = name;
   }
 
+  const ID& Map::GetWorldID () const
+  {
+    return worldID_;
+  }
+
+  void Map::SetWorldID (const ID& worldID)
+  {
+    worldID_ = worldID;
+  }
+
   const uint& Map::GetWidth () const
   {
     return width_;
@@ -75,9 +91,16 @@ namespace yap
     return size_;
   }
 
+  void Map::SetCollidableArea (CollidableArea* collidableArea)
+  {
+    collidableArea_ = collidableArea;
+  }
+
   void Map::HandleSetSize (uint width, uint height)
   {
     UpdateSize ();
+
+    collidableArea_->SetSize (GetSize ());
   }
 
   void Map::Update (const Time& dt)
@@ -87,7 +110,14 @@ namespace yap
 
     for (auto& it : dynamicObjects_)
       if (it.second->IsMoving ())
-        it.second->Move (it.second->GetMove ());
+      {
+        /// @todo Move decomposition: dedicated classes.
+
+        if (!collidableArea_->CollidesWithObject (
+              *it.second,
+              it.second->GetMove ()))
+          it.second->Move (it.second->GetMove ());
+      }
 
     HandleUpdate (dt);
   }
@@ -99,6 +129,16 @@ namespace yap
   void Map::AddObject (WorldObject* object)
   {
     objects_.Add (object);
+
+    HandleAddObject (object);
+  }
+
+  void Map::AddStaticObject (StaticWorldObject* object)
+  {
+    AddObject (object);
+    AddUpdateable (object);
+
+    HandleAddStaticObject (object);
   }
 
   void Map::AddDynamicObject (DynamicWorldObject* object)
@@ -106,11 +146,80 @@ namespace yap
     AddObject (object);
     dynamicObjects_.AddObject (object);
     AddUpdateable (object);
+
+    HandleAddDynamicObject (object);
   }
 
   void Map::AddUpdateable (IUpdateable* updateable)
   {
     updateables_.Add (updateable);
+
+    HandleAddUpdateable (updateable);
+  }
+
+  void Map::RemoveObject (WorldObject* object)
+  {
+    objects_.Remove (object);
+
+    HandleRemoveObject (object);
+  }
+
+  void Map::RemoveStaticObject (StaticWorldObject* object)
+  {
+    RemoveObject (object);
+    RemoveUpdateable (object);
+
+    HandleRemoveStaticObject (object);
+  }
+
+  void Map::RemoveDynamicObject (DynamicWorldObject* object)
+  {
+    RemoveObject (object);
+    dynamicObjects_.RemoveObject (object->GetWorldID ());
+    RemoveUpdateable (object);
+
+    HandleRemoveDynamicObject (object);
+  }
+
+  void Map::RemoveUpdateable (IUpdateable* updateable)
+  {
+    updateables_.Remove (updateable);
+
+    HandleRemoveUpdateable (updateable);
+  }
+
+  void Map::HandleAddObject (WorldObject* object)
+  {
+    object->SetCollidableArea (collidableArea_);
+  }
+
+  void Map::HandleAddStaticObject (StaticWorldObject* object)
+  {
+  }
+
+  void Map::HandleAddDynamicObject (DynamicWorldObject* object)
+  {
+  }
+
+  void Map::HandleAddUpdateable (IUpdateable* updateable)
+  {
+  }
+
+  void Map::HandleRemoveObject (WorldObject* object)
+  {
+    object->SetCollidableArea (nullptr);
+  }
+
+  void Map::HandleRemoveStaticObject (StaticWorldObject* object)
+  {
+  }
+
+  void Map::HandleRemoveDynamicObject (DynamicWorldObject* object)
+  {
+  }
+
+  void Map::HandleRemoveUpdateable (IUpdateable* updateable)
+  {
   }
 
   void Map::UpdateSize ()

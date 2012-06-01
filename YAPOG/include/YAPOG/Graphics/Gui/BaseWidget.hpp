@@ -8,10 +8,10 @@
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
-{
-  class Padding;
+{  
   class WidgetBackground;
   class WidgetBorder;
 
@@ -109,9 +109,10 @@ namespace yap
 
     virtual void AddDrawable (IDrawable& drawable);
     virtual void AddChild (IWidget& child);
+    virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
-    virtual void SetPadding (Padding* padding);
+    virtual void SetPadding (const Padding& padding);
     virtual void SetBackground (WidgetBackground& background);
     virtual void SetBorder  (WidgetBorder& border, uint width);
     virtual void SetBorder  (WidgetBorder& border);
@@ -119,6 +120,10 @@ namespace yap
     virtual void UnsetBorder ();
     virtual bool IsFocusable () const = 0;
     Vector2 GetUserSize () const;
+
+    virtual void SetEnable (bool enable);
+    virtual void Open ();
+    virtual void Close ();
   protected:
 
     virtual void SetFocused (bool state);
@@ -150,7 +155,7 @@ namespace yap
     collection::List<IUpdateable*> updatables_;
     IWidget* root_;
     IWidget* parent_;
-    Padding* padding_;
+    Padding padding_;
     WidgetBackground* background_;
     WidgetBorder* border_;
     Vector2 userSize_;
@@ -158,7 +163,7 @@ namespace yap
     bool isFocused_;
 
   private:
-    void SetPosAfterBorder (uint width);
+    void SetPosAfterBorder (uint width, uint height);
   };
 } // namespace yap
 

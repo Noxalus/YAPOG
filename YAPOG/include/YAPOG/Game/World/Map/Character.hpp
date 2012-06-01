@@ -15,6 +15,9 @@ namespace yap
 
       virtual ~Character ();
 
+      virtual void Accept (IDynamicWorldObjectVisitor& visitor);
+      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const;
+
     protected:
 
       explicit Character (const ID& id);
@@ -24,9 +27,10 @@ namespace yap
       const Direction& GetDirection () const;
       void SetDirection (Direction direction);
 
-      virtual void HandleMove (const Vector2& offset);
-
       virtual void HandleSetDirection (Direction direction);
+
+      virtual void HandleSetState (const String& state);
+      virtual void HandleMove (const Vector2& offset);
 
     private:
 

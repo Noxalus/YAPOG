@@ -9,20 +9,31 @@ namespace yap
   class YAPOG_LIB BaseStat
   {
     public:
+      /// Constructors
       BaseStat ();
       BaseStat (const UInt16& value);
-      BaseStat (const UInt16& value, const UInt16& iv, const UInt16& ev);
+      BaseStat (
+        const UInt16& value, 
+        const UInt16& iv, 
+        const UInt16& ev);
 
+      /// Getters
       const UInt16& GetValue () const;
       const UInt16& GetIndividualValue () const;
       const UInt16& GetEffortValue () const;
 
+      /// Setters
       virtual void SetValue (const UInt16& value);
       void SetIndividualValue (const UInt16& iv);
       void SetEffortValue (const UInt16& ev);
 
+      void AddValue (int value);
+
       void ComputeValue (const int& base, const UInt16 level);
-      void ComputeValue (const int& base, const UInt16 level, const float& natureFactor);
+      void ComputeValue (
+        const int& base, 
+        const UInt16 level, 
+        const float& natureFactor);
 
   protected:
     UInt16 value_;

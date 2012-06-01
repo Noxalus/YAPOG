@@ -1,13 +1,13 @@
 #include <iostream>
 
-#include "TestGame.hpp"
+#include "Game.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 
 int main ()
 {
   try
   {
-    ycl::TestGame game ("YAPOG");
+    ycl::Game game ("YAPOG");
 
     game.Init ();
 

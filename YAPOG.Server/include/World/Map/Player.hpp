@@ -15,6 +15,21 @@ namespace yse
 
       explicit Player (const yap::ID& id);
       virtual ~Player ();
+
+      /// @name ICloneable members.
+      /// @{
+      virtual Player* Clone () const;
+      /// @}
+
+    protected:
+
+      Player (const Player& copy);
+
+      const yap::String& GetObjectFactoryTypeName () const;
+
+    private:
+
+      static const yap::String OBJECT_FACTORY_TYPE_NAME;
   };
 } // namespace yse
 

@@ -4,14 +4,13 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Collection/Map.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
   struct IObjectIDLoader;
   struct IObjectLoader;
   struct IReader;
-
-  class ID;
 
   class YAPOG_LIB ObjectFactory
   {
@@ -26,6 +25,9 @@ namespace yap
 
       template <typename T>
       T* Create (const String& typeName, const ID& id);
+
+      template <typename T>
+      T* Create (const ID& typeID, const ID& id);
 
       /// @brief Creates an object from a partial input file.
       /// Does not store it.
@@ -44,13 +46,27 @@ namespace yap
       void RegisterLoader (const String& typeName, IObjectIDLoader* loader);
       void RegisterLoader (const String& typeName, IObjectLoader* loader);
 
+      void AddType (const ID& id, const String& type);
+      const String& GetType (const ID& id) const;
+      const ID& GetID (const String& type) const;
+
+      const collection::Map<ID, String>& GetTypes () const;
+
     private:
 
       ObjectFactory ();
       ~ObjectFactory ();
 
+      bool ContainsLoader (const String& typeName) const;
+
+      static const UInt64 INITIAL_ID;
+      static UInt64 currentID_;
+
       collection::Map<String, IObjectIDLoader*> objectIDLoaders_;
       collection::Map<String, IObjectLoader*> objectLoaders_;
+
+      collection::Map<ID, String> types_;
+      collection::Map<String, ID> ids_;
   };
 } // namespace yap
 

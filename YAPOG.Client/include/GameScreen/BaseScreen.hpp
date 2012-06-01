@@ -11,6 +11,7 @@ namespace yap
   class WorldObjectStateFactory;
   class GameInputManager;
   class Logger;
+  class DrawingContext;
 } // namespace yap
 
 namespace ycl

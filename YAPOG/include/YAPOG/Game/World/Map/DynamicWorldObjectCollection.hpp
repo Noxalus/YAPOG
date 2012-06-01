@@ -30,7 +30,8 @@ namespace yap
       ConstItType end () const;
 
       void AddObject (DynamicWorldObject* object);
-      DynamicWorldObject& GetObject (const ID& id);
+      void RemoveObject (const ID& worldID);
+      DynamicWorldObject& GetObject (const ID& worldID);
 
       /// @name IUpdateable members.
       /// @{

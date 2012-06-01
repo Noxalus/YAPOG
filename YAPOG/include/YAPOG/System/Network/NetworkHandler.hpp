@@ -3,18 +3,16 @@
 
 # include <memory>
 
-# include <SFML/Network/SocketSelector.hpp>
-
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Queue.hpp"
 
 namespace yap
 {
-  struct IPacket;
+  class Packet;
 
   class ClientSocket;
 
-  typedef std::shared_ptr<IPacket> IPacketPtrType;
+  typedef std::shared_ptr<Packet> PacketPtrType;
 
   class YAPOG_LIB NetworkHandler
   {
@@ -24,16 +22,16 @@ namespace yap
 
       NetworkHandler (ClientSocket& socket);
 
-      void Refresh (const sf::SocketSelector& selector);
+      void Refresh ();
 
       bool IsEmpty () const;
-      IPacketPtrType GetPacket ();
+      PacketPtrType GetPacket ();
 
     private:
 
       ClientSocket& socket_;
 
-      collection::Queue<IPacketPtrType> packets_;
+      collection::Queue<PacketPtrType> packets_;
   };
 } // namespace yap
 

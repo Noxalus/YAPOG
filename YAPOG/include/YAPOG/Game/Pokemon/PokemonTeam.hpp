@@ -11,19 +11,18 @@ namespace yap
   {
     DISALLOW_COPY (PokemonTeam);
 
-    public:
-      PokemonTeam ();
+  public:
+    PokemonTeam ();
 
-      Pokemon* GetPokemon (int index);
-      const collection::Array<Pokemon*>& GetTeam () const;
-      bool AddPokemon (Pokemon* pokemon);
-
-      /// Debug
-      void PrintTeam ();
-  private:
-    collection::Array<Pokemon*> pokemonTeam_;
+    virtual Pokemon* GetPokemon (int index) const;
+    virtual bool AddPokemon (Pokemon* pokemon);
 
     static const int MAX_POKEMON_TEAM_NUMBER;
+
+    /// Debug
+    void PrintTeam ();
+  private:
+    collection::Array<Pokemon*> pokemonTeam_;
   };
 } // namespace yap
 

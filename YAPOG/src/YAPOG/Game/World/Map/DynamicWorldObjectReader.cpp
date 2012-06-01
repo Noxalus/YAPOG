@@ -22,6 +22,8 @@ namespace yap
 
   void DynamicWorldObjectReader::Visit (XmlReader& visitable)
   {
+    WorldObjectReader::Visit (visitable);
+
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
     dynamicWorldObject_.SetMaxVelocity (

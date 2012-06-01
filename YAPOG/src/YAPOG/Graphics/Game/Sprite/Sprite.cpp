@@ -48,6 +48,11 @@ namespace yap
   {
   }
 
+  Vector2 Sprite::HandleGetSize () const
+  {
+    return texture_->GetSize ();
+  }
+
   void Sprite::HandleMove (const Vector2& offset)
   {
     texture_->Move (offset);

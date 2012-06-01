@@ -16,10 +16,9 @@ namespace yap
 
   Vector2 PictureBox::HandleGetSize () const
   {
-    return Vector2 (padding_->left + picture_.GetSize ().x + padding_->right,
-      padding_->top + picture_.GetSize ().y + padding_->bottom)
-      + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
-      * 2, border_->GetWidth () * 2) : Vector2 ());
+    return Vector2 (padding_.left + picture_.GetSize ().x + padding_.right,
+      padding_.top + picture_.GetSize ().y + padding_.bottom)
+      + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
   bool PictureBox::IsFocusable () const
@@ -66,8 +65,8 @@ namespace yap
   void PictureBox::SetPicture (String file)
   {
     picture_.LoadFromFile (file);
-    picture_.SetPosition (Vector2 (GetPosition ().x + padding_->left,
-      GetPosition ().y + padding_->top));
+    picture_.SetPosition (Vector2 (GetPosition ().x + padding_.left,
+      GetPosition ().y + padding_.top));
 
     OnPictureSet (*this, EventArgsTexture (picture_));
   }

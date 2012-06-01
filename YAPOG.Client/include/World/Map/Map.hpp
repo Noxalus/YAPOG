@@ -12,6 +12,7 @@
 namespace ycl
 {
   class Player;
+  class MapElement;
 
   class Map : public yap::Map
             , public yap::IDrawable
@@ -28,6 +29,10 @@ namespace ycl
         yap::TileLayoutHandler* tileLayoutHandler);
 
       void AddPlayer (Player* player);
+      void AddMapElement (MapElement* mapElement);
+
+      void RemovePlayer (Player* player);
+      void RemoveMapElement (MapElement* mapElement);
 
       /// @name IDrawable members.
       /// @{
@@ -42,11 +47,14 @@ namespace ycl
     protected:
 
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
+      void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
 
       virtual void HandleSetSize (yap::uint width, yap::uint height);
       virtual void HandleUpdate (const yap::Time& dt);
 
     private:
+
+      static const yap::String DRAW_ORDER_HANDLER_NAME;
 
       yap::TileLayerStack tileLayers_;
 

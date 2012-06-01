@@ -3,17 +3,18 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
-# include "YAPOG/Game/World/ISpatial3.hpp"
+# include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB BoundingBox : public ISpatial3
+  class YAPOG_LIB BoundingBox : public ICollidable
   {
       DISALLOW_ASSIGN(BoundingBox);
 
     public:
 
+      BoundingBox ();
       BoundingBox (
         const Vector2& position,
         const Vector2& size,
@@ -48,6 +49,14 @@ namespace yap
 
       virtual const int& GetH () const;
       virtual void SetH (int h);
+      /// @}
+
+      /// @name ICollidable members.
+      /// @{
+      virtual bool CollidesWith (const ICollidable& other) const;
+      virtual bool CollidesWith (
+        const ICollidable& other,
+        const Vector2& offset) const;
       /// @}
 
     private:

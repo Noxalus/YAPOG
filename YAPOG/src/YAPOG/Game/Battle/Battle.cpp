@@ -1,98 +1,89 @@
 #include "YAPOG/Game/Battle/Battle.hpp"
 #include "YAPOG/Game/Battle/BattleCore.hpp"
-using namespace std;
+#include "YAPOG/Game/Battle/PokemonFighter.hpp"
+#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
 namespace yap
 {
-  Battle::Battle (PokemonTeam& playerTeam)
-    : playerTeam_ (playerTeam)
-    , currentOpponent_ (nullptr)
-    , currentPokemon_ (playerTeam.GetPokemon (0))
+  Battle::Battle ()
+    : playerTeam_ (nullptr)
+    , opponent_ (nullptr)
     , turnCount_ (0)
+    , battlePhaseManager_ ()
   {
   }
 
-  void Battle::Run ()
+  /// Setters
+  void Battle::SetPlayerTeam (PokemonFighterTeam* playerTeam)
   {
-    BattleCore bc;
+    playerTeam_ = playerTeam;
+  }
 
-    DisplayBeginMessage ();
+  void Battle::SetOpponent (PokemonFighterTeam* opponent)
+  {
+    opponent_ = opponent;
+  }
 
-    cout
-      << currentPokemon_.GetName ()
-      <<  "! A l'attaque !"
-      << endl << endl;
+  void Battle::SetOpponent (PokemonFighter* opponent)
+  {
+    opponent_ = opponent;
+  }
 
-    while (true)
-    {
-      turnCount_++;
+  void Battle::Init ()
+  {
+    battlePhaseManager_.SetBattle (this);
+    HandleInit ();
+  }
 
-      cout << "[Tour " << turnCount_ << "]" << endl;
-      cout << "Pokemon adverse: " << endl;
-      currentOpponent_.PrintBattleStats ();
-      //currentOpponent_.PrintStats ();
-      cout << "Pokemon du joueur: " << endl;
-      currentPokemon_.PrintBattleStats ();
-      cout << endl
-        << "Que doit faire "
-        << currentPokemon_.GetName ()
-        << " ?" << endl << endl
-        << "[1]Attaque" << endl
-        << "[2]Sac" << endl
-        << "[3]Pokémon" << endl
-        << "[4]Fuite" << endl << endl;
+  void Battle::HandleInit ()
+  {
+  }
 
-      int choice = 0;
-      cin >> choice;
-      getchar ();
+  void Battle::AddPhase (
+    const BattlePhaseState& battlePhaseState, 
+    BattlePhase* battlePhase)
+  {
+    battlePhaseManager_.AddPhase (battlePhaseState, battlePhase);
+  }
 
-      switch (choice)
-      {
-      case 1:
-        DisplayMoves ();
-        bc.ComputeDamage (
-          *currentPokemon_.GetMoves ()[2],
-          currentPokemon_,
-          currentOpponent_);
-        break;
-      case 2:
-        cout << "Le sac n'est pas encore fonctionnel !" << endl;
-        break;
-      case 3:
-        DisplayTeam ();
-        break;
-      case 4:
-        cout << "Fuite !" << endl;
-        getchar ();
-        std::exit (0);
-        break;
-      default:
-        cout << "Error" << endl;
-        break;
-      }
+  void Battle::Update (const Time& dt)
+  {
+    HandleUpdate (dt);
+    battlePhaseManager_.Update (dt);
+  }
 
-      getchar ();
-    }
+  void Battle::HandleUpdate (const Time& dt)
+  {
   }
 
   void Battle::DisplayMoves ()
   {
+    /*
     int i = 1;
     for (PokemonSkill* pk : currentPokemon_.GetMoves ())
     {
-      cout << "[" << i << "]" << pk->GetName () << endl;
-      i++;
+    cout << "[" << i << "]" << pk->GetName () << endl;
+    i++;
     }
+    */
   }
 
   void Battle::DisplayTeam ()
   {
+    /*
     int i = 1;
     for (Pokemon* p : playerTeam_.GetTeam ())
     {
-      if (p != nullptr)
-        cout << "[" << i << "]" << p->GetName () << endl;
-      i++;
+    if (p != nullptr)
+    cout << "[" << i << "]" << p->GetName () << endl;
+    i++;
     }
+    */
   }
+
+  IBattleEntity& Battle::GetPlayerTeam ()
+  { return *playerTeam_; }
+
+  IBattleEntity& Battle::GetOpponent ()
+  { return *opponent_; }
 } // namespace yap

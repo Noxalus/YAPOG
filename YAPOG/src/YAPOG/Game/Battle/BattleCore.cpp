@@ -21,7 +21,7 @@ namespace yap
     float type = defender.GetTypeEffectFactor (move.GetType ());
     float critical = 1.f;
 
-    if (RandomHelper::Pourcentage (6.25f))
+    if (RandomHelper::Percentage (6.25f))
       critical = 2.f;
 
     float other = 1.f;

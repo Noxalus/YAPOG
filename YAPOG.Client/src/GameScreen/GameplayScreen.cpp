@@ -1,8 +1,12 @@
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/System/IO/Log/Logger.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
+#include "Client/Session.hpp"
 
 namespace ycl
 {
@@ -12,8 +16,24 @@ namespace ycl
     : BaseScreen (DEFAULT_NAME)
     , world_ ()
     , cameraController_ (worldCamera)
+    , player_ (nullptr)
     , moveController_ ()
   {
+    session_.GetUser ().OnPlayerCreated += [&] (
+      const User& sender,
+      Player* args)
+    {
+      SetPlayer (args);
+    };
+
+    world_.OnMapChanged += [&] (
+      const World& sender,
+      const yap::ChangeEventArgs<Map*>& args)
+    {
+      SetCurrentMap (*args.Current);
+    };
+
+    session_.GetUser ().SetWorld (&world_);
   }
 
   GameplayScreen::~GameplayScreen ()
@@ -23,9 +43,6 @@ namespace ycl
   void GameplayScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-
-    // tmp
-    world_.ChangeMap (yap::ID (1));
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -33,10 +50,16 @@ namespace ycl
     yap::IDrawingContext& context)
   {
     world_.Update (dt);
+
+    cameraController_.Update (dt);
+
+    UpdatePlayer (dt);
+
+    logger_.LogLine (1.f/dt.GetValue ());
+
     world_.Draw (context);
 
-    /// @todo add a move controller, player etc, map loading
-    /// and send applied forces to the server.
+    nextScreen_ = "Battle";
 
     return BaseScreen::HandleRun (dt, context);
   }
@@ -110,6 +133,11 @@ namespace ycl
     return false;
   }
 
+  Map& GameplayScreen::GetCurrentMap ()
+  {
+    return world_.GetCurrentMap ();
+  }
+
   void GameplayScreen::SetCurrentMap (Map& map)
   {
     cameraController_.SetBounds (
@@ -122,14 +150,17 @@ namespace ycl
   {
     player_ = player;
 
-    player_->OnMapChanged += [&] (
-      const Player& sender,
-      const yap::ConstChangeEventArgs<Map*>& args)
-    {
-      SetCurrentMap (*args.Current);
-    };
+    moveController_.SetValue (player_->GetMaxVelocity ());
 
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
+  }
+
+  void GameplayScreen::UpdatePlayer (const yap::Time& dt)
+  {
+    if (player_ == nullptr)
+      return;
+
+    player_->ApplyForce (moveController_.GetForce ());
   }
 } // namespace ycl

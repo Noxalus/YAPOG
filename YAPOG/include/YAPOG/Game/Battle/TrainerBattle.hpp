@@ -11,7 +11,7 @@ namespace yap
   class YAPOG_LIB TrainerBattle : public Battle
   {
   public:
-    TrainerBattle (PokemonTeam& playerTeam);
+    TrainerBattle ();
 
     virtual void DisplayBeginMessage ();
   };

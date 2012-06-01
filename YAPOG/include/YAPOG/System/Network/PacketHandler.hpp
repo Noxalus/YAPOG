@@ -41,6 +41,7 @@ namespace yap
       virtual bool SendPacket (IPacket& packet);
 
       virtual void AddRelay (IPacketHandler* relay);
+      virtual void RemoveRelay (IPacketHandler* relay);
       virtual void SetParent (IPacketHandler* parent);
       /// @}
 

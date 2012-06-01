@@ -11,7 +11,7 @@ namespace yap
   {
   }
 
-  Pokemon* PokemonTeam::GetPokemon (int index)
+  Pokemon* PokemonTeam::GetPokemon (int index) const
   {
     if (index >= MAX_POKEMON_TEAM_NUMBER)
       YAPOG_THROW("Pokemon Team: index out of bound (" + StringHelper::ToString (index) + ")");
@@ -34,11 +34,6 @@ namespace yap
     }
 
     return false;
-  }
-
-  const collection::Array<Pokemon*>& PokemonTeam::GetTeam () const
-  {
-    return pokemonTeam_;
   }
 
   /// Debug

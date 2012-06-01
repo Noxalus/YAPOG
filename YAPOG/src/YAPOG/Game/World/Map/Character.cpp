@@ -1,4 +1,6 @@
 #include "YAPOG/Game/World/Map/Character.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 
 namespace yap
 {
@@ -20,6 +22,16 @@ namespace yap
   {
   }
 
+  void Character::Accept (IDynamicWorldObjectVisitor& visitor)
+  {
+    visitor.Visit (*this);
+  }
+
+  void Character::Accept (IDynamicWorldObjectConstVisitor& visitor) const
+  {
+    visitor.Visit (*this);
+  }
+
   const Direction& Character::GetDirection () const
   {
     return direction_;
@@ -36,6 +48,14 @@ namespace yap
   {
   }
 
+  void Character::HandleSetState (const String& state)
+  {
+    DynamicWorldObject::HandleSetState (state);
+
+    if (IsMoving ())
+      UpdateDirection (GetMove ());
+  }
+
   void Character::HandleMove (const Vector2& offset)
   {
     DynamicWorldObject::HandleMove (offset);
@@ -45,9 +65,6 @@ namespace yap
 
   void Character::UpdateDirection (const Vector2& offset)
   {
-    if (offset == Vector2 (0.0f, 0.0f))
-      return;
-
     if (offset.x < 0.0f)
       SetDirection (Direction::West);
     else if (offset.y < 0.0f)

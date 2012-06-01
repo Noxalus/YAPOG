@@ -8,12 +8,8 @@ namespace yap
     , tm_ (nullptr)
     , resize_ (true)
     , isInit (false)
+    , fixed_ (false)
   {
-  }
-
-  bool WidgetBackground::IsFocusable () const
-  {
-    return false;
   }
 
   WidgetBackground::WidgetBackground (String file, bool resize)
@@ -21,9 +17,25 @@ namespace yap
     , tm_ (nullptr)
     , resize_ (resize)
     , isInit (false)
+    , fixed_ (false)
   {
     background_.LoadFromFile (file);
   }
+
+  bool WidgetBackground::IsFocusable () const
+  {
+    return false;
+  }
+
+  Vector2 WidgetBackground::HandleGetSize () const
+  {    
+    return background_.GetSize ();
+  }
+  void WidgetBackground::SetFixed (bool state)
+  {
+    fixed_ = state;
+  }
+
 
   WidgetBackground::~WidgetBackground ()
   {
@@ -75,6 +87,11 @@ namespace yap
 
   void WidgetBackground::HandleChangeColor (const sf::Color& color)
   {
+  }
+
+  bool WidgetBackground::GetFixed () const
+  {
+    return fixed_;
   }
 
   const Texture& WidgetBackground::GetBackground () const

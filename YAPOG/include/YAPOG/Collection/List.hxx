@@ -159,6 +159,13 @@ namespace yap
     {
       return data_.size ();
     }
+
+    template <typename T>
+    template <typename C>
+    inline void List<T>::Sort ()
+    {
+      data_.sort (C ());
+    }
   } // namespace collection
 } // namespace yap
 

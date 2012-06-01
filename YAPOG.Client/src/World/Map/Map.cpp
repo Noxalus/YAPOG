@@ -1,8 +1,12 @@
+#include "YAPOG/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp"
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "World/Map/MapElement.hpp"
 
 namespace ycl
 {
+  const yap::String Map::DRAW_ORDER_HANDLER_NAME = "DrawOrder";
+
   Map::Map (const yap::ID& id)
     : yap::Map (id)
     , tileLayers_ ()
@@ -23,15 +27,41 @@ namespace ycl
 
   void Map::AddPlayer (Player* player)
   {
-    player->SetMap (this);
+    player->OnMovedEvent ().AddHandler (
+      DRAW_ORDER_HANDLER_NAME,
+      [&] (yap::IDrawableDynamicWorldObject& sender,
+           const yap::Vector2& args)
+      {
+        /// @todo Sort by adding manually.
+        drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();
+      });
 
     AddDynamicObject (player);
     AddDrawableObject (player);
   }
 
+  void Map::AddMapElement (MapElement* mapElement)
+  {
+    AddStaticObject (mapElement);
+    AddDrawableObject (mapElement);
+  }
+
+  void Map::RemovePlayer (Player* player)
+  {
+    player->OnMovedEvent ().RemoveHandler (DRAW_ORDER_HANDLER_NAME);
+
+    RemoveDrawableObject (player);
+    RemoveDynamicObject (player);
+  }
+
   void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
   {
     drawableObjects_.Add (drawableObject);
+  }
+
+  void Map::RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject)
+  {
+    drawableObjects_.Remove (drawableObject);
   }
 
   void Map::Draw (yap::IDrawingContext& context)

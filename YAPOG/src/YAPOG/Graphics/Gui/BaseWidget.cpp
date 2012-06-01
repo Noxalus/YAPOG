@@ -21,14 +21,13 @@ namespace yap
     , childen_ ()
     , root_ (nullptr)
     , parent_ (nullptr)
-    , padding_ (nullptr)
+    , padding_ ()
     , background_ (nullptr)
     , border_ (nullptr)
     , userSize_ (0, 0)
     , isExtensible_ (false)
     , isFocused_ (true)
   {
-    padding_ = new Padding ();
   }
 
   BaseWidget::~BaseWidget ()
@@ -73,10 +72,13 @@ namespace yap
     {
       child->Move (offset);
     }
+
     if (border_ != nullptr)
       border_->Move (offset);
+
     if (background_ != nullptr)
       background_->Move (offset);
+
     spatialInfo_.SetPosition (GetPosition () + offset);
     OnMoved (*this, EventArgs (offset));
     HandleMove (offset);
@@ -279,9 +281,17 @@ namespace yap
     updatables_.Add (&child);
     eventHandlers_.Add (&child);
 
-    child.SetPosition (GetPosition ());
+    //child.SetPosition (GetPosition ());
     child.SetParent (*this);
     OnChildAdded (*this, EventArgsIWidget (child));
+  }
+
+  void BaseWidget::RemoveChild (IWidget& child)
+  {
+    childen_.Remove (&child);
+    drawables_.Remove (&child);
+    updatables_.Remove (&child);
+    eventHandlers_.Remove (&child);
   }
 
   IWidget& BaseWidget::GetRoot () const
@@ -295,7 +305,7 @@ namespace yap
     root_ = &parent.GetRoot ();
   }
 
-  void BaseWidget::SetPadding (Padding* padding)
+  void BaseWidget::SetPadding (const Padding& padding)
   {
     padding_ = padding;
     Refresh ();
@@ -311,11 +321,13 @@ namespace yap
   {
     background_= &background;
     background_->SetPosition (GetPosition ());
+    if (background_->GetFixed ())
+      SetSize (background_->GetSize ());
     background_->SetBackground (GetSize ());
   }
 
 
-  void BaseWidget::SetPosAfterBorder (uint width)
+  void BaseWidget::SetPosAfterBorder (uint width, uint height)
   {
     if (spatialInfo_.GetPosition ().x > width)
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
@@ -324,12 +336,12 @@ namespace yap
       Move (Vector2 (width - GetPosition ().x, 0));
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
     }
-    if (spatialInfo_.GetPosition ().y > width)
-      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
+    if (spatialInfo_.GetPosition ().y > height)
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
     else
     {
-      Move (Vector2 (0, width - GetPosition ().y));
-      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, width));
+      Move (Vector2 (0, height - GetPosition ().y));
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
     }
 
     Refresh ();
@@ -344,19 +356,29 @@ namespace yap
     else
       border_->SetBorder (GetUserSize (), width);
 
-    SetPosAfterBorder (width);
+    uint paddingBorder = border.GetSize ().y > 0
+      ? border.GetSize ().y : border.GetSize ().x;
+    if (border.GetSize ().y == 0)
+      SetPosAfterBorder (paddingBorder, 0);
+    else
+      SetPosAfterBorder (paddingBorder, paddingBorder);
   }
 
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
-    border_ = &border;
-    border_->SetPosition (GetPosition ());
-    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
-      border_->SetBorder (GetSize ());
-    else
-      border_->SetBorder (GetUserSize ());
 
-    SetPosAfterBorder (border.GetBorder ().GetSize ().y);
+    border.SetPosition (GetPosition ());
+    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
+      border.SetBorder (GetSize ());
+    else
+      border.SetBorder (GetUserSize ());
+    border_ = &border;
+    uint paddingBorder = border.GetSize ().y > 0
+      ? border.GetSize ().y : border.GetSize ().x;
+    if (border.GetSize ().y == 0)
+      SetPosAfterBorder (paddingBorder, 0);
+    else
+      SetPosAfterBorder (paddingBorder, paddingBorder);
   }
 
   bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)
@@ -368,4 +390,22 @@ namespace yap
   {
     return false;
   }
+
+  void BaseWidget::SetEnable (bool enable)
+  {
+    isEnabled_ = enable;
+  }
+
+  void BaseWidget::Open ()
+  {
+    SetEnable (true);
+    Show (true);
+  }
+
+  void BaseWidget::Close ()
+  {
+    SetEnable (false);
+    Show (false);
+  }
+
 } // namespace yap

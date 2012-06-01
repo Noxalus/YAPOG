@@ -10,12 +10,17 @@ namespace yap
   {
   }
 
-  void NetworkHandler::Refresh (const sf::SocketSelector& selector)
+  void NetworkHandler::Refresh ()
   {
-    IPacketPtrType packet (new Packet ());
+    while (true)
+    {
+      PacketPtrType packet (new Packet ());
 
-    while (socket_.Receive (selector, *packet))
+      if (!packet->CreateFromSocket (socket_))
+        break;
+
       packets_.Enqueue (packet);
+    }
   }
 
   bool NetworkHandler::IsEmpty () const
@@ -23,9 +28,9 @@ namespace yap
     return packets_.IsEmpty ();
   }
 
-  IPacketPtrType NetworkHandler::GetPacket ()
+  PacketPtrType NetworkHandler::GetPacket ()
   {
-    IPacketPtrType packet;
+    PacketPtrType packet;
 
     return packets_.Dequeue (packet);
   }

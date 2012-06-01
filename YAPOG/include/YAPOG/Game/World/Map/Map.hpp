@@ -14,7 +14,9 @@
 namespace yap
 {
   class WorldObject;
+  class StaticWorldObject;
   class DynamicWorldObject;
+  class CollidableArea;
 
   /// @brief Base Map class for both client and server.
   class YAPOG_LIB Map : public IUpdateable
@@ -32,11 +34,16 @@ namespace yap
       const String& GetName () const;
       void SetName (const String& name);
 
+      const ID& GetWorldID () const;
+      void SetWorldID (const ID& worldID);
+
       const uint& GetWidth () const;
       const uint& GetHeight () const;
       void SetSize (uint width, uint height);
 
       const Vector2& GetSize () const;
+
+      void SetCollidableArea (CollidableArea* collidableArea);
 
       /// @name IUpdateable members.
       /// @{
@@ -52,12 +59,28 @@ namespace yap
 
       Map (const ID& id);
 
-      virtual void AddObject (WorldObject* object);
-      virtual void AddDynamicObject (DynamicWorldObject* object);
-      virtual void AddUpdateable (IUpdateable* updateable);
+      void AddObject (WorldObject* object);
+      void AddStaticObject (StaticWorldObject* object);
+      void AddDynamicObject (DynamicWorldObject* object);
+      void AddUpdateable (IUpdateable* updateable);
+
+      void RemoveObject (WorldObject* object);
+      void RemoveStaticObject (StaticWorldObject* object);
+      void RemoveDynamicObject (DynamicWorldObject* object);
+      void RemoveUpdateable (IUpdateable* updateable);
 
       virtual void HandleSetSize (uint width, uint height);
       virtual void HandleUpdate (const Time& dt);
+
+      virtual void HandleAddObject (WorldObject* object);
+      virtual void HandleAddStaticObject (StaticWorldObject* object);
+      virtual void HandleAddDynamicObject (DynamicWorldObject* object);
+      virtual void HandleAddUpdateable (IUpdateable* updateable);
+
+      virtual void HandleRemoveObject (WorldObject* object);
+      virtual void HandleRemoveStaticObject (StaticWorldObject* object);
+      virtual void HandleRemoveDynamicObject (DynamicWorldObject* object);
+      virtual void HandleRemoveUpdateable (IUpdateable* updateable);
 
     private:
 
@@ -71,6 +94,8 @@ namespace yap
       ID id_;
       String name_;
 
+      ID worldID_;
+
       uint width_;
       uint height_;
       Vector2 size_;
@@ -79,6 +104,8 @@ namespace yap
       DynamicWorldObjectCollection dynamicObjects_;
 
       collection::List<IUpdateable*> updateables_;
+
+      CollidableArea* collidableArea_;
   };
 } // namespace yap
 

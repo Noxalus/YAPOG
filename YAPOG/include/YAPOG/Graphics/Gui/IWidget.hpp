@@ -26,12 +26,15 @@ namespace yap
     virtual void AddChild (IWidget& child) = 0;
     virtual IWidget& GetRoot () const = 0;
     virtual void SetParent (IWidget& parent) = 0;
-    virtual void SetPadding (Padding* padding) = 0;
+    virtual void SetPadding (const Padding& padding) = 0;
     virtual void SetBackground (WidgetBackground& background) = 0;
     virtual void SetBorder  (WidgetBorder& border, uint width) = 0;
     virtual void Refresh () = 0;
     virtual bool IsFocusable () const = 0;
     virtual void SetFocused (bool state) = 0;
+    virtual void SetEnable (bool enable) = 0;
+    virtual void Open () = 0;
+    virtual void Close () = 0;
   };
 } // namespace yap
 

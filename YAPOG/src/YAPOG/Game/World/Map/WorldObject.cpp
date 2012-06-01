@@ -30,6 +30,21 @@ namespace yap
     id_ = id;
   }
 
+  void WorldObject::SetCollidableArea (CollidableArea* collidableArea)
+  {
+    boundingBoxes_.SetCollidableArea (*this, collidableArea);
+  }
+
+  void WorldObject::AddBoundingBox (BoundingBox* boundingBox)
+  {
+    boundingBoxes_.AddBoundingBox (boundingBox);
+  }
+
+  void WorldObject::RemoveBoundingBox (BoundingBox* boundingBox)
+  {
+    boundingBoxes_.RemoveBoundingBox (boundingBox);
+  }
+
   const Vector2& WorldObject::GetPosition () const
   {
     return spatial3Info_.GetPosition ();
@@ -37,6 +52,8 @@ namespace yap
 
   const Vector2& WorldObject::GetSize () const
   {
+    spatial3Info_.SetSize (HandleGetSize ());
+
     return spatial3Info_.GetSize ();
   }
 
@@ -62,6 +79,9 @@ namespace yap
 
   void WorldObject::Move (const Vector2& offset)
   {
+    if (offset == Vector2 ())
+      return;
+
     spatial3Info_.SetPosition (GetPosition () + offset);
 
     HandleMove (offset);
@@ -112,6 +132,28 @@ namespace yap
     spatial3Info_.SetH (h);
 
     HandleSetH (h);
+  }
+
+  bool WorldObject::CollidesWith (const ICollidable& other) const
+  {
+    return boundingBoxes_.CollidesWith (other);
+  }
+
+  bool WorldObject::CollidesWith (
+    const ICollidable& other,
+    const Vector2& offset) const
+  {
+    return boundingBoxes_.CollidesWith (other, offset);
+  }
+
+  const BoundingBoxCollection& WorldObject::GetBoundingBoxes () const
+  {
+    return boundingBoxes_;
+  }
+
+  Vector2 WorldObject::HandleGetSize () const
+  {
+    return spatial3Info_.GetSize ();
   }
 
   void WorldObject::HandleMove (const Vector2& offset)

@@ -8,7 +8,12 @@ namespace yap
 {
   struct YAPOG_LIB ICollidable : public ISpatial3
   {
-      virtual ~ICollidable () {}
+      virtual ~ICollidable () { }
+
+      virtual bool CollidesWith (const ICollidable& other) const = 0;
+      virtual bool CollidesWith (
+        const ICollidable& other,
+        const Vector2& offset) const = 0;
   };
 } // namespace yap
 

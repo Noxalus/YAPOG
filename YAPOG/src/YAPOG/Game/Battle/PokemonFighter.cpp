@@ -10,20 +10,6 @@ namespace yap
   {
     if (originalPokemon == nullptr)
       YAPOG_THROW("The original Pokemon doesn't exist !");
-    /*
-    stats_.SetHitPoint (originalPokemon->GetStats ().GetHitPoint ());
-    stats_.SetAttack (originalPokemon->GetStats ().GetAttack ());
-    stats_.SetSpecialAttack 
-    (originalPokemon->GetStats ().GetSpecialAttack ());
-    stats_.SetSpecialDefense 
-    (originalPokemon->GetStats ().GetSpecialDefense ());
-    stats_.SetSpeed (originalPokemon->GetStats ().GetSpeed ());
-    */
-  }
-
-  const String& PokemonFighter::GetName () const
-  {
-    return originalPokemon_->GetName ();
   }
 
   const Gender& PokemonFighter::GetGender () const
@@ -123,4 +109,20 @@ namespace yap
     originalPokemon_->PrintStats ();
   }
 
+  /// @name IBattleEntity members
+  /// @{
+  const yap::String& PokemonFighter::GetName () const
+  {
+    return originalPokemon_->GetName ();
+  }
+  /// @}
+
+  void PokemonFighter::Update (const Time& dt)
+  {
+    HandleUpdate (dt);
+  }
+
+  void PokemonFighter::HandleUpdate (const Time& dt)
+  {
+  }
 } // namespace yap

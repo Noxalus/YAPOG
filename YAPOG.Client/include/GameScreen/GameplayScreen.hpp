@@ -1,4 +1,4 @@
-#ifndef YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
+ #ifndef YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
 # define YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
 
 # include "YAPOG/Macros.hpp"
@@ -33,8 +33,11 @@ namespace ycl
 
     private:
 
+      Map& GetCurrentMap ();
       void SetCurrentMap (Map& map);
       void SetPlayer (Player* player);
+
+      void UpdatePlayer (const yap::Time& dt);
 
       static const yap::ScreenType DEFAULT_NAME;
 

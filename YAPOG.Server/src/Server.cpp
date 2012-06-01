@@ -114,7 +114,7 @@ int main ()
 {
   try
   {
-    test_db ();
+    //   test_db ();
 
     yse::Server server;
 

@@ -2,19 +2,25 @@
 # define YAPOG_BOUNDINGBOXCOLLECTION_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/World/ISpatial3.hpp"
+# include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
 
 namespace yap
 {
   class BoundingBox;
+  class CollidableArea;
+  class WorldObject;
 
-  class YAPOG_LIB BoundingBoxCollection : public ISpatial3
+  class YAPOG_LIB BoundingBoxCollection : public ICollidable
   {
       DISALLOW_ASSIGN(BoundingBoxCollection);
 
     public:
+
+      typedef collection::List<BoundingBox*>::ItType ItType;
+      typedef collection::List<BoundingBox*>::ConstItType ConstItType;
 
       BoundingBoxCollection ();
       virtual ~BoundingBoxCollection ();
@@ -23,6 +29,15 @@ namespace yap
 
       void AddBoundingBox (BoundingBox* boundingBox);
       void RemoveBoundingBox (BoundingBox* boundingBox);
+
+      void SetCollidableArea (
+        const WorldObject& parent,
+        CollidableArea* collidableArea);
+
+      ItType begin ();
+      ConstItType begin () const;
+      ItType end ();
+      ConstItType end () const;
 
       /// @name ISpatial members.
       /// @{
@@ -51,11 +66,27 @@ namespace yap
       virtual void SetH (int h);
       /// @}
 
+      /// @name ICollidable members.
+      /// @{
+      virtual bool CollidesWith (const ICollidable& other) const;
+      virtual bool CollidesWith (
+        const ICollidable& other,
+        const Vector2& offset) const;
+      /// @}
+
     private:
+
+      void AddBoundingBoxToCollidableArea (BoundingBox* boundingBox);
+
+      void AddBoundingBoxesToCollidableArea ();
+      void RemoveBoundingBoxesFromCollidableArea ();
 
       Spatial3Info spatial3Info_;
 
       collection::List<BoundingBox*> boundingBoxes_;
+
+      const WorldObject* parent_;
+      CollidableArea* collidableArea_;
   };
 } // namespace yap
 

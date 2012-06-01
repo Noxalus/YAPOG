@@ -6,20 +6,19 @@
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 # include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 # include "YAPOG/Game/Pokemon/Pokemon.hpp"
+# include "YAPOG/System/Time/Time.hpp"
 
 namespace yap
 {
   class YAPOG_LIB WildBattle : public Battle
   {
   public:
-    WildBattle (
-      PokemonTeam& playerTeam, 
-      Pokemon& wildPokemon);
+    WildBattle ();
+    virtual ~WildBattle ();
 
-    virtual void DisplayBeginMessage ();
-
-  private:
-    Pokemon& wildPokemon_;
+  protected:
+    virtual void HandleInit ();
+    virtual void HandleUpdate (const Time& dt);
   };
 } // namespace yap
 

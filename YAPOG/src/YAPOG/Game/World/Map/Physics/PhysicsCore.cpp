@@ -1,12 +1,14 @@
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
   PhysicsCore::PhysicsCore ()
-    : OnStopping ()
-    , OnMoving ()
+    : OnStopped ()
+    , OnMoved ()
+    , OnVelocityChanged ()
     , velocity_ ()
     , minVelocity_ ()
     , maxVelocity_ ()
@@ -19,8 +21,9 @@ namespace yap
   }
 
   PhysicsCore::PhysicsCore (const PhysicsCore& copy)
-    : OnStopping ()
-    , OnMoving ()
+    : OnStopped ()
+    , OnMoved ()
+    , OnVelocityChanged ()
     , velocity_ (copy.velocity_)
     , minVelocity_ (copy.minVelocity_)
     , maxVelocity_ (copy.maxVelocity_)
@@ -50,17 +53,16 @@ namespace yap
       return;
 
     if (oldMove == Vector2 (0.0f, 0.0f))
-      OnMoving (*this, EmptyEventArgs ());
+      OnMoved (*this, EmptyEventArgs ());
     else if (move_ == Vector2 (0.0f, 0.0f))
-      OnStopping (*this, EmptyEventArgs ());
+      OnStopped (*this, EmptyEventArgs ());
   }
 
   void PhysicsCore::SetVelocityBounds (const Vector2& min, const Vector2& max)
   {
     if (max.x < min.x ||
         max.y < min.y)
-      throw Exception (
-        "[PhysicsCore] Max bound must be greater than min bound.");
+      YAPOG_THROW("[PhysicsCore] Max bound must be greater than min bound.");
 
     minVelocity_ = min;
     maxVelocity_ = max;
@@ -73,6 +75,8 @@ namespace yap
 
   void PhysicsCore::SetVelocity (const Vector2& velocity)
   {
+    const Vector2 oldVelocity = velocity_;
+
     velocity_ = Vector2 (
       velocity.x < 0 ?
       MathHelper::Clamp (velocity.x, -maxVelocity_.x, -minVelocity_.x) :
@@ -80,5 +84,11 @@ namespace yap
       velocity.y < 0 ?
       MathHelper::Clamp (velocity.y, -maxVelocity_.y, -minVelocity_.y) :
       MathHelper::Clamp (velocity.y, minVelocity_.y, maxVelocity_.y));
+
+    OnVelocityChanged (
+      *this,
+      ChangeEventArgs<const Vector2&> (
+        oldVelocity,
+        velocity_));
   }
 } // namespace yap

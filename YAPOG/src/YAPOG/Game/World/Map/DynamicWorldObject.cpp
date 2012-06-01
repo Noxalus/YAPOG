@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 namespace yap
 {
@@ -9,6 +10,8 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
+    , OnVelocityChanged ()
+    , OnStateChanged ()
     , worldID_ ()
     , state_ (DEFAULT_INACTIVE_STATE)
     , physicsCore_ (nullptr)
@@ -43,6 +46,11 @@ namespace yap
     worldID_ = id;
   }
 
+  const ID& DynamicWorldObject::GetTypeID () const
+  {
+    return ObjectFactory::Instance ().GetID (GetObjectFactoryTypeName ());
+  }
+
   const Vector2& DynamicWorldObject::GetMaxVelocity () const
   {
     return maxVelocity_;
@@ -57,16 +65,23 @@ namespace yap
   {
     physicsCore_ = physicsCore;
 
-    physicsCore_->OnMoving +=
-      [&](const PhysicsCore& sender, const EmptyEventArgs& args)
+    physicsCore_->OnMoved +=
+      [&] (const PhysicsCore& sender, const EmptyEventArgs& args)
     {
       TryChangeState ("Moving");
     };
 
-    physicsCore_->OnStopping +=
-      [&](const PhysicsCore& sender, const EmptyEventArgs& args)
+    physicsCore_->OnStopped +=
+      [&] (const PhysicsCore& sender, const EmptyEventArgs& args)
     {
       SetInactive ();
+    };
+
+    physicsCore_->OnVelocityChanged +=
+      [&] (const PhysicsCore& sender,
+           const ChangeEventArgs<const Vector2&>& args)
+    {
+      OnVelocityChanged (*this, args);
     };
   }
 
@@ -147,5 +162,11 @@ namespace yap
 
   void DynamicWorldObject::HandleSetState (const String& state)
   {
+    OnStateChanged (*this, state);
+  }
+
+  void DynamicWorldObject::HandleMove (const Vector2& offset)
+  {
+    WorldObject::HandleMove (offset);
   }
 } // namespace yap

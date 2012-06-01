@@ -2,6 +2,11 @@
 
 namespace yap
 {
+  BoundingBox::BoundingBox ()
+    : spatial3Info_ ()
+  {
+  }
+
   BoundingBox::BoundingBox (
     const Vector2& position,
     const Vector2& size,
@@ -94,5 +99,31 @@ namespace yap
   void BoundingBox::SetH (int h)
   {
     spatial3Info_.SetH (h);
+  }
+
+  bool BoundingBox::CollidesWith (const ICollidable& other) const
+  {
+    if (GetZ () >= other.GetZ () + other.GetH () ||
+        GetZ () + GetH () <= other.GetZ ())
+      return false;
+
+    return spatial3Info_.GetRectangle ().intersects (other.GetRectangle ());
+  }
+
+  bool BoundingBox::CollidesWith (
+    const ICollidable& other,
+    const Vector2& offset) const
+  {
+    if (GetZ () >= other.GetZ () + other.GetH () ||
+        GetZ () + GetH () <= other.GetZ ())
+      return false;
+
+    FloatRect rect (
+      spatial3Info_.GetRectangle ().left + offset.x,
+      spatial3Info_.GetRectangle ().top + offset.y,
+      spatial3Info_.GetRectangle ().width,
+      spatial3Info_.GetRectangle ().height);
+
+    return rect.intersects (other.GetRectangle ());
   }
 } // namespace yap

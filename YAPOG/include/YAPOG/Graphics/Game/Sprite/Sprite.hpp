@@ -17,7 +17,9 @@ namespace yap
       Sprite ();
       explicit Sprite (Texture* texture);
       explicit Sprite (const String& textureName);
-      Sprite (const String& textureName, const sf::IntRect& textureRect);
+      Sprite (
+        const String& textureName, 
+        const sf::IntRect& textureRect);
       virtual ~Sprite ();
 
       void SetTexture (Texture* texture);
@@ -42,6 +44,8 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color);
 
       virtual void HandleUpdate (const Time& dt);
+
+      Vector2 HandleGetSize () const;
 
       Texture* texture_;
   };

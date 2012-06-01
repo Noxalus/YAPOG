@@ -131,7 +131,7 @@ namespace yap
 
   void Pokemon::SpecifyGender ()
   {
-    if (RandomHelper::Pourcentage (pokemonInfo_->GetGenderProbability ()))
+    if (RandomHelper::Percentage (pokemonInfo_->GetGenderProbability ()))
       gender_ = Gender::Female;
     else
       gender_ = Gender::Male;
@@ -172,7 +172,7 @@ namespace yap
       return exp_->GetValue ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () +
+      YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -183,7 +183,7 @@ namespace yap
       return exp_->GetExperienceToNextLevel ();
     else
     {
-      throw Exception ("The Pokémon " + GetName () +
+      YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -253,7 +253,7 @@ namespace yap
     }
     else
     {
-      throw Exception ("The Pokémon " + GetName () +
+      YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
   }
@@ -288,6 +288,14 @@ namespace yap
 
     staticID_ = pokemonInfo_->GetPokemonEvolutionID ();
     Reset ();
+  }
+
+  void Pokemon::TakeDamage (int damage)
+  {
+    if (damage < 0)
+      YAPOG_THROW("A Pokemon cannot take negative damages !");
+
+    stats_.ModifyHitPoint (damage);
   }
 
   static String GetStringFromExperienceType (

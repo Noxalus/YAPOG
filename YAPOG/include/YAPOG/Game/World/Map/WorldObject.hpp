@@ -10,6 +10,8 @@
 
 namespace yap
 {
+  class CollidableArea;
+
   class YAPOG_LIB WorldObject : public ICollidable
                               , public IIDLoadable
   {
@@ -21,6 +23,10 @@ namespace yap
 
       const ID& GetID () const;
       void SetID (const ID& id);
+
+      void SetCollidableArea (CollidableArea* collidableArea);
+      void AddBoundingBox (BoundingBox* boundingBox);
+      void RemoveBoundingBox (BoundingBox* boundingBox);
 
       /// @name ISpatial members.
       /// @{
@@ -51,6 +57,10 @@ namespace yap
 
       /// @name ICollidable members.
       /// @{
+      virtual bool CollidesWith (const ICollidable& other) const;
+      virtual bool CollidesWith (
+        const ICollidable& other,
+        const Vector2& offset) const;
       /// @}
 
       /// @name ICloneable members.
@@ -63,6 +73,9 @@ namespace yap
       explicit WorldObject (const ID& id);
       WorldObject (const WorldObject& copy);
 
+      const BoundingBoxCollection& GetBoundingBoxes () const;
+
+      Vector2 HandleGetSize () const;
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
       virtual void HandleSetZ (int z);
@@ -71,7 +84,7 @@ namespace yap
     private:
 
       ID id_;
-      Spatial3Info spatial3Info_;
+      mutable Spatial3Info spatial3Info_;
 
       BoundingBoxCollection boundingBoxes_;
   };

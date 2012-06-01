@@ -2,28 +2,50 @@
 # define YAPOG_BATTLE_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/Pokemon/PokemonStat.hpp"
-# include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-# include "YAPOG/Game/Battle/PokemonFighter.hpp"
+# include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/Game/Battle/IBattleEntity.hpp"
+# include "YAPOG/Game/Battle/BattlePhaseManager.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB Battle
+  class PokemonFighter;
+  class PokemonFighterTeam;
+
+  class YAPOG_LIB Battle : public  IUpdateable
   {
   public:
-    Battle (PokemonTeam& playerTeam);
+    Battle ();
 
     void Init ();
-    void Run ();
     void DisplayMoves ();
     void DisplayTeam ();
-    virtual void DisplayBeginMessage () = 0;
+
+    /// @name IUpdateable members.
+    /// @{
+    virtual void Update (const Time& dt);
+    /// @}
+
+    /// Getters
+    virtual IBattleEntity& GetPlayerTeam ();
+    virtual IBattleEntity& GetOpponent ();
+
+    /// Setters
+    void SetPlayerTeam (PokemonFighterTeam* playerTeam);
+    void SetOpponent (PokemonFighterTeam* opponent);
+    void SetOpponent (PokemonFighter* opponent);
 
   protected:
-    PokemonTeam& playerTeam_;
-    PokemonFighter currentOpponent_;
-    PokemonFighter currentPokemon_;
+    virtual void HandleUpdate (const Time& dt);
+    virtual void HandleInit ();
+    void AddPhase (
+      const BattlePhaseState& battlePhaseState, 
+      BattlePhase* battlePhase);
+
+  private:
+    IBattleEntity* playerTeam_;
+    IBattleEntity* opponent_;
     int turnCount_;
+    BattlePhaseManager battlePhaseManager_;
   };
 } // namespace yap
 
