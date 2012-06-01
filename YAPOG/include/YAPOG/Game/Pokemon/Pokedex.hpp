@@ -16,9 +16,13 @@ namespace yap
     Pokedex ();
     ~Pokedex ();
 
-    void SetPokemonSeenInfoList (const collection::Map<ID, PokemonInfo*>& pokSeen);
-    void SetPokemonCaughtInfoList (const collection::Map<ID, PokemonInfo*>& pokCaught);
+    void SetPokemonSeenInfoList (const collection::Array<PokemonInfo*>& pokSeen);
+    void SetPokemonCaughtInfoList (const collection::Array<PokemonInfo*>& pokCaught);
     void SetPokemonList (const collection::Array<PokemonInfo*>& pokList);
+
+    uint GetMaxIDSeen () const;
+    const PokemonInfo& GetPokemonSeen (uint index) const;
+    const PokemonInfo* GetPokemonSeenID (uint ID) const;
 
     void AddPokemon (PokemonInfo* pok);
     void AddPokemonSeen (PokemonInfo* pokSeen);
@@ -26,8 +30,8 @@ namespace yap
     void Init ();
 
   private:
-    collection::Map<ID, PokemonInfo*> pokSeen_;
-    collection::Map<ID, PokemonInfo*> pokCaught_;
+    collection::Array<PokemonInfo*> pokSeen_;
+    collection::Array<PokemonInfo*> pokCaught_;
     collection::Array<PokemonInfo*> pokList_;
   };
 } // namespace yap

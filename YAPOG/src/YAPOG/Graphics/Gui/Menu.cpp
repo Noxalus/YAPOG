@@ -98,9 +98,10 @@ namespace yap
     if (GetUserSize () != Vector2 (0, 0) && layout_->GetSize ().x > GetUserSize ().x)
     layout_->RemoveChild (child);
     */
+
     child.UnsetBorder ();    
     SetFormItem ();
-
+    
     if (type_ == Menu::Type::HORIZONTAL)
       layoutManager_->SetSize (layout_->GetSize ().x);
     if (type_== Menu::Type::VERTICAL)

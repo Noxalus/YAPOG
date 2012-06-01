@@ -22,7 +22,7 @@ namespace yap
       HORIZONTAL
     };
 
-    Menu (Type type, Padding ext, Padding in, bool extend);
+    Menu (Type type, Padding ext, Padding in, bool fixed);
     void AddChild (MenuItem& child, LayoutBox::Align align
       = LayoutBox::Align::CENTER);
     virtual ~Menu ();

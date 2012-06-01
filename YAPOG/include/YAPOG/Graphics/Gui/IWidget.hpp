@@ -22,9 +22,11 @@ namespace yap
   {
     virtual ~IWidget () {}
 
+    
     virtual void AddDrawable (IDrawable& drawable) = 0;
     virtual void AddChild (IWidget& child) = 0;
     virtual IWidget& GetRoot () const = 0;
+    virtual WidgetBorder* GetBorder () const = 0;
     virtual void SetParent (IWidget& parent) = 0;
     virtual void SetPadding (const Padding& padding) = 0;
     virtual void SetBackground (WidgetBackground& background) = 0;

@@ -42,7 +42,7 @@ namespace yap
     Event<const WidgetBorder&, const EventArgsTexture&> OnBorderSet;
     void SetBorder (Vector2 size, uint width);
     void SetBorder (Vector2 size);
-    const Texture& GetBorder () const;
+    const Texture& GetTexture () const;
     void SetScalable (bool state);
     uint GetWidth () const;
 

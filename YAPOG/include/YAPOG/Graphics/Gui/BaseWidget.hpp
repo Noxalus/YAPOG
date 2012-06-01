@@ -78,6 +78,7 @@ namespace yap
     virtual const Vector2& GetCenter () const;
 
     virtual const sf::FloatRect& GetRectangle () const;
+    virtual WidgetBorder* GetBorder () const;
 
     virtual void Move (const Vector2& offset);
     virtual void Scale (const Vector2& factor);
@@ -126,6 +127,7 @@ namespace yap
     virtual void Close ();
   protected:
 
+    void RefreshBorder ();
     virtual void SetFocused (bool state);
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
@@ -163,7 +165,7 @@ namespace yap
     bool isFocused_;
 
   private:
-    void SetPosAfterBorder (uint width, uint height);
+    void SetPosAfterBorder (uint width, uint height, bool refreshing);    
   };
 } // namespace yap
 
