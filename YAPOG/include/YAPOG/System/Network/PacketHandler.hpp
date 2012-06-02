@@ -12,8 +12,6 @@
     yap::PacketType::TYPE,                                       \
     std::bind (&HANDLER, this, std::placeholders::_1))
 
-//static_cast<yap::PacketHandler::HandlerType> (&HANDLER),
-
 namespace yap
 {
   struct IPacket;
