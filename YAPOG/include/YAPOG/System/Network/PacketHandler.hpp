@@ -1,6 +1,8 @@
 #ifndef YAPOG_PACKETHANDLER_HPP
 # define YAPOG_PACKETHANDLER_HPP
 
+# include <functional>
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/Collection/Map.hpp"
