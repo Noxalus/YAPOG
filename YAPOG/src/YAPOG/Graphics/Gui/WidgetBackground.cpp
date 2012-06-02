@@ -12,6 +12,16 @@ namespace yap
   {
   }
 
+  WidgetBackground::WidgetBackground (String file, bool resize)
+    : background_ ()
+    , tm_ (nullptr)
+    , resize_ (resize)
+    , isInit (false)
+    , fixed_ (false)
+  {
+    background_.LoadFromFile (file);
+  }
+
   bool WidgetBackground::IsFocusable () const
   {
     return false;
@@ -19,20 +29,13 @@ namespace yap
 
   Vector2 WidgetBackground::HandleGetSize () const
   {    
-      return background_.GetSize ();
+    return background_.GetSize ();
   }
   void WidgetBackground::SetFixed (bool state)
   {
     fixed_ = state;
   }
-  WidgetBackground::WidgetBackground (String file, bool resize)
-    : background_ ()
-    , tm_ (nullptr)
-    , resize_ (resize)
-    , isInit (false)
-  {
-    background_.LoadFromFile (file);
-  }
+
 
   WidgetBackground::~WidgetBackground ()
   {

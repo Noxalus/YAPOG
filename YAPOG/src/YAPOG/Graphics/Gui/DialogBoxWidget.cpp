@@ -4,98 +4,98 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
-#include "YAPOG/Graphics/Gui/WidgetDialogBox.hpp"
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 namespace yap
 {
-  WidgetDialogBox::WidgetDialogBox ()
+  DialogBoxWidget::DialogBoxWidget ()
     : labels_ ()
     , currentText_ (0)
     , textSpeed_ ()
   {
   }
 
-  WidgetDialogBox::WidgetDialogBox (const String& content)
+  DialogBoxWidget::DialogBoxWidget (const String& content)
     : labels_ ()
     , currentText_ (0)
   {
     AddText (content);
   }
 
-  WidgetDialogBox::~WidgetDialogBox ()
+  DialogBoxWidget::~DialogBoxWidget ()
   {
   }
 
-  void WidgetDialogBox::SetShowText (bool state)
+  void DialogBoxWidget::SetShowText (bool state)
   {
     showText_ = state;
   }
 
-  bool WidgetDialogBox::IsFocusable () const
+  bool DialogBoxWidget::IsFocusable () const
   {
     return true;
   }
 
-  void WidgetDialogBox::Refresh ()
+  void DialogBoxWidget::Refresh ()
   {
     for (Label* text : labels_)
     {
-      text->SetPosition (Vector2 (GetPosition ().x + padding_->left,
-        GetPosition ().y + padding_->top/*+ label_->GetCharHeight () / 2*/));
+      text->SetPosition (Vector2 (GetPosition ().x + padding_.left,
+        GetPosition ().y + padding_.top/*+ label_->GetCharHeight () / 2*/));
     }
 
     BaseWidget::Refresh ();
   }
 
-  Vector2 WidgetDialogBox::HandleGetSize () const
+  Vector2 DialogBoxWidget::HandleGetSize () const
   {
     return GetUserSize ()
       + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
-  void WidgetDialogBox::HandleDraw (IDrawingContext& context)
+  void DialogBoxWidget::HandleDraw (IDrawingContext& context)
   {      
     if (showText_)
       labels_[currentText_]->Draw (context);
 
   }
 
-  void WidgetDialogBox::HandleShow (bool isVisible)
+  void DialogBoxWidget::HandleShow (bool isVisible)
   {
     for (Label* text : labels_)
       text->Show (isVisible);
   }
 
-  void WidgetDialogBox::HandleMove (const Vector2& offset)
+  void DialogBoxWidget::HandleMove (const Vector2& offset)
   {
     for (Label* text : labels_)
       text->Move (offset);
   }
 
-  void WidgetDialogBox::HandleScale (const Vector2& factor)
+  void DialogBoxWidget::HandleScale (const Vector2& factor)
   {
     for (Label* text : labels_)
       text->Scale (factor);
   }
 
-  void WidgetDialogBox::HandleUpdate (const Time& dt)
+  void DialogBoxWidget::HandleUpdate (const Time& dt)
   {
     for (Label* text : labels_)
       text->Update (dt);
   }
 
-  void WidgetDialogBox::HandleChangeColor (const sf::Color& color)
+  void DialogBoxWidget::HandleChangeColor (const sf::Color& color)
   {
     for (Label* text : labels_)
       text->ChangeColor (color);
   }
 
-  String WidgetDialogBox::GetContent () const
+  String DialogBoxWidget::GetContent () const
   {
     return content_;
   }
 
-  bool WidgetDialogBox::HandleOnEvent (const GuiEvent& guiEvent)
+  bool DialogBoxWidget::HandleOnEvent (const GuiEvent& guiEvent)
   {
     if (!isVisible_ || !showText_)
       return false;
@@ -118,7 +118,7 @@ namespace yap
     return false;
   }
 
-  void WidgetDialogBox::AddText (const String& contentArg)
+  void DialogBoxWidget::AddText (const String& contentArg)
   {
     if (contentArg.empty())
       return;
@@ -126,7 +126,7 @@ namespace yap
     String txt = contentArg;
     Label* lb = new Label ();
 
-    uint LabelMaxSize = GetUserSize ().x - padding_->left - padding_->right;
+    uint LabelMaxSize = GetUserSize ().x - padding_.left - padding_.right;
     uint charNumb = (LabelMaxSize / lb->GetCharWidth ());
 
     uint previousPos = 0;

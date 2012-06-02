@@ -8,10 +8,10 @@
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
-{
-  class Padding;
+{  
   class WidgetBackground;
   class WidgetBorder;
 
@@ -78,6 +78,7 @@ namespace yap
     virtual const Vector2& GetCenter () const;
 
     virtual const sf::FloatRect& GetRectangle () const;
+    virtual WidgetBorder* GetBorder () const;
 
     virtual void Move (const Vector2& offset);
     virtual void Scale (const Vector2& factor);
@@ -112,7 +113,7 @@ namespace yap
     virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
     virtual void SetParent (IWidget& parent);
-    virtual void SetPadding (Padding* padding);
+    virtual void SetPadding (const Padding& padding);
     virtual void SetBackground (WidgetBackground& background);
     virtual void SetBorder  (WidgetBorder& border, uint width);
     virtual void SetBorder  (WidgetBorder& border);
@@ -126,6 +127,7 @@ namespace yap
     virtual void Close ();
   protected:
 
+    void RefreshBorder ();
     virtual void SetFocused (bool state);
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
@@ -155,7 +157,7 @@ namespace yap
     collection::List<IUpdateable*> updatables_;
     IWidget* root_;
     IWidget* parent_;
-    Padding* padding_;
+    Padding padding_;
     WidgetBackground* background_;
     WidgetBorder* border_;
     Vector2 userSize_;
@@ -163,7 +165,7 @@ namespace yap
     bool isFocused_;
 
   private:
-    void SetPosAfterBorder (uint width, uint height);
+    void SetPosAfterBorder (uint width, uint height, bool refreshing);    
   };
 } // namespace yap
 

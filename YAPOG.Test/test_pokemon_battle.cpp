@@ -69,13 +69,17 @@ int main ()
   try
   {
     PokemonFighter wildPokemon (GeneratePokemon ());
-    PokemonFighterTeam playerFighterTeam (team);
+    PokemonFighterTeam playerFighterTeam;
+    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon (0)));
+    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon (1)));
 
     team.GetPokemon (0)->PrintStats ();
     std::cout << "---------- Fighter ----------" << std::endl;
     playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
 
-    WildBattle wildBattle (playerFighterTeam, wildPokemon);
+    WildBattle wildBattle;
+    wildBattle.SetPlayerTeam (&playerFighterTeam);
+    wildBattle.SetOpponent (&wildPokemon);
     wildBattle.Init ();
 
     while (42) wildBattle.Update (Time ());

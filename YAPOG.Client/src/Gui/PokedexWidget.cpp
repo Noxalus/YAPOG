@@ -1,0 +1,149 @@
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Game/Pokemon/Pokedex.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+#include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+#include "YAPOG/Graphics/Gui/Menu.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+
+#include "Gui/PokedexWidget.hpp"
+
+#include "Game.hpp"
+
+namespace ycl
+{
+
+  PokedexWidget::PokedexWidget ()
+    : pokedex_ (new yap::Pokedex ())
+  {
+    yap::collection::Array<yap::PokemonInfo*> pokList;
+
+    yap::PokemonInfo* pokInfo1 = new yap::PokemonInfo (yap::ID (1));    
+    yap::PokemonInfo* pokInfo2 = new yap::PokemonInfo (yap::ID (2));
+    yap::PokemonInfo* pokInfo3 = new yap::PokemonInfo (yap::ID (3));
+    yap::PokemonInfo* pokInfo4 = new yap::PokemonInfo (yap::ID (4));
+    yap::PokemonInfo* pokInfo5 = new yap::PokemonInfo (yap::ID (5));
+    yap::PokemonInfo* pokInfo6 = new yap::PokemonInfo (yap::ID (6));
+    yap::PokemonInfo* pokInfo7 = new yap::PokemonInfo (yap::ID (7));
+    yap::PokemonInfo* pokInfo8 = new yap::PokemonInfo (yap::ID (8));
+
+    pokInfo1->SetName ("Tortank");
+    pokInfo2->SetName ("Bulbizare");
+    pokInfo3->SetName ("Ratata");
+    pokInfo4->SetName ("Pikachu");
+    pokInfo5->SetName ("Dracofeu");
+    pokInfo6->SetName ("Alakazham");
+    pokInfo7->SetName ("Onyx");
+    pokInfo8->SetName ("Morpho");
+
+    pokList.Add (pokInfo1);
+    pokList.Add (pokInfo2);
+    pokList.Add (pokInfo3);
+    pokList.Add (pokInfo4);
+    pokList.Add (pokInfo5);
+    pokList.Add (pokInfo6);
+    pokList.Add (pokInfo7);
+    pokList.Add (pokInfo8);
+
+    pokedex_->SetPokemonSeenInfoList (pokList);
+  }
+
+  PokedexWidget::~PokedexWidget ()
+  {
+  }
+
+  void PokedexWidget::Init ()
+  {
+    SetSize (yap::Vector2 (800, 600));
+    yap::WidgetBackground* background = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/Background.png", true);    
+    SetBackground (*background);
+
+    yap::HorizontalLayout* firstHLayout = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), false);
+    firstHLayout->SetSize (yap::Vector2 (600, 400));
+    firstHLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    //yap::HorizontalLayout* secondHLayout = new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
+    yap::VerticalLayout* firstVLayout = new yap::VerticalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
+
+    yap::VerticalLayout* secondVLayout = new yap::VerticalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
+
+    yap::PictureBox* title = new yap::PictureBox ();
+    title->SetPicture ("WindowSkins/BasicSkin/Pokedex/Title.png");
+
+    yap::PictureBox* boxInfo = new yap::PictureBox ();
+    boxInfo->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxBackground.png");
+
+    firstVLayout->AddChild (*title);
+    firstVLayout->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+
+    yap::WidgetBackground* menuBackground = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/ListBackground.png", true);
+    yap::Menu* menu = new yap::Menu (yap::Menu::Type::VERTICAL, yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);    
+    menu->SetSize (yap::Vector2 (firstHLayout->GetSize ().x - firstVLayout->GetSize ().x, firstHLayout->GetSize ().y));
+    menu->SetBackground (*menuBackground);
+
+    for (int i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
+    {
+      yap::MenuItem* item = new yap::MenuItem (true);
+      const yap::PokemonInfo* current = pokedex_->GetPokemonSeenID (i);
+
+      if (current == nullptr)
+        item->SetContent ("N." + yap::StringHelper::ToString(i) + "    --------");
+      else
+      {
+        item->SetContent ("N." + yap::StringHelper::ToString(i) + "    " + current->GetName ());
+        item->ChangeColor (sf::Color (0, 0, 0));
+      }
+      item->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+      menu->AddChild (*item, yap::LayoutBox::Align::LEFT);
+
+    }
+
+    //secondHLayout->AddChild (*secondVLayout);
+    //secondHLayout->AddChild (*boxInfo);
+
+
+    yap::Vector2 test = firstVLayout->GetSize ();
+    //firstVLayout->AddChild (*secondHLayout);
+
+    firstHLayout->AddChild (*firstVLayout, yap::LayoutBox::Align::TOP);
+    firstHLayout->AddChild (*menu);
+
+    AddChild (*firstHLayout);
+  }
+
+  bool PokedexWidget::IsFocusable () const
+  {
+    return true;
+  }
+
+  yap::Vector2 PokedexWidget::HandleGetSize () const
+  {
+    return yap::Vector2 (800, 600);
+  }
+  void PokedexWidget::HandleMove (const yap::Vector2& offset)
+  {
+
+  }
+  void PokedexWidget::HandleScale (const yap::Vector2& factor)
+  {
+
+  }
+  void PokedexWidget::HandleDraw (yap::IDrawingContext& context)
+  {
+
+  }
+  void PokedexWidget::HandleShow (bool isVisible)
+  {
+
+  }
+  void PokedexWidget::HandleChangeColor (const sf::Color& color)
+  {
+
+  }
+  void PokedexWidget::HandleUpdate (const yap::Time& dt)
+  {
+
+  }
+} // namespace ycl

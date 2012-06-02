@@ -1,6 +1,7 @@
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -68,8 +69,7 @@ namespace yap
   {
     if (max.x < min.x ||
         max.y < min.y)
-      throw Exception (
-        "[PhysicsCore] Max bound must be greater than min bound.");
+      YAPOG_THROW("[PhysicsCore] Max bound must be greater than min bound.");
 
     minVelocity_ = min;
     maxVelocity_ = max;

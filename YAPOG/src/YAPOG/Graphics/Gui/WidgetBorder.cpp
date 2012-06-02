@@ -156,7 +156,7 @@ namespace yap
   {
   }
 
-  const Texture& WidgetBorder::GetBorder () const
+  const Texture& WidgetBorder::GetTexture () const
   {
     if (border_ != nullptr)
       return *border_;

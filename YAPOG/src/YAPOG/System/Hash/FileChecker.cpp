@@ -2,16 +2,16 @@
 
 namespace yap
 {
-  FileChecker::FileChecker(boost::filesystem::path path)
+  FileChecker::FileChecker (PathType path)
   {
     path_ = path;
-    getfiletodownload();
+    GetFileToDownload ();
     filename_ = "";
     md5_ = "";
     filesize_ = 0;
   }
 
-  FileChecker::FileChecker(std::string filename)
+  FileChecker::FileChecker (String filename)
   {
     path_ = "";
     filename_ = filename;
@@ -19,7 +19,9 @@ namespace yap
     filesize_ = 0;
   }
 
-  FileChecker::FileChecker(std::string filename, std::string md5, size_t filesize)
+  FileChecker::FileChecker (String filename,
+    String md5,
+    size_t filesize)
   {
     path_ = "";
     filename_ = filename;
@@ -27,105 +29,108 @@ namespace yap
     filesize_ = filesize;
   }
 
-  FileChecker::MyFile::MyFile(std::string fn, size_t fs)
+  FileChecker::MyFile::MyFile (String fn,
+    size_t fs)
   {
-    filename = fn;
-    filesize = fs;
+    Filename = fn;
+    Filesize = fs;
   }
 
-  FileChecker::~FileChecker()
+  FileChecker::~FileChecker ()
   {
-    t_vf::iterator it(v_.begin());
-    t_vf::iterator it_end(v_.end());
+    VFilesType::ItType it (vfile_.begin ());
+    VFilesType::ItType it_end (vfile_.end ());
 
-    t_vs::iterator its(vs_.begin());
-    t_vs::iterator its_end(vs_.end());
+    VFileType::ItType its (vstring_.begin ());
+    VFileType::ItType its_end (vstring_.end ());
 
     for (; it != it_end; it++)
-      delete(*it);
+      delete (*it);
     for (; its != its_end; its++)
-      delete(*its);
+      delete (*its);
   }
 
-  void FileChecker::setfilename(std::string filename)
+  void                    FileChecker::SetFilename (String filename)
   {
     filename_ = filename;
   }
 
-  void FileChecker::setmd5(std::string md5)
+  void                    FileChecker::SetMd5 (String md5)
   {
     md5_ = md5;
   }
 
-  std::string FileChecker::getfilename()
+  String                  FileChecker::GetFilename ()
   {
     return filename_;
   }
 
-  std::string FileChecker::getmd5()
+  String                  FileChecker::GetMd5 ()
   {
     return md5_;
   }
 
-  int FileChecker::getfilesize()
+  size_t                  FileChecker::GetFilesize ()
   {
     return filesize_;
   }
 
-  FileChecker::t_vf FileChecker::getv()
+  FileChecker::VFilesType FileChecker::GetVfile ()
   {
-    return v_;
+    return vfile_;
   }
 
-  bool FileChecker::compare(FileChecker* const c, FileChecker* const s)
+  bool                    FileChecker::Compare (FileChecker* const c,
+    FileChecker* const s)
   {
-    return (c->getfilename() == s->getfilename()
-            && c->getmd5() == s->getmd5());
+    return (c->GetFilename () == s->GetFilename ()
+      && c->GetMd5 () == s->GetMd5 ());
   }
 
-  void FileChecker::getfiletodownload()
+  void                    FileChecker::GetFileToDownload ()
   {
-    t_vp vp;
+    VPathType vp;
     try
     {
-      if(boost::filesystem::exists(path_))
+      if (boost::filesystem::exists (path_))
       {
-        yap::MD5 md5;
-        std::copy(
-          boost::filesystem::recursive_directory_iterator(path_),
-          boost::filesystem::recursive_directory_iterator(),
-          std::back_inserter(vp)
+        yap::Md5 md5;
+        std::copy (
+          boost::filesystem::recursive_directory_iterator (path_),
+          boost::filesystem::recursive_directory_iterator (),
+          std::back_inserter (vp)
           );
 
-        t_vp::const_iterator it(vp.begin());
-        t_vp::const_iterator it_end(vp.end());
+        VPathType::const_iterator it(vp.begin ());
+        VPathType::const_iterator it_end(vp.end ());
 
         for (; it != it_end; it++)
         {
-          if (boost::filesystem::is_regular_file(*it))
+          if (boost::filesystem::is_regular_file (*it))
           {
-            int i = ((*it).string()).length() + 1;
-            int j = path_.string().length();
+            int i = ((*it).string ()).length () + 1;
+            int j = path_.string ().length ();
             i -= j;
             std::ifstream f;
-            f.open(((*it).string()).c_str());
-            std::string mymd5 = md5.Calculate(f);
-            v_.push_back(
-              new FileChecker (((*it).string()).
-                               substr(path_.string().length() + 1, i),
-                               mymd5, boost::filesystem::file_size((*it).string()))
+            f.open(((*it).string ()).c_str ());
+            String mymd5 = md5.Calculate (f);
+            vfile_.Add(
+              new FileChecker (
+              ((*it).string ()).substr (path_.string ().length () + 1, i),
+              mymd5,
+              boost::filesystem::file_size ((*it).string ()))
               );
-            f.close();
+            f.close ();
           }
           if (boost::filesystem::is_directory((*it)))
           {
-            int i = ((*it).string()).length() + 1;
-            int j = path_.string().length();
+            int i = ((*it).string ()).length () + 1;
+            int j = path_.string ().length ();
             i -= j;
-            v_.push_back(
-              new FileChecker (((*it).string()).
-                               substr(path_.string().length() + 1, i),
-                               std::string ("0"), 0)
+            vfile_.Add (
+              new FileChecker (((*it).string ()).
+              substr(path_.string ().length () + 1, i),
+              String ("0"), 0)
               );
           }
         }
@@ -133,113 +138,112 @@ namespace yap
     }
     catch (const boost::filesystem::filesystem_error& ex)
     {
-      std::cout << ex.what() << std::endl;
+      std::cout << ex.what () << std::endl;
     }
   }
 
-  std::string FileChecker::vectorfind(t_vf vc, FileChecker* elt)
+  String                  FileChecker::VectorFind (VFilesType vc,
+    FileChecker* elt)
   {
-    t_vf::iterator it(vc.begin());
-    t_vf::iterator it_end(vc.end());
-    std::string name;
+    VFilesType::ItType it (vc.begin ());
+    VFilesType::ItType it_end (vc.end ());
+    String name;
 
     for (; it != it_end; it++)
     {
-      name = (*it)->getfilename();
-      if (name == elt->getfilename())
-      {
-        if ((*it)->getmd5() != elt->getmd5())
+      name = (*it)->GetFilename ();
+      if (name == elt->GetFilename ())
+        if ((*it)->GetMd5 () != elt->GetMd5 ())
         {
-          std::replace(name.begin(), name.end(), '\\', '/');
-          return ((*it)->getmd5().compare("0") == 0 ? name + "0" : name);
+          std::replace(name.begin (), name.end (), '\\', '/');
+          return ((*it)->GetMd5 ().compare ("0") == 0 ? name + "0" : name);
         }
         else
           return "";
-      }
     }
 
-    name = elt->getfilename();
-    std::replace(name.begin(), name.end(), '\\', '/');
-    return (elt->getmd5().compare("0") == 0 ? name + "0" : name);
+    name = elt->GetFilename ();
+    std::replace(name.begin (), name.end (), '\\', '/');
+    return (elt->GetMd5 ().compare ("0") == 0 ? name + "0" : name);
   }
 
-  FileChecker::t_vs FileChecker::sendfiletodownload(FileChecker& fc)
+  FileChecker::VFileType  FileChecker::SendFileToDownload (FileChecker& fc)
   {
-    FileChecker::t_vs vbis;
+    FileChecker::VFileType vbis;
 
     try
     {
-      if(boost::filesystem::exists(path_))
+      if (boost::filesystem::exists (path_))
       {
-        t_vf::iterator it(v_.begin());
-        t_vf::iterator it_end(v_.end());
+        VFilesType::ItType it (vfile_.begin ());
+        VFilesType::ItType it_end (vfile_.end ());
 
         for (; it != it_end; it++)
         {
-          std::string ret = vectorfind(fc.getv(), (*it));
+          String ret = VectorFind (fc.GetVfile (), (*it));
           if (!ret.empty())
-            vbis.push_back(new MyFile(ret, (*it)->getfilesize()));
+            vbis.Add (new MyFile (ret, (*it)->GetFilesize ()));
         }
       }
     }
     catch (const boost::filesystem::filesystem_error& ex)
     {
-      std::cout << ex.what() << std::endl;
+      std::cout << ex.what () << std::endl;
     }
 
     return vbis;
   }
 
-  bool FileChecker::updateFTP(FileChecker::t_vs vs)
+  bool                    FileChecker::UpdateFTP (VFileType vs)
   {
     sf::Ftp server;
-    FileChecker::t_vs::const_iterator it(vs.begin());
-    FileChecker::t_vs::const_iterator it_end(vs.end());
-    std::string path = "D:\\git\\YAPOG_downloadtest";
-    std::string address = "";
-    std::string login = "";
-    std::string pw = "";
-    std::replace(path.begin(), path.end(), '\\', '/');
+    FileChecker::VFileType::ConstItType it (vs.begin ());
+    FileChecker::VFileType::ConstItType it_end (vs.end ());
+    String path = path_.string ();
+    String address = "";
+    String login = "";
+    String pw = "";
+    std::replace (path.begin (), path.end (), '\\', '/');
 
-    if (server.connect(address).isOk())
+    if (server.connect (address).isOk ())
     {
-      if (server.login(login, pw).isOk())
+      if (server.login (login, pw).isOk ())
       {
-        server.changeDirectory("test");
-        server.keepAlive();
+        server.changeDirectory ("test");
+        server.keepAlive ();
         for (; it != it_end; it++)
         {
-          std::string n = (*it)->filename;
-          std::replace (n.begin(), n.end(), '\\', '/');
-          std::string newpath = "";
+          String n = (*it)->Filename;
+          std::replace (n.begin (), n.end (), '\\', '/');
+          String newpath = "";
 
-          std::size_t i = n.rfind('/');
+          int i = n.rfind ('/');
           bool dl = true;
-          std::string name = n;
-          server.keepAlive();
-          if (n[n.size() - 1] == '0')
+          String name = n;
+          server.keepAlive ();
+          if (n[n.size () - 1] == '0')
           {
             dl = false;
-            name = n.substr(0, n.size() - 1);
+            name = n.substr(0, n.size () - 1);
             boost::filesystem::create_directory(path + "/" + name);
           }
           else
           {
-            if (i != std::string::npos)
+            if (i != String::npos)
             {
-              name.assign(n, i + 1, n.size());
-              newpath.assign(n, 0, i);
+              name.assign (n, i + 1, n.size ());
+              newpath.assign (n, 0, i);
             }
           }
           if (dl)
           {
-            server.download(
-              (newpath.empty() ? name : (newpath + "/" + name)).c_str(),
-              (newpath.empty() ? path : (path + "/" + newpath)).c_str(), sf::Ftp::Binary);
+            server.download (
+              (newpath.empty () ? name : (newpath + "/" + name)).c_str (),
+              (newpath.empty () ? path : (path + "/" + newpath)).c_str (), sf::Ftp::Binary);
           }
         }
       }
-      server.disconnect();
+      server.disconnect ();
     }
     else
     {
@@ -250,7 +254,7 @@ namespace yap
     return true;
   }
 
-  bool FileChecker::update(FileChecker::t_vs vs)
+  bool                    FileChecker::Update(VFileType vs)
   {
     try
     {
@@ -258,92 +262,105 @@ namespace yap
 
       // Get a list of endpoints corresponding to the server name.
       // Try each endpoint until we successfully establish a connection.
-      FileChecker::t_vs::const_iterator it(vs.begin());
-      FileChecker::t_vs::const_iterator it_end(vs.end());
+      FileChecker::VFileType::ConstItType it (vs.begin ());
+      FileChecker::VFileType::ConstItType it_end (vs.end ());
 
       for (; it != it_end; it++)
       {
-        boost::asio::ip::tcp::resolver resolver(io_service);
-        boost::asio::ip::tcp::resolver::query query("yapog.free.fr", "http");
-        boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
-        boost::asio::ip::tcp::socket socket(io_service);
-        boost::asio::connect(socket, endpoint_iterator);
+        boost::asio::ip::tcp::resolver resolver (io_service);
+        boost::asio::ip::tcp::resolver::query query ("yapog.free.fr", "http");
+        boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve (query);
+        boost::asio::ip::tcp::socket socket (io_service);
+        boost::asio::connect (socket, endpoint_iterator);
 
         boost::asio::streambuf request;
-        std::ostream request_stream(&request);
-        std::string n = (*it)->filename;
-        std::replace (n.begin(), n.end(), '\\', '/');
-        std::string path = path_.string();//"D:/git/YAPOG_downloadtest";
-        std::string newpath = "";
+        OStream request_stream (&request);
+        String n = (*it)->Filename;
+        std::replace (n.begin (), n.end (), '\\', '/');
+        //String path = path_.string ();
+        String path = "D:/git/YAPOG_downloadtest";
+        String newpath = "";
 
-        std::cout << path << std::endl;
-        std::size_t i = n.rfind('/');
+        int i = n.rfind ('/');
         bool dl = true;
-        std::string name = n;
-        if (n[n.size() - 1] == '0')
+        String name = n;
+        if (n[n.size () - 1] == '0')
         {
           dl = false;
-          name = n.substr(0, n.size() - 1);
-          boost::filesystem::create_directory(path + "/" + name);
+          name = n.substr(0, n.size () - 1);
+          boost::filesystem::create_directory (path + "/" + name);
         }
         else
         {
-          if (i != std::string::npos)
+          if (i != String::npos)
           {
-            name.assign(n, i + 1, n.size());
-            newpath.assign(n, 0, i);
+            name.assign (n, i + 1, n.size ());
+            newpath.assign (n, 0, i);
           }
         }
         if (dl)
         {
-          request_stream << "GET " << ("/test/" + (newpath.empty() ? name : (newpath + "/" + name)))
-                         << " HTTP/1.0\r\n"
-                         << "Host: " << "yapog.free.fr" << "\r\n"
-                         << "Accept: */*\r\n"
-                         << "Connection: close\r\n\r\n";
-          boost::asio::write(socket, request);
+          request_stream << "GET " << ("/test/" + (newpath.empty () ? name : (newpath + "/" + name)))
+            << " HTTP/1.0\r\n"
+            << "Host: " << "yapog.free.fr" << "\r\n"
+            << "Accept: */*\r\n"
+            << "Connection: close\r\n\r\n";
+          boost::asio::write (socket, request);
 
           boost::asio::streambuf response;
-          boost::asio::read_until(socket, response, "\r\n");
+          boost::asio::read_until (socket, response, "\r\n");
 
-          std::istream response_stream(&response);
-          std::string http_version;
+          IStream response_stream (&response);
+          String http_version;
           response_stream >> http_version;
-          unsigned int status_code;
+          UInt32 status_code;
           response_stream >> status_code;
-          std::string status_message;
-          std::getline(response_stream, status_message);
+          String status_message;
+          std::getline (response_stream, status_message);
           if (!response_stream || http_version.substr(0, 5) != "HTTP/")
           {
-            std::cout << "Invalid response\n";
+            std::cout << "Invalid response\r\n";
             return false;
           }
           if (status_code != 200)
           {
-            std::cout << "Response returned with status code " << status_code << "\n";
+            std::cout << "Response returned with status code "
+              << status_code << "\r\n";
             return false;
           }
 
-          size_t bytes = (*it)->filesize;
+          size_t bytes = (*it)->Filesize;
           boost::system::error_code error;
-          std::ofstream outfile;
-          outfile.open((newpath.empty() ? path + "/" + name : (path + "/" + newpath + "/" + name)), std::ios::binary);
-          while (boost::asio::read(socket, response,
-                                   boost::asio::transfer_exactly(bytes), error))
+          OFStream outfile;
+          std::stringstream ss;
+          String str;
+          outfile.open((newpath.empty () ? path + "/" + name : 
+            (path + "/" + newpath + "/" + name)),
+            std::ios::binary);
+          size_t sizetotal = 0;
+
+          while (boost::asio::read (socket, response,
+            boost::asio::transfer_at_least (1), error))
           {
-            if (response.size() > bytes)
-              response.consume(response.size() - bytes);
-            outfile << &response;
+            float percentage = 0;
+            sizetotal += response.size ();
+            percentage = (float) sizetotal / bytes;
+            std::cout << percentage << std::endl;
+            ss << &response;
           }
+          str = ss.str ();
+          if (sizetotal > bytes)
+            str.erase (0, sizetotal - bytes);
+          outfile << str;
           outfile.close();
           if (error != boost::asio::error::eof)
-            throw boost::system::system_error(error);
+            throw boost::system::system_error (error);
         }
       }
     }
     catch (std::exception& e)
     {
-      std::cout << "Exception: " << e.what() << "\n";
+      std::cout << "Exception: " << e.what () << std::endl;
       return false;
     }
     return true;

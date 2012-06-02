@@ -25,7 +25,7 @@ namespace yap
   const String& PokemonSkill::GetName () const
   {
     if (skillInfo_ == nullptr)
-      throw Exception ("This skill's base informations doesn't exist !");
+      YAPOG_THROW("This skill's base informations doesn't exist !");
 
     return skillInfo_->GetName ();
   }
@@ -33,7 +33,7 @@ namespace yap
   const UInt16& PokemonSkill::GetPower () const
   {
     if (skillInfo_ == nullptr)
-      throw Exception ("This skill's base informations doesn't exist !");
+      YAPOG_THROW("This skill's base informations doesn't exist !");
 
     return skillInfo_->GetPower ();
   }
@@ -51,7 +51,7 @@ namespace yap
   const UInt16& PokemonSkill::GetLimitPPMax () const
   {
     if (skillInfo_ == nullptr)
-      throw Exception ("This skill's base informations doesn't exist !");
+      YAPOG_THROW("This skill's base informations doesn't exist !");
 
     return skillInfo_->GetMaxPP ();
   }

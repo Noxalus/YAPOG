@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class WidgetDialogBox;
+  class DialogBoxWidget;
 } // namespace yap
 
 namespace ycl
@@ -24,13 +24,13 @@ namespace ycl
 
     /// @name Getters.
     /// @{
-    yap::WidgetDialogBox& GetBattleInfoDialogBox ();
+    yap::DialogBoxWidget& GetBattleInfoDialogBox ();
     PokemonBattleInfoWidget& GetPokemonInfoWidget ();
     OpponentBattleInfoWidget& GetOpponentInfoWidget ();
     /// @}
 
   private:
-    yap::WidgetDialogBox* battleInfoDialogBox_;
+    yap::DialogBoxWidget* battleInfoDialogBox_;
     PokemonBattleInfoWidget* pokemonInfoWidget_;
     OpponentBattleInfoWidget* opponentInfoWidget_;
   };

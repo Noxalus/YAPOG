@@ -1,37 +1,34 @@
 #ifndef YAPOG_MD5_HPP
 # define YAPOG_MD5_HPP
 
-#include <cstdio>
-#include <cstdlib>
-#include <string>
-#include <fstream>
-#include <vector>
-#include "YAPOG/Macros.hpp"
-
-#define uint32 unsigned int
+# include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/System/IntTypes.hpp"
+# include "YAPOG/System/IOStream.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yap
 {
-  class YAPOG_LIB MD5
-  {
-    DISALLOW_COPY(MD5);
-    public:
-    MD5();
-    MD5(const std::string& source);
-    MD5(std::ifstream& file);
-    MD5(const unsigned char* source, uint32 len);
+	class YAPOG_LIB Md5
+	{
+		DISALLOW_COPY(Md5);
+	public:
+		Md5();
+		Md5(const String& source);
+		Md5(IFStream& file);
+		Md5(const uchar* source, Int32 len);
 
-    std::string Calculate(const std::string& source);
-    std::string Calculate(std::ifstream& file);
-    std::string Calculate(const unsigned char* source, uint32 len);
+		String                Calculate(const String& source);
+		String                Calculate(IFStream& file);
+		String                Calculate(const uchar* source, Int32 len);
 
-    std::string GetHash() const;
-    const unsigned char* GetRawHash() const { return m_rawHash; }
+		String                GetHash() const;
+		const uchar*          GetRawHash() const;
 
-    private:
-    std::string     m_sHash;
-    unsigned char m_rawHash[16];
-  };
+	private:
+		String                msHash_;
+		uchar                 mrawHash_[16];
+	};
 } // namespace yap
 
 #endif // MD5_HPP

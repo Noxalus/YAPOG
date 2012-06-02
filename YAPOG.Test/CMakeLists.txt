@@ -29,7 +29,7 @@ TARGET_LINK_LIBRARIES(
 endmacro()
 
 gen_test( test_array )
-#gen_test( test_chat )
+gen_test( test_chat )
 gen_test( test_filechecker )
 gen_test( test_list )
 gen_test( test_map )

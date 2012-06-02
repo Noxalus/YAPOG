@@ -2,11 +2,13 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/System/IO/Log/Logger.hpp"
+#include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
+#include "Gui/PokedexWidget.hpp"
 
 namespace ycl
 {
@@ -44,6 +46,12 @@ namespace ycl
   void GameplayScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
+
+    PokedexWidget* pokedex = new PokedexWidget ();
+    pokedex->Init ();
+
+
+    guiManager_->AddChild (*pokedex);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -64,64 +72,64 @@ namespace ycl
   bool GameplayScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Down,
-          guiEvent))
+      yap::GameInputType::Down,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Up,
-          guiEvent))
+      yap::GameInputType::Up,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Left,
-          guiEvent))
+      yap::GameInputType::Left,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Right,
-          guiEvent))
+      yap::GameInputType::Right,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::East);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Down,
-          guiEvent))
+      yap::GameInputType::Down,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Up,
-          guiEvent))
+      yap::GameInputType::Up,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Left,
-          guiEvent))
+      yap::GameInputType::Left,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Right,
-          guiEvent))
+      yap::GameInputType::Right,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::East);
       return true;
@@ -139,8 +147,8 @@ namespace ycl
   {
     cameraController_.SetBounds (
       yap::FloatRect (
-        yap::Vector2 (),
-        map.GetSize ()));
+      yap::Vector2 (),
+      map.GetSize ()));
   }
 
   void GameplayScreen::SetPlayer (Player* player)

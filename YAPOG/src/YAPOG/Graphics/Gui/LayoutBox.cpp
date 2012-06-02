@@ -30,6 +30,8 @@ namespace yap
   void LayoutBox::Refresh ()
   {
     GeneratePosition ();
+    
+    RefreshBorder ();
     BaseWidget::Refresh ();
   }
 

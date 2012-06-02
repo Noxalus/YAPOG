@@ -38,7 +38,7 @@ namespace yap
     IObjectIDLoader* loader)
   {
     if (ContainsLoader (typeName))
-      throw Exception (
+      YAPOG_THROW(
         "Loader `" + typeName + "' already added to the factory.");
 
     objectIDLoaders_.Add (typeName, loader);
@@ -51,7 +51,7 @@ namespace yap
     IObjectLoader* loader)
   {
     if (ContainsLoader (typeName))
-      throw Exception (
+      YAPOG_THROW(
         "Loader `" + typeName + "' already added to the factory.");
 
     objectLoaders_.Add (typeName, loader);

@@ -35,14 +35,16 @@ namespace yap
 
       while (it < cursorCurSel_)
       {
-        layout_->AddChild (*itemz_[it]);
+        layout_->AddChild (*itemz_[it], yap::LayoutBox::Align::LEFT);
+        it++;
       }
 
       it = cursorCurSel_;
 
-      while (it < MathHelper::Clamp<uint>(cursorCurSel_ + itemAfterCount, 0, itemCount_))
+      while (it < itemz_.Count () && it < MathHelper::Clamp<uint>(cursorCurSel_ + itemAfterCount, 0, itemCount_))
       {
-        layout_->AddChild (*itemz_[it]);
+        layout_->AddChild (*itemz_[it], yap::LayoutBox::Align::LEFT);
+        it++;
       }
     }
   }

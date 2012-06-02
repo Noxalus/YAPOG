@@ -21,20 +21,23 @@ namespace yap
     , childen_ ()
     , root_ (nullptr)
     , parent_ (nullptr)
-    , padding_ (nullptr)
+    , padding_ ()
     , background_ (nullptr)
     , border_ (nullptr)
     , userSize_ (0, 0)
     , isExtensible_ (false)
     , isFocused_ (true)
   {
-    padding_ = new Padding ();
   }
 
   BaseWidget::~BaseWidget ()
   {
   }
 
+  WidgetBorder* BaseWidget::GetBorder () const
+  {    
+    return border_;
+  }
   const Vector2& BaseWidget::GetPosition () const
   {
     return spatialInfo_.GetPosition ();
@@ -306,7 +309,7 @@ namespace yap
     root_ = &parent.GetRoot ();
   }
 
-  void BaseWidget::SetPadding (Padding* padding)
+  void BaseWidget::SetPadding (const Padding& padding)
   {
     padding_ = padding;
     Refresh ();
@@ -328,7 +331,7 @@ namespace yap
   }
 
 
-  void BaseWidget::SetPosAfterBorder (uint width, uint height)
+  void BaseWidget::SetPosAfterBorder (uint width, uint height, bool refreshing)
   {
     if (spatialInfo_.GetPosition ().x > width)
       spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
@@ -345,7 +348,8 @@ namespace yap
       spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
     }
 
-    Refresh ();
+    if (refreshing)
+      Refresh ();
   }
 
   void BaseWidget::SetBorder (WidgetBorder& border, uint width)
@@ -360,11 +364,28 @@ namespace yap
     uint paddingBorder = border.GetSize ().y > 0
       ? border.GetSize ().y : border.GetSize ().x;
     if (border.GetSize ().y == 0)
-      SetPosAfterBorder (paddingBorder, 0);
+      SetPosAfterBorder (paddingBorder, 0, true);
     else
-      SetPosAfterBorder (paddingBorder, paddingBorder);
+      SetPosAfterBorder (paddingBorder, paddingBorder, true);
   }
 
+  void BaseWidget::RefreshBorder ()
+  {
+    if (border_ == nullptr)
+      return;
+
+    border_->SetPosition (GetPosition ());
+    if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
+      border_->SetBorder (GetSize ());
+    else
+      border_->SetBorder (GetUserSize ());    
+    uint paddingBorder = border_->GetSize ().y > 0
+      ? border_->GetSize ().y : border_->GetSize ().x;
+    if (border_->GetSize ().y == 0)
+      SetPosAfterBorder (paddingBorder, 0, false);
+    else
+      SetPosAfterBorder (paddingBorder, paddingBorder, false);
+  }
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
 
@@ -377,9 +398,9 @@ namespace yap
     uint paddingBorder = border.GetSize ().y > 0
       ? border.GetSize ().y : border.GetSize ().x;
     if (border.GetSize ().y == 0)
-      SetPosAfterBorder (paddingBorder, 0);
+      SetPosAfterBorder (paddingBorder, 0, true);
     else
-      SetPosAfterBorder (paddingBorder, paddingBorder);
+      SetPosAfterBorder (paddingBorder, paddingBorder, true);
   }
 
   bool BaseWidget::HandleOnEvent (const GuiEvent& guiEvent)

@@ -24,6 +24,86 @@ namespace yap
   }
 
   template <typename T>
+  inline int StringHelper::CompareString(const T& s1, const T& s2)
+  {
+    String::const_iterator it1 = s1.begin();
+    String::const_iterator it2 = s2.begin();
+
+    while ((it1 != s1.end()) && (it2 != s2.end())) { 
+      if(::toupper(*it1) != ::toupper(*it2)) 
+        return (::toupper(*it1) < ::toupper(*it2)) ? -1 : 1; 
+      ++it1;
+      ++it2;
+    }
+
+    size_t size1 = s1.size();
+    size_t size2 = s2.size();
+
+    if (size1 == size2) 
+      return 0;
+    return (size1 < size2) ? -1 : 1;
+  }
+
+  template <typename T>
+  inline String& StringHelper::Ltrim(T& s)
+  {
+    String::iterator it = s.begin();
+
+    while (it != s.end())
+    {
+      if (!isspace(*it))
+        break;
+      ++it;
+    }
+
+    s.erase(s.begin(), it);
+    return s;
+  }
+
+  template <typename T>
+  inline String& StringHelper::Rtrim(T& s)
+  {
+    String::reverse_iterator it = s.rbegin();
+
+    while (it != s.rend())
+    {
+      if (!isspace(*it))
+        break;
+      ++it;
+    }
+    String::difference_type diff = s.rend() - it;
+    s.erase(s.begin() + diff, s.end());
+    return s;
+  }
+
+  template <typename T>
+  inline String& StringHelper::Trim(T& s)
+  {
+    return Ltrim(Rtrim(s));
+  }
+
+  template <typename T>
+  inline String StringHelper::Trim(const T& s)
+  {
+    String str = s;
+    return Trim(str);
+  }
+
+  template <typename T>
+  inline String StringHelper::Rtrim(const T& s)
+  {
+    String str = s;
+    return Rtrim(str);
+  }
+
+  template <typename T>
+  inline String StringHelper::Ltrim(const T& s)
+  {
+    String str = s;
+    return Ltrim(str);
+  }
+  
+  template <typename T>
   inline T StringHelper::Parse (const String& str)
   {
     return boost::lexical_cast <T> (str);
@@ -34,15 +114,15 @@ namespace yap
   {
     switch (value)
     {
-      case Direction::North: return "North";
-      case Direction::NorthEast: return "NorthEast";
-      case Direction::East: return "East";
-      case Direction::SouthEast: return "SouthEast";
-      case Direction::South: return "South";
-      case Direction::SouthWest: return "SouthWest";
-      case Direction::West: return "West";
-      case Direction::NorthWest: return "NorthWest";
-      default: YAPOG_THROW("Not a valid direction.");
+    case Direction::North: return "North";
+    case Direction::NorthEast: return "NorthEast";
+    case Direction::East: return "East";
+    case Direction::SouthEast: return "SouthEast";
+    case Direction::South: return "South";
+    case Direction::SouthWest: return "SouthWest";
+    case Direction::West: return "West";
+    case Direction::NorthWest: return "NorthWest";
+    default: YAPOG_THROW("Not a valid direction.");
     }
   }
 
@@ -70,26 +150,6 @@ namespace yap
     if (str == "Fluctuating") return ExperienceType::Fluctuating;
     if (str == "Erratic") return ExperienceType::Erratic;
     YAPOG_THROW("Not a valid experience type: " + str);
-  }
-
-  template <typename T>
-  inline int StringHelper::compare_string(const T& s1, const T& s2)
-  {
-    std::string::const_iterator it1=s1.begin();
-    std::string::const_iterator it2=s2.begin();
-
-    while ((it1!=s1.end()) && (it2!=s2.end())) {
-      if(::toupper(*it1) != ::toupper(*it2))
-        return (::toupper(*it1) < ::toupper(*it2)) ? -1 : 1;
-      ++it1;
-      ++it2;
-    }
-
-    size_t size1=s1.size(), size2=s2.size();
-
-    if (size1 == size2)
-      return 0;
-    return (size1<size2) ? -1 : 1;
   }
 } // namespace yap
 

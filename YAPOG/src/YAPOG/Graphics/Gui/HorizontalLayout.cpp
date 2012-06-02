@@ -1,4 +1,4 @@
-#include "YAPOG/Graphics/Gui/LayoutH.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Collection/List.hpp"
 #include "YAPOG/System/MathHelper.hpp"
@@ -6,28 +6,28 @@
 namespace yap
 {
 
-  LayoutH::LayoutH ()
+  HorizontalLayout::HorizontalLayout ()
     : LayoutBox ()
   {
   }
 
-  LayoutH::LayoutH (Padding ext, Padding in, bool isExt)
+  HorizontalLayout::HorizontalLayout (Padding ext, Padding in, bool isExt)
     : LayoutBox (ext, in, isExt)
   {
   }
 
-  LayoutH::~LayoutH ()
+  HorizontalLayout::~HorizontalLayout ()
   {
   }
 
-  float LayoutH::GetWidthItem ()
+  float HorizontalLayout::GetWidthItem ()
   {
     for (auto itMap = items_.begin (); itMap != items_.end (); itMap++)
       return (*itMap).first->GetSize ().x;
     return 0;
   }
 
-  void LayoutH::GeneratePosition ()
+  void HorizontalLayout::GeneratePosition ()
   {
     float totalPad = 0;
 
@@ -70,27 +70,27 @@ namespace yap
     BaseWidget::Refresh ();
   }
 
-  void LayoutH::HandleDraw (IDrawingContext& context)
+  void HorizontalLayout::HandleDraw (IDrawingContext& context)
   {
   }
 
-  void LayoutH::HandleShow (bool isVisible)
+  void HorizontalLayout::HandleShow (bool isVisible)
   {
   }
 
-  void LayoutH::HandleMove (const Vector2& offset)
+  void HorizontalLayout::HandleMove (const Vector2& offset)
   {
   }
 
-  void LayoutH::HandleScale (const Vector2& factor)
+  void HorizontalLayout::HandleScale (const Vector2& factor)
   {
   }
 
-  void LayoutH::HandleUpdate (const Time& dt)
+  void HorizontalLayout::HandleUpdate (const Time& dt)
   {
   }
 
-  void LayoutH::HandleChangeColor (const sf::Color& color)
+  void HorizontalLayout::HandleChangeColor (const sf::Color& color)
   {
   }
 } //namespace yap

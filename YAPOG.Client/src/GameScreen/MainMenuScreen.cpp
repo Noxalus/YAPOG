@@ -19,7 +19,7 @@ namespace ycl
   void MainMenuScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-
+   
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
 
