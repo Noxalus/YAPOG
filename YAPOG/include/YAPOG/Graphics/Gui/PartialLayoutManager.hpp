@@ -23,7 +23,7 @@ namespace yap
     uint GetSize () const;
     void Refresh ();
 
-  protected:       
+  private:       
     uint cursorCurSel_;
     uint itemCount_;
     float size_;
@@ -33,6 +33,7 @@ namespace yap
     collection::Array<IWidget*> stock_;
     collection::Array<IWidget*> itemz_;
     bool isEnable_;
+    float widthItem_;
   };
 } // namespace yap
 

@@ -30,7 +30,7 @@ namespace yap
   void LayoutBox::Refresh ()
   {
     GeneratePosition ();
-    
+
     RefreshBorder ();
     BaseWidget::Refresh ();
   }
@@ -83,6 +83,11 @@ namespace yap
     return spatialInfo_.GetSize ();
   }
 
+  const Padding& LayoutBox::GetInnerPadding () const
+  {
+    return innerPad_;
+  }
+
   void LayoutBox::AddChild (IWidget& child, Align align)
   {
     BaseWidget::AddChild (child);
@@ -91,19 +96,19 @@ namespace yap
     if (child.IsFocusable ())    
       focusables_.Add (&child);    
 
+    Refresh ();
+  }
+
+  void LayoutBox::RemoveChild (IWidget& child)
+  {
+    BaseWidget::RemoveChild (child);
+    items_.Remove (&child);
+
+    if (child.IsFocusable ())
+      focusables_.Remove (&child);
+
     GeneratePosition ();
   }
- 
- void LayoutBox::RemoveChild (IWidget& child)
- {
-   BaseWidget::RemoveChild (child);
-   items_.Remove (&child);
-
-   if (child.IsFocusable ())
-     focusables_.Remove (&child);
-
-   GeneratePosition ();
- }
 
   bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {
@@ -117,7 +122,7 @@ namespace yap
         IWidget* child;
         uint cycle = focusedChild_;
 
-        
+
         // if current focussable is a layout, give it control for tab
         if (focusables_[cycle]->OnPriorityEvent (guiEvent))
           return true;

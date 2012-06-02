@@ -1,5 +1,5 @@
-#ifndef YAPOG_CLIENT_WIDGETPOKEDEX_HPP
-# define YAPOG_CLIENT_WIDGETPOKEDEX_HPP
+#ifndef YAPOG_CLIENT_WIDGETCOMPOSITEPOKEDEX_HPP
+# define YAPOG_CLIENT_WIDGETCOMPOSITEPOKEDEX_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
@@ -9,20 +9,18 @@ namespace yap
 {
   class Pokedex;
   class PictureBox;
-  class PokemonInfo;
-  class Menu;
 }
 
 namespace ycl
 {
-  class PokedexWidget : public yap::BaseWidget
+  class PokedexCompositeWidget : public yap::BaseWidget
   {
-    DISALLOW_COPY(PokedexWidget);
+    DISALLOW_COPY(PokedexCompositeWidget );
 
   public:
-    PokedexWidget ();
+    PokedexCompositeWidget  ();
     void Init ();
-    virtual ~PokedexWidget();
+    virtual ~PokedexCompositeWidget ();
     virtual bool IsFocusable () const;
 
   protected:
@@ -40,10 +38,8 @@ namespace ycl
   private:
     yap::Pokedex* pokedex_;
     yap::PictureBox* boxInfoContent_;
-    yap::Menu* menu_;
-    yap::PokemonInfo* validatedPokemon_;
 
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_WIDGETPOKEDEX_HPP
+#endif // YAPOG_CLIENT_WIDGETCOMPOSITEPOKEDEX_HPP
