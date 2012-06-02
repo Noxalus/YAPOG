@@ -49,7 +49,7 @@ namespace ycl
 
     PokedexWidget* pokedex = new PokedexWidget ();
     pokedex->Init ();
-
+    pokedex->Close ();
 
     guiManager_->AddChild (*pokedex);
   }
