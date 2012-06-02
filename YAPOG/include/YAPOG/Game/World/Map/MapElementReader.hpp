@@ -14,13 +14,10 @@ namespace yap
 
     public:
 
-      virtual ~MapElementReader ();
-
-    protected:
-
       MapElementReader (
         MapElement& dynamicWorldObject,
         const String& xmlRootNodeName);
+      virtual ~MapElementReader ();
 
     private:
 

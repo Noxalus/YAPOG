@@ -48,27 +48,23 @@ namespace ycl
 
       map_.AddTileLayer (height, tileLayoutHandler);
     }
+  }
 
-    auto objectsReader = reader->ChangeRoot ("objects");
+  void MapReader::ReadMapElement (yap::XmlReader& reader)
+  {
+    yap::ID mapElementID = reader.ReadID (
+      yap::XmlHelper::GetAttrNodeName ("id"));
 
-    yap::XmlReaderCollection mapElementReaders;
-    objectsReader->ReadNodes ("MapElement", mapElementReaders);
-    for (auto& mapElementReader : mapElementReaders)
-    {
-      yap::ID mapElementID = mapElementReader->ReadID (
-        yap::XmlHelper::GetAttrNodeName ("id"));
+    MapElement* mapElement =
+      yap::ObjectFactory::Instance ().Create<MapElement> (
+        "MapElement",
+        mapElementID);
 
-      MapElement* mapElement =
-        yap::ObjectFactory::Instance ().Create<MapElement> (
-          "MapElement",
-          mapElementID);
+    yap::Vector2 mapElementPosition = reader.ReadVector2 (
+      "position");
 
-      yap::Vector2 mapElementPosition = mapElementReader->ReadVector2 (
-        "position");
+    mapElement->SetPosition (mapElementPosition);
 
-      mapElement->SetPosition (mapElementPosition);
-
-      map_.AddMapElement (mapElement);
-    }
+    map_.AddMapElement (mapElement);
   }
 } // namespace ycl

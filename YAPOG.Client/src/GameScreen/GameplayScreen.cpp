@@ -56,8 +56,6 @@ namespace ycl
 
     UpdatePlayer (dt);
 
-//    logger_.LogLine (1.f/dt.GetValue ());
-
     world_.Draw (context);
 
     return BaseScreen::HandleRun (dt, context);

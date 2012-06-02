@@ -343,7 +343,10 @@ namespace yap
 
   Vector2 Packet::ReadVector2 ()
   {
-    return Vector2 (ReadFloat (), ReadFloat ());
+    float x = ReadFloat ();
+    float y = ReadFloat ();
+
+    return Vector2 (x, y);
   }
 
   Vector2 Packet::ReadVector2 (const String& name)

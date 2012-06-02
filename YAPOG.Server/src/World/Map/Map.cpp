@@ -8,7 +8,9 @@
 namespace yse
 {
   const yap::String Map::VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME =
-    "Sync";
+    "VelocitySync";
+  const yap::String Map::STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME =
+    "StateSync";
 
   Map::Map (const yap::ID& id)
     : yap::Map (id)
@@ -25,7 +27,8 @@ namespace yse
   {
     player->AddRelay (this);
 
-    players_.Add (player);
+    players_.Add (player->GetWorldID (), player);
+
     AddDynamicObject (player);
 
     SendAddPlayer (*player);
@@ -35,7 +38,8 @@ namespace yse
   {
     player->RemoveRelay (this);
 
-    players_.Remove (player);
+    players_.Remove (player->GetWorldID ());
+
     RemoveDynamicObject (player);
 
     SendRemovePlayer (*player);
@@ -50,8 +54,8 @@ namespace yse
   {
     bool success = true;
 
-    for (Player* player : players_)
-      if (!player->SendPacket (packet))
+    for (auto& it : players_)
+      if (!it.second->SendPacket (packet))
         success = false;
 
     return success;
@@ -80,9 +84,17 @@ namespace yse
       VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME,
       [&] (yap::DynamicWorldObject& sender,
            const yap::ChangeEventArgs<const yap::Vector2&>& args)
-    {
-      HandleOnObjectVelocityChanged (sender, args.Old, args.Current);
-    });
+      {
+        HandleOnObjectVelocityChanged (sender, args.Old, args.Current);
+      });
+
+    object->OnStateChanged.AddHandler (
+      STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME,
+      [&] (yap::DynamicWorldObject& sender,
+           const yap::ChangeEventArgs<const yap::String&>& args)
+      {
+        HandleOnObjectStateChanged (sender, args.Old, args.Current);
+      });
   }
 
   void Map::HandleRemoveDynamicObject (yap::DynamicWorldObject* object)
@@ -101,6 +113,14 @@ namespace yse
     SendObjectMoveInfo (sender, currentVelocity);
   }
 
+  void Map::HandleOnObjectStateChanged (
+    yap::DynamicWorldObject& sender,
+    const yap::String& oldState,
+    const yap::String& currentState)
+  {
+    SendUpdateObjectState (sender, currentState);
+  }
+
   void Map::SendObjectMoveInfo (
     const yap::DynamicWorldObject& object,
     const yap::Vector2& velocity)
@@ -111,10 +131,33 @@ namespace yse
     yap::DebugLogger::Instance ().LogLine (
       "POSITION: [" + yap::StringHelper::ToString (object.GetPosition ().x) +
       "][" + yap::StringHelper::ToString (object.GetPosition ().y) + "]");
+    yap::DebugLogger::Instance ().LogLine (
+      "VELOCITY: [" + yap::StringHelper::ToString (velocity.x) +
+      "][" + yap::StringHelper::ToString (velocity.y) + "]");
 
     packet.Write (object.GetWorldID ());
     packet.Write (object.GetPosition ());
     packet.Write (velocity);
+
+    SendPacket (packet);
+  }
+
+  void Map::SendUpdateObjectState (
+    const yap::DynamicWorldObject& object,
+    const yap::String& state)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoUpdateObjectState);
+
+    yap::DebugLogger::Instance ().LogLine (
+      "POSITION: [" + yap::StringHelper::ToString (object.GetPosition ().x) +
+      "][" + yap::StringHelper::ToString (object.GetPosition ().y) + "]");
+    yap::DebugLogger::Instance ().LogLine (
+      "STATE: [" + state + "]");
+
+    packet.Write (object.GetWorldID ());
+    packet.Write (object.GetPosition ());
+    packet.Write (state);
 
     SendPacket (packet);
   }
@@ -132,8 +175,6 @@ namespace yse
     packet.Write (object.GetPosition ());
 //    addPlayerPacket.Write (player.GetState ());
 //    addPlayerPacket.Write (player.GetDirection ());
-
-    SendPacket (packet);
   }
 
   void Map::SendRemoveObject (
@@ -152,6 +193,8 @@ namespace yse
     addPlayerPacket.CreateFromType (yap::PacketType::ServerInfoAddPlayer);
 
     SendAddObject (player, addPlayerPacket);
+
+    SendPacket (addPlayerPacket);
   }
 
   void Map::SendRemovePlayer (const Player& player)
@@ -167,14 +210,10 @@ namespace yse
 
   void Map::SendLoadObjects (yap::IPacket& packet)
   {
-    packet.Write (static_cast<yap::UInt64> (GetDynamicObjects ().Count ()));
+    // players
+    packet.Write (static_cast<yap::UInt64> (players_.Count ()));
 
-    for (const auto& it : GetDynamicObjects ())
-    {
-      packet.Write (it.second->GetWorldID ());
-      packet.Write (it.second->GetTypeID ());
-      packet.Write (it.second->GetID ());
-      packet.Write (it.second->GetPosition ());
-    }
+    for (const auto& it : players_)
+      SendAddObject (*it.second, packet);
   }
 } // namespace yse

@@ -101,14 +101,15 @@ namespace yse
 
     player_->SetWorldID (playerWorldID);
 
-    yap::Packet startInfoPacket;
-    startInfoPacket.CreateFromType (yap::PacketType::ServerInfoStartInfo);
-    startInfoPacket.Write (player_->GetWorldID ());
-    SendPacket (startInfoPacket);
-
     SendChangeMap (world_->GetMap (playerMapWorldID));
 
     world_->GetMap (playerMapWorldID).AddPlayer (player_);
+
+    yap::Packet setUserPlayerPacket;
+    setUserPlayerPacket.CreateFromType (
+      yap::PacketType::ServerInfoSetUserPlayer);
+    setUserPlayerPacket.Write (playerWorldID);
+    SendPacket (setUserPlayerPacket);
   }
 
   void User::HandleClientInfoApplyForce (yap::IPacket& packet)

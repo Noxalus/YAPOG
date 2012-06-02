@@ -45,6 +45,11 @@ namespace yap
 
       void SetCollidableArea (CollidableArea* collidableArea);
 
+      void AddStaticObject (StaticWorldObject* object);
+      void AddDynamicObject (DynamicWorldObject* object);
+      void RemoveStaticObject (StaticWorldObject* object);
+      void RemoveDynamicObject (DynamicWorldObject* object);
+
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
@@ -63,13 +68,9 @@ namespace yap
       const DynamicWorldObjectCollection& GetDynamicObjects () const;
 
       void AddObject (WorldObject* object);
-      void AddStaticObject (StaticWorldObject* object);
-      void AddDynamicObject (DynamicWorldObject* object);
       void AddUpdateable (IUpdateable* updateable);
 
       void RemoveObject (WorldObject* object);
-      void RemoveStaticObject (StaticWorldObject* object);
-      void RemoveDynamicObject (DynamicWorldObject* object);
       void RemoveUpdateable (IUpdateable* updateable);
 
       virtual void HandleSetSize (uint width, uint height);

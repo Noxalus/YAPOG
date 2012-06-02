@@ -101,7 +101,7 @@ namespace yap
 
     BoundVelocity (velocity, velocity_);
 
-    if (velocity == lastVelocity_)
+    if (velocity_ == lastVelocity_)
       return;
 
     OnVelocityChanged (

@@ -38,21 +38,17 @@ namespace ycl
 
       World& GetWorld ();
 
+      Player& GetPlayer ();
+
       void SetPlayer (Player* player);
 
-      void HandleServerInfoStartInfo (yap::IPacket& packet);
+      void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
       void HandleServerInfoChangeMap (yap::IPacket& packet);
-
-      /// @todo Move into Map.
-      void HandleServerInfoAddObject (yap::IPacket& packet);
-      /// @todo Move into Map.
-      void HandleServerInfoAddPlayer (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 
       World* world_;
 
-      yap::ID playerWorldID_;
       Player* player_;
   };
 } // namespace ycl

@@ -12,6 +12,8 @@
 #include "YAPOG/System/IO/Log/CountLoggerMode.hpp"
 #include "YAPOG/System/IO/Log/TimeLoggerMode.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Game/World/Map/MapElement.hpp"
+#include "YAPOG/Game/World/Map/MapElementReader.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -152,6 +154,12 @@ namespace yse
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
         yap::Path ("Player"),
         "Player"));
+
+    objectFactory_.RegisterLoader (
+      "MapElement",
+      new yap::XmlObjectIDLoader<yap::MapElement, yap::MapElementReader> (
+        yap::Path ("MapElement"),
+        "MapElement"));
   }
 
   void Server::InitWorldObjectStateFactory ()

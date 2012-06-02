@@ -19,6 +19,10 @@ namespace ycl
 
       virtual void Visit (yap::XmlReader& visitable);
 
+    protected:
+
+      virtual void ReadMapElement (yap::XmlReader& reader);
+
     private:
 
       Map& map_;

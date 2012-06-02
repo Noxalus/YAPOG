@@ -150,9 +150,21 @@ namespace yap
     SetState (DEFAULT_INACTIVE_STATE);
   }
 
+  void DynamicWorldObject::RawSetState (const String& state)
+  {
+    SetState (state);
+  }
+
   void DynamicWorldObject::SetState (const String& state)
   {
+    const String& oldState = state_.GetName ();
+
     state_ = state;
+
+    OnStateChanged (
+      *this, ChangeEventArgs<const String&> (
+        oldState,
+        state_.GetName ()));
 
     HandleSetState (state);
   }
@@ -178,7 +190,6 @@ namespace yap
 
   void DynamicWorldObject::HandleSetState (const String& state)
   {
-    OnStateChanged (*this, state);
   }
 
   void DynamicWorldObject::HandleMove (const Vector2& offset)

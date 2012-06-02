@@ -1,8 +1,11 @@
 #include "YAPOG/Game/World/Map/MapReader.hpp"
 #include "YAPOG/Game/World/Map/Map.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/Game/World/Map/MapElement.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 /// @todo Remove when integrating CollidableArea.
 #include "YAPOG/Game/World/Map/Physics/GridCollidableArea.hpp"
@@ -45,5 +48,30 @@ namespace yap
     map_.SetSize (
       reader->ReadUInt (DEFAULT_XML_WIDTH_NODE_NAME),
       reader->ReadUInt (DEFAULT_XML_HEIGHT_NODE_NAME));
+
+    auto staticObjectsReader = reader->ChangeRoot ("staticObjects");
+
+    XmlReaderCollection mapElementReaders;
+    staticObjectsReader->ReadNodes ("MapElement", mapElementReaders);
+    for (auto& mapElementReader : mapElementReaders)
+      ReadMapElement (*mapElementReader);
+  }
+
+  void MapReader::ReadMapElement (XmlReader& reader)
+  {
+    ID mapElementID = reader.ReadID (
+      XmlHelper::GetAttrNodeName ("id"));
+
+    MapElement* mapElement =
+      ObjectFactory::Instance ().Create<MapElement> (
+        "MapElement",
+        mapElementID);
+
+    Vector2 mapElementPosition = reader.ReadVector2 (
+      "position");
+
+    mapElement->SetPosition (mapElementPosition);
+
+    map_.AddStaticObject (mapElement);
   }
 } // namespace yap

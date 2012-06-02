@@ -9,6 +9,7 @@
 # include "YAPOG/Graphics/Game/World/Map/TileLayerStack.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 
@@ -32,11 +33,16 @@ namespace ycl
         yap::uint height,
         yap::TileLayoutHandler* tileLayoutHandler);
 
+      Player& GetPlayer (const yap::ID& worldID);
+
       void AddPlayer (Player* player);
       void AddMapElement (MapElement* mapElement);
 
       void RemovePlayer (Player* player);
+      void RemovePlayer (const yap::ID& worldID);
       void RemoveMapElement (MapElement* mapElement);
+
+      void HandleLoadObjects (yap::IPacket& packet);
 
       /// @name IDrawable members.
       /// @{
@@ -71,12 +77,17 @@ namespace ycl
     private:
 
       void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
+      void HandleServerInfoUpdateObjectState (yap::IPacket& packet);
+      void HandleServerInfoAddPlayer (yap::IPacket& packet);
+      void HandleServerInfoRemovePlayer (yap::IPacket& packet);
 
       static const yap::String DRAW_ORDER_HANDLER_NAME;
 
       yap::TileLayerStack tileLayers_;
 
       yap::collection::List<yap::IDrawableWorldObject*> drawableObjects_;
+
+      yap::collection::Map<yap::ID, Player*> players_;
 
       yap::PacketHandler packetHandler_;
   };

@@ -1,5 +1,4 @@
 #include "YAPOG/System/Network/IPacket.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 
 #include "Client/User.hpp"
@@ -12,13 +11,10 @@ namespace ycl
   User::User ()
     : packetHandler_ ()
     , world_ (nullptr)
-    , playerWorldID_ ()
     , player_ (nullptr)
   {
-    ADD_HANDLER(ServerInfoStartInfo, User::HandleServerInfoStartInfo);
+    ADD_HANDLER(ServerInfoSetUserPlayer, User::HandleServerInfoSetUserPlayer);
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
-    ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
-    ADD_HANDLER(ServerInfoAddPlayer, User::HandleServerInfoAddPlayer);
   }
 
   User::~User ()
@@ -28,6 +24,9 @@ namespace ycl
   void User::SetWorld (World* world)
   {
     world_ = world;
+
+    AddRelay (world_);
+    world_->SetParent (this);
   }
 
   bool User::HandlePacket (yap::IPacket& packet)
@@ -60,21 +59,26 @@ namespace ycl
     return *world_;
   }
 
+  Player& User::GetPlayer ()
+  {
+    return *player_;
+  }
+
   void User::SetPlayer (Player* player)
   {
     player_ = player;
 
-    AddRelay (player_);
-    player_->SetParent (this);
-
     OnPlayerCreated (*this, player_);
   }
 
-  void User::HandleServerInfoStartInfo (yap::IPacket& packet)
+  void User::HandleServerInfoSetUserPlayer (yap::IPacket& packet)
   {
     /// @todo
+    yap::ID playerWorldID = packet.ReadID ();
 
-    playerWorldID_ = packet.ReadID ();
+    Player* player =
+      &GetWorld ().GetCurrentMap ().GetPlayer (playerWorldID);
+    SetPlayer (player);
   }
 
   void User::HandleServerInfoChangeMap (yap::IPacket& packet)
@@ -86,47 +90,6 @@ namespace ycl
     world_->ChangeMap (mapWorldID);
 
     Map& map = world_->GetCurrentMap ();
-
-    /// @todo get object count + read all objects
-    /// MAKE A VISITOR
-  }
-
-  void User::HandleServerInfoAddObject (yap::IPacket& packet)
-  {
-    /// @todo
-
-/*
-    yap::ID worldID = packet.ReadID ();
-    yap::ID typeID = packet.ReadID ();
-    yap::ID id = packet.ReadID ();
-
-    yap::DynamicWorldObject* object =
-      yap::ObjectFactory::Instance ().Create<yap::DynamicWorldObject> (
-        typeID,
-        id);
-    object->SetWorldID (worldID);
-
-    world_->GetCurrentMap ().AddPlayer (player);
-
-    player->SetPosition (packet.ReadVector2 ());*/
-  }
-
-  void User::HandleServerInfoAddPlayer (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-    yap::ID typeID = packet.ReadID ();
-    yap::ID id = packet.ReadID ();
-
-    Player* player = yap::ObjectFactory::Instance ().Create<Player> (
-      typeID,
-      id);
-    player->SetWorldID (worldID);
-
-    if (playerWorldID_ == player->GetWorldID ())
-      SetPlayer (player);
-
-    world_->GetCurrentMap ().AddPlayer (player);
-
-    player->SetPosition (packet.ReadVector2 ());
+    map.HandleLoadObjects (packet);
   }
 } // namespace ycl

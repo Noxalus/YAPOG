@@ -47,6 +47,10 @@ namespace yap
       bool TryChangeState (const String& state);
       void SetInactive ();
 
+      /// @brief Directly changes this DynamicWorldObject state.
+      /// @param state State to set to this DynamicWorldObject.
+      void RawSetState (const String& state);
+
       bool IsActive () const;
 
       bool IsMoving () const;
@@ -60,7 +64,8 @@ namespace yap
       /// @{
       Event<DynamicWorldObject&,
             const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
-      Event<DynamicWorldObject&, const String&> OnStateChanged;
+      Event<DynamicWorldObject&,
+            const ChangeEventArgs<const String&>&> OnStateChanged;
       /// @}
 
     protected:

@@ -18,6 +18,11 @@ namespace yap
   {
   }
 
+  MapElement* MapElement::Clone () const
+  {
+    return new MapElement (*this);
+  }
+
   void MapElement::Accept (IStaticWorldObjectVisitor& visitor)
   {
     visitor.Visit (*this);

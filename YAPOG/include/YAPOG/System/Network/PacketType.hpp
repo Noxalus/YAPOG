@@ -24,15 +24,14 @@ namespace yap
     ServerInfoLoginError,
 
     ServerInfoPrimaryData,
-    ServerInfoStartInfo,
 
     ServerInfoChangeMap,
+
+    ServerInfoSetUserPlayer,
 
     ServerInfoUpdateObjectState,
     ServerInfoObjectMoveInfo,
 
-    ServerInfoAddObject,
-    ServerInfoRemoveObject,
     ServerInfoAddPlayer,
     ServerInfoRemovePlayer
   };

@@ -13,14 +13,18 @@ namespace yap
 
     public:
 
+      explicit MapElement (const ID& id);
       virtual ~MapElement ();
 
       virtual void Accept (IStaticWorldObjectVisitor& visitor);
       virtual void Accept (IStaticWorldObjectConstVisitor& visitor) const;
 
-    protected:
+      /// @name ICloneable members.
+      /// @{
+      virtual MapElement* Clone () const;
+      /// @}
 
-      explicit MapElement (const ID& id);
+    protected:
 
       MapElement (const MapElement& copy);
   };

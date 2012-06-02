@@ -5,6 +5,7 @@
 # include "YAPOG/Game/World/Map/Map.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
+# include "YAPOG/Collection/Map.hpp"
 
 namespace yse
 {
@@ -52,11 +53,18 @@ namespace yse
         yap::DynamicWorldObject& sender,
         const yap::Vector2& oldVelocity,
         const yap::Vector2& currentVelocity);
+      void HandleOnObjectStateChanged (
+        yap::DynamicWorldObject& sender,
+        const yap::String& oldState,
+        const yap::String& currentState);
 
       /// @todo Visitors for all Send methods...
       void SendObjectMoveInfo (
         const yap::DynamicWorldObject& object,
         const yap::Vector2& velocity);
+      void SendUpdateObjectState (
+        const yap::DynamicWorldObject& object,
+        const yap::String& state);
 
       void SendAddObject (
         const yap::DynamicWorldObject& object,
@@ -69,8 +77,9 @@ namespace yse
       void SendRemovePlayer (const Player& player);
 
       static const yap::String VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
+      static const yap::String STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
 
-      yap::collection::List<Player*> players_;
+      yap::collection::Map<yap::ID, Player*> players_;
 
       yap::PacketHandler packetHandler_;
   };

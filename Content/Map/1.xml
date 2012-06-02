@@ -12,7 +12,7 @@
       <Tile id="4"/>
     </tileLayer>
   </ground>
-  <objects>
+  <staticObjects>
     <MapElement id="1">
       <position>200,534</position>
     </MapElement>
@@ -31,5 +31,5 @@
     <MapElement id="1">
       <position>500,434</position>
     </MapElement>
-  </objects>
+  </staticObjects>
 </Map>

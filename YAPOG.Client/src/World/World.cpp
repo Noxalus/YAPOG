@@ -31,9 +31,18 @@ namespace ycl
 
     Map* oldMap = currentMap_;
 
+    if (oldMap != nullptr)
+    {
+      RemoveRelay (currentMap_);
+      currentMap_->SetParent (nullptr);
+    }
+
     currentMapID_ = worldID;
 
     currentMap_ = maps_[currentMapID_];
+
+    AddRelay (currentMap_);
+    currentMap_->SetParent (this);
 
     OnMapChanged (*this, yap::ChangeEventArgs<Map*> (oldMap, currentMap_));
   }
@@ -56,17 +65,11 @@ namespace ycl
 
   void World::AddMap (Map* map)
   {
-    map->AddRelay (this);
-
     maps_.Add (map->GetWorldID (), map);
   }
 
   void World::RemoveMap (const yap::ID& worldID)
   {
-    Map* map = maps_[worldID];
-
-    map->RemoveRelay (this);
-
     maps_.Remove (worldID);
   }
 
