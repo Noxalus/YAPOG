@@ -13,6 +13,7 @@ namespace yap
     , stock_ ()
     , itemz_ ()
     , isEnable_ (true)
+    , widthItem_ (0)
   {
   }
 
@@ -28,23 +29,29 @@ namespace yap
   {
     if (isEnable_)
     {
+      uint countItem = 0;
+
       layout_->Clear ();
       uint itemBeforeCount = (itemCount_ - 1) / 2;
       uint itemAfterCount = itemCount_ - itemBeforeCount - 1;
-      uint it = MathHelper::Clamp<uint>(cursorCurSel_ - itemBeforeCount, 0, itemCount_);
+      int endListHandle =  itemAfterCount -  (itemz_.Count ()  - 1 - cursorCurSel_) +1;
+      endListHandle = (endListHandle >= 0) ? endListHandle : 0;
+      uint it = MathHelper::Clamp<int>(cursorCurSel_ - itemBeforeCount - endListHandle, 0, cursorCurSel_);
 
       while (it < cursorCurSel_)
       {
         layout_->AddChild (*itemz_[it], yap::LayoutBox::Align::LEFT);
         it++;
+        countItem++;
       }
 
       it = cursorCurSel_;
 
-      while (it < itemz_.Count () && it < MathHelper::Clamp<uint>(cursorCurSel_ + itemAfterCount, 0, itemCount_))
+      while (it < itemz_.Count () && countItem <= itemCount_)
       {
         layout_->AddChild (*itemz_[it], yap::LayoutBox::Align::LEFT);
         it++;
+        countItem++;
       }
     }
   }
@@ -61,8 +68,11 @@ namespace yap
   }
   void PartialLayoutManager::SetSize (float size)
   {
-    size_ = size;    
-    itemCount_ = size / layout_->GetWidthItem ();;
+    uint test =  layout_->GetWidthItem ();
+    uint toto = layout_->GetInnerPadding ().top * 2;
+    widthItem_ = layout_->GetWidthItem () + (layout_->GetInnerPadding ().top * 2);
+    size_ = size;
+    itemCount_ = size / widthItem_;
     Refresh ();
   }
   uint PartialLayoutManager::GetSize () const

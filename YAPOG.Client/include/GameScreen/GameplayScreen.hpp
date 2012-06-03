@@ -1,4 +1,4 @@
- #ifndef YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
+#ifndef YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
 # define YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
 
 # include "YAPOG/Macros.hpp"
@@ -11,45 +11,49 @@
 namespace ycl
 {
   class Player;
+  class PokedexCompositeWidget;
+  class PokedexWidget;
 
   class GameplayScreen : public BaseScreen
   {
-      DISALLOW_COPY(GameplayScreen);
+    DISALLOW_COPY(GameplayScreen);
 
-    public:
+  public:
 
-      explicit GameplayScreen (yap::ICamera& worldCamera);
-      virtual ~GameplayScreen ();
+    explicit GameplayScreen (yap::ICamera& worldCamera);
+    virtual ~GameplayScreen ();
 
-    protected:
+  protected:
 
-      virtual void HandleInit ();
+    virtual void HandleInit ();
 
-      virtual const yap::ScreenType& HandleRun (
-        const yap::Time& dt,
-        yap::IDrawingContext& context);
+    virtual const yap::ScreenType& HandleRun (
+      const yap::Time& dt,
+      yap::IDrawingContext& context);
 
-      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
 
-    private:
+  private:
 
-      Map& GetCurrentMap ();
-      void SetCurrentMap (Map& map);
-      void SetPlayer (Player* player);
+    Map& GetCurrentMap ();
+    void SetCurrentMap (Map& map);
+    void SetPlayer (Player* player);
 
-      void UpdatePlayer (const yap::Time& dt);
+    void UpdatePlayer (const yap::Time& dt);
 
-      void SendApplyForce (const yap::Vector2& force);
+    void SendApplyForce (const yap::Vector2& force);
 
-      static const yap::ScreenType DEFAULT_NAME;
+    static const yap::ScreenType DEFAULT_NAME;
 
-      World world_;
+    World world_;
 
-      yap::ProgressiveCameraController cameraController_;
+    yap::ProgressiveCameraController cameraController_;
 
-      Player* player_;
-      yap::CharacterMoveController moveController_;
-      yap::Vector2 lastForce_;
+    Player* player_;
+    yap::CharacterMoveController moveController_;
+    yap::Vector2 lastForce_;
+    PokedexCompositeWidget* pokedexInfo_;    
+    PokedexWidget* pokedex_;    
   };
 } // namespace ycl
 

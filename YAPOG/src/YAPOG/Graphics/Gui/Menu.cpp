@@ -109,6 +109,11 @@ namespace yap
 
   }
 
+  uint Menu::GetCurrentSelect () const
+  {
+    return currentSelec_;
+  }
+
   void Menu::HandleDraw (IDrawingContext& context)
   {
     layout_->Draw (context);
@@ -128,6 +133,7 @@ namespace yap
         currentSelec_--;
         layoutManager_->SetCurrentSel (currentSelec_);
         SetFormItem ();
+        itemz_[currentSelec_]->OnSelected (itemz_[currentSelec_], EmptyEventArgs ());
         return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Down)
@@ -139,6 +145,7 @@ namespace yap
         currentSelec_++;
         layoutManager_->SetCurrentSel (currentSelec_);
         SetFormItem ();
+        itemz_[currentSelec_]->OnSelected (itemz_[currentSelec_], EmptyEventArgs ());
         return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Return)

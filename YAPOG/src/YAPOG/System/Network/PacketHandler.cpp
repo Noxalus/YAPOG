@@ -16,20 +16,16 @@ namespace yap
   {
   }
 
-  void PacketHandler::AddHandler (
-    PacketType packetType,
-    HandlerType handler,
-    IPacketHandler* packetHandler)
+  void PacketHandler::AddHandler (PacketType packetType, HandlerType handler)
   {
-    handlers_.Add (packetType, HandlerTargetPairType (handler, packetHandler));
+    handlers_.Add (packetType, handler);
   }
 
   bool PacketHandler::HandlePacket (IPacket& packet)
   {
     if (handlers_.Contains (packet.GetType ()))
     {
-      HandlerTargetPairType& action = handlers_[packet.GetType ()];
-      (action.second->*action.first) (packet);
+      handlers_[packet.GetType ()] (packet);
 
       return true;
     }

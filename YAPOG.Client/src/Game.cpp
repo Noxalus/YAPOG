@@ -309,10 +309,12 @@ namespace ycl
     screenManager_->AddGameScreen (new UpdateScreen ());
     screenManager_->AddGameScreen (new OptionScreen ());
     screenManager_->AddGameScreen (new LoginScreen ());
+    /* @TO DELETE
     screenManager_->AddGameScreen (
       new GameplayScreen (
         drawingContext_->GetCamera (
           "World")));
+    */
     screenManager_->AddGameScreen (new BattleScreen ());
     screenManager_->AddGameScreen (new MainMenuScreen ());
     screenManager_->AddGameScreen (new RegistrationScreen ());
