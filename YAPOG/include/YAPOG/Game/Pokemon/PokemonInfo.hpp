@@ -31,6 +31,8 @@ namespace yap
     virtual PokemonInfo* Clone () const;
     /// @}
 
+    /// @name Setters.
+    /// @{
     void SetID (const ID& id);
     void SetName (const String& name);
     void SetDescription (const String& description);
@@ -59,6 +61,21 @@ namespace yap
     void SetEvolutionLevel (UInt16 value);
     void SetPokemonEvolutionID (const ID& value);
 
+    void SetIcon (const yap::String& value);
+
+    void SetMaleFront (const yap::String& value);
+    void SetMaleBack (const yap::String& value);
+    void SetShinyMaleFront (const yap::String& value);
+    void SetShinyMaleBack (const yap::String& value);
+
+    void SetFemaleFront (const yap::String& value);
+    void SetFemaleBack (const yap::String& value);
+    void SetShinyFemaleFront (const yap::String& value);
+    void SetShinyFemaleBack (const yap::String& value);
+    /// @}
+
+    /// @name Getters.
+    /// @{
     const ID& GetID () const;
     const String& GetName () const;
     const String& GetDescription () const;
@@ -86,6 +103,19 @@ namespace yap
     const collection::List<ID>* GetNewSkills (const UInt16& level) const;
     const UInt16& GetEvolutionLevel () const;
     const ID& GetPokemonEvolutionID () const;
+
+    const yap::String& GetIcon () const;
+
+    const yap::String& GetMaleFront () const;
+    const yap::String& GetMaleBack () const;
+    const yap::String& GetShinyMaleFront () const;
+    const yap::String& GetShinyMaleBack () const;
+
+    const yap::String& GetFemaleFront () const;
+    const yap::String& GetFemaleBack () const;
+    const yap::String& GetShinyFemaleFront () const;
+    const yap::String& GetShinyFemaleBack () const;
+    /// @}
 
     void PrintBaseStats ();
     void PrintBaseSkills ();
@@ -124,6 +154,28 @@ namespace yap
     int type1_;
     int type2_;
     collection::Map<UInt16, collection::List<ID>> baseSkills_;
+
+    /// @name Graphic fields.
+    /// @{
+    yap::String icon_;
+
+    /// @name Male Pokemon battle sprite strings.
+    /// @{
+    yap::String maleFront_;
+    yap::String maleBack_;
+    yap::String shinyMaleFront_;
+    yap::String shinyMaleBack_;
+    /// @}
+
+    /// @name Female Pokemon battle sprite strings.
+    /// @{
+    yap::String femaleFront_;
+    yap::String femaleBack_;
+    yap::String shinyFemaleFront_;
+    yap::String shinyFemaleBack_;
+    /// @}
+    
+    /// @}
 
     static const int INITIAL_BASE_STATS_VALUE;
     static const int INITIAL_BASE_EV_VALUE;

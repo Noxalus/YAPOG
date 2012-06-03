@@ -50,7 +50,6 @@ namespace ycl
     PokedexWidget* pokedex = new PokedexWidget ();
     pokedex->Init ();
 
-
     guiManager_->AddChild (*pokedex);
   }
 
@@ -65,7 +64,7 @@ namespace ycl
     UpdatePlayer (dt);
 
     world_.Draw (context);
-
+    
     return BaseScreen::HandleRun (dt, context);
   }
 

@@ -4,14 +4,25 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
+  class HitPoint;
+
   struct YAPOG_LIB IBattleEntity : public IUpdateable
   {
     virtual ~IBattleEntity () {}
 
     virtual const String& GetName () const = 0;
+
+    /// @name Events.
+    /// @{
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&>& 
+      OnHPChangedEvent () = 0;
+    /// @}
   };
 } // namespace yap
 

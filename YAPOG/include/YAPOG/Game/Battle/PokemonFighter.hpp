@@ -25,6 +25,10 @@ namespace yap
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&>& 
+      OnHPChangedEvent ();
     /// @}
 
     /// @brief Specifics to the Original Pokemon
@@ -44,6 +48,9 @@ namespace yap
     virtual void Update (const Time& dt);
     /// @}
 
+    Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&> OnHPChanged;
   protected:
     virtual void HandleUpdate (const Time& dt);
 
