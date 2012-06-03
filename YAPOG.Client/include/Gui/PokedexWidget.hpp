@@ -24,6 +24,7 @@ namespace ycl
     void Init ();
     virtual ~PokedexWidget();
     virtual bool IsFocusable () const;
+    yap::PokemonInfo* GetActivatedPokemon () const;
 
   protected:
     virtual yap::Vector2 HandleGetSize () const;

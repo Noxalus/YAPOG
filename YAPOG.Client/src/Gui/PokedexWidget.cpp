@@ -141,6 +141,11 @@ namespace ycl
     AddChild (*firstHLayout);
   }
 
+  yap::PokemonInfo* PokedexWidget::GetActivatedPokemon () const
+  {
+    return validatedPokemon_;
+  }
+
   bool PokedexWidget::IsFocusable () const
   {
     return true;

@@ -9,6 +9,7 @@
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
 #include "Gui/PokedexWidget.hpp"
+#include "Gui/PokedexCompositeWidget.hpp"
 
 namespace ycl
 {
@@ -21,6 +22,8 @@ namespace ycl
     , player_ (nullptr)
     , moveController_ ()
     , lastForce_ ()
+    , pokedex_ (nullptr)
+    , pokedexInfo_ (nullptr)
   {
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
@@ -47,11 +50,15 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    PokedexWidget* pokedex = new PokedexWidget ();
-    pokedex->Init ();
-    pokedex->Close ();
+    pokedexInfo_ = new PokedexCompositeWidget ();
+    pokedexInfo_->Init ();
+    pokedexInfo_->Close ();
 
-    guiManager_->AddChild (*pokedex);
+    pokedex_ = new PokedexWidget ();
+    pokedex_->Init ();    
+    
+    guiManager_->AddChild (*pokedex_);
+    guiManager_->AddChild (*pokedexInfo_);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -64,8 +71,14 @@ namespace ycl
 
     UpdatePlayer (dt);
 
-    world_.Draw (context);
+    world_.Draw (context);    
 
+    yap::PokemonInfo* activatedPokemon = pokedex_->GetActivatedPokemon ();
+    if (activatedPokemon != nullptr)
+    {
+      pokedexInfo_->Open ();
+      pokedex_->Close ();
+    }
     return BaseScreen::HandleRun (dt, context);
   }
 

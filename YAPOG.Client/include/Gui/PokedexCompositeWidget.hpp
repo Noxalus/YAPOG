@@ -8,7 +8,7 @@
 namespace yap
 {
   class Pokedex;
-  class PictureBox;
+  class  Menu;
 }
 
 namespace ycl
@@ -36,8 +36,7 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    yap::Pokedex* pokedex_;
-    yap::PictureBox* boxInfoContent_;
+    yap::Menu* menu_;
 
   };
 } // namespace ycl
