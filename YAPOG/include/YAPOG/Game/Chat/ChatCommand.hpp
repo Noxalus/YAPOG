@@ -34,6 +34,7 @@ namespace yap
       funcloc PtrFuncloc;
     } MyCmdType;
     ChatCommand ();
+    ~ChatCommand ();
 
     // Commands
     // With request

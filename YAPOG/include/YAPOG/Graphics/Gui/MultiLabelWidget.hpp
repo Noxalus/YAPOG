@@ -18,7 +18,7 @@ namespace yap
 
   public:
 
-    MultiLabelWidget ();    
+    MultiLabelWidget (Padding ext, Padding in, bool Extendable);    
     virtual ~MultiLabelWidget ();
 
     virtual String GetContent () const;

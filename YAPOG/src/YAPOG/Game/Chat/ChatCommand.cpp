@@ -28,6 +28,12 @@ namespace yap
       tab_[NBCMDSLOC + i] = tabs[i];
   }
 
+  ChatCommand::~ChatCommand ()
+  {
+    delete[] tab_;
+    tab_ = nullptr;
+  }
+
   std::pair<
     std::pair<bool, UInt32>,
     std::pair<UInt32, BufferType>> MyPair (bool b,

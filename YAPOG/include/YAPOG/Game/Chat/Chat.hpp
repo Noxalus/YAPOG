@@ -8,6 +8,7 @@
 # include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 # include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/Game/Chat/ChatManager.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/StringFilter.hpp"
 # include "YAPOG/System/StringHelper.hpp"
@@ -39,6 +40,9 @@ namespace yap
     BufferType        GetBufHistory ();
     BufferType        GetHistory ();
     bool              ChangeChan (ChatDisplayer& display);
+
+    String            GetTabName (UInt32 TabNb);
+    UInt32            GetTabCount ();
 
   private:
     void              IncOff ();

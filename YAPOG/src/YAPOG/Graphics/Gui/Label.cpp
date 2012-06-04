@@ -31,6 +31,7 @@ namespace yap
     drawableText_.setColor (sf::Color (127, 127, 127));
     drawableText_.setPosition (GetPosition ().x,
       GetPosition ().y);
+
     isPosSet_ = true;
     
     drawableText_.setFont 

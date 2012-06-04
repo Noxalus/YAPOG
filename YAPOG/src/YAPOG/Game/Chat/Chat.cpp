@@ -32,6 +32,9 @@ namespace yap
   Chat::~Chat ()
   {
     delete (chatmanager_);
+    chatmanager_ = nullptr;
+    delete (chatcommand_);
+    chatcommand_ = nullptr;
   }
 
   void								    Chat::SetBuf (String b)
@@ -177,6 +180,16 @@ namespace yap
     bufftosend.Add(history_[history_.Count () - 1]);
 
     return bufftosend;
+  }
+
+  String                  Chat::GetTabName (UInt32 TabNb)
+  {
+    return chatmanager_->Cd[TabNb]->GetName ();
+  }
+
+  UInt32                  Chat::GetTabCount ()
+  {
+    return chatmanager_->Cd.Count ();
   }
 
   BufferType              Chat::GetHistory ()

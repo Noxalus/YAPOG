@@ -19,6 +19,7 @@
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
+#include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 
@@ -64,7 +65,6 @@ namespace ycl
     pokedex_->Init ();    
 
     guiManager_->AddChild (*pokedex_);
-
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -78,7 +78,14 @@ namespace ycl
     UpdatePlayer (dt);
 
     world_.Draw (context);
-
+    /*
+    yap::PokemonInfo* activatedPokemon = pokedex_->GetActivatedPokemon ();
+    if (activatedPokemon != nullptr)
+    {
+      pokedexInfo_->Open ();
+      pokedex_->Close ();
+    }
+    */
     return BaseScreen::HandleRun (dt, context);
   }
 

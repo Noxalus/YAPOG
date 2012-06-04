@@ -52,12 +52,6 @@ namespace ycl
     playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(0)));
     playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(1)));
 
-    /*
-    team.GetPokemon (0)->PrintStats ();
-    std::cout << "---------- Fighter ----------" << std::endl;
-    playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
-    */
-
     battleInterface_ = new BattleInterface ();
 
     battle_ = new WildBattle (*battleInterface_);

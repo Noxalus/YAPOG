@@ -116,7 +116,7 @@ namespace yap
 
   void Menu::HandleDraw (IDrawingContext& context)
   {
-    layout_->Draw (context);
+    //layout_->Draw (context);
   }
 
   bool Menu::HandleOnEvent (const GuiEvent& guiEvent)

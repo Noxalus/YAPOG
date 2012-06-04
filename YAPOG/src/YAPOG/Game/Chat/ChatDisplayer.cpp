@@ -76,9 +76,13 @@ namespace yap
     ChansType::ItType ite (chans_.End ());
 
     for (; it < ite; it++)
+    {
       delete (*it);
+      *it = nullptr;
+    }
 
-    delete (chanbooltab_);
+    delete chanbooltab_;
+    chanbooltab_ = nullptr;
   }
 
   UInt32              ChatDisplayer::GetChanNb ()
@@ -174,5 +178,15 @@ namespace yap
       DISPLAYS (output_.first->Name
       + " (" + output_.first->Color
       + ") :: " + output_.second);
+  }
+
+  String              ChatDisplayer::GetName ()
+  {
+    return name_;
+  }
+
+  ChanBufType         ChatDisplayer::GetBuff ()
+  {
+    return buff_;
   }
 } // namespace yap
