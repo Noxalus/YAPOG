@@ -43,6 +43,13 @@ namespace yap
     return true;
   }
 
+  void TextBoxWidget::Clear ()
+  {
+    label_->SetText ("");
+    curserRelPos_ = 0;
+    curserPos_ = 0;
+    content_ = "";
+  }
   void TextBoxWidget::SetCursor (Texture& cursor)
   {
     cursor.SetSize (Vector2 (cursor.GetSize ().x, label_->GetCharHeight ()));

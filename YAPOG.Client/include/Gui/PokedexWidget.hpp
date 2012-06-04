@@ -15,6 +15,7 @@ namespace yap
 
 namespace ycl
 {
+  class PokedexCompositeWidget;
   class PokedexWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(PokedexWidget);
@@ -43,6 +44,8 @@ namespace ycl
     yap::PictureBox* boxInfoContent_;
     yap::Menu* menu_;
     yap::PokemonInfo* validatedPokemon_;
+    yap::HorizontalLayout* firstHLayout_;
+    PokedexCompositeWidget* pokedexInfo_;
 
   };
 } // namespace ycl
