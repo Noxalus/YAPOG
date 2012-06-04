@@ -14,7 +14,7 @@ namespace ycl
 
   class PokemonFighterTeam
     : public yap::PokemonFighterTeam
-    , public virtual IDrawableBattleEntity
+    , public IDrawableBattleEntity
   {
     DISALLOW_COPY (PokemonFighterTeam);
   public:

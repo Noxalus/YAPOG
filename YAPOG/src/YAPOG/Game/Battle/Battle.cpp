@@ -58,27 +58,10 @@ namespace yap
 
   void Battle::DisplayMoves ()
   {
-    /*
-    int i = 1;
-    for (PokemonSkill* pk : currentPokemon_.GetMoves ())
-    {
-    cout << "[" << i << "]" << pk->GetName () << endl;
-    i++;
-    }
-    */
   }
 
   void Battle::DisplayTeam ()
   {
-    /*
-    int i = 1;
-    for (Pokemon* p : playerTeam_.GetTeam ())
-    {
-    if (p != nullptr)
-    cout << "[" << i << "]" << p->GetName () << endl;
-    i++;
-    }
-    */
   }
 
   IBattleEntity& Battle::GetPlayerTeam ()

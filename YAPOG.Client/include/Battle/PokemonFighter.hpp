@@ -11,9 +11,9 @@ namespace ycl
 {
   class Pokemon;
 
-  class PokemonFighter 
+  class PokemonFighter
     : public yap::PokemonFighter
-    , public virtual IDrawableBattleEntity
+    , public IDrawableBattleEntity
   {
     DISALLOW_COPY (PokemonFighter);
 

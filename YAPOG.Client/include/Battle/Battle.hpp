@@ -27,8 +27,6 @@ namespace ycl
 
     /// @name IDrawable members.
     /// @{
-    virtual void Draw (yap::IDrawingContext& context);
-
     virtual bool IsVisible () const;
     virtual void Show (bool isVisible);
 
