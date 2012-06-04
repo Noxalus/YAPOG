@@ -319,7 +319,7 @@ namespace ycl
     screenManager_->AddGameScreen (new SplashScreen ());
     screenManager_->AddGameScreen (new CreditScreen ());
 
-    screenManager_->Init ("Battle");
+    screenManager_->Init ("Gameplay");
   }
 
   void Game::InitLoggerManager ()

@@ -3,6 +3,17 @@
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/System/IO/Log/Logger.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Game/Pokemon/Pokedex.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+#include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+#include "YAPOG/Graphics/Gui/Menu.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -59,6 +70,7 @@ namespace ycl
     
     guiManager_->AddChild (*pokedex_);
     guiManager_->AddChild (*pokedexInfo_);
+
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -79,7 +91,7 @@ namespace ycl
       pokedexInfo_->Open ();
       pokedex_->Close ();
     }
-
+   
     return BaseScreen::HandleRun (dt, context);
   }
 
