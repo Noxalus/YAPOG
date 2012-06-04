@@ -42,9 +42,4 @@ namespace ycl
 
     this->AddChild (battleInfoBox_);
   }
-
-  void BattleInfoWidget::Init ()
-  {
-    this->SetSize (battleInfoBox_.GetSize ());
-  }
 }

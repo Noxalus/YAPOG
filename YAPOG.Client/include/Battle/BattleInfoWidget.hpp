@@ -23,8 +23,6 @@ namespace ycl
     BattleInfoWidget ();
 
   protected:
-    void Init ();
-
     /// @name Labels.
     /// @{
     yap::Label nameLabel_;

@@ -41,19 +41,18 @@ namespace ycl
       << std::endl;
 
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
-    pokemonInfoWidget_->SetPosition (yap::Vector2 (
-      Game::SCREEN_SIZE.x - pokemonInfoWidget_->GetSize ().x,
-      Game::SCREEN_SIZE.y - pokemonInfoWidget_->GetSize ().y));
+    pokemonInfoWidget_->SetPosition (yap::Vector2 (0, 0));
+
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
     opponentInfoWidget_->SetPosition (yap::Vector2 (
-      Game::SCREEN_SIZE.x / 2 - opponentInfoWidget_->GetPosition ().x, 
+      Game::SCREEN_SIZE.x / 2 - opponentInfoWidget_->GetSize ().x, 
       50));
 
-    //this->AddChild (*pokemonInfoWidget_);
-    //this->AddChild (*opponentInfoWidget_);
+    this->AddChild (*pokemonInfoWidget_);
+    this->AddChild (*opponentInfoWidget_);
 
-    //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
-
+    opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
+    pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
 
     this->AddChild (*battleInfoDialogBox_);
   }

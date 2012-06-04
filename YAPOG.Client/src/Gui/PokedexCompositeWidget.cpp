@@ -28,10 +28,6 @@ namespace ycl
 
   void PokedexCompositeWidget::Init ()
   {
-    yap::PictureBox* picture = new yap::PictureBox ();
-    picture->SetPicture ("Pictures/PokedexShfond1.png");
-
-     AddChild (*picture);
   }
 
   bool PokedexCompositeWidget::IsFocusable () const
