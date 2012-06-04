@@ -10,6 +10,7 @@
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 
 #include "Gui/PokedexWidget.hpp"
+#include "Gui/PokedexCompositeWidget.hpp"
 
 #include "Game.hpp"
 
@@ -19,9 +20,15 @@ namespace ycl
   PokedexWidget::PokedexWidget ()
     : pokedex_ (new yap::Pokedex ())
     , boxInfoContent_ (new yap::PictureBox ())
-    , menu_ (nullptr)
+    , menu_ (nullptr)    
     , validatedPokemon_ (nullptr)
+    , firstHLayout_ (nullptr)
+    , pokedexInfo_ (nullptr)
   {
+    pokedexInfo_ = new PokedexCompositeWidget ();
+    pokedexInfo_->Init ();
+    pokedexInfo_->Close ();
+    AddChild (*pokedexInfo_);
     yap::collection::Array<yap::PokemonInfo*> pokList;
 
     yap::PokemonInfo* pokInfo1 = new yap::PokemonInfo (yap::ID (1));    
@@ -65,9 +72,9 @@ namespace ycl
     yap::WidgetBackground* background = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/Background.png", true);    
     SetBackground (*background);
 
-    yap::HorizontalLayout* firstHLayout = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), false);
-    firstHLayout->SetSize (yap::Vector2 (600, 400));
-    firstHLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    firstHLayout_ = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), false);
+    firstHLayout_->SetSize (yap::Vector2 (600, 400));
+    firstHLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     yap::HorizontalLayout* secondHLayout = new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
     yap::VerticalLayout* firstVLayout = new yap::VerticalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
 
@@ -90,13 +97,13 @@ namespace ycl
     menu_ = new yap::Menu (yap::Menu::Type::VERTICAL, yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
     yap::WidgetBackground* selectedBackground = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/SelectionBackground.png", true);
     menu_->SetSelectedBackground (*selectedBackground);
-    menu_->SetSize (yap::Vector2 (firstHLayout->GetSize ().x - firstVLayout->GetSize ().x, firstHLayout->GetSize ().y));
+    menu_->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout->GetSize ().x, firstHLayout_->GetSize ().y));
     menu_->SetBackground (*menuBackground);
 
     for (int i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
     {
       yap::MenuItem* item = new yap::MenuItem (false);
-      item->SetSize (yap::Vector2 (firstHLayout->GetSize ().x - firstVLayout->GetSize ().x - 10, 28));
+      item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout->GetSize ().x - 10, 28));
       const yap::PokemonInfo* current = pokedex_->GetPokemonSeenID (i);
 
       if (current == nullptr)
@@ -115,6 +122,8 @@ namespace ycl
           [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
           validatedPokemon_ = pokedex_->GetPokemon (menu_->GetCurrentSelect ());
+          firstHLayout_->Close ();
+          pokedexInfo_->Open ();
         };
       }
       item->ChangeColor (sf::Color (0, 0, 0));
@@ -135,10 +144,10 @@ namespace ycl
 
     firstVLayout->AddChild (*secondHLayout, yap::LayoutBox::Align::RIGHT);
 
-    firstHLayout->AddChild (*firstVLayout, yap::LayoutBox::Align::TOP);
-    firstHLayout->AddChild (*menu_);
+    firstHLayout_->AddChild (*firstVLayout, yap::LayoutBox::Align::TOP);
+    firstHLayout_->AddChild (*menu_);
 
-    AddChild (*firstHLayout);
+    AddChild (*firstHLayout_);
   }
 
   yap::PokemonInfo* PokedexWidget::GetActivatedPokemon () const

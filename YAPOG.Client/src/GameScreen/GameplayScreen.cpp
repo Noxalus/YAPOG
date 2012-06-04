@@ -35,7 +35,6 @@ namespace ycl
     , moveController_ ()
     , lastForce_ ()
     , pokedex_ (nullptr)
-    , pokedexInfo_ (nullptr)
   {
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
@@ -64,11 +63,7 @@ namespace ycl
     /*
     pokedexInfo_ = new PokedexCompositeWidget ();
     pokedexInfo_->Init ();
-    pokedexInfo_->Close ();
-
-    pokedex_ = new PokedexWidget ();
-    pokedex_->Init ();    
-    
+    pokedexInfo_->Close (); 
     guiManager_->AddChild (*pokedex_);
     guiManager_->AddChild (*pokedexInfo_);
     */

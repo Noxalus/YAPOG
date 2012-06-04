@@ -58,15 +58,16 @@ namespace ycl
 
   void ChatWidget::InitTab ()
   {
-    tabLayout_->SetSize (yap::Vector2 (242, 10));
+    tabLayout_->SetSize (yap::Vector2 (242, 12));
     for (yap::UInt32 i = 0; i < chat_->GetTabCount (); i++)
     {
       yap::String name = chat_->GetTabName (i);
       yap::Label* title = new yap::Label (name);
       title->ChangeColor (sf::Color::Black);
       title->SetTextSize (12);
+      title->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
       tabTitle_.Add (title);
-      tabLayout_->AddChild (*title, yap::LayoutBox::Align::BOTTOM);
+      tabLayout_->AddChild (*title);
     }
     tabLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     bigLayout_->AddChild (*tabLayout_);
@@ -150,6 +151,7 @@ namespace ycl
         chat_->Parse ();
         chat_->Exec ();
         dialog_->SetText (todisplay);
+        lineCatcher_->Clear ();
       }
     }
     return false;

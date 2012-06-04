@@ -23,6 +23,7 @@ namespace yap
     void SetCursor (Texture& cursor);
     virtual bool IsFocusable () const;
     void SetTextSize (uint size);
+    void Clear ();
 
   protected:
     void Refresh ();
