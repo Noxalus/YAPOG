@@ -47,16 +47,16 @@ namespace ycl
     team.AddPokemon (new Pokemon (yap::ID (2), 42, false));
     team.AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
-    PokemonFighter wildPokemon (GeneratePokemon ());
-    PokemonFighterTeam playerFighterTeam;
-    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(0)));
-    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(1)));
+    PokemonFighter* wildPokemon = new PokemonFighter (GeneratePokemon ());
+    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
+    playerFighterTeam->AddPokemon (new PokemonFighter (team.GetPokemon(0)));
+    playerFighterTeam->AddPokemon (new PokemonFighter (team.GetPokemon(1)));
 
     battleInterface_ = new BattleInterface ();
 
     battle_ = new WildBattle (*battleInterface_);
-    battle_->SetDrawablePlayerTeam (&playerFighterTeam);
-    battle_->SetDrawableOpponent (&wildPokemon);
+    battle_->SetPlayerTeam (playerFighterTeam);
+    battle_->SetOpponent (wildPokemon);
     battle_->Init ();
 
     guiManager_->AddChild (*battleInterface_);

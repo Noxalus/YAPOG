@@ -85,6 +85,7 @@ namespace ycl
 
   void PokemonFighterTeam::HandleDraw (yap::IDrawingContext& context)
   {
+    GetCurrentFighter ()->Draw (context);
   }
 
   void PokemonFighterTeam::HandleShow (bool isVisible)

@@ -27,11 +27,6 @@ namespace yap
     return originalPokemon_->GetMaxHP ();
   }
 
-  const UInt16& PokemonFighter::GetLevel () const
-  {
-    return originalPokemon_->GetLevel ();
-  }
-
   const collection::Array<PokemonSkill*>& PokemonFighter::GetMoves () const
   {
     return originalPokemon_->GetMoves ();
@@ -114,6 +109,11 @@ namespace yap
   const yap::String& PokemonFighter::GetName () const
   {
     return originalPokemon_->GetName ();
+  }
+
+  const UInt16& PokemonFighter::GetLevel () const
+  {
+    return originalPokemon_->GetLevel ();
   }
 
   Event<

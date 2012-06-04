@@ -1,7 +1,7 @@
-- Clean repo
-
 - Gui:
-  - Rename Widget* into *Widget
-
+  - Add a grid menu (for the battle system)
+  - Add a default font color for widgets that contain text like DialogBox widget
+  - Add a multi lines label (for the chat system)
+  
 - Game:
   - Create GameData settings class (reduce dependence with Game.hpp)

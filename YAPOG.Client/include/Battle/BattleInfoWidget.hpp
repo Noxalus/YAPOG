@@ -22,6 +22,9 @@ namespace ycl
   public:
     BattleInfoWidget ();
 
+    virtual void SetName (const yap::String& value);
+    virtual void SetLevel (int value);
+
   protected:
     /// @name Labels.
     /// @{
@@ -40,7 +43,7 @@ namespace ycl
 
     yap::PictureBox* hpBarPictureBox_;
     yap::PictureBox* genderPictureBox_;
-    
+
   };
 } // namespace ycl
 

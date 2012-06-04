@@ -2,6 +2,7 @@
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 #include "Battle/Phase/BeginBattlePhase.hpp"
+#include "Battle/OpponentBattleInfoWidget.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Battle/Battle.hpp"
 #include "Game.hpp"
@@ -10,7 +11,7 @@ namespace ycl
 {
   const bool BeginBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color BeginBattlePhase::DEFAULT_COLOR = sf::Color ();
-  const float BeginBattlePhase::GROUND_SPEED = 500.f;
+  const float BeginBattlePhase::GROUND_SPEED = 1000.f;
 
   BeginBattlePhase::BeginBattlePhase (Battle& battle, BattleInterface& battleInterface)
     : yap::BeginBattlePhase (battle)
@@ -41,21 +42,30 @@ namespace ycl
 
     yap::String opponentName = battle_.GetOpponent ().GetName ();
 
-    //battleInterface_.GetPokemonName ().SetText (opponentName);
-    //battleInterface_.GetPokemonName ().ChangeColor (sf::Color::Black);
+    battleInterface_.GetOpponentInfoWidget ().SetName (opponentName);
+    battleInterface_.GetOpponentInfoWidget ().SetLevel (battle_.GetOpponent ().GetLevel ());
 
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
     battleInterface_.GetBattleInfoDialogBox ().
       AddText ("Un " + opponentName + 
       " sauvage apparait !");
 
+    battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
+      -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
+      battle_.GetOpponentInfoPosition ().y));
 
-    battle_.GetDrawableOpponent ().GetBattleSprite ().SetPosition (
-      yap::Vector2 (
-      Game::SCREEN_SIZE.x -
-      (battle_.GetOpponentGround ().GetSize ().x),
-      Game::SCREEN_SIZE.y / 3 -
-      (battle_.GetOpponentGround ().GetSize ().y) / 2));
+    UpdateOpponentFront ();
+
+    /*
+    battle_.GetOpponent ().GetBattleSprite ().SetPosition (
+    yap::Vector2 (
+    Game::SCREEN_SIZE.x -
+    (battle_.GetOpponentGround ().GetSize ().x) / 2 -
+    battle_.GetOpponent ().GetBattleSprite ().GetSize ().x / 2,
+    Game::SCREEN_SIZE.y / 3 -
+    (battle_.GetOpponentGround ().GetSize ().y) / 2 -
+    battle_.GetOpponent ().GetBattleSprite ().GetSize ().y / 2));
+    */
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -85,11 +95,15 @@ namespace ycl
         yap::Vector2 (
         battle_.GetOpponentGround ().GetPosition ().x + (GROUND_SPEED * dt.GetValue ()),
         battle_.GetOpponentGround ().GetPosition ().y));
+
+      UpdateOpponentFront ();
     }
     else
     {
       battle_.GetOpponentGround ().SetPosition (
         battle_.GetOpponentGroundPosition ());
+
+      UpdateOpponentFront ();
     }
 
     if (battle_.GetPlayerGround ().GetPosition () ==
@@ -97,9 +111,28 @@ namespace ycl
       battle_.GetOpponentGround ().GetPosition () ==
       battle_.GetOpponentGroundPosition ())
     {
-      battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+      if (battleInterface_.GetOpponentInfoWidget ().GetPosition ().x <
+        battle_.GetOpponentInfoPosition ().x)
+      {
+        battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
+          battleInterface_.GetOpponentInfoWidget ().GetPosition ().x + 
+          (GROUND_SPEED * dt.GetValue ()),
+          battleInterface_.GetOpponentInfoWidget ().GetPosition ().y));
+      }
+      else
+      {
+        battleInterface_.GetOpponentInfoWidget ().SetPosition (
+          battle_.GetOpponentInfoPosition ());
+      }
 
-      nextPhase_ = yap::BattlePhaseState::BeginBattle;
+      if (battleInterface_.GetOpponentInfoWidget ().GetPosition () ==
+        battle_.GetOpponentInfoPosition ())
+      {
+
+        battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+
+        nextPhase_ = yap::BattlePhaseState::Selection;
+      }
     }
   }
 
@@ -159,5 +192,15 @@ namespace ycl
       battle_.GetPlayerGround ().GetSize ().y / 2 -
       battle_.GetPlayerTrainerBack ().GetSize ().y
       ));
+  }
+
+  void BeginBattlePhase::UpdateOpponentFront ()
+  {
+    battle_.GetOpponent ().GetBattleSprite ().SetPosition (
+      yap::Vector2 (
+      battle_.GetOpponentGround ().GetPosition ().x + 
+      battle_.GetOpponent ().GetBattleSprite ().GetSize ().x / 2,
+      battle_.GetOpponentGround ().GetPosition ().y - 
+      battle_.GetOpponent ().GetBattleSprite ().GetSize ().y / 2));
   }
 }

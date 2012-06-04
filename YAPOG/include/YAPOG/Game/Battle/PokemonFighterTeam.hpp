@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class YAPOG_LIB PokemonFighterTeam : public IBattleEntity
+  class YAPOG_LIB PokemonFighterTeam : public virtual IBattleEntity
   {
   public:
     PokemonFighterTeam ();
@@ -17,6 +17,7 @@ namespace yap
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;
+    virtual const UInt16& GetLevel () const;
     virtual Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 

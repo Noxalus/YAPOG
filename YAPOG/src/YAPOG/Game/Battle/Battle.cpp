@@ -6,27 +6,9 @@
 namespace yap
 {
   Battle::Battle ()
-    : playerTeam_ (nullptr)
-    , opponent_ (nullptr)
-    , turnCount_ (0)
+    : turnCount_ (0)
     , battlePhaseManager_ ()
   {
-  }
-
-  /// Setters
-  void Battle::SetPlayerTeam (PokemonFighterTeam* playerTeam)
-  {
-    playerTeam_ = playerTeam;
-  }
-
-  void Battle::SetOpponent (PokemonFighterTeam* opponent)
-  {
-    opponent_ = opponent;
-  }
-
-  void Battle::SetOpponent (PokemonFighter* opponent)
-  {
-    opponent_ = opponent;
   }
 
   void Battle::Init ()
@@ -63,10 +45,4 @@ namespace yap
   void Battle::DisplayTeam ()
   {
   }
-
-  IBattleEntity& Battle::GetPlayerTeam ()
-  { return *playerTeam_; }
-
-  IBattleEntity& Battle::GetOpponent ()
-  { return *opponent_; }
 } // namespace yap
