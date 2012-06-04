@@ -77,7 +77,7 @@ namespace yap
     if (curser_ != nullptr)
     {
       curser_->SetPosition (label_->CharPos (
-        label_->Length () - curserRelPos_) - Vector2 (3, -5));
+        label_->Length () - curserRelPos_) - Vector2 (0, -2));
       curser_->Draw (context);
     }
   }
@@ -273,13 +273,13 @@ namespace yap
       uint labelMaxWidth = GetUserSize ().x - padding_.left - padding_.right;
       Vector2 labelWidth (label_->CharPos (label_->Length ())
         - label_->GetPosition ());
-      while (labelWidth.x > labelMaxWidth)
+      while (labelWidth.x > labelMaxWidth - 10)
       {
         label_->SetText (label_->GetText ().substr (1));
         labelWidth = label_->CharPos (label_->Length ())
           - label_->GetPosition ();
       }
-      while (label_->GetSize ().x > labelMaxWidth)
+      while (label_->GetSize ().x > labelMaxWidth - 10)
       {
         label_->SetText (label_->GetText ().substr (1));
       }

@@ -10,7 +10,7 @@ namespace ycl
   ChatWidget::ChatWidget ()
     : chat_ (new yap::Chat ())
     , line_ ("")
-    , lineCatcher_ (new yap::TextBoxWidget ())
+    , lineCatcher_ (new yap::TextBoxWidget ("", 12))
     , tabTitle_ ()
     , tabLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0),
     yap::Padding (0, 5, 0, 0), false))
@@ -18,7 +18,7 @@ namespace ycl
     , dialLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0),
     yap::Padding (0, 0, 0, 0), false))
     , entryLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0),
-    yap::Padding (0, 0, 0, 0), false))
+    yap::Padding (0, 10, 0, 0), false))
     , bigLayout_ (new yap::VerticalLayout (yap::Padding (5, 5, 5, 5),
     yap::Padding (5, 5, 5, 5), false))
   {
@@ -28,8 +28,7 @@ namespace ycl
     lineCatcher_->ChangeColor (sf::Color::Black);
     lineCatcher_->SetCursor (*cursor);
     lineCatcher_->SetSize (yap::Vector2 (242, 12));
-    lineCatcher_->Scale (yap::Vector2 (0.5, 0.5));
-    dialog_->Scale (yap::Vector2 (0.5, 0.5));
+    dialog_->SetTextSize (12);
     dialog_->ChangeColor (sf::Color::Black);
   }
 
@@ -59,16 +58,15 @@ namespace ycl
 
   void ChatWidget::InitTab ()
   {
-    tabLayout_->SetSize (yap::Vector2 (242, 12));
+    tabLayout_->SetSize (yap::Vector2 (242, 10));
     for (yap::UInt32 i = 0; i < chat_->GetTabCount (); i++)
     {
       yap::String name = chat_->GetTabName (i);
       yap::Label* title = new yap::Label (name);
       title->ChangeColor (sf::Color::Black);
-      //title->SetSize (yap::Vector2 (name.length () * 8, 12));
-      title->Scale (yap::Vector2 (0.5, 0.5));
+      title->SetTextSize (12);
       tabTitle_.Add (title);
-      tabLayout_->AddChild (*title);
+      tabLayout_->AddChild (*title, yap::LayoutBox::Align::BOTTOM);
     }
     tabLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     bigLayout_->AddChild (*tabLayout_);
@@ -94,15 +92,37 @@ namespace ycl
 
   void ChatWidget::Init ()
   {
-    yap::WidgetBackground* background = new yap::WidgetBackground ("chatSet/Background.png", true);
-    SetBackground (*background);
+    yap::WidgetBackground* chatBground = 
+      new yap::WidgetBackground (
+      "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png",
+      true);
+    yap::Texture* t = new yap::Texture ();
+    t->LoadFromFile ("WindowSkins/BasicSkin/Global/TopBorder.png");
+    yap::Texture* tr = new yap::Texture ();
+    tr->LoadFromFile ("WindowSkins/BasicSkin/Global/TopRightCorner.png");
+    yap::Texture* r = new yap::Texture ();
+    r->LoadFromFile ("WindowSkins/BasicSkin/Global/RightBorder.png");
+    yap::Texture* br = new yap::Texture ();
+    br->LoadFromFile  ("WindowSkins/BasicSkin/Global/BottomRightCorner.png");
+    yap::Texture* b = new yap::Texture ();
+    b->LoadFromFile ("WindowSkins/BasicSkin/Global/BottomBorder.png");
+    yap::Texture* bl = new yap::Texture ();
+    bl->LoadFromFile ("WindowSkins/BasicSkin/Global/BottomLeftCorner.png");
+    yap::Texture* l = new yap::Texture ();
+    l->LoadFromFile ("WindowSkins/BasicSkin/Global/LeftBorder.png");
+    yap::Texture* tl = new yap::Texture ();
+    tl->LoadFromFile ("WindowSkins/BasicSkin/Global/TopLeftCorner.png");
+
+    yap::WidgetBorder* chatBorder =
+      new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     InitTab ();
     InitDial ();
     InitEntry ();
 
     AddChild (*bigLayout_);
-    bigLayout_->SetBackground (*background);
+    bigLayout_->SetBackground (*chatBground);
+    bigLayout_->SetBorder (*chatBorder);
     bigLayout_->SetPosition (yap::Vector2 (42, 242));
     int toto = bigLayout_->GetPosition ().x;
   }
@@ -130,7 +150,6 @@ namespace ycl
         chat_->Parse ();
         chat_->Exec ();
         dialog_->SetText (todisplay);
-        dialog_->SetSize (yap::Vector2 (todisplay.length () * 8, 12));
       }
     }
     return false;

@@ -19,6 +19,7 @@
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
+#include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 
@@ -60,7 +61,7 @@ namespace ycl
   void GameplayScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-
+    /*
     pokedexInfo_ = new PokedexCompositeWidget ();
     pokedexInfo_->Init ();
     pokedexInfo_->Close ();
@@ -70,7 +71,10 @@ namespace ycl
     
     guiManager_->AddChild (*pokedex_);
     guiManager_->AddChild (*pokedexInfo_);
-
+    */
+    ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
+    guiManager_->AddChild (*chat);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -83,15 +87,15 @@ namespace ycl
 
     UpdatePlayer (dt);
 
-    world_.Draw (context);    
-
+    world_.Draw (context);
+    /*
     yap::PokemonInfo* activatedPokemon = pokedex_->GetActivatedPokemon ();
     if (activatedPokemon != nullptr)
     {
       pokedexInfo_->Open ();
       pokedex_->Close ();
     }
-   
+    */
     return BaseScreen::HandleRun (dt, context);
   }
 
