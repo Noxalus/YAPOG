@@ -8,8 +8,7 @@
 namespace ycl
 {
   WildBattle::WildBattle (BattleInterface& battleInterface)
-    : Battle ()
-    , battleInterface_ (battleInterface)
+    : Battle (battleInterface)
   {
     // DO NOT INIT BATTLE PHASE HERE !
   }

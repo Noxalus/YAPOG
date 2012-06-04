@@ -14,6 +14,7 @@ namespace yap
 
 namespace ycl
 {
+  class BattleInterface;
   class PokemonFighterTeam;
   class PokemonFighter;
 
@@ -22,7 +23,7 @@ namespace ycl
     , public yap::IDrawable
   {
   public:
-    Battle ();
+    Battle (BattleInterface& battleInterface);
     virtual ~Battle ();
 
     /// @name IDrawable members.
@@ -70,6 +71,9 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+  protected:
+    BattleInterface& battleInterface_;
 
   private:
     /// General sprites

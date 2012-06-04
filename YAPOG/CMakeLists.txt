@@ -213,8 +213,6 @@ ${inc_root}/Game/Battle/BattlePhaseManager.hpp
 ${inc_root}/Game/Battle/BattlePhaseState.hpp
 ${src_root}/Game/Battle/BattleCore.cpp
 ${inc_root}/Game/Battle/BattleCore.hpp
-${src_root}/Game/Battle/WildBattle.cpp
-${inc_root}/Game/Battle/WildBattle.hpp
 ${src_root}/Game/Battle/TrainerBattle.cpp
 ${inc_root}/Game/Battle/TrainerBattle.hpp
 ${src_root}/Game/Battle/PokemonFighter.cpp

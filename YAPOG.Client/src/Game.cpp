@@ -35,7 +35,6 @@
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-#include "YAPOG/Game/Battle/WildBattle.hpp"
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
@@ -319,7 +318,7 @@ namespace ycl
     screenManager_->AddGameScreen (new SplashScreen ());
     screenManager_->AddGameScreen (new CreditScreen ());
 
-    screenManager_->Init ("Gameplay");
+    screenManager_->Init ("Battle");
   }
 
   void Game::InitLoggerManager ()
