@@ -3,8 +3,6 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
-#include "YAPOG/System/StringHelper.hpp"
 namespace yse
 {
   const yap::String Map::VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME =
@@ -128,13 +126,6 @@ namespace yse
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ServerInfoObjectMoveInfo);
 
-    yap::DebugLogger::Instance ().LogLine (
-      "POSITION: [" + yap::StringHelper::ToString (object.GetPosition ().x) +
-      "][" + yap::StringHelper::ToString (object.GetPosition ().y) + "]");
-    yap::DebugLogger::Instance ().LogLine (
-      "VELOCITY: [" + yap::StringHelper::ToString (velocity.x) +
-      "][" + yap::StringHelper::ToString (velocity.y) + "]");
-
     packet.Write (object.GetWorldID ());
     packet.Write (object.GetPosition ());
     packet.Write (velocity);
@@ -148,12 +139,6 @@ namespace yse
   {
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ServerInfoUpdateObjectState);
-
-    yap::DebugLogger::Instance ().LogLine (
-      "POSITION: [" + yap::StringHelper::ToString (object.GetPosition ().x) +
-      "][" + yap::StringHelper::ToString (object.GetPosition ().y) + "]");
-    yap::DebugLogger::Instance ().LogLine (
-      "STATE: [" + state + "]");
 
     packet.Write (object.GetWorldID ());
     packet.Write (object.GetPosition ());

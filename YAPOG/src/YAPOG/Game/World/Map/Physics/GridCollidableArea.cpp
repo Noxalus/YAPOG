@@ -2,6 +2,7 @@
 #include "YAPOG/Game/World/Map/Physics/CollidableAreaCell.hpp"
 #include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
@@ -47,23 +48,6 @@ namespace yap
       new CollidableAreaCell ());
   }
 
-  bool GridCollidableArea::CollidesWithObject (const WorldObject& object) const
-  {
-    UIntRect objectRect;
-    GetCollidableRectangle (object, objectRect);
-
-    for (uint y = objectRect.top;
-         y <= objectRect.top + objectRect.height;
-         ++y)
-      for (uint x = objectRect.left;
-           x <= objectRect.left + objectRect.width;
-           ++x)
-        if (cells_ (x, y)->CollidesWithObject (object))
-          return true;
-
-    return false;
-  }
-
   bool GridCollidableArea::CollidesWithObject (
     const WorldObject& object,
     const Vector2& offset) const
@@ -83,6 +67,22 @@ namespace yap
     return false;
   }
 
+  void GridCollidableArea::GetEventsCollidingWithObject (
+    const DynamicWorldObject& object,
+    MapEventQueue& events) const
+  {
+    UIntRect objectRect;
+    GetCollidableRectangle (object, VECTOR2_ZERO, objectRect);
+
+    for (uint y = objectRect.top;
+         y <= objectRect.top + objectRect.height;
+         ++y)
+      for (uint x = objectRect.left;
+           x <= objectRect.left + objectRect.width;
+           ++x)
+        cells_ (x, y)->GetEventsCollidingWithObject (object, events);
+  }
+
   void GridCollidableArea::HandleSetSize (const Vector2& size)
   {
     CollidableArea::HandleSetSize (size);
@@ -90,7 +90,7 @@ namespace yap
     cellSize_ = Vector2 (size.x / hSegmentCount_, size.y / vSegmentCount_);
   }
 
-  void GridCollidableArea::HandleAddCollidable (
+  void GridCollidableArea::HandleAddPhysicsCollidable (
     ICollidable* collidable,
     const MapCollidableInfo::PtrType& mapCollidableInfo)
   {
@@ -106,7 +106,8 @@ namespace yap
         cells_ (x, y)->AddPhysicsCollidable (collidable, mapCollidableInfo);
   }
 
-  void GridCollidableArea::HandleRemoveCollidable (ICollidable* collidable)
+  void GridCollidableArea::HandleRemovePhysicsCollidable (
+    ICollidable* collidable)
   {
     UIntRect collidableRect;
     GetCollidableRectangle (*collidable, collidableRect);
@@ -118,6 +119,37 @@ namespace yap
            x <= collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->RemovePhysicsCollidable (collidable);
+  }
+
+  void GridCollidableArea::HandleAddEventCollidable (
+    ICollidable* collidable,
+    const MapEventInfo::PtrType& mapEventInfo)
+  {
+    UIntRect collidableRect;
+    GetCollidableRectangle (*collidable, collidableRect);
+
+    for (uint y = collidableRect.top;
+         y <= collidableRect.top + collidableRect.height;
+         ++y)
+      for (uint x = collidableRect.left;
+           x <= collidableRect.left + collidableRect.width;
+           ++x)
+        cells_ (x, y)->AddEventCollidable (collidable, mapEventInfo);
+  }
+
+  void GridCollidableArea::HandleRemoveEventCollidable (
+    ICollidable* collidable)
+  {
+    UIntRect collidableRect;
+    GetCollidableRectangle (*collidable, collidableRect);
+
+    for (uint y = collidableRect.top;
+         y <= collidableRect.top + collidableRect.height;
+         ++y)
+      for (uint x = collidableRect.left;
+           x <= collidableRect.left + collidableRect.width;
+           ++x)
+        cells_ (x, y)->RemoveEventCollidable (collidable);
   }
 
   void GridCollidableArea::GetCollidableRectangle (

@@ -1,6 +1,7 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Game/World/Map/MapEvent.hpp"
 
 namespace yap
 {
@@ -16,6 +17,9 @@ namespace yap
     , state_ (DEFAULT_INACTIVE_STATE)
     , physicsCore_ (nullptr)
     , maxVelocity_ (DEFAULT_MAX_VELOCITY)
+    , events_ ()
+    , triggerBoundingBoxes_ ()
+    , sourceBoundingBoxes_ ()
   {
   }
 
@@ -31,9 +35,15 @@ namespace yap
     , state_ (copy.state_)
     , physicsCore_ (nullptr)
     , maxVelocity_ (copy.maxVelocity_)
+    , events_ ()
+    , triggerBoundingBoxes_ (copy.triggerBoundingBoxes_)
+    , sourceBoundingBoxes_ (copy.sourceBoundingBoxes_)
   {
     if (copy.physicsCore_ != nullptr)
       SetPhysicsCore (copy.physicsCore_->Clone ());
+
+    for (MapEvent* event : copy.events_)
+      AddEvent (event->Clone ());
   }
 
   const ID& DynamicWorldObject::GetWorldID () const
@@ -174,9 +184,40 @@ namespace yap
     return GetLogicalState () == "Moving";
   }
 
+  void DynamicWorldObject::AddTriggerBoundingBox (BoundingBox* boundingBox)
+  {
+    triggerBoundingBoxes_.AddPhysicsBoundingBox (boundingBox);
+  }
+
+  void DynamicWorldObject::AddEvent (MapEvent* event)
+  {
+    events_.Add (event);
+
+    event->AddToEventBoundingBoxCollection (sourceBoundingBoxes_);
+  }
+
+  void DynamicWorldObject::RemoveEvent (MapEvent* event)
+  {
+    events_.Remove (event);
+
+    event->RemoveFromEventBoundingBoxCollection (sourceBoundingBoxes_);
+  }
+
+  bool DynamicWorldObject::TriggerCollidesWith (
+    const ICollidable& collidable) const
+  {
+    return triggerBoundingBoxes_.CollidesWith (collidable);
+  }
+
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);
+  }
+
+  void DynamicWorldObject::HandleSetCollidableArea (
+    CollidableArea* collidableArea)
+  {
+    sourceBoundingBoxes_.SetCollidableArea (*this, collidableArea);
   }
 
   void DynamicWorldObject::HandleApplyForce (const Vector2& force)

@@ -22,6 +22,7 @@ namespace yse
       virtual ~User ();
 
       void SetWorld (World* world);
+      void RemoveFromWorld ();
 
       const yap::String& GetLogin () const;
       bool Login (const yap::String& login);
@@ -39,6 +40,8 @@ namespace yse
     private:
 
       World& GetWorld ();
+      Map& GetMap ();
+      void SetMap (Map* map);
 
       void SetPlayer (Player* player);
 
@@ -52,7 +55,7 @@ namespace yse
       yap::String login_;
 
       World* world_;
-
+      Map* map_;
       Player* player_;
   };
 } // namespace yse

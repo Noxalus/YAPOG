@@ -6,7 +6,7 @@
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
-# include "YAPOG/Game/World/Map/Physics/BoundingBoxCollection.hpp"
+# include "YAPOG/Game/World/Map/Physics/PhysicsBoundingBoxCollection.hpp"
 
 namespace yap
 {
@@ -25,8 +25,8 @@ namespace yap
       void SetID (const ID& id);
 
       void SetCollidableArea (CollidableArea* collidableArea);
-      void AddBoundingBox (BoundingBox* boundingBox);
-      void RemoveBoundingBox (BoundingBox* boundingBox);
+      void AddPhysicsBoundingBox (BoundingBox* boundingBox);
+      void RemovePhysicsBoundingBox (BoundingBox* boundingBox);
 
       /// @name ISpatial members.
       /// @{
@@ -73,7 +73,9 @@ namespace yap
       explicit WorldObject (const ID& id);
       WorldObject (const WorldObject& copy);
 
-      const BoundingBoxCollection& GetBoundingBoxes () const;
+      const PhysicsBoundingBoxCollection& GetPhysicsBoundingBoxes () const;
+
+      virtual void HandleSetCollidableArea (CollidableArea* collidableArea);
 
       Vector2 HandleGetSize () const;
       virtual void HandleMove (const Vector2& offset);
@@ -86,7 +88,7 @@ namespace yap
       ID id_;
       mutable Spatial3Info spatial3Info_;
 
-      BoundingBoxCollection boundingBoxes_;
+      PhysicsBoundingBoxCollection physicsBoundingBoxes_;
   };
 } // namespace yap
 

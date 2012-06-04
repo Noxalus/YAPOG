@@ -21,19 +21,27 @@ namespace yap
 
       void SetSegmentCount (uint vSegmentCount, uint hSegmentCount);
 
-      virtual bool CollidesWithObject (const WorldObject& object) const;
       virtual bool CollidesWithObject (
         const WorldObject& object,
         const Vector2& offset) const;
+
+      virtual void GetEventsCollidingWithObject (
+        const DynamicWorldObject& object,
+        MapEventQueue& events) const;
 
     protected:
 
       virtual void HandleSetSize (const Vector2& size);
 
-      virtual void HandleAddCollidable (
+      virtual void HandleAddPhysicsCollidable (
         ICollidable* collidable,
         const MapCollidableInfo::PtrType& mapCollidableInfo);
-      virtual void HandleRemoveCollidable (ICollidable* collidable);
+      virtual void HandleRemovePhysicsCollidable (ICollidable* collidable);
+
+      virtual void HandleAddEventCollidable (
+        ICollidable* collidable,
+        const MapEventInfo::PtrType& mapEventInfo);
+      virtual void HandleRemoveEventCollidable (ICollidable* collidable);
 
     private:
 

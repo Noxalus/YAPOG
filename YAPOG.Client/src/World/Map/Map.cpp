@@ -4,6 +4,7 @@
 
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "World/Map/NPC.hpp"
 #include "World/Map/MapElement.hpp"
 
 namespace ycl
@@ -47,6 +48,12 @@ namespace ycl
 
     AddDynamicObject (player);
     AddDrawableDynamicObject (player);
+  }
+
+  void Map::AddNPC (NPC* npc)
+  {
+    AddDynamicObject (npc);
+    AddDrawableDynamicObject (npc);
   }
 
   void Map::AddMapElement (MapElement* mapElement)

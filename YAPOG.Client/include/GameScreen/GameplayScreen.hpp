@@ -12,6 +12,10 @@ namespace ycl
 {
   class Player;
 
+  /// @warning Tests.
+  /// @todo Remove from here.
+  class NPC;
+
   class GameplayScreen : public BaseScreen
   {
       DISALLOW_COPY(GameplayScreen);
@@ -43,13 +47,21 @@ namespace ycl
 
       static const yap::ScreenType DEFAULT_NAME;
 
+      static const yap::Vector2 DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR;
+
       World world_;
 
+      yap::ICamera& worldCamera_;
       yap::ProgressiveCameraController cameraController_;
 
       Player* player_;
       yap::CharacterMoveController moveController_;
       yap::Vector2 lastForce_;
+
+      /// @warning Tests.
+      /// @todo Remove from here.
+      /// used in cpp: 160
+      NPC* npc1_;
   };
 } // namespace ycl
 

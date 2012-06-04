@@ -5,12 +5,15 @@
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
+# include "YAPOG/Game/World/Map/Physics/MapEventInfo.hpp"
 
 namespace yap
 {
   struct ICollidable;
 
   class WorldObject;
+  class DynamicWorldObject;
+  class MapEventQueue;
 
   class CollidableAreaCell
   {
@@ -25,17 +28,30 @@ namespace yap
         const MapCollidableInfo::PtrType& mapCollidableInfo);
       void RemovePhysicsCollidable (ICollidable* collidable);
 
-      bool CollidesWithObject (const WorldObject& object) const;
+      void AddEventCollidable (
+        ICollidable* collidable,
+        const MapEventInfo::PtrType& mapEventInfo);
+      void RemoveEventCollidable (ICollidable* collidable);
+
       bool CollidesWithObject (
         const WorldObject& object,
         const Vector2& offset) const;
+
+      void GetEventsCollidingWithObject (
+        const DynamicWorldObject& object,
+        MapEventQueue& events) const;
 
       void Clear ();
 
     private:
 
-      collection::Map<ICollidable*,
-                      MapCollidableInfo::PtrType> physicsCollidables_;
+      collection::Map<
+        ICollidable*,
+        MapCollidableInfo::PtrType> physicsCollidables_;
+
+      collection::Map<
+        ICollidable*,
+        MapEventInfo::PtrType> eventCollidables_;
   };
 } // namespace yap
 

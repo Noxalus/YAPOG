@@ -5,12 +5,15 @@
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
+# include "YAPOG/Game/World/Map/Physics/MapEventInfo.hpp"
 
 namespace yap
 {
   struct ICollidable;
 
   class WorldObject;
+  class DynamicWorldObject;
+  class MapEventQueue;
 
   class YAPOG_LIB CollidableArea
   {
@@ -22,15 +25,23 @@ namespace yap
 
       void SetSize (const Vector2& size);
 
-      void AddCollidable (
+      void AddPhysicsCollidable (
         ICollidable* collidable,
         const MapCollidableInfo::PtrType& mapCollidableInfo);
-      void RemoveCollidable (ICollidable* collidable);
+      void RemovePhysicsCollidable (ICollidable* collidable);
 
-      virtual bool CollidesWithObject (const WorldObject& object) const = 0;
+      void AddEventCollidable (
+        ICollidable* collidable,
+        const MapEventInfo::PtrType& mapEventInfo);
+      void RemoveEventCollidable (ICollidable* collidable);
+
       virtual bool CollidesWithObject (
         const WorldObject& object,
         const Vector2& offset) const = 0;
+
+      virtual void GetEventsCollidingWithObject (
+        const DynamicWorldObject& object,
+        MapEventQueue& events) const = 0;
 
     protected:
 
@@ -38,10 +49,15 @@ namespace yap
 
       virtual void HandleSetSize (const Vector2& size);
 
-      virtual void HandleAddCollidable (
+      virtual void HandleAddPhysicsCollidable (
         ICollidable* collidable,
         const MapCollidableInfo::PtrType& mapCollidableInfo) = 0;
-      virtual void HandleRemoveCollidable (ICollidable* collidable) = 0;
+      virtual void HandleRemovePhysicsCollidable (ICollidable* collidable) = 0;
+
+      virtual void HandleAddEventCollidable (
+        ICollidable* collidable,
+        const MapEventInfo::PtrType& mapEventInfo) = 0;
+      virtual void HandleRemoveEventCollidable (ICollidable* collidable) = 0;
 
     private:
 

@@ -7,6 +7,7 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Map/WorldObjectState.hpp"
 # include "YAPOG/System/Event/Event.hpp"
+# include "YAPOG/Game/World/Map/Physics/EventBoundingBoxCollection.hpp"
 
 namespace yap
 {
@@ -14,6 +15,7 @@ namespace yap
   struct IDynamicWorldObjectConstVisitor;
 
   class PhysicsCore;
+  class MapEvent;
 
   class YAPOG_LIB DynamicWorldObject : public WorldObject
                                      , public IUpdateable
@@ -48,12 +50,20 @@ namespace yap
       void SetInactive ();
 
       /// @brief Directly changes this DynamicWorldObject state.
+      /// Used for synchronizing the attribut.
       /// @param state State to set to this DynamicWorldObject.
       void RawSetState (const String& state);
 
       bool IsActive () const;
 
       bool IsMoving () const;
+
+      void AddTriggerBoundingBox (BoundingBox* boundingBox);
+
+      void AddEvent (MapEvent* event);
+      void RemoveEvent (MapEvent* event);
+
+      bool TriggerCollidesWith (const ICollidable& collidable) const;
 
       /// @name IUpdateable members.
       /// @{
@@ -62,10 +72,12 @@ namespace yap
 
       /// @name Events.
       /// @{
-      Event<DynamicWorldObject&,
-            const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
-      Event<DynamicWorldObject&,
-            const ChangeEventArgs<const String&>&> OnStateChanged;
+      Event<
+        DynamicWorldObject&,
+        const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
+      Event<
+        DynamicWorldObject&,
+        const ChangeEventArgs<const String&>&> OnStateChanged;
       /// @}
 
     protected:
@@ -75,6 +87,8 @@ namespace yap
       DynamicWorldObject (const DynamicWorldObject& copy);
 
       virtual const String& GetObjectFactoryTypeName () const = 0;
+
+      virtual void HandleSetCollidableArea (CollidableArea* collidableArea);
 
       virtual void HandleApplyForce (const Vector2& force);
 
@@ -100,6 +114,13 @@ namespace yap
 
       PhysicsCore* physicsCore_;
       Vector2 maxVelocity_;
+
+      collection::List<MapEvent*> events_;
+
+      /// Boxes that belong to this DynamicWorldObject and can trigger events.
+      PhysicsBoundingBoxCollection triggerBoundingBoxes_;
+      /// Boxes that belong to an event and can be triggered.
+      EventBoundingBoxCollection sourceBoundingBoxes_;
   };
 } // namespace yap
 

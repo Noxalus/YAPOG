@@ -57,6 +57,8 @@
 #include "World/Map/PlayerReader.hpp"
 #include "World/Map/MapElement.hpp"
 #include "World/Map/MapElementReader.hpp"
+#include "World/Map/NPC.hpp"
+#include "World/Map/NPCReader.hpp"
 
 namespace ycl
 {
@@ -181,6 +183,12 @@ namespace ycl
       new yap::XmlObjectIDLoader<MapElement, MapElementReader> (
         yap::Path ("MapElement"),
         "MapElement"));
+
+    objectFactory_.RegisterLoader (
+      "NPC",
+      new yap::XmlObjectIDLoader<NPC, NPCReader> (
+        yap::Path ("NPC"),
+        "NPC"));
 
     objectFactory_.RegisterLoader (
       "Player",

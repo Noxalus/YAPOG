@@ -16,6 +16,7 @@
 namespace ycl
 {
   class Player;
+  class NPC;
   class MapElement;
 
   class Map : public yap::Map
@@ -36,6 +37,7 @@ namespace ycl
       Player& GetPlayer (const yap::ID& worldID);
 
       void AddPlayer (Player* player);
+      void AddNPC (NPC* npc);
       void AddMapElement (MapElement* mapElement);
 
       void RemovePlayer (Player* player);

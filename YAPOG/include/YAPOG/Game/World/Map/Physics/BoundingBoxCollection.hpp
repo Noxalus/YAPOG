@@ -5,13 +5,11 @@
 # include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 # include "YAPOG/Collection/List.hpp"
-# include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
 
 namespace yap
 {
   class BoundingBox;
   class CollidableArea;
-  class WorldObject;
 
   class YAPOG_LIB BoundingBoxCollection : public ICollidable
   {
@@ -22,17 +20,7 @@ namespace yap
       typedef collection::List<BoundingBox*>::ItType ItType;
       typedef collection::List<BoundingBox*>::ConstItType ConstItType;
 
-      BoundingBoxCollection ();
       virtual ~BoundingBoxCollection ();
-
-      BoundingBoxCollection (const BoundingBoxCollection& copy);
-
-      void AddBoundingBox (BoundingBox* boundingBox);
-      void RemoveBoundingBox (BoundingBox* boundingBox);
-
-      void SetCollidableArea (
-        const WorldObject& parent,
-        CollidableArea* collidableArea);
 
       ItType begin ();
       ConstItType begin () const;
@@ -74,9 +62,29 @@ namespace yap
         const Vector2& offset) const;
       /// @}
 
+    protected:
+
+      BoundingBoxCollection ();
+
+      BoundingBoxCollection (const BoundingBoxCollection& copy);
+
+      void AddBoundingBox (BoundingBox* boundingBox);
+      void RemoveBoundingBox (BoundingBox* boundingBox);
+
+      CollidableArea& GetCollidableArea ();
+      void SetCollidableArea (CollidableArea* collidableArea);
+
+      const collection::List<BoundingBox*>& GetBoundingBoxes () const;
+
     private:
 
       void AddBoundingBoxToCollidableArea (BoundingBox* boundingBox);
+      void RemoveBoundingBoxFromCollidableArea (BoundingBox* boundingBox);
+
+      virtual void HandleAddBoundingBoxToCollidableArea (
+        BoundingBox* boundingBox) = 0;
+      virtual void HandleRemoveBoundingBoxFromCollidableArea (
+        BoundingBox* boundingBox) = 0;
 
       void AddBoundingBoxesToCollidableArea ();
       void RemoveBoundingBoxesFromCollidableArea ();
@@ -85,7 +93,6 @@ namespace yap
 
       collection::List<BoundingBox*> boundingBoxes_;
 
-      const WorldObject* parent_;
       CollidableArea* collidableArea_;
   };
 } // namespace yap

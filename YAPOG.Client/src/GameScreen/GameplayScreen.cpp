@@ -3,6 +3,7 @@
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/System/IO/Log/Logger.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
+#include "YAPOG/Graphics/ICamera.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -10,14 +11,22 @@
 #include "Client/Session.hpp"
 #include "Gui/PokedexWidget.hpp"
 
+/// @warning Tests.
+/// @todo Remove from here.
+#include "World/Map/NPC.hpp"
+
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
+  const yap::Vector2 GameplayScreen::DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR =
+    yap::Vector2 (1.0f, 1.0f);
+
   GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
     : BaseScreen (DEFAULT_NAME)
     , world_ ()
-    , cameraController_ (worldCamera)
+    , worldCamera_ (worldCamera)
+    , cameraController_ (worldCamera_)
     , player_ (nullptr)
     , moveController_ ()
     , lastForce_ ()
@@ -52,6 +61,8 @@ namespace ycl
     pokedex->Close ();
 
     guiManager_->AddChild (*pokedex);
+
+    worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -149,6 +160,16 @@ namespace ycl
       yap::FloatRect (
       yap::Vector2 (),
       map.GetSize ()));
+
+    /// @warning Tests.
+    /// @todo Remove from here.
+    npc1_ = objectFactory_.Create<NPC> ("NPC", yap::ID (1));
+    npc1_->SetWorldID (yap::ID (4222));
+    npc1_->Move (yap::Vector2 (260.0f, 180.0f));
+    map.AddNPC (npc1_);
+
+//    yap::MapEvent* event = new yap::MapEvent ();
+//    npc1_->AddEvent (
   }
 
   void GameplayScreen::SetPlayer (Player* player)
