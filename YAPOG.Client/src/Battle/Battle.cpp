@@ -35,6 +35,7 @@ namespace ycl
     delete background_;
     delete playerGround_;
     delete opponentGround_;
+    delete playerTrainerBack_;
   }
 
   void Battle::HandleInit ()
@@ -117,12 +118,6 @@ namespace ycl
     opponent_ = opponent;
   }
 
-  void Battle::Draw (yap::IDrawingContext& context)
-  {
-    if (!IsVisible ())
-      return;
-  }
-
   bool Battle::IsVisible () const
   {
     return isVisible_;
@@ -168,4 +163,4 @@ namespace ycl
   {
   }
 
-} // namespace yap
+} // namespace ycl
