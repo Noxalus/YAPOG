@@ -27,33 +27,6 @@ namespace ycl
     AddPhase (yap::BattlePhaseState::BeginBattle, beginBattlePhase);
   }
 
-  void WildBattle::Draw (yap::IDrawingContext& context)
-  {
-    if (!IsVisible ())
-      return;
-
-    HandleDraw (context);
-  }
-
-  bool WildBattle::IsVisible () const
-  {
-    return isVisible_;
-  }
-
-  void WildBattle::Show (bool isVisible)
-  {
-    isVisible_ = isVisible;
-
-    HandleShow (isVisible);
-  }
-
-  void WildBattle::ChangeColor (const sf::Color& color)
-  {
-    color_ = color;
-
-    HandleChangeColor (color);
-  }
-
   void WildBattle::HandleUpdate (const yap::Time& dt)
   {
     Battle::HandleUpdate (dt);

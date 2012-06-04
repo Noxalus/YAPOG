@@ -49,13 +49,13 @@ namespace ycl
       AddText ("Un " + opponentName + 
       " sauvage apparait !");
 
-    
-    battle_.GetDrawableOpponent ().GetFrontSprite ().SetPosition (
-    yap::Vector2 (
-    Game::SCREEN_SIZE.x -
-    (battle_.GetOpponentGround ().GetSize ().x),
-    Game::SCREEN_SIZE.y / 3 -
-    (battle_.GetOpponentGround ().GetSize ().y) / 2));
+
+    battle_.GetDrawableOpponent ().GetBattleSprite ().SetPosition (
+      yap::Vector2 (
+      Game::SCREEN_SIZE.x -
+      (battle_.GetOpponentGround ().GetSize ().x),
+      Game::SCREEN_SIZE.y / 3 -
+      (battle_.GetOpponentGround ().GetSize ().y) / 2));
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)

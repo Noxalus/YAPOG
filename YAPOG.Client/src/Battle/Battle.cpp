@@ -25,8 +25,8 @@ namespace ycl
     , playerTrainerBack_ (nullptr)
     , playerGroundPosition_ ()
     , opponentGroundPosition_ ()
-    , playerTeam_ (nullptr)
-    , opponent_ (nullptr)
+    , drawablePlayerTeam_ (nullptr)
+    , drawableOpponent_ (nullptr)
   {
   }
 
@@ -88,34 +88,42 @@ namespace ycl
   { return opponentGroundPosition_; }
 
   const IDrawableBattleEntity& Battle::GetDrawablePlayerTeam () const
-  { return *playerTeam_; }
+  { return *drawablePlayerTeam_; }
 
   IDrawableBattleEntity& Battle::GetDrawablePlayerTeam ()
-  { return *playerTeam_; }
+  { return *drawablePlayerTeam_; }
 
   const IDrawableBattleEntity& Battle::GetDrawableOpponent () const
-  { return *opponent_; }
+  { return *drawableOpponent_; }
 
   IDrawableBattleEntity& Battle::GetDrawableOpponent ()
-  { return *opponent_; }
+  { return *drawableOpponent_; }
 
   /// Setters
   void Battle::SetDrawablePlayerTeam (PokemonFighterTeam* playerTeam)
   {
     yap::Battle::SetPlayerTeam (playerTeam);
-    playerTeam_ = playerTeam;
+    drawablePlayerTeam_ = playerTeam;
   }
 
   void Battle::SetDrawableOpponent (PokemonFighterTeam* opponent)
   {
     yap::Battle::SetOpponent (opponent);
-    opponent_ = opponent;
+    drawableOpponent_ = opponent;
   }
 
   void Battle::SetDrawableOpponent (PokemonFighter* opponent)
   {
     yap::Battle::SetOpponent (opponent);
-    opponent_ = opponent;
+    drawableOpponent_ = opponent;
+  }
+
+  void Battle::Draw (yap::IDrawingContext& context)
+  {
+    if (!IsVisible ())
+      return;
+
+    HandleDraw (context);
   }
 
   bool Battle::IsVisible () const
@@ -151,8 +159,8 @@ namespace ycl
     playerGround_->Draw (context);
     playerTrainerBack_->Draw (context);
     opponentGround_->Draw (context);
-    //playerTeam_->Draw (context);
-    //opponent_->Draw (context);
+    //drawablePlayerTeam_->Draw (context);
+    //drawableOpponent_->Draw (context);
   }
 
   void Battle::HandleShow (bool isVisible)

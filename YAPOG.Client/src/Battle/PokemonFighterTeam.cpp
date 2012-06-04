@@ -51,6 +51,8 @@ namespace ycl
   {
     if (!IsVisible ())
       return;
+
+    HandleDraw (context);
   }
 
   bool PokemonFighterTeam::IsVisible () const
@@ -95,14 +97,9 @@ namespace ycl
 
   /// @name IDrawableBattleEntity members
   /// @{
-  yap::ISprite& PokemonFighterTeam::GetFrontSprite ()
+  yap::ISprite& PokemonFighterTeam::GetBattleSprite ()
   {
-    return GetCurrentFighter ()->GetFrontSprite ();
-  }
-
-  yap::ISprite& PokemonFighterTeam::GetBackSprite ()
-  {
-    return GetCurrentFighter ()->GetBackSprite ();
+    return GetCurrentFighter ()->GetBattleSprite ();
   }
   /// @}
 } // namespace yap

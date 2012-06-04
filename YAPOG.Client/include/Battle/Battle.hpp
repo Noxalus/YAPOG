@@ -27,6 +27,8 @@ namespace ycl
 
     /// @name IDrawable members.
     /// @{
+    virtual void Draw (yap::IDrawingContext& context);
+
     virtual bool IsVisible () const;
     virtual void Show (bool isVisible);
 
@@ -80,8 +82,8 @@ namespace ycl
     yap::Vector2 playerGroundPosition_;
     yap::Vector2 opponentGroundPosition_;
 
-    IDrawableBattleEntity* playerTeam_;
-    IDrawableBattleEntity* opponent_;
+    IDrawableBattleEntity* drawablePlayerTeam_;
+    IDrawableBattleEntity* drawableOpponent_;
   };
 } // namespace ycl
 

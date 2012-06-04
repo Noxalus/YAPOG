@@ -3,8 +3,8 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
-# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp";
-# include "YAPOG/Graphics/Gui/VerticalLayout.hpp";
+# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+# include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
 

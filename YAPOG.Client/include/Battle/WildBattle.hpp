@@ -16,16 +16,6 @@ namespace ycl
     WildBattle (BattleInterface& battleInterface);
     virtual ~WildBattle ();
 
-    /// @name IDrawable members.
-    /// @{
-    virtual void Draw (yap::IDrawingContext& context);
-
-    virtual bool IsVisible () const;
-    virtual void Show (bool isVisible);
-
-    virtual void ChangeColor (const sf::Color& color);
-    /// @}
-
   protected:
     virtual void HandleInit ();
     virtual void HandleUpdate (const yap::Time& dt);

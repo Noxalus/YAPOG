@@ -16,8 +16,7 @@ namespace ycl
   {
     virtual ~IDrawableBattleEntity () {}
 
-    virtual yap::ISprite& GetFrontSprite () = 0;
-    virtual yap::ISprite& GetBackSprite () = 0;
+    virtual yap::ISprite& GetBattleSprite () = 0;
   };
 } // namespace ycl
 
