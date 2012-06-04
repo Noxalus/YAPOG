@@ -308,20 +308,19 @@ namespace ycl
     screenManager_->AddGameScreen (new LoadingScreen ());
     screenManager_->AddGameScreen (new UpdateScreen ());
     screenManager_->AddGameScreen (new OptionScreen ());
-    screenManager_->AddGameScreen (new LoginScreen ());
-    /* @TO DELETE
+    screenManager_->AddGameScreen (new LoginScreen ());     
     screenManager_->AddGameScreen (
       new GameplayScreen (
         drawingContext_->GetCamera (
           "World")));
-    */
+    
     screenManager_->AddGameScreen (new BattleScreen ());
     screenManager_->AddGameScreen (new MainMenuScreen ());
     screenManager_->AddGameScreen (new RegistrationScreen ());
     screenManager_->AddGameScreen (new SplashScreen ());
     screenManager_->AddGameScreen (new CreditScreen ());
 
-    screenManager_->Init ("Battle");
+    screenManager_->Init ("Gameplay");
   }
 
   void Game::InitLoggerManager ()

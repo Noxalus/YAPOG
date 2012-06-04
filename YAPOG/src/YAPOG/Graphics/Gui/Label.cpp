@@ -92,6 +92,10 @@ namespace yap
     //drawableText_.setPosition (GetPosition() + offset);
   }
 
+  void Label::SetTextSize (uint size)
+  {
+    drawableText_.setCharacterSize (size);
+  }
   void Label::HandleScale (const Vector2& factor)
   {
     drawableText_.setScale (factor);

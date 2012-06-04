@@ -15,13 +15,14 @@ namespace yap
   public:
 
     TextBoxWidget ();
-    TextBoxWidget (String content);
+    TextBoxWidget (String content, uint size = 30);
     virtual ~TextBoxWidget ();
 
     virtual String GetContent () const;
     virtual void SetText (const String& contentArg);
     void SetCursor (Texture& cursor);
     virtual bool IsFocusable () const;
+    void SetTextSize (uint size);
 
   protected:
     void Refresh ();
