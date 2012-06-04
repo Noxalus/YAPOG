@@ -34,7 +34,6 @@ namespace ycl
     , moveController_ ()
     , lastForce_ ()
     , pokedex_ (nullptr)
-    , pokedexInfo_ (nullptr)
   {
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
@@ -59,17 +58,46 @@ namespace ycl
 
   void GameplayScreen::HandleInit ()
   {
-    BaseScreen::HandleInit ();
+    BaseScreen::HandleInit ();    
+    /*
+    yap::HorizontalLayout* h = new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0), yap::Padding (0, 5, 0, 0), false);
+    h->SetSize (yap::Vector2 (512, 100));
 
-    pokedexInfo_ = new PokedexCompositeWidget ();
-    pokedexInfo_->Init ();
-    pokedexInfo_->Close ();
+    yap::Label* label = new yap::Label ("Test.");
+    label->SetTextSize (12);
+    yap::Label* label2 = new yap::Label ("Test2.");
+    label2->SetTextSize (12);
+    yap::Label* label3 = new yap::Label ("Test3.");
+    label3->SetTextSize (12);
+    yap::Label* label4 = new yap::Label ("Test4.");
+    label4->SetTextSize (12);
 
-    pokedex_ = new PokedexWidget ();
+    h->AddChild (*label);
+    h->AddChild (*label2);
+    h->AddChild (*label3);
+    h->AddChild (*label4);
+
+    for (int i = 0; i < 4; i++)
+    {
+
+    yap::Label* label = new yap::Label ((i % 2) ? "test" : "Papa");      
+    label->SetTextSize (12);
+
+    h->AddChild (*label);
+    }
+
+    h->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    guiManager_->AddChild (*h);
+    */
+    yap::TextBoxWidget* toto = new yap::TextBoxWidget ("TESTESTEST");
+    toto->SetSize (yap::Vector2 (256, 100));
+    guiManager_->AddChild(*toto);
+
+    toto->Clear ();
+    /*pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
-    
-    guiManager_->AddChild (*pokedex_);
-    guiManager_->AddChild (*pokedexInfo_);
+
+    guiManager_->AddChild (*pokedex_);*/
 
   }
 
@@ -83,15 +111,8 @@ namespace ycl
 
     UpdatePlayer (dt);
 
-    world_.Draw (context);    
+    world_.Draw (context);
 
-    yap::PokemonInfo* activatedPokemon = pokedex_->GetActivatedPokemon ();
-    if (activatedPokemon != nullptr)
-    {
-      pokedexInfo_->Open ();
-      pokedex_->Close ();
-    }
-   
     return BaseScreen::HandleRun (dt, context);
   }
 

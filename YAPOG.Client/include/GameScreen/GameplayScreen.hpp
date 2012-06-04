@@ -51,8 +51,7 @@ namespace ycl
 
     Player* player_;
     yap::CharacterMoveController moveController_;
-    yap::Vector2 lastForce_;
-    PokedexCompositeWidget* pokedexInfo_;    
+    yap::Vector2 lastForce_;   
     PokedexWidget* pokedex_;    
   };
 } // namespace ycl
