@@ -30,8 +30,8 @@ namespace yap
     GetPosition ().y + padding_.top));*/
     drawableText_.setColor (sf::Color (127, 127, 127));
     drawableText_.setPosition (GetPosition ().x,
-      GetPosition ().y /*+ drawableText_.getCharacterSize ()
-      + drawableText_.getGlobalBounds ().height*/);
+      GetPosition ().y);
+
     isPosSet_ = true;
     
     drawableText_.setFont 
@@ -139,8 +139,7 @@ namespace yap
 
     {
       drawableText_.setPosition (GetPosition ().x,
-        GetPosition ().y - drawableText_.getCharacterSize ()
-        + drawableText_.getGlobalBounds ().height);
+        GetPosition ().y);
       isPosSet_ = false;
     }
     OnTextChanged (*this, EventArgsString (content));

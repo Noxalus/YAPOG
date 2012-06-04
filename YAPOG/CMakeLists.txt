@@ -321,6 +321,8 @@ ${inc_root}/Graphics/Gui/LayoutBox.hpp
 ${src_root}/Graphics/Gui/LayoutBox.cpp
 ${inc_root}/Graphics/Gui/DialogBoxWidget.hpp
 ${src_root}/Graphics/Gui/DialogBoxWidget.cpp
+${inc_root}/Graphics/Gui/MultiLabelWidget.hpp
+${src_root}/Graphics/Gui/MultiLabelWidget.cpp
 ${inc_root}/Graphics/Gui/PartialLayoutManager.hpp
 ${src_root}/Graphics/Gui/PartialLayoutManager.cpp
 ${inc_root}/Game/Pokemon/Pokedex.hpp
