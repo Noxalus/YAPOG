@@ -16,7 +16,7 @@ namespace yap
   bool*         StrToBoolTab (String str)
   {
     bool* tabbool = new bool[NBCHAN];
-    
+
     for (size_t i = 0; i < str.length (); i++)
       tabbool[i] = (str[i] == '0' ? 0 : 1);
 
@@ -31,22 +31,22 @@ namespace yap
     , Count (4)
     , Cd ()
   {
-    boost::filesystem::path path (""/*current_dir*/);
+    String file =
+      boost::filesystem::current_path ().string () + "/chat.conf";
+    boost::filesystem::path path (file);
     if (!boost::filesystem::exists (path))
     {
-      std::cout << "toto" << std::endl;
-      Cd.Add (new ChatDisplayer ("Test 1", StringHelper::Parse<UInt32> ("0")));
-      Cd.Add (new ChatDisplayer ("Test 2", StringHelper::Parse<UInt32> ("1")));
-      Cd.Add (new ChatDisplayer ("Test 3", StringHelper::Parse<UInt32> ("2")));
-      Cd.Add (new ChatDisplayer ("Test 4", StringHelper::Parse<UInt32> ("3")));
+      Cd.Add (new ChatDisplayer ("System", StringHelper::Parse<UInt32> ("0")));
+      Cd.Add (new ChatDisplayer ("Global", StringHelper::Parse<UInt32> ("1")));
+      Cd.Add (new ChatDisplayer ("Group", StringHelper::Parse<UInt32> ("2")));
+      Cd.Add (new ChatDisplayer ("Business", StringHelper::Parse<UInt32> ("3")));
     }
     else
     {
       std::ifstream f;
-      String file = path.string () + "/chat.conf";
       String line = "";
       bool parse = false;
-      f.open (file);
+      f.open (path.string ());
       while (f.good ())
       {
         std::getline (f, line);
@@ -64,6 +64,7 @@ namespace yap
         if (line.compare ("<chat>") == 0)
           parse = true;
       }
+      f.close ();
     }
   }
 
@@ -73,7 +74,10 @@ namespace yap
     ChatDisplayerType::ItType ite (Cd.End ());
 
     for (; it < ite; it++)
+    {
       delete (*it);
+      *it = nullptr;
+    }
   }
 
 } // namespace yap

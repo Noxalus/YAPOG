@@ -92,6 +92,8 @@ ${src_root}/Pokemon/Pokemon.cpp
 ${inc_root}/Pokemon/PokemonTeam.hpp
 ${src_root}/Pokemon/PokemonTeam.cpp
 
+${inc_root}/Gui/ChatWidget.hpp
+${src_root}/Gui/ChatWidget.cpp
 ${inc_root}/Gui/GameMainMenu.hpp
 ${src_root}/Gui/GameMainMenu.cpp
 ${inc_root}/Gui/MainMenu.hpp
