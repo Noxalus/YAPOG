@@ -115,6 +115,14 @@ namespace yap
   {
     return originalPokemon_->GetName ();
   }
+
+  Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&>& 
+      PokemonFighter::OnHPChangedEvent ()
+  {
+    return OnHPChanged;
+  }
   /// @}
 
   void PokemonFighter::Update (const Time& dt)

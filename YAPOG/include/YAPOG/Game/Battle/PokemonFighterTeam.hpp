@@ -17,6 +17,10 @@ namespace yap
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&>& 
+      OnHPChangedEvent ();
     /// @}
 
     virtual PokemonFighter* GetPokemon (int index) const;

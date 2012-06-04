@@ -156,10 +156,8 @@ namespace ycl
     playerGround_->Draw (context);
     playerTrainerBack_->Draw (context);
     opponentGround_->Draw (context);
-    /*
-    playerTeam_->Draw (context);
+    //playerTeam_->Draw (context);
     opponent_->Draw (context);
-    */
   }
 
   void Battle::HandleShow (bool isVisible)

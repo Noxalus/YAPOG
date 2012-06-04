@@ -37,11 +37,13 @@ namespace yap
     void SetAlign (Align global);
     Align GetAlign ();
     void Clear ();
+    virtual void Refresh ();
+    const Padding& GetInnerPadding () const;
 
 
   protected:
     virtual void GeneratePosition () = 0;
-    virtual void Refresh ();
+
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
@@ -56,7 +58,7 @@ namespace yap
     float MaxSize (char coord);
 
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
-   //virtual bool HandleOnEvent (const GuiEvent& guiEvent);
+    //virtual bool HandleOnEvent (const GuiEvent& guiEvent);
 
     collection::Map<IWidget*, Align> items_;
     collection::Array<IWidget*> focusables_;

@@ -2,38 +2,17 @@
 # define YAPOG_CLIENT_OPPONENTBATTLEINFOWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Gui/Label.hpp"
-# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp";
-# include "YAPOG/Graphics/Gui/VerticalLayout.hpp";
 
-# include "Battle/BaseBattleWidget.hpp"
+# include "Battle/BattleInfoWidget.hpp"
 
 namespace ycl
 {
-  class OpponentBattleInfoWidget : public BaseBattleWidget
+  class OpponentBattleInfoWidget : public BattleInfoWidget
   {
     DISALLOW_COPY (OpponentBattleInfoWidget);
 
   public:
     OpponentBattleInfoWidget ();
-
-    /// @name Getters.
-    /// @{
-    yap::Label& GetOpponentName ();
-    /// @}
-
-  private:
-    /// @name Labels.
-    /// @{
-    yap::Label opponentName_;
-    yap::Label opponentLevel_;
-    /// @}
-
-    /// @name Layouts.
-    /// @{
-    yap::HorizontalLayout horizontalLayout_;
-    yap::VerticalLayout verticalLayout_;
-    /// @}
   };
 } // namespace ycl
 

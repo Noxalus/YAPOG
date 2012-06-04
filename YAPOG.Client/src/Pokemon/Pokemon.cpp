@@ -1,15 +1,18 @@
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 #include "Pokemon/Pokemon.hpp"
+#include "Pokemon/PokemonInfo.hpp"
 
 namespace ycl
 {
   Pokemon::Pokemon (const yap::ID& staticID)
     : yap::Pokemon (staticID)
   {
-    LoadSprites ();
+    Init ();
   }
 
   Pokemon::Pokemon (
@@ -18,38 +21,63 @@ namespace ycl
     const bool& shiny)
     : yap::Pokemon (staticID, level, shiny)
   {
-    LoadSprites ();
+    Init ();
   }
 
   Pokemon::~Pokemon ()
   {
   }
 
+  void Pokemon::Init ()
+  {
+    graphicPokemonInfo_ = yap::ObjectFactory::Instance ().
+      Create<PokemonInfo> ("PokemonInfo", staticID_);
+
+    LoadSprites ();
+  }
+
   void Pokemon::LoadSprites ()
   {
     icon_ = new yap::Sprite (
-      new yap::Texture ("Pokemon/Icons/" + 
-      yap::StringHelper::ToString (staticID_.GetValue ()) + ".png"));
+      new yap::Texture (graphicPokemonInfo_->GetIcon ()));
 
-    if (gender_ == yap::Gender::Female)
+    if (shiny_)
     {
-      battleFront_ = new yap::Sprite (
-        new yap::Texture ("Pokemon/Front_Female/" + 
-        yap::StringHelper::ToString (staticID_.GetValue ()) + ".png"));
+      if (gender_ == yap::Gender::Female)
+      {
+        battleFront_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetShinyFemaleFront ()));
 
-      battleBack_ = new yap::Sprite (
-        new yap::Texture ("Pokemon/Back_Female/" + 
-        yap::StringHelper::ToString (staticID_.GetValue ()) + ".png"));
+        battleBack_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetShinyFemaleBack ()));
+      }
+      else
+      {
+        battleFront_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetShinyMaleFront ()));
+
+        battleBack_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetShinyMaleBack ()));
+      }
     }
     else
     {
-      battleFront_ = new yap::Sprite (
-        new yap::Texture ("Pokemon/Front_Male/" + 
-        yap::StringHelper::ToString (staticID_.GetValue ()) + ".png"));
+      if (gender_ == yap::Gender::Female)
+      {
+        battleFront_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetFemaleFront ()));
 
-      battleBack_ = new yap::Sprite (
-        new yap::Texture ("Pokemon/Back_Male/" + 
-        yap::StringHelper::ToString (staticID_.GetValue ()) + ".png"));
+        battleBack_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetFemaleBack ()));
+      }
+      else
+      {
+        battleFront_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetMaleFront ()));
+
+        battleBack_ = new yap::Sprite (
+          new yap::Texture (graphicPokemonInfo_->GetMaleBack ()));
+      }
     }
   }
 

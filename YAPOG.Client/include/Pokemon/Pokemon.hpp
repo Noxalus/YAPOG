@@ -11,6 +11,8 @@ namespace yap
 
 namespace ycl
 {
+  class PokemonInfo;
+
   class Pokemon : public yap::Pokemon
   {
     DISALLOW_COPY (Pokemon);
@@ -29,11 +31,14 @@ namespace ycl
     yap::ISprite& GetBattleFront () const;
 
   private:
+    void Init ();
     void LoadSprites ();
 
     yap::ISprite* icon_;
     yap::ISprite* battleBack_;
     yap::ISprite* battleFront_;
+
+    PokemonInfo* graphicPokemonInfo_;
 
   };
 } // namespace ycl

@@ -1,6 +1,8 @@
 #ifndef YAPOG_PACKETHANDLER_HPP
 # define YAPOG_PACKETHANDLER_HPP
 
+# include <functional>
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/Collection/Map.hpp"
@@ -10,8 +12,7 @@
 # define ADD_HANDLER(TYPE, HANDLER)                              \
   packetHandler_.AddHandler (                                    \
     yap::PacketType::TYPE,                                       \
-    static_cast<yap::PacketHandler::HandlerType> (&HANDLER),     \
-    this)
+    std::bind (&HANDLER, this, std::placeholders::_1))
 
 namespace yap
 {
@@ -24,16 +25,12 @@ namespace yap
 
     public:
 
-      typedef void (IPacketHandler::*HandlerType) (IPacket&);
-      typedef std::pair<HandlerType, IPacketHandler*> HandlerTargetPairType;
+      typedef std::function<void (IPacket&)> HandlerType;
 
       PacketHandler ();
       virtual ~PacketHandler ();
 
-      void AddHandler (
-        PacketType packetType,
-        HandlerType action,
-        IPacketHandler* packetHandler);
+      void AddHandler (PacketType packetType, HandlerType action);
 
       /// @name IPacketHandler members.
       /// @{
@@ -47,7 +44,7 @@ namespace yap
 
     private:
 
-      collection::Map<PacketType, HandlerTargetPairType> handlers_;
+      collection::Map<PacketType, HandlerType> handlers_;
 
       collection::List<IPacketHandler*> relays_;
       IPacketHandler* parent_;

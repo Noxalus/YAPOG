@@ -35,6 +35,15 @@ namespace yap
     , type1_ (0)
     , type2_ (0)
     , baseSkills_ ()
+    , icon_ ("")
+    , maleFront_ ("")
+    , maleBack_ ("")
+    , shinyMaleFront_ ("")
+    , shinyMaleBack_ ("")
+    , femaleFront_ ("")
+    , femaleBack_ ("")
+    , shinyFemaleFront_ ("")
+    , shinyFemaleBack_ ("")
   {
   }
 
@@ -66,6 +75,15 @@ namespace yap
     , type1_ (0)
     , type2_ (0)
     , baseSkills_ ()
+    , icon_ ("")
+    , maleFront_ ("")
+    , maleBack_ ("")
+    , shinyMaleFront_ ("")
+    , shinyMaleBack_ ("")
+    , femaleFront_ ("")
+    , femaleBack_ ("")
+    , shinyFemaleFront_ ("")
+    , shinyFemaleBack_ ("")
   {
   }
 
@@ -97,6 +115,15 @@ namespace yap
     , type1_ (copy.type1_)
     , type2_ (copy.type2_)
     , baseSkills_ (copy.baseSkills_)
+    , icon_ (copy.icon_)
+    , maleFront_ (copy.maleFront_)
+    , maleBack_ (copy.maleBack_)
+    , shinyMaleFront_ (copy.shinyMaleFront_)
+    , shinyMaleBack_ (copy.shinyMaleBack_)
+    , femaleFront_ (copy.femaleFront_)
+    , femaleBack_ (copy.femaleBack_)
+    , shinyFemaleFront_ (copy.shinyFemaleFront_)
+    , shinyFemaleBack_ (copy.shinyFemaleBack_)
   {
   }
 
@@ -126,147 +153,6 @@ namespace yap
 
       i--;
     }
-  }
-
-  void PokemonInfo::SetID (const ID& id)
-  {
-    pokedexID_ = id;
-  }
-
-  void PokemonInfo::SetName (const String& name)
-  {
-    name_ = name;
-  }
-
-  void PokemonInfo::SetDescription (const String& description)
-  {
-    description_ = description;
-  }
-
-  void PokemonInfo::SetSpecies (const String& species)
-  {
-    species_ = species;
-  }
-
-  void PokemonInfo::SetGenderProbability (const float& value)
-  {
-    genderProbability_ = value;
-  }
-
-  void PokemonInfo::SetHeight (const float& value)
-  {
-    height_ = value;
-  }
-
-  void PokemonInfo::SetWeight (const float& value)
-  {
-    weight_ = value;
-  }
-
-  void PokemonInfo::SetExperience (const int& value)
-  {
-    experience_ = value;
-  }
-
-  void PokemonInfo::SetExperienceType (const ExperienceType& value)
-  {
-    experienceType_ = value;
-  }
-
-  void PokemonInfo::SetRarity (const int& value)
-  {
-    rarity_ = value;
-  }
-
-  void PokemonInfo::SetHitPoint (const int& value)
-  {
-    baseHitPoint_ = value;
-  }
-
-  void PokemonInfo::SetAttack (const int& value)
-  {
-    baseAttack_ = value;
-  }
-
-  void PokemonInfo::SetDefense (const int& value)
-  {
-    baseDefense_ = value;
-  }
-
-  void PokemonInfo::SetSpecialAttack (const int& value)
-  {
-    baseSpecialAttack_ = value;
-  }
-
-  void PokemonInfo::SetSpecialDefense (const int& value)
-  {
-    baseSpecialDefense_ = value;
-  }
-
-  void PokemonInfo::SetSpeed (const int& value)
-  {
-    baseSpeed_ = value;
-  }
-
-  void PokemonInfo::SetType1 (const int& value)
-  {
-    type1_ = value;
-  }
-
-  void PokemonInfo::SetType2 (const int& value)
-  {
-    type2_ = value;
-  }
-
-  void PokemonInfo::AddBaseSkill (const UInt16 level, const ID& skillID)
-  {
-    if (baseSkills_.Contains (level))
-      baseSkills_[level].Add (skillID);
-    else
-    {
-      collection::List<ID> skillList;
-      skillList.Add (skillID);
-      baseSkills_.Add (level, skillList);
-    }
-  }
-
-  void PokemonInfo::SetHitPointEV (const int& value)
-  {
-    hitPointEV_ = value;
-  }
-
-  void PokemonInfo::SetAttackEV (const int& value)
-  {
-    attackEV_ = value;
-  }
-
-  void PokemonInfo::SetDefenseEV (const int& value)
-  {
-    defenseEV_ = value;
-  }
-  void PokemonInfo::SetSpecialAttackEV (const int& value)
-  {
-    specialAttackEV_ = value;
-  }
-
-  void PokemonInfo::SetSpecialDefenseEV (const int& value)
-  {
-    specialDefenseEV_ = value;
-  }
-
-  void PokemonInfo::SetSpeedEV (const int& value)
-  {
-    speedEV_ = value;
-  }
-
-  void PokemonInfo::SetEvolutionLevel (UInt16 value)
-  {
-    evolutionLevel_ = value;
-  }
-
-  void PokemonInfo::SetPokemonEvolutionID (const ID& value)
-  {
-    pokemonEvolutionID_ = value;
   }
 
   /// Getters
@@ -413,6 +299,191 @@ namespace yap
   {
     return pokemonEvolutionID_;
   }
+
+    const yap::String& PokemonInfo::GetIcon () const
+  { return icon_; }
+
+  const yap::String& PokemonInfo::GetMaleFront () const
+  { return maleFront_; }
+  const yap::String& PokemonInfo::GetMaleBack () const
+  { return maleBack_; }
+  const yap::String& PokemonInfo::GetShinyMaleFront () const
+  { return shinyMaleFront_; }
+  const yap::String& PokemonInfo::GetShinyMaleBack () const
+  { return shinyMaleBack_; }
+
+  const yap::String& PokemonInfo::GetFemaleFront () const
+  { return femaleFront_; }
+  const yap::String& PokemonInfo::GetFemaleBack () const
+  { return femaleBack_; }
+  const yap::String& PokemonInfo::GetShinyFemaleFront () const
+  { return shinyFemaleFront_; }
+  const yap::String& PokemonInfo::GetShinyFemaleBack () const
+  { return shinyFemaleBack_; }
+
+  /// Setters.
+
+  void PokemonInfo::SetID (const ID& id)
+  {
+    pokedexID_ = id;
+  }
+
+  void PokemonInfo::SetName (const String& name)
+  {
+    name_ = name;
+  }
+
+  void PokemonInfo::SetDescription (const String& description)
+  {
+    description_ = description;
+  }
+
+  void PokemonInfo::SetSpecies (const String& species)
+  {
+    species_ = species;
+  }
+
+  void PokemonInfo::SetGenderProbability (const float& value)
+  {
+    genderProbability_ = value;
+  }
+
+  void PokemonInfo::SetHeight (const float& value)
+  {
+    height_ = value;
+  }
+
+  void PokemonInfo::SetWeight (const float& value)
+  {
+    weight_ = value;
+  }
+
+  void PokemonInfo::SetExperience (const int& value)
+  {
+    experience_ = value;
+  }
+
+  void PokemonInfo::SetExperienceType (const ExperienceType& value)
+  {
+    experienceType_ = value;
+  }
+
+  void PokemonInfo::SetRarity (const int& value)
+  {
+    rarity_ = value;
+  }
+
+  void PokemonInfo::SetHitPoint (const int& value)
+  {
+    baseHitPoint_ = value;
+  }
+
+  void PokemonInfo::SetAttack (const int& value)
+  {
+    baseAttack_ = value;
+  }
+
+  void PokemonInfo::SetDefense (const int& value)
+  {
+    baseDefense_ = value;
+  }
+
+  void PokemonInfo::SetSpecialAttack (const int& value)
+  {
+    baseSpecialAttack_ = value;
+  }
+
+  void PokemonInfo::SetSpecialDefense (const int& value)
+  {
+    baseSpecialDefense_ = value;
+  }
+
+  void PokemonInfo::SetSpeed (const int& value)
+  {
+    baseSpeed_ = value;
+  }
+
+  void PokemonInfo::SetType1 (const int& value)
+  {
+    type1_ = value;
+  }
+
+  void PokemonInfo::SetType2 (const int& value)
+  {
+    type2_ = value;
+  }
+
+  void PokemonInfo::AddBaseSkill (const UInt16 level, const ID& skillID)
+  {
+    if (baseSkills_.Contains (level))
+      baseSkills_[level].Add (skillID);
+    else
+    {
+      collection::List<ID> skillList;
+      skillList.Add (skillID);
+      baseSkills_.Add (level, skillList);
+    }
+  }
+
+  void PokemonInfo::SetHitPointEV (const int& value)
+  {
+    hitPointEV_ = value;
+  }
+
+  void PokemonInfo::SetAttackEV (const int& value)
+  {
+    attackEV_ = value;
+  }
+
+  void PokemonInfo::SetDefenseEV (const int& value)
+  {
+    defenseEV_ = value;
+  }
+  void PokemonInfo::SetSpecialAttackEV (const int& value)
+  {
+    specialAttackEV_ = value;
+  }
+
+  void PokemonInfo::SetSpecialDefenseEV (const int& value)
+  {
+    specialDefenseEV_ = value;
+  }
+
+  void PokemonInfo::SetSpeedEV (const int& value)
+  {
+    speedEV_ = value;
+  }
+
+  void PokemonInfo::SetEvolutionLevel (UInt16 value)
+  {
+    evolutionLevel_ = value;
+  }
+
+  void PokemonInfo::SetPokemonEvolutionID (const ID& value)
+  {
+    pokemonEvolutionID_ = value;
+  }
+
+  void PokemonInfo::SetIcon (const yap::String& value)
+  { icon_ = value; }
+
+  void PokemonInfo::SetMaleFront (const yap::String& value)
+  { maleFront_ = value; }
+  void PokemonInfo::SetMaleBack (const yap::String& value)
+  { maleBack_ = value; }
+  void PokemonInfo::SetShinyMaleFront (const yap::String& value)
+  { shinyMaleFront_ = value; }
+  void PokemonInfo::SetShinyMaleBack (const yap::String& value)
+  { shinyMaleBack_ = value; }
+
+  void PokemonInfo::SetFemaleFront (const yap::String& value)
+  { femaleFront_ = value; }
+  void PokemonInfo::SetFemaleBack (const yap::String& value)
+  { femaleBack_ = value; }
+  void PokemonInfo::SetShinyFemaleFront (const yap::String& value)
+  { shinyFemaleFront_ = value; }
+  void PokemonInfo::SetShinyFemaleBack (const yap::String& value)
+  { shinyFemaleBack_ = value; }
 
   void PokemonInfo::PrintBaseStats ()
   {

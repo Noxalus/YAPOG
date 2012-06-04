@@ -16,16 +16,17 @@ namespace yap
     DISALLOW_COPY(PokemonInfoReader);
 
   public:
-    PokemonInfoReader (PokemonInfo& pokeInfo);
+    PokemonInfoReader (PokemonInfo& pokemonInfo);
     PokemonInfoReader (PokemonInfo& map, const String& xmlRootNodeName);
     virtual ~PokemonInfoReader ();
 
     virtual void Visit (XmlReader& visitable);
-  private:
-    void ParseEvolution ();
 
-    PokemonInfo& pokeInfo_;
+  protected:
     String xmlRootNodeName_;
+
+  private:
+    PokemonInfo& pokemonInfo_;
 
     static const String DEFAULT_XML_ROOT_NODE_NAME;
     static const String DEFAULT_XML_ID_NODE_NAME;
@@ -56,6 +57,13 @@ namespace yap
     static const String DEFAULT_XML_ITEM_HOLD_NODE_NAME;
     static const String DEFAULT_XML_EFFORT_VALUES_NODE_NAME;
     static const String DEFAULT_XML_GENDER_NODE_NAME;
+    static const String DEFAULT_XML_GRAPHICS_NODE_NAME;
+    static const String DEFAULT_XML_ICON_NODE_NAME;
+    static const String DEFAULT_XML_MALE_NODE_NAME;
+    static const String DEFAULT_XML_FEMALE_NODE_NAME;
+    static const String DEFAULT_XML_FRONT_NODE_NAME;
+    static const String DEFAULT_XML_BACK_NODE_NAME;
+    static const String DEFAULT_XML_SHINY_NODE_NAME;
   };
 } // namespace yap
 
