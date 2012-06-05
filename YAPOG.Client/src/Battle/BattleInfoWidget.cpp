@@ -11,33 +11,34 @@
 namespace ycl
 {
   BattleInfoWidget::BattleInfoWidget ()
-    : nameLabel_ ("Bulbizarre")
-    , levelLabel_ ("N.100")
-    , nameBox_ (
-    yap::Padding (5, 0, 0, 0), 
-    yap::Padding (0, 0, 0, 0),
-    false)
+    : nameLabel_ ("")
+    , levelLabel_ ("")
+    , nameBox_ ()
     , genderBox_ ()
-    , levelBox_ (
-    yap::Padding (0, 5, 0, 0),
-    yap::Padding (0, 0, 0, 0),
-    false)
+    , levelBox_ ()
     , hpBox_ ()
-    , battleInfoBox_ (
-    yap::Padding (10, 35, 0, 12), 
-    yap::Padding (0, 0, 7, 0), 
-    false)
+    , battleInfoBox_ ()
     , hpBarPictureBox_ (new yap::PictureBox ())
+    , hpBarContent_ (new yap::PictureBox ())
     , genderPictureBox_ (new yap::PictureBox ())
   {
     nameLabel_.ChangeColor (sf::Color::Black);
     levelLabel_.ChangeColor (sf::Color::Black);
 
+    hpBarContent_->SetSize (yap::Vector2 (
+      145.f,
+      hpBarContent_->GetSize ().y));
+
+    hpBarContent_->ChangeColor (sf::Color (110, 250, 170));
+
+    nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     /*
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
-    nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+
+    levelBox_.SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
     hpBox_.SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
-    genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+
     levelBox_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     */
 
@@ -52,5 +53,25 @@ namespace ycl
   void BattleInfoWidget::SetLevel (int value)
   {
     levelLabel_.SetText ("N." + yap::StringHelper::ToString (value));
+  }
+
+  void BattleInfoWidget::SetGender (const yap::Gender& value)
+  {
+    switch (value)
+    {
+    case yap::Gender::Female:
+      genderPictureBox_->SetPicture ("Pictures/Battle/FemaleIcon.png");
+      break;
+    case yap::Gender::Male:
+      genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
+      break;
+    default:
+      genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
+      break;
+    }
+  }
+
+  void BattleInfoWidget::HandleDraw (yap::IDrawingContext& context)
+  {
   }
 }

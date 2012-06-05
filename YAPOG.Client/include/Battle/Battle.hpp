@@ -45,6 +45,7 @@ namespace ycl
     const yap::Vector2& GetPlayerGroundPosition () const;
     const yap::Vector2& GetOpponentGroundPosition () const;
     const yap::Vector2& GetOpponentInfoPosition () const;
+    const yap::Vector2& GetPokemonInfoPosition () const;
     IDrawableBattleEntity& GetPlayerTeam ();
     IDrawableBattleEntity& GetOpponent ();
     /// @}
@@ -85,6 +86,7 @@ namespace ycl
     yap::Vector2 playerGroundPosition_;
     yap::Vector2 opponentGroundPosition_;
     yap::Vector2 opponentInfoPosition_;
+    yap::Vector2 pokemonInfoPosition_;
 
     // Fighters
     IDrawableBattleEntity* playerTeam_;

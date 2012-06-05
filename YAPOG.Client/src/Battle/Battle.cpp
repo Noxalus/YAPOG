@@ -5,6 +5,7 @@
 
 #include "Battle/BattleInterface.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
+#include "Battle/PokemonBattleInfoWidget.hpp"
 #include "Battle/IDrawableBattleEntity.hpp"
 #include "Battle/PokemonFighter.hpp"
 #include "Battle/PokemonFighterTeam.hpp"
@@ -30,6 +31,7 @@ namespace ycl
     , playerGroundPosition_ ()
     , opponentGroundPosition_ ()
     , opponentInfoPosition_ ()
+    , pokemonInfoPosition_ ()
     , playerTeam_ (nullptr)
     , opponent_ (nullptr)
   {
@@ -78,8 +80,11 @@ namespace ycl
       opponentGroundPosition_.y - 
       1.5f * battleInterface_.GetOpponentInfoWidget ().GetSize ().y);
 
-    // @TODO Remove
-    playerTeam_->Show (false);
+    pokemonInfoPosition_ = yap::Vector2 (
+      playerGroundPosition_.x + 
+      playerGround_->GetSize ().x,
+      playerGroundPosition_.y - 
+      battleInterface_.GetPokemonInfoWidget ().GetSize ().y);
   }
 
   /// Getters
@@ -103,6 +108,9 @@ namespace ycl
 
   const yap::Vector2& Battle::GetOpponentInfoPosition () const
   { return opponentInfoPosition_; }
+
+  const yap::Vector2& Battle::GetPokemonInfoPosition () const
+  { return pokemonInfoPosition_; }
 
   IDrawableBattleEntity& Battle::GetPlayerTeam ()
   { return *playerTeam_; }

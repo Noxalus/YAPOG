@@ -32,7 +32,8 @@ namespace ycl
 
     battleInfoDialogBox_->SetPadding (yap::Padding (35, 35, 25, 25));
     battleInfoDialogBox_->SetBackground (
-      *(new yap::WidgetBackground ("WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
+      *(new yap::WidgetBackground (
+      "WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
 
     battleInfoDialogBox_->ChangeColor (sf::Color::White);
 
@@ -44,13 +45,10 @@ namespace ycl
     this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
 
-    opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
-    pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
+    //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
+    //pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
 
     this->AddChild (*battleInfoDialogBox_);
-
-    // @TODO Remove
-    pokemonInfoWidget_->Show (false);
   }
 
   /// Getters

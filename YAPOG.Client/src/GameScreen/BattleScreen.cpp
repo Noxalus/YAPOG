@@ -43,14 +43,17 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    PokemonTeam team;
-    team.AddPokemon (new Pokemon (yap::ID (2), 42, false));
-    team.AddPokemon (new Pokemon (yap::ID (16), 32, true));
+    PokemonTeam* team = new PokemonTeam ();
+    team->AddPokemon (new Pokemon (yap::ID (2), 42, false));
+    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
-    PokemonFighter* wildPokemon = new PokemonFighter (GeneratePokemon ());
+    PokemonFighter* wildPokemon = 
+      new PokemonFighter (GeneratePokemon (), true);
     PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
-    playerFighterTeam->AddPokemon (new PokemonFighter (team.GetPokemon(0)));
-    playerFighterTeam->AddPokemon (new PokemonFighter (team.GetPokemon(1)));
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (0), false));
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (1), false));
 
     battleInterface_ = new BattleInterface ();
 

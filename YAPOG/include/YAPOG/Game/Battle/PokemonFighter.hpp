@@ -26,6 +26,7 @@ namespace yap
     /// @{
     virtual const String& GetName () const;
     virtual const UInt16& GetLevel () const;
+    virtual const Gender& GetGender () const;
     virtual Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 
@@ -34,7 +35,6 @@ namespace yap
 
     /// @brief Specifics to the Original Pokemon
     /// {
-    const Gender& GetGender () const;
     UInt16 GetCurrentHP () const;
     UInt16 GetMaxHP () const;
     const collection::Array<PokemonSkill*>& GetMoves () const;

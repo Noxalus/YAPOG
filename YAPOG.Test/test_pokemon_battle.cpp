@@ -15,7 +15,6 @@
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-#include "YAPOG/Game/Battle/WildBattle.hpp"
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
@@ -68,6 +67,7 @@ int main ()
 
   try
   {
+    /*
     PokemonFighter wildPokemon (GeneratePokemon ());
     PokemonFighterTeam playerFighterTeam;
     playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon (0)));
@@ -83,7 +83,7 @@ int main ()
     wildBattle.Init ();
 
     while (42) wildBattle.Update (Time ());
-
+    */
     getchar ();
   }
   catch (const yap::Exception& e)

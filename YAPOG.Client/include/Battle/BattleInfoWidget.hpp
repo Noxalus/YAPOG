@@ -5,6 +5,8 @@
 # include "YAPOG/Graphics/Gui/Label.hpp"
 # include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+# include "YAPOG/Graphics/Texture.hpp"
+# include "YAPOG/Game/Pokemon/Gender.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
 
@@ -22,8 +24,11 @@ namespace ycl
   public:
     BattleInfoWidget ();
 
-    virtual void SetName (const yap::String& value);
-    virtual void SetLevel (int value);
+    void SetName (const yap::String& value);
+    void SetLevel (int value);
+    void SetGender (const yap::Gender& value);
+
+    virtual void HandleDraw (yap::IDrawingContext& context);
 
   protected:
     /// @name Labels.
@@ -41,9 +46,17 @@ namespace ycl
     yap::VerticalLayout battleInfoBox_;
     /// @}
 
+    /// @name Textures.
+    /// @{
+    //yap::Texture HPBarContent_;
+    /// @}
+    
+    /// @name Picture boxes.
+    /// @{
     yap::PictureBox* hpBarPictureBox_;
+    yap::PictureBox* hpBarContent_;
     yap::PictureBox* genderPictureBox_;
-
+    /// @}
   };
 } // namespace ycl
 
