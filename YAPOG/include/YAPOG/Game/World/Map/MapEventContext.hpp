@@ -5,6 +5,7 @@
 
 namespace yap
 {
+  class DynamicWorldObject;
   class ICollidable;
   class MapEventInfo;
 
@@ -17,16 +18,19 @@ namespace yap
     public:
 
       MapEventContext (
-        const ICollidable& triggerCollidable,
-        const MapEventInfo& mapEventInfo);
+        DynamicWorldObject& trigger,
+        ICollidable& triggerCollidable,
+        MapEventInfo& mapEventInfo);
 
-      const ICollidable& GetTriggerCollidable () const;
-      const MapEventInfo& GetMapEventInfo () const;
+      DynamicWorldObject& GetTrigger ();
+      ICollidable& GetTriggerCollidable ();
+      MapEventInfo& GetMapEventInfo ();
 
     private:
 
-      const ICollidable& triggerCollidable_;
-      const MapEventInfo& mapEventInfo_;
+      DynamicWorldObject& trigger_;
+      ICollidable& triggerCollidable_;
+      MapEventInfo& mapEventInfo_;
   };
 } // namespace yap
 

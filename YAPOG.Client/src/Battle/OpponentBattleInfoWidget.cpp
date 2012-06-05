@@ -17,7 +17,7 @@ namespace ycl
     horizontalLayout_.SetSize (yap::Vector2 (200.f, 50.f));
     verticalLayout_.SetSize (yap::Vector2 (300.f, 84.f));
 
-    yap::WidgetBackground* background = 
+    yap::WidgetBackground* background =
       new yap::WidgetBackground ("Pictures/opponent_battle_info.png", false);
 
     verticalLayout_.SetBackground (*background);

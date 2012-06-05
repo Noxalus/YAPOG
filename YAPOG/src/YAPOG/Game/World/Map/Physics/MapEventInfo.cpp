@@ -3,26 +3,26 @@
 namespace yap
 {
   MapEventInfo::MapEventInfo (
-    const ICollidable& sourceCollidable,
-    const MapEvent& event,
-    const DynamicWorldObject& parent)
+    ICollidable& sourceCollidable,
+    MapEvent& event,
+    DynamicWorldObject& parent)
     : sourceCollidable_ (sourceCollidable)
     , event_ (event)
     , parent_ (parent)
   {
   }
 
-  const ICollidable& MapEventInfo::GetSourceCollidable () const
+  ICollidable& MapEventInfo::GetSourceCollidable ()
   {
     return sourceCollidable_;
   }
 
-  const MapEvent& MapEventInfo::GetEvent () const
+  MapEvent& MapEventInfo::GetEvent ()
   {
     return event_;
   }
 
-  const DynamicWorldObject& MapEventInfo::GetParent () const
+  DynamicWorldObject& MapEventInfo::GetParent ()
   {
     return parent_;
   }

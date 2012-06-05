@@ -21,19 +21,19 @@ namespace yap
       typedef std::shared_ptr<MapEventInfo> PtrType;
 
       MapEventInfo (
-        const ICollidable& sourceCollidable,
-        const MapEvent& event,
-        const DynamicWorldObject& parent);
+        ICollidable& sourceCollidable,
+        MapEvent& event,
+        DynamicWorldObject& parent);
 
-      const ICollidable& GetSourceCollidable () const;
-      const MapEvent& GetEvent () const;
-      const DynamicWorldObject& GetParent () const;
+      ICollidable& GetSourceCollidable ();
+      MapEvent& GetEvent ();
+      DynamicWorldObject& GetParent ();
 
     private:
 
-      const ICollidable& sourceCollidable_;
-      const MapEvent& event_;
-      const DynamicWorldObject& parent_;
+      ICollidable& sourceCollidable_;
+      MapEvent& event_;
+      DynamicWorldObject& parent_;
   };
 } // namespace yap
 

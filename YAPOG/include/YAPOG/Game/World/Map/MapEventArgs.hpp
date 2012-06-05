@@ -7,10 +7,10 @@ namespace yap
 {
   struct ICollidable;
 
+  class Time;
   class DynamicWorldObject;
   class MapEventInfo;
 
-  /// @todo
   class MapEventArgs
   {
       DISALLOW_COPY(MapEventArgs);
@@ -18,23 +18,26 @@ namespace yap
     public:
 
       MapEventArgs (
-        const ICollidable& sourceCollidable,
-        const ICollidable& triggerCollidable,
-        const DynamicWorldObject& source,
-        const DynamicWorldObject& trigger,
-        const MapEventInfo& context);
+        const Time& dt,
+        DynamicWorldObject& trigger,
+        ICollidable& triggerCollidable,
+        MapEventInfo& mapContext);
+
+      const Time& GetDt () const;
+
+      DynamicWorldObject& GetTrigger ();
+      ICollidable& GetTriggerCollidable ();
+
+      MapEventInfo& GetMapContext ();
 
     private:
 
-      /// @warning Temporary constness.
+      const Time& dt_;
 
-      const ICollidable& sourceCollidable_;
-      const ICollidable& triggerCollidable_;
+      DynamicWorldObject& trigger_;
+      ICollidable& triggerCollidable_;
 
-      const DynamicWorldObject& source_;
-      const DynamicWorldObject& trigger_;
-
-      const MapEventInfo& context_;
+      MapEventInfo& mapContext_;
   };
 } // namespace yap
 

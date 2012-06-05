@@ -40,7 +40,7 @@ namespace yap
         const Vector2& offset) const = 0;
 
       virtual void GetEventsCollidingWithObject (
-        const DynamicWorldObject& object,
+        DynamicWorldObject& object,
         MapEventQueue& events) const = 0;
 
     protected:

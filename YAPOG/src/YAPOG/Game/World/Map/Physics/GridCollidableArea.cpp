@@ -68,7 +68,7 @@ namespace yap
   }
 
   void GridCollidableArea::GetEventsCollidingWithObject (
-    const DynamicWorldObject& object,
+    DynamicWorldObject& object,
     MapEventQueue& events) const
   {
     UIntRect objectRect;

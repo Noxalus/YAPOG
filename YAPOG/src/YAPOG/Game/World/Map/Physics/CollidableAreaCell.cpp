@@ -56,7 +56,7 @@ namespace yap
   }
 
   void CollidableAreaCell::GetEventsCollidingWithObject (
-    const DynamicWorldObject& object,
+    DynamicWorldObject& object,
     MapEventQueue& events) const
   {
     for (auto& it : eventCollidables_)
@@ -68,7 +68,7 @@ namespace yap
       }
 
       if (object.TriggerCollidesWith (*it.first))
-        events.AddEvent (new MapEventContext (*it.first, *it.second));
+        events.AddEvent (new MapEventContext (object, *it.first, *it.second));
     }
   }
 

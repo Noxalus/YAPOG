@@ -96,6 +96,9 @@ namespace yap
       virtual void HandleSetState (const String& state);
 
       virtual void HandleMove (const Vector2& offset);
+      virtual void HandleScale (const Vector2& factor);
+      virtual void HandleSetZ (int z);
+      virtual void HandleSetH (int h);
 
       virtual void HandleOnVelocityChanged (
         const Vector2& oldVelocity,

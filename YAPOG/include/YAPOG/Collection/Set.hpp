@@ -40,13 +40,13 @@ namespace yap
         ItType End ();
         ConstItType End () const;
 
-        void Add (const T& data);
+        bool Add (const T& data);
         void Add (const Set<T, C>& data);
 
         bool Contains (const T& data) const;
         bool Contains (const Set<T, C>& data) const;
 
-        void Remove (const T& data);
+        bool Remove (const T& data);
 
         void Clear ();
 

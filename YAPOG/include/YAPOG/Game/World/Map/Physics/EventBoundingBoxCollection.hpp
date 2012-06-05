@@ -28,7 +28,7 @@ namespace yap
       void RemoveEventBoundingBox (BoundingBox* boundingBox);
 
       void SetCollidableArea (
-        const DynamicWorldObject& parent,
+        DynamicWorldObject& parent,
         CollidableArea* collidableArea);
 
     private:
@@ -38,7 +38,7 @@ namespace yap
       virtual void HandleRemoveBoundingBoxFromCollidableArea (
         BoundingBox* boundingBox);
 
-      const DynamicWorldObject* parent_;
+      DynamicWorldObject* parent_;
 
       collection::Map<BoundingBox*, MapEvent*> eventBoundingBoxes_;
   };

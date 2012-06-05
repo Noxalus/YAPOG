@@ -236,6 +236,33 @@ namespace yap
   void DynamicWorldObject::HandleMove (const Vector2& offset)
   {
     WorldObject::HandleMove (offset);
+
+    triggerBoundingBoxes_.Move (offset);
+    sourceBoundingBoxes_.Move (offset);
+  }
+
+  void DynamicWorldObject::HandleScale (const Vector2& factor)
+  {
+    WorldObject::HandleScale (factor);
+
+    triggerBoundingBoxes_.Scale (factor);
+    sourceBoundingBoxes_.Scale (factor);
+  }
+
+  void DynamicWorldObject::HandleSetZ (int z)
+  {
+    WorldObject::HandleSetZ (z);
+
+    triggerBoundingBoxes_.SetZ (z);
+    sourceBoundingBoxes_.SetZ (z);
+  }
+
+  void DynamicWorldObject::HandleSetH (int h)
+  {
+    WorldObject::HandleSetH (h);
+
+    triggerBoundingBoxes_.SetH (h);
+    sourceBoundingBoxes_.SetH (h);
   }
 
   void DynamicWorldObject::HandleOnVelocityChanged (

@@ -93,10 +93,14 @@ ${inc_root}/Game/World/Map/MapEventArgs.hpp
 ${src_root}/Game/World/Map/MapEventArgs.cpp
 ${inc_root}/Game/World/Map/MapEventContext.hpp
 ${src_root}/Game/World/Map/MapEventContext.cpp
+${inc_root}/Game/World/Map/MapEventContextTriggerComparator.hpp
+${src_root}/Game/World/Map/MapEventContextTriggerComparator.cpp
 ${inc_root}/Game/World/Map/MapEventManager.hpp
 ${src_root}/Game/World/Map/MapEventManager.cpp
 ${inc_root}/Game/World/Map/MapEventQueue.hpp
 ${src_root}/Game/World/Map/MapEventQueue.cpp
+${inc_root}/Game/World/Map/AnyMapEventAction.hpp
+${src_root}/Game/World/Map/AnyMapEventAction.cpp
 ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp
 ${src_root}/Game/World/Map/Physics/MapEventInfo.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp

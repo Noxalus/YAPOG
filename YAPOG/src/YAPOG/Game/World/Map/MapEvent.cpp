@@ -57,6 +57,11 @@ namespace yap
     return new MapEvent (*this);
   }
 
+  const MapEvent::Type& MapEvent::GetType () const
+  {
+    return type_;
+  }
+
   bool MapEvent::Call (MapEventArgs& args)
   {
     for (IMapEventCondition* condition : conditions_)
@@ -108,6 +113,15 @@ namespace yap
   {
     for (BoundingBox* boundingBox : boundingBoxes_)
       eventBoundingBoxCollection.RemoveEventBoundingBox (boundingBox);
+  }
+
+  bool MapEvent::CollidesWith (const ICollidable& collidable) const
+  {
+    for (BoundingBox* boundingBox : boundingBoxes_)
+      if (boundingBox->CollidesWith (collidable))
+        return true;
+
+    return false;
   }
 
   bool MapEvent::HandleCall (MapEventArgs& args)

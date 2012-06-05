@@ -42,7 +42,7 @@ namespace yap
   }
 
   void EventBoundingBoxCollection::SetCollidableArea (
-    const DynamicWorldObject& parent,
+    DynamicWorldObject& parent,
     CollidableArea* collidableArea)
   {
     parent_ = &parent;

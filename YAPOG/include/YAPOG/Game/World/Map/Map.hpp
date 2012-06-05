@@ -10,6 +10,7 @@
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/Game/World/Map/DynamicWorldObjectCollection.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Game/World/Map/MapEventManager.hpp"
 
 namespace yap
 {
@@ -49,6 +50,8 @@ namespace yap
       void AddDynamicObject (DynamicWorldObject* object);
       void RemoveStaticObject (StaticWorldObject* object);
       void RemoveDynamicObject (DynamicWorldObject* object);
+
+      /// @MapEvent methods HERE TMP to remove.
 
       /// @name IUpdateable members.
       /// @{
@@ -110,6 +113,8 @@ namespace yap
       collection::List<IUpdateable*> updateables_;
 
       CollidableArea* collidableArea_;
+
+      MapEventManager eventManager_;
   };
 } // namespace yap
 

@@ -3,19 +3,26 @@
 namespace yap
 {
   MapEventContext::MapEventContext (
-    const ICollidable& triggerCollidable,
-    const MapEventInfo& mapEventInfo)
-    : triggerCollidable_ (triggerCollidable)
+    DynamicWorldObject& trigger,
+    ICollidable& triggerCollidable,
+    MapEventInfo& mapEventInfo)
+    : trigger_ (trigger)
+    , triggerCollidable_ (triggerCollidable)
     , mapEventInfo_ (mapEventInfo)
   {
   }
 
-  const ICollidable& MapEventContext::GetTriggerCollidable () const
+  DynamicWorldObject& MapEventContext::GetTrigger ()
+  {
+    return trigger_;
+  }
+
+  ICollidable& MapEventContext::GetTriggerCollidable ()
   {
     return triggerCollidable_;
   }
 
-  const MapEventInfo& MapEventContext::GetMapEventInfo () const
+  MapEventInfo& MapEventContext::GetMapEventInfo ()
   {
     return mapEventInfo_;
   }

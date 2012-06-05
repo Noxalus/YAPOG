@@ -26,7 +26,7 @@ namespace yap
         const Vector2& offset) const;
 
       virtual void GetEventsCollidingWithObject (
-        const DynamicWorldObject& object,
+        DynamicWorldObject& object,
         MapEventQueue& events) const;
 
     protected:

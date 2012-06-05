@@ -38,7 +38,7 @@ namespace yap
         const Vector2& offset) const;
 
       void GetEventsCollidingWithObject (
-        const DynamicWorldObject& object,
+        DynamicWorldObject& object,
         MapEventQueue& events) const;
 
       void Clear ();

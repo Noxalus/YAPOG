@@ -5,6 +5,8 @@
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Collection/Set.hpp"
+# include "YAPOG/Game/World/Map/MapEventContextTriggerComparator.hpp"
+# include "YAPOG/Game/World/Map/MapEvent.hpp"
 
 namespace yap
 {
@@ -13,9 +15,20 @@ namespace yap
   class BoundingBox;
   class CollidableArea;
 
+  /// @todo
   class MapEventManager : public IUpdateable
   {
       DISALLOW_COPY(MapEventManager);
+
+      typedef collection::Map<
+        MapEvent*,
+        collection::Set<
+          MapEventContext*,
+          MapEventContextTriggerComparator>> EventTriggeringType;
+      /// Map<Object, Map<Source Event, Set<Event context (Trigger...)>>>
+      typedef collection::Map<
+        const DynamicWorldObject*,
+        EventTriggeringType> ObjectEventsType;
 
     public:
 
@@ -31,19 +44,36 @@ namespace yap
 
     private:
 
-      void AddEvent (const DynamicWorldObject* object, MapEventContext* args);
+      void AddObjectEntry (const DynamicWorldObject* object);
+      void RemoveObjectEntry (const DynamicWorldObject* object);
 
-      void UpdateObject (const Time& dt, const DynamicWorldObject& object);
+      void AddEventEntry (
+        EventTriggeringType& events,
+        MapEvent* event);
+      void RemoveEventEntry (
+        EventTriggeringType& events,
+        MapEvent* event);
+
+      bool AddEventEntry (
+        const DynamicWorldObject* object,
+        MapEvent* event,
+        MapEventContext* eventContext);
+      bool RemoveEventEntry (
+        const DynamicWorldObject* object,
+        MapEvent* event,
+        MapEventContext* eventContext);
+
+      void UpdateObject (const Time& dt, DynamicWorldObject& object);
 
       void UpdateObjectOut (const Time& dt, const DynamicWorldObject& object);
-      void UpdateObjectIn (const Time& dt, const DynamicWorldObject& object);
+      void UpdateObjectIn (const Time& dt, DynamicWorldObject& object);
 
-      /// Map<Object, Map<Source bounding box, Set<Event context>>>
-      collection::Map<
-        const DynamicWorldObject*,
-        collection::Map<
-          BoundingBox*,
-          collection::Set<MapEventContext*>>> events_;
+      bool CallEvent (
+        MapEvent::Type type,
+        const Time& dt,
+        MapEventContext& eventContext);
+
+      ObjectEventsType events_;
 
       CollidableArea* collidableArea_;
   };

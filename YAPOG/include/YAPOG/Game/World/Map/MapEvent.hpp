@@ -14,6 +14,7 @@ namespace yap
   class BoundingBox;
   class MapEventArgs;
   class EventBoundingBoxCollection;
+  class ICollidable;
 
   class MapEvent : ICloneable
   {
@@ -32,6 +33,8 @@ namespace yap
       explicit MapEvent (Type type);
       virtual ~MapEvent ();
 
+      const Type& GetType () const;
+
       bool Call (MapEventArgs& args);
 
       void AddBoundingBox (BoundingBox* boundingBox);
@@ -46,6 +49,8 @@ namespace yap
         EventBoundingBoxCollection& eventBoundingBoxCollection);
       void RemoveFromEventBoundingBoxCollection (
         EventBoundingBoxCollection& eventBoundingBoxCollection);
+
+      bool CollidesWith (const ICollidable& collidable) const;
 
       /// @name ICloneable members.
       /// @{

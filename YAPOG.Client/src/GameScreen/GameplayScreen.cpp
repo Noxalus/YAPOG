@@ -13,8 +13,10 @@
 
 /// @warning Tests.
 /// @todo Remove from here.
+#include "YAPOG/Game/World/Map/MapEvent.hpp"
+#include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
 #include "World/Map/NPC.hpp"
-
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -168,8 +170,20 @@ namespace ycl
     npc1_->Move (yap::Vector2 (260.0f, 180.0f));
     map.AddNPC (npc1_);
 
-//    yap::MapEvent* event = new yap::MapEvent ();
-//    npc1_->AddEvent (
+    yap::MapEvent* event = new yap::MapEvent (yap::MapEvent::Type::In);
+    event->AddBoundingBox (
+      new yap::BoundingBox (
+        yap::Vector2 (-200, -200), yap::Vector2 (400, 400), 0, 1));
+    event->AddAction (
+      new yap::AnyMapEventAction (
+        [this] (yap::MapEventArgs& args)
+        {
+          logger_.LogLine ("EVENT");
+
+          return true;
+        }));
+
+    npc1_->AddEvent (event);
   }
 
   void GameplayScreen::SetPlayer (Player* player)
