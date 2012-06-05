@@ -24,44 +24,44 @@ namespace yap
     Chat (String b);
     ~Chat ();
 
-    // Parse chat line
-    void              Parse ();
-    // Execute the line
-    void              Exec ();
+    // Parse chat line - Return a string if arrow up/down is pushed
+    String                  Parse ();
+    // Execute the line - Return chan number and a string to display
+    ResponseType            Exec ();
 
     // Getter & Setter for buffer_
-    //BufferType			GetBuf();
-    void              SetBuf (String b);
+    void                    SetBuf (String b);
 
     // Chat History
-    String            GetUpHistory ();
-    String            GetDownHistory ();
-    String            GetStringHistory ();
-    BufferType        GetBufHistory ();
-    BufferType        GetHistory ();
-    bool              ChangeChan (ChatDisplayer& display);
+    std::pair<bool, String> GetUpHistory ();
+    std::pair<bool, String> GetDownHistory ();
+    String                  GetStringHistory ();
+    BufferType              GetBufHistory ();
+    BufferType              GetHistory ();
+    bool                    ChangeChan (ChatDisplayer& display);
 
-    String            GetTabName (UInt32 TabNb);
-    UInt32            GetTabCount ();
+    String                  GetTabName (UInt32 TabNb);
+    UInt32                  GetTabCount ();
+    UInt32                  GetTabNb ();
 
   private:
-    void              IncOff ();
+    void                    IncOff ();
     // Check if the user's entry is a command
-    bool					  	Check ();
+    bool					  	      Check ();
     // Execute Echo
-    void              ToEcho (String s);
+    void                    ToEcho (String s);
     // Test History
-    bool              TestHistoryChecker ();
+    std::pair<bool, String> TestHistoryChecker ();
 
-    ChatManagerType*  chatmanager_;
-    ChatCommand*      chatcommand_;
-    size_t            offset_;
-    UInt32            index_;
-    Int32             chan_;
-    String					  entry_;
-    String					  output_;
-    BufferType			  buffer_;
-    BufferType        history_;
+    ChatManagerType*        chatmanager_;
+    ChatCommand*            chatcommand_;
+    size_t                  offset_;
+    UInt32                  index_;
+    Int32                   chan_;
+    String					        entry_;
+    String					        output_;
+    BufferType			        buffer_;
+    BufferType              history_;
   };
 } // namespace yap
 

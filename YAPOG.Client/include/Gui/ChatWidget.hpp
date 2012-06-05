@@ -23,6 +23,9 @@ namespace yap
 namespace ycl
 {
   typedef yap::collection::Array<yap::Label*> TabTitleType;
+  typedef 
+    yap::collection::Array<
+    std::pair<yap::UInt32, yap::String>>      ResponseType;
   class ChatWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(ChatWidget);
@@ -30,7 +33,7 @@ namespace ycl
   public:
     ChatWidget ();
     virtual                 ~ChatWidget();
-    
+
     void                    Init ();
     virtual bool            IsFocusable () const;
 
@@ -51,6 +54,7 @@ namespace ycl
     void                    InitTab ();
     void                    InitDial ();
     void                    InitEntry ();
+    void                    DisplayResponse (ResponseType response);
 
     yap::Chat*              chat_;
     yap::String             line_;

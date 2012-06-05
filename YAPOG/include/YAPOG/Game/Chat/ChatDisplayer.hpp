@@ -17,6 +17,8 @@ namespace yap
   typedef collection::Array<CMType*>        ChansType;
   typedef std::pair <CMType*, String>       ChanOutputType;
   typedef collection::Array<ChanOutputType> ChanBufType;
+  typedef collection::Array<
+    std::pair<UInt32, String>>              ResponseType;
 
   class YAPOG_LIB ChatDisplayer
   {
@@ -25,23 +27,25 @@ namespace yap
 
     ChatDisplayer ();
     ChatDisplayer (String name, UInt32 c);
-    //ChatDisplayer (ChansBoolType chanbooltab);
     ChatDisplayer (String name, bool* chanbooltab);
     ~ChatDisplayer ();
 
     UInt32          GetChanNb ();
     void            AddToChan (Int32 c, BufferType b);
-    String          GetLastStrChan (UInt32 c);
+    String          GetLastStrChan ();
     void            AddChan (UInt32 c);
     void            RmChan (UInt32 c);
     void            DisplayChanOn ();
-    void			    	DisplayChan ();
-    void		    		Display ();
+    ResponseType  	DisplayTab (ChatDisplayer* cd);
+    ResponseType		Display ();
 
     String          GetName ();
     ChanBufType     GetBuff ();
   private:
     void	  			  MyDisplay (size_t index, size_t last);
+    void	  			  MyDisplayAdder (size_t index,
+      size_t last,
+      ResponseType* rt);
 
     String          name_;
     size_t          offset_;

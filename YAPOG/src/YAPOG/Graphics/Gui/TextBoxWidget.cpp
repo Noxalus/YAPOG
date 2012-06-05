@@ -84,7 +84,7 @@ namespace yap
     if (curser_ != nullptr)
     {
       curser_->SetPosition (label_->CharPos (
-        label_->Length () - curserRelPos_) - Vector2 (0, -2));
+        label_->Length () - curserRelPos_) - Vector2 (2, -2));
       curser_->Draw (context);
     }
   }

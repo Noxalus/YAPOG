@@ -263,7 +263,7 @@ namespace yap
         buf >> tmp;
         if (tmp >= 0 && tmp < cd->GetChanNb ())
         {
-          (*channb) = tmp;
+          (*channb) = 0;
           cm->ChanNb = tmp;
           b->RemoveBack ();
         }
@@ -344,7 +344,7 @@ namespace yap
     return bt;
   }
 
-  void  						  ChatCommand::ExecCmd (ChatManagerType* cm)
+  ResponseType			  ChatCommand::ExecCmd (ChatManagerType* cm)
   {
     BufferType bt;
 
@@ -364,18 +364,17 @@ namespace yap
     {
       for (UInt32 i = 0; i < cm->Count; i++)
         cm->Cd[i]->AddToChan (response.second.first, response.second.second);
-      cd->Display ();
+
+      // Switch Tab detected.
       if (response.first.second == 0)
-        cm->Cd[cm->TabNb]->DisplayChan ();
+      {
+        SetCommand (&ChatCommand::Unknown);
+        return cm->Cd[cm->TabNb]->DisplayTab (cm->Cd[0]);
+      }
     }
     else
-    {
       cd->AddToChan (0, bt);
-      cd->Display ();
-    }
-
-    // Re-init command line
     SetCommand (&ChatCommand::Unknown);
-    cm->Request.Clear ();
+    return cd->Display ();
   }
 } // namespace yap

@@ -23,7 +23,7 @@ namespace ycl
     yap::Padding (5, 5, 5, 5), false))
   {
     yap::Texture* cursor = new yap::Texture ();
-    cursor->LoadFromFile ("chatSet/Cursor.png");
+    cursor->LoadFromFile ("WindowSkins/BasicSkin/Global/TextCursor.png");
     bigLayout_->SetSize (yap::Vector2 (300, 150));
     lineCatcher_->ChangeColor (sf::Color::Black);
     lineCatcher_->SetCursor (*cursor);
@@ -121,11 +121,12 @@ namespace ycl
     InitDial ();
     InitEntry ();
 
+    //tabTitle[chat_->GetTabNb ()]
+
     AddChild (*bigLayout_);
     bigLayout_->SetBackground (*chatBground);
     bigLayout_->SetBorder (*chatBorder);
     bigLayout_->SetPosition (yap::Vector2 (42, 242));
-    int toto = bigLayout_->GetPosition ().x;
   }
 
   bool ChatWidget::IsFocusable () const
@@ -138,21 +139,70 @@ namespace ycl
     return yap::Vector2 (300, 150);
   }
 
+  void         ChatWidget::DisplayResponse (ResponseType response)
+  {
+    for (size_t i = 0; i < response.Count (); i++)
+    {
+      switch (response[i].first)
+      {
+      case 1:
+        dialog_->ChangeColor (sf::Color::Black);
+        break;
+      case 2:
+        dialog_->ChangeColor (sf::Color::Green);
+        break;
+      case 3:
+        dialog_->ChangeColor (sf::Color::Blue);
+        break;
+      case 4:
+        dialog_->ChangeColor (sf::Color (128, 128, 0));
+        break;
+      case 5:
+        dialog_->ChangeColor (sf::Color::Magenta);
+        break;
+      default:
+        dialog_->ChangeColor (sf::Color::Red);
+        break;
+      }
+      dialog_->SetText (response[i].second);
+    }
+  }
+
   bool         ChatWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
+        ResponseType response;
         yap::String todisplay = lineCatcher_->GetContent ();
         if (todisplay.compare ("exit") == 0)
           exit (EXIT_SUCCESS);
         chat_->SetBuf (todisplay);
         chat_->Parse ();
-        chat_->Exec ();
-        dialog_->SetText (todisplay);
+        response = chat_->Exec ();
+        if (!response.IsEmpty ())
+          DisplayResponse (response);
         lineCatcher_->Clear ();
       }
+      if (guiEvent.key.code == sf::Keyboard::Up)
+      {
+        chat_->SetBuf ("/up");
+        yap::String todisplay = chat_->Parse ();
+        lineCatcher_->Clear ();
+        if (!todisplay.empty ())
+          lineCatcher_->SetText (todisplay);
+      }
+      if (guiEvent.key.code == sf::Keyboard::Down)
+      {
+        chat_->SetBuf ("/down");
+        yap::String todisplay = chat_->Parse ();
+        lineCatcher_->Clear ();
+        if (!todisplay.empty ())
+          lineCatcher_->SetText (todisplay);
+      }
+
+      return true;
     }
     return false;
   }

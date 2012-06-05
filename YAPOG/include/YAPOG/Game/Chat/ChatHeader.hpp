@@ -21,6 +21,9 @@ namespace yap
   typedef std::pair<
     std::pair<bool, UInt32>,
     std::pair<UInt32, BufferType>>    DisplayType;
+  
+  typedef collection::Array<
+    std::pair<UInt32, String>>        ResponseType;
   typedef DisplayType                 (ChatCommand::*func) (BufferType b);
 } // namespace yap
 
