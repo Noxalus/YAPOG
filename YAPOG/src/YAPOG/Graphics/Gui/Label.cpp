@@ -18,7 +18,7 @@ namespace yap
   {
     drawableText_.setFont 
       (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
-    drawableText_.setColor (sf::Color (127, 127, 127));
+    drawableText_.setColor (sf::Color (255, 255, 255));
   }
 
   Label::Label (String content)

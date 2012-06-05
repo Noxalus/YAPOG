@@ -13,34 +13,32 @@ namespace ycl
   BattleInfoWidget::BattleInfoWidget ()
     : nameLabel_ ("")
     , levelLabel_ ("")
-    , nameBox_ (
-    yap::Padding (5, 0, 0, 0), 
-    yap::Padding (0, 0, 0, 0),
-    false)
+    , nameBox_ ()
     , genderBox_ ()
-    , levelBox_ (
-    yap::Padding (0, 5, 0, 0),
-    yap::Padding (0, 0, 0, 0),
-    false)
+    , levelBox_ ()
     , hpBox_ ()
-    , battleInfoBox_ (
-    yap::Padding (10, 35, 0, 12), 
-    yap::Padding (0, 0, 7, 0), 
-    false)
-    , HPBarContent_ ("Pictures/Battle/HPBarContent.png")
+    , battleInfoBox_ ()
     , hpBarPictureBox_ (new yap::PictureBox ())
+    , hpBarContent_ (new yap::PictureBox ())
     , genderPictureBox_ (new yap::PictureBox ())
   {
     nameLabel_.ChangeColor (sf::Color::Black);
     levelLabel_.ChangeColor (sf::Color::Black);
 
-    battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
-    /*
+    hpBarContent_->SetSize (yap::Vector2 (
+      145.f,
+      hpBarContent_->GetSize ().y));
+
+    hpBarContent_->ChangeColor (sf::Color (110, 250, 170));
 
     nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    /*
+    battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+
     levelBox_.SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
     hpBox_.SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
-    genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+
     levelBox_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     */
 
@@ -71,5 +69,9 @@ namespace ycl
       genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
       break;
     }
+  }
+
+  void BattleInfoWidget::HandleDraw (yap::IDrawingContext& context)
+  {
   }
 }

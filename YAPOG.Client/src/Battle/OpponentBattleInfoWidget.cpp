@@ -13,6 +13,7 @@ namespace ycl
     nameBox_.SetSize (yap::Vector2 (256.f, 25.f));
 
     hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
+    hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
 
     hpBox_.SetSize (yap::Vector2 (
       hpBarPictureBox_->GetSize ().x, 
@@ -29,7 +30,7 @@ namespace ycl
     yap::WidgetBackground* background = 
       new yap::WidgetBackground (
       "Pictures/Battle/OpponentInfoBackground.png", true);
-      
+
     battleInfoBox_.SetBackground (*background);
 
     nameBox_.AddChild (nameLabel_);
@@ -38,7 +39,12 @@ namespace ycl
     levelBox_.AddChild (levelLabel_, yap::LayoutBox::Align::RIGHT);
     battleInfoBox_.AddChild (nameBox_, yap::LayoutBox::Align::LEFT);
     hpBox_.AddChild (*hpBarPictureBox_);
+    hpBarPictureBox_->AddChild (*hpBarContent_);
     genderBox_.AddChild (*genderPictureBox_);
     battleInfoBox_.AddChild (hpBox_, yap::LayoutBox::Align::RIGHT);
+
+    hpBox_.Move (yap::Vector2 (20.f, 10.f));
+    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
+    nameBox_.Move (yap::Vector2 (20.f, 10.f));
   }
 }

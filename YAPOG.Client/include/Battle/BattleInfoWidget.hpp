@@ -28,6 +28,8 @@ namespace ycl
     void SetLevel (int value);
     void SetGender (const yap::Gender& value);
 
+    virtual void HandleDraw (yap::IDrawingContext& context);
+
   protected:
     /// @name Labels.
     /// @{
@@ -46,12 +48,15 @@ namespace ycl
 
     /// @name Textures.
     /// @{
-    yap::Texture HPBarContent_;
+    //yap::Texture HPBarContent_;
     /// @}
-
+    
+    /// @name Picture boxes.
+    /// @{
     yap::PictureBox* hpBarPictureBox_;
+    yap::PictureBox* hpBarContent_;
     yap::PictureBox* genderPictureBox_;
-
+    /// @}
   };
 } // namespace ycl
 

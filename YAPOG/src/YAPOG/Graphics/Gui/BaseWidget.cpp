@@ -154,13 +154,13 @@ namespace yap
     if (border_ != nullptr)
       border_->Draw (context);
 
+    OnDraw (*this, EventArgsDraw (context));
+    HandleDraw (context);
+
     for (IDrawable* child : drawables_)
     {
       child->Draw (context);
     }
-
-    OnDraw (*this, EventArgsDraw (context));
-    HandleDraw (context);
   }
 
   Vector2 BaseWidget::GetUserSize () const
