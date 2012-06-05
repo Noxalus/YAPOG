@@ -59,8 +59,8 @@ namespace ycl
 
   void GameplayScreen::HandleInit ()
   {
-    BaseScreen::HandleInit ();    
-
+    BaseScreen::HandleInit ();
+    
     pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
 

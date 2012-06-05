@@ -67,9 +67,7 @@ namespace yap
     Refresh ();
   }
   void PartialLayoutManager::SetSize (float size)
-  {
-    uint test =  layout_->GetWidthItem ();
-    uint toto = layout_->GetInnerPadding ().top * 2;
+  {    
     widthItem_ = layout_->GetWidthItem () + (layout_->GetInnerPadding ().top * 2);
     size_ = size;
     itemCount_ = size / widthItem_;

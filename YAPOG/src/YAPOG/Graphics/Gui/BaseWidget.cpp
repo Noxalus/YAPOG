@@ -35,7 +35,7 @@ namespace yap
   }
 
   WidgetBorder* BaseWidget::GetBorder () const
-  {    
+  {
     return border_;
   }
   const Vector2& BaseWidget::GetPosition () const

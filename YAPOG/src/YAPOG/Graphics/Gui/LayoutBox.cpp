@@ -27,6 +27,10 @@ namespace yap
     isExtensible_ = isExt;
   }
 
+  uint LayoutBox::Count () const
+  {
+    return items_.Count ();
+  }
   void LayoutBox::Refresh ()
   {
     GeneratePosition ();
@@ -96,6 +100,7 @@ namespace yap
     if (child.IsFocusable ())    
       focusables_.Add (&child);    
 
+    
     Refresh ();
   }
 

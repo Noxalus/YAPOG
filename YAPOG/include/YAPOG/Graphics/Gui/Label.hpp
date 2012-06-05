@@ -33,7 +33,7 @@ namespace yap
     virtual bool IsFocusable () const;
 
     void SetText (const String& content);
-    void SetTextSize (uint size);
+    void SetTextSize (uint size);   
     String GetText () const;
     Event<const Label&, const EventArgsString&> OnTextChanged;
     float GetCharWidth () const;

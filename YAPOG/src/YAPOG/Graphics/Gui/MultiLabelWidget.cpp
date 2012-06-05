@@ -16,6 +16,7 @@ namespace yap
     , layout_ (nullptr)
     , layoutManager_ (nullptr)
     , showText_ (true)
+    , currentSelec_ (0)
   {
     layout_ = new VerticalLayout (ext, in, Extendable);
     layoutManager_ = new PartialLayoutManager (*layout_);
@@ -79,34 +80,56 @@ namespace yap
 
   bool MultiLabelWidget::HandleOnEvent (const GuiEvent& guiEvent)
   {
-    if (!isVisible_ || !showText_)
-      return false;
     if (guiEvent.type == sf::Event::KeyPressed)
     {
-      if (guiEvent.key.code == sf::Keyboard::Return)
-      {       
+      if (guiEvent.key.code == sf::Keyboard::Up)
+      {
+        if (currentSelec_ <= 0)
+          return true;
+
+        currentSelec_--;
+        layoutManager_->SetCurrentSel (currentSelec_);        
         return true;
       }
+      if (guiEvent.key.code == sf::Keyboard::Down)
+      {
+        if (labels_.Count () == 0 || currentSelec_ >= labels_.Count () - 1)
+          return true;
+
+        currentSelec_++;
+        layoutManager_->SetCurrentSel (currentSelec_);
+        return true;
+      }     
     }
     return false;
   }
 
-  void MultiLabelWidget::AddText (const String& contentArg)
+  void MultiLabelWidget::AddText (const collection::Array<Label*>& labels, LayoutBox::Align align)
+  {
+    for (Label* label : labels)
+    {
+      AddText (label->GetText (), label->GetCharHeight (), align);
+    }
+  }
+  void MultiLabelWidget::AddText (const String& contentArg, uint charSize, LayoutBox::Align align)
   {
     if (contentArg.empty())
       return;
 
     String txt = contentArg;
-    Label* lb = new Label ();
+    Label charWidth ("Test");
+    charWidth.SetTextSize (charSize);
 
     uint LabelMaxSize = GetUserSize ().x - padding_.left - padding_.right;
-    uint charNumb = (LabelMaxSize / lb->GetCharWidth ());
+    uint charNumb = (LabelMaxSize / charWidth.GetCharWidth ());
 
     uint previousPos = 0;
     uint subPos = charNumb;
     sf::Text width (txt.substr (0, subPos));
 
-    while (true)
+    collection::Array<uint> pos;
+    pos.Add (0);
+    while (1)
     {
       while (width.getLocalBounds ().width < LabelMaxSize)
       {
@@ -116,14 +139,26 @@ namespace yap
       }
       if (previousPos + subPos + 1 >= txt.length ())
         break;
+      pos.Add (previousPos + subPos - 1);
       txt.insert (previousPos + subPos - 1, "\n");
       previousPos += subPos;
       subPos = 1;
       width.setString (txt.substr (previousPos, subPos));
     }
 
-    lb->SetText (txt);
-    labels_.Add (lb);
+    for (int i = 0; i < pos.Count (); ++i)
+    {
+      Label* lb = new Label ();
+
+      if (i + 1 < pos.Count ())
+        lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
+      else
+        lb->SetText (contentArg.substr (pos[i]));
+      labels_.Add (lb);
+      layout_->AddChild (*lb, align);
+      layoutManager_->AddItem (lb);
+      layoutManager_->SetSize (layout_->GetSize ().y);
+    }    
     Refresh ();
   }
 } // namespace yap

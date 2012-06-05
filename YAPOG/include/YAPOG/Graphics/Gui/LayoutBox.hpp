@@ -39,7 +39,7 @@ namespace yap
     void Clear ();
     virtual void Refresh ();
     const Padding& GetInnerPadding () const;
-
+    uint Count () const;
 
   protected:
     virtual void GeneratePosition () = 0;

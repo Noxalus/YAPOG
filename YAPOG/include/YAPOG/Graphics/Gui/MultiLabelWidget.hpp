@@ -7,6 +7,7 @@
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/Time/UpdateableTimer.hpp"
+# include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 
 namespace yap
 {
@@ -22,7 +23,8 @@ namespace yap
     virtual ~MultiLabelWidget ();
 
     virtual String GetContent () const;
-    virtual void AddText (const String& contentArg);
+    virtual void AddText (const collection::Array<Label*>& labels, LayoutBox::Align align = LayoutBox::Align::CENTER);
+    virtual void AddText (const String& contentArg, uint charSize, LayoutBox::Align align = LayoutBox::Align::CENTER);
     virtual bool IsFocusable () const;
     void SetShowText (bool state);
 
@@ -47,6 +49,7 @@ namespace yap
     VerticalLayout* layout_;
     PartialLayoutManager* layoutManager_;
     bool showText_;
+    uint currentSelec_;
 
   };
 } // namespace yap
