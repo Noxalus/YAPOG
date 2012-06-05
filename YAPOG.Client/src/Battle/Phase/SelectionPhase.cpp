@@ -1,14 +1,16 @@
 #include "Battle/Phase/SelectionPhase.hpp"
 #include "Battle/Battle.hpp"
+#include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   const bool SelectionPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color SelectionPhase::DEFAULT_COLOR = sf::Color ();
 
-  SelectionPhase::SelectionPhase (Battle& battle)
+  SelectionPhase::SelectionPhase (Battle& battle, BattleInterface& battleInterface)
     : yap::SelectionPhase (battle)
     , battle_ (battle)
+    , battleInterface_  (battleInterface)
   {
   }
 
@@ -23,6 +25,7 @@ namespace ycl
 
   void SelectionPhase::HandleUpdate (const yap::Time& dt)
   {
+    nextPhase_ = yap::BattlePhaseState::BeginBattle;
   }
 
   void SelectionPhase::HandleEnd ()

@@ -48,6 +48,7 @@ namespace ycl
 
   private:
     void UpdatePlayerTrainerBack ();
+    void UpdateOpponentFront ();
 
     Battle& battle_;
     BattleInterface& battleInterface_;

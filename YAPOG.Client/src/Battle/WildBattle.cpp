@@ -2,14 +2,14 @@
 
 #include "Battle/WildBattle.hpp"
 #include "Battle/Phase/BeginBattlePhase.hpp"
+#include "Battle/Phase/SelectionPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   WildBattle::WildBattle (BattleInterface& battleInterface)
-    : Battle ()
-    , battleInterface_ (battleInterface)
+    : Battle (battleInterface)
   {
     // DO NOT INIT BATTLE PHASE HERE !
   }
@@ -23,35 +23,10 @@ namespace ycl
     Battle::HandleInit ();
 
     BeginBattlePhase* beginBattlePhase = new BeginBattlePhase (*this, battleInterface_);
+    SelectionPhase* selectionPhase = new SelectionPhase (*this, battleInterface_);
 
     AddPhase (yap::BattlePhaseState::BeginBattle, beginBattlePhase);
-  }
-
-  void WildBattle::Draw (yap::IDrawingContext& context)
-  {
-    if (!IsVisible ())
-      return;
-
-    HandleDraw (context);
-  }
-
-  bool WildBattle::IsVisible () const
-  {
-    return isVisible_;
-  }
-
-  void WildBattle::Show (bool isVisible)
-  {
-    isVisible_ = isVisible;
-
-    HandleShow (isVisible);
-  }
-
-  void WildBattle::ChangeColor (const sf::Color& color)
-  {
-    color_ = color;
-
-    HandleChangeColor (color);
+    AddPhase (yap::BattlePhaseState::Selection, selectionPhase);
   }
 
   void WildBattle::HandleUpdate (const yap::Time& dt)

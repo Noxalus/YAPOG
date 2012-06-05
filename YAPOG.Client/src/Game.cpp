@@ -35,7 +35,6 @@
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-#include "YAPOG/Game/Battle/WildBattle.hpp"
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 

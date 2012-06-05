@@ -77,6 +77,11 @@ namespace yap
     return GetCurrentFighter ()->GetName ();
   }
 
+  const UInt16& PokemonFighterTeam::GetLevel () const
+  {
+    return GetCurrentFighter ()->GetLevel ();
+  }
+
   Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 

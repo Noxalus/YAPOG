@@ -3,6 +3,9 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
+#include "Battle/BattleInterface.hpp"
+#include "Battle/OpponentBattleInfoWidget.hpp"
+#include "Battle/IDrawableBattleEntity.hpp"
 #include "Battle/PokemonFighter.hpp"
 #include "Battle/PokemonFighterTeam.hpp"
 #include "Game.hpp"
@@ -15,16 +18,18 @@ namespace ycl
   const yap::Vector2 Battle::DEFAULT_OPPONENT_GROUND_SPRITES_SCALE
     = yap::Vector2 (0.75f, 0.75f);
 
-  Battle::Battle ()
+  Battle::Battle (BattleInterface& battleInterface)
     : yap::Battle ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , battleInterface_ (battleInterface)
     , background_ (nullptr)
     , playerGround_ (nullptr)
     , opponentGround_ (nullptr)
     , playerTrainerBack_ (nullptr)
     , playerGroundPosition_ ()
     , opponentGroundPosition_ ()
+    , opponentInfoPosition_ ()
     , playerTeam_ (nullptr)
     , opponent_ (nullptr)
   {
@@ -66,6 +71,15 @@ namespace ycl
       (opponentGround_->GetSize ().x),
       Game::SCREEN_SIZE.y / 3 -
       (opponentGround_->GetSize ().y) / 2);
+
+    opponentInfoPosition_ = yap::Vector2 (
+      opponentGroundPosition_.x - 
+      battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
+      opponentGroundPosition_.y - 
+      1.5f * battleInterface_.GetOpponentInfoWidget ().GetSize ().y);
+
+    // @TODO Remove
+    playerTeam_->Show (false);
   }
 
   /// Getters
@@ -87,35 +101,37 @@ namespace ycl
   const yap::Vector2& Battle::GetOpponentGroundPosition () const
   { return opponentGroundPosition_; }
 
-  const IDrawableBattleEntity& Battle::GetDrawablePlayerTeam () const
+  const yap::Vector2& Battle::GetOpponentInfoPosition () const
+  { return opponentInfoPosition_; }
+
+  IDrawableBattleEntity& Battle::GetPlayerTeam ()
   { return *playerTeam_; }
 
-  IDrawableBattleEntity& Battle::GetDrawablePlayerTeam ()
-  { return *playerTeam_; }
-
-  const IDrawableBattleEntity& Battle::GetDrawableOpponent () const
-  { return *opponent_; }
-
-  IDrawableBattleEntity& Battle::GetDrawableOpponent ()
+  IDrawableBattleEntity& Battle::GetOpponent ()
   { return *opponent_; }
 
   /// Setters
-  void Battle::SetDrawablePlayerTeam (PokemonFighterTeam* playerTeam)
+  void Battle::SetPlayerTeam (PokemonFighterTeam* playerTeam)
   {
-    yap::Battle::SetPlayerTeam (playerTeam);
     playerTeam_ = playerTeam;
   }
 
-  void Battle::SetDrawableOpponent (PokemonFighterTeam* opponent)
+  void Battle::SetOpponent (PokemonFighterTeam* opponent)
   {
-    yap::Battle::SetOpponent (opponent);
     opponent_ = opponent;
   }
 
-  void Battle::SetDrawableOpponent (PokemonFighter* opponent)
+  void Battle::SetOpponent (PokemonFighter* opponent)
   {
-    yap::Battle::SetOpponent (opponent);
     opponent_ = opponent;
+  }
+
+  void Battle::Draw (yap::IDrawingContext& context)
+  {
+    if (!IsVisible ())
+      return;
+
+    HandleDraw (context);
   }
 
   bool Battle::IsVisible () const
@@ -151,8 +167,8 @@ namespace ycl
     playerGround_->Draw (context);
     playerTrainerBack_->Draw (context);
     opponentGround_->Draw (context);
-    //playerTeam_->Draw (context);
-    //opponent_->Draw (context);
+    GetPlayerTeam ().Draw (context);
+    GetOpponent ().Draw (context);
   }
 
   void Battle::HandleShow (bool isVisible)

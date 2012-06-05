@@ -10,7 +10,9 @@ namespace ycl
   PokemonFighter::PokemonFighter (Pokemon* originalPokemon)
     : yap::PokemonFighter (originalPokemon)
     , originalPokemon_ (originalPokemon)
+    , battleSprite_ (nullptr)
   {
+    battleSprite_ = &originalPokemon->GetBattleFront ();
   }
 
   PokemonFighter::~PokemonFighter ()
@@ -23,6 +25,8 @@ namespace ycl
   {
     if (!IsVisible ())
       return;
+
+    HandleDraw (context);
   }
 
   bool PokemonFighter::IsVisible () const
@@ -55,6 +59,7 @@ namespace ycl
 
   void PokemonFighter::HandleDraw (yap::IDrawingContext& context)
   {
+    battleSprite_->Draw (context);
   }
 
   void PokemonFighter::HandleShow (bool isVisible)
@@ -67,14 +72,9 @@ namespace ycl
 
   /// @name IDrawableBattleEntity members
   /// @{
-  yap::ISprite& PokemonFighter::GetFrontSprite ()
+  yap::ISprite& PokemonFighter::GetBattleSprite ()
   {
-    return originalPokemon_->GetBattleFront ();
-  }
-
-  yap::ISprite& PokemonFighter::GetBackSprite ()
-  {
-    return originalPokemon_->GetBattleBack ();
+    return *battleSprite_;
   }
   /// @}
 

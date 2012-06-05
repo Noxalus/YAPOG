@@ -4,6 +4,7 @@
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 #include "Battle/BattleInfoWidget.hpp"
 
@@ -41,5 +42,15 @@ namespace ycl
     */
 
     this->AddChild (battleInfoBox_);
+  }
+
+  void BattleInfoWidget::SetName (const yap::String& value)
+  {
+    nameLabel_.SetText (value);
+  }
+
+  void BattleInfoWidget::SetLevel (int value)
+  {
+    levelLabel_.SetText ("N." + yap::StringHelper::ToString (value));
   }
 }

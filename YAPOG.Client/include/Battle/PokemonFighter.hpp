@@ -7,6 +7,11 @@
 
 # include "Battle/IDrawableBattleEntity.hpp"
 
+namespace yap
+{
+  struct ISprite;
+} // namespace yap
+
 namespace ycl
 {
   class Pokemon;
@@ -33,8 +38,7 @@ namespace ycl
 
     /// @name IDrawableBattleEntity members
     /// @{
-    virtual yap::ISprite& GetFrontSprite ();
-    virtual yap::ISprite& GetBackSprite ();
+    virtual yap::ISprite& GetBattleSprite ();
     /// @}
 
   protected:
@@ -52,6 +56,7 @@ namespace ycl
 
   private:
     Pokemon* originalPokemon_;
+    yap::ISprite* battleSprite_;
   };
 } // namespace ycl
 

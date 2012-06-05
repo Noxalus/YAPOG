@@ -36,8 +36,7 @@ namespace ycl
 
     /// @name IDrawableBattleEntity members
     /// @{
-    virtual yap::ISprite& GetFrontSprite ();
-    virtual yap::ISprite& GetBackSprite ();
+    virtual yap::ISprite& GetBattleSprite ();
     /// @}
 
   protected:
@@ -52,7 +51,6 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
-
 
   private:
     PokemonFighter* GetCurrentFighter () const;
