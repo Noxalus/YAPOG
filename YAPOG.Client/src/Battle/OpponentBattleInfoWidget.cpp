@@ -9,16 +9,14 @@ namespace ycl
     : BattleInfoWidget ()
   {
     this->SetSize (yap::Vector2 (300.f, 84.f));
-    nameBox_.SetSize (yap::Vector2 (256.f, 25.f));
     battleInfoBox_.SetSize (yap::Vector2 (300.f, 84.f));
+    nameBox_.SetSize (yap::Vector2 (256.f, 25.f));
 
     hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
 
     hpBox_.SetSize (yap::Vector2 (
       hpBarPictureBox_->GetSize ().x, 
       hpBarPictureBox_->GetSize ().y));
-
-    genderPictureBox_->SetPicture ("Pictures/Battle/FemaleIcon.png");
 
     genderBox_.SetSize (yap::Vector2 (
       genderPictureBox_->GetSize ().x, 
@@ -29,7 +27,8 @@ namespace ycl
       25.f));
 
     yap::WidgetBackground* background = 
-      new yap::WidgetBackground ("Pictures/Battle/OpponentInfoBackground.png", false);
+      new yap::WidgetBackground (
+      "Pictures/Battle/OpponentInfoBackground.png", true);
       
     battleInfoBox_.SetBackground (*background);
 

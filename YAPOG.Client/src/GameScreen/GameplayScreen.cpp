@@ -59,12 +59,20 @@ namespace ycl
 
   void GameplayScreen::HandleInit ()
   {
-    BaseScreen::HandleInit ();    
+    BaseScreen::HandleInit ();
 
+    /*
     pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
 
     guiManager_->AddChild (*pokedex_);
+    */
+    /*
+    ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
+
+    guiManager_->AddChild (*chat);
+    */
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (

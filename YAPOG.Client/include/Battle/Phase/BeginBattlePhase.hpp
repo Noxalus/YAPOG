@@ -53,6 +53,13 @@ namespace ycl
     Battle& battle_;
     BattleInterface& battleInterface_;
 
+    bool opponentGroundPositionFinished_;
+    bool playerGroundPositionFinished_;
+    bool opponentInfoPositionFinished_;
+    bool playerBackLeaveFinished_;
+    bool pokemonDisplayingFinished_;
+    bool pokemonInfoPositionFinished_;
+
     static const float GROUND_SPEED;
   };
 } // namespace ycl

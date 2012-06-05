@@ -21,9 +21,9 @@ namespace ycl
   {
   }
 
-  PokemonFighter* PokemonFighterTeam::GetPokemon (int index) const
+  PokemonFighter& PokemonFighterTeam::GetPokemon (int index) const
   {
-    return fighters_[index];
+    return *fighters_[index];
   }
 
   bool PokemonFighterTeam::AddPokemon (PokemonFighter* pokemonFighter)
@@ -40,9 +40,14 @@ namespace ycl
     return false;
   }
 
-  PokemonFighter* PokemonFighterTeam::GetCurrentFighter () const
+  PokemonFighter& PokemonFighterTeam::GetCurrentFighter ()
   {
-    return fighters_[currentFighterIndex_];
+    return *fighters_[currentFighterIndex_];
+  }
+
+   const PokemonFighter& PokemonFighterTeam::GetCurrentFighter () const
+  {
+    return *fighters_[currentFighterIndex_];
   }
 
   /// @name IDrawableBattleEntity members
@@ -85,7 +90,7 @@ namespace ycl
 
   void PokemonFighterTeam::HandleDraw (yap::IDrawingContext& context)
   {
-    GetCurrentFighter ()->Draw (context);
+    GetCurrentFighter ().Draw (context);
   }
 
   void PokemonFighterTeam::HandleShow (bool isVisible)
@@ -100,7 +105,8 @@ namespace ycl
   /// @{
   yap::ISprite& PokemonFighterTeam::GetBattleSprite ()
   {
-    return GetCurrentFighter ()->GetBattleSprite ();
+    return GetCurrentFighter ().GetBattleSprite ();
   }
   /// @}
+
 } // namespace yap

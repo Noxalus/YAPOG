@@ -11,8 +11,8 @@
 namespace ycl
 {
   BattleInfoWidget::BattleInfoWidget ()
-    : nameLabel_ ("Bulbizarre")
-    , levelLabel_ ("N.100")
+    : nameLabel_ ("")
+    , levelLabel_ ("")
     , nameBox_ (
     yap::Padding (5, 0, 0, 0), 
     yap::Padding (0, 0, 0, 0),
@@ -27,15 +27,18 @@ namespace ycl
     yap::Padding (10, 35, 0, 12), 
     yap::Padding (0, 0, 7, 0), 
     false)
+    , HPBarContent_ ("Pictures/Battle/HPBarContent.png")
     , hpBarPictureBox_ (new yap::PictureBox ())
     , genderPictureBox_ (new yap::PictureBox ())
   {
     nameLabel_.ChangeColor (sf::Color::Black);
     levelLabel_.ChangeColor (sf::Color::Black);
 
-    /*
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    /*
+
     nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    levelBox_.SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
     hpBox_.SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
     genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     levelBox_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
@@ -52,5 +55,21 @@ namespace ycl
   void BattleInfoWidget::SetLevel (int value)
   {
     levelLabel_.SetText ("N." + yap::StringHelper::ToString (value));
+  }
+
+  void BattleInfoWidget::SetGender (const yap::Gender& value)
+  {
+    switch (value)
+    {
+    case yap::Gender::Female:
+      genderPictureBox_->SetPicture ("Pictures/Battle/FemaleIcon.png");
+      break;
+    case yap::Gender::Male:
+      genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
+      break;
+    default:
+      genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
+      break;
+    }
   }
 }

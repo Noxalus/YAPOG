@@ -6,13 +6,19 @@ namespace ycl
 {
   const bool PokemonFighter::DEFAULT_VISIBLE_STATE = true;
   const sf::Color PokemonFighter::DEFAULT_COLOR = sf::Color ();
+  const BattleSpriteType PokemonFighter::
+    DEFAULT_BATTLE_SPRITE_TYPE = BattleSpriteType::FRONT;
 
-  PokemonFighter::PokemonFighter (Pokemon* originalPokemon)
+  PokemonFighter::PokemonFighter (Pokemon* originalPokemon, bool isOpponent)
     : yap::PokemonFighter (originalPokemon)
     , originalPokemon_ (originalPokemon)
     , battleSprite_ (nullptr)
+    , isOpponent_ (isOpponent)
   {
-    battleSprite_ = &originalPokemon->GetBattleFront ();
+    if (isOpponent_)
+      SetBattleSprite (BattleSpriteType::FRONT);
+    else
+      SetBattleSprite (BattleSpriteType::BACK);
   }
 
   PokemonFighter::~PokemonFighter ()
@@ -48,7 +54,7 @@ namespace ycl
     HandleChangeColor (color);
   }
   /// @}
-  
+
   void PokemonFighter::HandleInit ()
   {
   }
@@ -77,5 +83,22 @@ namespace ycl
     return *battleSprite_;
   }
   /// @}
+
+  void PokemonFighter::SetBattleSprite (
+    const BattleSpriteType& battleSpriteType)
+  {
+    switch (battleSpriteType)
+    {
+    case BattleSpriteType::BACK:
+      battleSprite_ = &originalPokemon_->GetBattleBack ();
+      break;
+    case BattleSpriteType::FRONT:
+      battleSprite_ = &originalPokemon_->GetBattleFront ();
+      break;
+    default:
+      SetBattleSprite (DEFAULT_BATTLE_SPRITE_TYPE);
+      break;
+    }
+  }
 
 } // namespace yap

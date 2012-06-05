@@ -20,7 +20,6 @@
 #include "YAPOG/System/IO/IWriter.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "boost/exception/all.hpp"
-#include "YAPOG/Game/Battle/WildBattle.hpp"
 
 using namespace yap;
 using namespace std;

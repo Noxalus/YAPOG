@@ -18,18 +18,14 @@ namespace yap
     /// @{
     virtual const String& GetName () const;
     virtual const UInt16& GetLevel () const;
+    virtual const Gender& GetGender () const;
     virtual Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 
       OnHPChangedEvent ();
     /// @}
 
-    virtual PokemonFighter* GetPokemon (int index) const;
-    virtual const collection::Array<PokemonFighter*>& GetTeam () const;
-    virtual bool AddPokemon (PokemonFighter* pokemon);
-
-    /// Debug
-    void PrintTeam ();
+    virtual PokemonFighter& GetPokemon (int index) const = 0;
 
     /// @name IUpdateable members.
     /// @{
@@ -37,12 +33,11 @@ namespace yap
     /// @}
 
   protected:
+    virtual PokemonFighter& GetCurrentFighter () = 0;
+    virtual const PokemonFighter& GetCurrentFighter () const = 0;
     virtual void HandleUpdate (const Time& dt);
     int currentFighterIndex_;
 
-  private:
-    PokemonFighter* GetCurrentFighter () const;
-    collection::Array<PokemonFighter*> fighters_;
   };
 } // namespace yap
 

@@ -18,8 +18,6 @@ namespace ycl
       hpBarPictureBox_->GetSize ().x, 
       hpBarPictureBox_->GetSize ().y));
 
-    genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
-
     genderBox_.SetSize (yap::Vector2 (
       genderPictureBox_->GetSize ().x, 
       genderPictureBox_->GetSize ().y));
