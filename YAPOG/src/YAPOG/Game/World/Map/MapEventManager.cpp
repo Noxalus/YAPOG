@@ -8,6 +8,7 @@ namespace yap
 {
   MapEventManager::MapEventManager ()
     : events_ ()
+    , collidableArea_ (nullptr)
   {
   }
 
@@ -22,20 +23,19 @@ namespace yap
 
   void MapEventManager::Update (const Time& dt)
   {
-
+    for (auto& objectEvents : events_)
+      for (auto& eventTriggering : objectEvents.second)
+        for (MapEventContext* event : eventTriggering.second)
+          CallEvent (MapEvent::Type::Normal, dt, *event);
   }
 
-  void MapEventManager::UpdateObject (
-    const Time& dt,
-    DynamicWorldObject& object)
+  void MapEventManager::UpdateObject (DynamicWorldObject& object)
   {
-    UpdateObjectOut (dt, object);
-    UpdateObjectIn (dt, object);
+    UpdateObjectOut (object);
+    UpdateObjectIn (object);
   }
 
-  void MapEventManager::UpdateObjectOut (
-    const Time& dt,
-    const DynamicWorldObject& object)
+  void MapEventManager::UpdateObjectOut (const DynamicWorldObject& object)
   {
     auto objectEvents = events_[&object];
 
@@ -51,14 +51,12 @@ namespace yap
 
         RemoveEventEntry (&object, event.first, eventContext);
 
-        CallEvent (MapEvent::Type::Out, dt, *eventContext);
+        CallEvent (MapEvent::Type::Out, Time (), *eventContext);
       }
     }
   }
 
-  void MapEventManager::UpdateObjectIn (
-    const Time& dt,
-    DynamicWorldObject& object)
+  void MapEventManager::UpdateObjectIn (DynamicWorldObject& object)
   {
     MapEventQueue events;
 
@@ -67,23 +65,15 @@ namespace yap
     while (!events.IsEmpty ())
     {
       MapEventContext& event = events.GetEvent ();
+
+      if (!AddEventEntry (
+            &object,
+            &event.GetMapEventInfo ().GetEvent (),
+            &event))
+        continue;
+
+      CallEvent (MapEvent::Type::In, Time (), event);
     }
-  }
-
-  void MapEventManager::AddObjectEntry (const DynamicWorldObject* object)
-  {
-    events_.Add (object, EventTriggeringType ());
-  }
-
-  void MapEventManager::AddEventEntry (
-    EventTriggeringType& events,
-    MapEvent* event)
-  {
-    events.Add (
-      event,
-      yap::collection::Set<
-        MapEventContext*,
-        MapEventContextTriggerComparator> ());
   }
 
   bool MapEventManager::AddEventEntry (
@@ -94,12 +84,16 @@ namespace yap
     auto eventTriggering = events_.TryGetValue (object);
 
     if (eventTriggering == nullptr)
-      AddObjectEntry (object);
+      events_.Add (object, EventTriggeringType ());
 
     auto eventTriggers = eventTriggering->TryGetValue (event);
 
     if (eventTriggers == nullptr)
-      AddEventEntry (*eventTriggering, event);
+      eventTriggering->Add (
+        event,
+        yap::collection::Set<
+          MapEventContext*,
+          MapEventContextTriggerComparator> ());
 
     return eventTriggers->Add (eventContext);
   }

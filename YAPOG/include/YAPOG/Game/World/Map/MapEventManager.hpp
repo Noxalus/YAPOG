@@ -15,7 +15,6 @@ namespace yap
   class BoundingBox;
   class CollidableArea;
 
-  /// @todo
   class MapEventManager : public IUpdateable
   {
       DISALLOW_COPY(MapEventManager);
@@ -37,22 +36,14 @@ namespace yap
 
       void SetCollidableArea (CollidableArea* collidableArea);
 
+      void UpdateObject (DynamicWorldObject& object);
+
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
       /// @}
 
     private:
-
-      void AddObjectEntry (const DynamicWorldObject* object);
-      void RemoveObjectEntry (const DynamicWorldObject* object);
-
-      void AddEventEntry (
-        EventTriggeringType& events,
-        MapEvent* event);
-      void RemoveEventEntry (
-        EventTriggeringType& events,
-        MapEvent* event);
 
       bool AddEventEntry (
         const DynamicWorldObject* object,
@@ -63,10 +54,8 @@ namespace yap
         MapEvent* event,
         MapEventContext* eventContext);
 
-      void UpdateObject (const Time& dt, DynamicWorldObject& object);
-
-      void UpdateObjectOut (const Time& dt, const DynamicWorldObject& object);
-      void UpdateObjectIn (const Time& dt, DynamicWorldObject& object);
+      void UpdateObjectOut (const DynamicWorldObject& object);
+      void UpdateObjectIn (DynamicWorldObject& object);
 
       bool CallEvent (
         MapEvent::Type type,
