@@ -1,16 +1,20 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 
 #include "Battle/OpponentBattleInfoWidget.hpp"
 
 namespace ycl
 {
+  int test = 100;
+
   OpponentBattleInfoWidget::OpponentBattleInfoWidget ()
     : BattleInfoWidget ()
   {
     this->SetSize (yap::Vector2 (300.f, 84.f));
     battleInfoBox_.SetSize (yap::Vector2 (300.f, 84.f));
-    nameBox_.SetSize (yap::Vector2 (256.f, 25.f));
+    nameBox_.SetSize (yap::Vector2 (256.f, 30.f));
+    genderBox_.SetSize (yap::Vector2 (12.f, 22.f));
 
     hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
     hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
@@ -23,16 +27,12 @@ namespace ycl
       genderPictureBox_->GetSize ().x, 
       genderPictureBox_->GetSize ().y));
 
-    levelBox_.SetSize (yap::Vector2 (
-      256.f - nameLabel_.GetSize ().x - genderPictureBox_->GetSize ().x, 
-      25.f));
-
     yap::WidgetBackground* background = 
       new yap::WidgetBackground (
       "Pictures/Battle/OpponentInfoBackground.png", true);
 
     battleInfoBox_.SetBackground (*background);
-
+    
     nameBox_.AddChild (nameLabel_);
     nameBox_.AddChild (genderBox_);
     nameBox_.AddChild (levelBox_);
@@ -43,8 +43,11 @@ namespace ycl
     genderBox_.AddChild (*genderPictureBox_);
     battleInfoBox_.AddChild (hpBox_, yap::LayoutBox::Align::RIGHT);
 
-    hpBox_.Move (yap::Vector2 (20.f, 10.f));
     hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
-    nameBox_.Move (yap::Vector2 (20.f, 10.f));
+  }
+
+  bool OpponentBattleInfoWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    return false;
   }
 }

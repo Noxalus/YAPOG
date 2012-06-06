@@ -26,6 +26,26 @@ namespace yap
     return GetCurrentFighter ().GetGender ();
   }
 
+  const UInt16& PokemonFighterTeam::GetCurrentHP () const
+  {
+    return GetCurrentFighter ().GetCurrentHP ();
+  }
+
+  const UInt16& PokemonFighterTeam::GetMaxHP () const
+  {
+    return GetCurrentFighter ().GetMaxHP ();
+  }
+
+  void PokemonFighterTeam::TakeDamage (int value)
+  {
+    GetCurrentFighter ().TakeDamage (value);
+  }
+
+  float PokemonFighterTeam::GetHPPercentage () const
+  {
+    return GetCurrentFighter ().GetHPPercentage ();
+  }
+
   Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 

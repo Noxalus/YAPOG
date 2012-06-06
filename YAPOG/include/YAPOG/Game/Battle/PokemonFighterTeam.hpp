@@ -19,6 +19,12 @@ namespace yap
     virtual const String& GetName () const;
     virtual const UInt16& GetLevel () const;
     virtual const Gender& GetGender () const;
+    virtual const UInt16& GetCurrentHP () const;
+    virtual const UInt16& GetMaxHP () const;
+    virtual float GetHPPercentage () const;
+
+    virtual void TakeDamage (int value);
+
     virtual Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 
