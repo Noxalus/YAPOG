@@ -14,6 +14,7 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/GridMenu.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -61,10 +62,32 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    pokedex_ = new PokedexWidget ();
+    yap::GridMenu* menu = new yap::GridMenu (yap::Vector2 (2, 2), yap::Padding (5,5,5,5), yap::Padding (5,5,5,5), true);
+    menu->SetSelectedBorder (*new yap::WidgetBorder ("Test/black.png"));
+    yap::MenuItem* item1 = new yap::MenuItem (false);
+    item1->SetContent ("Item1");
+    yap::MenuItem* item2 = new yap::MenuItem (false);
+    item2->SetContent ("Item2");
+    yap::MenuItem* item3 = new yap::MenuItem (false);
+    item3->SetContent ("Item3");
+    yap::MenuItem* item4 = new yap::MenuItem (false);
+    item4->SetContent ("Item4");
+
+    item1->SetSize (yap::Vector2 (128, 64));
+    item2->SetSize (yap::Vector2 (128, 64));
+    item3->SetSize (yap::Vector2 (128, 64));
+    item4->SetSize (yap::Vector2 (128, 64));
+
+    menu->AddChild (*item1);
+    menu->AddChild (*item2);
+    menu->AddChild (*item3);
+    menu->AddChild (*item4);
+
+   /* pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
 
-    guiManager_->AddChild (*pokedex_);  
+    guiManager_->AddChild (*pokedex_);  */
+    guiManager_->AddChild (*menu);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (

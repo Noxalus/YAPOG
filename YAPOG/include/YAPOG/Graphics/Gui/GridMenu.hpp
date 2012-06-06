@@ -46,7 +46,7 @@ namespace yap
     void SetFormItem ();
     void SetUnformItem ();
 
-    collection::Matrix<MenuItem*> itemz_;    
+    collection::Matrix<MenuItem*> itemz_;  
     Vector2 currentSelec_;
     VerticalLayout* layoutV_;
     collection::Array<HorizontalLayout*> layoutHs_;
@@ -57,6 +57,7 @@ namespace yap
     Vector2 size_;
     bool isFixed_;
     uint currentLine_;
+    collection::Array<uint> itemCount_;
 
   };
 } // namespace yap
