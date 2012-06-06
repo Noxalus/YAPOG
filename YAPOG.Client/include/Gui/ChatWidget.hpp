@@ -12,6 +12,7 @@
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 
 # include "YAPOG/Graphics/Vector2.hpp"
 
@@ -61,7 +62,7 @@ namespace ycl
     yap::TextBoxWidget*     lineCatcher_;
     TabTitleType            tabTitle_;
     yap::HorizontalLayout*  tabLayout_;
-    yap::Label*             dialog_;
+    yap::MultiLabelWidget*  dialog_;
     yap::HorizontalLayout*  dialLayout_;
     yap::HorizontalLayout*  entryLayout_;
     yap::VerticalLayout*    bigLayout_;
