@@ -7,6 +7,7 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/World/Map/WorldObjectState.hpp"
 # include "YAPOG/System/Event/Event.hpp"
+# include "YAPOG/Game/World/Map/Physics/EventTriggerBoundingBoxCollection.hpp"
 # include "YAPOG/Game/World/Map/Physics/EventBoundingBoxCollection.hpp"
 
 namespace yap
@@ -63,7 +64,9 @@ namespace yap
       void AddEvent (MapEvent* event);
       void RemoveEvent (MapEvent* event);
 
-      bool TriggerCollidesWith (const ICollidable& collidable) const;
+      void GetEventsCollidingWith (
+        const CollidableArea& collidableArea,
+        MapEventQueue& events) const;
 
       /// @name IUpdateable members.
       /// @{
@@ -72,6 +75,7 @@ namespace yap
 
       /// @name Events.
       /// @{
+      Event<DynamicWorldObject&, const Vector2&> OnMoved;
       Event<
         DynamicWorldObject&,
         const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
@@ -121,7 +125,7 @@ namespace yap
       collection::List<MapEvent*> events_;
 
       /// Boxes that belong to this DynamicWorldObject and can trigger events.
-      PhysicsBoundingBoxCollection triggerBoundingBoxes_;
+      EventTriggerBoundingBoxCollection triggerBoundingBoxes_;
       /// Boxes that belong to an event and can be triggered.
       EventBoundingBoxCollection sourceBoundingBoxes_;
   };

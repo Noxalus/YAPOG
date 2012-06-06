@@ -1,6 +1,7 @@
 #include "YAPOG/Game/World/Map/Physics/BoundingBoxCollection.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 
 namespace yap
 {
@@ -206,18 +207,17 @@ namespace yap
     return *collidableArea_;
   }
 
-  void BoundingBoxCollection::SetCollidableArea (CollidableArea* collidableArea)
+  void BoundingBoxCollection::SetCollidableArea (
+    CollidableArea* collidableArea)
   {
     if (collidableArea_ == collidableArea)
       return;
 
-    if (collidableArea_ != nullptr)
-      RemoveBoundingBoxesFromCollidableArea ();
+    RemoveBoundingBoxesFromCollidableArea ();
 
     collidableArea_ = collidableArea;
 
-    if (collidableArea_ != nullptr)
-      AddBoundingBoxesToCollidableArea ();
+    AddBoundingBoxesToCollidableArea ();
   }
 
   const collection::List<BoundingBox*>&

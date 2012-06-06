@@ -3,22 +3,12 @@
 #include "YAPOG/Game/World/Map/IMapEventCondition.hpp"
 #include "YAPOG/Game/World/Map/IMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/Physics/EventBoundingBoxCollection.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
 namespace yap
 {
-  const MapEvent::Type MapEvent::DEFAULT_TYPE = Type::Normal;
-
   MapEvent::MapEvent ()
-    : type_ (DEFAULT_TYPE)
-    , boundingBoxes_ ()
-    , conditions_ ()
-    , actions_ ()
-  {
-  }
-
-  MapEvent::MapEvent (Type type)
-    : type_ (type)
-    , boundingBoxes_ ()
+    : boundingBoxes_ ()
     , conditions_ ()
     , actions_ ()
   {
@@ -37,8 +27,7 @@ namespace yap
   }
 
   MapEvent::MapEvent (const MapEvent& copy)
-    : type_ (copy.type_)
-    , boundingBoxes_ ()
+    : boundingBoxes_ ()
     , conditions_ ()
     , actions_ ()
   {
@@ -57,18 +46,13 @@ namespace yap
     return new MapEvent (*this);
   }
 
-  const MapEvent::Type& MapEvent::GetType () const
-  {
-    return type_;
-  }
-
-  bool MapEvent::Call (MapEventArgs& args)
+  bool MapEvent::Call (MapEventActionType actionType, MapEventArgs& args)
   {
     for (IMapEventCondition* condition : conditions_)
       if (!condition->IsValid (args))
         return false;
 
-    return HandleCall (args);
+    return HandleCall (actionType, args);
   }
 
   void MapEvent::AddBoundingBox (BoundingBox* boundingBox)
@@ -102,10 +86,14 @@ namespace yap
   }
 
   void MapEvent::AddToEventBoundingBoxCollection (
-    EventBoundingBoxCollection& eventBoundingBoxCollection)
+    EventBoundingBoxCollection& eventBoundingBoxCollection,
+    const DynamicWorldObject& parent)
   {
     for (BoundingBox* boundingBox : boundingBoxes_)
+    {
+      parent.AdjustCollidablePosition (*boundingBox);
       eventBoundingBoxCollection.AddEventBoundingBox (boundingBox, this);
+    }
   }
 
   void MapEvent::RemoveFromEventBoundingBoxCollection (
@@ -124,12 +112,12 @@ namespace yap
     return false;
   }
 
-  bool MapEvent::HandleCall (MapEventArgs& args)
+  bool MapEvent::HandleCall (MapEventActionType actionType, MapEventArgs& args)
   {
     bool successful = true;
 
     for (IMapEventAction* action : actions_)
-      if (!action->Execute (args))
+      if (action->GetType () == actionType && !action->Execute (args))
         successful = false;
 
     return successful;

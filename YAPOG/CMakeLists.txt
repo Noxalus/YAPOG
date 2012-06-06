@@ -87,6 +87,8 @@ ${inc_root}/Game/World/Map/MapElementReader.hpp
 ${src_root}/Game/World/Map/MapElementReader.cpp
 ${inc_root}/Game/World/Map/IMapEventCondition.hpp
 ${inc_root}/Game/World/Map/IMapEventAction.hpp
+${inc_root}/Game/World/Map/BaseMapEventAction.hpp
+${src_root}/Game/World/Map/BaseMapEventAction.cpp
 ${inc_root}/Game/World/Map/MapEvent.hpp
 ${src_root}/Game/World/Map/MapEvent.cpp
 ${inc_root}/Game/World/Map/MapEventArgs.hpp
@@ -111,6 +113,8 @@ ${inc_root}/Game/World/Map/Physics/BoundingBoxCollection.hpp
 ${src_root}/Game/World/Map/Physics/BoundingBoxCollection.cpp
 ${inc_root}/Game/World/Map/Physics/EventBoundingBoxCollection.hpp
 ${src_root}/Game/World/Map/Physics/EventBoundingBoxCollection.cpp
+${inc_root}/Game/World/Map/Physics/EventTriggerBoundingBoxCollection.hpp
+${src_root}/Game/World/Map/Physics/EventTriggerBoundingBoxCollection.cpp
 ${inc_root}/Game/World/Map/Physics/PhysicsBoundingBoxCollection.hpp
 ${src_root}/Game/World/Map/Physics/PhysicsBoundingBoxCollection.cpp
 ${inc_root}/Game/World/Map/Physics/BoundingBoxReader.hpp

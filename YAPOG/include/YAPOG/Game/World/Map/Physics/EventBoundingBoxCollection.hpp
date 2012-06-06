@@ -8,6 +8,7 @@
 
 namespace yap
 {
+  class WorldObject;
   class DynamicWorldObject;
   class MapEvent;
 

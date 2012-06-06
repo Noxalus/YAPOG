@@ -4,13 +4,13 @@
 # include <functional>
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/World/Map/IMapEventAction.hpp"
+# include "YAPOG/Game/World/Map/BaseMapEventAction.hpp"
 
 namespace yap
 {
   class MapEventArgs;
 
-  class AnyMapEventAction : public IMapEventAction
+  class AnyMapEventAction : public BaseMapEventAction
   {
       DISALLOW_ASSIGN(AnyMapEventAction);
 
@@ -18,13 +18,19 @@ namespace yap
 
       typedef std::function<bool (MapEventArgs&)> CallbackType;
 
-      AnyMapEventAction (CallbackType callback);
+      AnyMapEventAction (MapEventActionType type, CallbackType callback);
       virtual ~AnyMapEventAction ();
 
-      /// @name IMapEventAction members.
+      /// @name ICloneable members.
       /// @{
-      virtual bool Execute (MapEventArgs& args);
+      virtual AnyMapEventAction* Clone () const;
       /// @}
+
+    protected:
+
+      AnyMapEventAction (const AnyMapEventAction& copy);
+
+      virtual bool HandleExecute (MapEventArgs& args);
 
     private:
 

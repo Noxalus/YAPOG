@@ -51,8 +51,6 @@ namespace yap
       void RemoveStaticObject (StaticWorldObject* object);
       void RemoveDynamicObject (DynamicWorldObject* object);
 
-      /// @MapEvent methods HERE TMP to remove.
-
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
@@ -91,12 +89,20 @@ namespace yap
 
     private:
 
+      virtual bool SupportsEvents () const;
+
+      void UpdateEvents (const Time& dt);
+      void UpdateObjectEvents (DynamicWorldObject& object);
+      void RemoveObjectEvents (DynamicWorldObject& object);
+
       void UpdateSize ();
 
       static const String DEFAULT_NAME;
       static const uint DEFAULT_WIDTH;
       static const uint DEFAULT_HEIGHT;
       static const float DEFAULT_CELL_SIZE;
+
+      static const String MOVED_UPDATE_EVENT_HANDLER_NAME;
 
       ID id_;
       String name_;

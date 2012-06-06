@@ -20,13 +20,13 @@ namespace yap
       MapEventArgs (
         const Time& dt,
         DynamicWorldObject& trigger,
-        ICollidable& triggerCollidable,
+        const ICollidable& triggerCollidable,
         MapEventInfo& mapContext);
 
       const Time& GetDt () const;
 
       DynamicWorldObject& GetTrigger ();
-      ICollidable& GetTriggerCollidable ();
+      const ICollidable& GetTriggerCollidable () const;
 
       MapEventInfo& GetMapContext ();
 
@@ -35,7 +35,7 @@ namespace yap
       const Time& dt_;
 
       DynamicWorldObject& trigger_;
-      ICollidable& triggerCollidable_;
+      const ICollidable& triggerCollidable_;
 
       MapEventInfo& mapContext_;
   };

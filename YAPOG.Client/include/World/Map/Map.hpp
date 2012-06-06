@@ -36,12 +36,19 @@ namespace ycl
 
       Player& GetPlayer (const yap::ID& worldID);
 
-      void AddPlayer (Player* player);
-      void AddNPC (NPC* npc);
-      void AddMapElement (MapElement* mapElement);
+      /// @todo SERVER SIDE: Player* TryGetPlayer (const ID&) for event to
+      /// access to players.
 
+
+
+      void AddPlayer (Player* player);
       void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);
+
+      void AddNPC (NPC* npc);
+      void RemoveNPC (NPC* npc);
+
+      void AddMapElement (MapElement* mapElement);
       void RemoveMapElement (MapElement* mapElement);
 
       void HandleLoadObjects (yap::IPacket& packet);
@@ -70,6 +77,9 @@ namespace ycl
 
       void AddDrawableDynamicObject (
         yap::IDrawableDynamicWorldObject* drawableObject);
+      void RemoveDrawableDynamicObject (
+        yap::IDrawableDynamicWorldObject* drawableObject);
+
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
       void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
 
@@ -77,6 +87,8 @@ namespace ycl
       virtual void HandleUpdate (const yap::Time& dt);
 
     private:
+
+      virtual bool SupportsEvents () const;
 
       void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
       void HandleServerInfoUpdateObjectState (yap::IPacket& packet);

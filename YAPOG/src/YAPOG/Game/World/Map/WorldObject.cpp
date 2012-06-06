@@ -1,4 +1,6 @@
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 
 namespace yap
 {
@@ -33,16 +35,27 @@ namespace yap
   void WorldObject::SetCollidableArea (CollidableArea* collidableArea)
   {
     physicsBoundingBoxes_.SetCollidableArea (*this, collidableArea);
+
+    HandleSetCollidableArea (collidableArea);
   }
 
   void WorldObject::AddPhysicsBoundingBox (BoundingBox* boundingBox)
   {
+    AdjustCollidablePosition (*boundingBox);
+
     physicsBoundingBoxes_.AddPhysicsBoundingBox (boundingBox);
   }
 
   void WorldObject::RemovePhysicsBoundingBox (BoundingBox* boundingBox)
   {
     physicsBoundingBoxes_.RemovePhysicsBoundingBox (boundingBox);
+  }
+
+  bool WorldObject::CollidesWith (
+    const CollidableArea& collidableArea,
+    const Vector2& offset) const
+  {
+    return physicsBoundingBoxes_.CollidesWithArea (collidableArea, offset);
   }
 
   const Vector2& WorldObject::GetPosition () const
@@ -136,7 +149,7 @@ namespace yap
 
   bool WorldObject::CollidesWith (const ICollidable& other) const
   {
-    return physicsBoundingBoxes_.CollidesWith (other);
+    return CollidesWith (other, VECTOR2_ZERO);
   }
 
   bool WorldObject::CollidesWith (
@@ -150,6 +163,11 @@ namespace yap
   WorldObject::GetPhysicsBoundingBoxes () const
   {
     return physicsBoundingBoxes_;
+  }
+
+  void WorldObject::AdjustCollidablePosition (ICollidable& collidable) const
+  {
+    collidable.Move (GetPosition ());
   }
 
   void WorldObject::HandleSetCollidableArea (CollidableArea* collidableArea)

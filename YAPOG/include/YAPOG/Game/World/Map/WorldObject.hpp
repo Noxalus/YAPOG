@@ -11,6 +11,7 @@
 namespace yap
 {
   class CollidableArea;
+  class MapEventQueue;
 
   class YAPOG_LIB WorldObject : public ICollidable
                               , public IIDLoadable
@@ -27,6 +28,16 @@ namespace yap
       void SetCollidableArea (CollidableArea* collidableArea);
       void AddPhysicsBoundingBox (BoundingBox* boundingBox);
       void RemovePhysicsBoundingBox (BoundingBox* boundingBox);
+
+      bool CollidesWith (
+        const CollidableArea& collidableArea,
+        const Vector2& offset) const;
+
+      /// @brief Moves the ICollidable @a collidable
+      /// to this WorldObject position.
+      /// To call once when adding the ICollidable to this WorldObject.
+      /// @param collidable The ICollidable whose to adjust the position.
+      void AdjustCollidablePosition (ICollidable& collidable) const;
 
       /// @name ISpatial members.
       /// @{

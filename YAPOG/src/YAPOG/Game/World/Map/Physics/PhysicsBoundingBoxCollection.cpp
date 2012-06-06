@@ -2,6 +2,7 @@
 #include "YAPOG/Game/World/Map/Physics/MapCollidableInfo.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 
 namespace yap
 {
@@ -45,6 +46,17 @@ namespace yap
     BoundingBoxCollection::SetCollidableArea (collidableArea);
   }
 
+  bool PhysicsBoundingBoxCollection::CollidesWithArea (
+    const CollidableArea& collidableArea,
+    const Vector2& offset) const
+  {
+    for (BoundingBox* boundingBox : GetBoundingBoxes ())
+      if (collidableArea.CollidesWith (*boundingBox, offset, *parent_))
+        return true;
+
+    return false;
+  }
+
   void PhysicsBoundingBoxCollection::HandleAddBoundingBoxToCollidableArea (
     BoundingBox* boundingBox)
   {
@@ -56,7 +68,8 @@ namespace yap
           *parent_)));
   }
 
-  void PhysicsBoundingBoxCollection::HandleRemoveBoundingBoxFromCollidableArea (
+  void
+  PhysicsBoundingBoxCollection::HandleRemoveBoundingBoxFromCollidableArea (
     BoundingBox* boundingBox)
   {
     GetCollidableArea ().RemoveEventCollidable (boundingBox);

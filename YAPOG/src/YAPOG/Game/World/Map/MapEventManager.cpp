@@ -3,6 +3,7 @@
 #include "YAPOG/Game/World/Map/MapEventQueue.hpp"
 #include "YAPOG/Game/World/Map/MapEventArgs.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
 namespace yap
 {
@@ -26,13 +27,18 @@ namespace yap
     for (auto& objectEvents : events_)
       for (auto& eventTriggering : objectEvents.second)
         for (MapEventContext* event : eventTriggering.second)
-          CallEvent (MapEvent::Type::Normal, dt, *event);
+          CallEvent (MapEventActionType::In, dt, *event);
   }
 
   void MapEventManager::UpdateObject (DynamicWorldObject& object)
   {
     UpdateObjectOut (object);
     UpdateObjectIn (object);
+  }
+
+  void MapEventManager::RemoveObject (const DynamicWorldObject& object)
+  {
+    /// @todo
   }
 
   void MapEventManager::UpdateObjectOut (const DynamicWorldObject& object)
@@ -51,7 +57,7 @@ namespace yap
 
         RemoveEventEntry (&object, event.first, eventContext);
 
-        CallEvent (MapEvent::Type::Out, Time (), *eventContext);
+        CallEvent (MapEventActionType::Leave, Time (), *eventContext);
       }
     }
   }
@@ -60,7 +66,7 @@ namespace yap
   {
     MapEventQueue events;
 
-    collidableArea_->GetEventsCollidingWithObject (object, events);
+    object.GetEventsCollidingWith (*collidableArea_, events);
 
     while (!events.IsEmpty ())
     {
@@ -72,7 +78,7 @@ namespace yap
             &event))
         continue;
 
-      CallEvent (MapEvent::Type::In, Time (), event);
+      CallEvent (MapEventActionType::Enter, Time (), event);
     }
   }
 
@@ -89,11 +95,20 @@ namespace yap
     auto eventTriggers = eventTriggering->TryGetValue (event);
 
     if (eventTriggers == nullptr)
+    {
+      auto triggers = yap::collection::Set<
+        MapEventContext*,
+        MapEventContextTriggerComparator> ();
+
+      if (!triggers.Add (eventContext))
+        return false;
+
       eventTriggering->Add (
         event,
-        yap::collection::Set<
-          MapEventContext*,
-          MapEventContextTriggerComparator> ());
+        triggers);
+
+      return true;
+    }
 
     return eventTriggers->Add (eventContext);
   }
@@ -126,14 +141,11 @@ namespace yap
   }
 
   bool MapEventManager::CallEvent (
-    MapEvent::Type type,
+    MapEventActionType type,
     const Time& dt,
     MapEventContext& eventContext)
   {
     MapEvent& event = eventContext.GetMapEventInfo ().GetEvent ();
-
-    if (event.GetType () != type)
-      return false;
 
     MapEventArgs args (
       dt,
@@ -141,6 +153,6 @@ namespace yap
       eventContext.GetTriggerCollidable (),
       eventContext.GetMapEventInfo ());
 
-    return event.Call (args);
+    return event.Call (type, args);
   }
 } // namespace yap

@@ -2,6 +2,7 @@
 #include "YAPOG/Game/World/Map/Physics/MapEventInfo.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
 namespace yap
 {

@@ -43,12 +43,14 @@ namespace ycl
 
       /// @name IDrawableDynamicWorldObject members.
       /// @{
-      virtual yap::Event<IDrawableDynamicWorldObject&,
-                         const yap::Vector2&>& OnMovedEvent ();
+      virtual yap::Event<
+        IDrawableDynamicWorldObject&,
+        const yap::Vector2&>& OnDrawableMovedEvent ();
       /// @}
 
-      yap::Event<IDrawableDynamicWorldObject&,
-                 const yap::Vector2&> OnMoved;
+      yap::Event<
+        IDrawableDynamicWorldObject&,
+        const yap::Vector2&> OnDrawableMoved;
 
     protected:
 

@@ -48,39 +48,41 @@ namespace yap
       new CollidableAreaCell ());
   }
 
-  bool GridCollidableArea::CollidesWithObject (
-    const WorldObject& object,
-    const Vector2& offset) const
+  bool GridCollidableArea::CollidesWith (
+    const ICollidable& collidable,
+    const Vector2& offset,
+    const WorldObject& parent) const
   {
-    UIntRect objectRect;
-    GetCollidableRectangle (object, offset, objectRect);
+    UIntRect collidableRect;
+    GetCollidableRectangle (collidable, offset, collidableRect);
 
-    for (uint y = objectRect.top;
-         y <= objectRect.top + objectRect.height;
+    for (uint y = collidableRect.top;
+         y < collidableRect.top + collidableRect.height;
          ++y)
-      for (uint x = objectRect.left;
-           x <= objectRect.left + objectRect.width;
+      for (uint x = collidableRect.left;
+           x < collidableRect.left + collidableRect.width;
            ++x)
-        if (cells_ (x, y)->CollidesWithObject (object, offset))
+        if (cells_ (x, y)->CollidesWith (collidable, offset, parent))
           return true;
 
     return false;
   }
 
-  void GridCollidableArea::GetEventsCollidingWithObject (
-    DynamicWorldObject& object,
-    MapEventQueue& events) const
+  void GridCollidableArea::GetEventsCollidingWith (
+    const ICollidable& collidable,
+    MapEventQueue& events,
+    DynamicWorldObject& parent) const
   {
-    UIntRect objectRect;
-    GetCollidableRectangle (object, VECTOR2_ZERO, objectRect);
+    UIntRect collidableRect;
+    GetCollidableRectangle (collidable, VECTOR2_ZERO, collidableRect);
 
-    for (uint y = objectRect.top;
-         y <= objectRect.top + objectRect.height;
+    for (uint y = collidableRect.top;
+         y < collidableRect.top + collidableRect.height;
          ++y)
-      for (uint x = objectRect.left;
-           x <= objectRect.left + objectRect.width;
+      for (uint x = collidableRect.left;
+           x < collidableRect.left + collidableRect.width;
            ++x)
-        cells_ (x, y)->GetEventsCollidingWithObject (object, events);
+        cells_ (x, y)->GetEventsCollidingWith (collidable, events, parent);
   }
 
   void GridCollidableArea::HandleSetSize (const Vector2& size)
@@ -98,10 +100,10 @@ namespace yap
     GetCollidableRectangle (*collidable, collidableRect);
 
     for (uint y = collidableRect.top;
-         y <= collidableRect.top + collidableRect.height;
+         y < collidableRect.top + collidableRect.height;
          ++y)
       for (uint x = collidableRect.left;
-           x <= collidableRect.left + collidableRect.width;
+           x < collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->AddPhysicsCollidable (collidable, mapCollidableInfo);
   }
@@ -113,10 +115,10 @@ namespace yap
     GetCollidableRectangle (*collidable, collidableRect);
 
     for (uint y = collidableRect.top;
-         y <= collidableRect.top + collidableRect.height;
+         y < collidableRect.top + collidableRect.height;
          ++y)
       for (uint x = collidableRect.left;
-           x <= collidableRect.left + collidableRect.width;
+           x < collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->RemovePhysicsCollidable (collidable);
   }
@@ -129,10 +131,10 @@ namespace yap
     GetCollidableRectangle (*collidable, collidableRect);
 
     for (uint y = collidableRect.top;
-         y <= collidableRect.top + collidableRect.height;
+         y < collidableRect.top + collidableRect.height;
          ++y)
       for (uint x = collidableRect.left;
-           x <= collidableRect.left + collidableRect.width;
+           x < collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->AddEventCollidable (collidable, mapEventInfo);
   }
@@ -144,10 +146,10 @@ namespace yap
     GetCollidableRectangle (*collidable, collidableRect);
 
     for (uint y = collidableRect.top;
-         y <= collidableRect.top + collidableRect.height;
+         y < collidableRect.top + collidableRect.height;
          ++y)
       for (uint x = collidableRect.left;
-           x <= collidableRect.left + collidableRect.width;
+           x < collidableRect.left + collidableRect.width;
            ++x)
         cells_ (x, y)->RemoveEventCollidable (collidable);
   }
@@ -164,29 +166,29 @@ namespace yap
     const Vector2& offset,
     UIntRect& rectangle) const
   {
-    uint left = collidable.GetTopLeft ().x + offset.x;
-    uint top = collidable.GetTopLeft ().y + offset.y;
-    uint right = collidable.GetBottomRight ().x + offset.x;
-    uint bottom = collidable.GetBottomRight ().y + offset.y;
+    int left = collidable.GetTopLeft ().x + offset.x;
+    int top = collidable.GetTopLeft ().y + offset.y;
+    int right = collidable.GetBottomRight ().x + offset.x;
+    int bottom = collidable.GetBottomRight ().y + offset.y;
 
     rectangle.left = MathHelper::Clamp (
-      static_cast<uint> (left / cellSize_.x),
-      static_cast<uint> (0),
-      hSegmentCount_ - 1);
+      static_cast<int> (left / cellSize_.x),
+      0,
+      static_cast<int> (hSegmentCount_ - 1));
 
     rectangle.top = MathHelper::Clamp (
-      static_cast<uint> (top / cellSize_.y),
-      static_cast<uint> (0),
-      vSegmentCount_ - 1);
+      static_cast<int> (top / cellSize_.y),
+      0,
+      static_cast<int> (vSegmentCount_ - 1));
 
     rectangle.width = MathHelper::Clamp (
-      static_cast<uint> ((right - left) / cellSize_.x),
-      static_cast<uint> (0),
-      hSegmentCount_ - rectangle.left);
+      static_cast<int> ((right - left) / cellSize_.x + 1),
+      0,
+      static_cast<int> (hSegmentCount_ - rectangle.left));
 
     rectangle.height = MathHelper::Clamp (
-      static_cast<uint> ((bottom - top) / cellSize_.y),
-      static_cast<uint> (0),
-      vSegmentCount_ - rectangle.top);
+      static_cast<int> ((bottom - top) / cellSize_.y + 1),
+      0,
+      static_cast<int> (vSegmentCount_ - rectangle.top));
   }
 } // namespace yap

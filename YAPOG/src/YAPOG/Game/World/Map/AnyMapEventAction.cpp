@@ -2,8 +2,11 @@
 
 namespace yap
 {
-  AnyMapEventAction::AnyMapEventAction (CallbackType callback)
-    : callback_ (callback)
+  AnyMapEventAction::AnyMapEventAction (
+    MapEventActionType type,
+    CallbackType callback)
+    : BaseMapEventAction (type)
+    , callback_ (callback)
   {
   }
 
@@ -11,7 +14,18 @@ namespace yap
   {
   }
 
-  bool AnyMapEventAction::Execute (MapEventArgs& args)
+  AnyMapEventAction::AnyMapEventAction (const AnyMapEventAction& copy)
+    : BaseMapEventAction (copy)
+    , callback_ (copy.callback_)
+  {
+  }
+
+  AnyMapEventAction* AnyMapEventAction::Clone () const
+  {
+    return new AnyMapEventAction (*this);
+  }
+
+  bool AnyMapEventAction::HandleExecute (MapEventArgs& args)
   {
     return callback_ (args);
   }

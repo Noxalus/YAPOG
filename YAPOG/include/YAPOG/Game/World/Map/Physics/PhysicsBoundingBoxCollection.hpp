@@ -27,6 +27,10 @@ namespace yap
         const WorldObject& parent,
         CollidableArea* collidableArea);
 
+      bool CollidesWithArea (
+        const CollidableArea& collidableArea,
+        const Vector2& offset) const;
+
     private:
 
       virtual void HandleAddBoundingBoxToCollidableArea (

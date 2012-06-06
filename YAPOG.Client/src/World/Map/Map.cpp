@@ -50,23 +50,9 @@ namespace ycl
     AddDrawableDynamicObject (player);
   }
 
-  void Map::AddNPC (NPC* npc)
-  {
-    AddDynamicObject (npc);
-    AddDrawableDynamicObject (npc);
-  }
-
-  void Map::AddMapElement (MapElement* mapElement)
-  {
-    AddStaticObject (mapElement);
-    AddDrawableObject (mapElement);
-  }
-
   void Map::RemovePlayer (Player* player)
   {
     players_.Remove (player->GetWorldID ());
-
-    player->OnMovedEvent ().RemoveHandler (DRAW_ORDER_HANDLER_NAME);
 
     RemoveDrawableObject (player);
     RemoveDynamicObject (player);
@@ -75,6 +61,30 @@ namespace ycl
   void Map::RemovePlayer (const yap::ID& worldID)
   {
     RemovePlayer (&GetPlayer (worldID));
+  }
+
+  void Map::AddNPC (NPC* npc)
+  {
+    AddDynamicObject (npc);
+    AddDrawableDynamicObject (npc);
+  }
+
+  void Map::RemoveNPC (NPC* npc)
+  {
+    RemoveDynamicObject (npc);
+    RemoveDrawableDynamicObject (npc);
+  }
+
+  void Map::AddMapElement (MapElement* mapElement)
+  {
+    AddStaticObject (mapElement);
+    AddDrawableObject (mapElement);
+  }
+
+  void Map::RemoveMapElement (MapElement* mapElement)
+  {
+    RemoveStaticObject (mapElement);
+    AddDrawableObject (mapElement);
   }
 
   void Map::HandleLoadObjects (yap::IPacket& packet)
@@ -89,7 +99,7 @@ namespace ycl
   void Map::AddDrawableDynamicObject (
     yap::IDrawableDynamicWorldObject* drawableObject)
   {
-    drawableObject->OnMovedEvent ().AddHandler (
+    drawableObject->OnDrawableMovedEvent ().AddHandler (
       DRAW_ORDER_HANDLER_NAME,
       [&] (yap::IDrawableDynamicWorldObject& sender,
            const yap::Vector2& args)
@@ -99,6 +109,15 @@ namespace ycl
       });
 
     AddDrawableObject (drawableObject);
+  }
+
+  void Map::RemoveDrawableDynamicObject (
+    yap::IDrawableDynamicWorldObject* drawableObject)
+  {
+    drawableObject->OnDrawableMovedEvent ().RemoveHandler (
+      DRAW_ORDER_HANDLER_NAME);
+
+    RemoveDrawableObject (drawableObject);
   }
 
   void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
@@ -170,6 +189,13 @@ namespace ycl
   void Map::HandleUpdate (const yap::Time& dt)
   {
     yap::Map::HandleUpdate (dt);
+  }
+
+  bool Map::SupportsEvents () const
+  {
+    /// @warning Temporary
+    /// @todo [future] Return false.
+    return true;
   }
 
   void Map::HandleServerInfoObjectMoveInfo (yap::IPacket& packet)

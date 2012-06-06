@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 
@@ -11,6 +12,7 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
+    , OnMoved ()
     , OnVelocityChanged ()
     , OnStateChanged ()
     , worldID_ ()
@@ -31,6 +33,9 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const DynamicWorldObject& copy)
     : WorldObject (copy)
+    , OnMoved ()
+    , OnVelocityChanged ()
+    , OnStateChanged ()
     , worldID_ (copy.worldID_)
     , state_ (copy.state_)
     , physicsCore_ (nullptr)
@@ -186,14 +191,16 @@ namespace yap
 
   void DynamicWorldObject::AddTriggerBoundingBox (BoundingBox* boundingBox)
   {
-    triggerBoundingBoxes_.AddPhysicsBoundingBox (boundingBox);
+    AdjustCollidablePosition (*boundingBox);
+
+    triggerBoundingBoxes_.AddEventTriggerBoundingBox (boundingBox);
   }
 
   void DynamicWorldObject::AddEvent (MapEvent* event)
   {
     events_.Add (event);
 
-    event->AddToEventBoundingBoxCollection (sourceBoundingBoxes_);
+    event->AddToEventBoundingBoxCollection (sourceBoundingBoxes_, *this);
   }
 
   void DynamicWorldObject::RemoveEvent (MapEvent* event)
@@ -203,10 +210,11 @@ namespace yap
     event->RemoveFromEventBoundingBoxCollection (sourceBoundingBoxes_);
   }
 
-  bool DynamicWorldObject::TriggerCollidesWith (
-    const ICollidable& collidable) const
+  void DynamicWorldObject::GetEventsCollidingWith (
+    const CollidableArea& collidableArea,
+    MapEventQueue& events) const
   {
-    return triggerBoundingBoxes_.CollidesWith (collidable);
+    triggerBoundingBoxes_.GetEventsCollidingWith (collidableArea, events);
   }
 
   void DynamicWorldObject::Update (const Time& dt)
@@ -217,6 +225,9 @@ namespace yap
   void DynamicWorldObject::HandleSetCollidableArea (
     CollidableArea* collidableArea)
   {
+    WorldObject::HandleSetCollidableArea (collidableArea);
+
+    triggerBoundingBoxes_.SetCollidableArea (*this, collidableArea);
     sourceBoundingBoxes_.SetCollidableArea (*this, collidableArea);
   }
 
@@ -239,6 +250,8 @@ namespace yap
 
     triggerBoundingBoxes_.Move (offset);
     sourceBoundingBoxes_.Move (offset);
+
+    OnMoved (*this, offset);
   }
 
   void DynamicWorldObject::HandleScale (const Vector2& factor)

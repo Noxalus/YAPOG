@@ -12,10 +12,6 @@ namespace ycl
 {
   class Player;
 
-  /// @warning Tests.
-  /// @todo Remove from here.
-  class NPC;
-
   class GameplayScreen : public BaseScreen
   {
       DISALLOW_COPY(GameplayScreen);
@@ -57,11 +53,6 @@ namespace ycl
       Player* player_;
       yap::CharacterMoveController moveController_;
       yap::Vector2 lastForce_;
-
-      /// @warning Tests.
-      /// @todo Remove from here.
-      /// used in cpp: 160
-      NPC* npc1_;
   };
 } // namespace ycl
 

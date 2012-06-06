@@ -90,7 +90,7 @@ namespace ycl
     InitObjectFactory ();
     InitGameInputManager ();
     InitWorldObjectStateFactory ();
-    InitDrawingContext (yap::Vector2 (800.0f, 600.0f));
+    InitDrawingContext (yap::Vector2 (600.0f, 450.0f));
     InitScreenManager ();
 
     InitLoggerManager ();

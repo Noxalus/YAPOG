@@ -19,17 +19,17 @@ namespace yap
 
       MapEventContext (
         DynamicWorldObject& trigger,
-        ICollidable& triggerCollidable,
+        const ICollidable& triggerCollidable,
         MapEventInfo& mapEventInfo);
 
       DynamicWorldObject& GetTrigger ();
-      ICollidable& GetTriggerCollidable ();
+      const ICollidable& GetTriggerCollidable () const;
       MapEventInfo& GetMapEventInfo ();
 
     private:
 
       DynamicWorldObject& trigger_;
-      ICollidable& triggerCollidable_;
+      const ICollidable& triggerCollidable_;
       MapEventInfo& mapEventInfo_;
   };
 } // namespace yap

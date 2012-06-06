@@ -10,6 +10,7 @@ namespace yap
 {
   class BoundingBox;
   class CollidableArea;
+  class WorldObject;
 
   class YAPOG_LIB BoundingBoxCollection : public ICollidable
   {

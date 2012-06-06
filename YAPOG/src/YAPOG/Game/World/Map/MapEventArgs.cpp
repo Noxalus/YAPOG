@@ -5,7 +5,7 @@ namespace yap
   MapEventArgs::MapEventArgs (
     const Time& dt,
     DynamicWorldObject& trigger,
-    ICollidable& triggerCollidable,
+    const ICollidable& triggerCollidable,
     MapEventInfo& mapContext)
     : dt_ (dt)
     , trigger_ (trigger)
@@ -24,7 +24,7 @@ namespace yap
     return trigger_;
   }
 
-  ICollidable& MapEventArgs::GetTriggerCollidable ()
+  const ICollidable& MapEventArgs::GetTriggerCollidable () const
   {
     return triggerCollidable_;
   }

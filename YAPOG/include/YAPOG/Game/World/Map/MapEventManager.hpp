@@ -37,6 +37,8 @@ namespace yap
       void SetCollidableArea (CollidableArea* collidableArea);
 
       void UpdateObject (DynamicWorldObject& object);
+      /// @todo Remove all dependencies of this object.
+      void RemoveObject (const DynamicWorldObject& object);
 
       /// @name IUpdateable members.
       /// @{
@@ -58,7 +60,7 @@ namespace yap
       void UpdateObjectIn (DynamicWorldObject& object);
 
       bool CallEvent (
-        MapEvent::Type type,
+        MapEventActionType type,
         const Time& dt,
         MapEventContext& eventContext);
 

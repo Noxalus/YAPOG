@@ -36,39 +36,35 @@ namespace yap
     eventCollidables_.Remove (collidable);
   }
 
-  bool CollidableAreaCell::CollidesWithObject (
-    const WorldObject& object,
-    const Vector2& offset) const
+  bool CollidableAreaCell::CollidesWith (
+    const ICollidable& collidable,
+    const Vector2& offset,
+    const WorldObject& parent) const
   {
     for (auto& it : physicsCollidables_)
     {
-      if (&it.second->GetParent () == &object)
-      {
-        // collidable belongs to object
+      if (&it.second->GetParent () == &parent)
         continue;
-      }
 
-      if (object.CollidesWith (*it.first, offset))
+      if (collidable.CollidesWith (*it.first, offset))
         return true;
     }
 
     return false;
   }
 
-  void CollidableAreaCell::GetEventsCollidingWithObject (
-    DynamicWorldObject& object,
-    MapEventQueue& events) const
+  void CollidableAreaCell::GetEventsCollidingWith (
+    const ICollidable& collidable,
+    MapEventQueue& events,
+    DynamicWorldObject& parent) const
   {
     for (auto& it : eventCollidables_)
     {
-      if (&it.second->GetParent () == &object)
-      {
-        // collidable belongs to object
+      if (&it.second->GetParent () == &parent)
         continue;
-      }
 
-      if (object.TriggerCollidesWith (*it.first))
-        events.AddEvent (new MapEventContext (object, *it.first, *it.second));
+      if (collidable.CollidesWith (*it.first))
+        events.AddEvent (new MapEventContext (parent, collidable, *it.second));
     }
   }
 

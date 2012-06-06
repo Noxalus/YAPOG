@@ -166,7 +166,6 @@ namespace yse
     const yap::DynamicWorldObject& object,
     yap::IPacket& packet)
   {
-
   }
 
   /// @todo Note: [future] add `AddObject (yap::DynamicWorldObject* object)'

@@ -33,13 +33,16 @@ namespace yap
         const MapEventInfo::PtrType& mapEventInfo);
       void RemoveEventCollidable (ICollidable* collidable);
 
-      bool CollidesWithObject (
-        const WorldObject& object,
-        const Vector2& offset) const;
 
-      void GetEventsCollidingWithObject (
-        DynamicWorldObject& object,
-        MapEventQueue& events) const;
+      bool CollidesWith (
+        const ICollidable& collidable,
+        const Vector2& offset,
+        const WorldObject& parent) const;
+
+      void GetEventsCollidingWith (
+        const ICollidable& collidable,
+        MapEventQueue& events,
+        DynamicWorldObject& parent) const;
 
       void Clear ();
 

@@ -12,8 +12,9 @@ namespace yap
   {
       virtual ~IDrawableDynamicWorldObject () { }
 
-      virtual Event<IDrawableDynamicWorldObject&,
-                    const Vector2&>& OnMovedEvent () = 0;
+      virtual Event<
+        IDrawableDynamicWorldObject&,
+        const Vector2&>& OnDrawableMovedEvent () = 0;
   };
 } // namespace yap
 

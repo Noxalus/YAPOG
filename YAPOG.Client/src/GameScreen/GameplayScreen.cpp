@@ -17,6 +17,8 @@
 #include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
 #include "World/Map/NPC.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
+ycl::NPC* npc1_ = nullptr;
+
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -85,64 +87,64 @@ namespace ycl
   bool GameplayScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Down,
-      guiEvent))
+          yap::GameInputType::Down,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Up,
-      guiEvent))
+          yap::GameInputType::Up,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Left,
-      guiEvent))
+          yap::GameInputType::Left,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Right,
-      guiEvent))
+          yap::GameInputType::Right,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::East);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Down,
-      guiEvent))
+          yap::GameInputType::Down,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Up,
-      guiEvent))
+          yap::GameInputType::Up,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Left,
-      guiEvent))
+          yap::GameInputType::Left,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Right,
-      guiEvent))
+          yap::GameInputType::Right,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::East);
       return true;
@@ -160,25 +162,45 @@ namespace ycl
   {
     cameraController_.SetBounds (
       yap::FloatRect (
-      yap::Vector2 (),
-      map.GetSize ()));
+        yap::Vector2 (),
+        map.GetSize ()));
 
     /// @warning Tests.
     /// @todo Remove from here.
+    /// to see below too !
     npc1_ = objectFactory_.Create<NPC> ("NPC", yap::ID (1));
     npc1_->SetWorldID (yap::ID (4222));
     npc1_->Move (yap::Vector2 (260.0f, 180.0f));
     map.AddNPC (npc1_);
 
-    yap::MapEvent* event = new yap::MapEvent (yap::MapEvent::Type::In);
+    yap::MapEvent* event = new yap::MapEvent ();
     event->AddBoundingBox (
       new yap::BoundingBox (
-        yap::Vector2 (-200, -200), yap::Vector2 (400, 400), 0, 1));
+        yap::Vector2 (-30, -30), yap::Vector2 (60, 60), 0, 1));
+
     event->AddAction (
-      new yap::AnyMapEventAction (
+      new yap::AnyMapEventAction (yap::MapEventActionType::Leave,
         [this] (yap::MapEventArgs& args)
         {
-          logger_.LogLine ("EVENT");
+          logger_.LogLine ("OUT");
+
+          return true;
+        }));
+
+    event->AddAction (
+      new yap::AnyMapEventAction (yap::MapEventActionType::Enter,
+        [this] (yap::MapEventArgs& args)
+        {
+          logger_.LogLine ("IN");
+
+          return true;
+        }));
+
+    event->AddAction (
+      new yap::AnyMapEventAction (yap::MapEventActionType::In,
+        [this] (yap::MapEventArgs& args)
+        {
+          logger_.LogLine ("UPDATE.....................");
 
           return true;
         }));
@@ -194,6 +216,12 @@ namespace ycl
 
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
+
+    /// @warning Tests.
+    /// @todo Remove from here.
+    player_->AddTriggerBoundingBox (
+      new yap::BoundingBox (
+        yap::Vector2 (-20, -20), yap::Vector2 (40, 40), 0, 1));
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)

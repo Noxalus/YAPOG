@@ -3,8 +3,8 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Factory/ICloneable.hpp"
-# include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/List.hpp"
+# include "YAPOG/Game/World/Map/MapEventActionType.hpp"
 
 namespace yap
 {
@@ -15,6 +15,7 @@ namespace yap
   class MapEventArgs;
   class EventBoundingBoxCollection;
   class ICollidable;
+  class DynamicWorldObject;
 
   class MapEvent : ICloneable
   {
@@ -22,20 +23,10 @@ namespace yap
 
     public:
 
-      enum class Type : UInt8
-      {
-        In,
-        Normal,
-        Out
-      };
-
       MapEvent ();
-      explicit MapEvent (Type type);
       virtual ~MapEvent ();
 
-      const Type& GetType () const;
-
-      bool Call (MapEventArgs& args);
+      bool Call (MapEventActionType actionType, MapEventArgs& args);
 
       void AddBoundingBox (BoundingBox* boundingBox);
       void RemoveBoundingBox (BoundingBox* boundingBox);
@@ -46,7 +37,8 @@ namespace yap
       void RemoveAction (IMapEventAction* action);
 
       void AddToEventBoundingBoxCollection (
-        EventBoundingBoxCollection& eventBoundingBoxCollection);
+        EventBoundingBoxCollection& eventBoundingBoxCollection,
+        const DynamicWorldObject& parent);
       void RemoveFromEventBoundingBoxCollection (
         EventBoundingBoxCollection& eventBoundingBoxCollection);
 
@@ -61,13 +53,11 @@ namespace yap
 
       MapEvent (const MapEvent& copy);
 
-      virtual bool HandleCall (MapEventArgs& args);
+      virtual bool HandleCall (
+        MapEventActionType actionType,
+        MapEventArgs& args);
 
     private:
-
-      static const Type DEFAULT_TYPE;
-
-      Type type_;
 
       collection::List<BoundingBox*> boundingBoxes_;
 

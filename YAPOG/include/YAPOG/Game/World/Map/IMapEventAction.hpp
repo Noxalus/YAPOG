@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Factory/ICloneable.hpp"
+# include "YAPOG/Game/World/Map/MapEventActionType.hpp"
 
 namespace yap
 {
@@ -13,6 +14,8 @@ namespace yap
       virtual ~IMapEventAction () { }
 
       virtual bool Execute (MapEventArgs& args) = 0;
+
+      virtual const MapEventActionType& GetType () const = 0;
 
       virtual IMapEventAction* Clone () const { return nullptr; }
   };
