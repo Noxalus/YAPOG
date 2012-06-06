@@ -126,6 +126,9 @@ namespace yap
 
   void BaseWidget::SetSize (const Vector2& size)
   {
+    /// @warning Erroned !
+    /// @todo Only have to call Scale (childs, background and border are currently resized twice)
+    
     for (IWidget* child : childen_)
     {
       child->SetSize (size);
