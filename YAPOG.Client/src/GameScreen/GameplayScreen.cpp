@@ -14,6 +14,8 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/GridMenu.hpp"
+#include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -61,10 +63,28 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    pokedex_ = new PokedexWidget ();
+    yap::MultiLabelWidget* mlabel = new yap::MultiLabelWidget (yap::Padding (5,5,5,5), yap::Padding (5,5,5,5), false);
+    mlabel->SetSize (yap::Vector2 (512, 128));
+    mlabel->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+
+    mlabel->AddText ("TEst 1 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 2 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 3 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 4 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 5 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 6 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 7 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);    
+    mlabel->AddText ("TEst 8 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 9 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 10 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 11 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 12 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
+    mlabel->AddText ("TEst 13 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);    
+   /* pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
 
-    guiManager_->AddChild (*pokedex_);  
+    guiManager_->AddChild (*pokedex_);  */
+    guiManager_->AddChild (*mlabel);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -78,14 +98,6 @@ namespace ycl
     UpdatePlayer (dt);
 
     world_.Draw (context);
-    /*
-    yap::PokemonInfo* activatedPokemon = pokedex_->GetActivatedPokemon ();
-    if (activatedPokemon != nullptr)
-    {
-      pokedexInfo_->Open ();
-      pokedex_->Close ();
-    }
-    */
     return BaseScreen::HandleRun (dt, context);
   }
 

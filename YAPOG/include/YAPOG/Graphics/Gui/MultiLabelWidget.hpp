@@ -22,12 +22,11 @@ namespace yap
     MultiLabelWidget (Padding ext, Padding in, bool Extendable);    
     virtual ~MultiLabelWidget ();
 
-    virtual String GetContent () const;
-    virtual void AddText (const collection::Array<Label*>& labels, LayoutBox::Align align = LayoutBox::Align::CENTER);
-    virtual void AddText (const String& contentArg, uint charSize, LayoutBox::Align align = LayoutBox::Align::CENTER);
+    virtual String GetContent () const;   
+    virtual void AddText (const String& contentArg, uint charSize, sf::Color color = sf::Color::Black, LayoutBox::Align align = LayoutBox::Align::LEFT);
     virtual bool IsFocusable () const;
     void SetShowText (bool state);
-
+    void Clear ();
   protected:
     void Refresh ();
     virtual bool HandleOnEvent (const GuiEvent& guiEvent);
