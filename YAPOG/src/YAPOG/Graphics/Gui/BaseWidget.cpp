@@ -372,10 +372,10 @@ namespace yap
       border_->SetBorder (GetSize (), width);
     else
       border_->SetBorder (GetUserSize (), width);
-
-    uint paddingBorder = border.GetSize ().y > 0
-      ? border.GetSize ().y : border.GetSize ().x;
-    if (border.GetSize ().y == 0)
+    
+    uint paddingBorder = border.GetTexture ().GetSize ().y > 0
+      ? border.GetTexture ().GetSize ().y : border.GetTexture ().GetSize ().x;
+    if (border.GetTexture ().GetSize ().y == 0)
       SetPosAfterBorder (paddingBorder, 0, true);
     else
       SetPosAfterBorder (paddingBorder, paddingBorder, true);
