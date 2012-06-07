@@ -233,7 +233,7 @@ namespace ycl
           }
           else
           {
-            //nextPhase_ = yap::BattlePhaseState::Selection;
+            nextPhase_ = yap::BattlePhaseState::Selection;
           }
         }
       }

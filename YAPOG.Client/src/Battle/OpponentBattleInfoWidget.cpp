@@ -32,7 +32,7 @@ namespace ycl
       "Pictures/Battle/OpponentInfoBackground.png", true);
 
     battleInfoBox_.SetBackground (*background);
-    
+
     nameBox_.AddChild (nameLabel_);
     nameBox_.AddChild (genderBox_);
     nameBox_.AddChild (levelBox_);
