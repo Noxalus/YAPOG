@@ -1,4 +1,5 @@
 #include "YAPOG/Game/World/Map/BaseMapEventAction.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
 namespace yap
 {
@@ -16,14 +17,26 @@ namespace yap
   {
   }
 
-  bool BaseMapEventAction::Execute (MapEventArgs& args)
+  bool BaseMapEventAction::Execute (
+    DynamicWorldObject& trigger,
+    MapEventArgs& args)
   {
+    trigger.Accept (*this);
+
     return HandleExecute (args);
   }
 
   const MapEventActionType& BaseMapEventAction::GetType () const
   {
     return type_;
+  }
+
+  void BaseMapEventAction::VisitCharacter (Character& visitable)
+  {
+  }
+
+  void BaseMapEventAction::VisitPlayer (IPlayer& visitable)
+  {
   }
 
   bool BaseMapEventAction::HandleExecute (MapEventArgs& args)

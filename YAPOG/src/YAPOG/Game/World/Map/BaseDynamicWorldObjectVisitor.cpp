@@ -10,7 +10,11 @@ namespace yap
   {
   }
 
-  void BaseDynamicWorldObjectVisitor::Visit (Character& visitable)
+  void BaseDynamicWorldObjectVisitor::VisitCharacter (Character& visitable)
+  {
+  }
+
+  void BaseDynamicWorldObjectVisitor::VisitPlayer (IPlayer& visitable)
   {
   }
 } // namespace yap

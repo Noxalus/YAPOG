@@ -17,9 +17,15 @@ namespace yap
 
       /// @name IMapEventAction members.
       /// @{
-      virtual bool Execute (MapEventArgs& args);
+      virtual bool Execute (DynamicWorldObject& trigger, MapEventArgs& args);
 
       virtual const MapEventActionType& GetType () const;
+      /// @}
+
+      /// @name IDynamicWorldObjectVisitor
+      /// @{
+      virtual void VisitCharacter (Character& visitable);
+      virtual void VisitPlayer (IPlayer& visitable);
       /// @}
 
     protected:

@@ -24,12 +24,12 @@ namespace yap
 
   void Character::Accept (IDynamicWorldObjectVisitor& visitor)
   {
-    visitor.Visit (*this);
+    visitor.VisitCharacter (*this);
   }
 
   void Character::Accept (IDynamicWorldObjectConstVisitor& visitor) const
   {
-    visitor.Visit (*this);
+    visitor.VisitCharacter (*this);
   }
 
   const Direction& Character::GetDirection () const

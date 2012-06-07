@@ -3,12 +3,14 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Factory/ICloneable.hpp"
+# include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 
 namespace yap
 {
   class MapEventArgs;
 
   struct IMapEventCondition : public ICloneable
+                            , public IDynamicWorldObjectVisitor
   {
       virtual ~IMapEventCondition () { }
 

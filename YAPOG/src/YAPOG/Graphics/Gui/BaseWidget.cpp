@@ -106,6 +106,8 @@ namespace yap
       GetSize ().x * factor.x,
       GetSize ().y * factor.y));
 
+    userSize_ = spatialInfo_.GetSize ();
+
     OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
 
@@ -128,26 +130,12 @@ namespace yap
 
   void BaseWidget::SetSize (const Vector2& size)
   {
-    /// @warning Erroned !
-    /// @todo Only have to call Scale (childs, background and border are currently resized twice)
-    
-    for (IWidget* child : childen_)
-    {
-      child->SetSize (size);
-    }
-    if (background_ != nullptr)
-      background_->SetSize (size);
-    if (border_ != nullptr)
-      border_->SetSize (size);
-
-    userSize_ = size;
     Scale (
       Vector2 (
       size.x / GetSize ().x,
       size.y / GetSize ().y));
-    OnSizeSet (*this, EventArgs (size));
 
-    Refresh ();
+    OnSizeSet (*this, EventArgs (size));
   }
 
   void BaseWidget::Draw (IDrawingContext& context)
@@ -389,7 +377,7 @@ namespace yap
     if (isExtensible_ || GetUserSize () == Vector2 (0, 0))
       border_->SetBorder (GetSize ());
     else
-      border_->SetBorder (GetUserSize ());    
+      border_->SetBorder (GetUserSize ());
     uint paddingBorder = border_->GetSize ().y > 0
       ? border_->GetSize ().y : border_->GetSize ().x;
     if (border_->GetSize ().y == 0)

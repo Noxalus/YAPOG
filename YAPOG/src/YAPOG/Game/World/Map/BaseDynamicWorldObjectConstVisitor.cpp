@@ -10,7 +10,13 @@ namespace yap
   {
   }
 
-  void BaseDynamicWorldObjectConstVisitor::Visit (const Character& visitable)
+  void BaseDynamicWorldObjectConstVisitor::VisitCharacter (
+    const Character& visitable)
+  {
+  }
+
+  void BaseDynamicWorldObjectConstVisitor::VisitPlayer (
+    const IPlayer& visitable)
   {
   }
 } // namespace yap

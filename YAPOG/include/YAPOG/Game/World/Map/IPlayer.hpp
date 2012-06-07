@@ -1,18 +1,17 @@
 #ifndef YAPOG_IPLAYER_HPP
 # define YAPOG_IPLAYER_HPP
 
-# include "YAPOG/Game/World/Map/IMapEventTrigger.hpp"
-# include "YAPOG/Game/World/Map/IMapEventProvider.hpp"
-
 namespace yap
 {
-  /// @brief Interface providing main actions to an object.
-  struct IPlayer : public IMapEventTrigger
-                 , public IMapEventProvider
+  struct IDynamicWorldObjectVisitor;
+  struct IDynamicWorldObjectConstVisitor;
+
+  struct IPlayer
   {
       virtual ~IPlayer () { }
 
-      virtual void ChangeMap (const ID& mapWorldID) = 0;
+      virtual void Accept (IDynamicWorldObjectVisitor& visitor) = 0;
+      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const = 0;
   };
 } // namespace yap
 

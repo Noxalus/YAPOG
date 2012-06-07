@@ -2,12 +2,14 @@
 # define YAPOG_CLIENT_PLAYER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/World/Map/IPlayer.hpp"
 
 # include "World/Map/Character.hpp"
 
 namespace ycl
 {
   class Player : public Character
+               , public yap::IPlayer
   {
       DISALLOW_ASSIGN(Player);
 
@@ -19,6 +21,13 @@ namespace ycl
       /// @name ICloneable members.
       /// @{
       virtual Player* Clone () const;
+      /// @}
+
+      /// @name IPlayer members.
+      /// @{
+      virtual void Accept (yap::IDynamicWorldObjectVisitor& visitor);
+      virtual void Accept (
+        yap::IDynamicWorldObjectConstVisitor& visitor) const;
       /// @}
 
     protected:
