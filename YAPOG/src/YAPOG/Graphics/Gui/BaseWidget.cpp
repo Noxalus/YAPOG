@@ -103,10 +103,8 @@ namespace yap
 
     spatialInfo_.SetSize (
       Vector2 (
-      GetSize ().x * factor.x,
-      GetSize ().y * factor.y));
-
-    userSize_ = spatialInfo_.GetSize ();
+        GetSize ().x * factor.x,
+        GetSize ().y * factor.y));
 
     OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
@@ -130,11 +128,11 @@ namespace yap
 
   void BaseWidget::SetSize (const Vector2& size)
   {
+    userSize_ = size;
     Scale (
       Vector2 (
-      size.x / GetSize ().x,
-      size.y / GetSize ().y));
-
+        size.x / GetSize ().x,
+        size.y / GetSize ().y));
     OnSizeSet (*this, EventArgs (size));
   }
 
@@ -279,7 +277,7 @@ namespace yap
 
   void BaseWidget::AddChild (IWidget& child)
   {
-    child.SetDefaultColor (userColor_);    
+    child.SetDefaultColor (userColor_);
     childen_.Add (&child);
     AddDrawable (child);
     updatables_.Add (&child);
@@ -346,7 +344,7 @@ namespace yap
     {
       Move (Vector2 (0, height - GetPosition ().y));
       spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height/2));
-    }    
+    }
     if (refreshing)
       Refresh ();
   }
@@ -359,7 +357,7 @@ namespace yap
       border_->SetBorder (GetSize (), width);
     else
       border_->SetBorder (GetUserSize (), width);
-    
+
     uint paddingBorder = border.GetTexture ().GetSize ().y > 0
       ? border.GetTexture ().GetSize ().y : border.GetTexture ().GetSize ().x;
     if (border.GetTexture ().GetSize ().y == 0)
