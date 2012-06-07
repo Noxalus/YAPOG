@@ -6,8 +6,6 @@
 
 namespace yap
 {
-  class Character;
-
   class YAPOG_LIB BaseDynamicWorldObjectConstVisitor
     : public IDynamicWorldObjectConstVisitor
   {
@@ -17,7 +15,8 @@ namespace yap
 
       virtual ~BaseDynamicWorldObjectConstVisitor ();
 
-      virtual void Visit (const Character& visitable);
+      virtual void VisitCharacter (const Character& visitable);
+      virtual void VisitPlayer (const IPlayer& visitable);
 
     protected:
 

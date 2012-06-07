@@ -1,17 +1,18 @@
 #ifndef YAPOG_IDYNAMICWORLDOBJECTVISITOR_HPP
 # define YAPOG_IDYNAMICWORLDOBJECTVISITOR_HPP
 
-# include "YAPOG/Macros.hpp"
-
 namespace yap
 {
+  struct IPlayer;
+
   class Character;
 
   struct IDynamicWorldObjectVisitor
   {
-      virtual ~IDynamicWorldObjectVisitor () {}
+      virtual ~IDynamicWorldObjectVisitor () { }
 
-      virtual void Visit (Character& visitable) = 0;
+      virtual void VisitCharacter (Character& visitable) = 0;
+      virtual void VisitPlayer (IPlayer& visitable) = 0;
   };
 } // namespace yap
 

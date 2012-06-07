@@ -4,6 +4,7 @@
 #include "YAPOG/Game/World/Map/IMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/Physics/EventBoundingBoxCollection.hpp"
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
+#include "YAPOG/Game/World/Map/MapEventArgs.hpp"
 
 namespace yap
 {
@@ -117,8 +118,13 @@ namespace yap
     bool successful = true;
 
     for (IMapEventAction* action : actions_)
-      if (action->GetType () == actionType && !action->Execute (args))
+    {
+      if (action->GetType () != actionType)
+        continue;
+
+      if (!action->Execute (args.GetTrigger (), args))
         successful = false;
+    }
 
     return successful;
   }

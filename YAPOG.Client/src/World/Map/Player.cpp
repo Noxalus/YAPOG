@@ -1,3 +1,6 @@
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
+
 #include "World/Map/Player.hpp"
 
 namespace ycl
@@ -21,6 +24,17 @@ namespace ycl
   Player* Player::Clone () const
   {
     return new Player (*this);
+  }
+
+  void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
+  {
+    visitor.VisitPlayer (*this);
+  }
+
+  void Player::Accept (
+    yap::IDynamicWorldObjectConstVisitor& visitor) const
+  {
+    visitor.VisitPlayer (*this);
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const

@@ -10,11 +10,11 @@ namespace yap
 {
   struct IMapEventCondition;
   struct IMapEventAction;
+  struct ICollidable;
 
   class BoundingBox;
   class MapEventArgs;
   class EventBoundingBoxCollection;
-  class ICollidable;
   class DynamicWorldObject;
 
   class YAPOG_LIB MapEvent : ICloneable

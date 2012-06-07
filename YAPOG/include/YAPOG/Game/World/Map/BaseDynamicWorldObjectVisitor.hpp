@@ -6,9 +6,8 @@
 
 namespace yap
 {
-  class Character;
-
-  class YAPOG_LIB BaseDynamicWorldObjectVisitor : public IDynamicWorldObjectVisitor
+  class YAPOG_LIB BaseDynamicWorldObjectVisitor
+    : public IDynamicWorldObjectVisitor
   {
       DISALLOW_COPY(BaseDynamicWorldObjectVisitor);
 
@@ -16,7 +15,8 @@ namespace yap
 
       virtual ~BaseDynamicWorldObjectVisitor ();
 
-      virtual void Visit (Character& visitable);
+      virtual void VisitCharacter (Character& visitable);
+      virtual void VisitPlayer (IPlayer& visitable);
 
     protected:
 
