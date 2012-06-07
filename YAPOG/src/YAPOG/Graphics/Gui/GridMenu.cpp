@@ -18,13 +18,15 @@ namespace yap
     , selecBckgrd_ (nullptr)
     , selecBrdr_ (nullptr)
     , selecBrdSize_ (16)
+    , size_ (size)
     , isFixed_ (!extend)
     , currentLine_ (0)
+    , itemCount_ (size.y, 0)
   {
-    for (HorizontalLayout* layout : layoutHs_)
+    for (int i = 0; i < size.y; ++i)
     {
-      layout = new HorizontalLayout (ext, in, extend);
-      layoutV_->AddChild (*layout);
+      layoutHs_[i] = new HorizontalLayout (ext, in, extend);
+      layoutV_->AddChild (*layoutHs_[i]);
     }
 
     BaseWidget::AddChild (*layoutV_);
@@ -78,19 +80,21 @@ namespace yap
   {
     if (selecBrdr_ != nullptr)
       child.SetBorder (*selecBrdr_);
-    if (currentLine_ >= layoutHs_.Count ())
+    if (currentLine_ >= size_.y)
       return;
-    if (layoutHs_[currentLine_]->Count () >= size_.x)
+    if (itemCount_[currentLine_] >= size_.x)
       currentLine_++;
-    if (currentLine_ >= layoutHs_.Count ())
+    if (currentLine_ >= size_.y)
       return;
+
     layoutHs_[currentLine_]->AddChild (child, align);
-    itemz_(layoutHs_[currentLine_]->Count () -1, currentLine_) = &child;
-    currentLine_++;
+    itemz_(itemCount_[currentLine_], currentLine_) = &child;
+    itemCount_[currentLine_]++;
 
     child.UnsetBorder ();
 
     SetFormItem ();
+
   }
 
   Vector2 GridMenu::GetCurrentSelect () const
@@ -105,41 +109,119 @@ namespace yap
 
   bool GridMenu::HandleOnEvent (const GuiEvent& guiEvent)
   {
-    /*if (guiEvent.type == sf::Event::KeyPressed)
+    if (guiEvent.type == sf::Event::KeyPressed)
     {
-    if (guiEvent.key.code == sf::Keyboard::Up)
-    {
+      if (guiEvent.key.code == sf::Keyboard::Up)
+      {
 
-    if (currentSelec_ <= 0)
-    return true;
-
-    SetUnformItem ();
-    currentSelec_--;
-    layoutManager_->SetCurrentSel (currentSelec_);
-    SetFormItem ();
-    itemz_[currentSelec_]->OnSelected (itemz_[currentSelec_], EmptyEventArgs ());
-    return true;
+        if (currentSelec_.y <= 0)
+        {
+          uint line = size_.y - 1;
+          while (line != 0)
+          {
+            if (itemCount_[line] != 0)
+              break;
+            line--;
+          }
+          SetUnformItem ();
+          currentSelec_.y = line;
+        }
+        else
+        {
+          SetUnformItem ();
+          currentSelec_.y--;
+        }
+        SetFormItem ();
+        itemz_(currentSelec_.x, currentSelec_.y)
+          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          EmptyEventArgs ());
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Down)
+      {
+        //replace itemcount
+        if (currentSelec_.y >= itemCount_.Count () - 1)
+        {
+          SetUnformItem ();
+          currentSelec_.y = 0;
+        }
+        else
+        {
+          SetUnformItem ();
+          currentSelec_.y++;
+        }
+        SetFormItem ();
+        itemz_(currentSelec_.x, currentSelec_.y)
+          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          EmptyEventArgs ());
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Left)
+      {
+        if (currentSelec_.x == 0 && currentSelec_.y == 0)
+        { 
+          uint line = size_.y - 1;
+          while (line != 0)
+          {
+            if (itemCount_[line] != 0)
+              break;
+            line--;
+          }
+          SetUnformItem ();
+          currentSelec_.y = line;
+          currentSelec_.x = itemCount_[line] - 1;          
+        }
+        else if (currentSelec_.x == 0)
+        {
+          SetUnformItem ();
+          currentSelec_.y--;
+          currentSelec_.x = itemCount_[currentSelec_.y] - 1;
+        }
+        else
+        {
+          SetUnformItem ();
+          currentSelec_.x--;
+        }
+        SetFormItem ();
+        itemz_(currentSelec_.x, currentSelec_.y)
+          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          EmptyEventArgs ());
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Right)
+      {
+        if (currentSelec_.x == itemCount_[currentSelec_.y] - 1
+          && currentSelec_.y == itemCount_.Count () - 1)
+        {
+          SetUnformItem ();
+          currentSelec_.x = 0;
+          currentSelec_.y = 0;
+        }
+        else if (currentSelec_.x == itemCount_[currentSelec_.y] - 1)
+        {
+          SetUnformItem ();
+          currentSelec_.y++;
+          currentSelec_.x = 0;
+        }
+        else
+        {
+          SetUnformItem ();
+          currentSelec_.x++;
+        }
+        SetFormItem ();
+        itemz_(currentSelec_.x, currentSelec_.y)
+          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          EmptyEventArgs ());
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {        
+        itemz_(currentSelec_.x, currentSelec_.y)
+          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          EmptyEventArgs ());
+        return true;
+      }
     }
-    if (guiEvent.key.code == sf::Keyboard::Down)
-    {
-    if (itemz_.Count () == 0 || currentSelec_ >= itemz_.Count () - 1)
-    return true;
-
-    SetUnformItem ();
-    currentSelec_++;
-    layoutManager_->SetCurrentSel (currentSelec_);
-    SetFormItem ();
-    itemz_[currentSelec_]->OnSelected (itemz_[currentSelec_], EmptyEventArgs ());
-    return true;
-    }
-    if (guiEvent.key.code == sf::Keyboard::Return)
-    {
-    itemz_[currentSelec_]->Do ();
-    itemz_[currentSelec_]->OnActivated (itemz_[currentSelec_], EmptyEventArgs ());
-    return true;
-    }
-    }
-    return false;*/
     return false;
   }
 

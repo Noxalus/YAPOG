@@ -12,6 +12,7 @@
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 
 # include "YAPOG/Graphics/Vector2.hpp"
 
@@ -23,9 +24,9 @@ namespace yap
 namespace ycl
 {
   typedef yap::collection::Array<yap::Label*> TabTitleType;
-  typedef 
-    yap::collection::Array<
-    std::pair<yap::UInt32, yap::String>>      ResponseType;
+  typedef yap::collection::Array<
+    std::pair<yap::UInt32, yap::String>>      ResponsesType;
+  typedef std::pair<bool, ResponsesType>      ResponseType;
   class ChatWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(ChatWidget);
@@ -61,7 +62,7 @@ namespace ycl
     yap::TextBoxWidget*     lineCatcher_;
     TabTitleType            tabTitle_;
     yap::HorizontalLayout*  tabLayout_;
-    yap::Label*             dialog_;
+    yap::MultiLabelWidget*  dialog_;
     yap::HorizontalLayout*  dialLayout_;
     yap::HorizontalLayout*  entryLayout_;
     yap::VerticalLayout*    bigLayout_;

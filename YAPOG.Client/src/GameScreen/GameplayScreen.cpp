@@ -14,6 +14,8 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/GridMenu.hpp"
+#include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -61,10 +63,13 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    pokedex_ = new PokedexWidget ();
+    ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
+   /* pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
 
-    guiManager_->AddChild (*pokedex_);  
+    guiManager_->AddChild (*pokedex_);  */
+    guiManager_->AddChild (*chat);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -78,14 +83,6 @@ namespace ycl
     UpdatePlayer (dt);
 
     world_.Draw (context);
-    /*
-    yap::PokemonInfo* activatedPokemon = pokedex_->GetActivatedPokemon ();
-    if (activatedPokemon != nullptr)
-    {
-      pokedexInfo_->Open ();
-      pokedex_->Close ();
-    }
-    */
     return BaseScreen::HandleRun (dt, context);
   }
 

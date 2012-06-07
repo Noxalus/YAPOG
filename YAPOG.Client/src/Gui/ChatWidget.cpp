@@ -14,7 +14,8 @@ namespace ycl
     , tabTitle_ ()
     , tabLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0),
     yap::Padding (0, 5, 0, 0), false))
-    , dialog_ (new yap::Label (yap::String ("COUCOU")))
+    , dialog_ (new yap::MultiLabelWidget (yap::Padding (5, 5, 5, 5),
+    yap::Padding (0, 0, 0, 0), false))
     , dialLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0),
     yap::Padding (0, 0, 0, 0), false))
     , entryLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0),
@@ -28,8 +29,6 @@ namespace ycl
     lineCatcher_->ChangeColor (sf::Color::Black);
     lineCatcher_->SetCursor (*cursor);
     lineCatcher_->SetSize (yap::Vector2 (242, 12));
-    dialog_->SetTextSize (12);
-    dialog_->ChangeColor (sf::Color::Black);
   }
 
   ChatWidget::~ChatWidget ()
@@ -76,6 +75,7 @@ namespace ycl
   void ChatWidget::InitDial ()
   {
     dialLayout_->SetSize (yap::Vector2 (242, 96));
+    dialog_->SetSize (yap::Vector2 (242, 96));
 
     dialLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     dialLayout_->AddChild (*dialog_);
@@ -139,32 +139,40 @@ namespace ycl
     return yap::Vector2 (300, 150);
   }
 
-  void         ChatWidget::DisplayResponse (ResponseType response)
+  void         ChatWidget::DisplayResponse (ResponseType res)
   {
+    bool toclear = res.first;
+    ResponsesType response = res.second;
+
+    if (toclear)
+      dialog_->Clear ();
     for (size_t i = 0; i < response.Count (); i++)
     {
+      sf::Color color = sf::Color::Black;
       switch (response[i].first)
       {
       case 1:
-        dialog_->ChangeColor (sf::Color::Black);
+        color = sf::Color::Black;
         break;
       case 2:
-        dialog_->ChangeColor (sf::Color::Green);
+        color = sf::Color::Green;
         break;
       case 3:
-        dialog_->ChangeColor (sf::Color::Blue);
+        color = sf::Color::Blue;
         break;
       case 4:
-        dialog_->ChangeColor (sf::Color (128, 128, 0));
+        color = sf::Color (128, 128, 0);
         break;
       case 5:
-        dialog_->ChangeColor (sf::Color::Magenta);
+        color = sf::Color::Magenta;
         break;
       default:
-        dialog_->ChangeColor (sf::Color::Red);
+        color = sf::Color::Red;
         break;
       }
-      dialog_->SetText (response[i].second);
+      dialog_->AddText (response[i].second,
+        12,
+        color);
     }
   }
 
@@ -181,7 +189,7 @@ namespace ycl
         chat_->SetBuf (todisplay);
         chat_->Parse ();
         response = chat_->Exec ();
-        if (!response.IsEmpty ())
+        if (!response.second.IsEmpty ())
           DisplayResponse (response);
         lineCatcher_->Clear ();
       }

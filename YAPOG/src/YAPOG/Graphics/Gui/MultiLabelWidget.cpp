@@ -38,8 +38,7 @@ namespace yap
   }
 
   void MultiLabelWidget::Refresh ()
-  {
-    layout_->Refresh ();
+  {    
     BaseWidget::Refresh ();
   }
 
@@ -82,7 +81,7 @@ namespace yap
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
-      if (guiEvent.key.code == sf::Keyboard::Up)
+      if (guiEvent.key.code == sf::Keyboard::PageUp)
       {
         if (currentSelec_ <= 0)
           return true;
@@ -91,7 +90,7 @@ namespace yap
         layoutManager_->SetCurrentSel (currentSelec_);        
         return true;
       }
-      if (guiEvent.key.code == sf::Keyboard::Down)
+      if (guiEvent.key.code == sf::Keyboard::PageDown)
       {
         if (labels_.Count () == 0 || currentSelec_ >= labels_.Count () - 1)
           return true;
@@ -103,30 +102,21 @@ namespace yap
     }
     return false;
   }
-
-  void MultiLabelWidget::AddText (const collection::Array<Label*>& labels, LayoutBox::Align align)
-  {
-    for (Label* label : labels)
-    {
-      AddText (label->GetText (), label->GetCharHeight (), align);
-    }
-  }
-  void MultiLabelWidget::AddText (const String& contentArg, uint charSize, LayoutBox::Align align)
+  
+  void MultiLabelWidget::AddText (const String& contentArg, uint charSize, sf::Color color, LayoutBox::Align align)
   {
     if (contentArg.empty())
       return;
-
+    
     String txt = contentArg;
     Label charWidth ("Test");
     charWidth.SetTextSize (charSize);
-
     uint LabelMaxSize = GetUserSize ().x - padding_.left - padding_.right;
-    uint charNumb = (LabelMaxSize / charWidth.GetCharWidth ());
-
+    uint charNumb = (LabelMaxSize / charWidth.GetCharWidth () * 1.5);
     uint previousPos = 0;
     uint subPos = charNumb;
     sf::Text width (txt.substr (0, subPos));
-
+    
     collection::Array<uint> pos;
     pos.Add (0);
     while (1)
@@ -145,20 +135,32 @@ namespace yap
       subPos = 1;
       width.setString (txt.substr (previousPos, subPos));
     }
-
+    
     for (int i = 0; i < pos.Count (); ++i)
     {
       Label* lb = new Label ();
+      lb->ChangeColor (color);
+      lb->SetTextSize (charSize);
 
       if (i + 1 < pos.Count ())
         lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
       else
-        lb->SetText (contentArg.substr (pos[i]));
+        lb->SetText (contentArg.substr (pos[i]));      
       labels_.Add (lb);
       layout_->AddChild (*lb, align);
       layoutManager_->AddItem (lb);
-      layoutManager_->SetSize (layout_->GetSize ().y);
-    }    
+      layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight ());
+    }
     Refresh ();
+  }
+
+  void MultiLabelWidget::Clear ()
+  {
+    content_ = "";
+    labels_.Clear ();
+    currentSelec_ = 0;
+    layout_->Clear ();
+    currentText_ = 0;
+    layoutManager_->Clear ();
   }
 } // namespace yap
