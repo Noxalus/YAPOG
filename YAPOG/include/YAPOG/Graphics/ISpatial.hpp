@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  struct YAPOG_LIB ISpatial
+  struct ISpatial
   {
       virtual ~ISpatial () {}
 
