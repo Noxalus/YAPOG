@@ -1,7 +1,11 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
+#include "YAPOG/System/RandomHelper.hpp"
+
 #include "Battle/Phase/BeginBattlePhase.hpp"
+#include "Battle/OpponentBattleInfoWidget.hpp"
+#include "Battle/PokemonBattleInfoWidget.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Battle/Battle.hpp"
 #include "Game.hpp"
@@ -16,6 +20,12 @@ namespace ycl
     : yap::BeginBattlePhase (battle)
     , battle_ (battle)
     , battleInterface_  (battleInterface)
+    , opponentGroundPositionFinished_ (false)
+    , playerGroundPositionFinished_ (false)
+    , opponentInfoPositionFinished_ (false)
+    , playerBackLeaveFinished_ (false)
+    , pokemonDisplayingFinished_ (false)
+    , pokemonInfoPositionFinished_ (false)
   {
   }
 
@@ -27,6 +37,15 @@ namespace ycl
   {
     BattlePhase::HandleStart ();
 
+    // Begin battle little phases booleans init.
+    opponentGroundPositionFinished_ = false;
+    playerGroundPositionFinished_ = false;
+    opponentInfoPositionFinished_ = false;
+    playerBackLeaveFinished_ = false;
+    pokemonDisplayingFinished_ = false;
+    pokemonInfoPositionFinished_ = false;
+
+    // Player's side init
     battle_.GetPlayerGround ().SetPosition (
       yap::Vector2 (
       Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
@@ -34,73 +53,190 @@ namespace ycl
 
     UpdatePlayerTrainerBack ();
 
+    battle_.GetPlayerTeam ().GetBattleSprite ().Show (false);
+    battle_.GetPlayerTeam ().GetBattleSprite ().SetPosition (yap::Vector2 (
+      battle_.GetPlayerGroundPosition ().x +
+      battle_.GetPlayerGround ().GetSize ().x / 2 -
+      battle_.GetPlayerTeam ().GetBattleSprite ().GetSize ().x / 2,
+      battle_.GetPlayerGroundPosition ().y +
+      battle_.GetPlayerGround ().GetSize ().y / 2 -
+      battle_.GetPlayerTeam ().GetBattleSprite ().GetSize ().y));
+
+    // Opponent's side init.
     battle_.GetOpponentGround ().SetPosition (
       yap::Vector2 (
       (-1) * battle_.GetOpponentGround ().GetSize ().x,
       battle_.GetOpponentGroundPosition ().y));
 
-    yap::String opponentName = battle_.GetOpponent ().GetName ();
+    UpdateOpponentFront ();
 
-    //battleInterface_.GetPokemonName ().SetText (opponentName);
-    //battleInterface_.GetPokemonName ().ChangeColor (sf::Color::Black);
+    /// @name Battle interface init.
+    /// @{
+    yap::String opponentName = "Mustebouée12345";//battle_.GetOpponent ().GetName ();
 
+    // Battle dialog box init.
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+    battleInterface_.GetBattleInfoDialogBox ().SetShowText (false);
     battleInterface_.GetBattleInfoDialogBox ().
-      AddText ("Un " + opponentName + 
-      " sauvage apparait !");
+      AddText ("Un " + opponentName + " sauvage apparait !");
 
-    /*
-    battle_.GetDrawableOpponent ().GetFrontSprite ().SetPosition (
-    yap::Vector2 (
-    Game::SCREEN_SIZE.x -
-    (battle_.GetOpponentGround ().GetSize ().x),
-    Game::SCREEN_SIZE.y / 3 -
-    (battle_.GetOpponentGround ().GetSize ().y) / 2));
-    */
+    // Player's side.
+    battleInterface_.GetPokemonInfoWidget ().SetPosition (yap::Vector2 (
+      Game::SCREEN_SIZE.x, 
+      battle_.GetPokemonInfoPosition ().y));
+    battleInterface_.GetPokemonInfoWidget ().SetName (
+      battle_.GetPlayerTeam ().GetName ());
+    battleInterface_.GetPokemonInfoWidget ().SetGender (
+      battle_.GetPlayerTeam ().GetGender ());
+
+    // Opponent's side.
+    battleInterface_.GetOpponentInfoWidget ().SetName (opponentName);
+    battleInterface_.GetOpponentInfoWidget ().SetLevel (
+      battle_.GetOpponent ().GetLevel ());
+    battleInterface_.GetOpponentInfoWidget ().SetGender (
+      battle_.GetOpponent ().GetGender ());
+    battleInterface_.GetPokemonInfoWidget ().SetLevel (
+      battle_.GetPlayerTeam ().GetLevel ());
+
+    //battleInterface_.GetOpponentInfoWidget ().ComputeLevelBoxSize ();
+
+    battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
+      -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
+      battle_.GetOpponentInfoPosition ().y));
+    /// @}
+
+    battle_.GetOpponent ().OnHPChangedEvent () +=
+      [&] (const yap::IBattleEntity&, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>&)
+    {
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPColor (
+        battle_.GetOpponent ().GetHPPercentage ());
+
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
+        battle_.GetOpponent ().GetHPPercentage ());
+    };
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
   {
-    if (battle_.GetPlayerGround ().GetPosition ().x >
-      battle_.GetPlayerGroundPosition ().x)
+    if (!(playerGroundPositionFinished_ && opponentGroundPositionFinished_))
     {
-      battle_.GetPlayerGround ().SetPosition (
-        yap::Vector2 (
-        battle_.GetPlayerGround ().GetPosition ().x - (GROUND_SPEED * dt.GetValue ()),
-        battle_.GetPlayerGround ().GetPosition ().y));
+      if (battle_.GetPlayerGround ().GetPosition ().x >
+        battle_.GetPlayerGroundPosition ().x)
+      {
+        battle_.GetPlayerGround ().SetPosition (
+          yap::Vector2 (
+          battle_.GetPlayerGround ().GetPosition ().x - 
+          (GROUND_SPEED * dt.GetValue ()),
+          battle_.GetPlayerGround ().GetPosition ().y));
 
-      UpdatePlayerTrainerBack ();
+        UpdatePlayerTrainerBack ();
+      }
+      else
+      {
+        battle_.GetPlayerGround ().SetPosition (
+          battle_.GetPlayerGroundPosition ());
+
+        UpdatePlayerTrainerBack ();
+
+        playerGroundPositionFinished_ = true;
+      }
+
+      if (battle_.GetOpponentGround ().GetPosition ().x <
+        battle_.GetOpponentGroundPosition ().x)
+      {
+        battle_.GetOpponentGround ().SetPosition (
+          yap::Vector2 (
+          battle_.GetOpponentGround ().GetPosition ().x + 
+          (GROUND_SPEED * dt.GetValue ()),
+          battle_.GetOpponentGround ().GetPosition ().y));
+
+        UpdateOpponentFront ();
+      }
+      else
+      {
+        battle_.GetOpponentGround ().SetPosition (
+          battle_.GetOpponentGroundPosition ());
+
+        UpdateOpponentFront ();
+
+        opponentGroundPositionFinished_ = true;
+      }
     }
     else
     {
-      battle_.GetPlayerGround ().SetPosition (
-        battle_.GetPlayerGroundPosition ());
+      battleInterface_.GetBattleInfoDialogBox ().SetShowText (true);
 
-      UpdatePlayerTrainerBack ();
-    }
+      if (!opponentInfoPositionFinished_)
+      {
+        if (battleInterface_.GetOpponentInfoWidget ().GetPosition ().x <
+          battle_.GetOpponentInfoPosition ().x)
+        {
+          battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
+            battleInterface_.GetOpponentInfoWidget ().GetPosition ().x + 
+            ((GROUND_SPEED * 2) * dt.GetValue ()),
+            battleInterface_.GetOpponentInfoWidget ().GetPosition ().y));
+        }
+        else
+        {
+          battleInterface_.GetOpponentInfoWidget ().SetPosition (
+            battle_.GetOpponentInfoPosition ());
 
-    if (battle_.GetOpponentGround ().GetPosition ().x <
-      battle_.GetOpponentGroundPosition ().x)
-    {
-      battle_.GetOpponentGround ().SetPosition (
-        yap::Vector2 (
-        battle_.GetOpponentGround ().GetPosition ().x + (GROUND_SPEED * dt.GetValue ()),
-        battle_.GetOpponentGround ().GetPosition ().y));
-    }
-    else
-    {
-      battle_.GetOpponentGround ().SetPosition (
-        battle_.GetOpponentGroundPosition ());
-    }
+          opponentInfoPositionFinished_ = true;
+          battleInterface_.GetBattleInfoDialogBox ().
+            AddText (battle_.GetPlayerTeam ().GetName () + "! GO !");
+        }
+      }
+      else
+      {
+        if (yap::RandomHelper::GetNext (0.f, 1.f) < 0.01)
+          battle_.GetOpponent ().TakeDamage (5);
 
-    if (battle_.GetPlayerGround ().GetPosition () ==
-      battle_.GetPlayerGroundPosition () &&
-      battle_.GetOpponentGround ().GetPosition () ==
-      battle_.GetOpponentGroundPosition ())
-    {
-      battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+        if (!playerBackLeaveFinished_)
+        {
+          if (battle_.GetPlayerTrainerBack ().GetPosition ().x >
+            (-1) * battle_.GetPlayerTrainerBack ().GetSize ().x)
+          {
+            battle_.GetPlayerTrainerBack ().SetPosition (yap::Vector2
+              (battle_.GetPlayerTrainerBack ().GetPosition ().x -
+              ((GROUND_SPEED * 2) * dt.GetValue ()),
+              battle_.GetPlayerTrainerBack ().GetPosition ().y
+              ));
+          }
+          else
+          {
+            playerBackLeaveFinished_ = true;
+            battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+            battle_.GetPlayerTeam ().GetBattleSprite ().Show (true);
+          }
+        }
+        else
+        {
+          if (!pokemonInfoPositionFinished_)
+          {
+            if (battleInterface_.GetPokemonInfoWidget ().GetPosition ().x >
+              battle_.GetPokemonInfoPosition ().x)
+            {
+              battleInterface_.GetPokemonInfoWidget ().SetPosition (
+                yap::Vector2 (
+                battleInterface_.GetPokemonInfoWidget ().GetPosition ().x - 
+                ((GROUND_SPEED * 2) * dt.GetValue ()),
+                battleInterface_.GetPokemonInfoWidget ().GetPosition ().y));
+            }
+            else
+            {
+              battleInterface_.GetPokemonInfoWidget ().SetPosition (
+                battle_.GetPokemonInfoPosition ());
 
-      nextPhase_ = yap::BattlePhaseState::BeginBattle;
+              pokemonInfoPositionFinished_ = true;
+            }
+          }
+          else
+          {
+            //nextPhase_ = yap::BattlePhaseState::Selection;
+          }
+        }
+      }
     }
   }
 
@@ -160,5 +296,16 @@ namespace ycl
       battle_.GetPlayerGround ().GetSize ().y / 2 -
       battle_.GetPlayerTrainerBack ().GetSize ().y
       ));
+  }
+
+  void BeginBattlePhase::UpdateOpponentFront ()
+  {
+    battle_.GetOpponent ().GetBattleSprite ().SetPosition (
+      yap::Vector2 (
+      battle_.GetOpponentGround ().GetPosition ().x + 
+      battle_.GetOpponentGround ().GetSize ().x / 2 - 
+      battle_.GetOpponent ().GetBattleSprite ().GetSize ().x / 2,
+      battle_.GetOpponentGround ().GetPosition ().y - 
+      battle_.GetOpponent ().GetBattleSprite ().GetSize ().y / 2));
   }
 }

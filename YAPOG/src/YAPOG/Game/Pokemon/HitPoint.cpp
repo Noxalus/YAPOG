@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Pokemon/HitPoint.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 namespace yap
 {
@@ -22,7 +23,8 @@ namespace yap
 
   void HitPoint::SetCurrentValue (const UInt16& value)
   {
-    currentValue_ = value;
+    currentValue_ = MathHelper::Clamp 
+      (value, INITIAL_CURRENT_VALUE, value_);
   }
 
   void HitPoint::SetValue (const UInt16& value)

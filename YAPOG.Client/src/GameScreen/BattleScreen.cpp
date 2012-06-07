@@ -43,29 +43,23 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    /// @warning /!/ RETURN OF THE DEATH /!/
-    return;
+    PokemonTeam* team = new PokemonTeam ();
+    team->AddPokemon (new Pokemon (yap::ID (2), 42, false));
+    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
-    PokemonTeam team;
-    team.AddPokemon (new Pokemon (yap::ID (2), 42, false));
-    team.AddPokemon (new Pokemon (yap::ID (16), 32, true));
-
-    PokemonFighter wildPokemon (GeneratePokemon ());
-    PokemonFighterTeam playerFighterTeam;
-    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(0)));
-    playerFighterTeam.AddPokemon (new PokemonFighter (team.GetPokemon(1)));
-
-    /*
-    team.GetPokemon (0)->PrintStats ();
-    std::cout << "---------- Fighter ----------" << std::endl;
-    playerFighterTeam.GetPokemon (0)->PrintBattleStats ();
-    */
+    PokemonFighter* wildPokemon = 
+      new PokemonFighter (GeneratePokemon (), true);
+    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (0), false));
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (1), false));
 
     battleInterface_ = new BattleInterface ();
 
     battle_ = new WildBattle (*battleInterface_);
-    battle_->SetDrawablePlayerTeam (&playerFighterTeam);
-    battle_->SetDrawableOpponent (&wildPokemon);
+    battle_->SetPlayerTeam (playerFighterTeam);
+    battle_->SetOpponent (wildPokemon);
     battle_->Init ();
 
     guiManager_->AddChild (*battleInterface_);

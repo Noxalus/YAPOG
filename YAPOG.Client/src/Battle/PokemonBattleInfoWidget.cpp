@@ -1,6 +1,4 @@
-#include "YAPOG/Graphics/Texture.hpp"
-#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
 #include "Battle/PokemonBattleInfoWidget.hpp"
@@ -8,21 +6,43 @@
 namespace ycl
 {
   PokemonBattleInfoWidget::PokemonBattleInfoWidget ()
-    : pokemonName_ ()
-    , horizontalLayout_ ()
-    , verticalLayout_ ()
+    : BattleInfoWidget ()
   {
-    horizontalLayout_.SetSize (yap::Vector2 (100.f, 200.f));
-    verticalLayout_.SetBackground (
-      *new yap::WidgetBackground ("Pictures/pokemon_battle_info.png", false));
+    this->SetSize (yap::Vector2 (309.f, 108.f));
+    nameBox_.SetSize (yap::Vector2 (256.f, 25.f));
+    battleInfoBox_.SetSize (yap::Vector2 (309.f, 108.f));
 
-    this->AddChild (pokemonName_);
-    this->AddChild (verticalLayout_);
-  }
+    hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
+    hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
 
-  /// Getters
-  yap::Label& PokemonBattleInfoWidget::GetPokemonName ()
-  {
-    return pokemonName_;
+    hpBox_.SetSize (yap::Vector2 (
+      hpBarPictureBox_->GetSize ().x, 
+      hpBarPictureBox_->GetSize ().y));
+
+    genderBox_.SetSize (yap::Vector2 (
+      genderPictureBox_->GetSize ().x, 
+      genderPictureBox_->GetSize ().y));
+
+    levelBox_.SetSize (yap::Vector2 (
+      256.f - nameLabel_.GetSize ().x - genderPictureBox_->GetSize ().x, 
+      25.f));
+
+    yap::WidgetBackground* background = 
+      new yap::WidgetBackground (
+      "Pictures/Battle/PokemonInfoBackground.png", true);
+      
+    battleInfoBox_.SetBackground (*background);
+
+    nameBox_.AddChild (nameLabel_);
+    nameBox_.AddChild (genderBox_);
+    nameBox_.AddChild (levelBox_);
+    levelBox_.AddChild (levelLabel_, yap::LayoutBox::Align::RIGHT);
+    battleInfoBox_.AddChild (nameBox_, yap::LayoutBox::Align::LEFT);
+    hpBox_.AddChild (*hpBarPictureBox_);
+    hpBarPictureBox_->AddChild (*hpBarContent_);
+    genderBox_.AddChild (*genderPictureBox_);
+    battleInfoBox_.AddChild (hpBox_, yap::LayoutBox::Align::RIGHT);
+
+    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
   }
 }

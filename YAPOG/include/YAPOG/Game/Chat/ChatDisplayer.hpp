@@ -13,39 +13,46 @@
 
 namespace yap
 {
+  // Channel type
+  typedef collection::Array<CMType*>        ChansType;
+  typedef std::pair <CMType*, String>       ChanOutputType;
+  typedef collection::Array<ChanOutputType> ChanBufType;
+  typedef collection::Array<
+    std::pair<UInt32, String>>              ResponsesType;
+  typedef std::pair<bool, ResponsesType>    ResponseType;
+
   class YAPOG_LIB ChatDisplayer
   {
     DISALLOW_COPY(ChatDisplayer);
   public:
-    // Channel type
-    typedef collection::Array<CMType*>        ChansType;
-    typedef std::pair <CMType*, String>       ChanOutputType;
-    typedef collection::Array<ChanOutputType> ChanBufType;
-    typedef collection::Array<bool>           ChansBoolType;
 
     ChatDisplayer ();
     ChatDisplayer (String name, UInt32 c);
-    //ChatDisplayer (ChansBoolType chanbooltab);
     ChatDisplayer (String name, bool* chanbooltab);
     ~ChatDisplayer ();
 
     UInt32          GetChanNb ();
     void            AddToChan (Int32 c, BufferType b);
-    String          GetLastStrChan (UInt32 c);
+    String          GetLastStrChan ();
     void            AddChan (UInt32 c);
     void            RmChan (UInt32 c);
     void            DisplayChanOn ();
-    void			    	DisplayChan ();
-    void		    		Display ();
+    ResponseType  	DisplayTab ();
+    ResponseType		Display ();
+
+    String          GetName ();
+    ChanBufType     GetBuff ();
   private:
     void	  			  MyDisplay (size_t index, size_t last);
+    void	  			  MyDisplayAdder (size_t index,
+      size_t last,
+      ResponsesType* rt);
 
     String          name_;
     size_t          offset_;
     ChanBufType     buff_;
     ChansType       chans_;
     ChanOutputType  output_;
-    //ChansBoolType   chanbooltab_;
     bool*           chanbooltab_;
   };
 } // namespace yap

@@ -14,14 +14,14 @@ namespace ycl
 
   class PokemonFighterTeam
     : public yap::PokemonFighterTeam
-    , public virtual IDrawableBattleEntity
+    , public IDrawableBattleEntity
   {
     DISALLOW_COPY (PokemonFighterTeam);
   public:
     PokemonFighterTeam ();
     virtual ~PokemonFighterTeam ();
 
-    virtual PokemonFighter* GetPokemon (int index) const;
+    virtual PokemonFighter& GetPokemon (int index) const;
     virtual bool AddPokemon (PokemonFighter* pokemon);
 
     /// @name IDrawable members.
@@ -36,8 +36,7 @@ namespace ycl
 
     /// @name IDrawableBattleEntity members
     /// @{
-    virtual yap::ISprite& GetFrontSprite ();
-    virtual yap::ISprite& GetBackSprite ();
+    virtual yap::ISprite& GetBattleSprite ();
     /// @}
 
   protected:
@@ -53,9 +52,9 @@ namespace ycl
     bool isVisible_;
     sf::Color color_;
 
-
   private:
-    PokemonFighter* GetCurrentFighter () const;
+    virtual PokemonFighter& GetCurrentFighter ();
+    virtual const PokemonFighter& GetCurrentFighter () const;
     yap::collection::Array<PokemonFighter*> fighters_;
   };
 } // namespace ycl

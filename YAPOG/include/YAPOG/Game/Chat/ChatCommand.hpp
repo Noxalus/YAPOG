@@ -19,9 +19,9 @@ namespace yap
   class Chat;
   class ChatDisplayer;
   typedef BufferType         (ChatCommand::*funcloc) (UInt32* channb,
-                                                      BufferType* b,
-                                                      ChatManager* cm,
-                                                      ChatDisplayer* cd);
+    BufferType* b,
+    ChatManager* cm,
+    ChatDisplayer* cd);
 
   class YAPOG_LIB ChatCommand
   {
@@ -34,6 +34,7 @@ namespace yap
       funcloc PtrFuncloc;
     } MyCmdType;
     ChatCommand ();
+    ~ChatCommand ();
 
     // Commands
     // With request
@@ -46,33 +47,38 @@ namespace yap
     DisplayType         AddChan (BufferType b);
     DisplayType         RmChan (BufferType b);
     DisplayType					Unknown (BufferType b);
-    
+
     // Set the command
     void								SetCommand (func cmd);
     // Get the command
     func								GetCmd (const char *pString);
     // Execute the command
-    void  							ExecCmd (ChatManagerType* cm);
+    ResponseType  			ExecCmd (ChatManagerType* cm);
+
   private:
-    BufferType          SwitchTab (UInt32* channb,
-                                   BufferType* b,
-                                   ChatManagerType* cm,
-                                   ChatDisplayer* cd);
+    BufferType          SwitchTab (
+      UInt32* channb,
+      BufferType* b,
+      ChatManagerType* cm,
+      ChatDisplayer* cd);
 
-    BufferType          SwitchChan (UInt32* channb,
-                                    BufferType* b,
-                                    ChatManagerType* cm,
-                                    ChatDisplayer* cd);
+    BufferType          SwitchChan 
+      (UInt32* channb,
+      BufferType* b,
+      ChatManagerType* cm,
+      ChatDisplayer* cd);
 
-    BufferType          AddChan (UInt32* channb,
-                                 BufferType* b,
-                                 ChatManagerType* cm,
-                                 ChatDisplayer* cd);
-    
-    BufferType          RmChan (UInt32* channb,
-                                BufferType* b,
-                                ChatManagerType* cm,
-                                ChatDisplayer* cd);
+    BufferType          AddChan (
+      UInt32* channb,
+      BufferType* b,
+      ChatManagerType* cm,
+      ChatDisplayer* cd);
+
+    BufferType          RmChan (
+      UInt32* channb,
+      BufferType* b,
+      ChatManagerType* cm,
+      ChatDisplayer* cd);
 
     MyCmdType*          tab_;
     func                command_;

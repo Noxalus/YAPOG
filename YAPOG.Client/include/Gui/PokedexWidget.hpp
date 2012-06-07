@@ -8,10 +8,14 @@
 namespace yap
 {
   class Pokedex;
+  class PictureBox;
+  class PokemonInfo;
+  class Menu;
 }
 
 namespace ycl
 {
+  class PokedexCompositeWidget;
   class PokedexWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(PokedexWidget);
@@ -21,6 +25,7 @@ namespace ycl
     void Init ();
     virtual ~PokedexWidget();
     virtual bool IsFocusable () const;
+    yap::PokemonInfo* GetActivatedPokemon () const;
 
   protected:
     virtual yap::Vector2 HandleGetSize () const;
@@ -36,6 +41,11 @@ namespace ycl
 
   private:
     yap::Pokedex* pokedex_;
+    yap::PictureBox* boxInfoContent_;
+    yap::Menu* menu_;
+    yap::PokemonInfo* validatedPokemon_;
+    yap::HorizontalLayout* firstHLayout_;
+    PokedexCompositeWidget* pokedexInfo_;
 
   };
 } // namespace ycl

@@ -21,7 +21,9 @@ namespace ycl
 
   void MainMenu::Init ()
   {
-    yap::WidgetBackground* menuBck = new yap::WidgetBackground ("WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
+    yap::WidgetBackground* menuBck = 
+      new yap::WidgetBackground (
+      "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();

@@ -6,11 +6,19 @@ namespace ycl
 {
   const bool PokemonFighter::DEFAULT_VISIBLE_STATE = true;
   const sf::Color PokemonFighter::DEFAULT_COLOR = sf::Color ();
+  const BattleSpriteType PokemonFighter::
+    DEFAULT_BATTLE_SPRITE_TYPE = BattleSpriteType::FRONT;
 
-  PokemonFighter::PokemonFighter (Pokemon* originalPokemon)
+  PokemonFighter::PokemonFighter (Pokemon* originalPokemon, bool isOpponent)
     : yap::PokemonFighter (originalPokemon)
     , originalPokemon_ (originalPokemon)
+    , battleSprite_ (nullptr)
+    , isOpponent_ (isOpponent)
   {
+    if (isOpponent_)
+      SetBattleSprite (BattleSpriteType::FRONT);
+    else
+      SetBattleSprite (BattleSpriteType::BACK);
   }
 
   PokemonFighter::~PokemonFighter ()
@@ -23,6 +31,8 @@ namespace ycl
   {
     if (!IsVisible ())
       return;
+
+    HandleDraw (context);
   }
 
   bool PokemonFighter::IsVisible () const
@@ -44,7 +54,7 @@ namespace ycl
     HandleChangeColor (color);
   }
   /// @}
-  
+
   void PokemonFighter::HandleInit ()
   {
   }
@@ -55,6 +65,7 @@ namespace ycl
 
   void PokemonFighter::HandleDraw (yap::IDrawingContext& context)
   {
+    battleSprite_->Draw (context);
   }
 
   void PokemonFighter::HandleShow (bool isVisible)
@@ -67,15 +78,27 @@ namespace ycl
 
   /// @name IDrawableBattleEntity members
   /// @{
-  yap::ISprite& PokemonFighter::GetFrontSprite ()
+  yap::ISprite& PokemonFighter::GetBattleSprite ()
   {
-    return originalPokemon_->GetBattleFront ();
-  }
-
-  yap::ISprite& PokemonFighter::GetBackSprite ()
-  {
-    return originalPokemon_->GetBattleBack ();
+    return *battleSprite_;
   }
   /// @}
+
+  void PokemonFighter::SetBattleSprite (
+    const BattleSpriteType& battleSpriteType)
+  {
+    switch (battleSpriteType)
+    {
+    case BattleSpriteType::BACK:
+      battleSprite_ = &originalPokemon_->GetBattleBack ();
+      break;
+    case BattleSpriteType::FRONT:
+      battleSprite_ = &originalPokemon_->GetBattleFront ();
+      break;
+    default:
+      SetBattleSprite (DEFAULT_BATTLE_SPRITE_TYPE);
+      break;
+    }
+  }
 
 } // namespace yap

@@ -1,40 +1,53 @@
-#include "YAPOG/Graphics/Texture.hpp"
-#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-
-#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 
 #include "Battle/OpponentBattleInfoWidget.hpp"
 
 namespace ycl
 {
+  int test = 100;
+
   OpponentBattleInfoWidget::OpponentBattleInfoWidget ()
-    : opponentName_ ("COUCOU")
-    , horizontalLayout_ (yap::Padding (5, 5, 5, 5), yap::Padding (0, 0, 0, 0), false)
-    , verticalLayout_ (yap::Padding (5, 5, 5, 5), yap::Padding (0, 0, 0, 0), false)
+    : BattleInfoWidget ()
   {
-    horizontalLayout_.SetSize (yap::Vector2 (200.f, 50.f));
-    verticalLayout_.SetSize (yap::Vector2 (300.f, 84.f));
+    this->SetSize (yap::Vector2 (300.f, 84.f));
+    battleInfoBox_.SetSize (yap::Vector2 (300.f, 84.f));
+    nameBox_.SetSize (yap::Vector2 (256.f, 30.f));
+    genderBox_.SetSize (yap::Vector2 (12.f, 22.f));
+
+    hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
+    hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
+
+    hpBox_.SetSize (yap::Vector2 (
+      hpBarPictureBox_->GetSize ().x,
+      hpBarPictureBox_->GetSize ().y));
+
+    genderBox_.SetSize (yap::Vector2 (
+      genderPictureBox_->GetSize ().x,
+      genderPictureBox_->GetSize ().y));
 
     yap::WidgetBackground* background =
-      new yap::WidgetBackground ("Pictures/opponent_battle_info.png", false);
+      new yap::WidgetBackground (
+      "Pictures/Battle/OpponentInfoBackground.png", true);
 
-    verticalLayout_.SetBackground (*background);
-    verticalLayout_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    battleInfoBox_.SetBackground (*background);
 
-    horizontalLayout_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    opponentName_.ChangeColor (sf::Color::Black);
+    nameBox_.AddChild (nameLabel_);
+    nameBox_.AddChild (genderBox_);
+    nameBox_.AddChild (levelBox_);
+    levelBox_.AddChild (levelLabel_, yap::LayoutBox::Align::RIGHT);
+    battleInfoBox_.AddChild (nameBox_, yap::LayoutBox::Align::LEFT);
+    hpBox_.AddChild (*hpBarPictureBox_);
+    hpBarPictureBox_->AddChild (*hpBarContent_);
+    genderBox_.AddChild (*genderPictureBox_);
+    battleInfoBox_.AddChild (hpBox_, yap::LayoutBox::Align::RIGHT);
 
-    horizontalLayout_.AddChild (opponentName_);
-    verticalLayout_.AddChild (horizontalLayout_, yap::LayoutBox::Align::LEFT);
-
-    this->AddChild (verticalLayout_);
+    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
   }
 
-  /// Getters
-  yap::Label& OpponentBattleInfoWidget::GetOpponentName ()
+  bool OpponentBattleInfoWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
-    return opponentName_;
+    return false;
   }
 }

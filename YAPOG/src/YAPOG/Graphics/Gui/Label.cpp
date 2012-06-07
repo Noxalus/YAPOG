@@ -18,6 +18,7 @@ namespace yap
   {
     drawableText_.setFont 
       (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
+    drawableText_.setColor (sf::Color (255, 255, 255));
   }
 
   Label::Label (String content)
@@ -27,11 +28,12 @@ namespace yap
   {
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
     GetPosition ().y + padding_.top));*/
+    drawableText_.setColor (sf::Color (127, 127, 127));
     drawableText_.setPosition (GetPosition ().x,
-      GetPosition ().y - drawableText_.getCharacterSize ()
-      + drawableText_.getGlobalBounds ().height);
-    isPosSet_ = true;
+      GetPosition ().y);
 
+    isPosSet_ = true;
+    
     drawableText_.setFont 
       (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
   }
@@ -70,7 +72,7 @@ namespace yap
       + drawableText_.getGlobalBounds ().width
       + padding_.right,
       padding_.top
-      + drawableText_.getGlobalBounds ().height
+      + /*drawableText_.getGlobalBounds ().height*/drawableText_.getCharacterSize ()
       + padding_.bottom)
       + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
       * 2, border_->GetWidth () * 2) : Vector2 ());
@@ -92,6 +94,10 @@ namespace yap
     //drawableText_.setPosition (GetPosition() + offset);
   }
 
+  void Label::SetTextSize (uint size)
+  {
+    drawableText_.setCharacterSize (size);
+  }
   void Label::HandleScale (const Vector2& factor)
   {
     drawableText_.setScale (factor);
@@ -129,14 +135,15 @@ namespace yap
     drawableText_.setString (content);
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
     GetPosition ().y + padding_.top));*/
-    if (isPosSet_)
 
+    if (isPosSet_)
     {
-      drawableText_.setPosition (GetPosition ().x,
-        GetPosition ().y - drawableText_.getCharacterSize ()
-        + drawableText_.getGlobalBounds ().height);
+      drawableText_.setPosition (
+        GetPosition ().x,
+        GetPosition ().y);
       isPosSet_ = false;
     }
+
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

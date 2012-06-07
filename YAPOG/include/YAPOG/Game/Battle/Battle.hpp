@@ -27,13 +27,8 @@ namespace yap
     /// @}
 
     /// Getters
-    virtual IBattleEntity& GetPlayerTeam ();
-    virtual IBattleEntity& GetOpponent ();
-
-    /// Setters
-    void SetPlayerTeam (PokemonFighterTeam* playerTeam);
-    void SetOpponent (PokemonFighterTeam* opponent);
-    void SetOpponent (PokemonFighter* opponent);
+    virtual IBattleEntity& GetPlayerTeam () = 0;
+    virtual IBattleEntity& GetOpponent () = 0;
 
   protected:
     virtual void HandleUpdate (const Time& dt);
@@ -43,8 +38,6 @@ namespace yap
       BattlePhase* battlePhase);
 
   private:
-    IBattleEntity* playerTeam_;
-    IBattleEntity* opponent_;
     int turnCount_;
     BattlePhaseManager battlePhaseManager_;
   };

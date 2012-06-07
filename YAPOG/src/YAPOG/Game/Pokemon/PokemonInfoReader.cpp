@@ -62,18 +62,32 @@ namespace yap
     DEFAULT_XML_EFFORT_VALUES_NODE_NAME = "effortValues";
   const String PokemonInfoReader::
     DEFAULT_XML_GENDER_NODE_NAME = "gender";
+  const String PokemonInfoReader::
+    DEFAULT_XML_GRAPHICS_NODE_NAME = "graphics";
+  const String PokemonInfoReader::
+    DEFAULT_XML_ICON_NODE_NAME = "icon";
+  const String PokemonInfoReader::
+    DEFAULT_XML_MALE_NODE_NAME = "male";
+  const String PokemonInfoReader::
+    DEFAULT_XML_FEMALE_NODE_NAME = "female";
+  const String PokemonInfoReader::
+    DEFAULT_XML_FRONT_NODE_NAME = "front";
+  const String PokemonInfoReader::
+    DEFAULT_XML_BACK_NODE_NAME = "back";
+  const String PokemonInfoReader::
+    DEFAULT_XML_SHINY_NODE_NAME = "shiny";
 
 
-  PokemonInfoReader::PokemonInfoReader (PokemonInfo& pokeInfo)
-    : pokeInfo_ (pokeInfo)
+  PokemonInfoReader::PokemonInfoReader (PokemonInfo& pokemonInfo)
+    : pokemonInfo_ (pokemonInfo)
   {
   }
 
   PokemonInfoReader::PokemonInfoReader (
-    PokemonInfo& pokeInfo,
+    PokemonInfo& pokemonInfo,
     const String& xmlRootNodeName)
-    : pokeInfo_ (pokeInfo),
-    xmlRootNodeName_ (xmlRootNodeName)
+    : xmlRootNodeName_ (xmlRootNodeName)
+    , pokemonInfo_ (pokemonInfo)
   {
   }
 
@@ -85,66 +99,66 @@ namespace yap
   {
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
-    pokeInfo_.SetID (
+    pokemonInfo_.SetID (
       reader->ReadID (
       XmlHelper::GetAttrNodeName (DEFAULT_XML_ID_NODE_NAME)));
 
-    pokeInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
+    pokemonInfo_.SetName (reader->ReadString (DEFAULT_XML_NAME_NODE_NAME));
 
-    pokeInfo_.SetDescription (
+    pokemonInfo_.SetDescription (
       reader->ReadString (DEFAULT_XML_DESCRIPTION_NODE_NAME));
 
-    pokeInfo_.SetSpecies (
+    pokemonInfo_.SetSpecies (
       reader->ReadString (DEFAULT_XML_SPECIES_NODE_NAME));
 
-    pokeInfo_.SetHeight (
+    pokemonInfo_.SetHeight (
       reader->ReadFloat (DEFAULT_XML_HEIGHT_NODE_NAME));
 
-    pokeInfo_.SetWeight (
+    pokemonInfo_.SetWeight (
       reader->ReadFloat (DEFAULT_XML_WEIGHT_NODE_NAME));
 
-    pokeInfo_.SetRarity (
+    pokemonInfo_.SetRarity (
       reader->ReadInt (DEFAULT_XML_RARITY_NODE_NAME));
 
-    pokeInfo_.SetGenderProbability (
+    pokemonInfo_.SetGenderProbability (
       reader->ReadFloat (DEFAULT_XML_GENDER_NODE_NAME));
 
-    pokeInfo_.SetExperience (
+    pokemonInfo_.SetExperience (
       reader->ReadInt (DEFAULT_XML_EXPERIENCE_NODE_NAME));
 
-    pokeInfo_.SetExperienceType (StringHelper::Parse<ExperienceType>
+    pokemonInfo_.SetExperienceType (StringHelper::Parse<ExperienceType>
       (reader->ReadString (DEFAULT_XML_EXPERIENCE_TYPE_NODE_NAME)));
 
     auto statsReader = 
       reader->ChangeRoot (DEFAULT_XML_BASE_STATS_NODE_NAME);
 
-    pokeInfo_.SetHitPoint (
+    pokemonInfo_.SetHitPoint (
       statsReader->ReadInt (DEFAULT_XML_HP_NODE_NAME));
-    pokeInfo_.SetAttack (
+    pokemonInfo_.SetAttack (
       statsReader->ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
-    pokeInfo_.SetDefense (
+    pokemonInfo_.SetDefense (
       statsReader->ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpecialAttack (
+    pokemonInfo_.SetSpecialAttack (
       statsReader->ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
-    pokeInfo_.SetSpecialDefense (
+    pokemonInfo_.SetSpecialDefense (
       statsReader->ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpeed (
+    pokemonInfo_.SetSpeed (
       statsReader->ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
 
     auto EVReader = 
       reader->ChangeRoot (DEFAULT_XML_EFFORT_VALUES_NODE_NAME);
 
-    pokeInfo_.SetHitPointEV (
+    pokemonInfo_.SetHitPointEV (
       EVReader->ReadInt (DEFAULT_XML_HP_NODE_NAME));
-    pokeInfo_.SetAttackEV (
+    pokemonInfo_.SetAttackEV (
       EVReader->ReadInt (DEFAULT_XML_ATTACK_NODE_NAME));
-    pokeInfo_.SetDefenseEV (
+    pokemonInfo_.SetDefenseEV (
       EVReader->ReadInt (DEFAULT_XML_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpecialAttackEV (
+    pokemonInfo_.SetSpecialAttackEV (
       EVReader->ReadInt (DEFAULT_XML_SPECIAL_ATTACK_NODE_NAME));
-    pokeInfo_.SetSpecialDefenseEV (
+    pokemonInfo_.SetSpecialDefenseEV (
       EVReader->ReadInt (DEFAULT_XML_SPECIAL_DEFENSE_NODE_NAME));
-    pokeInfo_.SetSpeedEV (
+    pokemonInfo_.SetSpeedEV (
       EVReader->ReadInt (DEFAULT_XML_SPEED_NODE_NAME));
 
     if (reader->NodeExists (DEFAULT_XML_EVOLUTION_NODE_NAME))
@@ -152,10 +166,10 @@ namespace yap
       auto evolutionReader = reader->ChangeRoot (
         DEFAULT_XML_EVOLUTION_NODE_NAME);
 
-      pokeInfo_.SetEvolutionLevel (
+      pokemonInfo_.SetEvolutionLevel (
         evolutionReader->ReadInt (
         XmlHelper::GetAttrNodeName (DEFAULT_XML_LEVEL_ATTR_NAME)));
-      pokeInfo_.SetPokemonEvolutionID (evolutionReader->ReadID ());
+      pokemonInfo_.SetPokemonEvolutionID (evolutionReader->ReadID ());
     }
 
     auto baseSkillsReader = 
@@ -170,20 +184,47 @@ namespace yap
         XmlHelper::GetAttrNodeName (DEFAULT_XML_LEVEL_ATTR_NAME));
       ID skillID = skillReader->ReadID ();
 
-      pokeInfo_.AddBaseSkill (level, skillID);
+      pokemonInfo_.AddBaseSkill (level, skillID);
     }
 
     auto typeReader = reader->ChangeRoot (DEFAULT_XML_TYPES_NODE_NAME);
 
-    pokeInfo_.SetType1 
+    pokemonInfo_.SetType1 
       (typeReader->ReadInt (DEFAULT_XML_TYPE1_NODE_NAME));
 
-    pokeInfo_.SetType2 
+    pokemonInfo_.SetType2 
       (typeReader->ReadInt (DEFAULT_XML_TYPE2_NODE_NAME));
 
-  }
+    auto graphicReader = reader->ChangeRoot (DEFAULT_XML_GRAPHICS_NODE_NAME);
 
-  void PokemonInfoReader::ParseEvolution ()
-  {
+    pokemonInfo_.SetIcon (graphicReader->ReadString (DEFAULT_XML_ICON_NODE_NAME));
+
+    // <male>
+    auto maleReader = graphicReader->ChangeRoot (DEFAULT_XML_MALE_NODE_NAME);
+    pokemonInfo_.SetMaleFront 
+      (maleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
+    pokemonInfo_.SetMaleBack 
+      (maleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
+
+    auto shinyMaleReader = maleReader->ChangeRoot (DEFAULT_XML_SHINY_NODE_NAME);
+    pokemonInfo_.SetShinyMaleFront 
+      (shinyMaleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
+    pokemonInfo_.SetShinyMaleBack 
+      (shinyMaleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
+    // </male>
+
+    // <female>
+    auto femaleReader = graphicReader->ChangeRoot (DEFAULT_XML_FEMALE_NODE_NAME);
+    pokemonInfo_.SetFemaleFront 
+      (femaleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
+    pokemonInfo_.SetFemaleBack 
+      (femaleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
+
+    auto shinyFemaleReader = femaleReader->ChangeRoot (DEFAULT_XML_SHINY_NODE_NAME);
+    pokemonInfo_.SetShinyFemaleFront 
+      (shinyFemaleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
+    pokemonInfo_.SetShinyFemaleBack 
+      (shinyFemaleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
+    // </female>
   }
 }

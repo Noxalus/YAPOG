@@ -14,10 +14,11 @@ namespace yap
   typedef struct ChanManager
   {
     ChanManager ();
-    ChanManager (String name, String color);
+    ChanManager (String name, String color, UInt32 chanNb);
 
-    String       Name;
-    String       Color;
+    String        Name;
+    String        Color;
+    UInt32        ChanNb;
   } CMType;
 } // namespace yap
 

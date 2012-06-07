@@ -8,13 +8,14 @@
 namespace ycl
 {
   class Battle;
+  class BattleInterface;
 
   class SelectionPhase
     : public yap::SelectionPhase
     , public yap::IDrawable
   {
   public:
-    explicit SelectionPhase (Battle& battle);
+    explicit SelectionPhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~SelectionPhase ();
 
     /// @name BattlePhase members.
@@ -47,6 +48,7 @@ namespace ycl
 
   private:
     Battle& battle_;
+    BattleInterface& battleInterface_;
   };
 } // namespace ycl
 

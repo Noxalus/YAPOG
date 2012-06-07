@@ -28,6 +28,12 @@ namespace yap
       tab_[NBCMDSLOC + i] = tabs[i];
   }
 
+  ChatCommand::~ChatCommand ()
+  {
+    delete[] tab_;
+    tab_ = nullptr;
+  }
+
   std::pair<
     std::pair<bool, UInt32>,
     std::pair<UInt32, BufferType>> MyPair (bool b,
@@ -140,7 +146,6 @@ namespace yap
     if (b.Count () != 2)
       return TestArg (b, 2);
 
-    bt.Add ("Switch to tab : " + b[1] + ".");
     bt.Add (b[1]);
 
     return MyPair (true, 0, 0, bt);
@@ -154,7 +159,6 @@ namespace yap
     if (b.Count () != 2)
       return TestArg (b, 2);
 
-    bt.Add ("Switch to chan : " + b[1] + ".");
     bt.Add (b[1]);
 
     return MyPair (true, 1, 0, bt);
@@ -211,11 +215,11 @@ namespace yap
   {
     BufferType bt;
 
-    if (b->Count() > 2)
+    if (b->Count() > 1)
       bt.Add ("Too much argument.");
-    if (b->Count() == 2)
+    if (b->Count() == 1)
     {
-      String chanNb = (*b)[1];
+      String chanNb = (*b)[0];
 
       if (StringFilter::IsNumeric (chanNb))
       {
@@ -244,11 +248,11 @@ namespace yap
   {
     BufferType bt;
 
-    if (b->Count() > 2)
+    if (b->Count() > 1)
       bt.Add ("Too much argument.");
-    if (b->Count() == 2)
+    if (b->Count() == 1)
     {
-      String chanNb = (*b)[1];
+      String chanNb = (*b)[0];
 
       if (StringFilter::IsNumeric (chanNb))
       {
@@ -257,7 +261,7 @@ namespace yap
         buf >> tmp;
         if (tmp >= 0 && tmp < cd->GetChanNb ())
         {
-          (*channb) = tmp;
+          (*channb) = 0;
           cm->ChanNb = tmp;
           b->RemoveBack ();
         }
@@ -338,7 +342,7 @@ namespace yap
     return bt;
   }
 
-  void  						  ChatCommand::ExecCmd (ChatManagerType* cm)
+  ResponseType			  ChatCommand::ExecCmd (ChatManagerType* cm)
   {
     BufferType bt;
 
@@ -358,18 +362,17 @@ namespace yap
     {
       for (UInt32 i = 0; i < cm->Count; i++)
         cm->Cd[i]->AddToChan (response.second.first, response.second.second);
-      cd->Display ();
+
+      // Switch Tab detected.
       if (response.first.second == 0)
-        cm->Cd[cm->TabNb]->DisplayChan ();
+      {
+        SetCommand (&ChatCommand::Unknown);
+        return cm->Cd[cm->TabNb]->DisplayTab ();
+      }
     }
     else
-    {
       cd->AddToChan (0, bt);
-      cd->Display ();
-    }
-
-    // Re-init command line
     SetCommand (&ChatCommand::Unknown);
-    cm->Request.Clear ();
+    return cd->Display ();
   }
 } // namespace yap

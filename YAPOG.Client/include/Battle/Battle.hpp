@@ -14,6 +14,7 @@ namespace yap
 
 namespace ycl
 {
+  class BattleInterface;
   class PokemonFighterTeam;
   class PokemonFighter;
 
@@ -22,7 +23,7 @@ namespace ycl
     , public yap::IDrawable
   {
   public:
-    Battle ();
+    Battle (BattleInterface& battleInterface);
     virtual ~Battle ();
 
     /// @name IDrawable members.
@@ -35,7 +36,7 @@ namespace ycl
     virtual void ChangeColor (const sf::Color& color);
     /// @}
 
-    /// @name Getters
+    /// @name Getters.
     /// @{
     yap::ISprite& GetBackground () const;
     yap::ISprite& GetPlayerGround () const;
@@ -43,17 +44,17 @@ namespace ycl
     yap::ISprite& GetPlayerTrainerBack () const;
     const yap::Vector2& GetPlayerGroundPosition () const;
     const yap::Vector2& GetOpponentGroundPosition () const;
-    const IDrawableBattleEntity& GetDrawablePlayerTeam () const;
-    const IDrawableBattleEntity& GetDrawableOpponent () const;
-    IDrawableBattleEntity& GetDrawablePlayerTeam ();
-    IDrawableBattleEntity& GetDrawableOpponent ();
+    const yap::Vector2& GetOpponentInfoPosition () const;
+    const yap::Vector2& GetPokemonInfoPosition () const;
+    IDrawableBattleEntity& GetPlayerTeam ();
+    IDrawableBattleEntity& GetOpponent ();
     /// @}
 
-    /// @name Setters
+    /// @name Setters.
     /// @{
-    void SetDrawablePlayerTeam (PokemonFighterTeam* pokemonTeam);
-    void SetDrawableOpponent (PokemonFighterTeam* pokemonFighterTeam);
-    void SetDrawableOpponent (PokemonFighter* pokemonFighter);
+    void SetPlayerTeam (PokemonFighterTeam* playerTeam);
+    void SetOpponent (PokemonFighterTeam* opponent);
+    void SetOpponent (PokemonFighter* opponent);
     /// @}
 
     static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;
@@ -71,6 +72,9 @@ namespace ycl
     bool isVisible_;
     sf::Color color_;
 
+  protected:
+    BattleInterface& battleInterface_;
+
   private:
     /// General sprites
     yap::ISprite* background_;
@@ -81,7 +85,10 @@ namespace ycl
     /// Sprite positions
     yap::Vector2 playerGroundPosition_;
     yap::Vector2 opponentGroundPosition_;
+    yap::Vector2 opponentInfoPosition_;
+    yap::Vector2 pokemonInfoPosition_;
 
+    // Fighters
     IDrawableBattleEntity* playerTeam_;
     IDrawableBattleEntity* opponent_;
   };

@@ -23,6 +23,10 @@ namespace yap
     uint GetMaxIDSeen () const;
     const PokemonInfo& GetPokemonSeen (uint index) const;
     const PokemonInfo* GetPokemonSeenID (uint ID) const;
+    PokemonInfo* GetPokemon (uint index) const;
+    uint GetPokemonSeenCount () const;
+    uint GetPokemonCaughtCount () const;
+    uint GetPokemonCount () const;
 
     void AddPokemon (PokemonInfo* pok);
     void AddPokemonSeen (PokemonInfo* pokSeen);

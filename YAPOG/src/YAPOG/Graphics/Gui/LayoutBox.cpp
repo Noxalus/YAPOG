@@ -5,7 +5,6 @@
 
 namespace yap
 {
-
   LayoutBox::LayoutBox ()
     : items_ ()
     , focusables_ ()
@@ -27,10 +26,14 @@ namespace yap
     isExtensible_ = isExt;
   }
 
+  uint LayoutBox::Count () const
+  {
+    return items_.Count ();
+  }
   void LayoutBox::Refresh ()
   {
     GeneratePosition ();
-    
+
     RefreshBorder ();
     BaseWidget::Refresh ();
   }
@@ -44,7 +47,6 @@ namespace yap
     childen_.Clear();    
     updatables_.Clear();
     eventHandlers_.Clear();
-
   }
 
   bool LayoutBox::IsFocusable () const
@@ -56,20 +58,21 @@ namespace yap
   {
     isExtensible_ = isExt;
   }
+
   bool LayoutBox::GetExtensible ()
   {
     return isExtensible_;
   }
+
   void LayoutBox::SetAlign (Align global)
   {
     globalAlign_ = global;
   }
+
   LayoutBox::Align LayoutBox::GetAlign ()
   {
     return globalAlign_;
   }
-
-
 
   LayoutBox::~LayoutBox ()
   {
@@ -78,9 +81,15 @@ namespace yap
   Vector2 LayoutBox::HandleGetSize () const
   {
     if (isExtensible_)
-      return realSize_ + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
+      return realSize_ + ((border_ != nullptr) ? 
+      border_->GetSize () : Vector2 ());
 
     return spatialInfo_.GetSize ();
+  }
+
+  const Padding& LayoutBox::GetInnerPadding () const
+  {
+    return innerPad_;
   }
 
   void LayoutBox::AddChild (IWidget& child, Align align)
@@ -89,21 +98,21 @@ namespace yap
     items_.Add (&child, align);
 
     if (child.IsFocusable ())    
-      focusables_.Add (&child);    
+      focusables_.Add (&child);
+	  
+    GeneratePosition ();
+  }
+
+  void LayoutBox::RemoveChild (IWidget& child)
+  {
+    BaseWidget::RemoveChild (child);
+    items_.Remove (&child);
+
+    if (child.IsFocusable ())
+      focusables_.Remove (&child);
 
     GeneratePosition ();
   }
- 
- void LayoutBox::RemoveChild (IWidget& child)
- {
-   BaseWidget::RemoveChild (child);
-   items_.Remove (&child);
-
-   if (child.IsFocusable ())
-     focusables_.Remove (&child);
-
-   GeneratePosition ();
- }
 
   bool LayoutBox::HandleOnPriorityEvent (const GuiEvent& guiEvent)
   {
@@ -117,7 +126,6 @@ namespace yap
         IWidget* child;
         uint cycle = focusedChild_;
 
-        
         // if current focussable is a layout, give it control for tab
         if (focusables_[cycle]->OnPriorityEvent (guiEvent))
           return true;
@@ -183,8 +191,9 @@ namespace yap
         maxSizeItem = MathHelper::Max (maxSizeItem, currentSize);
       }
 
-      return MathHelper::Max (maxSizeItem + externPad_.left + externPad_.right
-        , spatialInfo_.GetSize ().x);
+      return MathHelper::Max (
+        maxSizeItem + externPad_.left + externPad_.right,
+        spatialInfo_.GetSize ().x);
     }
     else if (coord == 'y')
     {
@@ -195,8 +204,9 @@ namespace yap
         maxSizeItem = MathHelper::Max (maxSizeItem, currentSize);
       }
 
-      return MathHelper::Max (maxSizeItem + externPad_.top + externPad_.bottom
-        , spatialInfo_.GetSize ().y);
+      return MathHelper::Max (
+        maxSizeItem + externPad_.top + externPad_.bottom,
+        spatialInfo_.GetSize ().y);
     }
 
     // Error

@@ -27,16 +27,16 @@ namespace yap
 
   void MenuItem::Refresh ()
   {
-    if (!isScalable_)
-      label_.SetPosition (GetPosition ()
-      + Vector2 (GetUserSize ().x / 2 - label_.GetSize ().x / 2 + 7,
-      GetUserSize ().y / 2
-      - label_.GetSize ().y / 2 + label_.GetCharHeight ()));
+    /*  if (!isScalable_)
+    label_.SetPosition (GetPosition ()
+    + Vector2 (GetUserSize ().x / 2 - label_.GetSize ().x / 2 + 7,
+    GetUserSize ().y / 2
+    - label_.GetSize ().y / 2 + label_.GetCharHeight ()));
     else
-    {
-      label_.SetPosition (GetPosition () +
-        ((border_ != nullptr) ? border_->GetSize () : Vector2 ()));
-    }
+    {*/
+    label_.SetPosition (GetPosition () +
+      ((border_ != nullptr) ? border_->GetSize () : Vector2 ()));
+    // }
     BaseWidget::Refresh ();
   }
 

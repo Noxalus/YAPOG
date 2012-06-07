@@ -1,4 +1,4 @@
- #ifndef YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
+#ifndef YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
 # define YAPOG_CLIENT_GAMEPLAYSCREEN_HPP
 
 # include "YAPOG/Macros.hpp"
@@ -11,6 +11,8 @@
 namespace ycl
 {
   class Player;
+  class PokedexCompositeWidget;
+  class PokedexWidget;
 
   class GameplayScreen : public BaseScreen
   {
@@ -33,8 +35,6 @@ namespace ycl
 
     private:
 
-      void test (int);
-
       Map& GetCurrentMap ();
       void SetCurrentMap (Map& map);
       void SetPlayer (Player* player);
@@ -55,6 +55,7 @@ namespace ycl
       Player* player_;
       yap::CharacterMoveController moveController_;
       yap::Vector2 lastForce_;
+      PokedexWidget* pokedex_;
   };
 } // namespace ycl
 

@@ -19,8 +19,12 @@ SET(
 source_files
 ${inc_root}/Battle/Battle.hpp
 ${src_root}/Battle/Battle.cpp
+${inc_root}/Battle/BattleActionMenu.hpp
+${src_root}/Battle/BattleActionMenu.cpp
 ${inc_root}/Battle/BaseBattleWidget.hpp
 ${src_root}/Battle/BaseBattleWidget.cpp
+${inc_root}/Battle/BattleInfoWidget.hpp
+${src_root}/Battle/BattleInfoWidget.cpp
 ${inc_root}/Battle/BattleInterface.hpp
 ${src_root}/Battle/BattleInteface.cpp
 ${inc_root}/Battle/BattlePhaseManager.hpp
@@ -89,15 +93,23 @@ ${src_root}/GameScreen/RegistrationScreen.cpp
 
 ${inc_root}/Pokemon/Pokemon.hpp
 ${src_root}/Pokemon/Pokemon.cpp
+${inc_root}/Pokemon/PokemonInfo.hpp
+${src_root}/Pokemon/PokemonInfo.cpp
+${inc_root}/Pokemon/PokemonInfoReader.hpp
+${src_root}/Pokemon/PokemonInfoReader.cpp
 ${inc_root}/Pokemon/PokemonTeam.hpp
 ${src_root}/Pokemon/PokemonTeam.cpp
 
+${inc_root}/Gui/ChatWidget.hpp
+${src_root}/Gui/ChatWidget.cpp
 ${inc_root}/Gui/GameMainMenu.hpp
 ${src_root}/Gui/GameMainMenu.cpp
 ${inc_root}/Gui/MainMenu.hpp
 ${src_root}/Gui/MainMenu.cpp
 ${inc_root}/Gui/PokedexWidget.hpp
 ${src_root}/Gui/PokedexWidget.cpp
+${inc_root}/Gui/PokedexCompositeWidget.hpp
+${src_root}/Gui/PokedexCompositeWidget.cpp
 
 ${inc_root}/Game.hpp
 ${src_root}/Game.cpp

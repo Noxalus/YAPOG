@@ -15,6 +15,19 @@ namespace yap
 
   }
 
+  uint Pokedex::GetPokemonSeenCount () const
+  {
+    return pokSeen_.Count ();
+  }
+  uint Pokedex::GetPokemonCaughtCount () const
+  {
+    return pokCaught_.Count ();
+  }
+  uint Pokedex::GetPokemonCount () const
+  {
+    return pokList_.Count ();
+  }
+
   uint Pokedex::GetMaxIDSeen () const
   {
     ID maxID (0);
@@ -31,6 +44,15 @@ namespace yap
     return *pokSeen_[index];
   }
 
+  PokemonInfo* Pokedex::GetPokemon (uint index) const
+  {
+    if (index < pokList_.Count ())
+      return pokList_[index];
+    else
+    {
+      return nullptr;
+    }
+  }
   const PokemonInfo* Pokedex::GetPokemonSeenID (uint ID) const
   {
     for (PokemonInfo* pok : pokSeen_)

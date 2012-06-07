@@ -55,6 +55,7 @@ namespace yap
 
   void PictureBox::HandleChangeColor (const sf::Color& color)
   {
+    picture_.ChangeColor (color);
   }
 
   const Texture& PictureBox::GetPicture () const
@@ -69,5 +70,7 @@ namespace yap
       GetPosition ().y + padding_.top));
 
     OnPictureSet (*this, EventArgsTexture (picture_));
+
+    BaseWidget::Refresh ();
   }
 } //namespace yap

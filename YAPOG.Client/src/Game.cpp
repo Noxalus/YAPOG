@@ -35,10 +35,10 @@
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-#include "YAPOG/Game/Battle/WildBattle.hpp"
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
+#include "Client/Session.hpp"
 #include "Game.hpp"
 #include "GameScreen/LoadingScreen.hpp"
 #include "GameScreen/UpdateScreen.hpp"
@@ -50,7 +50,8 @@
 #include "GameScreen/CreditScreen.hpp"
 #include "GameScreen/RegistrationScreen.hpp"
 #include "GameScreen/SplashScreen.hpp"
-#include "Client/Session.hpp"
+#include "Pokemon/PokemonInfo.hpp"
+#include "Pokemon/PokemonInfoReader.hpp"
 #include "World/Map/MapReader.hpp"
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
@@ -226,7 +227,7 @@ namespace ycl
 
     objectFactory_.RegisterLoader (
       "PokemonInfo",
-      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader> (
+      new yap::XmlObjectIDLoader<PokemonInfo, PokemonInfoReader> (
         yap::Path ("Pokemon/Pokemon"),
         "PokemonInfo"));
 
@@ -325,7 +326,7 @@ namespace ycl
     screenManager_->AddGameScreen (new SplashScreen ());
     screenManager_->AddGameScreen (new CreditScreen ());
 
-    screenManager_->Init ("Login");
+    screenManager_->Init ("Gameplay");
   }
 
   void Game::InitLoggerManager ()

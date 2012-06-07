@@ -32,9 +32,12 @@ namespace yap
   Chat::~Chat ()
   {
     delete (chatmanager_);
+    chatmanager_ = nullptr;
+    delete (chatcommand_);
+    chatcommand_ = nullptr;
   }
 
-  void								    Chat::SetBuf (String b)
+  void								      Chat::SetBuf (String b)
   {
     BufferType* tmp = new BufferType;
     entry_ = b;
@@ -47,7 +50,7 @@ namespace yap
     buffer_ = *tmp;
   }
 
-  void                    Chat::IncOff ()
+  void                      Chat::IncOff ()
   {
     if (history_.Count () < HISTORYMAX)
     {
@@ -62,57 +65,44 @@ namespace yap
     index_ = offset_;
   }
 
-  void                    Chat::ToEcho (String s)
+  void                      Chat::ToEcho (String s)
   {
     chatcommand_->SetCommand (&ChatCommand::Echo);
     chatmanager_->Request.Add (s);
   }
 
-  bool                    Chat::TestHistoryChecker ()
+  std::pair<bool, String>   Chat::TestHistoryChecker ()
   {
     if (Check () && 
         StringHelper::CompareString (buffer_[0], String ("/up")) == 0)
-    {
-      std::cout << "UP : '" << GetUpHistory () << "'" << std::endl;
-      std::cout << "index " << index_ << std::endl;
-
-      return true;
-    }
+      return GetUpHistory ();
     if (Check () && 
         StringHelper::CompareString (buffer_[0], String ("/down")) == 0)
-    {
-      std::cout << "DOWN : '" << GetDownHistory () << "'" << std::endl;
-      std::cout << "index " << index_ << std::endl;
+      return GetDownHistory ();
 
-      return true;
-    }
-
-    return false;
+    return std::make_pair (false, "");
   }
 
-  void            	      Chat::Parse ()
+  String                    Chat::Parse ()
   {
+    
+    chatmanager_->Request.Clear ();
+    std::pair<bool, String> upOrDown = TestHistoryChecker ();
+
     if (buffer_.IsEmpty ())
     {
       ToEcho (entry_);
-      return;
+      return "";
     }
 
-    /* Test Arrow history */
-    if (TestHistoryChecker ())
-      return;
-    /* End Test */
+    if (upOrDown.first)
+      return upOrDown.second;
 
     IncOff ();
 
-    /* Test History */
     if (Check () &&
         StringHelper::CompareString (buffer_[0], String ("/history")) == 0)
-    {
-      std::cout << GetStringHistory () << std::endl;
-      return;
-    }
-    /* End TEST */
+      return GetStringHistory ();
 
     if (Check ())
     {
@@ -122,39 +112,39 @@ namespace yap
     }
     else
       ToEcho (entry_);
+    return "";
   }
 
-  void                    Chat::Exec ()
+  ResponseType              Chat::Exec ()
   {
-    chatcommand_->ExecCmd (chatmanager_);
+    return chatcommand_->ExecCmd (chatmanager_);
   }
 
-  String                  Chat::GetUpHistory ()
-  {
-    if ((index_-- - 1) < 0)
-    {
-      index_ = history_.Count ();
-      if (history_.Count () > 0)
-        return (history_[--index_]);
-      else
-        return "";
-    }
-
-    return history_[index_];
-  }
-
-  String                  Chat::GetDownHistory ()
+  std::pair<bool, String>   Chat::GetUpHistory ()
   {
     UInt32 size = history_.Count ();
 
     if (size == 0)
-      return "";
-    if (++index_ >= size)
-      index_ = 0;
-    return history_[index_];
+      return std::make_pair (true, "");
+    if (--index_ >= size)
+      index_ = size - 1;
+ 
+    return std::make_pair (true, (index_ >= 0) ? history_[index_] : "");
   }
 
-  String                  Chat::GetStringHistory ()
+  std::pair<bool, String>   Chat::GetDownHistory ()
+  {
+    UInt32 size = history_.Count ();
+
+    if (size == 0)
+      return std::make_pair (true, "");
+    if (++index_ >= size)
+      index_ = 0;
+
+    return std::make_pair (true, (index_ < size) ? history_[index_] : "");
+  }
+
+  String                    Chat::GetStringHistory ()
   {
     String stringtosend = "";
 
@@ -166,7 +156,7 @@ namespace yap
     return stringtosend;
   }
 
-  BufferType              Chat::GetBufHistory ()
+  BufferType                Chat::GetBufHistory ()
   {
     BufferType bufftosend;
 
@@ -179,12 +169,27 @@ namespace yap
     return bufftosend;
   }
 
-  BufferType              Chat::GetHistory ()
+  String                    Chat::GetTabName (UInt32 TabNb)
+  {
+    return chatmanager_->Cd[TabNb]->GetName ();
+  }
+
+  UInt32                    Chat::GetTabCount ()
+  {
+    return chatmanager_->Cd.Count ();
+  }
+  
+  UInt32                    Chat::GetTabNb ()
+  {
+    return chatmanager_->TabNb;
+  }
+
+  BufferType                Chat::GetHistory ()
   {
     return history_;
   }
 
-  bool								    Chat::Check ()
+  bool								      Chat::Check ()
   {
     return (buffer_.Count () > 0 && entry_[0] == '/');
   }

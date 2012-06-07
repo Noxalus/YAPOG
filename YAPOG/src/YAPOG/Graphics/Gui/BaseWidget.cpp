@@ -35,7 +35,7 @@ namespace yap
   }
 
   WidgetBorder* BaseWidget::GetBorder () const
-  {    
+  {
     return border_;
   }
   const Vector2& BaseWidget::GetPosition () const
@@ -126,6 +126,9 @@ namespace yap
 
   void BaseWidget::SetSize (const Vector2& size)
   {
+    /// @warning Erroned !
+    /// @todo Only have to call Scale (childs, background and border are currently resized twice)
+    
     for (IWidget* child : childen_)
     {
       child->SetSize (size);
@@ -154,13 +157,13 @@ namespace yap
     if (border_ != nullptr)
       border_->Draw (context);
 
+    OnDraw (*this, EventArgsDraw (context));
+    HandleDraw (context);
+
     for (IDrawable* child : drawables_)
     {
       child->Draw (context);
     }
-
-    OnDraw (*this, EventArgsDraw (context));
-    HandleDraw (context);
   }
 
   Vector2 BaseWidget::GetUserSize () const

@@ -60,7 +60,7 @@ namespace yap
   void Pokemon::Init ()
   {
     pokemonInfo_ = ObjectFactory::Instance ().
-      Create<PokemonInfo> ("PokemonInfo",  staticID_);
+      Create<PokemonInfo> ("PokemonInfo", staticID_);
 
     nature_ = ObjectFactory::Instance ().
       Create<NatureInfo> ("NatureInfo",  ID (2));

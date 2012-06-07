@@ -24,7 +24,6 @@ namespace ycl
     battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
     // Init Battle Text Dialog
-
     battleInfoDialogBox_->SetSize (
       yap::Vector2 (Game::SCREEN_SIZE.x, Game::SCREEN_SIZE.y / 4));
 
@@ -32,20 +31,22 @@ namespace ycl
       yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
 
     battleInfoDialogBox_->SetPadding (yap::Padding (35, 35, 25, 25));
-    battleInfoDialogBox_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     battleInfoDialogBox_->SetBackground (
-      *(new yap::WidgetBackground ("WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
+      *(new yap::WidgetBackground (
+      "WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
 
-    std::cout << "Size: " 
-      << battleInfoDialogBox_->GetSize ().x << ", "
-      << battleInfoDialogBox_->GetSize ().y
-      << std::endl;
+    battleInfoDialogBox_->ChangeColor (sf::Color::White);
 
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
+    pokemonInfoWidget_->SetPosition (yap::Vector2 (0, 0));
+
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
-    //this->AddChild (*pokemonInfoWidget_);
+    this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
+
+    //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
+    //pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
 
     this->AddChild (*battleInfoDialogBox_);
   }

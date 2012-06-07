@@ -242,8 +242,6 @@ ${inc_root}/Game/Battle/BattlePhaseManager.hpp
 ${inc_root}/Game/Battle/BattlePhaseState.hpp
 ${src_root}/Game/Battle/BattleCore.cpp
 ${inc_root}/Game/Battle/BattleCore.hpp
-${src_root}/Game/Battle/WildBattle.cpp
-${inc_root}/Game/Battle/WildBattle.hpp
 ${src_root}/Game/Battle/TrainerBattle.cpp
 ${inc_root}/Game/Battle/TrainerBattle.hpp
 ${src_root}/Game/Battle/PokemonFighter.cpp
@@ -350,6 +348,8 @@ ${inc_root}/Graphics/Gui/LayoutBox.hpp
 ${src_root}/Graphics/Gui/LayoutBox.cpp
 ${inc_root}/Graphics/Gui/DialogBoxWidget.hpp
 ${src_root}/Graphics/Gui/DialogBoxWidget.cpp
+${inc_root}/Graphics/Gui/MultiLabelWidget.hpp
+${src_root}/Graphics/Gui/MultiLabelWidget.cpp
 ${inc_root}/Graphics/Gui/PartialLayoutManager.hpp
 ${src_root}/Graphics/Gui/PartialLayoutManager.cpp
 ${inc_root}/Game/Pokemon/Pokedex.hpp

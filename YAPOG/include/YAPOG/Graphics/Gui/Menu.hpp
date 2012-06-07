@@ -30,7 +30,7 @@ namespace yap
     void SetSelectedBackground (WidgetBackground& background);
     void SetSelectedBorder (WidgetBorder& border);
     virtual bool IsFocusable () const;
-
+    uint GetCurrentSelect () const;
     void SetFixed (bool state);
   private:
     virtual Vector2 HandleGetSize () const;

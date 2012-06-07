@@ -12,12 +12,13 @@ namespace yap
 
 namespace ycl
 {
-  struct IDrawableBattleEntity : public yap::IDrawable
+  struct IDrawableBattleEntity 
+    : public yap::IDrawable
+    , public virtual yap::IBattleEntity
   {
     virtual ~IDrawableBattleEntity () {}
 
-    virtual yap::ISprite& GetFrontSprite () = 0;
-    virtual yap::ISprite& GetBackSprite () = 0;
+    virtual yap::ISprite& GetBattleSprite () = 0;
   };
 } // namespace ycl
 

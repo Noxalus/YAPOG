@@ -35,21 +35,29 @@ namespace yap
       const SpecialDefense& speDef,
       const Speed& speed);
 
-    /// Getters
+    PokemonStat (const PokemonStat& copy);
+
+    /// @name Getters.
+    /// @{
     const HitPoint& GetHitPoint () const;
     const Attack& GetAttack () const;
     const Defense& GetDefense () const;
     const SpecialAttack& GetSpecialAttack () const;
     const SpecialDefense& GetSpecialDefense () const;
     const Speed& GetSpeed () const;
+    /// @}
 
-    /// Setters
+    /// @name Setters.
+    /// @{
     void SetHitPoint (const HitPoint& value);
     void SetAttack(const Attack& value);
     void SetDefense (const Defense& value);
     void SetSpecialAttack (const SpecialAttack& value);
     void SetSpecialDefense (const SpecialDefense& value);
     void SetSpeed (const Speed& value);
+    /// @}
+
+    void SetCurrentHP (const yap::UInt16& value);
 
     void ModifyHitPoint (int value);
 

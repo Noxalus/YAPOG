@@ -39,6 +39,16 @@ namespace yap
   {
   }
 
+  PokemonStat::PokemonStat (const PokemonStat& copy)
+    : hitPoint_ (copy.GetHitPoint ())
+    , attack_ (copy.GetAttack ())
+    , defense_ (copy.GetDefense ())
+    , specialAttack_ (copy.GetSpecialAttack ())
+    , specialDefense_ (copy.GetSpecialDefense ())
+    , speed_ (copy.GetSpeed ())
+  {
+  }
+
   const HitPoint& PokemonStat::GetHitPoint () const
   { return hitPoint_; }
 
@@ -74,6 +84,9 @@ namespace yap
 
   void PokemonStat::SetSpeed (const Speed& value)
   { speed_ = value; }
+
+  void PokemonStat::SetCurrentHP (const yap::UInt16& value)
+  { hitPoint_.SetCurrentValue (value); }
 
   void PokemonStat::ModifyHitPoint (int value)
   {

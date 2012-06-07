@@ -7,18 +7,29 @@
 
 # include "Battle/IDrawableBattleEntity.hpp"
 
+namespace yap
+{
+  struct ISprite;
+} // namespace yap
+
+enum BattleSpriteType
+{
+  FRONT,
+  BACK
+};
+
 namespace ycl
 {
   class Pokemon;
 
-  class PokemonFighter 
+  class PokemonFighter
     : public yap::PokemonFighter
-    , public virtual IDrawableBattleEntity
+    , public IDrawableBattleEntity
   {
     DISALLOW_COPY (PokemonFighter);
 
   public:
-    PokemonFighter (Pokemon* originalPokemon);
+    PokemonFighter (Pokemon* originalPokemon, bool isOpponent);
     virtual ~PokemonFighter ();
 
     /// @name IDrawable members.
@@ -33,8 +44,12 @@ namespace ycl
 
     /// @name IDrawableBattleEntity members
     /// @{
-    virtual yap::ISprite& GetFrontSprite ();
-    virtual yap::ISprite& GetBackSprite ();
+    virtual yap::ISprite& GetBattleSprite ();
+    /// @}
+
+    /// @name Setters.
+    /// @{
+    void SetBattleSprite (const BattleSpriteType& battleSpriteType);
     /// @}
 
   protected:
@@ -52,6 +67,10 @@ namespace ycl
 
   private:
     Pokemon* originalPokemon_;
+    yap::ISprite* battleSprite_;
+    bool isOpponent_;
+
+    static const BattleSpriteType DEFAULT_BATTLE_SPRITE_TYPE;
   };
 } // namespace ycl
 

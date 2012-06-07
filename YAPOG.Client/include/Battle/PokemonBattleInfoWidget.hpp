@@ -2,37 +2,17 @@
 # define YAPOG_CLIENT_POKEMONBATTLEINFOWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Gui/Label.hpp"
-# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp";
-# include "YAPOG/Graphics/Gui/VerticalLayout.hpp";
 
-# include "Battle/BaseBattleWidget.hpp"
+# include "Battle/BattleInfoWidget.hpp"
 
 namespace ycl
 {
-  class PokemonBattleInfoWidget : public BaseBattleWidget
+  class PokemonBattleInfoWidget : public BattleInfoWidget
   {
     DISALLOW_COPY (PokemonBattleInfoWidget);
 
   public:
     PokemonBattleInfoWidget ();
-
-    /// @name Getters.
-    /// @{
-    yap::Label& GetPokemonName ();
-    /// @}
-
-  private:
-    /// @name Labels.
-    /// @{
-    yap::Label pokemonName_;
-    /// @}
-
-    /// @name Layouts.
-    /// @{
-    yap::HorizontalLayout horizontalLayout_;
-    yap::VerticalLayout verticalLayout_;
-    /// @}
   };
 } // namespace ycl
 

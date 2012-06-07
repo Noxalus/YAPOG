@@ -77,4 +77,23 @@
 		<capacity>1</capacity>
 		<capacity>4</capacity>
 	</learnableCapacities>
+	<graphics>
+		<icon>Pokemon/Icons/3.png</icon>
+		<male>
+			<front>Pokemon/BattleFront/MaleFront/3.png</front>
+			<back>Pokemon/BattleBack/MaleBack/3.png</back>
+			<shiny>
+				<front>Pokemon/Shiny/BattleFront/MaleFront/3.png</front>
+				<back>Pokemon/Shiny/BattleBack/MaleBack/3.png</back>
+			</shiny>
+		</male>
+		<female>
+			<front>Pokemon/BattleFront/FemaleFront/3.png</front>
+			<back>Pokemon/BattleBack/FemaleBack/3.png</back>
+			<shiny>
+				<front>Pokemon/Shiny/BattleFront/FemaleFront/3.png</front>
+				<back>Pokemon/Shiny/BattleBack/FemaleBack/3.png</back>
+			</shiny>
+		</female>
+	</graphics>
 </PokemonInfo>

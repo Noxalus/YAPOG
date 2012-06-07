@@ -36,11 +36,6 @@ namespace ycl
 
       Player& GetPlayer (const yap::ID& worldID);
 
-      /// @todo SERVER SIDE: Player* TryGetPlayer (const ID&) for event to
-      /// access to players.
-
-
-
       void AddPlayer (Player* player);
       void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);

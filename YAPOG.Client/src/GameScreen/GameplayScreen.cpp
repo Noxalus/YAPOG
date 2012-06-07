@@ -4,12 +4,27 @@
 #include "YAPOG/System/IO/Log/Logger.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/ICamera.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Game/Pokemon/Pokedex.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+#include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+#include "YAPOG/Graphics/Gui/Menu.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
+#include "YAPOG/Graphics/Gui/GridMenu.hpp"
+#include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
+#include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
+#include "Gui/PokedexCompositeWidget.hpp"
 
 /// @warning Tests.
 /// @todo Remove from here.
@@ -34,6 +49,7 @@ namespace ycl
     , player_ (nullptr)
     , moveController_ ()
     , lastForce_ ()
+    , pokedex_ (nullptr)
   {
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
@@ -52,11 +68,6 @@ namespace ycl
     session_.GetUser ().SetWorld (&world_);
   }
 
-  void GameplayScreen::test (int)
-  {
-    logger_.LogLine ("toto");
-  }
-
   GameplayScreen::~GameplayScreen ()
   {
   }
@@ -65,13 +76,12 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    PokedexWidget* pokedex = new PokedexWidget ();
-    pokedex->Init ();
-    pokedex->Close ();
-
-    guiManager_->AddChild (*pokedex);
+    ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
+
+    guiManager_->AddChild (*chat);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -85,7 +95,6 @@ namespace ycl
     UpdatePlayer (dt);
 
     world_.Draw (context);
-
     return BaseScreen::HandleRun (dt, context);
   }
 
