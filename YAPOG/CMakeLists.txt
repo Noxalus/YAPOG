@@ -85,6 +85,9 @@ ${inc_root}/Game/World/Map/MapElement.hpp
 ${src_root}/Game/World/Map/MapElement.cpp
 ${inc_root}/Game/World/Map/MapElementReader.hpp
 ${src_root}/Game/World/Map/MapElementReader.cpp
+${inc_root}/Game/World/Map/IEventTrigger.hpp
+${inc_root}/Game/World/Map/IEventProvider.hpp
+${inc_root}/Game/World/Map/IPlayer.hpp
 ${inc_root}/Game/World/Map/IMapEventCondition.hpp
 ${inc_root}/Game/World/Map/IMapEventAction.hpp
 ${inc_root}/Game/World/Map/BaseMapEventAction.hpp
@@ -499,6 +502,7 @@ ${src_root}/System/Time/DateTimeHelper.cpp
 ${inc_root}/System/Time/DateTime.hpp
 ${src_root}/System/Time/DateTime.cpp
 ${inc_root}/System/Thread/Thread.hpp
+${inc_root}/System/Thread/Thread.hxx
 ${src_root}/System/Thread/Thread.cpp
 ${inc_root}/System/Time/Time.hpp
 ${src_root}/System/Time/Time.cpp

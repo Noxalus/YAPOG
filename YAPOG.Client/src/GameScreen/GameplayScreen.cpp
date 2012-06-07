@@ -52,6 +52,11 @@ namespace ycl
     session_.GetUser ().SetWorld (&world_);
   }
 
+  void GameplayScreen::test (int)
+  {
+    logger_.LogLine ("toto");
+  }
+
   GameplayScreen::~GameplayScreen ()
   {
   }

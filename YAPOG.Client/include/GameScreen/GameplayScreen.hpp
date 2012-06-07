@@ -33,6 +33,8 @@ namespace ycl
 
     private:
 
+      void test (int);
+
       Map& GetCurrentMap ();
       void SetCurrentMap (Map& map);
       void SetPlayer (Player* player);

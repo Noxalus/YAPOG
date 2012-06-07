@@ -2,11 +2,13 @@
 # define YAPOG_IPLAYER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/World/Map/IEventTrigger.hpp"
 
 namespace yap
 {
   /// @brief Interface providing main actions to an object.
-  struct IPlayer
+  /// @todo
+  struct IPlayer : public IEventTrigger
   {
       virtual ~IPlayer () { }
 
