@@ -8,7 +8,7 @@ namespace yap
 {
   class MapEventContext;
 
-  class MapEventContextTriggerComparator
+  class YAPOG_LIB MapEventContextTriggerComparator
     : public LessComparator<MapEventContext*>
   {
     public:

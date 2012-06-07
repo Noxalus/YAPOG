@@ -8,7 +8,7 @@ namespace yap
 {
   class MapEventContext;
 
-  class MapEventQueue
+  class YAPOG_LIB MapEventQueue
   {
       DISALLOW_COPY(MapEventQueue);
 

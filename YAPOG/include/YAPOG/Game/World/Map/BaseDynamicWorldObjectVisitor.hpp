@@ -8,7 +8,7 @@ namespace yap
 {
   class Character;
 
-  class BaseDynamicWorldObjectVisitor : public IDynamicWorldObjectVisitor
+  class YAPOG_LIB BaseDynamicWorldObjectVisitor : public IDynamicWorldObjectVisitor
   {
       DISALLOW_COPY(BaseDynamicWorldObjectVisitor);
 

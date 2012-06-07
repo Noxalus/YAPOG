@@ -9,7 +9,7 @@ namespace yap
   class DynamicWorldObject;
   class MapEventQueue;
 
-  class EventTriggerBoundingBoxCollection : public BoundingBoxCollection
+  class YAPOG_LIB EventTriggerBoundingBoxCollection : public BoundingBoxCollection
   {
       DISALLOW_ASSIGN(EventTriggerBoundingBoxCollection);
 
