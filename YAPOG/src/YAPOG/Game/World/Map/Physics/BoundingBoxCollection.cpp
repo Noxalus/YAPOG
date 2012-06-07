@@ -1,20 +1,20 @@
 #include "YAPOG/Game/World/Map/Physics/BoundingBoxCollection.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/World/Map/Physics/CollidableArea.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 
 namespace yap
 {
   BoundingBoxCollection::BoundingBoxCollection ()
     : spatial3Info_ ()
     , boundingBoxes_ ()
-    , parent_ (nullptr)
     , collidableArea_ (nullptr)
   {
   }
 
   BoundingBoxCollection::~BoundingBoxCollection ()
   {
-    for (const BoundingBox* boundingBox : boundingBoxes_)
+    for (BoundingBox* boundingBox : boundingBoxes_)
       delete boundingBox;
   }
 
@@ -22,11 +22,8 @@ namespace yap
     const BoundingBoxCollection& copy)
     : spatial3Info_ (copy.spatial3Info_)
     , boundingBoxes_ ()
-    , parent_ (nullptr)
     , collidableArea_ (nullptr)
   {
-    for (BoundingBox* boundingBox : copy.boundingBoxes_)
-      AddBoundingBox (new BoundingBox (*boundingBox));
   }
 
   void BoundingBoxCollection::AddBoundingBox (BoundingBox* boundingBox)
@@ -40,26 +37,7 @@ namespace yap
   {
     boundingBoxes_.Remove (boundingBox);
 
-    if (collidableArea_ != nullptr)
-      collidableArea_->RemoveCollidable (boundingBox);
-  }
-
-  void BoundingBoxCollection::SetCollidableArea (
-    const WorldObject& parent,
-    CollidableArea* collidableArea)
-  {
-    parent_ = &parent;
-
-    if (collidableArea_ == collidableArea)
-      return;
-
-    if (collidableArea_ != nullptr)
-      RemoveBoundingBoxesFromCollidableArea ();
-
-    collidableArea_ = collidableArea;
-
-    if (collidableArea_ != nullptr)
-      AddBoundingBoxesToCollidableArea ();
+    RemoveBoundingBoxFromCollidableArea (boundingBox);
   }
 
   BoundingBoxCollection::ItType BoundingBoxCollection::begin ()
@@ -212,12 +190,40 @@ namespace yap
     if (collidableArea_ == nullptr)
       return;
 
-    collidableArea_->AddCollidable (
-      boundingBox,
-      MapCollidableInfo::PtrType (
-        new MapCollidableInfo (
-          *boundingBox,
-          *parent_)));
+    HandleAddBoundingBoxToCollidableArea (boundingBox);
+  }
+
+  void BoundingBoxCollection::RemoveBoundingBoxFromCollidableArea (
+    BoundingBox* boundingBox)
+  {
+    if (collidableArea_ == nullptr)
+      return;
+
+    HandleRemoveBoundingBoxFromCollidableArea (boundingBox);
+  }
+
+  CollidableArea& BoundingBoxCollection::GetCollidableArea ()
+  {
+    return *collidableArea_;
+  }
+
+  void BoundingBoxCollection::SetCollidableArea (
+    CollidableArea* collidableArea)
+  {
+    if (collidableArea_ == collidableArea)
+      return;
+
+    RemoveBoundingBoxesFromCollidableArea ();
+
+    collidableArea_ = collidableArea;
+
+    AddBoundingBoxesToCollidableArea ();
+  }
+
+  const collection::List<BoundingBox*>&
+  BoundingBoxCollection::GetBoundingBoxes () const
+  {
+    return boundingBoxes_;
   }
 
   void BoundingBoxCollection::AddBoundingBoxesToCollidableArea ()
@@ -235,6 +241,6 @@ namespace yap
       return;
 
     for (BoundingBox* boundingBox : boundingBoxes_)
-      collidableArea_->RemoveCollidable (boundingBox);
+      RemoveBoundingBoxFromCollidableArea (boundingBox);
   }
 } // namespace yap

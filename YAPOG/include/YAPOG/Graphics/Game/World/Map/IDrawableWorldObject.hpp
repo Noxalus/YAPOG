@@ -8,7 +8,7 @@ namespace yap
 {
   struct IDrawableWorldObject : public IDrawable
   {
-      virtual ~IDrawableWorldObject () {}
+      virtual ~IDrawableWorldObject () { }
 
       /// @brief Determines if this IDrawableWorldObject must be drawn
       /// before @a other.

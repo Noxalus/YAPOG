@@ -39,7 +39,7 @@ namespace yap
       BoundingBoxReader boundingBoxReader (*boundingBox, "BoundingBox");
       xmlBoundingBoxReader->Accept (boundingBoxReader);
 
-      worldObject_.AddBoundingBox (boundingBox);
+      worldObject_.AddPhysicsBoundingBox (boundingBox);
     }
   }
 } // namespace yap

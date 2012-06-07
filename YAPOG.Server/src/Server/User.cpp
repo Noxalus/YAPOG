@@ -13,6 +13,8 @@ namespace yse
   User::User ()
     : packetHandler_ ()
     , login_ ()
+    , world_ (nullptr)
+    , map_ (nullptr)
     , player_ (nullptr)
   {
     ADD_HANDLER(ClientRequestStartInfo, User::HandleClientRequestStartInfo);
@@ -26,6 +28,11 @@ namespace yse
   void User::SetWorld (World* world)
   {
     world_ = world;
+  }
+
+  void User::RemoveFromWorld ()
+  {
+    map_->RemovePlayer (player_);
   }
 
   const yap::String& User::GetLogin () const
@@ -70,6 +77,20 @@ namespace yse
     return *world_;
   }
 
+  Map& User::GetMap ()
+  {
+    return *map_;
+  }
+
+  void User::SetMap (Map* map)
+  {
+    map_ = map;
+
+    SendChangeMap (GetMap ());
+
+    GetMap ().AddPlayer (player_);
+  }
+
   void User::SetPlayer (Player* player)
   {
     if (player == nullptr)
@@ -101,9 +122,7 @@ namespace yse
 
     player_->SetWorldID (playerWorldID);
 
-    SendChangeMap (world_->GetMap (playerMapWorldID));
-
-    world_->GetMap (playerMapWorldID).AddPlayer (player_);
+    SetMap (&world_->GetMap (playerMapWorldID));
 
     yap::Packet setUserPlayerPacket;
     setUserPlayerPacket.CreateFromType (

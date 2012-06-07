@@ -128,6 +128,8 @@ ${inc_root}/World/Map/MapReader.hpp
 ${src_root}/World/Map/MapReader.cpp
 ${inc_root}/World/Map/NPC.hpp
 ${src_root}/World/Map/NPC.cpp
+${inc_root}/World/Map/NPCReader.hpp
+${src_root}/World/Map/NPCReader.cpp
 ${inc_root}/World/Map/Player.hpp
 ${src_root}/World/Map/Player.cpp
 ${inc_root}/World/Map/PlayerReader.hpp

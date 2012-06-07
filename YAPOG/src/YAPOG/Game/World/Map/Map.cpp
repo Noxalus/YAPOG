@@ -13,6 +13,8 @@ namespace yap
   const uint Map::DEFAULT_HEIGHT = 0;
   const float Map::DEFAULT_CELL_SIZE = 32.0f;
 
+  const yap::String Map::MOVED_UPDATE_EVENT_HANDLER_NAME = "MoveUpdateEvent";
+
   Map::Map (const ID& id)
     : id_ (id)
     , name_ (DEFAULT_NAME)
@@ -94,6 +96,9 @@ namespace yap
   void Map::SetCollidableArea (CollidableArea* collidableArea)
   {
     collidableArea_ = collidableArea;
+
+    if (SupportsEvents ())
+      eventManager_.SetCollidableArea (collidableArea);
   }
 
   void Map::HandleSetSize (uint width, uint height)
@@ -113,8 +118,8 @@ namespace yap
       {
         /// @todo Move decomposition: dedicated classes.
 
-        if (!collidableArea_->CollidesWithObject (
-              *it.second,
+        if (!it.second->CollidesWith (
+              *collidableArea_,
               it.second->GetMove ()))
           it.second->Move (it.second->GetMove ());
       }
@@ -124,6 +129,7 @@ namespace yap
 
   void Map::HandleUpdate (const Time& dt)
   {
+    UpdateEvents (dt);
   }
 
   DynamicWorldObject& Map::GetObject (const ID& worldID)
@@ -209,6 +215,15 @@ namespace yap
 
   void Map::HandleAddDynamicObject (DynamicWorldObject* object)
   {
+    object->OnMoved.AddHandler (
+      MOVED_UPDATE_EVENT_HANDLER_NAME,
+      [this] (DynamicWorldObject& sender,
+              const Vector2& offset)
+      {
+        UpdateObjectEvents (sender);
+      });
+
+    UpdateObjectEvents (*object);
   }
 
   void Map::HandleAddUpdateable (IUpdateable* updateable)
@@ -226,10 +241,40 @@ namespace yap
 
   void Map::HandleRemoveDynamicObject (DynamicWorldObject* object)
   {
+    RemoveObjectEvents (*object);
   }
 
   void Map::HandleRemoveUpdateable (IUpdateable* updateable)
   {
+  }
+
+  bool Map::SupportsEvents () const
+  {
+    return true;
+  }
+
+  void Map::UpdateEvents (const Time& dt)
+  {
+    if (!SupportsEvents ())
+      return;
+
+    eventManager_.Update (dt);
+  }
+
+  void Map::UpdateObjectEvents (DynamicWorldObject& object)
+  {
+    if (!SupportsEvents ())
+      return;
+
+    eventManager_.UpdateObject (object);
+  }
+
+  void Map::RemoveObjectEvents (DynamicWorldObject& object)
+  {
+    if (!SupportsEvents ())
+      return;
+
+    eventManager_.RemoveObject (object);
   }
 
   void Map::UpdateSize ()

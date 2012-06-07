@@ -97,6 +97,8 @@ namespace yse
 
   void ClientSession::Disconnect ()
   {
+    user_.RemoveFromWorld ();
+
     socket_.Disconnect ();
 
     OnDisconnected (*this, yap::EmptyEventArgs ());

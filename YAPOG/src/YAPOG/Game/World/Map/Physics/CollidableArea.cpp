@@ -17,16 +17,28 @@ namespace yap
     HandleSetSize (size);
   }
 
-  void CollidableArea::AddCollidable (
+  void CollidableArea::AddPhysicsCollidable (
     ICollidable* collidable,
     const MapCollidableInfo::PtrType& mapCollidableInfo)
   {
-    HandleAddCollidable (collidable, mapCollidableInfo);
+    HandleAddPhysicsCollidable (collidable, mapCollidableInfo);
   }
 
-  void CollidableArea::RemoveCollidable (ICollidable* collidable)
+  void CollidableArea::RemovePhysicsCollidable (ICollidable* collidable)
   {
-    HandleRemoveCollidable (collidable);
+    HandleRemovePhysicsCollidable (collidable);
+  }
+
+  void CollidableArea::AddEventCollidable (
+    ICollidable* collidable,
+    const MapEventInfo::PtrType& mapEventInfo)
+  {
+    HandleAddEventCollidable (collidable, mapEventInfo);
+  }
+
+  void CollidableArea::RemoveEventCollidable (ICollidable* collidable)
+  {
+    HandleRemoveEventCollidable (collidable);
   }
 
   void CollidableArea::HandleSetSize (const Vector2& size)

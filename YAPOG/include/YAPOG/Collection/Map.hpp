@@ -40,6 +40,7 @@ namespace yap
         void Add (const K& key, const V& value);
         void Add (const Map<K, V>& data);
 
+        V* TryGetValue (const K& key);
         bool Contains (const K& key) const;
 
         void Remove (const K& key);
