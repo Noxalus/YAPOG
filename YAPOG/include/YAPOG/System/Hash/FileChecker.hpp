@@ -6,7 +6,9 @@
 # include <sstream>
 # include <vector>
 # include <SFML/Network.hpp>
+# include "YAPOG/System/Thread/Thread.hpp"
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/System/IOStream.hpp"
@@ -21,7 +23,7 @@ namespace yap
 	public:
 		typedef struct  MyFile
 		{
-			MyFile(String fn, size_t fs);
+			MyFile (String fn, size_t fs);
 
 			String        Filename;
 			size_t	    Filesize;
@@ -32,27 +34,31 @@ namespace yap
 		typedef collection::Array<FileChecker*> VFilesType;
 		typedef collection::Array<MyFileType*> VFileType;
 
-		FileChecker(PathType path);
-		FileChecker(String filename);
-		FileChecker(String filename, String md5, size_t filesize);
-		~FileChecker();
+		FileChecker (PathType path);
+		FileChecker (String filename);
+		FileChecker (String filename, String md5, size_t filesize);
+		~FileChecker ();
 
-		void		          SetFilename(String filename);
-		void		          SetMd5(String md5);
-		String	          GetFilename();
-		size_t  	        GetFilesize();
-		String	          GetMd5();
-		VFilesType		    GetVfile();
-		
-		VFileType		      SendFileToDownload(FileChecker& fc);
-		bool		          Update(VFileType vs);
+		void		          SetFilename (String filename);
+		void		          SetMd5 (String md5);
+
+		String	          GetFilename ();
+		size_t  	        GetFilesize ();
+		String	          GetMd5 ();
+		VFilesType		    GetVfile ();
+		UInt64            GetSizeDownloaded ();
+		UInt16            GetFileDownloaded ();
+
+    void              Launch (VFileType vs);
+		VFileType		      SendFileToDownload (FileChecker& fc);
+		bool		          Update (VFileType vs);
 
 	private:
 		// Server checking.
-		void		          GetFileToDownload();
-		bool		          Compare(FileChecker* const c, FileChecker* const s);
-		String	          VectorFind(VFilesType vp, FileChecker* p);
-		bool		          UpdateFTP(VFileType vs);
+		void		          GetFileToDownload ();
+		bool		          Compare (FileChecker* const c, FileChecker* const s);
+		String	          VectorFind (VFilesType vp, FileChecker* p);
+		bool		          UpdateFTP (VFileType vs);
 
 		VFilesType		    vfile_;
 		VFileType		      vstring_;
@@ -60,6 +66,8 @@ namespace yap
 		String            filename_;
 		size_t  	        filesize_;
 		String            md5_;
+    UInt64            sizeDownloaded_;
+    UInt16            fileDownloaded_;
 	};
 } // namespace yap
 

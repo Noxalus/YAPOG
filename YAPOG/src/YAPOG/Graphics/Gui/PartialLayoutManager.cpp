@@ -78,4 +78,9 @@ namespace yap
     return size_;
   }
 
+  void PartialLayoutManager::Clear ()
+  {
+    itemz_.Clear ();
+  }
+
 } //namespace yap

@@ -146,7 +146,6 @@ namespace yap
     if (b.Count () != 2)
       return TestArg (b, 2);
 
-    bt.Add ("Switch to tab : " + b[1] + ".");
     bt.Add (b[1]);
 
     return MyPair (true, 0, 0, bt);
@@ -160,7 +159,6 @@ namespace yap
     if (b.Count () != 2)
       return TestArg (b, 2);
 
-    bt.Add ("Switch to chan : " + b[1] + ".");
     bt.Add (b[1]);
 
     return MyPair (true, 1, 0, bt);
@@ -217,11 +215,11 @@ namespace yap
   {
     BufferType bt;
 
-    if (b->Count() > 2)
+    if (b->Count() > 1)
       bt.Add ("Too much argument.");
-    if (b->Count() == 2)
+    if (b->Count() == 1)
     {
-      String chanNb = (*b)[1];
+      String chanNb = (*b)[0];
 
       if (StringFilter::IsNumeric (chanNb))
       {
@@ -250,11 +248,11 @@ namespace yap
   {
     BufferType bt;
 
-    if (b->Count() > 2)
+    if (b->Count() > 1)
       bt.Add ("Too much argument.");
-    if (b->Count() == 2)
+    if (b->Count() == 1)
     {
-      String chanNb = (*b)[1];
+      String chanNb = (*b)[0];
 
       if (StringFilter::IsNumeric (chanNb))
       {
@@ -369,7 +367,7 @@ namespace yap
       if (response.first.second == 0)
       {
         SetCommand (&ChatCommand::Unknown);
-        return cm->Cd[cm->TabNb]->DisplayTab (cm->Cd[0]);
+        return cm->Cd[cm->TabNb]->DisplayTab ();
       }
     }
     else

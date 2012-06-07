@@ -63,28 +63,13 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    yap::MultiLabelWidget* mlabel = new yap::MultiLabelWidget (yap::Padding (5,5,5,5), yap::Padding (5,5,5,5), false);
-    mlabel->SetSize (yap::Vector2 (512, 128));
-    mlabel->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
-
-    mlabel->AddText ("TEst 1 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 2 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 3 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 4 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 5 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 6 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 7 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);    
-    mlabel->AddText ("TEst 8 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 9 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 10 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 11 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 12 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);
-    mlabel->AddText ("TEst 13 HIGURASHI NO NAKU KURU NI KAI MODOFO", 30);    
+    ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
    /* pokedex_ = new PokedexWidget ();
     pokedex_->Init ();    
 
     guiManager_->AddChild (*pokedex_);  */
-    guiManager_->AddChild (*mlabel);
+    guiManager_->AddChild (*chat);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (

@@ -107,18 +107,16 @@ namespace yap
   {
     if (contentArg.empty())
       return;
-
+    
     String txt = contentArg;
     Label charWidth ("Test");
     charWidth.SetTextSize (charSize);
-
     uint LabelMaxSize = GetUserSize ().x - padding_.left - padding_.right;
-    uint charNumb = (LabelMaxSize / charWidth.GetCharWidth ());
-
+    uint charNumb = (LabelMaxSize / charWidth.GetCharWidth () * 1.5);
     uint previousPos = 0;
     uint subPos = charNumb;
     sf::Text width (txt.substr (0, subPos));
-
+    
     collection::Array<uint> pos;
     pos.Add (0);
     while (1)
@@ -137,12 +135,12 @@ namespace yap
       subPos = 1;
       width.setString (txt.substr (previousPos, subPos));
     }
-
+    
     for (int i = 0; i < pos.Count (); ++i)
     {
       Label* lb = new Label ();
       lb->ChangeColor (color);
-      
+      lb->SetTextSize (charSize);
 
       if (i + 1 < pos.Count ())
         lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
@@ -152,7 +150,7 @@ namespace yap
       layout_->AddChild (*lb, align);
       layoutManager_->AddItem (lb);
       layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight ());
-    }    
+    }
     Refresh ();
   }
 
@@ -163,5 +161,6 @@ namespace yap
     currentSelec_ = 0;
     layout_->Clear ();
     currentText_ = 0;
+    layoutManager_->Clear ();
   }
 } // namespace yap

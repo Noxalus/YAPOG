@@ -24,9 +24,9 @@ namespace yap
 namespace ycl
 {
   typedef yap::collection::Array<yap::Label*> TabTitleType;
-  typedef 
-    yap::collection::Array<
-    std::pair<yap::UInt32, yap::String>>      ResponseType;
+  typedef yap::collection::Array<
+    std::pair<yap::UInt32, yap::String>>      ResponsesType;
+  typedef std::pair<bool, ResponsesType>      ResponseType;
   class ChatWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(ChatWidget);

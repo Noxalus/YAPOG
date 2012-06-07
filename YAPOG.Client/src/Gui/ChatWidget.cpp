@@ -75,6 +75,7 @@ namespace ycl
   void ChatWidget::InitDial ()
   {
     dialLayout_->SetSize (yap::Vector2 (242, 96));
+    dialog_->SetSize (yap::Vector2 (242, 96));
 
     dialLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     dialLayout_->AddChild (*dialog_);
@@ -138,8 +139,13 @@ namespace ycl
     return yap::Vector2 (300, 150);
   }
 
-  void         ChatWidget::DisplayResponse (ResponseType response)
+  void         ChatWidget::DisplayResponse (ResponseType res)
   {
+    bool toclear = res.first;
+    ResponsesType response = res.second;
+
+    if (toclear)
+      dialog_->Clear ();
     for (size_t i = 0; i < response.Count (); i++)
     {
       sf::Color color = sf::Color::Black;
@@ -166,7 +172,6 @@ namespace ycl
       }
       dialog_->AddText (response[i].second,
         12,
-        yap::LayoutBox::Align::LEFT,
         color);
     }
   }
@@ -184,7 +189,7 @@ namespace ycl
         chat_->SetBuf (todisplay);
         chat_->Parse ();
         response = chat_->Exec ();
-        if (!response.IsEmpty ())
+        if (!response.second.IsEmpty ())
           DisplayResponse (response);
         lineCatcher_->Clear ();
       }

@@ -3,37 +3,49 @@
 namespace yap
 {
   FileChecker::FileChecker (PathType path)
+    : vfile_ ()
+    , vstring_ ()
+    , path_ (path)
+    , filename_ ("")
+    , filesize_ (0)
+    , md5_ ("")
+    , sizeDownloaded_ (0)
+    , fileDownloaded_ (0)
   {
-    path_ = path;
     GetFileToDownload ();
-    filename_ = "";
-    md5_ = "";
-    filesize_ = 0;
   }
 
   FileChecker::FileChecker (String filename)
+    : vfile_ ()
+    , vstring_ ()
+    , path_ ("")
+    , filename_ (filename)
+    , filesize_ (0)
+    , md5_ ("")
+    , sizeDownloaded_ (0)
+    , fileDownloaded_ (0)
   {
-    path_ = "";
-    filename_ = filename;
-    md5_ = "";
-    filesize_ = 0;
   }
 
   FileChecker::FileChecker (String filename,
     String md5,
     size_t filesize)
+    : vfile_ ()
+    , vstring_ ()
+    , path_ ("")
+    , filename_ (filename)
+    , filesize_ (filesize)
+    , md5_ (md5)
+    , sizeDownloaded_ (0)
+    , fileDownloaded_ (0)
   {
-    path_ = "";
-    filename_ = filename;
-    md5_ = md5;
-    filesize_ = filesize;
   }
 
   FileChecker::MyFile::MyFile (String fn,
     size_t fs)
+    : Filename (fn)
+    , Filesize (fs)
   {
-    Filename = fn;
-    Filesize = fs;
   }
 
   FileChecker::~FileChecker ()
@@ -78,6 +90,16 @@ namespace yap
   FileChecker::VFilesType FileChecker::GetVfile ()
   {
     return vfile_;
+  }
+
+  UInt64                  FileChecker::GetSizeDownloaded ()
+  {
+    return sizeDownloaded_;
+  }
+
+  UInt16                  FileChecker::GetFileDownloaded ()
+  {
+    return fileDownloaded_;
   }
 
   bool                    FileChecker::Compare (FileChecker* const c,
@@ -165,6 +187,12 @@ namespace yap
     name = elt->GetFilename ();
     std::replace(name.begin (), name.end (), '\\', '/');
     return (elt->GetMd5 ().compare ("0") == 0 ? name + "0" : name);
+  }
+
+  void                    FileChecker::Launch (VFileType vs)
+  {
+    Thread* th = new Thread (Update (vs));
+    th->Launch ();
   }
 
   FileChecker::VFileType  FileChecker::SendFileToDownload (FileChecker& fc)
@@ -259,6 +287,7 @@ namespace yap
     try
     {
       boost::asio::io_service io_service;
+      size_t vectorSize = vs.Count ();
 
       // Get a list of endpoints corresponding to the server name.
       // Try each endpoint until we successfully establish a connection.
@@ -267,6 +296,7 @@ namespace yap
 
       for (; it != it_end; it++)
       {
+        sizeDownloaded_ = 0;
         boost::asio::ip::tcp::resolver resolver (io_service);
         boost::asio::ip::tcp::resolver::query query ("yapog.free.fr", "http");
         boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve (query);
@@ -300,6 +330,7 @@ namespace yap
         }
         if (dl)
         {
+          filename_ = name;
           request_stream << "GET " << ("/test/" + (newpath.empty () ? name : (newpath + "/" + name)))
             << " HTTP/1.0\r\n"
             << "Host: " << "yapog.free.fr" << "\r\n"
@@ -342,10 +373,10 @@ namespace yap
           while (boost::asio::read (socket, response,
             boost::asio::transfer_at_least (1), error))
           {
-            float percentage = 0;
+            float percentageSize = 0;
             sizetotal += response.size ();
-            percentage = (float) sizetotal / bytes;
-            std::cout << percentage << std::endl;
+            percentageSize = ((float) sizetotal / bytes * 100);
+            sizeDownloaded_ = percentageSize;
             ss << &response;
           }
           str = ss.str ();
@@ -355,6 +386,7 @@ namespace yap
           outfile.close();
           if (error != boost::asio::error::eof)
             throw boost::system::system_error (error);
+          fileDownloaded_++;
         }
       }
     }

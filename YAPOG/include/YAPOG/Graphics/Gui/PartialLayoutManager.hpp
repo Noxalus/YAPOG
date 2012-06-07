@@ -22,6 +22,7 @@ namespace yap
     void AddItem (IWidget* item);
     uint GetSize () const;
     void Refresh ();
+    void Clear ();
 
   private:       
     uint cursorCurSel_;

@@ -162,23 +162,20 @@ namespace yap
   
   void                ChatDisplayer::MyDisplayAdder (size_t index,
     size_t last,
-    ResponseType* rt)
+    ResponsesType* rt)
   {
     MyDisplay (index, last);
     for (size_t i = index; i < last ; i++)
       rt->Add (std::make_pair (buff_[i].first->ChanNb, buff_[i].second));
   }
 
-  ResponseType        ChatDisplayer::DisplayTab (ChatDisplayer* cd)
+  ResponseType        ChatDisplayer::DisplayTab ()
   {
     size_t size = buff_.Count ();
     size_t i = 0;
-    ResponseType rt;
-    String switchstr = cd->GetLastStrChan ();
+    ResponsesType rt;
     
     rt.Clear ();
-    if (!switchstr.empty ())
-      rt.Add (std::make_pair (0, (cd->GetLastStrChan ())));
     if (size < CHANMAXBUF)
       MyDisplayAdder (i, size, &rt);
     else
@@ -188,12 +185,12 @@ namespace yap
       MyDisplayAdder (i, index, &rt);
     }
 
-    return rt;
+    return std::make_pair (true, rt);
   }
 
   ResponseType        ChatDisplayer::Display ()
   {
-    ResponseType rt;
+    ResponsesType rt;
 
     rt.Clear ();
     if (!output_.second.empty ())
@@ -204,7 +201,7 @@ namespace yap
       rt.Add (std::make_pair (output_.first->ChanNb, output_.second));
     }
 
-    return rt;
+    return std::make_pair (false, rt);
   }
 
   String              ChatDisplayer::GetName ()
