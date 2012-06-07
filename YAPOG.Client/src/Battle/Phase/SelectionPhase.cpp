@@ -1,3 +1,5 @@
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
+
 #include "Battle/Phase/SelectionPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
@@ -21,11 +23,14 @@ namespace ycl
   void SelectionPhase::HandleStart ()
   {
     BattlePhase::HandleStart ();
+
+    battleInterface_.GetBattleInfoDialogBox ().AddText (
+      "Que doit faire " + battle_.GetPlayerTeam ().GetName () +
+      " ?");
   }
 
   void SelectionPhase::HandleUpdate (const yap::Time& dt)
   {
-    nextPhase_ = yap::BattlePhaseState::BeginBattle;
   }
 
   void SelectionPhase::HandleEnd ()

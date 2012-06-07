@@ -326,7 +326,12 @@ namespace ycl
     screenManager_->AddGameScreen (new SplashScreen ());
     screenManager_->AddGameScreen (new CreditScreen ());
 
+    /// @warning Temporary.
+#ifndef YAPOG_WIN
     screenManager_->Init ("Login");
+#else
+    screenManager_->Init ("Battle");
+#endif
   }
 
   void Game::InitLoggerManager ()

@@ -5,6 +5,7 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Graphics/Gui/GridMenu.hpp"
 
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
@@ -20,6 +21,7 @@ namespace ycl
     : battleInfoDialogBox_ (nullptr)
     , pokemonInfoWidget_ (nullptr)
     , opponentInfoWidget_ (nullptr)
+    , battleMenu_ (nullptr)
   {
     battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
@@ -42,9 +44,15 @@ namespace ycl
 
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
+    battleMenu_ = new yap::GridMenu (
+      yap::Vector2 (200, 50),
+      yap::Padding (0, 0, 0, 0),
+      yap::Padding (0, 0, 0, 0),
+      false);
+
     this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
-
+    this->AddChild (*battleMenu_);
     //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
     //pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
 

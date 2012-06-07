@@ -9,6 +9,7 @@
 namespace yap
 {
   class DialogBoxWidget;
+  class GridMenu;
 } // namespace yap
 
 namespace ycl
@@ -33,6 +34,7 @@ namespace ycl
     yap::DialogBoxWidget* battleInfoDialogBox_;
     PokemonBattleInfoWidget* pokemonInfoWidget_;
     OpponentBattleInfoWidget* opponentInfoWidget_;
+    yap::GridMenu* battleMenu_;
   };
 } // namespace ycl
 

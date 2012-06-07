@@ -393,6 +393,8 @@ ${src_root}/Graphics/Gui/GuiManager.cpp
 ${inc_root}/Graphics/Gui/IEventHandler.hpp
 ${inc_root}/Graphics/Gui/IGuiManager.hpp
 ${inc_root}/Graphics/Gui/IWidget.hpp
+${inc_root}/Graphics/Gui/GridMenu.hpp
+${src_root}/Graphics/Gui/GridMenu.cpp
 ${inc_root}/Graphics/ICamera.hpp
 ${inc_root}/Graphics/IDrawable.hpp
 ${inc_root}/Graphics/IDrawingContext.hpp
