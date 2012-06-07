@@ -11,7 +11,7 @@
 namespace yap
 {
   /// @brief Source area for a rendering entity.
-  struct YAPOG_LIB ICamera : public ISpatial
+  struct ICamera : public ISpatial
   {
       virtual ~ICamera () {}
 

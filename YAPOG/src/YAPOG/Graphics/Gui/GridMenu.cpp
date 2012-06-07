@@ -10,7 +10,11 @@
 namespace yap
 {
 
-  GridMenu::GridMenu (Vector2& size, Padding ext, Padding in, bool extend)
+  GridMenu::GridMenu (
+    const Vector2& size,
+    Padding ext,
+    Padding in,
+    bool extend)
     : itemz_ (size.x, size.y, nullptr)
     , currentSelec_ ()
     , layoutV_ (new VerticalLayout (ext, in, extend))
@@ -30,7 +34,7 @@ namespace yap
     }
 
     BaseWidget::AddChild (*layoutV_);
-  }  
+  }
 
   bool GridMenu::IsFocusable () const
   {
@@ -159,7 +163,7 @@ namespace yap
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
         if (currentSelec_.x == 0 && currentSelec_.y == 0)
-        { 
+        {
           uint line = size_.y - 1;
           while (line != 0)
           {
@@ -169,7 +173,7 @@ namespace yap
           }
           SetUnformItem ();
           currentSelec_.y = line;
-          currentSelec_.x = itemCount_[line] - 1;          
+          currentSelec_.x = itemCount_[line] - 1;
         }
         else if (currentSelec_.x == 0)
         {
@@ -215,7 +219,7 @@ namespace yap
         return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Return)
-      {        
+      {
         itemz_(currentSelec_.x, currentSelec_.y)
           ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
