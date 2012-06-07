@@ -1,4 +1,5 @@
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
+
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
@@ -21,7 +22,7 @@ namespace ycl
     : battleInfoDialogBox_ (nullptr)
     , pokemonInfoWidget_ (nullptr)
     , opponentInfoWidget_ (nullptr)
-    , battleMenu_ (nullptr)
+    , battleMenu_ ()
   {
     battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
@@ -40,23 +41,18 @@ namespace ycl
     battleInfoDialogBox_->ChangeColor (sf::Color::White);
 
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
-    pokemonInfoWidget_->SetPosition (yap::Vector2 (0, 0));
-
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
-    battleMenu_ = new yap::GridMenu (
-      yap::Vector2 (200, 50),
-      yap::Padding (0, 0, 0, 0),
-      yap::Padding (0, 0, 0, 0),
-      false);
+    battleMenu_.SetPosition (yap::Vector2 (
+      800 - battleMenu_.GetSize ().x - 10, 
+      600 - battleMenu_.GetSize ().y - 10));
 
     this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
-    this->AddChild (*battleMenu_);
+    this->AddChild (*battleInfoDialogBox_);
+    this->AddChild (battleMenu_);
     //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
     //pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
-
-    this->AddChild (*battleInfoDialogBox_);
   }
 
   /// Getters

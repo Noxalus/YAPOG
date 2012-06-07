@@ -72,7 +72,7 @@ namespace ycl
 
     /// @name Battle interface init.
     /// @{
-    yap::String opponentName = "Mustebouée12345";//battle_.GetOpponent ().GetName ();
+    yap::String opponentName = battle_.GetOpponent ().GetName ();
 
     // Battle dialog box init.
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
