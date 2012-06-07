@@ -1,6 +1,8 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
+#include "YAPOG/System/RandomHelper.hpp"
+
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
 #include "Battle/PokemonBattleInfoWidget.hpp"
@@ -70,7 +72,7 @@ namespace ycl
 
     /// @name Battle interface init.
     /// @{
-    yap::String opponentName = battle_.GetOpponent ().GetName ();
+    yap::String opponentName = "Mustebouée12345";//battle_.GetOpponent ().GetName ();
 
     // Battle dialog box init.
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
@@ -84,21 +86,35 @@ namespace ycl
       battle_.GetPokemonInfoPosition ().y));
     battleInterface_.GetPokemonInfoWidget ().SetName (
       battle_.GetPlayerTeam ().GetName ());
-    battleInterface_.GetPokemonInfoWidget ().SetLevel (
-      battle_.GetPlayerTeam ().GetLevel ());
     battleInterface_.GetPokemonInfoWidget ().SetGender (
       battle_.GetPlayerTeam ().GetGender ());
 
     // Opponent's side.
-    battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
-      -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
-      battle_.GetOpponentInfoPosition ().y));
     battleInterface_.GetOpponentInfoWidget ().SetName (opponentName);
     battleInterface_.GetOpponentInfoWidget ().SetLevel (
       battle_.GetOpponent ().GetLevel ());
     battleInterface_.GetOpponentInfoWidget ().SetGender (
       battle_.GetOpponent ().GetGender ());
+    battleInterface_.GetPokemonInfoWidget ().SetLevel (
+      battle_.GetPlayerTeam ().GetLevel ());
+
+    //battleInterface_.GetOpponentInfoWidget ().ComputeLevelBoxSize ();
+
+    battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
+      -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
+      battle_.GetOpponentInfoPosition ().y));
     /// @}
+
+    battle_.GetOpponent ().OnHPChangedEvent () +=
+      [&] (const yap::IBattleEntity&, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>&)
+    {
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPColor (
+        battle_.GetOpponent ().GetHPPercentage ());
+
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
+        battle_.GetOpponent ().GetHPPercentage ());
+    };
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -173,6 +189,9 @@ namespace ycl
       }
       else
       {
+        if (yap::RandomHelper::GetNext (0.f, 1.f) < 0.01)
+          battle_.GetOpponent ().TakeDamage (5);
+
         if (!playerBackLeaveFinished_)
         {
           if (battle_.GetPlayerTrainerBack ().GetPosition ().x >

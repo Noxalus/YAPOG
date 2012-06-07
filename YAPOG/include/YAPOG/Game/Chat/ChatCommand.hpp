@@ -56,22 +56,26 @@ namespace yap
     ResponseType  			ExecCmd (ChatManagerType* cm);
 
   private:
-    BufferType          SwitchTab (UInt32* channb,
+    BufferType          SwitchTab (
+      UInt32* channb,
       BufferType* b,
       ChatManagerType* cm,
       ChatDisplayer* cd);
 
-    BufferType          SwitchChan (UInt32* channb,
+    BufferType          SwitchChan 
+      (UInt32* channb,
       BufferType* b,
       ChatManagerType* cm,
       ChatDisplayer* cd);
 
-    BufferType          AddChan (UInt32* channb,
+    BufferType          AddChan (
+      UInt32* channb,
       BufferType* b,
       ChatManagerType* cm,
       ChatDisplayer* cd);
 
-    BufferType          RmChan (UInt32* channb,
+    BufferType          RmChan (
+      UInt32* channb,
       BufferType* b,
       ChatManagerType* cm,
       ChatDisplayer* cd);

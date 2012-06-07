@@ -13,6 +13,9 @@ namespace ycl
 
   public:
     OpponentBattleInfoWidget ();
+
+  protected:
+    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
   };
 } // namespace ycl
 

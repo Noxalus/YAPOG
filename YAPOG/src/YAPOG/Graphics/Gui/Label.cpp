@@ -137,13 +137,15 @@ namespace yap
     drawableText_.setString (content);
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
     GetPosition ().y + padding_.top));*/
-    if (isPosSet_)
 
+    if (isPosSet_)
     {
-      drawableText_.setPosition (GetPosition ().x,
+      drawableText_.setPosition (
+        GetPosition ().x,
         GetPosition ().y);
       isPosSet_ = false;
     }
+
     OnTextChanged (*this, EventArgsString (content));
   }
 } // namespace yap

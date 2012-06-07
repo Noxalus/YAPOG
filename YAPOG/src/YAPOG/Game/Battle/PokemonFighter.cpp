@@ -1,12 +1,13 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Pokemon/HitPoint.hpp"
 
 namespace yap
 {
   PokemonFighter::PokemonFighter (Pokemon* originalPokemon)
     : originalPokemon_ (originalPokemon)
-    , stats_ ()
+    , stats_ (PokemonStat (originalPokemon_->GetStats ()))
   {
     if (originalPokemon == nullptr)
       YAPOG_THROW("The original Pokemon doesn't exist !");
@@ -15,16 +16,6 @@ namespace yap
   const Gender& PokemonFighter::GetGender () const
   {
     return originalPokemon_->GetGender ();
-  }
-
-  UInt16 PokemonFighter::GetCurrentHP () const
-  {
-    return originalPokemon_->GetCurrentHP ();
-  }
-
-  UInt16 PokemonFighter::GetMaxHP () const
-  {
-    return originalPokemon_->GetMaxHP ();
   }
 
   const collection::Array<PokemonSkill*>& PokemonFighter::GetMoves () const
@@ -116,14 +107,47 @@ namespace yap
     return originalPokemon_->GetLevel ();
   }
 
+  const UInt16& PokemonFighter::GetCurrentHP () const
+  {
+    return stats_.GetHitPoint ().GetCurrentValue ();
+  }
+
+  const UInt16& PokemonFighter::GetMaxHP () const
+  {
+    return stats_.GetHitPoint ().GetValue ();
+  }
+
+  float PokemonFighter::GetHPPercentage () const
+  {
+    return  ((float)GetCurrentHP () / (float)GetMaxHP ()) * 100;
+  }
+
+  void PokemonFighter::TakeDamage (int value)
+  {
+    SetCurrentHP (GetCurrentHP () - value);
+  }
+
   Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const HitPoint&>&>& 
-      PokemonFighter::OnHPChangedEvent ()
+    const IBattleEntity&, 
+    const ChangeEventArgs<const HitPoint&>&>& 
+    PokemonFighter::OnHPChangedEvent ()
   {
     return OnHPChanged;
   }
   /// @}
+
+  // Private setters.
+  void PokemonFighter::SetCurrentHP (int value)
+  {
+    if (value < 0)
+      value = 0;
+
+    const HitPoint& oldValue = stats_.GetHitPoint ();
+    stats_.SetCurrentHP (value);
+
+    OnHPChanged (*this, yap::ChangeEventArgs<const HitPoint&> 
+      (oldValue, stats_.GetHitPoint ()));
+  }
 
   void PokemonFighter::Update (const Time& dt)
   {
@@ -133,4 +157,5 @@ namespace yap
   void PokemonFighter::HandleUpdate (const Time& dt)
   {
   }
+
 } // namespace yap

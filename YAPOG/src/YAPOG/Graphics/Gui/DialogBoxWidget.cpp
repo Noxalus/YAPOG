@@ -104,6 +104,7 @@ namespace yap
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
         currentText_++;
+        OnTextChanged (*this, EmptyEventArgs ());
         if (currentText_ == labels_.Count ())
         {
           isVisible_ = false;

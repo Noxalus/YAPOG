@@ -16,9 +16,20 @@ namespace yap
   {
     virtual ~IBattleEntity () {}
 
+    /// @name Getters.
+    /// @{
     virtual const String& GetName () const = 0;
     virtual const UInt16& GetLevel () const = 0;
     virtual const Gender& GetGender () const = 0;
+    virtual const UInt16& GetCurrentHP () const = 0;
+    virtual const UInt16& GetMaxHP () const = 0;
+    virtual float GetHPPercentage () const = 0;
+    /// @}
+
+    /// @name Setters.
+    /// @{
+    virtual void TakeDamage (int value) = 0;
+    /// @}
 
     /// @name Events.
     /// @{

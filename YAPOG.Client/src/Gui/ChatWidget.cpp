@@ -139,7 +139,7 @@ namespace ycl
     return yap::Vector2 (300, 150);
   }
 
-  void         ChatWidget::DisplayResponse (ResponseType res)
+  void ChatWidget::DisplayResponse (ResponseType res)
   {
     bool toclear = res.first;
     ResponsesType response = res.second;
@@ -176,7 +176,7 @@ namespace ycl
     }
   }
 
-  bool         ChatWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  bool ChatWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
@@ -188,7 +188,7 @@ namespace ycl
           exit (EXIT_SUCCESS);
         chat_->SetBuf (todisplay);
         chat_->Parse ();
-        //response = chat_->Exec ();
+        response = chat_->Exec ();
         if (!response.second.IsEmpty ())
           DisplayResponse (response);
         lineCatcher_->Clear ();

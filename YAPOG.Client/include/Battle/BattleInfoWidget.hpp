@@ -24,9 +24,16 @@ namespace ycl
   public:
     BattleInfoWidget ();
 
+    void ComputeLevelBoxSize ();
+    void UpdateHPColor (int value);
+    void UpdateHPSize (int value);
+
+    /// @name Setters.
+    /// @{
     void SetName (const yap::String& value);
     void SetLevel (int value);
     void SetGender (const yap::Gender& value);
+    /// @}
 
     virtual void HandleDraw (yap::IDrawingContext& context);
 
@@ -46,17 +53,17 @@ namespace ycl
     yap::VerticalLayout battleInfoBox_;
     /// @}
 
-    /// @name Textures.
-    /// @{
-    //yap::Texture HPBarContent_;
-    /// @}
-    
     /// @name Picture boxes.
     /// @{
     yap::PictureBox* hpBarPictureBox_;
     yap::PictureBox* hpBarContent_;
     yap::PictureBox* genderPictureBox_;
     /// @}
+
+    static const sf::Color DEFAULT_HP_COLOR_GOOD;
+    static const sf::Color DEFAULT_HP_COLOR_MEDIUM;
+    static const sf::Color DEFAULT_HP_COLOR_BAD;
+    static const float MAX_HP_BAR_SIZE;
   };
 } // namespace ycl
 
