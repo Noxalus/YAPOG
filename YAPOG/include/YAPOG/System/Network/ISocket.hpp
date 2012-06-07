@@ -5,7 +5,7 @@
 
 namespace yap
 {
-  struct ISocket
+  struct YAPOG_LIB ISocket
   {
       virtual ~ISocket () { }
   };

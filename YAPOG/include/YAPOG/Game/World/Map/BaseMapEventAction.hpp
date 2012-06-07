@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class BaseMapEventAction : public IMapEventAction
+  class YAPOG_LIB BaseMapEventAction : public IMapEventAction
   {
       DISALLOW_ASSIGN(BaseMapEventAction);
 

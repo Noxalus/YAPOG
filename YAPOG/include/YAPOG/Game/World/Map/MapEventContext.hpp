@@ -11,26 +11,26 @@ namespace yap
 
   /// @brief Represents the triggering of an event with the trigger and its map
   /// context.
-  class MapEventContext
+  class YAPOG_LIB MapEventContext
   {
-      DISALLOW_COPY(MapEventContext);
+    DISALLOW_COPY(MapEventContext);
 
-    public:
+  public:
 
-      MapEventContext (
-        DynamicWorldObject& trigger,
-        const ICollidable& triggerCollidable,
-        MapEventInfo& mapEventInfo);
+    MapEventContext (
+      DynamicWorldObject& trigger,
+      const ICollidable& triggerCollidable,
+      MapEventInfo& mapEventInfo);
 
-      DynamicWorldObject& GetTrigger ();
-      const ICollidable& GetTriggerCollidable () const;
-      MapEventInfo& GetMapEventInfo ();
+    DynamicWorldObject& GetTrigger ();
+    const ICollidable& GetTriggerCollidable () const;
+    MapEventInfo& GetMapEventInfo ();
 
-    private:
+  private:
 
-      DynamicWorldObject& trigger_;
-      const ICollidable& triggerCollidable_;
-      MapEventInfo& mapEventInfo_;
+    DynamicWorldObject& trigger_;
+    const ICollidable& triggerCollidable_;
+    MapEventInfo& mapEventInfo_;
   };
 } // namespace yap
 
