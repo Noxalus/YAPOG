@@ -43,10 +43,11 @@ namespace ycl
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
+    //battleMenu_.SetPosition (yap::Vector2 (0,0));
     battleMenu_.SetPosition (yap::Vector2 (
-      800 - battleMenu_.GetSize ().x - 10, 
-      600 - battleMenu_.GetSize ().y - 10));
-
+      800 - battleMenu_.GetSize ().x , 
+      600 - battleMenu_.GetSize ().y ));
+      
     this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
     this->AddChild (*battleInfoDialogBox_);

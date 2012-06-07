@@ -350,16 +350,15 @@ namespace yap
     else
     {
       Move (Vector2 (width - GetPosition ().x, 0));
-      spatialInfo_.SetPosition (GetPosition () - Vector2 (width, 0));
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (width/2, 0));
     }
     if (spatialInfo_.GetPosition ().y > height)
       spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
     else
     {
       Move (Vector2 (0, height - GetPosition ().y));
-      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height));
-    }
-
+      spatialInfo_.SetPosition (GetPosition () - Vector2 (0, height/2));
+    }    
     if (refreshing)
       Refresh ();
   }
