@@ -149,6 +149,7 @@ namespace yap
       width.setString (txt.substr (previousPos, subPos));
     }
 
+    lb->SetDefaultColor (userColor_);
     lb->SetText (txt);
     labels_.Add (lb);
     Refresh ();

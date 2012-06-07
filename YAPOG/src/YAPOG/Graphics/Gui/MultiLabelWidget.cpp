@@ -135,10 +135,10 @@ namespace yap
       subPos = 1;
       width.setString (txt.substr (previousPos, subPos));
     }
-    
+        
     for (int i = 0; i < pos.Count (); ++i)
     {
-      Label* lb = new Label ();
+      Label* lb = new Label ();      
       lb->ChangeColor (color);
       lb->SetTextSize (charSize);
 

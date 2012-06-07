@@ -188,7 +188,7 @@ namespace ycl
           exit (EXIT_SUCCESS);
         chat_->SetBuf (todisplay);
         chat_->Parse ();
-        response = chat_->Exec ();
+        //response = chat_->Exec ();
         if (!response.second.IsEmpty ())
           DisplayResponse (response);
         lineCatcher_->Clear ();

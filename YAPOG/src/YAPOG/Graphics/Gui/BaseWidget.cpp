@@ -27,6 +27,8 @@ namespace yap
     , userSize_ (0, 0)
     , isExtensible_ (false)
     , isFocused_ (true)
+    , userColor_ (DEFAULT_COLOR)
+    , isChangeColorCall_ (false)
   {
   }
 
@@ -200,6 +202,7 @@ namespace yap
 
   void BaseWidget::ChangeColor (const sf::Color& color)
   {
+    isChangeColorCall_ = true;
     for (IWidget* child : childen_)
     {
       child->ChangeColor (color);
@@ -257,6 +260,11 @@ namespace yap
     return false;
   }
 
+  void BaseWidget::SetDefaultColor (const sf::Color& color)
+  {
+    userColor_ = color;
+  }
+
   void BaseWidget::Update (const Time& dt)
   {
     for (IWidget* child : childen_)
@@ -283,6 +291,7 @@ namespace yap
 
   void BaseWidget::AddChild (IWidget& child)
   {
+    child.SetDefaultColor (userColor_);    
     childen_.Add (&child);
     AddDrawable (child);
     updatables_.Add (&child);
