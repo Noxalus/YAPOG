@@ -22,7 +22,7 @@ namespace yap
   {
     virtual ~IWidget () {}
 
-    
+    virtual void SetDefaultColor (const sf::Color& color) = 0;
     virtual void AddDrawable (IDrawable& drawable) = 0;
     virtual void AddChild (IWidget& child) = 0;
     virtual IWidget& GetRoot () const = 0;

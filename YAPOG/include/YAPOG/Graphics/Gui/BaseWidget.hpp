@@ -112,6 +112,7 @@ namespace yap
     virtual void AddChild (IWidget& child);
     virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
+    virtual void SetDefaultColor (const sf::Color& color);
     virtual void SetParent (IWidget& parent);
     virtual void SetPadding (const Padding& padding);
     virtual void SetBackground (WidgetBackground& background);
@@ -163,7 +164,8 @@ namespace yap
     Vector2 userSize_;
     bool isExtensible_;
     bool isFocused_;
-
+    sf::Color userColor_;
+    bool isChangeColorCall_;
   private:
     void SetPosAfterBorder (uint width, uint height, bool refreshing);    
   };

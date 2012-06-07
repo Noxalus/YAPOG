@@ -5,6 +5,7 @@
 # include "YAPOG/Graphics/Gui/Label.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
+# include "Battle/BattleMenu.hpp"
 
 namespace yap
 {
@@ -34,7 +35,7 @@ namespace ycl
     yap::DialogBoxWidget* battleInfoDialogBox_;
     PokemonBattleInfoWidget* pokemonInfoWidget_;
     OpponentBattleInfoWidget* opponentInfoWidget_;
-    yap::GridMenu* battleMenu_;
+    BattleMenu battleMenu_;
   };
 } // namespace ycl
 

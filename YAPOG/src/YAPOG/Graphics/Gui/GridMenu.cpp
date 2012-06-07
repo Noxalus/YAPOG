@@ -113,6 +113,9 @@ namespace yap
 
   bool GridMenu::HandleOnEvent (const GuiEvent& guiEvent)
   {
+    if (itemCount_.Count () > 0 && itemCount_[0] == 0)
+      return false;
+
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::Up)

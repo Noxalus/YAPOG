@@ -28,7 +28,7 @@ namespace ycl
 
   void BattlePhase::HandleStart ()
   {
-    BattlePhase::HandleStart ();
+    yap::BattlePhase::HandleStart ();
   }
 
   void BattlePhase::HandleUpdate (const yap::Time& dt)
@@ -37,7 +37,7 @@ namespace ycl
 
   void BattlePhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::BattlePhase::HandleEnd ();
   }
 
   void BattlePhase::Draw (yap::IDrawingContext& context)

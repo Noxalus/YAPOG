@@ -6,10 +6,11 @@
 
 namespace yap
 {
-  class ISprite;
+  struct ISprite;
+  struct IDrawingContext;
+
   class DialogBoxWidget;
   class WidgetBackground;
-  class IDrawingContext;
   class Time;
 } // namespace yap
 

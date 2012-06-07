@@ -104,6 +104,7 @@ namespace yap
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
         currentText_++;
+        OnTextChanged (*this, EmptyEventArgs ());
         if (currentText_ == labels_.Count ())
         {
           isVisible_ = false;
@@ -149,6 +150,7 @@ namespace yap
       width.setString (txt.substr (previousPos, subPos));
     }
 
+    lb->SetDefaultColor (userColor_);
     lb->SetText (txt);
     labels_.Add (lb);
     Refresh ();

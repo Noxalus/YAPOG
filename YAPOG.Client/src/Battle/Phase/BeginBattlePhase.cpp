@@ -72,7 +72,7 @@ namespace ycl
 
     /// @name Battle interface init.
     /// @{
-    yap::String opponentName = "Mustebouée12345";//battle_.GetOpponent ().GetName ();
+    yap::String opponentName = battle_.GetOpponent ().GetName ();
 
     // Battle dialog box init.
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
@@ -114,7 +114,7 @@ namespace ycl
 
       battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
         battle_.GetOpponent ().GetHPPercentage ());
-    };
+    };    
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -233,7 +233,7 @@ namespace ycl
           }
           else
           {
-            nextPhase_ = yap::BattlePhaseState::Selection;
+            //nextPhase_ = yap::BattlePhaseState::Selection;
           }
         }
       }
