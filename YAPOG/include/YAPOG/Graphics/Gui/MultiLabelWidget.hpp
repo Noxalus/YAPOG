@@ -23,7 +23,7 @@ namespace yap
     virtual ~MultiLabelWidget ();
 
     virtual String GetContent () const;   
-    virtual void AddText (const String& contentArg, uint charSize, sf::Color color = sf::Color::Black, LayoutBox::Align align = LayoutBox::Align::LEFT);
+    virtual void AddText (const String& contentArg, uint charSize, sf::Color color = DEFAULT_COLOR, LayoutBox::Align align = LayoutBox::Align::LEFT);
     virtual bool IsFocusable () const;
     void SetShowText (bool state);
     void Clear ();

@@ -114,7 +114,7 @@ namespace ycl
 
       battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
         battle_.GetOpponent ().GetHPPercentage ());
-    };
+    };    
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -233,7 +233,7 @@ namespace ycl
           }
           else
           {
-            nextPhase_ = yap::BattlePhaseState::Selection;
+            //nextPhase_ = yap::BattlePhaseState::Selection;
           }
         }
       }

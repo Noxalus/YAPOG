@@ -1,16 +1,14 @@
-#ifndef YAPOG_IEVENTTRIGGER_HPP
-# define YAPOG_IEVENTTRIGGER_HPP
-
-# include "YAPOG/Macros.hpp"
+#ifndef YAPOG_IMAPEVENTTRIGGER_HPP
+# define YAPOG_IMAPEVENTTRIGGER_HPP
 
 namespace yap
 {
   class CollidableArea;
   class MapEventQueue;
 
-  struct IEventTrigger
+  struct IMapEventTrigger
   {
-      virtual ~IEventTrigger () { }
+      virtual ~IMapEventTrigger () { }
 
       virtual void GetEventsCollidingWith (
         const CollidableArea& collidableArea,
@@ -18,4 +16,4 @@ namespace yap
   };
 } // namespace yap
 
-#endif // YAPOG_IEVENTTRIGGER_HPP
+#endif // YAPOG_IMAPEVENTTRIGGER_HPP

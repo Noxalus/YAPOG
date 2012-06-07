@@ -7,6 +7,7 @@
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/System/Time/UpdateableTimer.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -15,6 +16,7 @@ namespace yap
     DISALLOW_COPY(DialogBoxWidget);
 
   public:
+    Event<const BaseWidget&, const EmptyEventArgs&> OnTextChanged;
 
     DialogBoxWidget ();
     DialogBoxWidget (const String& content);  

@@ -17,7 +17,7 @@ namespace ycl
     genderBox_.SetSize (yap::Vector2 (12.f, 22.f));
 
     hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
-    hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
+    
 
     hpBox_.SetSize (yap::Vector2 (
       hpBarPictureBox_->GetSize ().x,
@@ -43,7 +43,7 @@ namespace ycl
     genderBox_.AddChild (*genderPictureBox_);
     battleInfoBox_.AddChild (hpBox_, yap::LayoutBox::Align::RIGHT);
 
-    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
+    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));    
   }
 
   bool OpponentBattleInfoWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)

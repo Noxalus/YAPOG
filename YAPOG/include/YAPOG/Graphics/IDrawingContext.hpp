@@ -17,7 +17,7 @@ namespace yap
 
   /// @brief A context to render graphical objects.
   /// Possesses a set of Camera associated to each CameraMode.
-  struct YAPOG_LIB IDrawingContext
+  struct IDrawingContext
   {
       virtual ~IDrawingContext () {}
 

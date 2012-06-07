@@ -9,7 +9,7 @@ namespace yap
 {
   struct IDrawingContext;
 
-  struct YAPOG_LIB IDrawable
+  struct IDrawable
   {
       virtual ~IDrawable () {}
 

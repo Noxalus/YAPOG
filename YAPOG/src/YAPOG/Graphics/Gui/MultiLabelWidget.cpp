@@ -135,21 +135,23 @@ namespace yap
       subPos = 1;
       width.setString (txt.substr (previousPos, subPos));
     }
-    
+        
     for (int i = 0; i < pos.Count (); ++i)
     {
-      Label* lb = new Label ();
+      Label* lb = new Label ();      
       lb->ChangeColor (color);
       lb->SetTextSize (charSize);
 
       if (i + 1 < pos.Count ())
         lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
       else
-        lb->SetText (contentArg.substr (pos[i]));      
+        lb->SetText (contentArg.substr (pos[i]));
+      //Auto Scroll;
+      currentSelec_++;
       labels_.Add (lb);
       layout_->AddChild (*lb, align);
       layoutManager_->AddItem (lb);
-      layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight ());
+      layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight () - padding_.top - padding_.bottom);
     }
     Refresh ();
   }

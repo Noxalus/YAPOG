@@ -35,18 +35,19 @@ namespace ycl
     nameLabel_.ChangeColor (sf::Color::Black);
     levelLabel_.ChangeColor (sf::Color::Black);
 
+    hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
+
     hpBarContent_->SetSize (yap::Vector2 (
       MAX_HP_BAR_SIZE,
       hpBarContent_->GetSize ().y));
-
-    hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
+    hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);    
 
     //nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     //nameLabel_.SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
     //genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     levelBox_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     hpBox_.SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
-    hpBarContent_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    //hpBarContent_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
 
     /*
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
@@ -93,12 +94,10 @@ namespace ycl
   void BattleInfoWidget::UpdateHPSize (int value)
   {
     float size =  MAX_HP_BAR_SIZE * ((float)value / 100);
-
-    /*
+    
     hpBarContent_->SetSize (yap::Vector2 (
       size,
-      hpBarContent_->GetSize ().y));
-    */
+      hpBarContent_->GetSize ().y));   
   }
 
   void BattleInfoWidget::SetName (const yap::String& value)
