@@ -11,7 +11,7 @@ namespace yap
 
   /// @brief Represents the triggering of an event with the trigger and its map
   /// context.
-  class MapEventContext
+  class YAPOG_LIB MapEventContext
   {
       DISALLOW_COPY(MapEventContext);
 

@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  struct YAPOG_LIB ISpatial3 : public ISpatial
+  struct ISpatial3 : public ISpatial
   {
       virtual ~ISpatial3 () {}
 
