@@ -145,11 +145,13 @@ namespace yap
       if (i + 1 < pos.Count ())
         lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
       else
-        lb->SetText (contentArg.substr (pos[i]));      
+        lb->SetText (contentArg.substr (pos[i]));
+      //Auto Scroll;
+      currentSelec_++;
       labels_.Add (lb);
       layout_->AddChild (*lb, align);
       layoutManager_->AddItem (lb);
-      layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight ());
+      layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight () - padding_.top - padding_.bottom);
     }
     Refresh ();
   }

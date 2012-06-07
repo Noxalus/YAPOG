@@ -6,7 +6,7 @@
 namespace yap
 {
   class DynamicWorldObject;
-  class ICollidable;
+  struct ICollidable;
   class MapEventInfo;
 
   /// @brief Represents the triggering of an event with the trigger and its map
