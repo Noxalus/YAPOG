@@ -24,6 +24,9 @@ namespace ycl
   {
     BattlePhase::HandleStart ();
 
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+    battleInterface_.GetBattleMenu ().Open ();
+
     battleInterface_.GetBattleInfoDialogBox ().AddText (
       "Que doit faire " + battle_.GetPlayerTeam ().GetName () +
       " ?");

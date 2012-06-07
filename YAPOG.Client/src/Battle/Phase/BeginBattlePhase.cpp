@@ -72,7 +72,7 @@ namespace ycl
 
     /// @name Battle interface init.
     /// @{
-    yap::String opponentName = battle_.GetOpponent ().GetName ();
+    const yap::String& opponentName = battle_.GetOpponent ().GetName ();
 
     // Battle dialog box init.
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
@@ -98,8 +98,6 @@ namespace ycl
     battleInterface_.GetPokemonInfoWidget ().SetLevel (
       battle_.GetPlayerTeam ().GetLevel ());
 
-    //battleInterface_.GetOpponentInfoWidget ().ComputeLevelBoxSize ();
-
     battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
       -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
       battle_.GetOpponentInfoPosition ().y));
@@ -114,7 +112,7 @@ namespace ycl
 
       battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
         battle_.GetOpponent ().GetHPPercentage ());
-    };    
+    };
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -233,7 +231,7 @@ namespace ycl
           }
           else
           {
-            //nextPhase_ = yap::BattlePhaseState::Selection;
+            nextPhase_ = yap::BattlePhaseState::Selection;
           }
         }
       }

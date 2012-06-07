@@ -29,6 +29,7 @@ namespace ycl
     yap::DialogBoxWidget& GetBattleInfoDialogBox ();
     PokemonBattleInfoWidget& GetPokemonInfoWidget ();
     OpponentBattleInfoWidget& GetOpponentInfoWidget ();
+    BattleMenu& GetBattleMenu ();
     /// @}
 
   private:

@@ -43,17 +43,16 @@ namespace ycl
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
-    //battleMenu_.SetPosition (yap::Vector2 (0,0));
     battleMenu_.SetPosition (yap::Vector2 (
       800 - battleMenu_.GetSize ().x , 
       600 - battleMenu_.GetSize ().y ));
-      
+
+    battleMenu_.Close ();
+
     this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
     this->AddChild (*battleInfoDialogBox_);
     this->AddChild (battleMenu_);
-    //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
-    //pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
   }
 
   /// Getters
@@ -70,5 +69,10 @@ namespace ycl
   OpponentBattleInfoWidget& BattleInterface::GetOpponentInfoWidget ()
   {
     return *opponentInfoWidget_;
+  }
+
+  BattleMenu& BattleInterface::GetBattleMenu ()
+  {
+    return battleMenu_;
   }
 }
