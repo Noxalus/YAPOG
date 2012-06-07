@@ -21,6 +21,8 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/PlayerReader.hpp"
+#include "World/Map/NPC.hpp"
+#include "World/Map/NPCReader.hpp"
 
 namespace yse
 {
@@ -148,6 +150,12 @@ namespace yse
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
         yap::Path ("Map"), "Map"));
+
+    objectFactory_.RegisterLoader (
+      "NPC",
+      new yap::XmlObjectIDLoader<NPC, NPCReader> (
+        yap::Path ("NPC"),
+        "NPC"));
 
     objectFactory_.RegisterLoader (
       "Player",

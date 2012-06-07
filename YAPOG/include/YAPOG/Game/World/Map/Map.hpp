@@ -10,6 +10,7 @@
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/Game/World/Map/DynamicWorldObjectCollection.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Game/World/Map/MapEventManager.hpp"
 
 namespace yap
 {
@@ -88,12 +89,20 @@ namespace yap
 
     private:
 
+      virtual bool SupportsEvents () const;
+
+      void UpdateEvents (const Time& dt);
+      void UpdateObjectEvents (DynamicWorldObject& object);
+      void RemoveObjectEvents (DynamicWorldObject& object);
+
       void UpdateSize ();
 
       static const String DEFAULT_NAME;
       static const uint DEFAULT_WIDTH;
       static const uint DEFAULT_HEIGHT;
       static const float DEFAULT_CELL_SIZE;
+
+      static const String MOVED_UPDATE_EVENT_HANDLER_NAME;
 
       ID id_;
       String name_;
@@ -110,6 +119,8 @@ namespace yap
       collection::List<IUpdateable*> updateables_;
 
       CollidableArea* collidableArea_;
+
+      MapEventManager eventManager_;
   };
 } // namespace yap
 

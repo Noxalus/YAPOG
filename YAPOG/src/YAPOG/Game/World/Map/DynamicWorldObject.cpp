@@ -1,6 +1,8 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/PhysicsCore.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Game/World/Map/MapEvent.hpp"
 
 namespace yap
 {
@@ -10,12 +12,16 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
+    , OnMoved ()
     , OnVelocityChanged ()
     , OnStateChanged ()
     , worldID_ ()
     , state_ (DEFAULT_INACTIVE_STATE)
     , physicsCore_ (nullptr)
     , maxVelocity_ (DEFAULT_MAX_VELOCITY)
+    , events_ ()
+    , triggerBoundingBoxes_ ()
+    , sourceBoundingBoxes_ ()
   {
   }
 
@@ -27,13 +33,22 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const DynamicWorldObject& copy)
     : WorldObject (copy)
+    , OnMoved ()
+    , OnVelocityChanged ()
+    , OnStateChanged ()
     , worldID_ (copy.worldID_)
     , state_ (copy.state_)
     , physicsCore_ (nullptr)
     , maxVelocity_ (copy.maxVelocity_)
+    , events_ ()
+    , triggerBoundingBoxes_ (copy.triggerBoundingBoxes_)
+    , sourceBoundingBoxes_ (copy.sourceBoundingBoxes_)
   {
     if (copy.physicsCore_ != nullptr)
       SetPhysicsCore (copy.physicsCore_->Clone ());
+
+    for (MapEvent* event : copy.events_)
+      AddEvent (event->Clone ());
   }
 
   const ID& DynamicWorldObject::GetWorldID () const
@@ -174,9 +189,46 @@ namespace yap
     return GetLogicalState () == "Moving";
   }
 
+  void DynamicWorldObject::AddTriggerBoundingBox (BoundingBox* boundingBox)
+  {
+    AdjustCollidablePosition (*boundingBox);
+
+    triggerBoundingBoxes_.AddEventTriggerBoundingBox (boundingBox);
+  }
+
+  void DynamicWorldObject::AddEvent (MapEvent* event)
+  {
+    events_.Add (event);
+
+    event->AddToEventBoundingBoxCollection (sourceBoundingBoxes_, *this);
+  }
+
+  void DynamicWorldObject::RemoveEvent (MapEvent* event)
+  {
+    events_.Remove (event);
+
+    event->RemoveFromEventBoundingBoxCollection (sourceBoundingBoxes_);
+  }
+
+  void DynamicWorldObject::GetEventsCollidingWith (
+    const CollidableArea& collidableArea,
+    MapEventQueue& events) const
+  {
+    triggerBoundingBoxes_.GetEventsCollidingWith (collidableArea, events);
+  }
+
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);
+  }
+
+  void DynamicWorldObject::HandleSetCollidableArea (
+    CollidableArea* collidableArea)
+  {
+    WorldObject::HandleSetCollidableArea (collidableArea);
+
+    triggerBoundingBoxes_.SetCollidableArea (*this, collidableArea);
+    sourceBoundingBoxes_.SetCollidableArea (*this, collidableArea);
   }
 
   void DynamicWorldObject::HandleApplyForce (const Vector2& force)
@@ -195,6 +247,35 @@ namespace yap
   void DynamicWorldObject::HandleMove (const Vector2& offset)
   {
     WorldObject::HandleMove (offset);
+
+    triggerBoundingBoxes_.Move (offset);
+    sourceBoundingBoxes_.Move (offset);
+
+    OnMoved (*this, offset);
+  }
+
+  void DynamicWorldObject::HandleScale (const Vector2& factor)
+  {
+    WorldObject::HandleScale (factor);
+
+    triggerBoundingBoxes_.Scale (factor);
+    sourceBoundingBoxes_.Scale (factor);
+  }
+
+  void DynamicWorldObject::HandleSetZ (int z)
+  {
+    WorldObject::HandleSetZ (z);
+
+    triggerBoundingBoxes_.SetZ (z);
+    sourceBoundingBoxes_.SetZ (z);
+  }
+
+  void DynamicWorldObject::HandleSetH (int h)
+  {
+    WorldObject::HandleSetH (h);
+
+    triggerBoundingBoxes_.SetH (h);
+    sourceBoundingBoxes_.SetH (h);
   }
 
   void DynamicWorldObject::HandleOnVelocityChanged (

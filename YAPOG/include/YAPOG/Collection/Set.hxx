@@ -79,9 +79,9 @@ namespace yap
     }
 
     template <typename T, typename C>
-    inline void Set<T, C>::Add (const T& data)
+    inline bool Set<T, C>::Add (const T& data)
     {
-      data_.insert (data);
+      return data_.insert (data).second;
     }
 
     template <typename T, typename C>
@@ -107,9 +107,9 @@ namespace yap
     }
 
     template <typename T, typename C>
-    inline void Set<T, C>::Remove (const T& data)
+    inline bool Set<T, C>::Remove (const T& data)
     {
-      data_.erase (data);
+      return data_.erase (data) == 1;
     }
 
     template <typename T, typename C>

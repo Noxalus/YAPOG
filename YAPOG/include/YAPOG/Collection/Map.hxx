@@ -89,6 +89,14 @@ namespace yap
     }
 
     template <typename K, typename V>
+    inline V* Map<K, V>::TryGetValue (const K& key)
+    {
+      ItType element = data_.find (key);
+
+      return (element == End () ? nullptr : &element->second);
+    }
+
+    template <typename K, typename V>
     inline bool Map<K, V>::Contains (const K& key) const
     {
       return data_.find (key) != End ();

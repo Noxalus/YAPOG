@@ -16,43 +16,46 @@ namespace ycl
 
   class GameplayScreen : public BaseScreen
   {
-    DISALLOW_COPY(GameplayScreen);
+      DISALLOW_COPY(GameplayScreen);
 
-  public:
+    public:
 
-    explicit GameplayScreen (yap::ICamera& worldCamera);
-    virtual ~GameplayScreen ();
+      explicit GameplayScreen (yap::ICamera& worldCamera);
+      virtual ~GameplayScreen ();
 
-  protected:
+    protected:
 
-    virtual void HandleInit ();
+      virtual void HandleInit ();
 
-    virtual const yap::ScreenType& HandleRun (
-      const yap::Time& dt,
-      yap::IDrawingContext& context);
+      virtual const yap::ScreenType& HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
 
-    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
 
-  private:
+    private:
 
-    Map& GetCurrentMap ();
-    void SetCurrentMap (Map& map);
-    void SetPlayer (Player* player);
+      Map& GetCurrentMap ();
+      void SetCurrentMap (Map& map);
+      void SetPlayer (Player* player);
 
-    void UpdatePlayer (const yap::Time& dt);
+      void UpdatePlayer (const yap::Time& dt);
 
-    void SendApplyForce (const yap::Vector2& force);
+      void SendApplyForce (const yap::Vector2& force);
 
-    static const yap::ScreenType DEFAULT_NAME;
+      static const yap::ScreenType DEFAULT_NAME;
 
-    World world_;
+      static const yap::Vector2 DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR;
 
-    yap::ProgressiveCameraController cameraController_;
+      World world_;
 
-    Player* player_;
-    yap::CharacterMoveController moveController_;
-    yap::Vector2 lastForce_;   
-    PokedexWidget* pokedex_;    
+      yap::ICamera& worldCamera_;
+      yap::ProgressiveCameraController cameraController_;
+
+      Player* player_;
+      yap::CharacterMoveController moveController_;
+      yap::Vector2 lastForce_;
+      PokedexWidget* pokedex_;
   };
 } // namespace ycl
 

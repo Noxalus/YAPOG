@@ -76,10 +76,11 @@ namespace ycl
     return HandleGetComparisonPoint ();
   }
 
-  yap::Event<yap::IDrawableDynamicWorldObject&,
-             const yap::Vector2&>& Character::OnMovedEvent ()
+  yap::Event<
+    yap::IDrawableDynamicWorldObject&,
+    const yap::Vector2&>& Character::OnDrawableMovedEvent ()
   {
-    return OnMoved;
+    return OnDrawableMoved;
   }
 
   yap::Vector2 Character::HandleGetSize () const
@@ -107,7 +108,7 @@ namespace ycl
 
     sprites_->Move (offset);
 
-    OnMovedEvent () (*this, offset);
+    OnDrawableMovedEvent () (*this, offset);
   }
 
   void Character::HandleSetDirection (yap::Direction direction)

@@ -58,6 +58,8 @@
 #include "World/Map/PlayerReader.hpp"
 #include "World/Map/MapElement.hpp"
 #include "World/Map/MapElementReader.hpp"
+#include "World/Map/NPC.hpp"
+#include "World/Map/NPCReader.hpp"
 
 namespace ycl
 {
@@ -89,7 +91,7 @@ namespace ycl
     InitObjectFactory ();
     InitGameInputManager ();
     InitWorldObjectStateFactory ();
-    InitDrawingContext (yap::Vector2 (800.0f, 600.0f));
+    InitDrawingContext (yap::Vector2 (600.0f, 450.0f));
     InitScreenManager ();
 
     InitLoggerManager ();
@@ -182,6 +184,12 @@ namespace ycl
       new yap::XmlObjectIDLoader<MapElement, MapElementReader> (
         yap::Path ("MapElement"),
         "MapElement"));
+
+    objectFactory_.RegisterLoader (
+      "NPC",
+      new yap::XmlObjectIDLoader<NPC, NPCReader> (
+        yap::Path ("NPC"),
+        "NPC"));
 
     objectFactory_.RegisterLoader (
       "Player",

@@ -58,7 +58,6 @@ namespace yse
         const yap::String& oldState,
         const yap::String& currentState);
 
-      /// @todo Visitors for all Send methods...
       void SendObjectMoveInfo (
         const yap::DynamicWorldObject& object,
         const yap::Vector2& velocity);

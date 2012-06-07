@@ -8,6 +8,9 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/Time/Time.hpp"
 
+# define MEMBER_WORKER(MEMBER)                          \
+  std::bind (&MEMBER, this, std::placeholders::_1)
+
 namespace yap
 {
   class YAPOG_LIB Thread
@@ -18,7 +21,10 @@ namespace yap
 
       typedef std::function<void (void)> WorkerType;
 
-      Thread (WorkerType worker);
+      explicit Thread (WorkerType worker);
+
+      template <typename FunctionType, typename ArgsType>
+      Thread (FunctionType function, ArgsType args);
 
       void Launch ();
       void Stop ();
@@ -32,5 +38,7 @@ namespace yap
       sf::Thread thread_;
   };
 } // namespace yap
+
+# include "YAPOG/System/Thread/Thread.hxx"
 
 #endif // YAPOG_THREAD_HPP
