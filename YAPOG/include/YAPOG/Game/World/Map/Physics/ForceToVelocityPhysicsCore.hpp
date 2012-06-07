@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class ForceToVelocityPhysicsCore : public PhysicsCore
+  class YAPOG_LIB ForceToVelocityPhysicsCore : public PhysicsCore
   {
       DISALLOW_ASSIGN(ForceToVelocityPhysicsCore);
 

@@ -15,7 +15,7 @@ namespace yap
   class DynamicWorldObject;
   class MapEventQueue;
 
-  class CollidableAreaCell
+  class YAPOG_LIB CollidableAreaCell
   {
       DISALLOW_COPY(CollidableAreaCell);
 

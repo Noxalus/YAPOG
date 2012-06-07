@@ -12,7 +12,7 @@ namespace yap
   class MapEvent;
   class DynamicWorldObject;
 
-  class MapEventInfo
+  class YAPOG_LIB MapEventInfo
   {
       DISALLOW_COPY(MapEventInfo);
 

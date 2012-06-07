@@ -167,11 +167,13 @@ ${inc_root}/Game/World/Map/WorldObjectStateFactory.hpp
 ${src_root}/Game/World/Map/WorldObjectStateFactory.cpp
 ${inc_root}/Game/World/Map/WorldObjectReader.hpp
 ${src_root}/Game/World/Map/WorldObjectReader.cpp
+${inc_root}/Game/World/Map/MapEventActionType.hpp
 ${inc_root}/Game/World/ISpatial3.hpp
 ${inc_root}/Game/World/Spatial3Info.hpp
 ${src_root}/Game/World/Spatial3Info.cpp
 ${inc_root}/Game/World/World.hpp
 ${src_root}/Game/World/World.cpp
+${inc_root}/Game/World/World.hpp
 
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp

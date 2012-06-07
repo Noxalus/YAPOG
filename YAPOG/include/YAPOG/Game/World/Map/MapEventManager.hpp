@@ -15,7 +15,7 @@ namespace yap
   class BoundingBox;
   class CollidableArea;
 
-  class MapEventManager : public IUpdateable
+  class YAPOG_LIB MapEventManager : public IUpdateable
   {
       DISALLOW_COPY(MapEventManager);
 

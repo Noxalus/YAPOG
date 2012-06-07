@@ -10,7 +10,7 @@ namespace yap
 {
   class CollidableAreaCell;
 
-  class GridCollidableArea : public CollidableArea
+  class YAPOG_LIB GridCollidableArea : public CollidableArea
   {
       DISALLOW_COPY(GridCollidableArea);
 

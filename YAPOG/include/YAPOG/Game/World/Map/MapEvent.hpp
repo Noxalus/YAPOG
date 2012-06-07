@@ -17,7 +17,7 @@ namespace yap
   class ICollidable;
   class DynamicWorldObject;
 
-  class MapEvent : ICloneable
+  class YAPOG_LIB MapEvent : ICloneable
   {
       DISALLOW_ASSIGN(MapEvent);
 
