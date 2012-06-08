@@ -17,11 +17,16 @@ namespace ycl
     BattleMenu ();
     virtual ~BattleMenu ();
 
+    /// @name Getters.
+    /// @{
+    yap::MenuItem& GetItem (int index);
+    /// @}
+
   private:
-    yap::MenuItem fightItem_;
-    yap::MenuItem bagItem_;
-    yap::MenuItem pokemonItem_;
-    yap::MenuItem runItem_;
+    yap::collection::Array<yap::MenuItem*> items_;
+    
+    static const int ITEM_NUMBER = 4;
+    static const yap::String DEFAULT_LABELS[ITEM_NUMBER];
   };
 } // namespace ycl
 

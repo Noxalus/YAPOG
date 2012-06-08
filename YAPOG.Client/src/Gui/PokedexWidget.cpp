@@ -110,7 +110,7 @@ namespace ycl
       {
         item->SetContent ("N." + yap::StringHelper::ToString(i) + "    --------");
         item->OnSelected +=
-          [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+          [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
           boxInfoContent_->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png");
         };

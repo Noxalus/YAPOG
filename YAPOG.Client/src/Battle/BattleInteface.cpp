@@ -23,6 +23,7 @@ namespace ycl
     , pokemonInfoWidget_ (nullptr)
     , opponentInfoWidget_ (nullptr)
     , battleMenu_ ()
+    , battleMoveMenu_ ()
   {
     battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
@@ -43,17 +44,44 @@ namespace ycl
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
-    //battleMenu_.SetPosition (yap::Vector2 (0,0));
     battleMenu_.SetPosition (yap::Vector2 (
       800 - battleMenu_.GetSize ().x , 
       600 - battleMenu_.GetSize ().y ));
-      
+
+    battleMoveMenu_.SetPosition (yap::Vector2 (
+      0 , 
+      600 - battleMenu_.GetSize ().y ));
+
+    battleMoveInfoMenu_.SetPosition (yap::Vector2 (
+      800 - battleMoveInfoMenu_.GetSize ().x - 20,
+      600 - battleMoveInfoMenu_.GetSize ().y - 20));
+
+    battleMenu_.Close ();
+    battleMoveMenu_.Close ();
+    battleMoveInfoMenu_.Close ();
+
+    // Affect events
+    battleMenu_.GetItem (0).OnActivated += 
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      battleMenu_.Close ();
+      OpenBattleMoveMenu ();
+    };
+
+    battleMoveMenu_.OnDesactivated +=
+      [&] (const yap::GridMenu& sender, const yap::EmptyEventArgs& args)
+    {
+      battleMoveMenu_.Close ();
+      battleMoveInfoMenu_.Close ();
+      battleMenu_.Open ();
+    };
+
     this->AddChild (*pokemonInfoWidget_);
     this->AddChild (*opponentInfoWidget_);
     this->AddChild (*battleInfoDialogBox_);
     this->AddChild (battleMenu_);
-    //opponentInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/cyan.png"));
-    //pokemonInfoWidget_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
+    this->AddChild (battleMoveMenu_);
+    this->AddChild (battleMoveInfoMenu_);
   }
 
   /// Getters
@@ -70,5 +98,26 @@ namespace ycl
   OpponentBattleInfoWidget& BattleInterface::GetOpponentInfoWidget ()
   {
     return *opponentInfoWidget_;
+  }
+
+  BattleMenu& BattleInterface::GetBattleMenu ()
+  {
+    return battleMenu_;
+  }
+
+  BattleMoveMenu& BattleInterface::GetBattleMoveMenu ()
+  {
+    return battleMoveMenu_;
+  }
+
+  BattleMoveInfoMenu& BattleInterface::GetBattleMoveInfoMenu ()
+  {
+    return battleMoveInfoMenu_;
+  }
+
+  void BattleInterface::OpenBattleMoveMenu ()
+  {
+    battleMoveMenu_.Open ();
+    battleMoveInfoMenu_.Open ();
   }
 }

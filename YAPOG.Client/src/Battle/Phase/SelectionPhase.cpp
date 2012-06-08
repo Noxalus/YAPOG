@@ -1,5 +1,7 @@
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
+#include "YAPOG/System/RandomHelper.hpp"
+
 #include "Battle/Phase/SelectionPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
@@ -24,6 +26,9 @@ namespace ycl
   {
     BattlePhase::HandleStart ();
 
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+    battleInterface_.GetBattleMenu ().Open ();
+
     battleInterface_.GetBattleInfoDialogBox ().AddText (
       "Que doit faire " + battle_.GetPlayerTeam ().GetName () +
       " ?");
@@ -31,6 +36,8 @@ namespace ycl
 
   void SelectionPhase::HandleUpdate (const yap::Time& dt)
   {
+    if (yap::RandomHelper::GetNext (0.f, 1.f) < 0.01f)
+      battle_.GetPlayerTeam ().TakeDamage (1);
   }
 
   void SelectionPhase::HandleEnd ()

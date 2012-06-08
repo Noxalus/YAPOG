@@ -8,6 +8,7 @@
 # include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 # include "YAPOG/Graphics/Gui/Padding.hpp"
 # include "YAPOG/Graphics/Gui/PartialLayoutManager.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -19,6 +20,8 @@ namespace yap
     DISALLOW_COPY(GridMenu);
 
   public:
+    Event<const GridMenu&, const EmptyEventArgs&> OnDesactivated;
+
     GridMenu (const Vector2& size, Padding ext, Padding in, bool extend);
     void AddChild (MenuItem& child, LayoutBox::Align align
       = LayoutBox::Align::CENTER);

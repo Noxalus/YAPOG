@@ -138,7 +138,7 @@ namespace yap
   {
     int i = level;
     int skillNumber = 0;
-    while (i >= 1 && skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER - 1)
+    while (i >= 1 && skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER)
     {
       if (baseSkills_.Contains (i))
       {

@@ -21,8 +21,8 @@ namespace ycl
   const float BattleInfoWidget::MAX_HP_BAR_SIZE = 145.f;
 
   BattleInfoWidget::BattleInfoWidget ()
-    : nameLabel_ ("")
-    , levelLabel_ ("")
+    : nameLabel_ ()
+    , levelLabel_ ()
     , nameBox_ ()
     , genderBox_ ()
     , levelBox_ ()
@@ -36,6 +36,8 @@ namespace ycl
     levelLabel_.ChangeColor (sf::Color::Black);
 
     hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
+    hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
+
 
     hpBarContent_->SetSize (yap::Vector2 (
       MAX_HP_BAR_SIZE,
@@ -94,7 +96,7 @@ namespace ycl
   void BattleInfoWidget::UpdateHPSize (int value)
   {
     float size =  MAX_HP_BAR_SIZE * ((float)value / 100);
-    
+
     hpBarContent_->SetSize (yap::Vector2 (
       size,
       hpBarContent_->GetSize ().y));   

@@ -21,6 +21,10 @@ ${inc_root}/Battle/Battle.hpp
 ${src_root}/Battle/Battle.cpp
 ${inc_root}/Battle/BattleMenu.hpp
 ${src_root}/Battle/BattleMenu.cpp
+${inc_root}/Battle/BattleMoveMenu.hpp
+${src_root}/Battle/BattleMoveMenu.cpp
+${inc_root}/Battle/BattleMoveInfoMenu.hpp
+${src_root}/Battle/BattleMoveInfoMenu.cpp
 ${inc_root}/Battle/BaseBattleWidget.hpp
 ${src_root}/Battle/BaseBattleWidget.cpp
 ${inc_root}/Battle/BattleInfoWidget.hpp
