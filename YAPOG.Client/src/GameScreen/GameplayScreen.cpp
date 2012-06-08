@@ -26,14 +26,6 @@
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 
-/// @warning Tests.
-/// @todo Remove from here.
-#include "YAPOG/Game/World/Map/MapEvent.hpp"
-#include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
-#include "World/Map/NPC.hpp"
-#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
-ycl::NPC* npc1_ = nullptr;
-
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -178,48 +170,6 @@ namespace ycl
       yap::FloatRect (
         yap::Vector2 (),
         map.GetSize ()));
-
-    /// @warning Tests.
-    /// @todo Remove from here.
-    /// to see below too !
-    npc1_ = objectFactory_.Create<NPC> ("NPC", yap::ID (1));
-    npc1_->SetWorldID (yap::ID (4222));
-    npc1_->Move (yap::Vector2 (260.0f, 180.0f));
-    map.AddNPC (npc1_);
-
-    yap::MapEvent* event = new yap::MapEvent ();
-    event->AddBoundingBox (
-      new yap::BoundingBox (
-        yap::Vector2 (-30, -30), yap::Vector2 (60, 60), 0, 1));
-
-    event->AddAction (
-      new yap::AnyMapEventAction (yap::MapEventActionType::Leave,
-        [this] (yap::MapEventArgs& args)
-        {
-          logger_.LogLine ("OUT");
-
-          return true;
-        }));
-
-    event->AddAction (
-      new yap::AnyMapEventAction (yap::MapEventActionType::Enter,
-        [this] (yap::MapEventArgs& args)
-        {
-          logger_.LogLine ("IN");
-
-          return true;
-        }));
-
-    event->AddAction (
-      new yap::AnyMapEventAction (yap::MapEventActionType::In,
-        [this] (yap::MapEventArgs& args)
-        {
-          logger_.LogLine ("UPDATE.....................");
-
-          return true;
-        }));
-
-    npc1_->AddEvent (event);
   }
 
   void GameplayScreen::SetPlayer (Player* player)
@@ -230,12 +180,6 @@ namespace ycl
 
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
-
-    /// @warning Tests.
-    /// @todo Remove from here.
-    player_->AddTriggerBoundingBox (
-      new yap::BoundingBox (
-        yap::Vector2 (-20, -20), yap::Vector2 (40, 40), 0, 1));
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)

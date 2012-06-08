@@ -104,6 +104,8 @@ ${inc_root}/Game/World/Map/MapEventQueue.hpp
 ${src_root}/Game/World/Map/MapEventQueue.cpp
 ${inc_root}/Game/World/Map/AnyMapEventAction.hpp
 ${src_root}/Game/World/Map/AnyMapEventAction.cpp
+${inc_root}/Game/World/Map/WarpMapEventAction.hpp
+${src_root}/Game/World/Map/WarpMapEventAction.cpp
 ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp
 ${src_root}/Game/World/Map/Physics/MapEventInfo.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp

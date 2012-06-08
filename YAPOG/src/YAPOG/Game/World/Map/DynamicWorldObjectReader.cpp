@@ -2,6 +2,9 @@
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 #include "YAPOG/Game/World/Map/Physics/ForceToVelocityPhysicsCore.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBoxReader.hpp"
 
 namespace yap
 {
@@ -36,5 +39,21 @@ namespace yap
       dynamicWorldObject_.GetMaxVelocity ());
 
     dynamicWorldObject_.SetPhysicsCore (physicsCore);
+
+    if (!reader->NodeExists ("events"))
+      return;
+
+    auto boundingBoxesReader = reader->ChangeRoot ("events");
+
+    XmlReaderCollection boundingBoxReaders;
+    boundingBoxesReader->ReadNodes ("entry", boundingBoxReaders);
+    for (auto& xmlBoundingBoxReader : boundingBoxReaders)
+    {
+      BoundingBox* boundingBox = new BoundingBox ();
+      BoundingBoxReader boundingBoxReader (*boundingBox, "BoundingBox");
+      xmlBoundingBoxReader->Accept (boundingBoxReader);
+
+      dynamicWorldObject_.AddTriggerBoundingBox (boundingBox);
+    }
   }
 } // namespace yap

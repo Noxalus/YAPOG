@@ -32,4 +32,9 @@
       <position>500,434</position>
     </MapElement>
   </staticObjects>
+  <dynamicObjects>
+    <NPC id="1">
+      <position>200,350</position>
+    </NPC>
+  </dynamicObjects>
 </Map>

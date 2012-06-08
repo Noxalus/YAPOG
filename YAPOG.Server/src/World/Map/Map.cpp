@@ -13,12 +13,37 @@ namespace yse
   Map::Map (const yap::ID& id)
     : yap::Map (id)
     , players_ ()
+    , objectsToSend_ ()
     , packetHandler_ ()
   {
   }
 
   Map::~Map ()
   {
+  }
+
+  void Map::AddObject (yap::DynamicWorldObject* object)
+  {
+    objectsToSend_.Add (object);
+
+    AddDynamicObject (object);
+  }
+
+  void Map::RemoveObject (yap::DynamicWorldObject* object)
+  {
+    objectsToSend_.Remove (object);
+
+    RemoveDynamicObject (object);
+  }
+
+  void Map::AddObject (yap::StaticWorldObject* object)
+  {
+    AddStaticObject (object);
+  }
+
+  void Map::RemoveObject (yap::StaticWorldObject* object)
+  {
+    RemoveStaticObject (object);
   }
 
   void Map::AddPlayer (Player* player)
@@ -147,7 +172,6 @@ namespace yse
     SendPacket (packet);
   }
 
-  /// @todo Write state/direction
   void Map::SendAddObject (
     const yap::DynamicWorldObject& object,
     yap::IPacket& packet)
@@ -156,21 +180,17 @@ namespace yse
     packet.Write (object.GetTypeID ());
     packet.Write (object.GetID ());
 
-    /// @todo To send position, tmp
     packet.Write (object.GetPosition ());
-//    addPlayerPacket.Write (player.GetState ());
-//    addPlayerPacket.Write (player.GetDirection ());
+    packet.Write (object.GetState ());
   }
 
   void Map::SendRemoveObject (
     const yap::DynamicWorldObject& object,
     yap::IPacket& packet)
   {
+    packet.Write (object.GetWorldID ());
   }
 
-  /// @todo Note: [future] add `AddObject (yap::DynamicWorldObject* object)'
-  /// public method for adding every type of dyn object except player.
-  /// (idem for static)
   void Map::SendAddPlayer (const Player& player)
   {
     yap::Packet addPlayerPacket;
@@ -187,7 +207,7 @@ namespace yse
     removePlayerPacket.CreateFromType (
       yap::PacketType::ServerInfoRemovePlayer);
 
-    removePlayerPacket.Write (player.GetWorldID ());
+    SendRemoveObject (player, removePlayerPacket);
 
     SendPacket (removePlayerPacket);
   }
@@ -196,8 +216,12 @@ namespace yse
   {
     // players
     packet.Write (static_cast<yap::UInt64> (players_.Count ()));
-
     for (const auto& it : players_)
       SendAddObject (*it.second, packet);
+
+    // other objects
+    packet.Write (static_cast<yap::UInt64> (objectsToSend_.Count ()));
+    for (const yap::DynamicWorldObject* object : objectsToSend_)
+      SendAddObject (*object, packet);
   }
 } // namespace yse

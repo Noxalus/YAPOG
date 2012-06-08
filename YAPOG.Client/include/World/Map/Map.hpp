@@ -16,8 +16,6 @@
 namespace ycl
 {
   class Player;
-  class NPC;
-  class MapElement;
 
   class Map : public yap::Map
             , public yap::IDrawable
@@ -40,11 +38,15 @@ namespace ycl
       void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);
 
-      void AddNPC (NPC* npc);
-      void RemoveNPC (NPC* npc);
+      template <typename T>
+      void AddDrawableStaticObject (T* object);
+      template <typename T>
+      void RemoveDrawableStaticObject (T* object);
 
-      void AddMapElement (MapElement* mapElement);
-      void RemoveMapElement (MapElement* mapElement);
+      template <typename T>
+      void AddDrawableDynamicObject (T* object);
+      template <typename T>
+      void RemoveDrawableDynamicObject (T* object);
 
       void HandleLoadObjects (yap::IPacket& packet);
 
@@ -70,36 +72,45 @@ namespace ycl
 
     protected:
 
-      void AddDrawableDynamicObject (
-        yap::IDrawableDynamicWorldObject* drawableObject);
-      void RemoveDrawableDynamicObject (
-        yap::IDrawableDynamicWorldObject* drawableObject);
-
-      void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
-      void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
-
       virtual void HandleSetSize (yap::uint width, yap::uint height);
       virtual void HandleUpdate (const yap::Time& dt);
 
     private:
 
+      void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
+      void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
+
+      void AddDrawableDynamicObject (
+        const yap::ID& worldID,
+        yap::IDrawableDynamicWorldObject* drawableObject);
+      void RemoveDrawableDynamicObject (const yap::ID& worldID);
+
       virtual bool SupportsEvents () const;
 
       void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
       void HandleServerInfoUpdateObjectState (yap::IPacket& packet);
+
       void HandleServerInfoAddPlayer (yap::IPacket& packet);
       void HandleServerInfoRemovePlayer (yap::IPacket& packet);
+
+      void HandleServerInfoAddObject (yap::IPacket& packet);
+      void HandleServerInfoRemoveObject (yap::IPacket& packet);
 
       static const yap::String DRAW_ORDER_HANDLER_NAME;
 
       yap::TileLayerStack tileLayers_;
 
       yap::collection::List<yap::IDrawableWorldObject*> drawableObjects_;
+      yap::collection::Map<
+        yap::ID,
+        yap::IDrawableDynamicWorldObject*> drawableDynamicObjects_;
 
       yap::collection::Map<yap::ID, Player*> players_;
 
       yap::PacketHandler packetHandler_;
   };
 } // namespace ycl
+
+# include "World/Map/Map.hxx"
 
 #endif // YAPOG_CLIENT_MAP_HPP

@@ -23,6 +23,12 @@ namespace yse
       Map (const yap::ID& id);
       virtual ~Map ();
 
+      void AddObject (yap::DynamicWorldObject* object);
+      void RemoveObject (yap::DynamicWorldObject* object);
+
+      void AddObject (yap::StaticWorldObject* object);
+      void RemoveObject (yap::StaticWorldObject* object);
+
       /// @brief Adds Player @a player to this Map.
       /// @param player Player to add to this Map.
       void AddPlayer (Player* player);
@@ -65,6 +71,9 @@ namespace yse
         const yap::DynamicWorldObject& object,
         const yap::String& state);
 
+      void SendAddPlayer (const Player& player);
+      void SendRemovePlayer (const Player& player);
+
       void SendAddObject (
         const yap::DynamicWorldObject& object,
         yap::IPacket& packet);
@@ -72,13 +81,11 @@ namespace yse
         const yap::DynamicWorldObject& object,
         yap::IPacket& packet);
 
-      void SendAddPlayer (const Player& player);
-      void SendRemovePlayer (const Player& player);
-
       static const yap::String VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
       static const yap::String STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
 
       yap::collection::Map<yap::ID, Player*> players_;
+      yap::collection::List<yap::DynamicWorldObject*> objectsToSend_;
 
       yap::PacketHandler packetHandler_;
   };

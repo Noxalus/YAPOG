@@ -23,7 +23,8 @@ namespace yap
 
     MapReader (Map& map, const String& xmlRootNodeName);
 
-    virtual void ReadMapElement (XmlReader& reader);
+    virtual void ReadStaticObjects (XmlReader& reader);
+    virtual void ReadDynamicObjects (XmlReader& reader);
 
     String xmlRootNodeName_;
 

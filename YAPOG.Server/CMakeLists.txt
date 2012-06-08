@@ -57,6 +57,11 @@ ${src_root}/Account/AccountManager.cpp
 ${inc_root}/Account/Account.hpp
 ${src_root}/Account/Account.cpp
 ${inc_root}/Account/AccountPermission.hpp
+
+${inc_root}/World/Map/DynamicObjectFactory.hpp
+${src_root}/World/Map/DynamicObjectFactory.cpp
+${inc_root}/World/Map/IDGenerator.hpp
+${src_root}/World/Map/IDGenerator.cpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
 ${inc_root}/World/Map/Map.hpp

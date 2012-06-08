@@ -1,5 +1,5 @@
 #include "YAPOG/System/Network/Packet.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+//#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
@@ -7,6 +7,7 @@
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "World/Map/DynamicObjectFactory.hpp"
 
 namespace yse
 {
@@ -98,12 +99,12 @@ namespace yse
 
     player_ = player;
 
+    player_->SetParentUser (this);
+
     AddRelay (player_);
     player_->SetParent (this);
   }
 
-  // tmp
-  static int currentID = 0;
   void User::HandleClientRequestStartInfo (yap::IPacket& packet)
   {
     /// @todo load user info from DB from its login
@@ -112,22 +113,19 @@ namespace yse
 
     /// @todo Reach from DB
     yap::ID playerID = yap::ID (1);
-    yap::ID playerWorldID = yap::ID (currentID++);
     yap::ID playerMapWorldID = yap::ID (1);
 
     SetPlayer (
-      yap::ObjectFactory::Instance ().Create<Player> (
+      DynamicObjectFactory::Instance ().Create<Player> (
         "Player",
         playerID));
-
-    player_->SetWorldID (playerWorldID);
 
     SetMap (&world_->GetMap (playerMapWorldID));
 
     yap::Packet setUserPlayerPacket;
     setUserPlayerPacket.CreateFromType (
       yap::PacketType::ServerInfoSetUserPlayer);
-    setUserPlayerPacket.Write (playerWorldID);
+    setUserPlayerPacket.Write (player_->GetWorldID ());
     SendPacket (setUserPlayerPacket);
   }
 
@@ -145,8 +143,6 @@ namespace yse
 
     changeMapPacket.Write (map.GetWorldID ());
     changeMapPacket.Write (map.GetID ());
-
-    /// @todo Send dynamic objects.
 
     map.SendLoadObjects (changeMapPacket);
 

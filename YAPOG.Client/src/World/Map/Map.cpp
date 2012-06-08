@@ -5,7 +5,6 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/NPC.hpp"
-#include "World/Map/MapElement.hpp"
 
 namespace ycl
 {
@@ -15,6 +14,7 @@ namespace ycl
     : yap::Map (id)
     , tileLayers_ ()
     , drawableObjects_ ()
+    , drawableDynamicObjects_ ()
     , players_ ()
     , packetHandler_ ()
   {
@@ -24,6 +24,8 @@ namespace ycl
       Map::HandleServerInfoUpdateObjectState);
     ADD_HANDLER(ServerInfoAddPlayer, Map::HandleServerInfoAddPlayer);
     ADD_HANDLER(ServerInfoRemovePlayer, Map::HandleServerInfoRemovePlayer);
+    ADD_HANDLER(ServerInfoAddObject, Map::HandleServerInfoAddObject);
+    ADD_HANDLER(ServerInfoRemoveObject, Map::HandleServerInfoRemoveObject);
   }
 
   Map::~Map ()
@@ -46,7 +48,6 @@ namespace ycl
   {
     players_.Add (player->GetWorldID (), player);
 
-    AddDynamicObject (player);
     AddDrawableDynamicObject (player);
   }
 
@@ -54,37 +55,12 @@ namespace ycl
   {
     players_.Remove (player->GetWorldID ());
 
-    RemoveDrawableObject (player);
-    RemoveDynamicObject (player);
+    RemoveDrawableDynamicObject (player);
   }
 
   void Map::RemovePlayer (const yap::ID& worldID)
   {
     RemovePlayer (&GetPlayer (worldID));
-  }
-
-  void Map::AddNPC (NPC* npc)
-  {
-    AddDynamicObject (npc);
-    AddDrawableDynamicObject (npc);
-  }
-
-  void Map::RemoveNPC (NPC* npc)
-  {
-    RemoveDynamicObject (npc);
-    RemoveDrawableDynamicObject (npc);
-  }
-
-  void Map::AddMapElement (MapElement* mapElement)
-  {
-    AddStaticObject (mapElement);
-    AddDrawableObject (mapElement);
-  }
-
-  void Map::RemoveMapElement (MapElement* mapElement)
-  {
-    RemoveStaticObject (mapElement);
-    AddDrawableObject (mapElement);
   }
 
   void Map::HandleLoadObjects (yap::IPacket& packet)
@@ -94,40 +70,12 @@ namespace ycl
     {
       HandleServerInfoAddPlayer (packet);
     }
-  }
 
-  void Map::AddDrawableDynamicObject (
-    yap::IDrawableDynamicWorldObject* drawableObject)
-  {
-    drawableObject->OnDrawableMovedEvent ().AddHandler (
-      DRAW_ORDER_HANDLER_NAME,
-      [&] (yap::IDrawableDynamicWorldObject& sender,
-           const yap::Vector2& args)
-      {
-        /// @todo Sort by adding manually.
-        drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();
-      });
-
-    AddDrawableObject (drawableObject);
-  }
-
-  void Map::RemoveDrawableDynamicObject (
-    yap::IDrawableDynamicWorldObject* drawableObject)
-  {
-    drawableObject->OnDrawableMovedEvent ().RemoveHandler (
-      DRAW_ORDER_HANDLER_NAME);
-
-    RemoveDrawableObject (drawableObject);
-  }
-
-  void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
-  {
-    drawableObjects_.Add (drawableObject);
-  }
-
-  void Map::RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject)
-  {
-    drawableObjects_.Remove (drawableObject);
+    yap::UInt64 objectCount = packet.ReadUInt64 ();
+    for (yap::UInt64 count = 0; count < objectCount; ++count)
+    {
+      HandleServerInfoAddObject (packet);
+    }
   }
 
   void Map::Draw (yap::IDrawingContext& context)
@@ -191,6 +139,32 @@ namespace ycl
     yap::Map::HandleUpdate (dt);
   }
 
+  void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
+  {
+    drawableObjects_.Add (drawableObject);
+  }
+
+  void Map::RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject)
+  {
+    drawableObjects_.Remove (drawableObject);
+  }
+
+  void Map::AddDrawableDynamicObject (
+    const yap::ID& worldID,
+    yap::IDrawableDynamicWorldObject* drawableObject)
+  {
+    AddDrawableObject (drawableObject);
+
+    drawableDynamicObjects_.Add (worldID, drawableObject);
+  }
+
+  void Map::RemoveDrawableDynamicObject (const yap::ID& worldID)
+  {
+    RemoveDrawableObject (drawableDynamicObjects_[worldID]);
+
+    drawableDynamicObjects_.Remove (worldID);
+  }
+
   bool Map::SupportsEvents () const
   {
     /// @warning Temporary
@@ -236,6 +210,7 @@ namespace ycl
     AddPlayer (player);
 
     player->SetPosition (packet.ReadVector2 ());
+    player->RawSetState (packet.ReadString ());
   }
 
   void Map::HandleServerInfoRemovePlayer (yap::IPacket& packet)
@@ -243,5 +218,36 @@ namespace ycl
     yap::ID worldID = packet.ReadID ();
 
     RemovePlayer (&GetPlayer (worldID));
+  }
+
+  void Map::HandleServerInfoAddObject (yap::IPacket& packet)
+  {
+    yap::ID worldID = packet.ReadID ();
+    yap::ID typeID = packet.ReadID ();
+    yap::ID id = packet.ReadID ();
+
+    const yap::String& objectTypeName =
+      yap::ObjectFactory::Instance ().GetType (typeID);
+
+    yap::DynamicWorldObject* object = nullptr;
+
+    if (objectTypeName == "NPC")
+    {
+      NPC* npc = yap::ObjectFactory::Instance ().Create<NPC> (typeID, id);
+      object = npc;
+      npc->SetWorldID (worldID);
+
+      AddDrawableDynamicObject (npc);
+    }
+
+    object->SetPosition (packet.ReadVector2 ());
+    object->RawSetState (packet.ReadString ());
+  }
+
+  void Map::HandleServerInfoRemoveObject (yap::IPacket& packet)
+  {
+    yap::ID worldID = packet.ReadID ();
+
+    RemoveDrawableDynamicObject (worldID);
   }
 } // namespace ycl
