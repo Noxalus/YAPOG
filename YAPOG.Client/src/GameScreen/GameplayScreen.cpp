@@ -76,12 +76,12 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
+    //worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
     /// @warning Commented.
-    // ChatWidget* chat = new ChatWidget ();
-    // chat->Init ();
-    // guiManager_->AddChild (*chat);
+    ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
+    guiManager_->AddChild (*chat);
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (

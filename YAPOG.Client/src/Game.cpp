@@ -330,7 +330,7 @@ namespace ycl
 #ifndef YAPOG_WIN
     screenManager_->Init ("Login");
 #else
-    screenManager_->Init ("Battle");
+    screenManager_->Init ("Update");
 #endif
   }
 
