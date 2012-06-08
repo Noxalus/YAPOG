@@ -44,7 +44,7 @@ namespace ycl
     BaseScreen::HandleInit ();
 
     PokemonTeam* team = new PokemonTeam ();
-    team->AddPokemon (new Pokemon (yap::ID (2), 42, false));
+    team->AddPokemon (new Pokemon (yap::ID (2), 2, false));
     team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
     PokemonFighter* wildPokemon = 

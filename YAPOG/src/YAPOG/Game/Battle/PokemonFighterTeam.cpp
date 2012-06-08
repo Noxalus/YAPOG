@@ -46,6 +46,16 @@ namespace yap
     return GetCurrentFighter ().GetHPPercentage ();
   }
 
+  const collection::Array<PokemonSkill*>& PokemonFighterTeam::GetMoves () const
+  {
+    return GetCurrentFighter ().GetMoves ();
+  }
+
+  const PokemonSkill& PokemonFighterTeam::GetMove (int index) const
+  {
+    return GetCurrentFighter ().GetMove (index);
+  }
+
   Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 

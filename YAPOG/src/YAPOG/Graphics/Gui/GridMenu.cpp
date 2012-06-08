@@ -140,7 +140,7 @@ namespace yap
         }
         SetFormItem ();
         itemz_(currentSelec_.x, currentSelec_.y)
-          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          ->OnSelected (*itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
         return true;
       }
@@ -159,7 +159,7 @@ namespace yap
         }
         SetFormItem ();
         itemz_(currentSelec_.x, currentSelec_.y)
-          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          ->OnSelected (*itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
         return true;
       }
@@ -191,7 +191,7 @@ namespace yap
         }
         SetFormItem ();
         itemz_(currentSelec_.x, currentSelec_.y)
-          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          ->OnSelected (*itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
         return true;
       }
@@ -217,18 +217,25 @@ namespace yap
         }
         SetFormItem ();
         itemz_(currentSelec_.x, currentSelec_.y)
-          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          ->OnSelected (*itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
         return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
         itemz_(currentSelec_.x, currentSelec_.y)
-          ->OnSelected (itemz_(currentSelec_.x, currentSelec_.y),
+          ->OnActivated (itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
         return true;
       }
+
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        OnDesactivated (*this, EmptyEventArgs ());
+        return true;
+      }
     }
+
     return false;
   }
 

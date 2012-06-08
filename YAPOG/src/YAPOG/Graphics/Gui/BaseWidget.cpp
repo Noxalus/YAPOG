@@ -103,8 +103,8 @@ namespace yap
 
     spatialInfo_.SetSize (
       Vector2 (
-        GetSize ().x * factor.x,
-        GetSize ().y * factor.y));
+      GetSize ().x * factor.x,
+      GetSize ().y * factor.y));
 
     OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
@@ -129,11 +129,27 @@ namespace yap
   void BaseWidget::SetSize (const Vector2& size)
   {
     userSize_ = size;
-    Scale (
+    Vector2 scaleFactor (size.x / GetSize ().x,
+      size.y / GetSize ().y);
+
+    for (IWidget* child : childen_)
+    {
+      child->SetSize (size);
+    }
+    if (border_ != nullptr)
+      border_->SetSize (size);
+    if (background_ != nullptr)
+      background_->SetSize (size);
+
+    spatialInfo_.SetSize (
       Vector2 (
-        size.x / GetSize ().x,
-        size.y / GetSize ().y));
+      size.x,
+      size.y));
+
     OnSizeSet (*this, EventArgs (size));
+    HandleScale (scaleFactor);
+
+    Refresh ();
   }
 
   void BaseWidget::Draw (IDrawingContext& context)
@@ -378,10 +394,10 @@ namespace yap
       border_->SetBorder (GetUserSize ());
     uint paddingBorder = border_->GetSize ().y > 0
       ? border_->GetSize ().y : border_->GetSize ().x;
-    if (border_->GetSize ().y == 0)
+  /*  if (border_->GetSize ().y == 0)
       SetPosAfterBorder (paddingBorder, 0, false);
     else
-      SetPosAfterBorder (paddingBorder, paddingBorder, false);
+      SetPosAfterBorder (paddingBorder, paddingBorder, false);*/
   }
   void BaseWidget::SetBorder (WidgetBorder& border)
   {

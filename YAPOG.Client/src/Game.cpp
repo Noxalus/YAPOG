@@ -101,30 +101,29 @@ namespace ycl
   {
     switch (guiEvent.type)
     {
-      case yap::GuiEventType::Closed:
+    case yap::GuiEventType::Closed:
+
+      window_->close ();
+
+      return true;
+
+    case yap::GuiEventType::KeyPressed:
+
+      switch (guiEvent.key.code)
+      {
+      case yap::Key::Escape:
 
         window_->close ();
 
         return true;
-
-      case yap::GuiEventType::KeyPressed:
-
-        switch (guiEvent.key.code)
-        {
-          case yap::Key::Escape:
-
-            window_->close ();
-
-            return true;
-
-          default:
-            break;
-        }
-
-        break;
-
       default:
         break;
+      }
+
+      break;
+
+    default:
+      break;
     }
 
     return false;
@@ -164,44 +163,44 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "AnimatedSprite",
       new yap::XmlObjectLoader<
-        yap::RegularAnimatedSprite,
-        yap::AnimatedSpriteReader> ());
+      yap::RegularAnimatedSprite,
+      yap::AnimatedSpriteReader> ());
 
     objectFactory_.RegisterLoader (
       "DirectionSpriteSet",
       new yap::XmlObjectLoader<
-        yap::SpriteSet<yap::Direction>,
-        yap::SpriteSetReader<yap::Direction>> ());
+      yap::SpriteSet<yap::Direction>,
+      yap::SpriteSetReader<yap::Direction>> ());
 
     objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
-        yap::Path ("Map"),
-        "Map"));
+      yap::Path ("Map"),
+      "Map"));
 
     objectFactory_.RegisterLoader (
       "MapElement",
       new yap::XmlObjectIDLoader<MapElement, MapElementReader> (
-        yap::Path ("MapElement"),
-        "MapElement"));
+      yap::Path ("MapElement"),
+      "MapElement"));
 
     objectFactory_.RegisterLoader (
       "NPC",
       new yap::XmlObjectIDLoader<NPC, NPCReader> (
-        yap::Path ("NPC"),
-        "NPC"));
+      yap::Path ("NPC"),
+      "NPC"));
 
     objectFactory_.RegisterLoader (
       "Player",
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
-        yap::Path ("Player"),
-        "Player"));
+      yap::Path ("Player"),
+      "Player"));
 
     objectFactory_.RegisterLoader (
       "RandomTileLayoutHandler",
       new yap::XmlObjectLoader<
-        yap::RandomTileLayoutHandler,
-        yap::RandomTileLayoutHandlerReader> ());
+      yap::RandomTileLayoutHandler,
+      yap::RandomTileLayoutHandlerReader> ());
 
     objectFactory_.RegisterLoader (
       "Sprite",
@@ -210,42 +209,42 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "StringSpriteSet",
       new yap::XmlObjectLoader<
-        yap::SpriteSet<yap::String>,
-        yap::SpriteSetReader<yap::String>> ());
+      yap::SpriteSet<yap::String>,
+      yap::SpriteSetReader<yap::String>> ());
 
     objectFactory_.RegisterLoader (
       "Texture",
       new yap::XmlObjectIDLoader<yap::Texture, yap::TextureReader> (
-        yap::Path ("Texture"),
-        "Texture"));
+      yap::Path ("Texture"),
+      "Texture"));
 
     objectFactory_.RegisterLoader (
       "Tile",
       new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
-        yap::Path ("Tile"),
-        "Tile"));
+      yap::Path ("Tile"),
+      "Tile"));
 
     objectFactory_.RegisterLoader (
       "PokemonInfo",
       new yap::XmlObjectIDLoader<PokemonInfo, PokemonInfoReader> (
-        yap::Path ("Pokemon/Pokemon"),
-        "PokemonInfo"));
+      yap::Path ("Pokemon/Pokemon"),
+      "PokemonInfo"));
 
-  objectFactory_.RegisterLoader (
-    "NatureInfo",
-    new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader> (
+    objectFactory_.RegisterLoader (
+      "NatureInfo",
+      new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader> (
       yap::Path ("Pokemon/Nature"),
       "Nature"));
 
-  objectFactory_.RegisterLoader (
-    "TypeInfo",
-    new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader> (
+    objectFactory_.RegisterLoader (
+      "TypeInfo",
+      new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader> (
       yap::Path ("Pokemon/Types"),
       "Type"));
 
-  objectFactory_.RegisterLoader (
-    "SkillInfo",
-    new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader> (
+    objectFactory_.RegisterLoader (
+      "SkillInfo",
+      new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader> (
       yap::Path ("Pokemon/Skills"),
       "Skill"));
   }
@@ -262,28 +261,28 @@ namespace ycl
 
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-        yap::GameInputType::Action,
-        new yap::KeyboardGameInputEntry (yap::Key::Return)));
+      yap::GameInputType::Action,
+      new yap::KeyboardGameInputEntry (yap::Key::Return)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-        yap::GameInputType::Misc,
-        new yap::KeyboardGameInputEntry (yap::Key::M)));
+      yap::GameInputType::Misc,
+      new yap::KeyboardGameInputEntry (yap::Key::M)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-        yap::GameInputType::Up,
-        new yap::KeyboardGameInputEntry (yap::Key::Up)));
+      yap::GameInputType::Up,
+      new yap::KeyboardGameInputEntry (yap::Key::Up)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-        yap::GameInputType::Down,
-        new yap::KeyboardGameInputEntry (yap::Key::Down)));
+      yap::GameInputType::Down,
+      new yap::KeyboardGameInputEntry (yap::Key::Down)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-        yap::GameInputType::Left,
-        new yap::KeyboardGameInputEntry (yap::Key::Left)));
+      yap::GameInputType::Left,
+      new yap::KeyboardGameInputEntry (yap::Key::Left)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-        yap::GameInputType::Right,
-        new yap::KeyboardGameInputEntry (yap::Key::Right)));
+      yap::GameInputType::Right,
+      new yap::KeyboardGameInputEntry (yap::Key::Right)));
   }
 
   void Game::InitDrawingContext (const yap::Vector2& resolution)
@@ -318,8 +317,8 @@ namespace ycl
     screenManager_->AddGameScreen (new LoginScreen ());
     screenManager_->AddGameScreen (
       new GameplayScreen (
-        drawingContext_->GetCamera (
-          "World")));
+      drawingContext_->GetCamera (
+      "World")));
     screenManager_->AddGameScreen (new BattleScreen ());
     screenManager_->AddGameScreen (new MainMenuScreen ());
     screenManager_->AddGameScreen (new RegistrationScreen ());
