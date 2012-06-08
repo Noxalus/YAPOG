@@ -64,7 +64,7 @@ namespace ycl
   void BattleMoveInfoMenu::SetPP (const yap::PokemonSkill& skill)
   {
     pp_.SetText (
-      yap::StringHelper::ToString (skill.GetCurrentPP ()) + 
+      yap::StringHelper::ToString (skill.GetCurrentPP ()) +
       "/" + 
       yap::StringHelper::ToString (skill.GetMaxPP ()));
   }

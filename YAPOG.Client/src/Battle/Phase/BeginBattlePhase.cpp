@@ -95,14 +95,28 @@ namespace ycl
     /// @}
 
     battle_.GetOpponent ().OnHPChangedEvent () +=
-      [&] (const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>&)
+      [&] (const yap::IBattleEntity& sender, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>& args)
     {
       battleInterface_.GetOpponentInfoWidget ().UpdateHPColor (
         battle_.GetOpponent ().GetHPPercentage ());
 
       battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
         battle_.GetOpponent ().GetHPPercentage ());
+    };
+
+    battle_.GetPlayerTeam ().OnHPChangedEvent () +=
+      [&] (const yap::IBattleEntity& sender, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>& args)
+    {
+      battleInterface_.GetPokemonInfoWidget ().UpdateHPColor (
+        battle_.GetPlayerTeam ().GetHPPercentage ());
+
+      battleInterface_.GetPokemonInfoWidget ().UpdateHPSize (
+        battle_.GetPlayerTeam ().GetHPPercentage ());
+
+      battleInterface_.GetPokemonInfoWidget ().SetHPValue
+        (args.Current);
     };
 
     for (int i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
@@ -116,13 +130,13 @@ namespace ycl
           [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
           battleInterface_.GetBattleMoveInfoMenu ().SetPP (
-          battle_.GetPlayerTeam ().GetMove (
-          battleInterface_.GetBattleMoveMenu ().GetIndex (sender)));
+            battle_.GetPlayerTeam ().GetMove (
+            battleInterface_.GetBattleMoveMenu ().GetIndex (sender)));
 
           battleInterface_.GetBattleMoveInfoMenu ().SetType (
-          battle_.GetPlayerTeam ().GetMoves ()
-          [battleInterface_.GetBattleMoveMenu ().GetIndex (sender)
-          ]->GetType ());
+            battle_.GetPlayerTeam ().GetMoves ()
+            [battleInterface_.GetBattleMoveMenu ().GetIndex (sender)
+            ]->GetType ());
         };
       }
       else

@@ -16,9 +16,6 @@ namespace ycl
     nameBox_.SetSize (yap::Vector2 (256.f, 30.f));
     genderBox_.SetSize (yap::Vector2 (12.f, 22.f));
 
-    hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
-    
-
     hpBox_.SetSize (yap::Vector2 (
       hpBarPictureBox_->GetSize ().x,
       hpBarPictureBox_->GetSize ().y));
