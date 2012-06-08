@@ -3,20 +3,18 @@
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
-#include "Battle/BattleMenu.hpp"
+#include "Battle/BattleMoveMenu.hpp"
 
 namespace ycl
 {
-  const yap::String BattleMenu::DEFAULT_LABELS[ITEM_NUMBER] = 
-  { "Attaque", "Sac", "Pokémon", "Fuite" };
-
-  BattleMenu::BattleMenu ()
+  BattleMoveMenu::BattleMoveMenu ()
     : yap::GridMenu (
     yap::Vector2 (2, 2),
     yap::Padding (5, 5, 5, 5),
     yap::Padding (5, 5, 5, 5),
     true)
-    , items_ (ITEM_NUMBER, nullptr)
+    , moves_ ()
+    , indexes_ ()
   {
     yap::WidgetBackground* menuBck = 
       new yap::WidgetBackground (
@@ -46,27 +44,45 @@ namespace ycl
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     SetSelectedBorder (*menuItemBrd);
-    
-    for (int i = 0; i < ITEM_NUMBER; i++)
+
+    for (int i = 0; i < 4; i++)
     {
-      items_[i] = new yap::MenuItem ();
-      items_[i]->SetContent (DEFAULT_LABELS[i]);
-      items_[i]->ChangeColor (sf::Color (128, 128, 128));
-      items_[i]->SetSize (yap::Vector2 (150, 45));
-      this->AddChild (*items_[i], yap::LayoutBox::Align::LEFT);
+      yap::MenuItem* menuItem = new yap::MenuItem ();
+      menuItem ->ChangeColor (sf::Color (128, 128, 128));
+      menuItem ->SetSize (yap::Vector2 (800 / 2 - 150, 45));
+      Add (*menuItem, i);
+
+      this->AddChild (*menuItem, yap::LayoutBox::Align::CENTER);
     }
 
     SetBackground (*menuBck);
     SetBorder (*menuBorder);
   }
 
-  BattleMenu::~BattleMenu ()
+  BattleMoveMenu::~BattleMoveMenu ()
   {
   }
 
-  yap::MenuItem& BattleMenu::GetItem (int index)
+  /// Getters.
+  yap::MenuItem& BattleMoveMenu::GetItem (int index)
   {
-    return *items_[index];
+  return *moves_[index];
   }
 
+  int BattleMoveMenu::GetIndex (yap::MenuItem& menuItem) const
+  {
+    return indexes_[&menuItem];
+  }
+
+  /// Setters.
+  void BattleMoveMenu::SetItemContent (int index, const yap::String& content)
+  {
+    moves_[index]->SetContent (content);
+  }
+
+  void BattleMoveMenu::Add (yap::MenuItem& menuItem, int index)
+  {
+    indexes_.Add (&menuItem, index);
+    moves_.Add (index, &menuItem);
+  }
 } // namespace yap

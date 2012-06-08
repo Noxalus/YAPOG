@@ -14,7 +14,7 @@ namespace yap
 
   public:
     Event<const MenuItem&, const EmptyEventArgs&> OnActivated;
-    Event<const MenuItem&, const EmptyEventArgs&> OnSelected;
+    Event<MenuItem&, const EmptyEventArgs&> OnSelected;
 
     MenuItem ();
     MenuItem (bool isScalable);

@@ -7,6 +7,7 @@
 # include "YAPOG/Graphics/Gui/LayoutBox.hpp"
 # include "YAPOG/Graphics/Gui/Padding.hpp"
 # include "YAPOG/Graphics/Gui/PartialLayoutManager.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -15,6 +16,7 @@ namespace yap
     DISALLOW_COPY(Menu);
 
   public:
+    Event<const Menu&, const EmptyEventArgs&> OnDesactivated;
 
     enum class Type
     {
