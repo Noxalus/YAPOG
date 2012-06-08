@@ -78,11 +78,14 @@ namespace ycl
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
+    PokedexWidget* pokedex = new PokedexWidget ();
+    pokedex->Init ();
+    guiManager_->AddChild (*pokedex);
     
     /// @warning Commented.
-    ChatWidget* chat = new ChatWidget ();
+    /*ChatWidget* chat = new ChatWidget ();
     chat->Init ();
-    guiManager_->AddChild (*chat);
+    guiManager_->AddChild (*chat);*/
     
     /*
     yap::MultiLabelWidget* labels =
