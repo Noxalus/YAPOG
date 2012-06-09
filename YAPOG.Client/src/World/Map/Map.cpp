@@ -167,9 +167,7 @@ namespace ycl
 
   bool Map::SupportsEvents () const
   {
-    /// @warning Temporary
-    /// @todo [future] Return false.
-    return true;
+    return false;
   }
 
   void Map::HandleServerInfoObjectMoveInfo (yap::IPacket& packet)

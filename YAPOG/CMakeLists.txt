@@ -81,6 +81,10 @@ ${inc_root}/Game/World/Map/DynamicWorldObjectReader.hpp
 ${src_root}/Game/World/Map/DynamicWorldObjectReader.cpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp
+${inc_root}/Game/World/Map/Teleporter.hpp
+${src_root}/Game/World/Map/Teleporter.cpp
+${inc_root}/Game/World/Map/TeleporterReader.hpp
+${src_root}/Game/World/Map/TeleporterReader.cpp
 ${inc_root}/Game/World/Map/MapElement.hpp
 ${src_root}/Game/World/Map/MapElement.cpp
 ${inc_root}/Game/World/Map/MapElementReader.hpp
