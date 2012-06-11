@@ -2,6 +2,7 @@
 
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "World/Map/ServerInfoAddObjectVisitor.hpp"
 
 namespace yse
 {
@@ -13,7 +14,6 @@ namespace yse
   Map::Map (const yap::ID& id)
     : yap::Map (id)
     , players_ ()
-    , objectsToSend_ ()
     , packetHandler_ ()
   {
   }
@@ -24,15 +24,11 @@ namespace yse
 
   void Map::AddObject (yap::DynamicWorldObject* object)
   {
-    objectsToSend_.Add (object);
-
     AddDynamicObject (object);
   }
 
   void Map::RemoveObject (yap::DynamicWorldObject* object)
   {
-    objectsToSend_.Remove (object);
-
     RemoveDynamicObject (object);
   }
 
@@ -53,8 +49,6 @@ namespace yse
     players_.Add (player->GetWorldID (), player);
 
     AddDynamicObject (player);
-
-    SendAddPlayer (*player);
   }
 
   void Map::RemovePlayer (Player* player)
@@ -64,8 +58,6 @@ namespace yse
     players_.Remove (player->GetWorldID ());
 
     RemoveDynamicObject (player);
-
-    SendRemovePlayer (*player);
   }
 
   bool Map::HandlePacket (yap::IPacket& packet)
@@ -118,6 +110,8 @@ namespace yse
       {
         HandleOnObjectStateChanged (sender, args.Old, args.Current);
       });
+
+    SendAddObject (*object);
   }
 
   void Map::HandleRemoveDynamicObject (yap::DynamicWorldObject* object)
@@ -126,6 +120,8 @@ namespace yse
 
     object->OnVelocityChanged.RemoveHandler (
       VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME);
+
+    SendRemoveObject (*object);
   }
 
   void Map::HandleOnObjectVelocityChanged (
@@ -172,56 +168,34 @@ namespace yse
     SendPacket (packet);
   }
 
-  void Map::SendAddObject (
-    const yap::DynamicWorldObject& object,
-    yap::IPacket& packet)
+  void Map::SendAddObject (const yap::DynamicWorldObject& object)
   {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoAddObject);
+
+    ServerInfoAddObjectVisitor addObjectVisitor (packet);
+    object.Accept (addObjectVisitor);
+
+    SendPacket (packet);
+  }
+
+  void Map::SendRemoveObject (const yap::DynamicWorldObject& object)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoRemoveObject);
+
     packet.Write (object.GetWorldID ());
-    packet.Write (object.GetTypeID ());
-    packet.Write (object.GetID ());
 
-    packet.Write (object.GetPosition ());
-    packet.Write (object.GetState ());
-  }
-
-  void Map::SendRemoveObject (
-    const yap::DynamicWorldObject& object,
-    yap::IPacket& packet)
-  {
-    packet.Write (object.GetWorldID ());
-  }
-
-  void Map::SendAddPlayer (const Player& player)
-  {
-    yap::Packet addPlayerPacket;
-    addPlayerPacket.CreateFromType (yap::PacketType::ServerInfoAddPlayer);
-
-    SendAddObject (player, addPlayerPacket);
-
-    SendPacket (addPlayerPacket);
-  }
-
-  void Map::SendRemovePlayer (const Player& player)
-  {
-    yap::Packet removePlayerPacket;
-    removePlayerPacket.CreateFromType (
-      yap::PacketType::ServerInfoRemovePlayer);
-
-    SendRemoveObject (player, removePlayerPacket);
-
-    SendPacket (removePlayerPacket);
+    SendPacket (packet);
   }
 
   void Map::SendLoadObjects (yap::IPacket& packet)
   {
-    // players
-    packet.Write (static_cast<yap::UInt64> (players_.Count ()));
-    for (const auto& it : players_)
-      SendAddObject (*it.second, packet);
-
-    // other objects
-    packet.Write (static_cast<yap::UInt64> (objectsToSend_.Count ()));
-    for (const yap::DynamicWorldObject* object : objectsToSend_)
-      SendAddObject (*object, packet);
+    packet.Write (static_cast<yap::UInt64> (GetDynamicObjects ().Count ()));
+    for (const auto& idObjectPair : GetDynamicObjects ())
+    {
+      ServerInfoAddObjectVisitor addObjectVisitor (packet);
+      idObjectPair.second->Accept (addObjectVisitor);
+    }
   }
 } // namespace yse

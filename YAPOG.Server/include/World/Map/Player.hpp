@@ -10,6 +10,9 @@
 
 namespace yse
 {
+  struct IDynamicWorldObjectVisitor;
+  struct IDynamicWorldObjectConstVisitor;
+
   class User;
 
   class Player : public Character

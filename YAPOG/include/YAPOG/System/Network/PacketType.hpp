@@ -33,10 +33,7 @@ namespace yap
     ServerInfoObjectMoveInfo,
 
     ServerInfoAddObject,
-    ServerInfoRemoveObject,
-
-    ServerInfoAddPlayer,
-    ServerInfoRemovePlayer
+    ServerInfoRemoveObject
   };
 } // namespace yap
 

@@ -25,7 +25,7 @@ namespace ycl
   {
     AddDynamicObject (object);
 
-    object->OnDrawableMovedEvent ().AddHandler (
+    object->OnOrderStateChangedEvent ().AddHandler (
       DRAW_ORDER_HANDLER_NAME,
       [&] (yap::IDrawableDynamicWorldObject& sender,
            const yap::Vector2& args)
@@ -42,7 +42,8 @@ namespace ycl
   {
     RemoveDynamicObject (object);
 
-    object->OnDrawableMovedEvent ().RemoveHandler (DRAW_ORDER_HANDLER_NAME);
+    object->OnOrderStateChangedEvent ().RemoveHandler (
+      DRAW_ORDER_HANDLER_NAME);
 
     RemoveDrawableDynamicObject (object->GetWorldID ());
   }

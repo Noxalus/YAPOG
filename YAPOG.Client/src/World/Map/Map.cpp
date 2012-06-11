@@ -22,8 +22,6 @@ namespace ycl
     ADD_HANDLER(
       ServerInfoUpdateObjectState,
       Map::HandleServerInfoUpdateObjectState);
-    ADD_HANDLER(ServerInfoAddPlayer, Map::HandleServerInfoAddPlayer);
-    ADD_HANDLER(ServerInfoRemovePlayer, Map::HandleServerInfoRemovePlayer);
     ADD_HANDLER(ServerInfoAddObject, Map::HandleServerInfoAddObject);
     ADD_HANDLER(ServerInfoRemoveObject, Map::HandleServerInfoRemoveObject);
   }
@@ -65,12 +63,6 @@ namespace ycl
 
   void Map::HandleLoadObjects (yap::IPacket& packet)
   {
-    yap::UInt64 playerCount = packet.ReadUInt64 ();
-    for (yap::UInt64 count = 0; count < playerCount; ++count)
-    {
-      HandleServerInfoAddPlayer (packet);
-    }
-
     yap::UInt64 objectCount = packet.ReadUInt64 ();
     for (yap::UInt64 count = 0; count < objectCount; ++count)
     {
@@ -194,30 +186,6 @@ namespace ycl
     object.RawSetState (objectState);
   }
 
-  void Map::HandleServerInfoAddPlayer (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-    yap::ID typeID = packet.ReadID ();
-    yap::ID id = packet.ReadID ();
-
-    Player* player = yap::ObjectFactory::Instance ().Create<Player> (
-      typeID,
-      id);
-    player->SetWorldID (worldID);
-
-    AddPlayer (player);
-
-    player->SetPosition (packet.ReadVector2 ());
-    player->RawSetState (packet.ReadString ());
-  }
-
-  void Map::HandleServerInfoRemovePlayer (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-
-    RemovePlayer (&GetPlayer (worldID));
-  }
-
   void Map::HandleServerInfoAddObject (yap::IPacket& packet)
   {
     yap::ID worldID = packet.ReadID ();
@@ -229,6 +197,16 @@ namespace ycl
 
     yap::DynamicWorldObject* object = nullptr;
 
+    if (objectTypeName == "Player")
+    {
+      Player* player = yap::ObjectFactory::Instance ().Create<Player> (
+        typeID,
+        id);
+      object = player;
+      player->SetWorldID (worldID);
+
+      AddPlayer (player);
+    }
     if (objectTypeName == "NPC")
     {
       NPC* npc = yap::ObjectFactory::Instance ().Create<NPC> (typeID, id);
@@ -245,6 +223,12 @@ namespace ycl
   void Map::HandleServerInfoRemoveObject (yap::IPacket& packet)
   {
     yap::ID worldID = packet.ReadID ();
+
+    if (players_.Contains (worldID))
+    {
+      RemovePlayer (worldID);
+      return;
+    }
 
     RemoveDrawableDynamicObject (worldID);
   }

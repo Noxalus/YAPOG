@@ -5,8 +5,9 @@
 
 namespace yap
 {
+  struct IPacket;
+
   class XmlReader;
-  class Packet;
   class DatabaseStream;
 
   struct YAPOG_LIB IReaderVisitor
@@ -14,7 +15,7 @@ namespace yap
     virtual ~IReaderVisitor () {}
 
     virtual void Visit (XmlReader& visitable) = 0;
-    virtual void Visit (Packet& visitable) = 0;
+    virtual void Visit (IPacket& visitable) = 0;
     virtual void Visit (DatabaseStream& visitable) = 0;
   };
 } // namespace yap

@@ -39,6 +39,7 @@ namespace ycl
 
   void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)
   {
+
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const

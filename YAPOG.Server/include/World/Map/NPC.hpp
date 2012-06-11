@@ -6,6 +6,9 @@
 
 namespace yse
 {
+  struct IDynamicWorldObjectVisitor;
+  struct IDynamicWorldObjectConstVisitor;
+
   class NPC : public Character
   {
       DISALLOW_ASSIGN(NPC);

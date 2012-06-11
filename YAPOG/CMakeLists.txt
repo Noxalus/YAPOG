@@ -54,6 +54,7 @@ ${inc_root}/Game/Factory/XmlObjectIDLoader.hpp
 ${inc_root}/Game/Factory/XmlObjectIDLoader.hxx
 ${inc_root}/Game/Factory/XmlObjectLoader.hpp
 ${inc_root}/Game/Factory/XmlObjectLoader.hxx
+
 ${inc_root}/Game/ID.hpp
 ${src_root}/Game/ID.cpp
 ${inc_root}/Game/IUpdateable.hpp
@@ -61,6 +62,7 @@ ${inc_root}/Game/World/Map/Character.hpp
 ${src_root}/Game/World/Map/Character.cpp
 ${inc_root}/Game/World/Map/CharacterReader.hpp
 ${src_root}/Game/World/Map/CharacterReader.cpp
+
 ${inc_root}/Game/Chat/ChanManager.hpp
 ${src_root}/Game/Chat/ChanManager.cpp
 ${inc_root}/Game/Chat/Chat.hpp
@@ -72,6 +74,7 @@ ${src_root}/Game/Chat/ChatDisplayer.cpp
 ${inc_root}/Game/Chat/ChatHeader.hpp
 ${inc_root}/Game/Chat/ChatManager.hpp
 ${src_root}/Game/Chat/ChatManager.cpp
+
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/DynamicWorldObject.hpp
 ${src_root}/Game/World/Map/DynamicWorldObject.cpp
@@ -114,6 +117,7 @@ ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp
 ${src_root}/Game/World/Map/Physics/MapEventInfo.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
+
 ${inc_root}/Game/World/Map/Physics/BoundingBox.hpp
 ${src_root}/Game/World/Map/Physics/BoundingBox.cpp
 ${inc_root}/Game/World/Map/Physics/BoundingBoxCollection.hpp
@@ -147,6 +151,7 @@ ${src_root}/Game/World/Map/Physics/PersistentPhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/PersistentPhysicsCore.hpp
 ${inc_root}/Game/World/Map/Physics/WorldObjectMoveController.hpp
 ${src_root}/Game/World/Map/Physics/WorldObjectMoveController.cpp
+
 ${inc_root}/Game/World/Map/StaticWorldObject.hpp
 ${src_root}/Game/World/Map/StaticWorldObject.cpp
 ${inc_root}/Game/World/Map/StaticWorldObjectReader.hpp
@@ -409,6 +414,8 @@ ${inc_root}/Graphics/ProgressiveCameraController.hpp
 ${src_root}/Graphics/ProgressiveCameraController.cpp
 ${inc_root}/Graphics/RectReader.hpp
 ${inc_root}/Graphics/RectReader.hxx
+${inc_root}/Graphics/RectWriter.hpp
+${inc_root}/Graphics/RectWriter.hxx
 ${inc_root}/Graphics/SpatialInfo.hpp
 ${src_root}/Graphics/SpatialInfo.cpp
 ${inc_root}/Graphics/Texture.hpp

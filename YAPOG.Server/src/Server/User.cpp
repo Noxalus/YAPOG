@@ -1,5 +1,4 @@
 #include "YAPOG/System/Network/Packet.hpp"
-//#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
@@ -33,7 +32,7 @@ namespace yse
 
   void User::RemoveFromWorld ()
   {
-    map_->RemovePlayer (player_);
+    GetMap ().RemovePlayer (player_);
   }
 
   const yap::String& User::GetLogin () const

@@ -90,9 +90,6 @@ namespace ycl
       void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
       void HandleServerInfoUpdateObjectState (yap::IPacket& packet);
 
-      void HandleServerInfoAddPlayer (yap::IPacket& packet);
-      void HandleServerInfoRemovePlayer (yap::IPacket& packet);
-
       void HandleServerInfoAddObject (yap::IPacket& packet);
       void HandleServerInfoRemoveObject (yap::IPacket& packet);
 

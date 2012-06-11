@@ -8,6 +8,7 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/NPC.hpp"
 #include "World/Map/DynamicObjectFactory.hpp"
+#include "World/Map/Teleporter.hpp"
 
 namespace yse
 {
@@ -47,6 +48,26 @@ namespace yse
       npc->SetPosition (npcPosition);
 
       map_.AddObject (npc);
+    }
+
+    yap::XmlReaderCollection teleporterReaders;
+    reader.ReadNodes ("Teleporter", teleporterReaders);
+    for (auto& teleporterReader : teleporterReaders)
+    {
+      yap::ID teleporterID = teleporterReader->ReadID (
+        yap::XmlHelper::GetAttrNodeName ("id"));
+
+      Teleporter* teleporter =
+        DynamicObjectFactory::Instance ().Create<Teleporter> (
+          "Teleporter",
+          teleporterID);
+
+      yap::Vector2 teleporterPosition = teleporterReader->ReadVector2 (
+        "position");
+
+      teleporter->SetPosition (teleporterPosition);
+
+      map_.AddObject (teleporter);
     }
   }
 

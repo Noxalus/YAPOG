@@ -3,13 +3,18 @@
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 
 namespace yap
 {
+  const int Teleporter::DEFAULT_AREA_Z = 0;
+  const int Teleporter::DEFAULT_AREA_H = 1;
+
   Teleporter::Teleporter (const ID& id)
     : DynamicWorldObject (id)
     , mapWorldID_ ()
     , mapPoint_ ()
+    , area_ ()
   {
   }
 
@@ -21,6 +26,7 @@ namespace yap
     : DynamicWorldObject (copy)
     , mapWorldID_ (copy.mapWorldID_)
     , mapPoint_ (copy.mapPoint_)
+    , area_ (copy.area_)
   {
   }
 
@@ -32,6 +38,21 @@ namespace yap
   void Teleporter::Accept (IDynamicWorldObjectConstVisitor& visitor) const
   {
     visitor.VisitTeleporter (*this);
+  }
+
+  const ID& Teleporter::GetMapWorldID () const
+  {
+    return mapWorldID_;
+  }
+
+  const Vector2& Teleporter::GetMapPoint () const
+  {
+    return mapPoint_;
+  }
+
+  const FloatRect& Teleporter::GetArea () const
+  {
+    return area_;
   }
 
   void Teleporter::SetMapWorldID (const ID& mapWorldID)
@@ -46,13 +67,23 @@ namespace yap
 
   void Teleporter::SetArea (const FloatRect& area)
   {
-    MapEvent* warpEvent = new MapEvent ();
-    WarpMapEventAction* warpAction = new WarpMapEventAction (
-      MapEventActionType::Enter,
-      mapWorldID_,
-      mapPoint_);
+    area_ = area;
 
-    warpEvent->AddAction (warpAction);
+    MapEvent* warpEvent = new MapEvent ();
+
+    warpEvent->AddAction (
+      new WarpMapEventAction (
+        MapEventActionType::Enter,
+        mapWorldID_,
+        mapPoint_));
+
+    warpEvent->AddBoundingBox (
+      new BoundingBox (
+        Vector2 (area_.left, area_.top),
+        Vector2 (area_.width, area_.height),
+        DEFAULT_AREA_Z,
+        DEFAULT_AREA_H));
+
     AddEvent (warpEvent);
   }
 } // namespace yap

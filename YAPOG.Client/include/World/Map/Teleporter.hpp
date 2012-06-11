@@ -1,28 +1,31 @@
-#ifndef YAPOG_CLIENT_CHARACTER_HPP
-# define YAPOG_CLIENT_CHARACTER_HPP
+#ifndef YAPOG_CLIENT_TELEPORTER_HPP
+# define YAPOG_CLIENT_TELEPORTER_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/World/Map/Character.hpp"
+# include "YAPOG/Game/World/Map/Teleporter.hpp"
 # include "YAPOG/Graphics/Game/World/Map/IDrawableDynamicWorldObject.hpp"
-# include "YAPOG/System/String.hpp"
-# include "YAPOG/Graphics/Game/Sprite/SpriteSet.hpp"
-# include "YAPOG/Collection/Map.hpp"
-# include "YAPOG/System/Event/Event.hpp"
 
 namespace ycl
 {
-  class Character : public yap::Character
-                  , public yap::IDrawableDynamicWorldObject
+  class Teleporter : public yap::Teleporter
+                   , public yap::IDrawableDynamicWorldObject
   {
-      DISALLOW_ASSIGN(Character);
+      DISALLOW_ASSIGN(Teleporter);
 
     public:
 
-      virtual ~Character ();
+      explicit Teleporter (const yap::ID& id);
+      virtual ~Teleporter ();
 
-      void AddSprite (
-        const yap::String& state,
-        yap::SpriteSet<yap::Direction>* directionSprite);
+      void Init (
+        const yap::ID& mapWorldID,
+        const yap::Vector2& mapPoint,
+        const yap::FloatRect& area);
+
+      /// @name ICloneable members.
+      /// @{
+      virtual Teleporter* Clone () const;
+      /// @}
 
       /// @name IDrawable members.
       /// @{
@@ -54,19 +57,9 @@ namespace ycl
 
     protected:
 
-      explicit Character (const yap::ID& id);
+      Teleporter (const Teleporter& copy);
 
-      Character (const Character& copy);
-
-      virtual yap::Vector2 HandleGetSize () const;
-
-      virtual void HandleUpdate (const yap::Time& dt);
-
-      virtual void HandleSetState (const yap::String& state);
-
-      virtual void HandleMove (const yap::Vector2& offset);
-
-      virtual void HandleSetDirection (yap::Direction direction);
+      virtual const yap::String& GetObjectFactoryTypeName () const;
 
       virtual void HandleDraw (yap::IDrawingContext& context);
 
@@ -83,14 +76,11 @@ namespace ycl
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;
 
+      static const yap::String OBJECT_FACTORY_TYPE_NAME;
+
       bool isVisible_;
       sf::Color color_;
-
-      yap::SpriteSet<yap::String>* sprites_;
-      yap::collection::Map<
-        yap::String,
-        yap::SpriteSet<yap::Direction>*> directionSprites_;
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_CHARACTER_HPP
+#endif // YAPOG_CLIENT_TELEPORTER_HPP

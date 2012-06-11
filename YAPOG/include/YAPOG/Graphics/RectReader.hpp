@@ -21,6 +21,7 @@ namespace yap
       virtual ~RectReader ();
 
       virtual void Visit (XmlReader& visitable);
+      virtual void Visit (IPacket& visitable);
 
     private:
 

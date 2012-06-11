@@ -2,6 +2,8 @@
 # define YAPOG_RECTREADER_HXX
 
 # include "YAPOG/System/StringHelper.hpp"
+# include "YAPOG/System/Network/IPacket.hpp"
+# include "YAPOG/System/IO/Xml/XmlReader.hpp"
 
 namespace yap
 {
@@ -40,6 +42,23 @@ namespace yap
     rect_.top = StringHelper::Parse<T> (result[1]);
     rect_.width = StringHelper::Parse<T> (result[2]);
     rect_.height = StringHelper::Parse<T> (result[3]);
+  }
+
+  template <typename T>
+  inline void RectReader<T>::Visit (IPacket& visitable)
+  {
+    // Does nothing.
+    // Unable to Read<T> from IReader.
+    // Implemented in specializations.
+  }
+
+  template <>
+  inline void RectReader<float>::Visit (IPacket& visitable)
+  {
+    rect_.left = visitable.ReadFloat ();
+    rect_.top = visitable.ReadFloat ();
+    rect_.width = visitable.ReadFloat ();
+    rect_.height = visitable.ReadFloat ();
   }
 } // namespace yap
 

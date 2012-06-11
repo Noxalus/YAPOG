@@ -17,7 +17,7 @@ namespace yap
       /// @name IReaderVisitor members.
       /// @{
       virtual void Visit (XmlReader& visitable);
-      virtual void Visit (Packet& visitable);
+      virtual void Visit (IPacket& visitable);
       virtual void Visit (DatabaseStream& visitable);
       /// @}
 

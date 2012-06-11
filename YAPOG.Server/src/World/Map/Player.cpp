@@ -66,12 +66,14 @@ namespace yse
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
   {
     visitor.VisitPlayer (*this);
+    visitor.VisitCharacter (*this);
   }
 
   void Player::Accept (
     yap::IDynamicWorldObjectConstVisitor& visitor) const
   {
     visitor.VisitPlayer (*this);
+    visitor.VisitCharacter (*this);
   }
 
   void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)

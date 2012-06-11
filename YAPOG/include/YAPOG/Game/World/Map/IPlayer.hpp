@@ -14,7 +14,8 @@ namespace yap
       virtual ~IPlayer () { }
 
       virtual void Accept (IDynamicWorldObjectVisitor& visitor) = 0;
-      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const = 0;
+      virtual void Accept (
+        IDynamicWorldObjectConstVisitor& visitor) const = 0;
 
       virtual void Warp (const ID& mapWorldID, const Vector2& point) = 0;
   };

@@ -71,21 +71,13 @@ namespace yse
         const yap::DynamicWorldObject& object,
         const yap::String& state);
 
-      void SendAddPlayer (const Player& player);
-      void SendRemovePlayer (const Player& player);
-
-      void SendAddObject (
-        const yap::DynamicWorldObject& object,
-        yap::IPacket& packet);
-      void SendRemoveObject (
-        const yap::DynamicWorldObject& object,
-        yap::IPacket& packet);
+      void SendAddObject (const yap::DynamicWorldObject& object);
+      void SendRemoveObject (const yap::DynamicWorldObject& object);
 
       static const yap::String VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
       static const yap::String STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME;
 
       yap::collection::Map<yap::ID, Player*> players_;
-      yap::collection::List<yap::DynamicWorldObject*> objectsToSend_;
 
       yap::PacketHandler packetHandler_;
   };
