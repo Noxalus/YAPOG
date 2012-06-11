@@ -70,10 +70,32 @@ namespace ycl
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
+    PokedexWidget* pokedex = new PokedexWidget ();
+    pokedex->Init ();
     /// @warning Commented.
-    // ChatWidget* chat = new ChatWidget ();
-    // chat->Init ();
-    // guiManager_->AddChild (*chat);
+//    guiManager_->AddChild (*pokedex);
+
+    /// @warning Commented.
+    /*ChatWidget* chat = new ChatWidget ();
+    chat->Init ();
+    guiManager_->AddChild (*chat);*/
+
+    /*
+    yap::MultiLabelWidget* labels =
+      new yap::MultiLabelWidget (yap::Padding (5, 5, 5, 5), yap::Padding (0, 0, 0, 0), false);
+    labels->SetSize (yap::Vector2 (242, 96));
+    yap::HorizontalLayout* diaLayout =
+      new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0), yap::Padding (0, 0, 0, 0), true);
+    diaLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    diaLayout->AddChild (*labels);
+
+    diaLayout->SetPosition (yap::Vector2 (512, 256));
+    for (int i = 0; i < 10; i++)
+    {
+      labels->AddText ("Test" + yap::StringHelper::ToString (i), 12);
+    }
+    guiManager_->AddChild (*diaLayout);
+    */
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (
@@ -93,64 +115,64 @@ namespace ycl
   bool GameplayScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Down,
-          guiEvent))
+      yap::GameInputType::Down,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Up,
-          guiEvent))
+      yap::GameInputType::Up,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Left,
-          guiEvent))
+      yap::GameInputType::Left,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-          yap::GameInputType::Right,
-          guiEvent))
+      yap::GameInputType::Right,
+      guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::East);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Down,
-          guiEvent))
+      yap::GameInputType::Down,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Up,
-          guiEvent))
+      yap::GameInputType::Up,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Left,
-          guiEvent))
+      yap::GameInputType::Left,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-          yap::GameInputType::Right,
-          guiEvent))
+      yap::GameInputType::Right,
+      guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::East);
       return true;

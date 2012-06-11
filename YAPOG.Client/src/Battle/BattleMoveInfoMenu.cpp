@@ -2,28 +2,20 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
-#include "Battle/BattleMenu.hpp"
+#include "Battle/BattleMoveInfoMenu.hpp"
 
 namespace ycl
 {
-  const yap::String BattleMenu::DEFAULT_LABELS[ITEM_NUMBER] = 
-  { "Attaque", "Sac", "Pokémon", "Fuite" };
-
-  BattleMenu::BattleMenu ()
-    : yap::GridMenu (
-    yap::Vector2 (2, 2),
-    yap::Padding (5, 5, 5, 5),
-    yap::Padding (5, 5, 5, 5),
-    true)
-    , items_ (ITEM_NUMBER, nullptr)
+  BattleMoveInfoMenu::BattleMoveInfoMenu ()
+    : BaseBattleWidget ()
+    , pp_ ("40 / 40")
+    , type_ ()
   {
     yap::WidgetBackground* menuBck = 
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
-
-    yap::WidgetBorder* menuItemBrd =
-      new yap::WidgetBorder ("Test/black.png");
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("WindowSkins/BasicSkin/Global/TopBorder.png");
@@ -45,28 +37,50 @@ namespace ycl
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    SetSelectedBorder (*menuItemBrd);
-    
-    for (int i = 0; i < ITEM_NUMBER; i++)
-    {
-      items_[i] = new yap::MenuItem ();
-      items_[i]->SetContent (DEFAULT_LABELS[i]);
-      items_[i]->ChangeColor (sf::Color (128, 128, 128));
-      items_[i]->SetSize (yap::Vector2 (150, 45));
-      this->AddChild (*items_[i], yap::LayoutBox::Align::LEFT);
-    }
+    this->SetSize (yap::Vector2 (231, 129));
+
+    type_.SetPicture ("Pictures/Types/1.png");
+
+    pp_.Move (yap::Vector2 (20, 20));
+    type_.Move (yap::Vector2 (10, 50));
+
+    this->AddChild (pp_);
+    this->AddChild (type_);
 
     SetBackground (*menuBck);
     SetBorder (*menuBorder);
   }
 
-  BattleMenu::~BattleMenu ()
+  BattleMoveInfoMenu::~BattleMoveInfoMenu ()
   {
   }
 
-  yap::MenuItem& BattleMenu::GetItem (int index)
+  /// Setters.
+  void BattleMoveInfoMenu::SetPPLabel (const yap::String& value)
   {
-    return *items_[index];
+    pp_.SetText (value);
+  }
+
+  void BattleMoveInfoMenu::SetPP (const yap::PokemonSkill& skill)
+  {
+    pp_.SetText (
+      yap::StringHelper::ToString (skill.GetCurrentPP ()) +
+      "/" + 
+      yap::StringHelper::ToString (skill.GetMaxPP ()));
+  }
+
+  void BattleMoveInfoMenu::SetType (const yap::TypeInfo& type)
+  {
+    type_.Show (true);
+
+    type_.SetPicture ("Pictures/Types/" + 
+      yap::StringHelper::ToString (type.GetID ().GetValue ())
+      + ".png");
+  }
+
+  void BattleMoveInfoMenu::HideType ()
+  {
+    type_.Show (false);
   }
 
 } // namespace yap

@@ -191,8 +191,8 @@ namespace yap
 
   void                    FileChecker::Launch (VFileType vs)
   {
-    /*Thread* th = new Thread (Update);
-    th->Launch ();*/
+    Thread* th = new Thread (MEMBER_WORKER(FileChecker::Update), vs);
+    th->Launch ();
   }
 
   FileChecker::VFileType  FileChecker::SendFileToDownload (FileChecker& fc)

@@ -6,6 +6,8 @@
 
 # include "Battle/BaseBattleWidget.hpp"
 # include "Battle/BattleMenu.hpp"
+# include "Battle/BattleMoveMenu.hpp"
+# include "Battle/BattleMoveInfoMenu.hpp"
 
 namespace yap
 {
@@ -29,13 +31,20 @@ namespace ycl
     yap::DialogBoxWidget& GetBattleInfoDialogBox ();
     PokemonBattleInfoWidget& GetPokemonInfoWidget ();
     OpponentBattleInfoWidget& GetOpponentInfoWidget ();
+    BattleMenu& GetBattleMenu ();
+    BattleMoveMenu& GetBattleMoveMenu ();
+    BattleMoveInfoMenu& GetBattleMoveInfoMenu ();
     /// @}
 
   private:
+    void OpenBattleMoveMenu ();
+
     yap::DialogBoxWidget* battleInfoDialogBox_;
     PokemonBattleInfoWidget* pokemonInfoWidget_;
     OpponentBattleInfoWidget* opponentInfoWidget_;
     BattleMenu battleMenu_;
+    BattleMoveMenu battleMoveMenu_;
+    BattleMoveInfoMenu battleMoveInfoMenu_;
   };
 } // namespace ycl
 

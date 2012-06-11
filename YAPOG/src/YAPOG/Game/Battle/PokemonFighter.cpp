@@ -18,11 +18,6 @@ namespace yap
     return originalPokemon_->GetGender ();
   }
 
-  const collection::Array<PokemonSkill*>& PokemonFighter::GetMoves () const
-  {
-    return originalPokemon_->GetMoves ();
-  }
-
   /// statics method
   static String GetStringFromGender (
     const Gender& gender)
@@ -125,6 +120,16 @@ namespace yap
   void PokemonFighter::TakeDamage (int value)
   {
     SetCurrentHP (GetCurrentHP () - value);
+  }
+
+  const collection::Array<PokemonSkill*>& PokemonFighter::GetMoves () const
+  {
+    return originalPokemon_->GetMoves ();
+  }
+
+  const PokemonSkill& PokemonFighter::GetMove (int index) const
+  {
+    return *GetMoves ()[index];
   }
 
   Event<

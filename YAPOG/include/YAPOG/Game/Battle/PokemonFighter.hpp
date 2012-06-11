@@ -30,9 +30,11 @@ namespace yap
     virtual const UInt16& GetCurrentHP () const;
     virtual const UInt16& GetMaxHP () const;
     virtual float GetHPPercentage () const;
+    virtual const collection::Array<PokemonSkill*>& GetMoves () const;
+    virtual const PokemonSkill& GetMove (int index) const;
 
     virtual void TakeDamage (int value);
-    
+
     virtual Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 
@@ -41,7 +43,6 @@ namespace yap
 
     /// @brief Specifics to the Original Pokemon
     /// {
-    const collection::Array<PokemonSkill*>& GetMoves () const;
     const TypeInfo& GetType1 () const;
     const TypeInfo& GetType2 () const;
     float GetTypeEffectFactor (const TypeInfo& type) const;
