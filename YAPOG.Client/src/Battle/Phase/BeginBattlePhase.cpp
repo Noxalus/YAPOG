@@ -135,8 +135,8 @@ namespace ycl
 
           battleInterface_.GetBattleMoveInfoMenu ().SetType (
             battle_.GetPlayerTeam ().GetMoves ()
-            [battleInterface_.GetBattleMoveMenu ().GetIndex (sender)
-            ]->GetType ());
+            [battleInterface_.GetBattleMoveMenu ().
+                GetIndex (sender)]->GetType ());
         };
       }
       else
