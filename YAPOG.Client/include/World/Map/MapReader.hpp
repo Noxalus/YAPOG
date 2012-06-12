@@ -21,7 +21,7 @@ namespace ycl
 
     protected:
 
-      virtual void ReadMapElement (yap::XmlReader& reader);
+      virtual void ReadStaticObjects (yap::XmlReader& reader);
 
     private:
 

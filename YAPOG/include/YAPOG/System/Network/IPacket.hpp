@@ -13,6 +13,9 @@ namespace yap
   struct IPacket : public IWriter
                  , public IReader
   {
+      using IWriter::Accept;
+      using IReader::Accept;
+
       virtual ~IPacket () { }
 
       virtual const PacketType& GetType () const = 0;

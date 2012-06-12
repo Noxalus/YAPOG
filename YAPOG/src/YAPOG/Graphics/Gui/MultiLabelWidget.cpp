@@ -20,7 +20,7 @@ namespace yap
   {
     layout_ = new VerticalLayout (ext, in, Extendable);
     layoutManager_ = new PartialLayoutManager (*layout_);
-    BaseWidget::AddChild (*layout_);
+    BaseWidget::AddChild (*layout_);    
   }
 
   MultiLabelWidget::~MultiLabelWidget ()
@@ -119,7 +119,7 @@ namespace yap
     
     collection::Array<uint> pos;
     pos.Add (0);
-    while (1)
+    while (true)
     {
       while (width.getLocalBounds ().width < LabelMaxSize)
       {
@@ -146,13 +146,17 @@ namespace yap
         lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
       else
         lb->SetText (contentArg.substr (pos[i]));
-      //Auto Scroll;
-      currentSelec_++;
+      
       labels_.Add (lb);
       layout_->AddChild (*lb, align);
       layoutManager_->AddItem (lb);
       layoutManager_->SetSize (layout_->GetSize ().y - charWidth.GetCharHeight () - padding_.top - padding_.bottom);
+
+      //Auto Scroll;
+      currentSelec_++;
+      layoutManager_->SetCurrentSel (currentSelec_);
     }
+    layout_->SetPosition (GetPosition () - Vector2 (0, charWidth.GetCharHeight () / 2));
     Refresh ();
   }
 

@@ -8,6 +8,15 @@
       </BoundingBox>
     </entry>
   </boundingBoxes>
+  <events>
+    <entry>
+      <BoundingBox>
+        <rect>5,30,18,10</rect>
+        <z>0</z>
+        <h>1</h>
+      </BoundingBox>
+    </entry>
+  </events>
   <maxVelocity>250,250</maxVelocity>
   <spriteType>StringSpriteSet</spriteType>
   <StringSpriteSet>

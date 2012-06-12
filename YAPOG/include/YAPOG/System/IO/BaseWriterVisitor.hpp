@@ -19,7 +19,7 @@ namespace yap
       virtual void Visit (XmlWriter& visitable);
       virtual void Visit (DebugLogger& visitable);
       virtual void Visit (DatabaseLogger& visitable);
-      virtual void Visit (Packet& visitable);
+      virtual void Visit (IPacket& visitable);
       virtual void Visit (DatabaseStream& visitable);
       /// @}
 

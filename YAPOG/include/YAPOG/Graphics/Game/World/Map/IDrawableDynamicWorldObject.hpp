@@ -14,7 +14,7 @@ namespace yap
 
       virtual Event<
         IDrawableDynamicWorldObject&,
-        const Vector2&>& OnDrawableMovedEvent () = 0;
+        const Vector2&>& OnOrderStateChangedEvent () = 0;
   };
 } // namespace yap
 

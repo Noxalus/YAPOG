@@ -45,12 +45,12 @@ namespace ycl
       /// @{
       virtual yap::Event<
         IDrawableDynamicWorldObject&,
-        const yap::Vector2&>& OnDrawableMovedEvent ();
+        const yap::Vector2&>& OnOrderStateChangedEvent ();
       /// @}
 
       yap::Event<
         IDrawableDynamicWorldObject&,
-        const yap::Vector2&> OnDrawableMoved;
+        const yap::Vector2&> OnOrderStateChanged;
 
     protected:
 

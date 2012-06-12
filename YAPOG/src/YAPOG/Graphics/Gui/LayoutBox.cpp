@@ -193,7 +193,7 @@ namespace yap
 
       return MathHelper::Max (
         maxSizeItem + externPad_.left + externPad_.right,
-        spatialInfo_.GetSize ().x);
+        GetUserSize ().x);
     }
     else if (coord == 'y')
     {
@@ -206,7 +206,7 @@ namespace yap
 
       return MathHelper::Max (
         maxSizeItem + externPad_.top + externPad_.bottom,
-        spatialInfo_.GetSize ().y);
+        GetUserSize ().y);
     }
 
     // Error

@@ -14,7 +14,7 @@ namespace yap
   {
   }
 
-  void BaseReaderVisitor::Visit (Packet& visitable)
+  void BaseReaderVisitor::Visit (IPacket& visitable)
   {
   }
 

@@ -65,7 +65,7 @@ namespace yap
     }
     realSize_.x = MathHelper::Max (totalPad - innerPad_.right
       + externPad_.right
-      , spatialInfo_.GetSize ().x);
+      , GetUserSize ().x /*spatialInfo_.GetSize ().x*/);
     realSize_.y = MaxSize ('y');
     BaseWidget::Refresh ();
   }

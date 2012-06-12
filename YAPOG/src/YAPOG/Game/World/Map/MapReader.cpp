@@ -1,11 +1,8 @@
 #include "YAPOG/Game/World/Map/MapReader.hpp"
 #include "YAPOG/Game/World/Map/Map.hpp"
 #include "YAPOG/System/IO/Xml/XmlReader.hpp"
-#include "YAPOG/System/IO/Xml/XmlReaderCollection.hpp"
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
-#include "YAPOG/Game/World/Map/MapElement.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 /// @todo Remove when integrating CollidableArea.
 #include "YAPOG/Game/World/Map/Physics/GridCollidableArea.hpp"
@@ -51,27 +48,18 @@ namespace yap
 
     auto staticObjectsReader = reader->ChangeRoot ("staticObjects");
 
-    XmlReaderCollection mapElementReaders;
-    staticObjectsReader->ReadNodes ("MapElement", mapElementReaders);
-    for (auto& mapElementReader : mapElementReaders)
-      ReadMapElement (*mapElementReader);
+    ReadStaticObjects (*staticObjectsReader);
+
+    auto dynamicObjectsReader = reader->ChangeRoot ("dynamicObjects");
+
+    ReadDynamicObjects (*dynamicObjectsReader);
   }
 
-  void MapReader::ReadMapElement (XmlReader& reader)
+  void MapReader::ReadStaticObjects (XmlReader& reader)
   {
-    ID mapElementID = reader.ReadID (
-      XmlHelper::GetAttrNodeName ("id"));
+  }
 
-    MapElement* mapElement =
-      ObjectFactory::Instance ().Create<MapElement> (
-        "MapElement",
-        mapElementID);
-
-    Vector2 mapElementPosition = reader.ReadVector2 (
-      "position");
-
-    mapElement->SetPosition (mapElementPosition);
-
-    map_.AddStaticObject (mapElement);
+  void MapReader::ReadDynamicObjects (XmlReader& reader)
+  {
   }
 } // namespace yap

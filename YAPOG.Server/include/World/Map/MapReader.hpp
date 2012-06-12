@@ -19,6 +19,11 @@ namespace yse
 
       virtual void Visit (yap::XmlReader& visitable);
 
+    protected:
+
+      virtual void ReadStaticObjects (yap::XmlReader& visitable);
+      virtual void ReadDynamicObjects (yap::XmlReader& visitable);
+
     private:
 
       Map& map_;
