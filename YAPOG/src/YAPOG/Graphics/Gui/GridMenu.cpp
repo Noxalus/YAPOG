@@ -224,7 +224,7 @@ namespace yap
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
         itemz_(currentSelec_.x, currentSelec_.y)
-          ->OnActivated (itemz_(currentSelec_.x, currentSelec_.y),
+          ->OnActivated (*itemz_(currentSelec_.x, currentSelec_.y),
           EmptyEventArgs ());
         return true;
       }

@@ -39,6 +39,10 @@ namespace yap
   {
   }
 
+  void BaseMapEventAction::VisitTeleporter (Teleporter& visitable)
+  {
+  }
+
   bool BaseMapEventAction::HandleExecute (MapEventArgs& args)
   {
     return true;

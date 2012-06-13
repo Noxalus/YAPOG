@@ -17,6 +17,7 @@
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 #include "YAPOG/Graphics/Gui/GridMenu.hpp"
 #include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
+#include "YAPOG/Game/Pokemon/Pokedex.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -26,13 +27,6 @@
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 
-/// @warning Tests.
-/// @todo Remove from here.
-#include "YAPOG/Game/World/Map/MapEvent.hpp"
-#include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
-#include "World/Map/NPC.hpp"
-#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
-ycl::NPC* npc1_ = nullptr;
 
 namespace ycl
 {
@@ -76,24 +70,26 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    //worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
+    worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
-    PokedexWidget* pokedex = new PokedexWidget ();
+    yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+    PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
+    /// @warning Commented.
     guiManager_->AddChild (*pokedex);
-    
+
     /// @warning Commented.
     /*ChatWidget* chat = new ChatWidget ();
     chat->Init ();
     guiManager_->AddChild (*chat);*/
-    
+
     /*
     yap::MultiLabelWidget* labels =
       new yap::MultiLabelWidget (yap::Padding (5, 5, 5, 5), yap::Padding (0, 0, 0, 0), false);
     labels->SetSize (yap::Vector2 (242, 96));
-    yap::HorizontalLayout* diaLayout = 
-      new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0), yap::Padding (0, 0, 0, 0), true);    
-    diaLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));    
+    yap::HorizontalLayout* diaLayout =
+      new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0), yap::Padding (0, 0, 0, 0), true);
+    diaLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     diaLayout->AddChild (*labels);
 
     diaLayout->SetPosition (yap::Vector2 (512, 256));
@@ -197,50 +193,8 @@ namespace ycl
   {
     cameraController_.SetBounds (
       yap::FloatRect (
-      yap::Vector2 (),
-      map.GetSize ()));
-
-    /// @warning Tests.
-    /// @todo Remove from here.
-    /// to see below too !
-    npc1_ = objectFactory_.Create<NPC> ("NPC", yap::ID (1));
-    npc1_->SetWorldID (yap::ID (4222));
-    npc1_->Move (yap::Vector2 (260.0f, 180.0f));
-    map.AddNPC (npc1_);
-
-    yap::MapEvent* event = new yap::MapEvent ();
-    event->AddBoundingBox (
-      new yap::BoundingBox (
-      yap::Vector2 (-30, -30), yap::Vector2 (60, 60), 0, 1));
-
-    event->AddAction (
-      new yap::AnyMapEventAction (yap::MapEventActionType::Leave,
-      [this] (yap::MapEventArgs& args)
-    {
-      logger_.LogLine ("OUT");
-
-      return true;
-    }));
-
-    event->AddAction (
-      new yap::AnyMapEventAction (yap::MapEventActionType::Enter,
-      [this] (yap::MapEventArgs& args)
-    {
-      logger_.LogLine ("IN");
-
-      return true;
-    }));
-
-    event->AddAction (
-      new yap::AnyMapEventAction (yap::MapEventActionType::In,
-      [this] (yap::MapEventArgs& args)
-    {
-      logger_.LogLine ("UPDATE.....................");
-
-      return true;
-    }));
-
-    npc1_->AddEvent (event);
+        yap::Vector2 (),
+        map.GetSize ()));
   }
 
   void GameplayScreen::SetPlayer (Player* player)
@@ -251,12 +205,6 @@ namespace ycl
 
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
-
-    /// @warning Tests.
-    /// @todo Remove from here.
-    player_->AddTriggerBoundingBox (
-      new yap::BoundingBox (
-      yap::Vector2 (-20, -20), yap::Vector2 (40, 40), 0, 1));
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)

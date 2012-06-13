@@ -1,12 +1,12 @@
 #include "YAPOG/Game/Battle/Battle.hpp"
-# include "YAPOG/Game/Battle/BattlePhase.hpp"
-#include "YAPOG/Game/Battle/BattlePhaseManager.hpp"
-#include "YAPOG/Game/Battle/BeginBattlePhase.hpp"
-#include "YAPOG/Game/Battle/BeginTurnPhase.hpp"
-#include "YAPOG/Game/Battle/SelectionPhase.hpp"
-#include "YAPOG/Game/Battle/ActionPhase.hpp"
-#include "YAPOG/Game/Battle/EndTurnPhase.hpp"
-#include "YAPOG/Game/Battle/EndBattlePhase.hpp"
+# include "YAPOG/Game/Battle/Phase/BattlePhase.hpp"
+#include "YAPOG/Game/Battle/Phase/BattlePhaseManager.hpp"
+#include "YAPOG/Game/Battle/Phase/BeginBattlePhase.hpp"
+#include "YAPOG/Game/Battle/Phase/BeginTurnPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/SelectionPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/ActionPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/EndTurnPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/EndBattlePhase.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
@@ -51,21 +51,11 @@ namespace yap
       return;
 
     currentBattlePhase_->End ();
-
+    
+    BattlePhaseState previousState = currentPhaseState_;
     SetCurrentPhaseState (battlePhaseState);
 
-    int i = 1;
-    for (auto& bp : battlePhases_)
-    {
-      std::cout << "Element #" << i << std::endl;
-      if (bp.first == BattlePhaseState::BeginBattle)
-        std::cout << "BEGIN BATTLE !" << std::endl;
-      if (bp.first == BattlePhaseState::Selection)
-        std::cout << "SELECTION !" << std::endl;
-
-      i++;
-    }
-
+    currentBattlePhase_->SetPreviousPhase (previousState);
     currentBattlePhase_->Start ();
   }
 

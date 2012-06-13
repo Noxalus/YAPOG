@@ -4,7 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Map.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
-# include "YAPOG/Game/Battle/BattlePhaseState.hpp"
+# include "YAPOG/Game/Battle/Phase/BattlePhaseState.hpp"
 
 namespace yap
 {

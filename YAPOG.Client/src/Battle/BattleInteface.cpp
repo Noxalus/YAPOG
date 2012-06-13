@@ -10,6 +10,8 @@
 
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
+#include "Game.hpp"
+
 #include "Battle/BattleInterface.hpp"
 #include "Battle/PokemonBattleInfoWidget.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
@@ -44,17 +46,19 @@ namespace ycl
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
+    pokemonInfoWidget_->Show (false);
+
     battleMenu_.SetPosition (yap::Vector2 (
-      800 - battleMenu_.GetSize ().x , 
-      600 - battleMenu_.GetSize ().y ));
+      Game::SCREEN_SIZE.x - battleMenu_.GetSize ().x , 
+      Game::SCREEN_SIZE.y - battleMenu_.GetSize ().y ));
 
     battleMoveMenu_.SetPosition (yap::Vector2 (
       0 , 
-      600 - battleMenu_.GetSize ().y ));
+      Game::SCREEN_SIZE.y - battleMenu_.GetSize ().y ));
 
     battleMoveInfoMenu_.SetPosition (yap::Vector2 (
-      800 - battleMoveInfoMenu_.GetSize ().x - 20,
-      600 - battleMoveInfoMenu_.GetSize ().y - 20));
+      Game::SCREEN_SIZE.x - battleMoveInfoMenu_.GetSize ().x - 20,
+      Game::SCREEN_SIZE.y - battleMoveInfoMenu_.GetSize ().y - 20));
 
     battleMenu_.Close ();
     battleMoveMenu_.Close ();

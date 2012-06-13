@@ -1,0 +1,17 @@
+<Map id="2">
+  <name>t2</name>
+  <width>50</width>
+  <height>20</height>
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <layoutHandlerType>RandomTileLayoutHandler</layoutHandlerType>
+      <Tile id="1"/>
+    </tileLayer>
+  </ground>
+  <staticObjects>
+    <MapElement id="1">
+      <position>250,250</position>
+    </MapElement>
+  </staticObjects>
+</Map>

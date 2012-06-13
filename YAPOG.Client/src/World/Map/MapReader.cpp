@@ -50,21 +50,29 @@ namespace ycl
     }
   }
 
-  void MapReader::ReadMapElement (yap::XmlReader& reader)
+  void MapReader::ReadStaticObjects (yap::XmlReader& reader)
   {
-    yap::ID mapElementID = reader.ReadID (
-      yap::XmlHelper::GetAttrNodeName ("id"));
+    yap::MapReader::ReadStaticObjects (reader);
 
-    MapElement* mapElement =
-      yap::ObjectFactory::Instance ().Create<MapElement> (
-        "MapElement",
-        mapElementID);
+    yap::XmlReaderCollection mapElementReaders;
+    reader.ReadNodes ("MapElement", mapElementReaders);
 
-    yap::Vector2 mapElementPosition = reader.ReadVector2 (
-      "position");
+    for (auto& mapElementReader : mapElementReaders)
+    {
+      yap::ID mapElementID = mapElementReader->ReadID (
+        yap::XmlHelper::GetAttrNodeName ("id"));
 
-    mapElement->SetPosition (mapElementPosition);
+      MapElement* mapElement =
+        yap::ObjectFactory::Instance ().Create<MapElement> (
+          "MapElement",
+          mapElementID);
 
-    map_.AddMapElement (mapElement);
+      yap::Vector2 mapElementPosition = mapElementReader->ReadVector2 (
+        "position");
+
+      mapElement->SetPosition (mapElementPosition);
+
+      map_.AddDrawableStaticObject (mapElement);
+    }
   }
 } // namespace ycl

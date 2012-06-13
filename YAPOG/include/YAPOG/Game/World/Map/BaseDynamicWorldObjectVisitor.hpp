@@ -17,6 +17,7 @@ namespace yap
 
       virtual void VisitCharacter (Character& visitable);
       virtual void VisitPlayer (IPlayer& visitable);
+      virtual void VisitTeleporter (Teleporter& visitable);
 
     protected:
 

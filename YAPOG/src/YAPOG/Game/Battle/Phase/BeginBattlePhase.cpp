@@ -1,4 +1,4 @@
-# include "YAPOG/Game/Battle/BeginBattlePhase.hpp"
+# include "YAPOG/Game/Battle/Phase/BeginBattlePhase.hpp"
 
 namespace yap
 {
@@ -19,7 +19,7 @@ namespace yap
 
   void BeginBattlePhase::HandleUpdate (const Time& dt)
   {
-    nextPhase_ = BattlePhaseState::BeginTurn;
+    BattlePhase::HandleUpdate (dt);
   }
 
   void BeginBattlePhase::HandleEnd ()

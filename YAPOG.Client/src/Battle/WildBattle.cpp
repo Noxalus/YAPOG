@@ -3,6 +3,7 @@
 #include "Battle/WildBattle.hpp"
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/Phase/SelectionPhase.hpp"
+#include "Battle/Phase/SwitchPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
 
@@ -23,9 +24,11 @@ namespace ycl
     Battle::HandleInit ();
 
     BeginBattlePhase* beginBattlePhase = new BeginBattlePhase (*this, battleInterface_);
+    SwitchPhase* switchPhase = new SwitchPhase (*this, battleInterface_);
     SelectionPhase* selectionPhase = new SelectionPhase (*this, battleInterface_);
 
     AddPhase (yap::BattlePhaseState::BeginBattle, beginBattlePhase);
+    AddPhase (yap::BattlePhaseState::Switch, switchPhase);
     AddPhase (yap::BattlePhaseState::Selection, selectionPhase);
   }
 

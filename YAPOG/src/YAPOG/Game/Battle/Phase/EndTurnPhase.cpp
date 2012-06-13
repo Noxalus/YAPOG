@@ -1,4 +1,4 @@
-# include "YAPOG/Game/Battle/EndTurnPhase.hpp"
+# include "YAPOG/Game/Battle/Phase/EndTurnPhase.hpp"
 
 namespace yap
 {

@@ -1,4 +1,4 @@
-# include "YAPOG/Game/Battle/BattlePhase.hpp"
+# include "YAPOG/Game/Battle/Phase/BattlePhase.hpp"
 # include "YAPOG/Game/Battle/Battle.hpp"
 
 namespace yap
@@ -44,15 +44,11 @@ namespace yap
     return battle_;
   }
 
-  /*
-  void BattlePhase::SetBattle (Battle* battle)
-  {
-  battle_ = battle;
-  }
-  */
-
   const BattlePhaseState& BattlePhase::GetNext () const
   {
     return nextPhase_;
   }
+
+  void BattlePhase::SetPreviousPhase (const BattlePhaseState& value)
+  { previousPhase_ = value; }
 }

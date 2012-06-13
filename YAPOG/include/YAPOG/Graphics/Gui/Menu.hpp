@@ -34,6 +34,7 @@ namespace yap
     virtual bool IsFocusable () const;
     uint GetCurrentSelect () const;
     void SetFixed (bool state);
+    void Clear ();
   private:
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);

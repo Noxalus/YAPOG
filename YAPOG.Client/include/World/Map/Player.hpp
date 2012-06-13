@@ -28,6 +28,8 @@ namespace ycl
       virtual void Accept (yap::IDynamicWorldObjectVisitor& visitor);
       virtual void Accept (
         yap::IDynamicWorldObjectConstVisitor& visitor) const;
+
+      virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
       /// @}
 
     protected:

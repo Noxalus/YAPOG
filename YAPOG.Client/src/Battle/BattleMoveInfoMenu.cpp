@@ -10,7 +10,7 @@ namespace ycl
 {
   BattleMoveInfoMenu::BattleMoveInfoMenu ()
     : BaseBattleWidget ()
-    , pp_ ("40 / 40")
+    , pp_ ()
     , type_ ()
   {
     yap::WidgetBackground* menuBck = 
@@ -39,10 +39,10 @@ namespace ycl
 
     this->SetSize (yap::Vector2 (231, 129));
 
-    type_.SetPicture ("Pictures/Types/1.png");
+    type_.SetPicture ("Pictures/Types/0.png");
 
-    pp_.Move (yap::Vector2 (20, 20));
-    type_.Move (yap::Vector2 (10, 50));
+    pp_.Move (yap::Vector2 (85, 20));
+    type_.Move (yap::Vector2 (70, 70));
 
     this->AddChild (pp_);
     this->AddChild (type_);

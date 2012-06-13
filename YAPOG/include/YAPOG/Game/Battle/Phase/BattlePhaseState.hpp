@@ -9,6 +9,8 @@ namespace yap
   {
     BeginBattle,
     BeginTurn,
+    Switch,
+    TrainerSwitch,
     Selection,
     Action,
     EndTurn,

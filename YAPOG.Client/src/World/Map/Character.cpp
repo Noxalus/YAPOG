@@ -78,9 +78,9 @@ namespace ycl
 
   yap::Event<
     yap::IDrawableDynamicWorldObject&,
-    const yap::Vector2&>& Character::OnDrawableMovedEvent ()
+    const yap::Vector2&>& Character::OnOrderStateChangedEvent ()
   {
-    return OnDrawableMoved;
+    return OnOrderStateChanged;
   }
 
   yap::Vector2 Character::HandleGetSize () const
@@ -108,7 +108,7 @@ namespace ycl
 
     sprites_->Move (offset);
 
-    OnDrawableMovedEvent () (*this, offset);
+    OnOrderStateChangedEvent () (*this, offset);
   }
 
   void Character::HandleSetDirection (yap::Direction direction)

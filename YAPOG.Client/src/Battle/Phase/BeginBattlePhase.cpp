@@ -5,7 +5,6 @@
 
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
-#include "Battle/PokemonBattleInfoWidget.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Battle/Battle.hpp"
 #include "Game.hpp"
@@ -31,7 +30,7 @@ namespace ycl
 
   void BeginBattlePhase::HandleStart ()
   {
-    BattlePhase::HandleStart ();
+    yap::BeginBattlePhase::HandleStart ();
 
     // Begin battle little phases booleans init.
     nextState_ = FISRT_STATE;
@@ -43,15 +42,6 @@ namespace ycl
       ));
 
     UpdatePlayerTrainerBack ();
-
-    battle_.GetPlayerTeam ().GetBattleSprite ().Show (false);
-    battle_.GetPlayerTeam ().GetBattleSprite ().SetPosition (yap::Vector2 (
-      battle_.GetPlayerGroundPosition ().x +
-      battle_.GetPlayerGround ().GetSize ().x / 2 -
-      battle_.GetPlayerTeam ().GetBattleSprite ().GetSize ().x / 2,
-      battle_.GetPlayerGroundPosition ().y +
-      battle_.GetPlayerGround ().GetSize ().y / 2 -
-      battle_.GetPlayerTeam ().GetBattleSprite ().GetSize ().y));
 
     // Opponent's side init.
     battle_.GetOpponentGround ().SetPosition (
@@ -71,23 +61,12 @@ namespace ycl
     battleInterface_.GetBattleInfoDialogBox ().
       AddText ("Un " + opponentName + " sauvage apparait !");
 
-    // Player's side.
-    battleInterface_.GetPokemonInfoWidget ().SetPosition (yap::Vector2 (
-      Game::SCREEN_SIZE.x, 
-      battle_.GetPokemonInfoPosition ().y));
-    battleInterface_.GetPokemonInfoWidget ().SetName (
-      battle_.GetPlayerTeam ().GetName ());
-    battleInterface_.GetPokemonInfoWidget ().SetGender (
-      battle_.GetPlayerTeam ().GetGender ());
-
     // Opponent's side.
     battleInterface_.GetOpponentInfoWidget ().SetName (opponentName);
     battleInterface_.GetOpponentInfoWidget ().SetLevel (
       battle_.GetOpponent ().GetLevel ());
     battleInterface_.GetOpponentInfoWidget ().SetGender (
       battle_.GetOpponent ().GetGender ());
-    battleInterface_.GetPokemonInfoWidget ().SetLevel (
-      battle_.GetPlayerTeam ().GetLevel ());
 
     battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
       -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
@@ -104,57 +83,12 @@ namespace ycl
       battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
         battle_.GetOpponent ().GetHPPercentage ());
     };
-
-    battle_.GetPlayerTeam ().OnHPChangedEvent () +=
-      [&] (const yap::IBattleEntity& sender, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>& args)
-    {
-      battleInterface_.GetPokemonInfoWidget ().UpdateHPColor (
-        battle_.GetPlayerTeam ().GetHPPercentage ());
-
-      battleInterface_.GetPokemonInfoWidget ().UpdateHPSize (
-        battle_.GetPlayerTeam ().GetHPPercentage ());
-
-      battleInterface_.GetPokemonInfoWidget ().SetHPValue
-        (args.Current);
-    };
-
-    for (int i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
-    {
-      if (battle_.GetPlayerTeam ().GetMoves ()[i] != nullptr)
-      {
-        battleInterface_.GetBattleMoveMenu ().SetItemContent (
-          i, battle_.GetPlayerTeam ().GetMove (i).GetName ());
-
-        battleInterface_.GetBattleMoveMenu ().GetItem (i).OnSelected +=
-          [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
-        {
-          battleInterface_.GetBattleMoveInfoMenu ().SetPP (
-            battle_.GetPlayerTeam ().GetMove (
-            battleInterface_.GetBattleMoveMenu ().GetIndex (sender)));
-
-          battleInterface_.GetBattleMoveInfoMenu ().SetType (
-            battle_.GetPlayerTeam ().GetMoves ()
-            [battleInterface_.GetBattleMoveMenu ().GetIndex (sender)
-            ]->GetType ());
-        };
-      }
-      else
-      {
-        battleInterface_.GetBattleMoveMenu ().SetItemContent (i, " --- ");
-
-        battleInterface_.GetBattleMoveMenu ().GetItem (i).OnSelected +=
-          [&] (yap::MenuItem&, const yap::EmptyEventArgs&)
-        {
-          battleInterface_.GetBattleMoveInfoMenu ().SetPPLabel (" --- ");
-          battleInterface_.GetBattleMoveInfoMenu ().HideType ();
-        };
-      }
-    }
   }
 
   void BeginBattlePhase::HandleUpdate (const yap::Time& dt)
   {
+    yap::BeginBattlePhase::HandleUpdate (dt);
+
     if (nextState_ == FISRT_STATE)
     {
       if (battle_.GetPlayerGround ().GetPosition ().x >
@@ -173,8 +107,6 @@ namespace ycl
           battle_.GetPlayerGroundPosition ());
 
         UpdatePlayerTrainerBack ();
-
-        nextState_ = "PlayerGround";
       }
 
       if (battle_.GetOpponentGround ().GetPosition ().x <
@@ -193,9 +125,14 @@ namespace ycl
           battle_.GetOpponentGroundPosition ());
 
         UpdateOpponentFront ();
+      }
 
-        if (nextState_ == "PlayerGround")
-          nextState_ = "OpponentInfo";
+      if (battle_.GetOpponentGround ().GetPosition () ==
+        battle_.GetOpponentGroundPosition () &&
+        battle_.GetPlayerGround ().GetPosition () ==
+        battle_.GetPlayerGroundPosition ())
+      {
+        nextState_ = "OpponentInfo";
       }
     }
 
@@ -231,37 +168,18 @@ namespace ycl
       }
       else
       {
-        nextState_ = "PokemonInfo";
+        nextState_ = "SwitchPhase";
         battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
-        battle_.GetPlayerTeam ().GetBattleSprite ().Show (true);
       }
     }
 
-    if (nextState_ == "PokemonInfo")
-    {
-      if (battleInterface_.GetPokemonInfoWidget ().GetPosition ().x >
-        battle_.GetPokemonInfoPosition ().x)
-      {
-        battleInterface_.GetPokemonInfoWidget ().Move (
-          yap::Vector2 ((-1) * ((GROUND_SPEED * 2) * dt.GetValue ()), 0));
-      }
-      else
-      {
-        battleInterface_.GetPokemonInfoWidget ().SetPosition (
-          battle_.GetPokemonInfoPosition ());
-
-        nextState_ = "ChangePhase";
-      }
-    }
-
-    if (nextState_ == "ChangePhase")
-      nextPhase_ = yap::BattlePhaseState::Selection;
+    if (nextState_ == "SwitchPhase")
+      nextPhase_ = yap::BattlePhaseState::Switch;
   }
 
   void BeginBattlePhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
-    std::cout << "FIGHT !" << std::endl;
+    yap::BeginBattlePhase::HandleEnd ();
   }
 
   void BeginBattlePhase::Draw (yap::IDrawingContext& context)

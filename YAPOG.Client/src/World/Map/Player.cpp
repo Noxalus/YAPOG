@@ -37,6 +37,11 @@ namespace ycl
     visitor.VisitPlayer (*this);
   }
 
+  void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)
+  {
+
+  }
+
   const yap::String& Player::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;

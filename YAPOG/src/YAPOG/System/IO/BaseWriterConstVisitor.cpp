@@ -22,7 +22,7 @@ namespace yap
   {
   }
 
-  void BaseWriterConstVisitor::Visit (const Packet& visitable)
+  void BaseWriterConstVisitor::Visit (const IPacket& visitable)
   {
   }
 

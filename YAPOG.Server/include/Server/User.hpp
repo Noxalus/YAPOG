@@ -21,6 +21,9 @@ namespace yse
       User ();
       virtual ~User ();
 
+      World& GetWorld ();
+      Map& GetMap ();
+
       void SetWorld (World* world);
       void RemoveFromWorld ();
 
@@ -39,8 +42,6 @@ namespace yse
 
     private:
 
-      World& GetWorld ();
-      Map& GetMap ();
       void SetMap (Map* map);
 
       void SetPlayer (Player* player);

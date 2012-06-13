@@ -19,4 +19,9 @@ namespace yap
     const IPlayer& visitable)
   {
   }
+
+  void BaseDynamicWorldObjectConstVisitor::VisitTeleporter (
+    const Teleporter& visitable)
+  {
+  }
 } // namespace yap
