@@ -9,6 +9,8 @@ namespace yap
 {
   MapEventManager::MapEventManager ()
     : events_ ()
+    , leaveEvents_ ()
+    , enterEvents_ ()
     , collidableArea_ (nullptr)
   {
   }
@@ -24,6 +26,18 @@ namespace yap
 
   void MapEventManager::Update (const Time& dt)
   {
+    while (!leaveEvents_.IsEmpty ())
+    {
+      MapEventContext* event = leaveEvents_.Dequeue (event);
+      CallEvent (MapEventActionType::Leave, dt, *event);
+    }
+
+    while (!enterEvents_.IsEmpty ())
+    {
+      MapEventContext* event = enterEvents_.Dequeue (event);
+      CallEvent (MapEventActionType::Enter, dt, *event);
+    }
+
     for (auto& objectEvents : events_)
       for (auto& eventTriggering : objectEvents.second)
         for (MapEventContext* event : eventTriggering.second)
@@ -57,7 +71,7 @@ namespace yap
 
         RemoveEventEntry (&object, event.first, eventContext);
 
-        CallEvent (MapEventActionType::Leave, Time (), *eventContext);
+        AddLeaveEvent (eventContext);
       }
     }
   }
@@ -78,7 +92,7 @@ namespace yap
             &event))
         continue;
 
-      CallEvent (MapEventActionType::Enter, Time (), event);
+      AddEnterEvent (&event);
     }
   }
 
@@ -138,6 +152,16 @@ namespace yap
       events_.Remove (object);
 
     return true;
+  }
+
+  void MapEventManager::AddLeaveEvent (MapEventContext* event)
+  {
+    leaveEvents_.Enqueue (event);
+  }
+
+  void MapEventManager::AddEnterEvent (MapEventContext* event)
+  {
+    enterEvents_.Enqueue (event);
   }
 
   bool MapEventManager::CallEvent (

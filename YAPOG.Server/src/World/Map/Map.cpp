@@ -121,6 +121,9 @@ namespace yse
     object->OnVelocityChanged.RemoveHandler (
       VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME);
 
+    object->OnStateChanged.RemoveHandler (
+      STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME);
+
     SendRemoveObject (*object);
   }
 

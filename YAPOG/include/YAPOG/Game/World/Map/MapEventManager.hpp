@@ -7,6 +7,7 @@
 # include "YAPOG/Collection/Set.hpp"
 # include "YAPOG/Game/World/Map/MapEventContextTriggerComparator.hpp"
 # include "YAPOG/Game/World/Map/MapEvent.hpp"
+# include "YAPOG/Collection/Queue.hpp"
 
 namespace yap
 {
@@ -59,12 +60,17 @@ namespace yap
       void UpdateObjectOut (const DynamicWorldObject& object);
       void UpdateObjectIn (DynamicWorldObject& object);
 
+      void AddLeaveEvent (MapEventContext* event);
+      void AddEnterEvent (MapEventContext* event);
+
       bool CallEvent (
         MapEventActionType type,
         const Time& dt,
         MapEventContext& eventContext);
 
       ObjectEventsType events_;
+      collection::Queue<MapEventContext*> leaveEvents_;
+      collection::Queue<MapEventContext*> enterEvents_;
 
       CollidableArea* collidableArea_;
   };

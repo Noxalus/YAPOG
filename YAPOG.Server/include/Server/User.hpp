@@ -21,6 +21,10 @@ namespace yse
       User ();
       virtual ~User ();
 
+      void ChangeMap (
+        const yap::ID& mapWorldID,
+        const yap::Vector2& mapPoint);
+
       World& GetWorld ();
       Map& GetMap ();
 

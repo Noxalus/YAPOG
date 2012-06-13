@@ -20,6 +20,8 @@ namespace yap
     : BoundingBoxCollection (copy)
     , parent_ (nullptr)
   {
+    for (BoundingBox* boundingBox : copy.GetBoundingBoxes ())
+      AddEventTriggerBoundingBox (new BoundingBox (*boundingBox));
   }
 
   void EventTriggerBoundingBoxCollection::AddEventTriggerBoundingBox (

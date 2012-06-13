@@ -36,5 +36,11 @@
     <NPC id="1">
       <position>200,350</position>
     </NPC>
+    <Teleporter id="1">
+      <position>150,150</position>
+      <mapWorldID>2</mapWorldID>
+      <mapPoint>30,50</mapPoint>
+      <area>0,0,200,200</area>
+    </Teleporter>
   </dynamicObjects>
 </Map>

@@ -3,6 +3,7 @@
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/MapElement.hpp"
+#include "YAPOG/Graphics/RectReader.hpp"
 
 #include "World/Map/MapReader.hpp"
 #include "World/Map/Map.hpp"
@@ -27,6 +28,7 @@ namespace yse
     yap::MapReader::Visit (visitable);
   }
 
+  /// @todo Make visitor 'MapDynamic/StaticObjectReader'.
   void MapReader::ReadDynamicObjects (yap::XmlReader& reader)
   {
     yap::MapReader::ReadDynamicObjects (reader);
@@ -64,6 +66,14 @@ namespace yse
 
       yap::Vector2 teleporterPosition = teleporterReader->ReadVector2 (
         "position");
+
+      yap::ID mapWorldID = teleporterReader->ReadID ("mapWorldID");
+      yap::Vector2 mapPoint = teleporterReader->ReadVector2 ("mapPoint");
+      yap::FloatRect area;
+      yap::RectReader<float> rectReader (area, "area");
+      teleporterReader->Accept (rectReader);
+
+      teleporter->Init (mapWorldID, mapPoint, area);
 
       teleporter->SetPosition (teleporterPosition);
 

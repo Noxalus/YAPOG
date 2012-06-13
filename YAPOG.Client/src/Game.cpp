@@ -37,6 +37,7 @@
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
+#include "YAPOG/Game/World/Map/TeleporterReader.hpp"
 
 #include "Client/Session.hpp"
 #include "Game.hpp"
@@ -60,6 +61,7 @@
 #include "World/Map/MapElementReader.hpp"
 #include "World/Map/NPC.hpp"
 #include "World/Map/NPCReader.hpp"
+#include "World/Map/Teleporter.hpp"
 
 namespace ycl
 {
@@ -195,6 +197,12 @@ namespace ycl
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
       yap::Path ("Player"),
       "Player"));
+
+    objectFactory_.RegisterLoader (
+      "Teleporter",
+      new yap::XmlObjectIDLoader<Teleporter, yap::TeleporterReader> (
+      yap::Path ("Teleporter"),
+      "Teleporter"));
 
     objectFactory_.RegisterLoader (
       "RandomTileLayoutHandler",

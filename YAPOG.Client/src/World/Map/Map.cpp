@@ -1,10 +1,12 @@
 #include "YAPOG/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Graphics/RectReader.hpp"
 
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/NPC.hpp"
+#include "World/Map/Teleporter.hpp"
 
 namespace ycl
 {
@@ -214,6 +216,27 @@ namespace ycl
       npc->SetWorldID (worldID);
 
       AddDrawableDynamicObject (npc);
+    }
+    if (objectTypeName == "Teleporter")
+    {
+      Teleporter* teleporter =
+        yap::ObjectFactory::Instance ().Create<Teleporter> (typeID, id);
+      object = teleporter;
+      teleporter->SetWorldID (worldID);
+
+      object->SetPosition (packet.ReadVector2 ());
+      object->RawSetState (packet.ReadString ());
+
+      yap::ID mapWorldID = packet.ReadID ();
+      yap::Vector2 mapPoint = packet.ReadVector2 ();
+      yap::FloatRect area;
+      yap::RectReader<float> rectReader (area);
+      packet.Accept (rectReader);
+
+      teleporter->Init (mapWorldID, mapPoint, area);
+      AddDrawableDynamicObject (teleporter);
+
+      return;
     }
 
     object->SetPosition (packet.ReadVector2 ());
