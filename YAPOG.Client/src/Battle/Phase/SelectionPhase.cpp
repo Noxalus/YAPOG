@@ -24,7 +24,7 @@ namespace ycl
 
   void SelectionPhase::HandleStart ()
   {
-    BattlePhase::HandleStart ();
+    yap::SelectionPhase::HandleStart ();
 
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
     battleInterface_.GetBattleMenu ().Open ();
@@ -36,13 +36,12 @@ namespace ycl
 
   void SelectionPhase::HandleUpdate (const yap::Time& dt)
   {
-    if (yap::RandomHelper::GetNext (0.f, 1.f) < 0.01f)
-      battle_.GetPlayerTeam ().TakeDamage (1);
+    yap::SelectionPhase::HandleUpdate (dt);
   }
 
   void SelectionPhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::SelectionPhase::HandleEnd ();
   }
 
   void SelectionPhase::Draw (yap::IDrawingContext& context)

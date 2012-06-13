@@ -3,7 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
-# include "YAPOG/Game/Battle/BattlePhaseState.hpp"
+# include "YAPOG/Game/Battle/Phase/BattlePhaseState.hpp"
 
 namespace yap
 {
@@ -19,7 +19,11 @@ namespace yap
 
     void Start ();
     void End ();
-    //void SetBattle (Battle* battle);
+    
+    /// @name Setters.
+    /// @{
+    void SetPreviousPhase (const BattlePhaseState& value);
+    /// @}
 
     /// @name IUpdateable members.
     /// @{
@@ -30,9 +34,12 @@ namespace yap
     virtual void HandleStart ();
     virtual void HandleEnd ();
     virtual void HandleUpdate (const Time& dt);
+
     Battle& GetBattle ();
+
     BattlePhaseState state_;
     BattlePhaseState nextPhase_;
+    BattlePhaseState previousPhase_;
 
   private:
     Battle& battle_;

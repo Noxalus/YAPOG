@@ -1,4 +1,4 @@
-#include "YAPOG/Game/Battle/ActionPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/ActionPhase.hpp"
 
 namespace yap
 {

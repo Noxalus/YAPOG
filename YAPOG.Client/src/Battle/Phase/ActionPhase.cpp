@@ -6,8 +6,10 @@ namespace ycl
   const bool ActionPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color ActionPhase::DEFAULT_COLOR = sf::Color ();
 
-  ActionPhase::ActionPhase (Battle& battle)
+  ActionPhase::ActionPhase (Battle& battle, BattleInterface& battleInterface)
     : yap::ActionPhase (battle)
+    , battle_ (battle)
+    , battleInterface_ (battleInterface)
   {
   }
 
@@ -17,16 +19,17 @@ namespace ycl
 
   void ActionPhase::HandleStart ()
   {
-    BattlePhase::HandleStart ();
+    yap::ActionPhase::HandleStart ();
   }
 
   void ActionPhase::HandleUpdate (const yap::Time& dt)
   {
+    yap::ActionPhase::HandleUpdate (dt);
   }
 
   void ActionPhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::ActionPhase::HandleEnd ();
   }
 
   void ActionPhase::Draw (yap::IDrawingContext& context)

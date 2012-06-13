@@ -1,22 +1,22 @@
-#ifndef YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
-# define YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
+#ifndef YAPOG_CLIENT_SWITCHPHASE_HPP
+# define YAPOG_CLIENT_SWITCHPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/BeginBattlePhase.hpp"
+# include "YAPOG/Game/Battle/Phase/SwitchPhase.hpp"
 
 namespace ycl
 {
   class Battle;
   class BattleInterface;
 
-  class BeginBattlePhase
-    : public yap::BeginBattlePhase
+  class SwitchPhase
+    : public yap::SwitchPhase
     , public yap::IDrawable
   {
   public:
-    BeginBattlePhase (Battle& battle, BattleInterface& battleInterface);
-    virtual ~BeginBattlePhase ();
+    explicit SwitchPhase (Battle& battle, BattleInterface& battleInterface);
+    virtual ~SwitchPhase ();
 
     /// @name BattlePhase members.
     /// @{
@@ -42,22 +42,15 @@ namespace ycl
 
     static const bool DEFAULT_VISIBLE_STATE;
     static const sf::Color DEFAULT_COLOR;
+    static const float BATTLE_INFO_SPEED;
 
     bool isVisible_;
     sf::Color color_;
 
   private:
-    void UpdatePlayerTrainerBack ();
-    void UpdateOpponentFront ();
-
     Battle& battle_;
     BattleInterface& battleInterface_;
-
-    yap::String nextState_;
-
-    static const float GROUND_SPEED;
-    static const yap::String FISRT_STATE;
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
+#endif // YAPOG_CLIENT_SWITCHPHASE_HPP

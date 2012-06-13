@@ -5,7 +5,7 @@
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/Battle/IBattleEntity.hpp"
-# include "YAPOG/Game/Battle/BattlePhaseManager.hpp"
+# include "YAPOG/Game/Battle/Phase/BattlePhaseManager.hpp"
 
 namespace yap
 {

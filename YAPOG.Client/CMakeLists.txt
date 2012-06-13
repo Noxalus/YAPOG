@@ -45,23 +45,22 @@ ${src_root}/Battle/PokemonFighterTeam.cpp
 ${inc_root}/Battle/WildBattle.hpp
 ${src_root}/Battle/WildBattle.cpp
 
-${inc_root}/Battle/Phase/BattlePhase.hpp
-${src_root}/Battle/Phase/BattlePhase.cpp
+${inc_root}/Battle/Phase/ActionPhase.hpp
+${src_root}/Battle/Phase/ActionPhase.cpp
 ${inc_root}/Battle/Phase/BeginBattlePhase.hpp
 ${src_root}/Battle/Phase/BeginBattlePhase.cpp
 ${inc_root}/Battle/Phase/BeginTurnPhase.hpp
 ${src_root}/Battle/Phase/BeginTurnPhase.cpp
+${inc_root}/Battle/Phase/BattlePhase.hpp
+${src_root}/Battle/Phase/BattlePhase.cpp
 ${inc_root}/Battle/Phase/EndBattlePhase.hpp
 ${src_root}/Battle/Phase/EndBattlePhase.cpp
-${inc_root}/Battle/Phase/SelectionPhase.hpp
-${src_root}/Battle/Phase/SelectionPhase.cpp
-${inc_root}/Battle/Phase/ActionPhase.hpp
-${src_root}/Battle/Phase/ActionPhase.cpp
 ${inc_root}/Battle/Phase/EndTurnPhase.hpp
 ${src_root}/Battle/Phase/EndTurnPhase.cpp
-${inc_root}/Battle/Phase/EndBattlePhase.hpp
-${src_root}/Battle/Phase/EndBattlePhase.cpp
-
+${inc_root}/Battle/Phase/SelectionPhase.hpp
+${src_root}/Battle/Phase/SelectionPhase.cpp
+${inc_root}/Battle/Phase/SwitchPhase.hpp
+${src_root}/Battle/Phase/SwitchPhase.cpp
 
 ${src_root}/Client.cpp
 ${inc_root}/Client/Session.hpp
