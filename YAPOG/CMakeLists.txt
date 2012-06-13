@@ -254,6 +254,8 @@ ${src_root}/Game/Battle/PokemonFighter.cpp
 ${inc_root}/Game/Battle/PokemonFighter.hpp
 ${src_root}/Game/Battle/Battle.cpp
 ${inc_root}/Game/Battle/Battle.hpp
+${src_root}/Game/Battle/PlayerTrainer.cpp
+${inc_root}/Game/Battle/PlayerTrainer.hpp
 ${inc_root}/Game/Battle/IBattleEntity.hpp
 ${src_root}/Game/Battle/PokemonFighterTeam.cpp
 ${inc_root}/Game/Battle/PokemonFighterTeam.hpp

@@ -5,6 +5,7 @@
 #include "World/World.hpp"
 #include "World//Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "Battle/PlayerTrainer.hpp"
 
 namespace ycl
 {
@@ -12,6 +13,7 @@ namespace ycl
     : packetHandler_ ()
     , world_ (nullptr)
     , player_ (nullptr)
+    , trainer_ (nullptr)
   {
     ADD_HANDLER(ServerInfoSetUserPlayer, User::HandleServerInfoSetUserPlayer);
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
@@ -54,6 +56,7 @@ namespace ycl
     packetHandler_.SetParent (parent);
   }
 
+  // Getters.
   World& User::GetWorld ()
   {
     return *world_;
@@ -64,11 +67,17 @@ namespace ycl
     return *player_;
   }
 
+  // Setters.
   void User::SetPlayer (Player* player)
   {
     player_ = player;
 
     OnPlayerCreated (*this, player_);
+  }
+
+  void User::SetTrainer (PlayerTrainer* trainer)
+  {
+    trainer_ = trainer;
   }
 
   void User::HandleServerInfoSetUserPlayer (yap::IPacket& packet)

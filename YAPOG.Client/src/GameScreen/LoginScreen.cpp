@@ -8,24 +8,15 @@
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/Menu.hpp"
 #include "YAPOG/Graphics/Gui/MenuItem.hpp"
-#include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
-#include "YAPOG/System/RandomHelper.hpp"
-
-#include "YAPOG/Game/Pokemon/Pokemon.hpp"
-#include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
-#include "YAPOG/Game/Battle/PokemonFighter.hpp"
-#include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
+#include "Game.hpp"
 
 #include "Gui/GameMainMenu.hpp"
 #include "GameScreen/LoginScreen.hpp"
 #include "Client/Session.hpp"
 
-#include "Battle/WildBattle.hpp"
-
-#include "Gui/PokedexWidget.hpp"
 
 namespace ycl
 {
@@ -33,6 +24,7 @@ namespace ycl
 
   LoginScreen::LoginScreen ()
     : BaseScreen (DEFAULT_NAME)
+    , loginWidget_ ()
   {
   }
 
@@ -43,14 +35,15 @@ namespace ycl
   void LoginScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-   
+
+    guiManager_->AddChild (loginWidget_);
   }
 
   const yap::ScreenType& LoginScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    Login ();
+    //Login ();
 
     return BaseScreen::HandleRun (dt, context);
   }

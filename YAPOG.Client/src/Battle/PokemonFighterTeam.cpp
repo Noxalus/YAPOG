@@ -3,7 +3,6 @@
 
 #include "Pokemon/Pokemon.hpp"
 #include "Pokemon/PokemonTeam.hpp"
-#include "Battle/PokemonFighter.hpp"
 #include "Battle/PokemonFighterTeam.hpp"
 
 namespace ycl
@@ -19,11 +18,6 @@ namespace ycl
 
   PokemonFighterTeam::~PokemonFighterTeam ()
   {
-  }
-
-  PokemonFighter& PokemonFighterTeam::GetPokemon (int index) const
-  {
-    return *fighters_[index];
   }
 
   bool PokemonFighterTeam::AddPokemon (PokemonFighter* pokemonFighter)

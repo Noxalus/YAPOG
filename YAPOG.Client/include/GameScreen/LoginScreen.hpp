@@ -2,8 +2,12 @@
 # define YAPOG_CLIENT_LOGINSCREEN_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+# include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 
+# include "Gui/LoginWidget.hpp"
 # include "GameScreen/BaseScreen.hpp"
+
 
 namespace ycl
 {
@@ -26,6 +30,8 @@ namespace ycl
 
   private:
     void Login ();
+
+    LoginWidget loginWidget_;
 
     static const yap::ScreenType DEFAULT_NAME;
   };

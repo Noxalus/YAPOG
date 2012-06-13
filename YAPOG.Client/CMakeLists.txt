@@ -38,6 +38,8 @@ ${inc_root}/Battle/PokemonBattleInfoWidget.hpp
 ${src_root}/Battle/PokemonBattleInfoWidget.cpp
 ${inc_root}/Battle/OpponentBattleInfoWidget.hpp
 ${src_root}/Battle/OpponentBattleInfoWidget.cpp
+${inc_root}/Battle/PlayerTrainer.hpp
+${src_root}/Battle/PlayerTrainer.cpp
 ${inc_root}/Battle/PokemonFighter.hpp
 ${src_root}/Battle/PokemonFighter.cpp
 ${inc_root}/Battle/PokemonFighterTeam.hpp
@@ -107,6 +109,8 @@ ${inc_root}/Gui/ChatWidget.hpp
 ${src_root}/Gui/ChatWidget.cpp
 ${inc_root}/Gui/GameMainMenu.hpp
 ${src_root}/Gui/GameMainMenu.cpp
+${inc_root}/Gui/LoginWidget.hpp
+${src_root}/Gui/LoginWidget.cpp
 ${inc_root}/Gui/MainMenu.hpp
 ${src_root}/Gui/MainMenu.cpp
 ${inc_root}/Gui/PokedexWidget.hpp

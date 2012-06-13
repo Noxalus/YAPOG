@@ -33,17 +33,16 @@ namespace yap
       OnHPChangedEvent ();
     /// @}
 
-    virtual PokemonFighter& GetPokemon (int index) const = 0;
-
     /// @name IUpdateable members.
     /// @{
     virtual void Update (const Time& dt);
     /// @}
 
   protected:
+    virtual void HandleUpdate (const Time& dt);
+
     virtual PokemonFighter& GetCurrentFighter () = 0;
     virtual const PokemonFighter& GetCurrentFighter () const = 0;
-    virtual void HandleUpdate (const Time& dt);
     int currentFighterIndex_;
 
   };
