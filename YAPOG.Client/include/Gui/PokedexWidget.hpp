@@ -21,7 +21,8 @@ namespace ycl
     DISALLOW_COPY(PokedexWidget);
 
   public:
-    PokedexWidget ();
+    
+    PokedexWidget (yap::Pokedex* pokedex);
     void Init ();
     virtual ~PokedexWidget();
     virtual bool IsFocusable () const;
@@ -40,12 +41,16 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
+    void Refresh ();
     yap::Pokedex* pokedex_;
     yap::PictureBox* boxInfoContent_;
     yap::Menu* menu_;
     yap::PokemonInfo* validatedPokemon_;
     yap::HorizontalLayout* firstHLayout_;
+    yap::VerticalLayout* firstVLayout_;
     PokedexCompositeWidget* pokedexInfo_;
+    yap::Label* pokSeen_;
+    yap::Label* pokCaught_;
 
   };
 } // namespace ycl

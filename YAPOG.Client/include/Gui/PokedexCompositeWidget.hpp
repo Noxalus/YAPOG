@@ -37,6 +37,7 @@ namespace ycl
 
   private:
     yap::Menu* menu_;
+    yap::WidgetBackground* background_;
 
   };
 } // namespace ycl
