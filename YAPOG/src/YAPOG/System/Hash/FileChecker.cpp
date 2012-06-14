@@ -332,8 +332,7 @@ namespace yap
         OStream request_stream (&request);
         String n = (*it)->Filename;
         std::replace (n.begin (), n.end (), '\\', '/');
-        //String path = path_.string ();
-        String path = "D:/git/YAPOG_downloadtest";
+        String path = path_.string ();
         String newpath = "";
 
         int i = n.rfind ('/');

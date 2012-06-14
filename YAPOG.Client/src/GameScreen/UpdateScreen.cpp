@@ -63,10 +63,10 @@ namespace ycl
     yap::WidgetBorder* updaterBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    boost::filesystem::path client ("D:\\YAPOG_CLIENT"); //(boost::filesystem::current_path());
+    boost::filesystem::path client ("G:\\YAPOG\\YAPOG_CLIENT"); //(boost::filesystem::current_path());
     fc_ = new yap::FileChecker (client);
 
-    boost::filesystem::path serv ("D:\\YAPOG_SERVER");//(boost::filesystem::current_path());
+    boost::filesystem::path serv ("G:\\YAPOG\\YAPOG_SERVER");//(boost::filesystem::current_path());
     yap::FileChecker fs (serv);
 
     // List of name file needed to be download by the client
