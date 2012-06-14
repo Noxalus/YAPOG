@@ -1,7 +1,7 @@
 <Map id="2">
   <name>t2</name>
-  <width>50</width>
-  <height>20</height>
+  <width>500</width>
+  <height>200</height>
   <ground>
     <tileLayer>
       <height>0</height>

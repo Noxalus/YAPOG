@@ -109,6 +109,7 @@ namespace ycl
     UpdatePlayer (dt);
 
     world_.Draw (context);
+
     return BaseScreen::HandleRun (dt, context);
   }
 

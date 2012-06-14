@@ -9,6 +9,7 @@
 namespace ycl
 {
   class World;
+  class Map;
   class Player;
 
   class User : public yap::IPacketHandler
@@ -37,6 +38,7 @@ namespace ycl
     private:
 
       World& GetWorld ();
+      Map& GetMap ();
 
       Player& GetPlayer ();
 
@@ -44,6 +46,9 @@ namespace ycl
 
       void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
       void HandleServerInfoChangeMap (yap::IPacket& packet);
+
+      void HandleServerInfoAddObject (yap::IPacket& packet);
+      void HandleServerInfoRemoveObject (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 

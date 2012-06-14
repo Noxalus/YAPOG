@@ -95,9 +95,12 @@ namespace yse
     const yap::ID& mapWorldID,
     const yap::Vector2& mapPoint)
   {
-    GetMap ().RemovePlayer (player_);
+    if (GetMap ().GetWorldID () != mapWorldID)
+    {
+      GetMap ().RemovePlayer (player_);
 
-    SetMap (&GetWorld ().GetMap (mapWorldID));
+      SetMap (&GetWorld ().GetMap (mapWorldID));
+    }
 
     player_->SetPosition (mapPoint);
   }
@@ -135,7 +138,9 @@ namespace yse
     yap::Packet setUserPlayerPacket;
     setUserPlayerPacket.CreateFromType (
       yap::PacketType::ServerInfoSetUserPlayer);
+
     setUserPlayerPacket.Write (player_->GetWorldID ());
+
     SendPacket (setUserPlayerPacket);
   }
 

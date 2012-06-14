@@ -55,9 +55,9 @@ namespace yse
   {
     player->RemoveRelay (this);
 
-    players_.Remove (player->GetWorldID ());
-
     RemoveDynamicObject (player);
+
+    players_.Remove (player->GetWorldID ());
   }
 
   bool Map::HandlePacket (yap::IPacket& packet)
