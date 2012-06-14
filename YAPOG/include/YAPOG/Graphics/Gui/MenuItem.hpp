@@ -13,7 +13,7 @@ namespace yap
     DISALLOW_COPY(MenuItem);
 
   public:
-    Event<const MenuItem&, const EmptyEventArgs&> OnActivated;
+    Event<MenuItem&, const EmptyEventArgs&> OnActivated;
     Event<MenuItem&, const EmptyEventArgs&> OnSelected;
 
     MenuItem ();

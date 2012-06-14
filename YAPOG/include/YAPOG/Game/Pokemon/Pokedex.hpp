@@ -7,6 +7,7 @@
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 # include "YAPOG/Game/ID.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -15,6 +16,8 @@ namespace yap
   public:
     Pokedex ();
     ~Pokedex ();
+
+    yap::Event<Pokedex&, const yap::EmptyEventArgs&> OnAddPokemon;
 
     void SetPokemonSeenInfoList (const collection::Array<PokemonInfo*>& pokSeen);
     void SetPokemonCaughtInfoList (const collection::Array<PokemonInfo*>& pokCaught);

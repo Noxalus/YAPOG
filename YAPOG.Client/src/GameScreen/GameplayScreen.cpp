@@ -17,6 +17,7 @@
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 #include "YAPOG/Graphics/Gui/GridMenu.hpp"
 #include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
+#include "YAPOG/Game/Pokemon/Pokedex.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -25,6 +26,7 @@
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
+
 
 namespace ycl
 {
@@ -70,10 +72,11 @@ namespace ycl
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
-    PokedexWidget* pokedex = new PokedexWidget ();
+    yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+    PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
     /// @warning Commented.
-//    guiManager_->AddChild (*pokedex);
+    //guiManager_->AddChild (*pokedex);
 
     /// @warning Commented.
     /*ChatWidget* chat = new ChatWidget ();

@@ -17,49 +17,25 @@
 namespace ycl
 {
 
-  PokedexWidget::PokedexWidget ()
-    : pokedex_ (new yap::Pokedex ())
+  PokedexWidget::PokedexWidget (yap::Pokedex* pokedex)
+    : pokedex_ (pokedex)
     , boxInfoContent_ (new yap::PictureBox ())
     , menu_ (nullptr)    
     , validatedPokemon_ (nullptr)
     , firstHLayout_ (nullptr)
-    , pokedexInfo_ (nullptr)
+    , pokedexInfo_ (nullptr)    
+    , pokSeen_ (nullptr)
+    , pokCaught_ (nullptr)
   {
     pokedexInfo_ = new PokedexCompositeWidget ();
     pokedexInfo_->Init ();
     pokedexInfo_->Close ();
     AddChild (*pokedexInfo_);
-    yap::collection::Array<yap::PokemonInfo*> pokList;
 
-    yap::PokemonInfo* pokInfo1 = new yap::PokemonInfo (yap::ID (1));    
-    yap::PokemonInfo* pokInfo2 = new yap::PokemonInfo (yap::ID (5));
-    yap::PokemonInfo* pokInfo3 = new yap::PokemonInfo (yap::ID (3));
-    yap::PokemonInfo* pokInfo4 = new yap::PokemonInfo (yap::ID (4));
-    yap::PokemonInfo* pokInfo5 = new yap::PokemonInfo (yap::ID (9));
-    yap::PokemonInfo* pokInfo6 = new yap::PokemonInfo (yap::ID (10));
-    yap::PokemonInfo* pokInfo7 = new yap::PokemonInfo (yap::ID (7));
-    yap::PokemonInfo* pokInfo8 = new yap::PokemonInfo (yap::ID (16));
-
-    pokInfo1->SetName ("Tortank");
-    pokInfo2->SetName ("Bulbizare");
-    pokInfo3->SetName ("Ratata");
-    pokInfo4->SetName ("Pikachu");
-    pokInfo5->SetName ("Dracofeu");
-    pokInfo6->SetName ("Alakazham");
-    pokInfo7->SetName ("Onyx");
-    pokInfo8->SetName ("Morpho");
-
-    pokList.Add (pokInfo1);
-    pokList.Add (pokInfo2);
-    pokList.Add (pokInfo3);
-    pokList.Add (pokInfo4);
-    pokList.Add (pokInfo5);
-    pokList.Add (pokInfo6);
-    pokList.Add (pokInfo7);
-    pokList.Add (pokInfo8);
-
-    pokedex_->SetPokemonSeenInfoList (pokList);
-    pokedex_->SetPokemonList (pokList);
+    pokedex_->OnAddPokemon += [this] (yap::Pokedex& sender, const yap::EmptyEventArgs& args)
+    {
+      Refresh ();
+    };
   }
 
   PokedexWidget::~PokedexWidget ()
@@ -74,12 +50,11 @@ namespace ycl
 
     firstHLayout_ = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), false);
     firstHLayout_->SetSize (yap::Vector2 (600, 400));
-    firstHLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     yap::HorizontalLayout* secondHLayout = new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
-    yap::VerticalLayout* firstVLayout = new yap::VerticalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
+    yap::VerticalLayout* firstVLayout_ = new yap::VerticalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
 
     yap::VerticalLayout* secondVLayout = new yap::VerticalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
-
+    secondHLayout->SetDefaultColor (sf::Color::White);
     yap::PictureBox* title = new yap::PictureBox ();
     title->SetPicture ("WindowSkins/BasicSkin/Pokedex/Title.png");
 
@@ -90,20 +65,19 @@ namespace ycl
     boxInfoContent_->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png");
     boxInfo->AddChild (*boxInfoContent_);
 
-    firstVLayout->AddChild (*title);
-    firstVLayout->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    firstVLayout_->AddChild (*title);    
 
     yap::WidgetBackground* menuBackground = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/ListBackground.png", true);
     menu_ = new yap::Menu (yap::Menu::Type::VERTICAL, yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
     yap::WidgetBackground* selectedBackground = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/SelectionBackground.png", true);
     menu_->SetSelectedBackground (*selectedBackground);
-    menu_->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout->GetSize ().x, firstHLayout_->GetSize ().y));
+    menu_->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x, firstHLayout_->GetSize ().y));
     menu_->SetBackground (*menuBackground);
 
     for (int i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
     {
       yap::MenuItem* item = new yap::MenuItem (false);
-      item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout->GetSize ().x - 10, 28));
+      item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
       const yap::PokemonInfo* current = pokedex_->GetPokemonSeenID (i);
 
       if (current == nullptr)
@@ -119,7 +93,7 @@ namespace ycl
       {
         item->SetContent ("N." + yap::StringHelper::ToString(i) + "    " + current->GetName ());
         item->OnActivated +=
-          [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+          [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
           validatedPokemon_ = pokedex_->GetPokemon (menu_->GetCurrentSelect ());
           firstHLayout_->Close ();
@@ -127,29 +101,73 @@ namespace ycl
         };
       }
       item->ChangeColor (sf::Color (0, 0, 0));
-      item->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+      /*item->SetBorder (*new yap::WidgetBorder ("Test/red.png"));*/
       menu_->AddChild (*item, yap::LayoutBox::Align::LEFT);
 
     }
-    yap::Label* pokSeen = new yap::Label ("Vus : "  + yap::StringHelper::ToString (pokedex_->GetPokemonSeenCount ()));
-    yap::Label* pokCaught = new yap::Label ("Pris : "  + yap::StringHelper::ToString (pokedex_->GetPokemonCaughtCount ()));
+    pokSeen_ = new yap::Label ("Vus : "  + yap::StringHelper::ToString (pokedex_->GetPokemonSeenCount ()));
+    pokCaught_ = new yap::Label ("Pris : "  + yap::StringHelper::ToString (pokedex_->GetPokemonCaughtCount ()));
+    pokSeen_->ChangeColor (sf::Color::White);
+    pokCaught_->ChangeColor (sf::Color::White);
 
-    secondVLayout->AddChild (*pokSeen);
-    secondVLayout->AddChild (*pokCaught);
+    
+    secondVLayout->AddChild (*pokSeen_);
+    secondVLayout->AddChild (*pokCaught_);
 
     secondHLayout->AddChild (*secondVLayout, yap::LayoutBox::Align::TOP);
     secondHLayout->AddChild (*boxInfo);
-    secondHLayout->Refresh ();
-    secondHLayout->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    secondHLayout->Refresh ();    
 
-    firstVLayout->AddChild (*secondHLayout, yap::LayoutBox::Align::RIGHT);
+    firstVLayout_->AddChild (*secondHLayout, yap::LayoutBox::Align::RIGHT);
 
-    firstHLayout_->AddChild (*firstVLayout, yap::LayoutBox::Align::TOP);
+    firstHLayout_->AddChild (*firstVLayout_, yap::LayoutBox::Align::TOP);
     firstHLayout_->AddChild (*menu_);
 
     AddChild (*firstHLayout_);
   }
 
+  void PokedexWidget::Refresh ()
+  {
+    if (menu_ != nullptr)
+      menu_->Clear ();
+    else
+      return;
+
+    if (pokedex_ != nullptr)
+      for (int i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
+      {
+        yap::MenuItem* item = new yap::MenuItem (false);
+        item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
+        const yap::PokemonInfo* current = pokedex_->GetPokemonSeenID (i);
+
+        if (current == nullptr)
+        {
+          item->SetContent ("N." + yap::StringHelper::ToString(i) + "    --------");
+          item->OnSelected +=
+            [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+          {
+            boxInfoContent_->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png");
+          };
+        }
+        else
+        {
+          item->SetContent ("N." + yap::StringHelper::ToString(i) + "    " + current->GetName ());
+          item->OnActivated +=
+            [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+          {
+            validatedPokemon_ = pokedex_->GetPokemon (menu_->GetCurrentSelect ());
+            firstHLayout_->Close ();
+            pokedexInfo_->Open ();
+          };
+        }
+        item->ChangeColor (sf::Color (0, 0, 0));
+        /*item->SetBorder (*new yap::WidgetBorder ("Test/red.png"));*/
+        menu_->AddChild (*item, yap::LayoutBox::Align::LEFT);
+
+      }
+      pokSeen_->SetText ("Vus : "  + yap::StringHelper::ToString (pokedex_->GetPokemonSeenCount ()));
+      pokCaught_->SetText ("Pris : "  + yap::StringHelper::ToString (pokedex_->GetPokemonCaughtCount ()));
+  }
   yap::PokemonInfo* PokedexWidget::GetActivatedPokemon () const
   {
     return validatedPokemon_;

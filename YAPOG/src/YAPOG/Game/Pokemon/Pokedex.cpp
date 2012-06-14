@@ -65,16 +65,19 @@ namespace yap
 
   void Pokedex::AddPokemon (PokemonInfo* pok)
   {
+    OnAddPokemon (*this, yap::EmptyEventArgs ());
     pokList_.Add (pok);
   }
 
   void Pokedex::AddPokemonSeen (PokemonInfo* pokSeen)
   {
+    OnAddPokemon (*this, yap::EmptyEventArgs ());
     pokSeen_.Add (pokSeen);
   }
 
   void Pokedex::AddPokemonCaught (PokemonInfo* pokCaught)
   {
+    OnAddPokemon (*this, yap::EmptyEventArgs ());
     pokCaught_.Add (pokCaught);
   }
 

@@ -109,6 +109,13 @@ namespace yap
 
   }
 
+  void Menu::Clear ()
+  {
+    itemz_.Clear ();
+    currentSelec_ = 0;
+    layout_->Clear ();
+    layoutManager_->Clear ();
+  }
   uint Menu::GetCurrentSelect () const
   {
     return currentSelec_;
