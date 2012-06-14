@@ -19,8 +19,8 @@ namespace ycl
     /// @name Getters.
     /// @{
     yap::MenuItem& GetLoginItem ();
-    const yap::MenuItem& GetRegistrationItem () const;
-    const yap::MenuItem& GetExitItem () const;
+    yap::MenuItem& GetRegistrationItem ();
+    yap::MenuItem& GetExitItem ();
     /// @}
 
   private:

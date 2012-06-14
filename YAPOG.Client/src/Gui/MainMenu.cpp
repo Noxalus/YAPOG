@@ -10,8 +10,8 @@ namespace ycl
 
   MainMenu::MainMenu ()
     : Menu (yap::Menu::Type::VERTICAL,
-            yap::Padding (5, 5, 5, 5),
-            yap::Padding (5, 5, 5, 5),
+            yap::Padding (10, 10, 10, 10),
+            yap::Padding (10, 10, 10, 10),
             false)
     , loginItem_ (nullptr)
     , registrationItem_ (nullptr)
@@ -57,7 +57,6 @@ namespace ycl
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);
 
     loginItem_ = new yap::MenuItem (true);
@@ -88,10 +87,10 @@ namespace ycl
   yap::MenuItem& MainMenu::GetLoginItem ()
   { return *loginItem_; }
 
-  const yap::MenuItem& MainMenu::GetRegistrationItem () const
+  yap::MenuItem& MainMenu::GetRegistrationItem ()
   { return *registrationItem_; }
 
-  const yap::MenuItem& MainMenu::GetExitItem () const
+  yap::MenuItem& MainMenu::GetExitItem ()
   { return *exitItem_; }
 
 } // namespace ycl

@@ -3,34 +3,22 @@
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 
-#include "Gui/LoginWidget.hpp"
+#include "Gui/RegistrationWidget.hpp"
 #include "Game.hpp"
 
 namespace ycl
 {
 
-  LoginWidget::LoginWidget ()
+  RegistrationWidget::RegistrationWidget ()
     : yap::BaseWidget ()
-    , widgetBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
-    , true)
-    , loginBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
-    , true)
-    , passwordBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
-    , true)
-    , loginLabel_ ("Login: ")
-    , passwordLabel_ ("Password: ")
+    , registrationBox_ ()
     , loginTextBox_ ()
     , passwordTextBox_ ()
+    , emailTextBox_ ()
   {
   }
 
-  void LoginWidget::Init ()
+  void RegistrationWidget::Init ()
   {
     yap::WidgetBackground* menuBck = 
       new yap::WidgetBackground (
@@ -68,64 +56,71 @@ namespace ycl
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
+    registrationBox_.AddChild (loginTextBox_);
+    registrationBox_.AddChild (passwordTextBox_);
+    registrationBox_.AddChild (emailTextBox_);
+    AddChild (registrationBox_);
+
+    registrationBox_.SetSize (yap::Vector2 (200, 100));
+    SetPosition (yap::Vector2 (
+      Game::SCREEN_SIZE.x / 2 - GetSize ().x / 2,
+      Game::SCREEN_SIZE.y / 2 - GetSize ().y / 2
+      ));
     loginTextBox_.SetSize (yap::Vector2 (200, 32));
     passwordTextBox_.SetSize (yap::Vector2 (200, 32));
 
-    loginBox_.AddChild (loginLabel_);
-    loginBox_.AddChild (loginTextBox_);
-
-    passwordBox_.AddChild (passwordLabel_);
-    passwordBox_.AddChild (passwordTextBox_);
-
-    widgetBox_.AddChild (loginBox_, yap::LayoutBox::Align::LEFT);
-    widgetBox_.AddChild (passwordBox_, yap::LayoutBox::Align::LEFT);
-
-    AddChild (widgetBox_);
-
-    widgetBox_.SetBackground (*menuBck);
-    widgetBox_.SetBorder (*menuBorder);
+    registrationBox_.SetBackground (*menuBck);
+    registrationBox_.SetBorder (*menuBorder);
 
     loginTextBox_.Move (yap::Vector2 (10, 0));
-    passwordTextBox_.Move (yap::Vector2 (10, 0));
+    passwordTextBox_.Move (yap::Vector2 (10, 5));
+    emailTextBox_.Move (yap::Vector2 (10, 5));
+
+    loginTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Black.png"));
+    passwordTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Green.png"));
+    emailTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Red.png"));
   }
 
-  LoginWidget::~LoginWidget ()
+  RegistrationWidget::~RegistrationWidget ()
   {
   }
 
   /// Getters
-  yap::TextBoxWidget& LoginWidget::GetLoginTextBox ()
+  yap::TextBoxWidget& RegistrationWidget::GetLoginTextBox ()
   { return loginTextBox_; }
 
-  yap::TextBoxWidget& LoginWidget::GetPasswordTextBox ()
+  yap::TextBoxWidget& RegistrationWidget::GetPasswordTextBox ()
   { return passwordTextBox_; }
 
-  bool LoginWidget::IsFocusable () const
+  yap::TextBoxWidget& RegistrationWidget::GetEmailTextBox ()
+  { return emailTextBox_; }
+
+  bool RegistrationWidget::IsFocusable () const
   {
     return false;
   }
 
-  void LoginWidget::HandleMove (const yap::Vector2& offset)
+  void RegistrationWidget::HandleMove (const yap::Vector2& offset)
   {
   }
 
-  void LoginWidget::HandleScale (const yap::Vector2& factor)
+  void RegistrationWidget::HandleScale (const yap::Vector2& factor)
   {
   }
 
-  void LoginWidget::HandleDraw (yap::IDrawingContext& context)
+  void RegistrationWidget::HandleDraw (yap::IDrawingContext& context)
   {
   }
 
-  void LoginWidget::HandleShow (bool isVisible)
+  void RegistrationWidget::HandleShow (bool isVisible)
   {
   }
 
-  void LoginWidget::HandleChangeColor (const sf::Color& color)
+  void RegistrationWidget::HandleChangeColor (const sf::Color& color)
   {
   }
 
-  void LoginWidget::HandleUpdate (const yap::Time& dt)
+  void RegistrationWidget::HandleUpdate (const yap::Time& dt)
   {
   }
 

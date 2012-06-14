@@ -26,6 +26,7 @@ namespace ycl
     : BaseScreen (DEFAULT_NAME)
     , loginWidget_ ()
   {
+    loginWidget_.Init ();
   }
 
   LoginScreen::~LoginScreen ()
@@ -43,7 +44,7 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    Login ();
+    //Login ();
 
     return BaseScreen::HandleRun (dt, context);
   }
