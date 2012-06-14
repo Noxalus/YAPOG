@@ -83,7 +83,16 @@ namespace yap
   {
     if (selecBrdr_ != nullptr)
       child.SetBorder (*selecBrdr_);
-    itemz_.Add (&child);
+    if (itemz_.Count () == 0)
+    {
+      itemz_.Add (&child);
+      child.OnSelected (child, EmptyEventArgs ());
+    }
+    else
+    {
+      itemz_.Add (&child);
+    }
+    
     layout_->AddChild (child, align);
     layoutManager_->AddItem (&child);
 
