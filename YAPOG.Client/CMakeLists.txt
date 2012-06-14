@@ -119,6 +119,8 @@ ${inc_root}/Gui/PokemonTeamWidget.hpp
 ${src_root}/Gui/PokemonTeamWidget.cpp
 ${inc_root}/Gui/PokedexCompositeWidget.hpp
 ${src_root}/Gui/PokedexCompositeWidget.cpp
+${inc_root}/Gui/RegistrationWidget.hpp
+${src_root}/Gui/RegistrationWidget.cpp
 
 ${inc_root}/Game.hpp
 ${src_root}/Game.cpp

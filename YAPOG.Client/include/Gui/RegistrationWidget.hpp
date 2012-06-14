@@ -1,21 +1,20 @@
-#ifndef YAPOG_CLIENT_LOGINWIDGET_HPP
-# define YAPOG_CLIENT_LOGINWIDGET_HPP
+#ifndef YAPOG_CLIENT_REGISTRATIONWIDGET_HPP
+# define YAPOG_CLIENT_REGISTRATIONWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 # include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
-# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 
 namespace ycl
 {
-  class LoginWidget : public yap::BaseWidget
+  class RegistrationWidget : public yap::BaseWidget
   {
-    DISALLOW_COPY(LoginWidget);
+    DISALLOW_COPY(RegistrationWidget);
 
   public:
-    LoginWidget();
-    virtual ~LoginWidget ();
+    RegistrationWidget();
+    virtual ~RegistrationWidget ();
 
     void Init ();
 
@@ -23,6 +22,7 @@ namespace ycl
     /// @{
     yap::TextBoxWidget& GetLoginTextBox ();
     yap::TextBoxWidget& GetPasswordTextBox ();
+    yap::TextBoxWidget& GetEmailTextBox ();
     /// @}
 
     virtual bool IsFocusable () const;
@@ -35,25 +35,11 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    /// @name Layouts.
-    /// @{
-    yap::VerticalLayout widgetBox_;
-    yap::HorizontalLayout loginBox_;
-    yap::HorizontalLayout passwordBox_;
-    /// @}
-
-    /// @name Labels.
-    /// @{
-    yap::Label loginLabel_;
-    yap::Label passwordLabel_;
-    /// @}
-
-    /// @name TextWidget.
-    /// @{
+    yap::VerticalLayout registrationBox_;
     yap::TextBoxWidget loginTextBox_;
     yap::TextBoxWidget passwordTextBox_;
-    /// @}
+    yap::TextBoxWidget emailTextBox_;
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_LOGINWIDGET_HPP
+#endif // YAPOG_CLIENT_REGISTRATIONWIDGET_HPP

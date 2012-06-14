@@ -5,6 +5,7 @@
 
 int main()
 {
+  /*
 	// SERVER
 	// boost::filesystem::path t(boost::filesystem::current_path());
 	boost::filesystem::path serv("D:\\git\\YAPOG_try");//(boost::filesystem::current_path());
@@ -18,7 +19,8 @@ int main()
 	yap::FileChecker::VFileType vc = fs.SendFileToDownload(fc);
 	// Network test
 	fc.Update(vc);
-	
+	*/
+
 	getchar();
   return 0;
 }

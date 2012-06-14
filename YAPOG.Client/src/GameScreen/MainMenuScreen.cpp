@@ -29,6 +29,12 @@ namespace ycl
       nextScreen_ = "Login";
     };
 
+    mainMenu->GetRegistrationItem ().OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Registration";
+    };
+
     guiManager_->AddChild (*mainMenu);
   }
 
