@@ -127,8 +127,8 @@ namespace ycl
     bigLayout_->SetBorder (*chatBorder);
     bigLayout_->SetPosition (
       yap::Vector2 (
-      Game::SCREEN_SIZE.x - 20,
-      20));
+      20,
+      Game::SCREEN_SIZE.y - GetSize ().y - 20));
   }
 
   bool ChatWidget::IsFocusable () const
