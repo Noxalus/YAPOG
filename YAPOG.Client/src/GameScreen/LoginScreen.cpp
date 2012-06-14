@@ -49,6 +49,20 @@ namespace ycl
     return BaseScreen::HandleRun (dt, context);
   }
 
+  bool LoginScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        nextScreen_ = "MainMenu";
+      }
+
+      return true;
+    }
+    return false;
+  }
+
   //!\\ tmp
   void LoginScreen::Login ()
   {

@@ -12,16 +12,16 @@ namespace ycl
   LoginWidget::LoginWidget ()
     : yap::BaseWidget ()
     , widgetBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
     , true)
     , loginBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
     , true)
     , passwordBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
     , true)
     , loginLabel_ ("Login: ")
     , passwordLabel_ ("Password: ")
@@ -81,6 +81,11 @@ namespace ycl
     widgetBox_.AddChild (passwordBox_, yap::LayoutBox::Align::LEFT);
 
     AddChild (widgetBox_);
+    
+    SetPosition (yap::Vector2 (
+      (Game::SCREEN_SIZE.x - widgetBox_.GetSize ().x) / 2,
+      (Game::SCREEN_SIZE.y - widgetBox_.GetSize ().y) / 2
+      ));
 
     widgetBox_.SetBackground (*menuBck);
     widgetBox_.SetBorder (*menuBorder);

@@ -82,23 +82,6 @@ namespace ycl
     /*ChatWidget* chat = new ChatWidget ();
     chat->Init ();
     guiManager_->AddChild (*chat);*/
-
-    /*
-    yap::MultiLabelWidget* labels =
-      new yap::MultiLabelWidget (yap::Padding (5, 5, 5, 5), yap::Padding (0, 0, 0, 0), false);
-    labels->SetSize (yap::Vector2 (242, 96));
-    yap::HorizontalLayout* diaLayout =
-      new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0), yap::Padding (0, 0, 0, 0), true);
-    diaLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    diaLayout->AddChild (*labels);
-
-    diaLayout->SetPosition (yap::Vector2 (512, 256));
-    for (int i = 0; i < 10; i++)
-    {
-      labels->AddText ("Test" + yap::StringHelper::ToString (i), 12);
-    }
-    guiManager_->AddChild (*diaLayout);
-    */
   }
 
   const yap::ScreenType& GameplayScreen::HandleRun (

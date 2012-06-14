@@ -2,7 +2,9 @@
 # define YAPOG_CLIENT_REGISTRATIONWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Gui/Label.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 # include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 
@@ -35,10 +37,16 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    yap::VerticalLayout registrationBox_;
-    yap::TextBoxWidget loginTextBox_;
-    yap::TextBoxWidget passwordTextBox_;
-    yap::TextBoxWidget emailTextBox_;
+    yap::VerticalLayout   registrationBox_;
+    yap::HorizontalLayout loginBox_;
+    yap::TextBoxWidget    loginTextBox_;
+    yap::Label            loginLabel_;
+    yap::HorizontalLayout passwordBox_;
+    yap::TextBoxWidget    passwordTextBox_;
+    yap::Label            passwordLabel_;
+    yap::HorizontalLayout emailBox_;
+    yap::TextBoxWidget    emailTextBox_;
+    yap::Label            emailLabel_;
   };
 } // namespace ycl
 
