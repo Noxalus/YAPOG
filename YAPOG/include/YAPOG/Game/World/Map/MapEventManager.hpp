@@ -25,7 +25,7 @@ namespace yap
         collection::Set<
           MapEventContext*,
           MapEventContextTriggerComparator>> EventTriggeringType;
-      /// Map<Object, Map<Source Event, Set<Event context (Trigger...)>>>
+      /// Map<Source Object, Map<Source Event, Set<Event context>>>
       typedef collection::Map<
         const DynamicWorldObject*,
         EventTriggeringType> ObjectEventsType;
@@ -38,7 +38,6 @@ namespace yap
       void SetCollidableArea (CollidableArea* collidableArea);
 
       void UpdateObject (DynamicWorldObject& object);
-      /// @todo Remove all dependencies of this object.
       void RemoveObject (const DynamicWorldObject& object);
 
       /// @name IUpdateable members.
@@ -48,14 +47,8 @@ namespace yap
 
     private:
 
-      bool AddEventEntry (
-        const DynamicWorldObject* object,
-        MapEvent* event,
-        MapEventContext* eventContext);
-      bool RemoveEventEntry (
-        const DynamicWorldObject* object,
-        MapEvent* event,
-        MapEventContext* eventContext);
+      bool AddEventEntry (MapEventContext* eventContext);
+      bool RemoveEventEntry (MapEventContext* eventContext);
 
       void UpdateObjectOut (const DynamicWorldObject& object);
       void UpdateObjectIn (DynamicWorldObject& object);
