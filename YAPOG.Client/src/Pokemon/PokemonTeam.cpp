@@ -25,6 +25,12 @@ namespace ycl
     return pokemonTeam_[index];
   }
 
+  int PokemonTeam::GetPokemonCount () const
+  {
+    return pokemonTeam_.Count ();
+  }
+
+
   bool PokemonTeam::AddPokemon (Pokemon* pokemon)
   {
     for (int i = 0; i < MAX_POKEMON_TEAM_NUMBER; i++)

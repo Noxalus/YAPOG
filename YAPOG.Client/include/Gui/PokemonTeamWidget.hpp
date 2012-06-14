@@ -1,5 +1,5 @@
-#ifndef YAPOG_CLIENT_WIDGETPOKEDEX_HPP
-# define YAPOG_CLIENT_WIDGETPOKEDEX_HPP
+#ifndef YAPOG_CLIENT_POKEMONTEAMWIDGET_HPP
+# define YAPOG_CLIENT_POKEMONTEAMWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
@@ -15,18 +15,16 @@ namespace yap
 
 namespace ycl
 {
-  class PokedexCompositeWidget;
-  class PokedexWidget : public yap::BaseWidget
+  class PokemonTeamWidget : public yap::BaseWidget
   {
-    DISALLOW_COPY(PokedexWidget);
+    DISALLOW_COPY(PokemonTeamWidget);
 
   public:
     
-    PokedexWidget (yap::Pokedex* pokedex);
+    PokemonTeamWidget ();
     void Init ();
-    virtual ~PokedexWidget();
+    virtual ~PokemonTeamWidget();
     virtual bool IsFocusable () const;
-    yap::PokemonInfo* GetActivatedPokemon () const;
 
   protected:
     virtual yap::Vector2 HandleGetSize () const;
@@ -41,18 +39,8 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    void RefreshAfterAdd ();
-    yap::Pokedex* pokedex_;
-    yap::PictureBox* boxInfoContent_;
-    yap::Menu* menu_;
-    yap::PokemonInfo* validatedPokemon_;
-    yap::HorizontalLayout* firstHLayout_;
-    yap::VerticalLayout* firstVLayout_;
-    PokedexCompositeWidget* pokedexInfo_;
-    yap::Label* pokSeen_;
-    yap::Label* pokCaught_;
 
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_WIDGETPOKEDEX_HPP
+#endif // YAPOG_CLIENT_POKEMONTEAMWIDGET_HPP
