@@ -44,7 +44,7 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    //Login ();
+//    Login ();
 
     BaseScreen::HandleRun (dt, context);
   }

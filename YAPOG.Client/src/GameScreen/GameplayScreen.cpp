@@ -86,13 +86,16 @@ namespace ycl
     yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
       Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
 
-      pokedexInfo->AddPokemon (pok);
-      pokedexInfo->AddPokemonSeen (pok);
-      pokedexInfo->AddPokemonCaught (pok);
+    pokedexInfo->AddPokemon (pok);
+    pokedexInfo->AddPokemonSeen (pok);
+    pokedexInfo->AddPokemonCaught (pok);
 
     PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
-    guiManager_->AddChild (*pokedex);
+
+    /// @warning Commented.
+//    guiManager_->AddChild (*pokedex);
+
     /// @warning Commented.
     //guiManager_->AddChild (*pokedex);
 

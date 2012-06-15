@@ -52,10 +52,13 @@ namespace yap
       {
         GameInputManager::Instance ().Update (guiEvent);
 
-        screenManager_->OnPriorityEvent (guiEvent);
+        if (screenManager_->OnPriorityEvent (guiEvent))
+          continue;
 
-        if (!screenManager_->OnEvent (guiEvent))
-          HandleOnEvent (guiEvent);
+        if (screenManager_->OnEvent (guiEvent))
+          continue;
+
+        HandleOnEvent (guiEvent);
       }
 
       GameInputManager::Instance ().EndUpdate ();

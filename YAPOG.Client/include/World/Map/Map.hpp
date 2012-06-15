@@ -39,6 +39,8 @@ namespace ycl
       void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);
 
+      void ClearDynamicObjects ();
+
       void AddDrawableDynamicObject (
         const yap::ID& worldID,
         yap::IDrawableDynamicWorldObject* drawableObject);

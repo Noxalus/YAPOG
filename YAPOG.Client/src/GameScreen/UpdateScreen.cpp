@@ -39,6 +39,9 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
+    /// @warning `return' statement to remove.
+    return;
+
     yap::WidgetBackground* updaterBground =
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png",

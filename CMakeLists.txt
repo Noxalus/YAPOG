@@ -109,6 +109,10 @@ SET( boost_filesystem_lib debug ${boost_filesystem_lib_debug_name} optimized ${b
 SET( boost_regex_lib debug ${boost_regex_lib_debug_name} optimized ${boost_regex_lib_release_name} )
 SET( boost_system_lib debug ${boost_system_lib_debug_name} optimized ${boost_system_lib_release_name} )
 
+if( UNIX )
+        SET( pthread_lib pthread )
+endif()
+
 SET(
 	link_lib
 	${sfml_system_lib}
@@ -122,7 +126,7 @@ SET(
 	${boost_regex_lib}
 	${boost_system_lib}
 	${pgsql_lib}
-        pthread
+        ${pthread_lib}
 )
 
 ADD_SUBDIRECTORY( YAPOG )

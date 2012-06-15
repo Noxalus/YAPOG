@@ -109,6 +109,8 @@ namespace ycl
     world_->AddMap (mapWorldID, mapID);
     world_->ChangeMap (mapWorldID);
 
+    GetMap ().ClearDynamicObjects ();
+
     yap::UInt64 objectCount = packet.ReadUInt64 ();
     for (yap::UInt64 count = 0; count < objectCount; ++count)
     {

@@ -62,6 +62,12 @@ namespace ycl
     RemovePlayer (&GetPlayer (worldID));
   }
 
+  void Map::ClearDynamicObjects ()
+  {
+    for (auto& idObjectPair : GetDynamicObjects ())
+      RemoveDrawableDynamicObject (idObjectPair.first);
+  }
+
   void Map::Draw (yap::IDrawingContext& context)
   {
     if (!IsVisible ())
