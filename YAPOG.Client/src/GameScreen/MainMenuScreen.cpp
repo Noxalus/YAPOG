@@ -34,6 +34,12 @@ namespace ycl
     {
       nextScreen_ = "Registration";
     };
+    
+    mainMenu->GetExitItem ().OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      exit (EXIT_SUCCESS);
+    };
 
     guiManager_->AddChild (*mainMenu);
   }

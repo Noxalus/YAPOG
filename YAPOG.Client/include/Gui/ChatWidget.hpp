@@ -45,6 +45,7 @@ namespace ycl
 
     virtual void            HandleDraw (yap::IDrawingContext& context);
     virtual bool            HandleOnEvent (const yap::GuiEvent& guiEvent);
+    virtual bool            HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
 
     virtual void            HandleShow (bool isVisible);
     virtual void            HandleChangeColor (const sf::Color& color);
@@ -56,6 +57,9 @@ namespace ycl
     void                    InitDial ();
     void                    InitEntry ();
     void                    DisplayResponse (ResponseType response);
+    bool                    TestAddChan (const yap::GuiEvent& guiEvent);
+    bool                    TestSwitchTab (const yap::GuiEvent& guiEvent);
+    bool                    TabAndChanHandler (bool chan, bool add, int i);
 
     yap::Chat*              chat_;
     yap::String             line_;

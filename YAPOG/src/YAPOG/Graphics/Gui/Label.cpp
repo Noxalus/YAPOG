@@ -33,7 +33,7 @@ namespace yap
       GetPosition ().y);
 
     isPosSet_ = true;
-    
+
     drawableText_.setFont 
       (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
   }
@@ -56,6 +56,14 @@ namespace yap
     return drawableText_.findCharacterPos (pos);
   }
 
+  void Label::Refresh ()
+  {
+    drawableText_.setPosition (
+      GetPosition ().x + padding_.left,
+      GetPosition ().y + padding_.top);
+    isPosSet_ = false;
+  }
+
   uint Label::Length () const
   {
     return textContent_.length ();
@@ -68,7 +76,8 @@ namespace yap
 
   Vector2 Label::HandleGetSize () const
   {
-    return Vector2 (padding_.left
+    if (userSize_ == Vector2 (0, 0))
+      return Vector2 (padding_.left
       + drawableText_.getGlobalBounds ().width
       + padding_.right,
       padding_.top
@@ -76,6 +85,8 @@ namespace yap
       + padding_.bottom)
       + ((border_ != nullptr) ? Vector2 (border_->GetWidth ()
       * 2, border_->GetWidth () * 2) : Vector2 ());
+    else
+      return GetUserSize ();
   }
 
   void Label::HandleDraw (IDrawingContext& context)
@@ -141,8 +152,8 @@ namespace yap
     if (isPosSet_)
     {
       drawableText_.setPosition (
-        GetPosition ().x,
-        GetPosition ().y);
+        GetPosition ().x + padding_.left,
+        GetPosition ().y + padding_.top);
       isPosSet_ = false;
     }
 

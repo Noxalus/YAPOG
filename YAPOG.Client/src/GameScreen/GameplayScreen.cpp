@@ -26,6 +26,7 @@
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
+#include "Gui/PokemonTeamWidget.hpp"
 
 
 namespace ycl
@@ -62,7 +63,7 @@ namespace ycl
 
     session_.GetUser ().SetWorld (&world_);
     chat_->Init ();
-    chat_->ChangeColor (sf::Color (0, 0, 0, 100));
+    chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
   }
 
@@ -77,7 +78,10 @@ namespace ycl
     BaseScreen::HandleInit ();
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
-
+    /*
+    PokemonTeamWidget* pokteam = new PokemonTeamWidget ();
+    pokteam->Init ();
+    guiManager_->AddChild (*pokteam);
     yap::Pokedex* pokedexInfo = new yap::Pokedex ();
     for (int i = 1; i < 4; i++)
     {
@@ -98,6 +102,11 @@ namespace ycl
 
     PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
+
+    guiManager_->AddChild (*pokedex);*/
+
+    /// @warning Commented.
+    //guiManager_->AddChild (*pokedex);
 
     guiManager_->AddChild (*chat_);
     /// @warning Commented.
