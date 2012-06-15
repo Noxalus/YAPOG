@@ -99,7 +99,11 @@ namespace yse
     {
       GetMap ().RemovePlayer (player_);
 
+      player_->SetPosition (mapPoint);
+
       SetMap (&GetWorld ().GetMap (mapWorldID));
+
+      return;
     }
 
     player_->SetPosition (mapPoint);
