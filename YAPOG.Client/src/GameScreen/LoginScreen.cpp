@@ -46,7 +46,7 @@ namespace ycl
   {
     BaseScreen::HandleRun (dt, context);
   }
-  
+
   bool LoginScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
