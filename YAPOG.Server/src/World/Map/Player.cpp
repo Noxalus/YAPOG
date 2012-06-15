@@ -78,10 +78,7 @@ namespace yse
 
   void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)
   {
-    GetParent ().GetMap ().RemovePlayer (this);
-    GetParent ().GetWorld ().GetMap (mapWorldID).AddPlayer (this);
-
-    SetPosition (point);
+    GetParent ().ChangeMap (mapWorldID, point);
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const

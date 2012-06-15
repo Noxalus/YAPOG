@@ -9,6 +9,8 @@ namespace yap
 {
   MapEventManager::MapEventManager ()
     : events_ ()
+    , leaveEvents_ ()
+    , enterEvents_ ()
     , collidableArea_ (nullptr)
   {
   }
@@ -24,6 +26,18 @@ namespace yap
 
   void MapEventManager::Update (const Time& dt)
   {
+    while (!leaveEvents_.IsEmpty ())
+    {
+      MapEventContext* event = leaveEvents_.Dequeue (event);
+      CallEvent (MapEventActionType::Leave, dt, *event);
+    }
+
+    while (!enterEvents_.IsEmpty ())
+    {
+      MapEventContext* event = enterEvents_.Dequeue (event);
+      CallEvent (MapEventActionType::Enter, dt, *event);
+    }
+
     for (auto& objectEvents : events_)
       for (auto& eventTriggering : objectEvents.second)
         for (MapEventContext* event : eventTriggering.second)
@@ -38,7 +52,20 @@ namespace yap
 
   void MapEventManager::RemoveObject (const DynamicWorldObject& object)
   {
-    /// @todo
+    events_.Remove (&object);
+
+    collection::Queue<MapEventContext*> eventsToRemove;
+    for (auto& objectEventsPair : events_)
+      for (auto& eventContextPair : objectEventsPair.second)
+        for (MapEventContext* eventContext : eventContextPair.second)
+          if (&eventContext->GetTrigger () == &object)
+            eventsToRemove.Enqueue (eventContext);
+
+    while (!eventsToRemove.IsEmpty ())
+    {
+      MapEventContext* event = eventsToRemove.Dequeue (event);
+      RemoveEventEntry (event);
+    }
   }
 
   void MapEventManager::UpdateObjectOut (const DynamicWorldObject& object)
@@ -55,9 +82,9 @@ namespace yap
           continue;
         }
 
-        RemoveEventEntry (&object, event.first, eventContext);
+        RemoveEventEntry (eventContext);
 
-        CallEvent (MapEventActionType::Leave, Time (), *eventContext);
+        AddLeaveEvent (eventContext);
       }
     }
   }
@@ -72,27 +99,24 @@ namespace yap
     {
       MapEventContext& event = events.GetEvent ();
 
-      if (!AddEventEntry (
-            &object,
-            &event.GetMapEventInfo ().GetEvent (),
-            &event))
+      if (!AddEventEntry (&event))
         continue;
 
-      CallEvent (MapEventActionType::Enter, Time (), event);
+      AddEnterEvent (&event);
     }
   }
 
-  bool MapEventManager::AddEventEntry (
-    const DynamicWorldObject* object,
-    MapEvent* event,
-    MapEventContext* eventContext)
+  bool MapEventManager::AddEventEntry (MapEventContext* eventContext)
   {
-    auto eventTriggering = events_.TryGetValue (object);
+    DynamicWorldObject& object = eventContext->GetTrigger ();
+    MapEvent& event = eventContext->GetMapEventInfo ().GetEvent ();
+
+    auto eventTriggering = events_.TryGetValue (&object);
 
     if (eventTriggering == nullptr)
-      events_.Add (object, EventTriggeringType ());
+      events_.Add (&object, EventTriggeringType ());
 
-    auto eventTriggers = eventTriggering->TryGetValue (event);
+    auto eventTriggers = eventTriggering->TryGetValue (&event);
 
     if (eventTriggers == nullptr)
     {
@@ -104,7 +128,7 @@ namespace yap
         return false;
 
       eventTriggering->Add (
-        event,
+        &event,
         triggers);
 
       return true;
@@ -113,17 +137,17 @@ namespace yap
     return eventTriggers->Add (eventContext);
   }
 
-  bool MapEventManager::RemoveEventEntry (
-    const DynamicWorldObject* object,
-    MapEvent* event,
-    MapEventContext* eventContext)
+  bool MapEventManager::RemoveEventEntry (MapEventContext* eventContext)
   {
-    auto eventTriggering = events_.TryGetValue (object);
+    DynamicWorldObject& object = eventContext->GetMapEventInfo ().GetParent ();
+    MapEvent& event = eventContext->GetMapEventInfo ().GetEvent ();
+
+    auto eventTriggering = events_.TryGetValue (&object);
 
     if (eventTriggering == nullptr)
       return false;
 
-    auto eventTriggers = eventTriggering->TryGetValue (event);
+    auto eventTriggers = eventTriggering->TryGetValue (&event);
 
     if (eventTriggers == nullptr)
       return false;
@@ -132,12 +156,22 @@ namespace yap
       return false;
 
     if (eventTriggers->IsEmpty ())
-      eventTriggering->Remove (event);
+      eventTriggering->Remove (&event);
 
     if (eventTriggering->IsEmpty ())
-      events_.Remove (object);
+      events_.Remove (&object);
 
     return true;
+  }
+
+  void MapEventManager::AddLeaveEvent (MapEventContext* event)
+  {
+    leaveEvents_.Enqueue (event);
+  }
+
+  void MapEventManager::AddEnterEvent (MapEventContext* event)
+  {
+    enterEvents_.Enqueue (event);
   }
 
   bool MapEventManager::CallEvent (

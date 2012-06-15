@@ -38,7 +38,7 @@ namespace yap
       endListHandle = (endListHandle >= 0) ? endListHandle : 0;
       uint it = MathHelper::Clamp<int>(cursorCurSel_ - itemBeforeCount - endListHandle, 0, cursorCurSel_);
 
-      while (it < cursorCurSel_)
+      while (it < itemz_.Count () && it < cursorCurSel_)
       {
         layout_->AddChild (*itemz_[it], yap::LayoutBox::Align::LEFT);
         it++;

@@ -2,8 +2,9 @@
 # define YAPOG_EVENT_HPP
 
 # include <functional>
+# include <memory>
 
-# include <boost/signal.hpp>
+# include <boost/signals2.hpp>
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Map.hpp"
@@ -36,7 +37,8 @@ namespace yap
   {
       DISALLOW_COPY(Event);
 
-      typedef boost::signal2<ReturnType, SenderType, ArgsType> SignalType;
+      typedef boost::signals2::signal<
+        ReturnType (SenderType, ArgsType)> SignalType;
       typedef typename SignalType::slot_type HandlerType;
 
     public:
@@ -44,20 +46,20 @@ namespace yap
       Event ();
       ~Event ();
 
-      Event& operator+= (const HandlerType handler);
+      Event& operator+= (HandlerType handler);
 
-      void AddHandler (const String& name, const HandlerType handler);
+      void AddHandler (const String& name, HandlerType handler);
       void RemoveHandler (const String& name);
 
       ReturnType operator() (SenderType sender, ArgsType args);
 
     private:
 
-      typedef boost::signals::connection ConnectionType;
+      typedef boost::signals2::scoped_connection ConnectionType;
 
       SignalType sig_;
 
-      collection::Map<String, ConnectionType> handlers_;
+      collection::Map<String, std::shared_ptr<ConnectionType>> handlers_;
   };
 } // namespace yap
 

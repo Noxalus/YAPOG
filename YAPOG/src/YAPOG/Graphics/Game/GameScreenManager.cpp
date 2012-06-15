@@ -64,6 +64,11 @@ namespace yap
     currentScreen_->Activate ();
   }
 
+  void GameScreenManager::NextFrame ()
+  {
+    currentScreen_->NextFrame ();
+  }
+
   void GameScreenManager::Run (const Time& dt, IDrawingContext& context)
   {
     SetCurrentScreen (currentScreen_->Run (dt, context));

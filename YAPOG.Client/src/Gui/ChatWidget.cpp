@@ -3,6 +3,7 @@
 #include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 
 #include "Gui/ChatWidget.hpp"
+#include "Game.hpp"
 
 namespace ycl
 {
@@ -26,7 +27,6 @@ namespace ycl
     yap::Texture* cursor = new yap::Texture ();
     cursor->LoadFromFile ("WindowSkins/BasicSkin/Global/TextCursor.png");
     bigLayout_->SetSize (yap::Vector2 (300, 150));
-    lineCatcher_->ChangeColor (sf::Color::Black);
     lineCatcher_->SetCursor (*cursor);
     lineCatcher_->SetSize (yap::Vector2 (242, 12));
   }
@@ -87,6 +87,7 @@ namespace ycl
     entryLayout_->SetSize (yap::Vector2 (242, 12));
 
     entryLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    lineCatcher_->ChangeColor (sf::Color::Black);
     entryLayout_->AddChild (*lineCatcher_);
     bigLayout_->AddChild (*entryLayout_);
   }
@@ -120,13 +121,14 @@ namespace ycl
     InitTab ();
     InitDial ();
     InitEntry ();
-
-    //tabTitle[chat_->GetTabNb ()]
-
+    
     AddChild (*bigLayout_);
-    bigLayout_->SetBackground (*chatBground);
     bigLayout_->SetBorder (*chatBorder);
-    bigLayout_->SetPosition (yap::Vector2 (42, 242));
+    bigLayout_->SetPosition (
+      yap::Vector2 (
+      20,
+      Game::SCREEN_SIZE.y - GetSize ().y - 20));
+    bigLayout_->SetBackground (*chatBground);
   }
 
   bool ChatWidget::IsFocusable () const
@@ -136,7 +138,7 @@ namespace ycl
 
   yap::Vector2 ChatWidget::HandleGetSize () const
   {
-    return yap::Vector2 (300, 150);
+    return bigLayout_->GetSize ();
   }
 
   void ChatWidget::DisplayResponse (ResponseType res)
@@ -193,6 +195,7 @@ namespace ycl
           DisplayResponse (response);
         lineCatcher_->Clear ();
       }
+
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
         chat_->SetBuf ("/up");
@@ -201,6 +204,7 @@ namespace ycl
         if (!todisplay.empty ())
           lineCatcher_->SetText (todisplay);
       }
+
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
         chat_->SetBuf ("/down");
@@ -208,6 +212,11 @@ namespace ycl
         lineCatcher_->Clear ();
         if (!todisplay.empty ())
           lineCatcher_->SetText (todisplay);
+      }
+
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        this->Close ();
       }
 
       return true;

@@ -101,17 +101,17 @@ namespace ycl
         HpBarContent_.Move (offset);
         hpLevel_.Move (offset);
       }
-      virtual void HandleScale (const yap::Vector2& factor);
+      virtual void HandleScale (const yap::Vector2& factor)
     {
-        pokIcon_.Scale (offset);
-        pokName_.Scale (offset);
-        pokLevel_.Scale (offset);
-        pokGender_.Scale (offset);
-        HpBar_.Scale (offset);
-        HpBarContent_.Scale (offset);
-        hpLevel_.Scale (offset);
+        pokIcon_.Scale (factor);
+        pokName_.Scale (factor);
+        pokLevel_.Scale (factor);
+        pokGender_.Scale (factor);
+        HpBar_.Scale (factor);
+        HpBarContent_.Scale (factor);
+        hpLevel_.Scale (factor);
       }
-      virtual void HandleDraw (yap::IDrawingContext& context);
+      virtual void HandleDraw (yap::IDrawingContext& offset)
       {
         pokIcon_.Draw (offset);
         pokName_.Draw (offset);
@@ -121,13 +121,13 @@ namespace ycl
         HpBarContent_.Draw (offset);
         hpLevel_.Draw (offset);
       }
-      virtual void HandleShow (bool isVisible);
+      virtual void HandleShow (bool isVisible)
       {
       }
-      virtual void HandleChangeColor (const sf::Color& color);
+      virtual void HandleChangeColor (const sf::Color& color)
       {
       }
-      virtual void HandleUpdate (const yap::Time& dt);
+      virtual void HandleUpdate (const yap::Time& dt)
       {
       }
     };

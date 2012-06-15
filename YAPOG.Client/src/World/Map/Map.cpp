@@ -1,10 +1,8 @@
 #include "YAPOG/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
-#include "YAPOG/Game/Factory/ObjectFactory.hpp"
 
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
-#include "World/Map/NPC.hpp"
 
 namespace ycl
 {
@@ -22,8 +20,6 @@ namespace ycl
     ADD_HANDLER(
       ServerInfoUpdateObjectState,
       Map::HandleServerInfoUpdateObjectState);
-    ADD_HANDLER(ServerInfoAddObject, Map::HandleServerInfoAddObject);
-    ADD_HANDLER(ServerInfoRemoveObject, Map::HandleServerInfoRemoveObject);
   }
 
   Map::~Map ()
@@ -40,6 +36,11 @@ namespace ycl
   Player& Map::GetPlayer (const yap::ID& worldID)
   {
     return *players_[worldID];
+  }
+
+  bool Map::ContainsPlayer (const yap::ID& worldID)
+  {
+    return players_.Contains (worldID);
   }
 
   void Map::AddPlayer (Player* player)
@@ -61,13 +62,10 @@ namespace ycl
     RemovePlayer (&GetPlayer (worldID));
   }
 
-  void Map::HandleLoadObjects (yap::IPacket& packet)
+  void Map::ClearDynamicObjects ()
   {
-    yap::UInt64 objectCount = packet.ReadUInt64 ();
-    for (yap::UInt64 count = 0; count < objectCount; ++count)
-    {
-      HandleServerInfoAddObject (packet);
-    }
+    for (auto& idObjectPair : GetDynamicObjects ())
+      RemoveDrawableDynamicObject (idObjectPair.first);
   }
 
   void Map::Draw (yap::IDrawingContext& context)
@@ -184,52 +182,5 @@ namespace ycl
 
     object.SetPosition (objectPosition);
     object.RawSetState (objectState);
-  }
-
-  void Map::HandleServerInfoAddObject (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-    yap::ID typeID = packet.ReadID ();
-    yap::ID id = packet.ReadID ();
-
-    const yap::String& objectTypeName =
-      yap::ObjectFactory::Instance ().GetType (typeID);
-
-    yap::DynamicWorldObject* object = nullptr;
-
-    if (objectTypeName == "Player")
-    {
-      Player* player = yap::ObjectFactory::Instance ().Create<Player> (
-        typeID,
-        id);
-      object = player;
-      player->SetWorldID (worldID);
-
-      AddPlayer (player);
-    }
-    if (objectTypeName == "NPC")
-    {
-      NPC* npc = yap::ObjectFactory::Instance ().Create<NPC> (typeID, id);
-      object = npc;
-      npc->SetWorldID (worldID);
-
-      AddDrawableDynamicObject (npc);
-    }
-
-    object->SetPosition (packet.ReadVector2 ());
-    object->RawSetState (packet.ReadString ());
-  }
-
-  void Map::HandleServerInfoRemoveObject (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-
-    if (players_.Contains (worldID))
-    {
-      RemovePlayer (worldID);
-      return;
-    }
-
-    RemoveDrawableDynamicObject (worldID);
   }
 } // namespace ycl

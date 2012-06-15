@@ -9,6 +9,7 @@ namespace yse
 {
   ClientSession::ClientSession ()
     : OnDisconnected ()
+    , isConnected_ (true)
     , packetHandler_ ()
     , socket_ ()
     , networkHandler_ (socket_)
@@ -75,6 +76,9 @@ namespace yse
 
   bool ClientSession::SendPacket (yap::IPacket& packet)
   {
+    if (!IsConnected ())
+      return false;
+
     return socket_.Send (packet);
   }
 
@@ -95,11 +99,18 @@ namespace yse
     YAPOG_THROW("Unallowed to set parent for ClientSession.");
   }
 
+  bool ClientSession::IsConnected () const
+  {
+    return isConnected_;
+  }
+
   void ClientSession::Disconnect ()
   {
-    user_.RemoveFromWorld ();
+    isConnected_ = false;
 
     socket_.Disconnect ();
+
+    user_.RemoveFromWorld ();
 
     OnDisconnected (*this, yap::EmptyEventArgs ());
   }

@@ -7,6 +7,7 @@
 # include "YAPOG/Collection/Set.hpp"
 # include "YAPOG/Game/World/Map/MapEventContextTriggerComparator.hpp"
 # include "YAPOG/Game/World/Map/MapEvent.hpp"
+# include "YAPOG/Collection/Queue.hpp"
 
 namespace yap
 {
@@ -24,7 +25,7 @@ namespace yap
         collection::Set<
           MapEventContext*,
           MapEventContextTriggerComparator>> EventTriggeringType;
-      /// Map<Object, Map<Source Event, Set<Event context (Trigger...)>>>
+      /// Map<Source Object, Map<Source Event, Set<Event context>>>
       typedef collection::Map<
         const DynamicWorldObject*,
         EventTriggeringType> ObjectEventsType;
@@ -37,7 +38,6 @@ namespace yap
       void SetCollidableArea (CollidableArea* collidableArea);
 
       void UpdateObject (DynamicWorldObject& object);
-      /// @todo Remove all dependencies of this object.
       void RemoveObject (const DynamicWorldObject& object);
 
       /// @name IUpdateable members.
@@ -47,17 +47,14 @@ namespace yap
 
     private:
 
-      bool AddEventEntry (
-        const DynamicWorldObject* object,
-        MapEvent* event,
-        MapEventContext* eventContext);
-      bool RemoveEventEntry (
-        const DynamicWorldObject* object,
-        MapEvent* event,
-        MapEventContext* eventContext);
+      bool AddEventEntry (MapEventContext* eventContext);
+      bool RemoveEventEntry (MapEventContext* eventContext);
 
       void UpdateObjectOut (const DynamicWorldObject& object);
       void UpdateObjectIn (DynamicWorldObject& object);
+
+      void AddLeaveEvent (MapEventContext* event);
+      void AddEnterEvent (MapEventContext* event);
 
       bool CallEvent (
         MapEventActionType type,
@@ -65,6 +62,8 @@ namespace yap
         MapEventContext& eventContext);
 
       ObjectEventsType events_;
+      collection::Queue<MapEventContext*> leaveEvents_;
+      collection::Queue<MapEventContext*> enterEvents_;
 
       CollidableArea* collidableArea_;
   };

@@ -42,13 +42,13 @@ namespace ycl
     guiManager_->AddChild (splashText_);
   }
 
-  const yap::ScreenType& SplashScreen::HandleRun (
+  void SplashScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
     logo_->Draw (context);
 
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 
   bool SplashScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)

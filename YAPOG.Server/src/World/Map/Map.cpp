@@ -55,9 +55,9 @@ namespace yse
   {
     player->RemoveRelay (this);
 
-    players_.Remove (player->GetWorldID ());
-
     RemoveDynamicObject (player);
+
+    players_.Remove (player->GetWorldID ());
   }
 
   bool Map::HandlePacket (yap::IPacket& packet)
@@ -120,6 +120,9 @@ namespace yse
 
     object->OnVelocityChanged.RemoveHandler (
       VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME);
+
+    object->OnStateChanged.RemoveHandler (
+      STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME);
 
     SendRemoveObject (*object);
   }

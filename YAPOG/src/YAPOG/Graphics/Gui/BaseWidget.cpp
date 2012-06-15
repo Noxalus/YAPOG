@@ -9,7 +9,7 @@ namespace yap
   const bool BaseWidget::DEFAULT_VISIBLE_STATE = true;
   const bool BaseWidget::DEFAULT_ENABLED_STATE = true;
 
-  const sf::Color BaseWidget::DEFAULT_COLOR = sf::Color ();
+  const sf::Color BaseWidget::DEFAULT_COLOR = sf::Color::Black;
 
   BaseWidget::BaseWidget ()
     : spatialInfo_ ()

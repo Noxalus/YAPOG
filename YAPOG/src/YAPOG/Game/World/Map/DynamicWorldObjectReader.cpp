@@ -29,9 +29,13 @@ namespace yap
 
     auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
-    dynamicWorldObject_.SetMaxVelocity (
-      reader->ReadVector2 (
-        DEFAULT_XML_MAX_VELOCITY_NODE_NAME));
+    if (reader->NodeExists (DEFAULT_XML_MAX_VELOCITY_NODE_NAME))
+      dynamicWorldObject_.SetMaxVelocity (
+        reader->ReadVector2 (
+          DEFAULT_XML_MAX_VELOCITY_NODE_NAME));
+    else
+      dynamicWorldObject_.SetMaxVelocity (
+        DynamicWorldObject::DEFAULT_MAX_VELOCITY);
 
     PhysicsCore* physicsCore = new ForceToVelocityPhysicsCore ();
     physicsCore->SetVelocityBounds (

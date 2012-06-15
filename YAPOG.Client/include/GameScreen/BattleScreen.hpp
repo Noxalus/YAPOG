@@ -23,7 +23,7 @@ namespace ycl
 
     virtual void HandleInit ();
 
-    virtual const yap::ScreenType& HandleRun (
+    virtual void HandleRun (
       const yap::Time& dt,
       yap::IDrawingContext& context);
 

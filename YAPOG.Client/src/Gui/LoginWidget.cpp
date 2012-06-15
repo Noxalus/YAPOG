@@ -12,16 +12,16 @@ namespace ycl
   LoginWidget::LoginWidget ()
     : yap::BaseWidget ()
     , widgetBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
     , true)
     , loginBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
     , true)
     , passwordBox_ (
-    yap::Padding (0, 0, 0, 0)
-    , yap::Padding (0, 0, 0, 0)
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
     , true)
     , loginLabel_ ("Login: ")
     , passwordLabel_ ("Password: ")
@@ -68,7 +68,7 @@ namespace ycl
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    loginTextBox_.SetSize (yap::Vector2 (200, 32));
+    loginTextBox_.SetSize (yap::Vector2 (242, 32));
     passwordTextBox_.SetSize (yap::Vector2 (200, 32));
 
     loginBox_.AddChild (loginLabel_);
@@ -81,12 +81,20 @@ namespace ycl
     widgetBox_.AddChild (passwordBox_, yap::LayoutBox::Align::LEFT);
 
     AddChild (widgetBox_);
+    
+    SetPosition (yap::Vector2 (
+      (Game::SCREEN_SIZE.x - widgetBox_.GetSize ().x) / 2,
+      (Game::SCREEN_SIZE.y - widgetBox_.GetSize ().y) / 2
+      ));
 
     widgetBox_.SetBackground (*menuBck);
     widgetBox_.SetBorder (*menuBorder);
 
     loginTextBox_.Move (yap::Vector2 (10, 0));
     passwordTextBox_.Move (yap::Vector2 (10, 0));
+
+    loginTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Black.png"));
+    passwordTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Green.png"));
   }
 
   LoginWidget::~LoginWidget ()

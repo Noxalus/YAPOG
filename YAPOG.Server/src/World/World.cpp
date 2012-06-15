@@ -21,13 +21,17 @@ namespace yse
     /// @todo Add folder traversals algo into ContentManager.
     /// Add all maps.
 
-    Map* map = yap::ObjectFactory::Instance ().Get<Map> (
-      "Map",
-      yap::ID (1));
+    /// TMP
+    for (yap::ID::ValueType it = 1; it <= 2; ++it)
+    {
+      Map* map = yap::ObjectFactory::Instance ().Get<Map> (
+        "Map",
+        yap::ID (it));
 
-    map->SetWorldID (yap::ID (1));
+      map->SetWorldID (yap::ID (it));
 
-    AddMap (map);
+      AddMap (map);
+    }
   }
 
   bool World::HandlePacket (yap::IPacket& packet)

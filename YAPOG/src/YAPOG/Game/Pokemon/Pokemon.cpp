@@ -205,7 +205,7 @@ namespace yap
   
   const String& Pokemon::GetIcon () const
   {
-    pokemonInfo_->GetIcon ();
+    return pokemonInfo_->GetIcon ();
   }
 
 
