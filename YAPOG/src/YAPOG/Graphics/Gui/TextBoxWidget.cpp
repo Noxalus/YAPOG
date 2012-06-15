@@ -131,7 +131,12 @@ namespace yap
   }
   bool TextBoxWidget::HandleOnEvent (const GuiEvent& guiEvent)
   {
-    if (guiEvent.type == sf::Event::KeyPressed)
+    if ((guiEvent.type == sf::Event::KeyPressed)
+      && !guiEvent.key.alt 
+      && !guiEvent.key.control
+      && !(guiEvent.key.code == sf::Keyboard::Escape)
+      && !(guiEvent.key.code >= sf::Keyboard::F1
+      && guiEvent.key.code <= sf::Keyboard::F12))
     {
       if (guiEvent.key.code == sf::Keyboard::Back)
       {
