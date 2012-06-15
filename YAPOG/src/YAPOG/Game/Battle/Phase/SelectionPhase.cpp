@@ -1,4 +1,4 @@
-#include "YAPOG/Game/Battle/SelectionPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/SelectionPhase.hpp"
 
 namespace yap
 {
@@ -15,7 +15,7 @@ namespace yap
 
   void SelectionPhase::HandleUpdate (const Time& dt)
   {
-    nextPhase_ = BattlePhaseState::Action;
+    BattlePhase::HandleUpdate (dt);
   }
 
   void SelectionPhase::HandleEnd ()

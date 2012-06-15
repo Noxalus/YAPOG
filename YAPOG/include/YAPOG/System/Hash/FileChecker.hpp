@@ -41,6 +41,7 @@ namespace yap
 
 		void		          SetFilename (String filename);
 		void		          SetMd5 (String md5);
+    void              SetDlEnd (bool dl);
 
 		String	          GetFilename ();
 		size_t  	        GetFilesize ();
@@ -48,17 +49,19 @@ namespace yap
 		VFilesType		    GetVfile ();
 		UInt64            GetSizeDownloaded ();
 		UInt16            GetFileDownloaded ();
+    bool              GetDlEnd ();
+    VFileType&        GetVFileToDl ();
 
-    void              Launch (VFileType vs);
-		VFileType		      SendFileToDownload (FileChecker& fc);
-		bool		          Update (VFileType vs);
+    void              Launch ();
+		void    		      SendFileToDownload (FileChecker* fc);
+    bool		          Update (FileChecker* fc);
 
 	private:
 		// Server checking.
 		void		          GetFileToDownload ();
 		bool		          Compare (FileChecker* const c, FileChecker* const s);
 		String	          VectorFind (VFilesType vp, FileChecker* p);
-		bool		          UpdateFTP (VFileType vs);
+		bool		          UpdateFTP (FileChecker* fc);
 
 		VFilesType		    vfile_;
 		VFileType		      vstring_;
@@ -68,6 +71,8 @@ namespace yap
 		String            md5_;
     UInt64            sizeDownloaded_;
     UInt16            fileDownloaded_;
+		VFileType		      vfiletodl_;
+    bool              dlend_;
 	};
 } // namespace yap
 

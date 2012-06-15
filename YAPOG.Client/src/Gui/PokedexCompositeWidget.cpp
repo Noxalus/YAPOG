@@ -18,6 +18,7 @@ namespace ycl
 
   PokedexCompositeWidget::PokedexCompositeWidget ()
     : menu_ (nullptr)
+    , background_ (nullptr)
   {
  
   }
@@ -28,6 +29,9 @@ namespace ycl
 
   void PokedexCompositeWidget::Init ()
   {
+    //background_ = new yap::WidgetBackground ("Pictures/PokedexShfond1.png", true);
+    background_ = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png", true);
+    SetBackground (*background_);
   }
 
   bool PokedexCompositeWidget::IsFocusable () const

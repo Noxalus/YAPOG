@@ -3,7 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/EndTurnPhase.hpp"
+# include "YAPOG/Game/Battle/Phase/EndTurnPhase.hpp"
 
 namespace ycl
 {

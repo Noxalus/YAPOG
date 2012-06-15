@@ -6,11 +6,11 @@
 # include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 
 # include "Battle/IDrawableBattleEntity.hpp"
+# include "Battle/PokemonFighter.hpp"
 
 namespace ycl
 {
   class Pokemon;
-  class PokemonFighter;
 
   class PokemonFighterTeam
     : public yap::PokemonFighterTeam
@@ -21,7 +21,6 @@ namespace ycl
     PokemonFighterTeam ();
     virtual ~PokemonFighterTeam ();
 
-    virtual PokemonFighter& GetPokemon (int index) const;
     virtual bool AddPokemon (PokemonFighter* pokemon);
 
     /// @name IDrawable members.

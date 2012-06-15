@@ -13,10 +13,10 @@ namespace ycl
   {
   }
 
-  const yap::ScreenType& CreditScreen::HandleRun (
+  void CreditScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 } // namespace ycl

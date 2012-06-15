@@ -11,6 +11,7 @@ namespace ycl
   class World;
   class Map;
   class Player;
+  class PlayerTrainer;
 
   class User : public yap::IPacketHandler
   {
@@ -36,13 +37,20 @@ namespace ycl
       yap::Event<const User&, Player*> OnPlayerCreated;
 
     private:
-
+      /// @name Setters.
+      /// @{
       World& GetWorld ();
       Map& GetMap ();
 
       Player& GetPlayer ();
+      PlayerTrainer& GetTrainer ();
+      /// @}
 
+      /// @name Setters.
+      /// @{
       void SetPlayer (Player* player);
+      void SetTrainer (PlayerTrainer* trainer);
+      /// @}
 
       void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
       void HandleServerInfoChangeMap (yap::IPacket& packet);
@@ -55,6 +63,8 @@ namespace ycl
       World* world_;
 
       Player* player_;
+
+      PlayerTrainer* trainer_;
   };
 } // namespace ycl
 

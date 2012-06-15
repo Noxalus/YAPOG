@@ -2,32 +2,39 @@
 # define YAPOG_CLIENT_LOGINSCREEN_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+# include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 
+# include "Gui/LoginWidget.hpp"
 # include "GameScreen/BaseScreen.hpp"
+
 
 namespace ycl
 {
   class LoginScreen : public BaseScreen
   {
-    DISALLOW_COPY(LoginScreen);
+      DISALLOW_COPY(LoginScreen);
 
-  public:
+    public:
 
-    LoginScreen ();
-    virtual ~LoginScreen ();
+      LoginScreen ();
+      virtual ~LoginScreen ();
 
-  protected:
+    protected:
 
-    virtual void HandleInit ();
+      virtual void HandleInit ();
+      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
 
-    virtual const yap::ScreenType& HandleRun (
-      const yap::Time& dt,
-      yap::IDrawingContext& context);
+      virtual void HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
 
-  private:
-    void Login ();
+    private:
+      void Login ();
 
-    static const yap::ScreenType DEFAULT_NAME;
+      LoginWidget loginWidget_;
+
+      static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

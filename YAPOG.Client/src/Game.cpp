@@ -335,9 +335,9 @@ namespace ycl
 
     /// @warning Temporary.
 #ifndef YAPOG_WIN
-    screenManager_->Init ("Login");
+    screenManager_->Init ("Loading");
 #else
-    screenManager_->Init ("Update");
+    screenManager_->Init ("Loading");
 #endif
   }
 

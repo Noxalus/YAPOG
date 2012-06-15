@@ -2,7 +2,7 @@
 # define YAPOG_ENDBATTLEPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/Battle/BattlePhase.hpp"
+# include "YAPOG/Game/Battle/Phase/BattlePhase.hpp"
 
 namespace yap
 {

@@ -17,6 +17,7 @@
 #include "YAPOG/Graphics/Gui/TextBoxWidget.hpp"
 #include "YAPOG/Graphics/Gui/GridMenu.hpp"
 #include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
+#include "YAPOG/Game/Pokemon/Pokedex.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -25,6 +26,7 @@
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
+
 
 namespace ycl
 {
@@ -70,35 +72,37 @@ namespace ycl
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
-    PokedexWidget* pokedex = new PokedexWidget ();
+    yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+    for (int i = 1; i < 4; i++)
+    {
+      yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (i));
+
+      pokedexInfo->AddPokemon (pok);
+      pokedexInfo->AddPokemonSeen (pok);
+      pokedexInfo->AddPokemonCaught (pok);
+    }
+
+    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
+
+      pokedexInfo->AddPokemon (pok);
+      pokedexInfo->AddPokemonSeen (pok);
+      pokedexInfo->AddPokemonCaught (pok);
+
+    PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
+    guiManager_->AddChild (*pokedex);
     /// @warning Commented.
-//    guiManager_->AddChild (*pokedex);
+    //guiManager_->AddChild (*pokedex);
 
     /// @warning Commented.
     /*ChatWidget* chat = new ChatWidget ();
     chat->Init ();
     guiManager_->AddChild (*chat);*/
-
-    /*
-    yap::MultiLabelWidget* labels =
-      new yap::MultiLabelWidget (yap::Padding (5, 5, 5, 5), yap::Padding (0, 0, 0, 0), false);
-    labels->SetSize (yap::Vector2 (242, 96));
-    yap::HorizontalLayout* diaLayout =
-      new yap::HorizontalLayout (yap::Padding (5, 5, 0, 0), yap::Padding (0, 0, 0, 0), true);
-    diaLayout->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    diaLayout->AddChild (*labels);
-
-    diaLayout->SetPosition (yap::Vector2 (512, 256));
-    for (int i = 0; i < 10; i++)
-    {
-      labels->AddText ("Test" + yap::StringHelper::ToString (i), 12);
-    }
-    guiManager_->AddChild (*diaLayout);
-    */
   }
 
-  const yap::ScreenType& GameplayScreen::HandleRun (
+  void GameplayScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
@@ -110,7 +114,7 @@ namespace ycl
 
     world_.Draw (context);
 
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 
   bool GameplayScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)

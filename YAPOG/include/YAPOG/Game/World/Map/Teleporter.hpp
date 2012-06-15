@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class Teleporter : public DynamicWorldObject
+  class YAPOG_LIB Teleporter : public DynamicWorldObject
   {
       DISALLOW_ASSIGN(Teleporter);
 

@@ -24,6 +24,7 @@ namespace yap
       /// @brief Activate the IGameScreen associated to the ScreenType.
       /// @param screenType ScreenType of the IGameScreen to activate.
       virtual void SetCurrentScreen (const ScreenType& screenType) = 0;
+      virtual void NextFrame () = 0;
       /// @brief Runs the current IGameScreen.
       /// @param dt Delta time since last frame.
       /// @param context IDrawingContext where to draw graphical elements.

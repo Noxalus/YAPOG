@@ -3,18 +3,19 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/ActionPhase.hpp"
+# include "YAPOG/Game/Battle/Phase/ActionPhase.hpp"
 
 namespace ycl
 {
   class Battle;
+  class BattleInterface;
 
   class ActionPhase
     : public yap::ActionPhase
     , public yap::IDrawable
   {
   public:
-    explicit ActionPhase (Battle& battle);
+    explicit ActionPhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~ActionPhase ();
 
     /// @name BattlePhase members.
@@ -44,6 +45,10 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
+
+  private:
+    Battle& battle_;
+    BattleInterface& battleInterface_;
   };
 } // namespace ycl
 

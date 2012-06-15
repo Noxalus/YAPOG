@@ -9,7 +9,7 @@
 namespace yap
 {
   template <typename T>
-  class YAPOG_LIB RectWriter : public BaseWriterVisitor
+  class RectWriter : public BaseWriterVisitor
   {
       DISALLOW_COPY(RectWriter);
 

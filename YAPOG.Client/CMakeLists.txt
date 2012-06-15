@@ -38,6 +38,8 @@ ${inc_root}/Battle/PokemonBattleInfoWidget.hpp
 ${src_root}/Battle/PokemonBattleInfoWidget.cpp
 ${inc_root}/Battle/OpponentBattleInfoWidget.hpp
 ${src_root}/Battle/OpponentBattleInfoWidget.cpp
+${inc_root}/Battle/PlayerTrainer.hpp
+${src_root}/Battle/PlayerTrainer.cpp
 ${inc_root}/Battle/PokemonFighter.hpp
 ${src_root}/Battle/PokemonFighter.cpp
 ${inc_root}/Battle/PokemonFighterTeam.hpp
@@ -45,23 +47,22 @@ ${src_root}/Battle/PokemonFighterTeam.cpp
 ${inc_root}/Battle/WildBattle.hpp
 ${src_root}/Battle/WildBattle.cpp
 
-${inc_root}/Battle/Phase/BattlePhase.hpp
-${src_root}/Battle/Phase/BattlePhase.cpp
+${inc_root}/Battle/Phase/ActionPhase.hpp
+${src_root}/Battle/Phase/ActionPhase.cpp
 ${inc_root}/Battle/Phase/BeginBattlePhase.hpp
 ${src_root}/Battle/Phase/BeginBattlePhase.cpp
 ${inc_root}/Battle/Phase/BeginTurnPhase.hpp
 ${src_root}/Battle/Phase/BeginTurnPhase.cpp
+${inc_root}/Battle/Phase/BattlePhase.hpp
+${src_root}/Battle/Phase/BattlePhase.cpp
 ${inc_root}/Battle/Phase/EndBattlePhase.hpp
 ${src_root}/Battle/Phase/EndBattlePhase.cpp
-${inc_root}/Battle/Phase/SelectionPhase.hpp
-${src_root}/Battle/Phase/SelectionPhase.cpp
-${inc_root}/Battle/Phase/ActionPhase.hpp
-${src_root}/Battle/Phase/ActionPhase.cpp
 ${inc_root}/Battle/Phase/EndTurnPhase.hpp
 ${src_root}/Battle/Phase/EndTurnPhase.cpp
-${inc_root}/Battle/Phase/EndBattlePhase.hpp
-${src_root}/Battle/Phase/EndBattlePhase.cpp
-
+${inc_root}/Battle/Phase/SelectionPhase.hpp
+${src_root}/Battle/Phase/SelectionPhase.cpp
+${inc_root}/Battle/Phase/SwitchPhase.hpp
+${src_root}/Battle/Phase/SwitchPhase.cpp
 
 ${src_root}/Client.cpp
 ${inc_root}/Client/Session.hpp
@@ -108,12 +109,18 @@ ${inc_root}/Gui/ChatWidget.hpp
 ${src_root}/Gui/ChatWidget.cpp
 ${inc_root}/Gui/GameMainMenu.hpp
 ${src_root}/Gui/GameMainMenu.cpp
+${inc_root}/Gui/LoginWidget.hpp
+${src_root}/Gui/LoginWidget.cpp
 ${inc_root}/Gui/MainMenu.hpp
 ${src_root}/Gui/MainMenu.cpp
 ${inc_root}/Gui/PokedexWidget.hpp
 ${src_root}/Gui/PokedexWidget.cpp
+${inc_root}/Gui/PokemonTeamWidget.hpp
+${src_root}/Gui/PokemonTeamWidget.cpp
 ${inc_root}/Gui/PokedexCompositeWidget.hpp
 ${src_root}/Gui/PokedexCompositeWidget.cpp
+${inc_root}/Gui/RegistrationWidget.hpp
+${src_root}/Gui/RegistrationWidget.cpp
 
 ${inc_root}/Game.hpp
 ${src_root}/Game.cpp

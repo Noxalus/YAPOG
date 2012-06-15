@@ -47,7 +47,7 @@ namespace ycl
     team->AddPokemon (new Pokemon (yap::ID (2), 2, false));
     team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
-    PokemonFighter* wildPokemon = 
+    PokemonFighter* wildPokemon =
       new PokemonFighter (GeneratePokemon (), true);
     PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
     playerFighterTeam->AddPokemon (
@@ -65,14 +65,14 @@ namespace ycl
     guiManager_->AddChild (*battleInterface_);
   }
 
-  const yap::ScreenType& BattleScreen::HandleRun (
+  void BattleScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
     battle_->Update (dt);
     battle_->Draw (context);
 
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 
 } // namespace ycl

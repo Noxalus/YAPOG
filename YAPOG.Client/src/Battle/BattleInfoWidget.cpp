@@ -23,7 +23,10 @@ namespace ycl
   BattleInfoWidget::BattleInfoWidget ()
     : nameLabel_ ()
     , levelLabel_ ()
-    , nameBox_ ()
+    , nameBox_ (
+    yap::Padding (15, 15, 5, 5),
+    yap::Padding (0, 0, 0, 0),
+    true)
     , genderBox_ ()
     , levelBox_ ()
     , hpBox_ ()

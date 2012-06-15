@@ -122,6 +122,7 @@ SET(
 	${boost_regex_lib}
 	${boost_system_lib}
 	${pgsql_lib}
+        pthread
 )
 
 ADD_SUBDIRECTORY( YAPOG )

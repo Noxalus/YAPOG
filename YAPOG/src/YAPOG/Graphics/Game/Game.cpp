@@ -42,6 +42,8 @@ namespace yap
       Time dt (timer_.GetCurrentTime ());
       timer_.Reset ();
 
+      screenManager_->NextFrame ();
+
       GuiEvent guiEvent;
 
       GameInputManager::Instance ().BeginUpdate ();

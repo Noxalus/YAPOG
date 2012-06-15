@@ -2,6 +2,7 @@
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Game/Battle/Phase/BattlePhaseManager.hpp"
 
 #include "Battle/BattleInterface.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
@@ -85,6 +86,9 @@ namespace ycl
       playerGround_->GetSize ().x,
       playerGroundPosition_.y - 
       battleInterface_.GetPokemonInfoWidget ().GetSize ().y);
+
+    // Hide some sprites
+    playerTeam_->GetBattleSprite ().Show (false);
   }
 
   /// Getters

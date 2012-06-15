@@ -3,6 +3,7 @@
 #include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 
 #include "Gui/ChatWidget.hpp"
+#include "Game.hpp"
 
 namespace ycl
 {
@@ -121,12 +122,13 @@ namespace ycl
     InitDial ();
     InitEntry ();
 
-    //tabTitle[chat_->GetTabNb ()]
-
     AddChild (*bigLayout_);
     bigLayout_->SetBackground (*chatBground);
     bigLayout_->SetBorder (*chatBorder);
-    bigLayout_->SetPosition (yap::Vector2 (42, 242));
+    bigLayout_->SetPosition (
+      yap::Vector2 (
+      Game::SCREEN_SIZE.x - 20,
+      20));
   }
 
   bool ChatWidget::IsFocusable () const
@@ -136,7 +138,7 @@ namespace ycl
 
   yap::Vector2 ChatWidget::HandleGetSize () const
   {
-    return yap::Vector2 (300, 150);
+    return bigLayout_->GetSize ();
   }
 
   void ChatWidget::DisplayResponse (ResponseType res)

@@ -11,6 +11,8 @@ namespace yap
     , md5_ ("")
     , sizeDownloaded_ (0)
     , fileDownloaded_ (0)
+    , vfiletodl_ ()
+    , dlend_ (true)
   {
     GetFileToDownload ();
   }
@@ -24,6 +26,8 @@ namespace yap
     , md5_ ("")
     , sizeDownloaded_ (0)
     , fileDownloaded_ (0)
+    , vfiletodl_ ()
+    , dlend_ (true)
   {
   }
 
@@ -38,6 +42,8 @@ namespace yap
     , md5_ (md5)
     , sizeDownloaded_ (0)
     , fileDownloaded_ (0)
+    , vfiletodl_ ()
+    , dlend_ (true)
   {
   }
 
@@ -72,6 +78,11 @@ namespace yap
     md5_ = md5;
   }
 
+  void                    FileChecker::SetDlEnd (bool dl)
+  {
+    dlend_ = dl;
+  }
+
   String                  FileChecker::GetFilename ()
   {
     return filename_;
@@ -91,6 +102,11 @@ namespace yap
   {
     return vfile_;
   }
+  
+  FileChecker::VFileType& FileChecker::GetVFileToDl ()
+  {
+    return vfiletodl_;
+  }
 
   UInt64                  FileChecker::GetSizeDownloaded ()
   {
@@ -100,6 +116,11 @@ namespace yap
   UInt16                  FileChecker::GetFileDownloaded ()
   {
     return fileDownloaded_;
+  }
+
+  bool                    FileChecker::GetDlEnd ()
+  {
+    return dlend_;
   }
 
   bool                    FileChecker::Compare (FileChecker* const c,
@@ -123,8 +144,8 @@ namespace yap
           std::back_inserter (vp)
           );
 
-        VPathType::const_iterator it(vp.begin ());
-        VPathType::const_iterator it_end(vp.end ());
+        VPathType::const_iterator it (vp.begin ());
+        VPathType::const_iterator it_end (vp.end ());
 
         for (; it != it_end; it++)
         {
@@ -189,15 +210,15 @@ namespace yap
     return (elt->GetMd5 ().compare ("0") == 0 ? name + "0" : name);
   }
 
-  void                    FileChecker::Launch (VFileType vs)
+  void                    FileChecker::Launch ()
   {
-    Thread* th = new Thread (MEMBER_WORKER(FileChecker::Update), vs);
+    Thread* th = new Thread (MEMBER_WORKER(FileChecker::Update), this);
     th->Launch ();
   }
 
-  FileChecker::VFileType  FileChecker::SendFileToDownload (FileChecker& fc)
+  void                    FileChecker::SendFileToDownload (FileChecker* fc)
   {
-    FileChecker::VFileType vbis;
+    VFileType& vbis = fc->GetVFileToDl ();
 
     try
     {
@@ -208,7 +229,7 @@ namespace yap
 
         for (; it != it_end; it++)
         {
-          String ret = VectorFind (fc.GetVfile (), (*it));
+          String ret = VectorFind (fc->GetVfile (), (*it));
           if (!ret.empty())
             vbis.Add (new MyFile (ret, (*it)->GetFilesize ()));
         }
@@ -219,12 +240,14 @@ namespace yap
       std::cout << ex.what () << std::endl;
     }
 
-    return vbis;
+    if (!vbis.IsEmpty ())
+      fc->SetDlEnd (false);
   }
 
-  bool                    FileChecker::UpdateFTP (VFileType vs)
+  bool                    FileChecker::UpdateFTP (FileChecker* fc)
   {
     sf::Ftp server;
+    FileChecker::VFileType& vs = fc->GetVFileToDl ();
     FileChecker::VFileType::ConstItType it (vs.begin ());
     FileChecker::VFileType::ConstItType it_end (vs.end ());
     String path = path_.string ();
@@ -279,14 +302,16 @@ namespace yap
       return false;
     }
 
+    fc->SetDlEnd (true);
     return true;
   }
 
-  bool                    FileChecker::Update(VFileType vs)
+  bool                    FileChecker::Update (FileChecker* fc)
   {
     try
     {
       boost::asio::io_service io_service;
+      FileChecker::VFileType& vs = fc->GetVFileToDl ();
       size_t vectorSize = vs.Count ();
 
       // Get a list of endpoints corresponding to the server name.
@@ -307,8 +332,7 @@ namespace yap
         OStream request_stream (&request);
         String n = (*it)->Filename;
         std::replace (n.begin (), n.end (), '\\', '/');
-        //String path = path_.string ();
-        String path = "D:/git/YAPOG_downloadtest";
+        String path = path_.string ();
         String newpath = "";
 
         int i = n.rfind ('/');
@@ -375,7 +399,7 @@ namespace yap
           {
             float percentageSize = 0;
             sizetotal += response.size ();
-            percentageSize = ((float) sizetotal / bytes * 100);
+            percentageSize = (((float) sizetotal / (float) bytes) * 100);
             sizeDownloaded_ = percentageSize;
             ss << &response;
           }
@@ -395,6 +419,8 @@ namespace yap
       std::cout << "Exception: " << e.what () << std::endl;
       return false;
     }
+
+    fc->SetDlEnd (true);
     return true;
   }
 }

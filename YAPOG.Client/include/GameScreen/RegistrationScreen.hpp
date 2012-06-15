@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 
 # include "GameScreen/BaseScreen.hpp"
+# include "Gui/RegistrationWidget.hpp"
 
 namespace ycl
 {
@@ -18,11 +19,16 @@ namespace ycl
 
     protected:
 
-      virtual const yap::ScreenType& HandleRun (
+      virtual void HandleInit ();
+      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+
+      virtual void HandleRun (
         const yap::Time& dt,
         yap::IDrawingContext& context);
 
     private:
+
+      RegistrationWidget registrationWidget_;
 
       static const yap::ScreenType DEFAULT_NAME;
   };
