@@ -23,15 +23,13 @@ namespace ycl
     protected:
 
       virtual void HandleInit ();
-      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+      virtual bool HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
 
       virtual void HandleRun (
         const yap::Time& dt,
         yap::IDrawingContext& context);
 
     private:
-      void Login ();
-
       LoginWidget loginWidget_;
 
       static const yap::ScreenType DEFAULT_NAME;

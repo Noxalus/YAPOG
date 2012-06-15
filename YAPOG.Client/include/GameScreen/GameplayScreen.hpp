@@ -13,6 +13,7 @@ namespace ycl
   class Player;
   class PokedexCompositeWidget;
   class PokedexWidget;
+  class ChatWidget;
 
   class GameplayScreen : public BaseScreen
   {
@@ -56,6 +57,7 @@ namespace ycl
       yap::CharacterMoveController moveController_;
       yap::Vector2 lastForce_;
       PokedexWidget* pokedex_;
+      ChatWidget* chat_;
   };
 } // namespace ycl
 

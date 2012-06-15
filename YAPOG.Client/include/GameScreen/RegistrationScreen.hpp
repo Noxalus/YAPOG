@@ -20,7 +20,7 @@ namespace ycl
     protected:
 
       virtual void HandleInit ();
-      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+      virtual bool HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
 
       virtual void HandleRun (
         const yap::Time& dt,

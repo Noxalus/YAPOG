@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/RegistrationScreen.hpp"
+#include "Client/Session.hpp"
 
 namespace ycl
 {
@@ -30,8 +31,8 @@ namespace ycl
   {
     BaseScreen::HandleRun (dt, context);
   }
-
-  bool RegistrationScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  
+  bool RegistrationScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
@@ -41,7 +42,20 @@ namespace ycl
         return true;
       }
 
-      return true;
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {
+        yap::String login =
+          registrationWidget_.GetLoginTextBox ().GetContent ();
+        yap::String password =
+          registrationWidget_.GetPasswordTextBox ().GetContent ();
+        yap::String email =
+          registrationWidget_.GetEmailTextBox ().GetContent ();
+
+        session_.Login (login);
+        nextScreen_ = "Gameplay";
+        return true;
+      }
+
     }
     return false;
   }

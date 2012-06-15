@@ -44,6 +44,7 @@ namespace ycl
     , moveController_ ()
     , lastForce_ ()
     , pokedex_ (nullptr)
+    , chat_ (new ChatWidget ())
   {
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
@@ -60,10 +61,15 @@ namespace ycl
     };
 
     session_.GetUser ().SetWorld (&world_);
+    chat_->Init ();
+    chat_->ChangeColor (sf::Color (0, 0, 0, 100));
+    chat_->Close ();
   }
 
   GameplayScreen::~GameplayScreen ()
   {
+    delete (chat_);
+    chat_ = nullptr;
   }
 
   void GameplayScreen::HandleInit ()
@@ -93,16 +99,9 @@ namespace ycl
     PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
 
-    /// @warning Commented.
-//    guiManager_->AddChild (*pokedex);
-
+    guiManager_->AddChild (*chat_);
     /// @warning Commented.
     //guiManager_->AddChild (*pokedex);
-
-    /// @warning Commented.
-    /*ChatWidget* chat = new ChatWidget ();
-    chat->Init ();
-    guiManager_->AddChild (*chat);*/
   }
 
   void GameplayScreen::HandleRun (
@@ -183,6 +182,18 @@ namespace ycl
       guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::East);
+      return true;
+    }
+    
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::F10)
+      {
+        if (chat_->IsVisible ())
+          chat_->Close ();
+        else
+          chat_->Open ();
+      }
       return true;
     }
 

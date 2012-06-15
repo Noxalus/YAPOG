@@ -74,9 +74,9 @@ namespace ycl
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
     
-    loginTextBox_.SetSize (yap::Vector2 (200, 32));
+    loginTextBox_.SetSize (yap::Vector2 (242, 32));
     passwordTextBox_.SetSize (yap::Vector2 (200, 32));
-    emailTextBox_.SetSize (yap::Vector2 (200, 32));
+    emailTextBox_.SetSize (yap::Vector2 (242, 32));
 
     loginBox_.AddChild (loginLabel_);
     loginBox_.AddChild (loginTextBox_);

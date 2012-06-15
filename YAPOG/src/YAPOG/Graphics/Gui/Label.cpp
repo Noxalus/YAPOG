@@ -18,7 +18,7 @@ namespace yap
   {
     drawableText_.setFont 
       (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
-    drawableText_.setColor (color_);
+    drawableText_.setColor (userColor_);
   }
 
   Label::Label (String content)
@@ -28,7 +28,7 @@ namespace yap
   {
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
     GetPosition ().y + padding_.top));*/
-    drawableText_.setColor (sf::Color (127, 127, 127));
+    drawableText_.setColor (userColor_);
     drawableText_.setPosition (GetPosition ().x,
       GetPosition ().y);
 
