@@ -41,7 +41,7 @@ namespace yap
     UInt16 GetCurrentHP () const;
     UInt16 GetMaxHP () const;
     const collection::Array<PokemonSkill*>& GetMoves () const;
-
+    const String& GetIcon () const;
     bool LearnSkill (const ID& skillID);
     void ReplaceSkill (const ID& skillID, int index);
 

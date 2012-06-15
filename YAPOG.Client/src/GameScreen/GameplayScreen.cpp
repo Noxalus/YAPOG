@@ -26,6 +26,7 @@
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
+#include "Gui/PokemonTeamWidget.hpp"
 
 
 namespace ycl
@@ -72,7 +73,10 @@ namespace ycl
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
-    yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+    PokemonTeamWidget* pokteam = new PokemonTeamWidget ();
+    pokteam->Init ();
+    guiManager_->AddChild (*pokteam);
+    /*yap::Pokedex* pokedexInfo = new yap::Pokedex ();
     for (int i = 1; i < 4; i++)
     {
       yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
@@ -92,7 +96,8 @@ namespace ycl
 
     PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
     pokedex->Init ();
-    guiManager_->AddChild (*pokedex);
+    guiManager_->AddChild (*pokedex);*/
+
     /// @warning Commented.
     //guiManager_->AddChild (*pokedex);
 
