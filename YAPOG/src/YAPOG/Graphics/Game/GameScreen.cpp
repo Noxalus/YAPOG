@@ -32,9 +32,14 @@ namespace yap
     HandleDeactivate ();
   }
 
+  void GameScreen::NextFrame ()
+  {
+    nextScreen_ = type_;
+  }
+
   const ScreenType& GameScreen::Run (const Time& dt, IDrawingContext& context)
   {
-    nextScreen_ = HandleRun (dt, context);
+    HandleRun (dt, context);
 
     context.SetMode ("Gui");
 
@@ -82,11 +87,10 @@ namespace yap
     guiManager_ = new GuiManager ();
   }
 
-  const ScreenType& GameScreen::HandleRun (
+  void GameScreen::HandleRun (
     const Time& dt,
     IDrawingContext& context)
   {
-    return nextScreen_;
   }
 
   void GameScreen::HandleInit ()

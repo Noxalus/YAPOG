@@ -30,6 +30,7 @@ namespace yap
       virtual void RemoveGameScreen (const ScreenType& screenType);
       virtual void SetCurrentScreen (const ScreenType& screenType);
 
+      virtual void NextFrame ();
       virtual void Run (const Time& dt, IDrawingContext& context);
       /// @}
 

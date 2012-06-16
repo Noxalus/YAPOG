@@ -9,6 +9,7 @@
 namespace ycl
 {
   class World;
+  class Map;
   class Player;
   class PlayerTrainer;
 
@@ -39,6 +40,8 @@ namespace ycl
       /// @name Setters.
       /// @{
       World& GetWorld ();
+      Map& GetMap ();
+
       Player& GetPlayer ();
       PlayerTrainer& GetTrainer ();
       /// @}
@@ -51,6 +54,9 @@ namespace ycl
 
       void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
       void HandleServerInfoChangeMap (yap::IPacket& packet);
+
+      void HandleServerInfoAddObject (yap::IPacket& packet);
+      void HandleServerInfoRemoveObject (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 

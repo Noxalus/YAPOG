@@ -202,11 +202,18 @@ namespace yap
   {
     return stats_;
   }
+  
+  const String& Pokemon::GetIcon () const
+  {
+    return pokemonInfo_->GetIcon ();
+  }
+
 
   const UInt16& Pokemon::GetLevel () const
   {
     return level_;
   }
+
 
   const Gender& Pokemon::GetGender () const
   {

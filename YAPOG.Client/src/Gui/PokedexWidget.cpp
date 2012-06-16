@@ -23,6 +23,7 @@ namespace ycl
     , menu_ (nullptr)    
     , validatedPokemon_ (nullptr)
     , firstHLayout_ (nullptr)
+    , firstVLayout_ (nullptr)
     , pokedexInfo_ (nullptr)    
     , pokSeen_ (nullptr)
     , pokCaught_ (nullptr)
@@ -34,7 +35,7 @@ namespace ycl
 
     pokedex_->OnAddPokemon += [this] (yap::Pokedex& sender, const yap::EmptyEventArgs& args)
     {
-      Refresh ();
+      RefreshAfterAdd ();
     };
   }
 
@@ -92,6 +93,11 @@ namespace ycl
       else
       {
         item->SetContent ("N." + yap::StringHelper::ToString(i) + "    " + current->GetName ());
+        item->OnSelected +=
+          [this, current] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+        {
+          boxInfoContent_->SetPicture (current->GetMaleFront ());
+        };
         item->OnActivated +=
           [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
@@ -126,7 +132,7 @@ namespace ycl
     AddChild (*firstHLayout_);
   }
 
-  void PokedexWidget::Refresh ()
+  void PokedexWidget::RefreshAfterAdd ()
   {
     if (menu_ != nullptr)
       menu_->Clear ();

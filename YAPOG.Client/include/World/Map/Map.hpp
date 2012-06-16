@@ -33,10 +33,18 @@ namespace ycl
         yap::TileLayoutHandler* tileLayoutHandler);
 
       Player& GetPlayer (const yap::ID& worldID);
+      bool ContainsPlayer (const yap::ID& worldID);
 
       void AddPlayer (Player* player);
       void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);
+
+      void ClearDynamicObjects ();
+
+      void AddDrawableDynamicObject (
+        const yap::ID& worldID,
+        yap::IDrawableDynamicWorldObject* drawableObject);
+      void RemoveDrawableDynamicObject (const yap::ID& worldID);
 
       template <typename T>
       void AddDrawableStaticObject (T* object);
@@ -47,8 +55,6 @@ namespace ycl
       void AddDrawableDynamicObject (T* object);
       template <typename T>
       void RemoveDrawableDynamicObject (T* object);
-
-      void HandleLoadObjects (yap::IPacket& packet);
 
       /// @name IDrawable members.
       /// @{
@@ -80,18 +86,10 @@ namespace ycl
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
       void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);
 
-      void AddDrawableDynamicObject (
-        const yap::ID& worldID,
-        yap::IDrawableDynamicWorldObject* drawableObject);
-      void RemoveDrawableDynamicObject (const yap::ID& worldID);
-
       virtual bool SupportsEvents () const;
 
       void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
       void HandleServerInfoUpdateObjectState (yap::IPacket& packet);
-
-      void HandleServerInfoAddObject (yap::IPacket& packet);
-      void HandleServerInfoRemoveObject (yap::IPacket& packet);
 
       static const yap::String DRAW_ORDER_HANDLER_NAME;
 

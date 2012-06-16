@@ -14,6 +14,7 @@
 #include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Game/World/Map/MapElement.hpp"
 #include "YAPOG/Game/World/Map/MapElementReader.hpp"
+#include "YAPOG/Game/World/Map/TeleporterReader.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -23,6 +24,7 @@
 #include "World/Map/PlayerReader.hpp"
 #include "World/Map/NPC.hpp"
 #include "World/Map/NPCReader.hpp"
+#include "World/Map/Teleporter.hpp"
 
 namespace yse
 {
@@ -168,6 +170,12 @@ namespace yse
       new yap::XmlObjectIDLoader<yap::MapElement, yap::MapElementReader> (
         yap::Path ("MapElement"),
         "MapElement"));
+
+    objectFactory_.RegisterLoader (
+      "Teleporter",
+      new yap::XmlObjectIDLoader<Teleporter, yap::TeleporterReader> (
+        yap::Path ("Teleporter"),
+        "Teleporter"));
   }
 
   void Server::InitWorldObjectStateFactory ()

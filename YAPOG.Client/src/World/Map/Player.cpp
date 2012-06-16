@@ -39,7 +39,7 @@ namespace ycl
 
   void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)
   {
-
+    // Does nothing, server side only.
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const

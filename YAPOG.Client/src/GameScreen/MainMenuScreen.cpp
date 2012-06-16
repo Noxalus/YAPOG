@@ -19,7 +19,7 @@ namespace ycl
   void MainMenuScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-   
+
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
 
@@ -34,14 +34,20 @@ namespace ycl
     {
       nextScreen_ = "Registration";
     };
+    
+    mainMenu->GetExitItem ().OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      exit (EXIT_SUCCESS);
+    };
 
     guiManager_->AddChild (*mainMenu);
   }
 
-  const yap::ScreenType& MainMenuScreen::HandleRun (
+  void MainMenuScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 } // namespace ycl

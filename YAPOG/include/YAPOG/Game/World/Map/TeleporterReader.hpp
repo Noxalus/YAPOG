@@ -14,13 +14,10 @@ namespace yap
 
     public:
 
-      virtual ~TeleporterReader ();
-
-    protected:
-
       TeleporterReader (
         Teleporter& worldObject,
         const String& xmlRootNodeName);
+      virtual ~TeleporterReader ();
 
     private:
 

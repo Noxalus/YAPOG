@@ -40,25 +40,34 @@ namespace ycl
     guiManager_->AddChild (loginWidget_);
   }
 
-  const yap::ScreenType& LoginScreen::HandleRun (
+  void LoginScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    //Login ();
-
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 
-  //!\\ tmp
-  void LoginScreen::Login ()
+  bool LoginScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
-    yap::String login;
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        nextScreen_ = "MainMenu";
+        return true;
+      }
 
-    std::cout << "Enter a login: ";
-    std::cin >> login;
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {
+        yap::String login = loginWidget_.GetLoginTextBox ().GetContent ();
+        yap::String password = loginWidget_.GetPasswordTextBox ().GetContent ();
 
-    session_.Login (login);
+        session_.Login (login);
+        nextScreen_ = "Gameplay";
+        return true;
+      }
 
-    nextScreen_ = "Gameplay";
+    }
+    return false;
   }
 } // namespace ycl

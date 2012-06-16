@@ -38,8 +38,8 @@ namespace ycl
   void UpdateScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-    
-    yap::WidgetBackground* updaterBground = 
+
+    yap::WidgetBackground* updaterBground =
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png",
       true);
@@ -74,7 +74,7 @@ namespace ycl
 
     // Network test
     fc_->Launch ();
-    
+
     backgroundbox_->SetSize (yap::Vector2 (
       157,
       21));
@@ -108,15 +108,15 @@ namespace ycl
     bigLayout_ = nullptr;
   }
 
-  const yap::ScreenType& UpdateScreen::HandleRun (
+  void UpdateScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
     Update ();
 
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
-  
+
   void UpdateScreen::UpdateContentSize (int value)
   {
     float size = 144 * ((float)value / 100);
@@ -128,26 +128,32 @@ namespace ycl
 
   void UpdateScreen::Update ()
   {
-    yap::UInt32 totalFile = fc_->GetVFileToDl ().Count ();
-    yap::UInt32 size = fc_->GetSizeDownloaded ();
-    yap::String filesize = yap::StringHelper::ToString (size);
-    yap::UInt16 length = filesize.length ();
-
-    if (!fc_->GetDlEnd ())
+    yap::FileChecker::VFileType vf = fc_->GetVFileToDl ();
+    if (!vf.IsEmpty ())
     {
-      fileName_.SetText (
-        yap::StringHelper::ToString (fc_->GetFilename ()));
-      filePercentage_.SetText (filesize);
-      fileDownloaded_.SetText (
-        yap::StringHelper::ToString (fc_->GetFileDownloaded ()));
-      totalFile_.SetText ("/" +
-        yap::StringHelper::ToString (totalFile));
-      UpdateContentSize (size);
-      if (lastlength_ != length)
+      yap::UInt32 totalFile = vf.Count ();
+      yap::UInt32 size = fc_->GetSizeDownloaded ();
+      yap::String filesize = yap::StringHelper::ToString (size);
+      yap::UInt16 length = filesize.length ();
+
+      if (!fc_->GetDlEnd ())
       {
-        lastlength_ = length;
-        secondLayout_->Refresh ();
+        fileName_.SetText (
+          yap::StringHelper::ToString (fc_->GetFilename ()));
+        filePercentage_.SetText (filesize);
+        fileDownloaded_.SetText (
+          yap::StringHelper::ToString (fc_->GetFileDownloaded ()));
+        totalFile_.SetText ("/" +
+          yap::StringHelper::ToString (totalFile));
+        UpdateContentSize (size);
+        if (lastlength_ != length)
+        {
+          lastlength_ = length;
+          secondLayout_->Refresh ();
+        }
       }
+      else
+        nextScreen_ = "Splash";
     }
     else
       nextScreen_ = "Splash";

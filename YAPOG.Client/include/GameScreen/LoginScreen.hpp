@@ -13,27 +13,26 @@ namespace ycl
 {
   class LoginScreen : public BaseScreen
   {
-    DISALLOW_COPY(LoginScreen);
+      DISALLOW_COPY(LoginScreen);
 
-  public:
+    public:
 
-    LoginScreen ();
-    virtual ~LoginScreen ();
+      LoginScreen ();
+      virtual ~LoginScreen ();
 
-  protected:
+    protected:
 
-    virtual void HandleInit ();
+      virtual void HandleInit ();
+      virtual bool HandleOnPriorityEvent (const yap::GuiEvent& guiEvent);
 
-    virtual const yap::ScreenType& HandleRun (
-      const yap::Time& dt,
-      yap::IDrawingContext& context);
+      virtual void HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
 
-  private:
-    void Login ();
+    private:
+      LoginWidget loginWidget_;
 
-    LoginWidget loginWidget_;
-
-    static const yap::ScreenType DEFAULT_NAME;
+      static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

@@ -37,7 +37,11 @@ namespace yap
     const String& name,
     HandlerType handler)
   {
-    handlers_.Add (name, sig_.connect (handler));
+    handlers_.Add (
+      name,
+      std::shared_ptr<ConnectionType> (
+        new ConnectionType (
+          sig_.connect (handler))));
   }
 
   template <typename SenderType,
@@ -46,11 +50,7 @@ namespace yap
   inline void Event<SenderType, ArgsType, ReturnType>::RemoveHandler (
     const String& name)
   {
-    ConnectionType connection = handlers_[name];
-
     handlers_.Remove (name);
-
-    sig_.disconnect (connection);
   }
 
   template <typename SenderType,

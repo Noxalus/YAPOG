@@ -41,7 +41,7 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    void Refresh ();
+    void RefreshAfterAdd ();
     yap::Pokedex* pokedex_;
     yap::PictureBox* boxInfoContent_;
     yap::Menu* menu_;

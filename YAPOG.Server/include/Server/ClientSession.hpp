@@ -50,6 +50,8 @@ namespace yse
 
     private:
 
+      bool IsConnected () const;
+
       void Disconnect ();
 
       void HandleClientRequestLogin (yap::IPacket& packet);
@@ -58,6 +60,8 @@ namespace yse
       void SendObjectFactoryTypes (
         yap::IPacket& packet,
         const yap::ObjectFactory& objectFactory);
+
+      bool isConnected_;
 
       yap::PacketHandler packetHandler_;
 

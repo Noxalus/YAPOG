@@ -72,6 +72,6 @@ namespace yap
   PhysicsBoundingBoxCollection::HandleRemoveBoundingBoxFromCollidableArea (
     BoundingBox* boundingBox)
   {
-    GetCollidableArea ().RemoveEventCollidable (boundingBox);
+    GetCollidableArea ().RemovePhysicsCollidable (boundingBox);
   }
 } // namespace yap

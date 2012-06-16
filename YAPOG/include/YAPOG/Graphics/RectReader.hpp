@@ -10,7 +10,7 @@
 namespace yap
 {
   template <typename T>
-  class YAPOG_LIB RectReader : public BaseReaderVisitor
+  class RectReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(RectReader);
 

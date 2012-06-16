@@ -43,7 +43,7 @@ namespace yap
     virtual void SetBackground (WidgetBackground& background);
 
   private:
-
+    virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
 
     virtual void HandleMove (const Vector2& offset);

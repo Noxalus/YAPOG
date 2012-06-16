@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/RegistrationScreen.hpp"
+#include "Client/Session.hpp"
 
 namespace ycl
 {
@@ -24,10 +25,38 @@ namespace ycl
     guiManager_->AddChild (registrationWidget_);
   }
 
-  const yap::ScreenType& RegistrationScreen::HandleRun (
+  void RegistrationScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
+  }
+  
+  bool RegistrationScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
+  {
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        nextScreen_ = "MainMenu";
+        return true;
+      }
+
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {
+        yap::String login =
+          registrationWidget_.GetLoginTextBox ().GetContent ();
+        yap::String password =
+          registrationWidget_.GetPasswordTextBox ().GetContent ();
+        yap::String email =
+          registrationWidget_.GetEmailTextBox ().GetContent ();
+
+        session_.Login (login);
+        nextScreen_ = "Gameplay";
+        return true;
+      }
+
+    }
+    return false;
   }
 } // namespace ycl

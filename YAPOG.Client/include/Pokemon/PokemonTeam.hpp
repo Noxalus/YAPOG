@@ -18,6 +18,7 @@ namespace ycl
     virtual ~PokemonTeam ();
 
     virtual Pokemon* GetPokemon (int index) const;
+    virtual int GetPokemonCount () const;
     virtual bool AddPokemon (Pokemon* pokemon);
 
   private:

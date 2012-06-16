@@ -84,6 +84,8 @@ namespace yap
         const ChangeEventArgs<const String&>&> OnStateChanged;
       /// @}
 
+      static const Vector2 DEFAULT_MAX_VELOCITY;
+
     protected:
 
       explicit DynamicWorldObject (const ID& id);
@@ -113,7 +115,6 @@ namespace yap
       void SetState (const String& state);
 
       static const String DEFAULT_INACTIVE_STATE;
-      static const Vector2 DEFAULT_MAX_VELOCITY;
 
       ID worldID_;
 

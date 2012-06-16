@@ -13,12 +13,12 @@ namespace ycl
   {
   }
 
-  const yap::ScreenType& LoadingScreen::HandleRun (
+  void LoadingScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
     nextScreen_ = "Update";
 
-    return BaseScreen::HandleRun (dt, context);
+    BaseScreen::HandleRun (dt, context);
   }
 } // namespace ycl

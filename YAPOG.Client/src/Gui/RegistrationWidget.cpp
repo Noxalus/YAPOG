@@ -11,10 +11,28 @@ namespace ycl
 
   RegistrationWidget::RegistrationWidget ()
     : yap::BaseWidget ()
-    , registrationBox_ ()
+    , registrationBox_ (
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
+    , true)
+    , loginBox_ (
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
+    , true)
     , loginTextBox_ ()
+    , loginLabel_ ("Your Login: ")
+    , passwordBox_ (
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
+    , true)
     , passwordTextBox_ ()
+    , passwordLabel_ ("Your Password: ")
+    , emailBox_ (
+    yap::Padding (5, 5, 5, 5)
+    , yap::Padding (5, 5, 5, 5)
+    , true)
     , emailTextBox_ ()
+    , emailLabel_ ("Your Email: ")
   {
   }
 
@@ -55,26 +73,37 @@ namespace ycl
 
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
-
-    registrationBox_.AddChild (loginTextBox_);
-    registrationBox_.AddChild (passwordTextBox_);
-    registrationBox_.AddChild (emailTextBox_);
-    AddChild (registrationBox_);
-
-    registrationBox_.SetSize (yap::Vector2 (200, 100));
-    SetPosition (yap::Vector2 (
-      Game::SCREEN_SIZE.x / 2 - GetSize ().x / 2,
-      Game::SCREEN_SIZE.y / 2 - GetSize ().y / 2
-      ));
-    loginTextBox_.SetSize (yap::Vector2 (200, 32));
+    
+    loginTextBox_.SetSize (yap::Vector2 (242, 32));
     passwordTextBox_.SetSize (yap::Vector2 (200, 32));
+    emailTextBox_.SetSize (yap::Vector2 (242, 32));
+
+    loginBox_.AddChild (loginLabel_);
+    loginBox_.AddChild (loginTextBox_);
+    
+    passwordBox_.AddChild (passwordLabel_);
+    passwordBox_.AddChild (passwordTextBox_);
+    
+    emailBox_.AddChild (emailLabel_);
+    emailBox_.AddChild (emailTextBox_);
+
+    registrationBox_.AddChild (loginBox_, yap::LayoutBox::Align::LEFT);
+    registrationBox_.AddChild (passwordBox_, yap::LayoutBox::Align::LEFT);
+    registrationBox_.AddChild (emailBox_, yap::LayoutBox::Align::LEFT);
+
+    AddChild (registrationBox_);
+    
+    SetPosition (yap::Vector2 (
+      (Game::SCREEN_SIZE.x - registrationBox_.GetSize ().x) / 2,
+      (Game::SCREEN_SIZE.y - registrationBox_.GetSize ().y) / 2
+      ));
 
     registrationBox_.SetBackground (*menuBck);
     registrationBox_.SetBorder (*menuBorder);
 
     loginTextBox_.Move (yap::Vector2 (10, 0));
-    passwordTextBox_.Move (yap::Vector2 (10, 5));
-    emailTextBox_.Move (yap::Vector2 (10, 5));
+    passwordTextBox_.Move (yap::Vector2 (10, 0));
+    emailTextBox_.Move (yap::Vector2 (10, 0));
 
     loginTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Black.png"));
     passwordTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Green.png"));

@@ -65,7 +65,17 @@ namespace yap
 
   void PictureBox::SetPicture (String file)
   {
-    picture_.LoadFromFile (file);
+    if (picture_.GetSize () != Vector2 (0,0))
+    {
+      Vector2 size = picture_.GetSize ();
+      picture_.LoadFromFile (file);
+      //picture_.SetSize (size);
+    }
+    else
+    {
+      picture_.LoadFromFile (file);
+    }
+    
     picture_.SetPosition (Vector2 (GetPosition ().x + padding_.left,
       GetPosition ().y + padding_.top));
 

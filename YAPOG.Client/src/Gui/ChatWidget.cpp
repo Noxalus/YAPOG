@@ -1,8 +1,10 @@
 #include "YAPOG/Game/Chat/ChatHeader.hpp"
 #include "YAPOG/Game/Chat/Chat.hpp"
 #include "YAPOG/Game/Chat/ChatDisplayer.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 #include "Gui/ChatWidget.hpp"
+#include "Game.hpp"
 
 namespace ycl
 {
@@ -26,7 +28,6 @@ namespace ycl
     yap::Texture* cursor = new yap::Texture ();
     cursor->LoadFromFile ("WindowSkins/BasicSkin/Global/TextCursor.png");
     bigLayout_->SetSize (yap::Vector2 (300, 150));
-    lineCatcher_->ChangeColor (sf::Color::Black);
     lineCatcher_->SetCursor (*cursor);
     lineCatcher_->SetSize (yap::Vector2 (242, 12));
   }
@@ -87,6 +88,7 @@ namespace ycl
     entryLayout_->SetSize (yap::Vector2 (242, 12));
 
     entryLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    lineCatcher_->ChangeColor (sf::Color::Black);
     entryLayout_->AddChild (*lineCatcher_);
     bigLayout_->AddChild (*entryLayout_);
   }
@@ -121,12 +123,13 @@ namespace ycl
     InitDial ();
     InitEntry ();
 
-    //tabTitle[chat_->GetTabNb ()]
-
     AddChild (*bigLayout_);
-    bigLayout_->SetBackground (*chatBground);
     bigLayout_->SetBorder (*chatBorder);
-    bigLayout_->SetPosition (yap::Vector2 (42, 242));
+    bigLayout_->SetPosition (
+      yap::Vector2 (
+      20,
+      Game::SCREEN_SIZE.y - GetSize ().y - 20));
+    bigLayout_->SetBackground (*chatBground);
   }
 
   bool ChatWidget::IsFocusable () const
@@ -136,7 +139,7 @@ namespace ycl
 
   yap::Vector2 ChatWidget::HandleGetSize () const
   {
-    return yap::Vector2 (300, 150);
+    return bigLayout_->GetSize ();
   }
 
   void ChatWidget::DisplayResponse (ResponseType res)
@@ -176,6 +179,113 @@ namespace ycl
     }
   }
 
+  bool ChatWidget::TabAndChanHandler (bool chan, bool add, int i)
+  {
+    ResponseType response;
+    if (chan)
+      chat_->SetBuf ((add ? "/addchan " : "/switchchan ") + 
+      yap::StringHelper::ToString (i));
+    else
+      chat_->SetBuf ("/switchtab " + yap::StringHelper::ToString (i));
+    chat_->Parse ();
+    response = chat_->Exec ();
+    if (!chan && response.second.IsEmpty ())
+    {
+      response.first = true;
+      response.second = yap::ResponsesType ();
+    }
+    DisplayResponse (response);
+
+    return true;
+  }
+
+  bool ChatWidget::TestAddChan (const yap::GuiEvent& guiEvent)
+  {
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num0)
+      return TabAndChanHandler (true, true, 0);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num1)
+      return TabAndChanHandler (true, true, 1);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num2)
+      return TabAndChanHandler (true, true, 2);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num3)
+      return TabAndChanHandler (true, true, 3);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num4)
+      return TabAndChanHandler (true, true, 4);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num5)
+      return TabAndChanHandler (true, true, 5);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num6)
+      return TabAndChanHandler (true, true, 6);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num7)
+      return TabAndChanHandler (true, true, 7);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num8)
+      return TabAndChanHandler (true, true, 8);
+    if (guiEvent.key.alt
+      && guiEvent.key.code == sf::Keyboard::Num9)
+      return TabAndChanHandler (true, true, 9);
+    return false;
+  }
+
+  bool ChatWidget::TestSwitchTab (const yap::GuiEvent& guiEvent)
+  {
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num0)
+      return TabAndChanHandler (false, false, 0);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num1)
+      return TabAndChanHandler (false, false, 1);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num2)
+      return TabAndChanHandler (false, false, 2);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num3)
+      return TabAndChanHandler (false, false, 3);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num4)
+      return TabAndChanHandler (false, false, 4);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num5)
+      return TabAndChanHandler (false, false, 5);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num6)
+      return TabAndChanHandler (false, false, 6);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num7)
+      return TabAndChanHandler (false, false, 7);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num8)
+      return TabAndChanHandler (false, false, 8);
+    if (guiEvent.key.control
+      && guiEvent.key.code == sf::Keyboard::Num9)
+      return TabAndChanHandler (false, false, 9);
+    return false;
+  }
+  
+  bool ChatWidget::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
+  {
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        this->Close ();
+        return true;
+      }
+
+      if (TestAddChan (guiEvent) || TestSwitchTab (guiEvent))
+        return true;
+    }
+
+    return false;
+  }
+
   bool ChatWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
@@ -184,8 +294,6 @@ namespace ycl
       {
         ResponseType response;
         yap::String todisplay = lineCatcher_->GetContent ();
-        if (todisplay.compare ("exit") == 0)
-          exit (EXIT_SUCCESS);
         chat_->SetBuf (todisplay);
         chat_->Parse ();
         response = chat_->Exec ();
@@ -193,6 +301,7 @@ namespace ycl
           DisplayResponse (response);
         lineCatcher_->Clear ();
       }
+
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
         chat_->SetBuf ("/up");
@@ -201,6 +310,7 @@ namespace ycl
         if (!todisplay.empty ())
           lineCatcher_->SetText (todisplay);
       }
+
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
         chat_->SetBuf ("/down");

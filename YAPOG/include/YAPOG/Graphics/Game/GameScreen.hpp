@@ -24,6 +24,7 @@ namespace yap
       virtual void Activate ();
       virtual void Deactivate ();
 
+      virtual void NextFrame ();
       virtual const ScreenType& Run (const Time& dt, IDrawingContext& context);
 
       virtual const GuiManager& GetGuiManager () const;
@@ -43,7 +44,7 @@ namespace yap
       virtual void CreateGuiManager ();
 
       /// @brief Behavior of Run.
-      virtual const ScreenType& HandleRun (
+      virtual void HandleRun (
         const Time& dt,
         IDrawingContext& context);
       /// @brief Behavior of Init.

@@ -241,6 +241,8 @@ namespace yap
 
   void Map::HandleRemoveDynamicObject (DynamicWorldObject* object)
   {
+    object->OnMoved.RemoveHandler (MOVED_UPDATE_EVENT_HANDLER_NAME);
+
     RemoveObjectEvents (*object);
   }
 
