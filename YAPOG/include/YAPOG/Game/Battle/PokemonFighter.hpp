@@ -32,6 +32,7 @@ namespace yap
     virtual float GetHPPercentage () const;
     virtual const collection::Array<PokemonSkill*>& GetMoves () const;
     virtual const PokemonSkill& GetMove (int index) const;
+    virtual const PokemonStat& GetStats () const;
 
     virtual void TakeDamage (int value);
 

@@ -1,5 +1,6 @@
 # include "YAPOG/Game/Battle/Phase/BattlePhase.hpp"
 # include "YAPOG/Game/Battle/Battle.hpp"
+# include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 
 namespace yap
 {
@@ -7,13 +8,19 @@ namespace yap
     Battle& battle, 
     const BattlePhaseState& battlePhaseState)
     : state_ (battlePhaseState)
+    , phaseArgs_ (nullptr)
     , battle_ (battle)
   {
   }
 
-  void BattlePhase::Start ()
+  PhaseArgs* BattlePhase::GetPhaseArgs ()
   {
-    HandleStart ();
+    return phaseArgs_;
+  }
+
+  void BattlePhase::Start (PhaseArgs* args)
+  {
+    HandleStart (args);
   }
 
   void BattlePhase::End ()
@@ -27,8 +34,10 @@ namespace yap
     HandleUpdate (dt);
   }
 
-  void BattlePhase::HandleStart ()
+  void BattlePhase::HandleStart (PhaseArgs* args)
   {
+    if (args != nullptr)
+      args->Accept (*this);
   }
 
   void BattlePhase::HandleEnd ()
@@ -51,4 +60,21 @@ namespace yap
 
   void BattlePhase::SetPreviousPhase (const BattlePhaseState& value)
   { previousPhase_ = value; }
+
+  void BattlePhase::SwitchPhase (BattlePhaseState nextPhase)
+  {
+    nextPhase_ = nextPhase;
+    phaseArgs_ = nullptr;
+  }
+
+  void BattlePhase::SwitchPhase (BattlePhaseState nextPhase, PhaseArgs* args)
+  {
+    nextPhase_ = nextPhase;
+    phaseArgs_ = args;
+  }
+
+  //Visitor's methods
+  void BattlePhase::Visit (const ActionPhaseArgs& visitable)
+  {
+  }
 }

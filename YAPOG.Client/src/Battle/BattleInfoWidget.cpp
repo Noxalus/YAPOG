@@ -6,6 +6,7 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/MathHelper.hpp"
+#include "YAPOG/Graphics/Gui/Label.hpp"
 
 #include "Battle/BattleInfoWidget.hpp"
 
@@ -20,20 +21,24 @@ namespace ycl
 
   const float BattleInfoWidget::MAX_HP_BAR_SIZE = 145.f;
 
-  BattleInfoWidget::BattleInfoWidget ()
+  BattleInfoWidget::BattleInfoWidget (const yap::Padding& widgetPadding)
     : nameLabel_ ()
     , levelLabel_ ()
-    , nameBox_ (
-    yap::Padding (15, 15, 5, 5),
+    , battleInfoBox_ (
+    widgetPadding,
     yap::Padding (0, 0, 0, 0),
     true)
-    , genderBox_ ()
-    , levelBox_ ()
-    , hpBox_ ()
-    , battleInfoBox_ ()
+    , nameBox_ (
+    yap::Padding (0, 0, 7, 0),
+    yap::Padding (0, 0, 0, 0),
+    true)
     , hpBarPictureBox_ (new yap::PictureBox ())
     , hpBarContent_ (new yap::PictureBox ())
     , genderPictureBox_ (new yap::PictureBox ())
+  {
+  }
+
+  void BattleInfoWidget::Init ()
   {
     nameLabel_.ChangeColor (sf::Color::Black);
     levelLabel_.ChangeColor (sf::Color::Black);
@@ -41,35 +46,36 @@ namespace ycl
     hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
     hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
 
-
     hpBarContent_->SetSize (yap::Vector2 (
       MAX_HP_BAR_SIZE,
       hpBarContent_->GetSize ().y));
-    hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);    
+    hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
 
-    //nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    //nameLabel_.SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
-    //genderBox_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
-    levelBox_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
-    hpBox_.SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
-    //hpBarContent_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    // First line
+    nameBox_.AddChild (nameLabel_);
+    nameBox_.AddChild (*genderPictureBox_);
+    nameBox_.AddChild (levelLabel_);
 
+    // Second line
+    hpBarPictureBox_->AddChild (*hpBarContent_);
+    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
+
+    // Add to the global box
+    battleInfoBox_.AddChild (nameBox_, yap::LayoutBox::Align::LEFT);
+    battleInfoBox_.AddChild (*hpBarPictureBox_, yap::LayoutBox::Align::RIGHT); 
+
+    /// @debug Borders.
+    /// @{
     /*
+    nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    nameLabel_.SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
+    levelLabel_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
+    hpBarPictureBox_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
-    levelBox_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     */
+    /// @}
 
     this->AddChild (battleInfoBox_);
-  }
-
-  void BattleInfoWidget::ComputeLevelBoxSize ()
-  {
-    levelBox_.SetSize (
-      yap::Vector2 (
-      nameBox_.GetSize ().x - 
-      nameLabel_.GetSize ().x - 
-      genderPictureBox_->GetSize ().x, 
-      25.f));
   }
 
   void BattleInfoWidget::UpdateHPColor (int value)
@@ -133,5 +139,10 @@ namespace ycl
 
   void BattleInfoWidget::HandleDraw (yap::IDrawingContext& context)
   {
+  }
+
+  yap::Vector2 BattleInfoWidget::HandleGetSize () const
+  {
+    return battleInfoBox_.GetSize ();
   }
 }

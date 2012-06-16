@@ -46,6 +46,9 @@ namespace ycl
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
+    pokemonInfoWidget_->Init ();
+    opponentInfoWidget_->Init ();
+
     pokemonInfoWidget_->Show (false);
 
     battleMenu_.SetPosition (yap::Vector2 (

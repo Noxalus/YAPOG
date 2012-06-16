@@ -117,6 +117,11 @@ namespace yap
     return  ((float)GetCurrentHP () / (float)GetMaxHP ()) * 100;
   }
 
+  const PokemonStat& PokemonFighter::GetStats () const
+  {
+    return stats_;
+  }
+
   void PokemonFighter::TakeDamage (int value)
   {
     SetCurrentHP (GetCurrentHP () - value);

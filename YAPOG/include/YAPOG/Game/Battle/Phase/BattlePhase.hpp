@@ -8,6 +8,8 @@
 namespace yap
 {
   class Battle;
+  class ActionPhaseArgs;
+  class PhaseArgs;
 
   class YAPOG_LIB BattlePhase : public IUpdateable
   {
@@ -17,9 +19,14 @@ namespace yap
     /// Getters
     const BattlePhaseState& GetNext () const;
 
-    void Start ();
+    void Start (PhaseArgs* args);
     void End ();
     
+    /// @name Getters.
+    /// @{
+    PhaseArgs* GetPhaseArgs ();
+    /// @}
+
     /// @name Setters.
     /// @{
     void SetPreviousPhase (const BattlePhaseState& value);
@@ -30,18 +37,27 @@ namespace yap
     virtual void Update (const Time& dt);
     /// @}
 
+    /// @name Visitor's methods.
+    /// @{
+    virtual void Visit (const ActionPhaseArgs& visitable);
+    /// @}
+
+    void SwitchPhase (BattlePhaseState nextPhase);
+    void SwitchPhase (BattlePhaseState nextPhase, PhaseArgs* args);
+
   protected:
-    virtual void HandleStart ();
+    virtual void HandleStart (PhaseArgs* args);
     virtual void HandleEnd ();
     virtual void HandleUpdate (const Time& dt);
 
     Battle& GetBattle ();
 
     BattlePhaseState state_;
-    BattlePhaseState nextPhase_;
     BattlePhaseState previousPhase_;
 
   private:
+    BattlePhaseState nextPhase_;
+    PhaseArgs* phaseArgs_;
     Battle& battle_;
   };
 } // namespace yap

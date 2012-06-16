@@ -270,13 +270,15 @@ ${inc_root}/Game/Battle/IBattleEntity.hpp
 ${src_root}/Game/Battle/PokemonFighterTeam.cpp
 ${inc_root}/Game/Battle/PokemonFighterTeam.hpp
 
+${src_root}/Game/Battle/Phase/ActionPhase.cpp
+${inc_root}/Game/Battle/Phase/ActionPhase.hpp
+${src_root}/Game/Battle/Phase/ActionPhaseArgs.cpp
+${inc_root}/Game/Battle/Phase/ActionPhaseArgs.hpp
 ${src_root}/Game/Battle/Phase/BattlePhase.cpp
 ${inc_root}/Game/Battle/Phase/BattlePhase.hpp
 ${src_root}/Game/Battle/Phase/BattlePhaseManager.cpp
 ${inc_root}/Game/Battle/Phase/BattlePhaseManager.hpp
 ${inc_root}/Game/Battle/Phase/BattlePhaseState.hpp
-${src_root}/Game/Battle/Phase/ActionPhase.cpp
-${inc_root}/Game/Battle/Phase/ActionPhase.hpp
 ${src_root}/Game/Battle/Phase/BeginBattlePhase.cpp
 ${inc_root}/Game/Battle/Phase/BeginBattlePhase.hpp
 ${src_root}/Game/Battle/Phase/BeginTurnPhase.cpp
@@ -285,10 +287,12 @@ ${src_root}/Game/Battle/Phase/EndBattlePhase.cpp
 ${inc_root}/Game/Battle/Phase/EndBattlePhase.hpp
 ${src_root}/Game/Battle/Phase/EndTurnPhase.cpp
 ${inc_root}/Game/Battle/Phase/EndTurnPhase.hpp
+${src_root}/Game/Battle/Phase/PhaseArgs.cpp
+${inc_root}/Game/Battle/Phase/PhaseArgs.hpp
 ${src_root}/Game/Battle/Phase/SelectionPhase.cpp
 ${inc_root}/Game/Battle/Phase/SelectionPhase.hpp
-${src_root}/Game/Battle/Phase/SwitchPhase.cpp
-${inc_root}/Game/Battle/Phase/SwitchPhase.hpp
+${src_root}/Game/Battle/Phase/EndPokemonSwitchPhase.cpp
+${inc_root}/Game/Battle/Phase/EndPokemonSwitchPhase.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

@@ -1,8 +1,10 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+#include "YAPOG/Game/Battle/Phase/ActionPhaseArgs.hpp"
 
 #include "Game.hpp"
 
-#include "Battle/Phase/SwitchPhase.hpp"
+#include "Battle/Phase/EndPokemonSwitchPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
 #include "Battle/PokemonBattleInfoWidget.hpp"
@@ -10,24 +12,24 @@
 
 namespace ycl
 {
-  const bool SwitchPhase::DEFAULT_VISIBLE_STATE = true;
-  const sf::Color SwitchPhase::DEFAULT_COLOR = sf::Color ();
-  const float SwitchPhase::BATTLE_INFO_SPEED = 500.f;
+  const bool EndPokemonSwitchPhase::DEFAULT_VISIBLE_STATE = true;
+  const sf::Color EndPokemonSwitchPhase::DEFAULT_COLOR = sf::Color ();
+  const float EndPokemonSwitchPhase::BATTLE_INFO_SPEED = 500.f;
 
-  SwitchPhase::SwitchPhase (Battle& battle, BattleInterface& battleInterface)
-    : yap::SwitchPhase (battle)
+  EndPokemonSwitchPhase::EndPokemonSwitchPhase (Battle& battle, BattleInterface& battleInterface)
+    : yap::EndPokemonSwitchPhase (battle)
     , battle_ (battle)
     , battleInterface_ (battleInterface)
   {
   }
 
-  SwitchPhase::~SwitchPhase ()
+  EndPokemonSwitchPhase::~EndPokemonSwitchPhase ()
   {
   }
 
-  void SwitchPhase::HandleStart ()
+  void EndPokemonSwitchPhase::HandleStart (yap::PhaseArgs* args)
   {
-    yap::SwitchPhase::HandleStart ();
+    yap::EndPokemonSwitchPhase::HandleStart (args);
 
     /* Battle interface */
 
@@ -49,6 +51,10 @@ namespace ycl
     // Pokemon level
     battleInterface_.GetPokemonInfoWidget ().SetLevel (
       battle_.GetPlayerTeam ().GetLevel ());
+
+    // Pokemon HP
+    battleInterface_.GetPokemonInfoWidget ().SetHPValue (
+      battle_.GetPlayerTeam ().GetStats ().GetHitPoint ());
 
     /* Pokemon sprite */
 
@@ -102,6 +108,12 @@ namespace ycl
             [battleInterface_.GetBattleMoveMenu ().
             GetIndex (sender)]->GetType ());
         };
+
+        battleInterface_.GetBattleMoveMenu ().GetItem (i).OnActivated +=
+          [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+        {
+          yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::BeginBattle);
+        };
       }
       else
       {
@@ -117,9 +129,9 @@ namespace ycl
     }
   }
 
-  void SwitchPhase::HandleUpdate (const yap::Time& dt)
+  void EndPokemonSwitchPhase::HandleUpdate (const yap::Time& dt)
   {
-    yap::SwitchPhase::HandleUpdate (dt);
+    yap::EndPokemonSwitchPhase::HandleUpdate (dt);
 
     if (battleInterface_.GetPokemonInfoWidget ().GetPosition ().x >
       battle_.GetPokemonInfoPosition ().x)
@@ -137,18 +149,18 @@ namespace ycl
       battle_.GetPokemonInfoPosition ())
     {
       if (previousPhase_ == yap::BattlePhaseState::BeginBattle)
-        nextPhase_ = yap::BattlePhaseState::Selection;
+        yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Selection);
       else
-        nextPhase_ = yap::BattlePhaseState::Action;
+        yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Action);
     }
   }
 
-  void SwitchPhase::HandleEnd ()
+  void EndPokemonSwitchPhase::HandleEnd ()
   {
-    yap::SwitchPhase::HandleEnd ();
+    yap::EndPokemonSwitchPhase::HandleEnd ();
   }
 
-  void SwitchPhase::Draw (yap::IDrawingContext& context)
+  void EndPokemonSwitchPhase::Draw (yap::IDrawingContext& context)
   {
     if (!IsVisible ())
       return;
@@ -156,34 +168,34 @@ namespace ycl
     HandleDraw (context);
   }
 
-  bool SwitchPhase::IsVisible () const
+  bool EndPokemonSwitchPhase::IsVisible () const
   {
     return isVisible_;
   }
 
-  void SwitchPhase::Show (bool isVisible)
+  void EndPokemonSwitchPhase::Show (bool isVisible)
   {
     isVisible_ = isVisible;
 
     HandleShow (isVisible);
   }
 
-  void SwitchPhase::ChangeColor (const sf::Color& color)
+  void EndPokemonSwitchPhase::ChangeColor (const sf::Color& color)
   {
     color_ = color;
 
     HandleChangeColor (color);
   }
 
-  void SwitchPhase::HandleDraw (yap::IDrawingContext& context)
+  void EndPokemonSwitchPhase::HandleDraw (yap::IDrawingContext& context)
   {
   }
 
-  void SwitchPhase::HandleShow (bool isVisible)
+  void EndPokemonSwitchPhase::HandleShow (bool isVisible)
   {
   }
 
-  void SwitchPhase::HandleChangeColor (const sf::Color& color)
+  void EndPokemonSwitchPhase::HandleChangeColor (const sf::Color& color)
   {
   }
 }

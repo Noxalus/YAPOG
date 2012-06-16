@@ -1,3 +1,5 @@
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+
 #include "Battle/Phase/ActionPhase.hpp"
 #include "Battle/Battle.hpp"
 
@@ -17,9 +19,9 @@ namespace ycl
   {
   }
 
-  void ActionPhase::HandleStart ()
+  void ActionPhase::HandleStart (yap::PhaseArgs* args)
   {
-    yap::ActionPhase::HandleStart ();
+    yap::ActionPhase::HandleStart (args);
   }
 
   void ActionPhase::HandleUpdate (const yap::Time& dt)

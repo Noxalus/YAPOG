@@ -7,15 +7,15 @@ namespace yap
   {
   }
 
-  void ActionPhase::HandleStart ()
+  void ActionPhase::HandleStart (PhaseArgs* args)
   {
-    BattlePhase::HandleStart ();
+    BattlePhase::HandleStart (args);
     std::cout << "BEGIN ACTION !" << std::endl;
   }
 
   void ActionPhase::HandleUpdate (const Time& dt)
   {
-    nextPhase_ = BattlePhaseState::EndTurn;
+    yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::EndTurn);
   }
 
   void ActionPhase::HandleEnd ()

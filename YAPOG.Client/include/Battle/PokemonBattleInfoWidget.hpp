@@ -24,6 +24,8 @@ namespace ycl
   public:
     PokemonBattleInfoWidget ();
 
+    virtual void Init ();
+
     /// @name Setters.
     /// @{
     void SetHPValue (const yap::HitPoint& hp);
@@ -32,7 +34,6 @@ namespace ycl
   private:
     yap::Label hpValue_;
     yap::ISprite* experienceBar_;
-    yap::HorizontalLayout hpLabelBox_;
   };
 } // namespace ycl
 

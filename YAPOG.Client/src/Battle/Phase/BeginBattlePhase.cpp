@@ -1,7 +1,6 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
-
-#include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 
 #include "Battle/Phase/BeginBattlePhase.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
@@ -28,9 +27,9 @@ namespace ycl
   {
   }
 
-  void BeginBattlePhase::HandleStart ()
+  void BeginBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
-    yap::BeginBattlePhase::HandleStart ();
+    yap::BeginBattlePhase::HandleStart (args);
 
     // Begin battle little phases booleans init.
     nextState_ = FISRT_STATE;
@@ -174,7 +173,7 @@ namespace ycl
     }
 
     if (nextState_ == "SwitchPhase")
-      nextPhase_ = yap::BattlePhaseState::Switch;
+      yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Switch);
   }
 
   void BeginBattlePhase::HandleEnd ()

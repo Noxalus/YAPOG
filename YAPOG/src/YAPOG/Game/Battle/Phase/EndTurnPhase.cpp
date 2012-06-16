@@ -1,4 +1,5 @@
-# include "YAPOG/Game/Battle/Phase/EndTurnPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/EndTurnPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 
 namespace yap
 {
@@ -7,15 +8,15 @@ namespace yap
   {
   }
 
-  void EndTurnPhase::HandleStart ()
+  void EndTurnPhase::HandleStart (PhaseArgs* args)
   {
-    BattlePhase::HandleStart ();
+    BattlePhase::HandleStart (args);
     std::cout << "BEGIN END TURN PHASE !" << std::endl;
   }
 
   void EndTurnPhase::HandleUpdate (const Time& dt)
   {
-    nextPhase_ = BattlePhaseState::EndBattle;
+    yap::BattlePhase::SwitchPhase (BattlePhaseState::EndBattle);
   }
 
   void EndTurnPhase::HandleEnd ()

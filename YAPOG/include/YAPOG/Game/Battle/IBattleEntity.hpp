@@ -9,6 +9,7 @@
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
+# include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 
 namespace yap
 {
@@ -28,6 +29,7 @@ namespace yap
     virtual float GetHPPercentage () const = 0;
     virtual const collection::Array<PokemonSkill*>& GetMoves () const = 0;
     virtual const PokemonSkill& GetMove (int index) const = 0;
+    virtual const PokemonStat& GetStats () const = 0;
     /// @}
 
     /// @name Setters.

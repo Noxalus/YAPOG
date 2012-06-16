@@ -52,11 +52,14 @@ namespace yap
 
     currentBattlePhase_->End ();
     
+    // We save the former values
     BattlePhaseState previousState = currentPhaseState_;
+    PhaseArgs* previousArgs = currentBattlePhase_->GetPhaseArgs ();
+
     SetCurrentPhaseState (battlePhaseState);
 
     currentBattlePhase_->SetPreviousPhase (previousState);
-    currentBattlePhase_->Start ();
+    currentBattlePhase_->Start (previousArgs);
   }
 
   void BattlePhaseManager::Update (const Time& dt)
@@ -78,7 +81,7 @@ namespace yap
     if (wasEmpty)
     {
       SetCurrentPhaseState (battlePhaseState);
-      currentBattlePhase_->Start ();
+      currentBattlePhase_->Start (nullptr);
     }
   }
 }

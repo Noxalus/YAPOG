@@ -1,5 +1,5 @@
-#ifndef YAPOG_ENDBATTLEPHASE_HPP
-# define YAPOG_ENDBATTLEPHASE_HPP
+#ifndef YAPOG_ENDPOKEMONSWITCHPHASE_HPP
+# define YAPOG_ENDPOKEMONSWITCHPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Battle/Phase/BattlePhase.hpp"
@@ -8,10 +8,10 @@ namespace yap
 {
   class PhaseArgs;
 
-  class YAPOG_LIB EndBattlePhase : public BattlePhase
+  class YAPOG_LIB EndPokemonSwitchPhase : public BattlePhase
   {
   public:
-    EndBattlePhase (Battle& battle);
+    EndPokemonSwitchPhase (Battle& battle);
 
     /// @name BattlePhase members.
     /// @{
@@ -22,4 +22,4 @@ namespace yap
   };
 } // namespace yap
 
-#endif // YAPOG_ENDBATTLEPHASE_HPP
+#endif // YAPOG_ENDPOKEMONSWITCHPHASE_HPP
