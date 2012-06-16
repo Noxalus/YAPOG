@@ -5,6 +5,11 @@
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/Battle/Phase/SelectionPhase.hpp"
 
+namespace yap
+{
+  class PhaseArgs;
+} // namespace yap
+
 namespace ycl
 {
   class Battle;
@@ -20,7 +25,7 @@ namespace ycl
 
     /// @name BattlePhase members.
     /// @{
-    virtual void HandleStart ();
+    virtual void HandleStart (yap::PhaseArgs* args);
     virtual void HandleUpdate (const yap::Time& dt);
     virtual void HandleEnd ();
     /// @}

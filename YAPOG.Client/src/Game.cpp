@@ -329,7 +329,7 @@ namespace ycl
 #ifndef YAPOG_WIN
     screenManager_->Init ("Gameplay");
 #else
-    screenManager_->Init ("Update");
+    screenManager_->Init ("Battle");
 #endif
   }
 

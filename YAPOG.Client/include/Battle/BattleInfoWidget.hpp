@@ -22,9 +22,10 @@ namespace ycl
     DISALLOW_COPY (BattleInfoWidget);
 
   public:
-    BattleInfoWidget ();
+    BattleInfoWidget (const yap::Padding& widgetPadding);
 
-    void ComputeLevelBoxSize ();
+    virtual void Init ();
+
     void UpdateHPColor (int value);
     void UpdateHPSize (int value);
 
@@ -36,6 +37,7 @@ namespace ycl
     /// @}
 
     virtual void HandleDraw (yap::IDrawingContext& context);
+    virtual yap::Vector2 BattleInfoWidget::HandleGetSize () const;
 
   protected:
     /// @name Labels.
@@ -46,11 +48,8 @@ namespace ycl
 
     /// @name Layouts.
     /// @{
-    yap::HorizontalLayout nameBox_;
-    yap::VerticalLayout genderBox_;
-    yap::VerticalLayout levelBox_;
-    yap::HorizontalLayout hpBox_;
     yap::VerticalLayout battleInfoBox_;
+    yap::HorizontalLayout nameBox_;
     /// @}
 
     /// @name Picture boxes.

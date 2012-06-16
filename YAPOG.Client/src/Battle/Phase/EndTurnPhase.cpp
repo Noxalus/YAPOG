@@ -16,9 +16,9 @@ namespace ycl
   {
   }
 
-  void EndTurnPhase::HandleStart ()
+  void EndTurnPhase::HandleStart (yap::PhaseArgs* args)
   {
-    BattlePhase::HandleStart ();
+    BattlePhase::HandleStart (args);
   }
 
   void EndTurnPhase::HandleUpdate (const yap::Time& dt)

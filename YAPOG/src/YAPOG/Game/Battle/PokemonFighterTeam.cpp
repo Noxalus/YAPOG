@@ -56,6 +56,11 @@ namespace yap
     return GetCurrentFighter ().GetMove (index);
   }
 
+  const PokemonStat& PokemonFighterTeam::GetStats () const
+  {
+    return GetCurrentFighter ().GetStats ();
+  }
+
   Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 

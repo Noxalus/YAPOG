@@ -1,4 +1,5 @@
-# include "YAPOG/Game/Battle/Phase/BeginBattlePhase.hpp"
+#include "YAPOG/Game/Battle/Phase/BeginBattlePhase.hpp"
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 
 namespace yap
 {
@@ -11,9 +12,9 @@ namespace yap
    {
    }
 
-  void BeginBattlePhase::HandleStart ()
+  void BeginBattlePhase::HandleStart (PhaseArgs* args)
   {
-    BattlePhase::HandleStart ();
+    BattlePhase::HandleStart (args);
     std::cout << "BEGIN !" << std::endl;
   }
 

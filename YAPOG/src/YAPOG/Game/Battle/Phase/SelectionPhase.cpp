@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Battle/Phase/SelectionPhase.hpp"
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 
 namespace yap
 {
@@ -7,9 +8,9 @@ namespace yap
   {
   }
 
-  void SelectionPhase::HandleStart ()
+  void SelectionPhase::HandleStart (PhaseArgs* args)
   {
-    BattlePhase::HandleStart ();
+    BattlePhase::HandleStart (args);
     std::cout << "BEGIN SELECTION !" << std::endl;
   }
 

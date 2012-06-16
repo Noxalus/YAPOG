@@ -1,3 +1,5 @@
+#include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+
 #include "Battle/Phase/EndBattlePhase.hpp"
 #include "Battle/Battle.hpp"
 
@@ -16,9 +18,9 @@ namespace ycl
   {
   }
 
-  void EndBattlePhase::HandleStart ()
+  void EndBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
-    BattlePhase::HandleStart ();
+    BattlePhase::HandleStart (args);
   }
 
   void EndBattlePhase::HandleUpdate (const yap::Time& dt)

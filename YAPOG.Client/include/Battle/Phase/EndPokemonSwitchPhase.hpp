@@ -1,26 +1,31 @@
-#ifndef YAPOG_CLIENT_SWITCHPHASE_HPP
-# define YAPOG_CLIENT_SWITCHPHASE_HPP
+#ifndef YAPOG_CLIENT_ENDPOKEMONSWITCHPHASE_HPP
+# define YAPOG_CLIENT_ENDPOKEMONSWITCHPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/SwitchPhase.hpp"
+# include "YAPOG/Game/Battle/Phase/EndPokemonSwitchPhase.hpp"
+
+namespace yap
+{
+  class PhaseArgs;
+} // namespace yap
 
 namespace ycl
 {
   class Battle;
   class BattleInterface;
 
-  class SwitchPhase
-    : public yap::SwitchPhase
+  class EndPokemonSwitchPhase
+    : public yap::EndPokemonSwitchPhase
     , public yap::IDrawable
   {
   public:
-    explicit SwitchPhase (Battle& battle, BattleInterface& battleInterface);
-    virtual ~SwitchPhase ();
+    explicit EndPokemonSwitchPhase (Battle& battle, BattleInterface& battleInterface);
+    virtual ~EndPokemonSwitchPhase ();
 
     /// @name BattlePhase members.
     /// @{
-    virtual void HandleStart ();
+    virtual void HandleStart (yap::PhaseArgs* args);
     virtual void HandleUpdate (const yap::Time& dt);
     virtual void HandleEnd ();
     /// @}
@@ -53,4 +58,4 @@ namespace ycl
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_SWITCHPHASE_HPP
+#endif // YAPOG_CLIENT_ENDPOKEMONSWITCHPHASE_HPP
