@@ -139,7 +139,7 @@ namespace yap
 
   bool MapEventManager::RemoveEventEntry (MapEventContext* eventContext)
   {
-    DynamicWorldObject& object = eventContext->GetMapEventInfo ().GetParent ();
+    DynamicWorldObject& object = eventContext->GetTrigger ();
     MapEvent& event = eventContext->GetMapEventInfo ().GetEvent ();
 
     auto eventTriggering = events_.TryGetValue (&object);

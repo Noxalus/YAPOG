@@ -19,6 +19,8 @@ namespace yap
 
     ClientInfoApplyForce,
 
+    ClientInfoGameInput,
+
     // from server to client
     ServerInfoLoginValidation,
     ServerInfoLoginError,

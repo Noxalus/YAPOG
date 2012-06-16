@@ -78,6 +78,8 @@ ${inc_root}/World/Map/NPCReader.hpp
 ${src_root}/World/Map/NPCReader.cpp
 ${inc_root}/World/Map/Player.hpp
 ${src_root}/World/Map/Player.cpp
+${inc_root}/World/Map/PlayerInputManager.hpp
+${src_root}/World/Map/PlayerInputManager.cpp
 ${inc_root}/World/Map/PlayerReader.hpp
 ${src_root}/World/Map/PlayerReader.cpp
 ${inc_root}/World/Map/Teleporter.hpp

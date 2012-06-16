@@ -15,7 +15,7 @@ namespace yap
     public:
 
       TeleporterReader (
-        Teleporter& worldObject,
+        Teleporter& teleporter,
         const String& xmlRootNodeName);
       virtual ~TeleporterReader ();
 

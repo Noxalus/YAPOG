@@ -5,6 +5,7 @@ namespace yap
 {
   BaseMapEventAction::BaseMapEventAction (MapEventActionType type)
     : type_ (type)
+    , args_ (nullptr)
   {
   }
 
@@ -14,6 +15,7 @@ namespace yap
 
   BaseMapEventAction::BaseMapEventAction (const BaseMapEventAction& copy)
     : type_ (copy.type_)
+    , args_ (nullptr)
   {
   }
 
@@ -21,6 +23,8 @@ namespace yap
     DynamicWorldObject& trigger,
     MapEventArgs& args)
   {
+    args_ = &args;
+
     trigger.Accept (*this);
 
     return HandleExecute (args);
@@ -40,6 +44,16 @@ namespace yap
   }
 
   void BaseMapEventAction::VisitTeleporter (Teleporter& visitable)
+  {
+  }
+
+  void BaseMapEventAction::VisitDestructibleObject (
+    DestructibleObject& visitable)
+  {
+  }
+
+  void BaseMapEventAction::VisitBattleSpawnerArea (
+    BattleSpawnerArea& visitable)
   {
   }
 

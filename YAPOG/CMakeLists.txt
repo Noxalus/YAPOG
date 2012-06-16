@@ -76,6 +76,10 @@ ${inc_root}/Game/Chat/ChatManager.hpp
 ${src_root}/Game/Chat/ChatManager.cpp
 
 ${inc_root}/Game/World/Map/Direction.hpp
+${inc_root}/Game/World/Map/BattleSpawnerArea.hpp
+${src_root}/Game/World/Map/BattleSpawnerArea.cpp
+${inc_root}/Game/World/Map/DestructibleObject.hpp
+${src_root}/Game/World/Map/DestructibleObject.cpp
 ${inc_root}/Game/World/Map/DynamicWorldObject.hpp
 ${src_root}/Game/World/Map/DynamicWorldObject.cpp
 ${inc_root}/Game/World/Map/DynamicWorldObjectCollection.hpp
@@ -84,14 +88,18 @@ ${inc_root}/Game/World/Map/DynamicWorldObjectReader.hpp
 ${src_root}/Game/World/Map/DynamicWorldObjectReader.cpp
 ${inc_root}/Game/World/Map/Map.hpp
 ${src_root}/Game/World/Map/Map.cpp
-${inc_root}/Game/World/Map/Teleporter.hpp
-${src_root}/Game/World/Map/Teleporter.cpp
-${inc_root}/Game/World/Map/TeleporterReader.hpp
-${src_root}/Game/World/Map/TeleporterReader.cpp
+${inc_root}/Game/World/Map/DestructibleObject.hpp
+${src_root}/Game/World/Map/DestructibleObject.cpp
+${inc_root}/Game/World/Map/DestructibleObjectReader.hpp
+${src_root}/Game/World/Map/DestructibleObjectReader.cpp
 ${inc_root}/Game/World/Map/MapElement.hpp
 ${src_root}/Game/World/Map/MapElement.cpp
 ${inc_root}/Game/World/Map/MapElementReader.hpp
 ${src_root}/Game/World/Map/MapElementReader.cpp
+${inc_root}/Game/World/Map/Teleporter.hpp
+${src_root}/Game/World/Map/Teleporter.cpp
+${inc_root}/Game/World/Map/TeleporterReader.hpp
+${src_root}/Game/World/Map/TeleporterReader.cpp
 ${inc_root}/Game/World/Map/IMapEventCondition.hpp
 ${inc_root}/Game/World/Map/IMapEventAction.hpp
 ${inc_root}/Game/World/Map/IPlayer.hpp
@@ -111,6 +119,8 @@ ${inc_root}/Game/World/Map/MapEventQueue.hpp
 ${src_root}/Game/World/Map/MapEventQueue.cpp
 ${inc_root}/Game/World/Map/AnyMapEventAction.hpp
 ${src_root}/Game/World/Map/AnyMapEventAction.cpp
+${inc_root}/Game/World/Map/DestroyObjectMapEventAction.hpp
+${src_root}/Game/World/Map/DestroyObjectMapEventAction.cpp
 ${inc_root}/Game/World/Map/WarpMapEventAction.hpp
 ${src_root}/Game/World/Map/WarpMapEventAction.cpp
 ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp

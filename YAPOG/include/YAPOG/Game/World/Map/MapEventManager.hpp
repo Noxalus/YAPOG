@@ -25,7 +25,7 @@ namespace yap
         collection::Set<
           MapEventContext*,
           MapEventContextTriggerComparator>> EventTriggeringType;
-      /// Map<Source Object, Map<Source Event, Set<Event context>>>
+      /// Map<Trigger Object, Map<Source Event, Set<Event context>>>
       typedef collection::Map<
         const DynamicWorldObject*,
         EventTriggeringType> ObjectEventsType;

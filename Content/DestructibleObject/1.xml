@@ -1,0 +1,22 @@
+<DestructibleObject id="1">
+  <boundingBoxes>
+    <entry>
+      <BoundingBox>
+        <rect>8,20,16,12</rect>
+        <z>0</z>
+        <h>1</h>
+      </BoundingBox>
+    </entry>
+  </boundingBoxes>
+  <spriteType>Sprite</spriteType>
+  <Sprite>
+    <Texture id="26"/>
+  </Sprite>
+  <destructionBox>
+    <BoundingBox>
+      <rect>-10,-10,42,42</rect>
+      <z>0</z>
+      <h>1</h>
+    </BoundingBox>
+  </destructionBox>
+</DestructibleObject>

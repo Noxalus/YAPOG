@@ -42,5 +42,8 @@
       <mapPoint>250,200</mapPoint>
       <area>0,0,300,300</area>
     </Teleporter>
+    <DestructibleObject id="1">
+      <position>50,320</position>
+    </DestructibleObject>
   </dynamicObjects>
 </Map>

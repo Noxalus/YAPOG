@@ -9,6 +9,7 @@
 #include "World/Map/Player.hpp"
 #include "World/Map/NPC.hpp"
 #include "World/Map/Teleporter.hpp"
+#include "World/Map/DestructibleObject.hpp"
 #include "Battle/PlayerTrainer.hpp"
 
 namespace ycl
@@ -178,6 +179,17 @@ namespace ycl
       map.AddDrawableDynamicObject (teleporter);
 
       return;
+    }
+    if (objectTypeName == "DestructibleObject")
+    {
+      DestructibleObject* destructibleObject =
+        yap::ObjectFactory::Instance ().Create<DestructibleObject> (
+          typeID,
+          id);
+      object = destructibleObject;
+      destructibleObject->SetWorldID (worldID);
+
+      map.AddDrawableDynamicObject (destructibleObject);
     }
 
     object->SetPosition (packet.ReadVector2 ());

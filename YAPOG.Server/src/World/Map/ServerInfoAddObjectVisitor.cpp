@@ -1,5 +1,6 @@
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/Graphics/RectWriter.hpp"
+#include "YAPOG/Game/World/Map/DestructibleObject.hpp"
 
 #include "World/Map/ServerInfoAddObjectVisitor.hpp"
 #include "World/Map/Player.hpp"
@@ -21,16 +22,21 @@ namespace yse
   void ServerInfoAddObjectVisitor::VisitCharacter (
     const yap::Character& visitable)
   {
+    BaseDynamicWorldObjectConstVisitor::VisitCharacter (visitable);
+
     WriteAddObject (visitable);
   }
 
   void ServerInfoAddObjectVisitor::VisitPlayer (const yap::IPlayer& visitable)
   {
+    BaseDynamicWorldObjectConstVisitor::VisitPlayer (visitable);
   }
 
   void ServerInfoAddObjectVisitor::VisitTeleporter (
     const yap::Teleporter& visitable)
   {
+    BaseDynamicWorldObjectConstVisitor::VisitTeleporter (visitable);
+
     WriteAddObject (visitable);
 
     packet_.Write (visitable.GetMapWorldID ());
@@ -38,6 +44,14 @@ namespace yse
 
     yap::RectWriter<float> rectangleWriter (visitable.GetArea ());
     packet_.Accept (rectangleWriter);
+  }
+
+  void ServerInfoAddObjectVisitor::VisitDestructibleObject (
+    const yap::DestructibleObject& visitable)
+  {
+    BaseDynamicWorldObjectConstVisitor::VisitDestructibleObject (visitable);
+
+    WriteAddObject (visitable);
   }
 
   void ServerInfoAddObjectVisitor::WriteAddObject (

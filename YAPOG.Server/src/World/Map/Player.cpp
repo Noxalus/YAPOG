@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
+#include "YAPOG/System/Network/IPacket.hpp"
 
 #include "World/Map/Player.hpp"
 #include "Server/User.hpp"
@@ -14,7 +15,9 @@ namespace yse
     : Character (id)
     , parentUser_ (nullptr)
     , packetHandler_ ()
+    , inputManager_ ()
   {
+    InitHandlers ();
   }
 
   Player::~Player ()
@@ -25,7 +28,9 @@ namespace yse
     : Character (copy)
     , parentUser_ (nullptr)
     , packetHandler_ ()
+    , inputManager_ ()
   {
+    InitHandlers ();
   }
 
   Player* Player::Clone () const
@@ -76,9 +81,19 @@ namespace yse
     visitor.VisitCharacter (*this);
   }
 
+  bool Player::HasInput (const yap::GameInputType gameInputType) const
+  {
+    return inputManager_.InputIsActive (gameInputType);
+  }
+
   void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)
   {
     GetParent ().ChangeMap (mapWorldID, point);
+  }
+
+  void Player::DestroyObject (const yap::ID& objectWorldID)
+  {
+    GetParent ().GetMap ().RemoveObject (objectWorldID);
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const
@@ -86,8 +101,23 @@ namespace yse
     return OBJECT_FACTORY_TYPE_NAME;
   }
 
+  void Player::InitHandlers ()
+  {
+    ADD_HANDLER(ClientInfoGameInput, Player::HandleClientInfoGameInput);
+  }
+
   User& Player::GetParent ()
   {
     return *parentUser_;
+  }
+
+  void Player::HandleClientInfoGameInput (yap::IPacket& packet)
+  {
+    yap::GameInputType gameInputType = static_cast<yap::GameInputType> (
+      packet.ReadInt16 ());
+
+    bool state = packet.ReadBool ();
+
+    inputManager_.SetInputState (gameInputType, state);
   }
 } // namespace yse

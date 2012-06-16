@@ -25,6 +25,7 @@ namespace yse
 
       void AddObject (yap::DynamicWorldObject* object);
       void RemoveObject (yap::DynamicWorldObject* object);
+      void RemoveObject (const yap::ID& objectWorldID);
 
       void AddObject (yap::StaticWorldObject* object);
       void RemoveObject (yap::StaticWorldObject* object);

@@ -3,12 +3,14 @@
 
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
 
 namespace yap
 {
   struct IDynamicWorldObjectVisitor;
   struct IDynamicWorldObjectConstVisitor;
 
+  /// @brief Interface representing the actions that a player can perform.
   struct IPlayer
   {
       virtual ~IPlayer () { }
@@ -17,7 +19,11 @@ namespace yap
       virtual void Accept (
         IDynamicWorldObjectConstVisitor& visitor) const = 0;
 
+      virtual bool HasInput (GameInputType gameInputType) const = 0;
+
       virtual void Warp (const ID& mapWorldID, const Vector2& point) = 0;
+
+      virtual void DestroyObject (const ID& objectWorldID) = 0;
   };
 } // namespace yap
 

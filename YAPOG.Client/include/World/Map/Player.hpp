@@ -29,7 +29,11 @@ namespace ycl
       virtual void Accept (
         yap::IDynamicWorldObjectConstVisitor& visitor) const;
 
+      virtual bool HasInput (yap::GameInputType gameInputType) const;
+
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
+
+      virtual void DestroyObject (const yap::ID& objectWorldID);
       /// @}
 
     protected:

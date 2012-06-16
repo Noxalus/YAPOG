@@ -3,6 +3,7 @@
 #include "YAPOG/System/IO/Xml/XmlHelper.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/MapElement.hpp"
+#include "YAPOG/Game/World/Map/DestructibleObject.hpp"
 #include "YAPOG/Graphics/RectReader.hpp"
 
 #include "World/Map/MapReader.hpp"
@@ -78,6 +79,26 @@ namespace yse
       teleporter->SetPosition (teleporterPosition);
 
       map_.AddObject (teleporter);
+    }
+
+    yap::XmlReaderCollection destructibleObjectReaders;
+    reader.ReadNodes ("DestructibleObject", destructibleObjectReaders);
+    for (auto& destructibleObjectReader : destructibleObjectReaders)
+    {
+      yap::ID destructibleObjectID = destructibleObjectReader->ReadID (
+        yap::XmlHelper::GetAttrNodeName ("id"));
+
+      yap::DestructibleObject* destructibleObject =
+        DynamicObjectFactory::Instance ().Create<yap::DestructibleObject> (
+          "DestructibleObject",
+          destructibleObjectID);
+
+      yap::Vector2 destructibleObjectPosition =
+        destructibleObjectReader->ReadVector2 ("position");
+
+      destructibleObject->SetPosition (destructibleObjectPosition);
+
+      map_.AddObject (destructibleObject);
     }
   }
 

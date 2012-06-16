@@ -32,6 +32,11 @@ namespace yse
     RemoveDynamicObject (object);
   }
 
+  void Map::RemoveObject (const yap::ID& objectWorldID)
+  {
+    RemoveDynamicObject (&GetObject (objectWorldID));
+  }
+
   void Map::AddObject (yap::StaticWorldObject* object)
   {
     AddStaticObject (object);

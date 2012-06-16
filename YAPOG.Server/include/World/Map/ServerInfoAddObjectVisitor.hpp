@@ -27,6 +27,8 @@ namespace yse
       virtual void VisitCharacter (const yap::Character& visitable);
       virtual void VisitPlayer (const yap::IPlayer& visitable);
       virtual void VisitTeleporter (const yap::Teleporter& visitable);
+      virtual void VisitDestructibleObject (
+        const yap::DestructibleObject& visitable);
 
     private:
 
