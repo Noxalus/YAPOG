@@ -37,7 +37,7 @@ namespace ycl
     /// @}
 
     virtual void HandleDraw (yap::IDrawingContext& context);
-    virtual yap::Vector2 BattleInfoWidget::HandleGetSize () const;
+    virtual yap::Vector2 HandleGetSize () const;
 
   protected:
     /// @name Labels.

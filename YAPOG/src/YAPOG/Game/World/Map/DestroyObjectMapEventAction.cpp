@@ -39,6 +39,9 @@ namespace yap
     DebugLogger::Instance ().LogLine ("DESTROY!");
 
     if (visitable.HasInput (GameInputType::MapAction))
+    {
+      DebugLogger::Instance ().LogLine ("DESTROYeeeeeeeeeeeeeeeeeeeeeeeeeed!");
       visitable.DestroyObject (targetWorldID_);
+    }
   }
 } // namespace yap
