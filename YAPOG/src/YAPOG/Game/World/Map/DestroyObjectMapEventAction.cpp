@@ -1,7 +1,6 @@
 #include "YAPOG/Game/World/Map/DestroyObjectMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/IPlayer.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yap
 {
   DestroyObjectMapEventAction::DestroyObjectMapEventAction (
@@ -36,12 +35,8 @@ namespace yap
   {
     BaseMapEventAction::VisitPlayer (visitable);
 
-    DebugLogger::Instance ().LogLine ("DESTROY!");
-
+    /// @todo Make `GameInputIsActivatedMapEventCondition' class.
     if (visitable.HasInput (GameInputType::MapAction))
-    {
-      DebugLogger::Instance ().LogLine ("DESTROYeeeeeeeeeeeeeeeeeeeeeeeeeed!");
       visitable.DestroyObject (targetWorldID_);
-    }
   }
 } // namespace yap

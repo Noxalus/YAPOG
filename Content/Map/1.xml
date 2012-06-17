@@ -13,20 +13,28 @@
     </tileLayer>
   </ground>
   <staticObjects>
-    <MapElement id="1">
-      <position>200,534</position>
-    </MapElement>
+    <MapElement id="1"><position>8,334</position></MapElement>
+    <MapElement id="1"><position>40,334</position></MapElement>
+    <MapElement id="1"><position>72,334</position></MapElement>
+    <MapElement id="1"><position>104,334</position></MapElement>
+    <MapElement id="1"><position>136,334</position></MapElement>
+    <MapElement id="1"><position>168,334</position></MapElement>
+    <MapElement id="1"><position>200,334</position></MapElement>
+    <MapElement id="1"><position>232,334</position></MapElement>
+    <MapElement id="1"><position>296,334</position></MapElement>
+    <MapElement id="1"><position>328,334</position></MapElement>
+    <MapElement id="1"><position>360,334</position></MapElement>
+    <MapElement id="1"><position>392,334</position></MapElement>
+    <MapElement id="1"><position>424,334</position></MapElement>
+    <MapElement id="1"><position>456,334</position></MapElement>
+    <MapElement id="1"><position>488,334</position></MapElement>
+    <MapElement id="1"><position>520,334</position></MapElement>
+    <MapElement id="1"><position>552,334</position></MapElement>
     <MapElement id="1">
       <position>200,234</position>
     </MapElement>
     <MapElement id="1">
-      <position>150,334</position>
-    </MapElement>
-    <MapElement id="1">
       <position>150,134</position>
-    </MapElement>
-    <MapElement id="1">
-      <position>300,534</position>
     </MapElement>
     <MapElement id="1">
       <position>500,434</position>
@@ -37,13 +45,25 @@
       <position>200,350</position>
     </NPC>
     <Teleporter id="1">
-      <position>240,240</position>
+      <position>40,440</position>
       <mapWorldID>2</mapWorldID>
       <mapPoint>250,200</mapPoint>
-      <area>0,0,300,300</area>
+      <area>0,0,50,50</area>
     </Teleporter>
     <DestructibleObject id="1">
-      <position>50,320</position>
+      <position>150,32</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>264,328</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>500,75</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>234,394</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>50,120</position>
     </DestructibleObject>
   </dynamicObjects>
 </Map>

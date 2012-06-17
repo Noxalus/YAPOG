@@ -14,7 +14,7 @@
   </Sprite>
   <destructionBox>
     <BoundingBox>
-      <rect>-10,-10,42,42</rect>
+      <rect>-10,-10,52,52</rect>
       <z>0</z>
       <h>1</h>
     </BoundingBox>
