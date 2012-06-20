@@ -6,6 +6,11 @@
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 
+namespace yap
+{
+  class GameMessage;
+} // namespace yap
+
 namespace yse
 {
   class World;
@@ -53,7 +58,11 @@ namespace yse
       void HandleClientRequestStartInfo (yap::IPacket& packet);
       void HandleClientInfoApplyForce (yap::IPacket& packet);
 
+      void HandleClientInfoGameMessage (yap::IPacket& packet);
+
       void SendChangeMap (Map& map);
+
+      void SendGameMessage (const yap::GameMessage& message);
 
       yap::PacketHandler packetHandler_;
 

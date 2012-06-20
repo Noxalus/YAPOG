@@ -74,6 +74,8 @@ ${src_root}/Game/Chat/ChatDisplayer.cpp
 ${inc_root}/Game/Chat/ChatHeader.hpp
 ${inc_root}/Game/Chat/ChatManager.hpp
 ${src_root}/Game/Chat/ChatManager.cpp
+${inc_root}/Game/Chat/GameMessage.hpp
+${src_root}/Game/Chat/GameMessage.cpp
 
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/BattleSpawnerArea.hpp

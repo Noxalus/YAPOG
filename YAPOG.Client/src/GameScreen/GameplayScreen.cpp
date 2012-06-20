@@ -46,6 +46,18 @@ namespace ycl
     , pokedex_ (nullptr)
     , chat_ (new ChatWidget ())
   {
+  }
+
+  GameplayScreen::~GameplayScreen ()
+  {
+    delete (chat_);
+    chat_ = nullptr;
+  }
+
+  void GameplayScreen::HandleInit ()
+  {
+    BaseScreen::HandleInit ();
+
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
       Player* args)
@@ -61,20 +73,16 @@ namespace ycl
     };
 
     session_.GetUser ().SetWorld (&world_);
+
     chat_->Init ();
     chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
-  }
 
-  GameplayScreen::~GameplayScreen ()
-  {
-    delete (chat_);
-    chat_ = nullptr;
-  }
-
-  void GameplayScreen::HandleInit ()
-  {
-    BaseScreen::HandleInit ();
+    chat_->OnMessageSent +=
+      [this] (ChatWidget& sender, yap::GameMessage& args)
+    {
+      session_.GetUser ().SendGameMessage (args);
+    };
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
     /*

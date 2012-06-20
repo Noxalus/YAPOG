@@ -87,6 +87,7 @@ ${src_root}/World/Map/Teleporter.cpp
 
 ${inc_root}/World/Map/ServerInfoAddObjectVisitor.hpp
 ${src_root}/World/Map/ServerInfoAddObjectVisitor.cpp
+
 )
 
 ADD_EXECUTABLE(

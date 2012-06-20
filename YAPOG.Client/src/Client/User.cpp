@@ -2,6 +2,8 @@
 #include "YAPOG/Game/World/Map/Physics/BasicPhysicsCore.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Graphics/RectReader.hpp"
+#include "YAPOG/Game/Chat/GameMessage.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
 
 #include "Client/User.hpp"
 #include "World/World.hpp"
@@ -36,6 +38,17 @@ namespace ycl
 
     AddRelay (world_);
     world_->SetParent (this);
+  }
+
+  void User::SendGameMessage (const yap::GameMessage& message)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ClientInfoGameMessage);
+
+    packet.Write (message.GetSenderName ());
+    packet.Write (message.GetContent ());
+
+    SendPacket (packet);
   }
 
   bool User::HandlePacket (yap::IPacket& packet)

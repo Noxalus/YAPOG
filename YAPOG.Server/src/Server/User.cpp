@@ -1,6 +1,7 @@
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Chat/GameMessage.hpp"
 
 #include "Server/User.hpp"
 #include "World/World.hpp"
@@ -166,5 +167,28 @@ namespace yse
     map.SendLoadObjects (changeMapPacket);
 
     SendPacket (changeMapPacket);
+  }
+
+  void User::HandleClientInfoGameMessage (yap::IPacket& packet)
+  {
+    yap::String senderName = packet.ReadString ();
+    yap::String content = packet.ReadString ();
+
+    yap::GameMessage gameMessage;
+    gameMessage.SetSenderName (senderName);
+    gameMessage.SetContent (content);
+
+    SendGameMessage (gameMessage);
+  }
+
+  void User::SendGameMessage (const yap::GameMessage& message)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoGameMessage);
+
+    packet.Write (message.GetSenderName ());
+    packet.Write (message.GetContent ());
+
+    GetWorld ().SendPacket (packet);
   }
 } // namespace yse
