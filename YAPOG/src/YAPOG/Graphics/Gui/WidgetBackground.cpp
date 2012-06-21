@@ -87,6 +87,13 @@ namespace yap
 
   void WidgetBackground::HandleChangeColor (const sf::Color& color)
   {
+    if (isInit)
+    {
+      if (resize_)
+        background_.ChangeColor (color);
+      else
+        tm_->ChangeColor (color);
+    }
   }
 
   bool WidgetBackground::GetFixed () const

@@ -341,7 +341,7 @@ namespace ycl
       new GameplayScreen (
       drawingContext_->GetCamera (
       "World")));
-    screenManager_->AddGameScreen (new BattleScreen ());
+    //screenManager_->AddGameScreen (new BattleScreen ());
     screenManager_->AddGameScreen (new MainMenuScreen ());
     screenManager_->AddGameScreen (new RegistrationScreen ());
     screenManager_->AddGameScreen (new SplashScreen ());
