@@ -9,7 +9,7 @@ namespace yap
 {
   class DestroyObjectMapEventAction;
 
-  class DestructibleObject : public DynamicWorldObject
+  class YAPOG_LIB DestructibleObject : public DynamicWorldObject
   {
       DISALLOW_ASSIGN(DestructibleObject);
 

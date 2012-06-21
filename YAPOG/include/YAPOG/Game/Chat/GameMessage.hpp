@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class GameMessage
+  class YAPOG_LIB GameMessage
   {
       DISALLOW_COPY(GameMessage);
 
