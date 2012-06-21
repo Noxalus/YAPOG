@@ -42,6 +42,11 @@ namespace yse
         const yap::String& login, 
         const yap::String& password, 
         const yap::String& ip);
+      bool Register (
+        const yap::String& login, 
+        const yap::String& password, 
+        const yap::String& email, 
+        const yap::String& ip);
 
       void SetDatabaseManager (yap::DatabaseManager* databaseManager);
 

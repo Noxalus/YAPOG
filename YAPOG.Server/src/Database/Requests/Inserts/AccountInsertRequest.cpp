@@ -29,8 +29,8 @@ namespace yse
       ":pass, "
       ":email, "
       ":perm, "
-      ":creationDate, "
-      ":lastLoginDate, "
+      "NOW (), "
+      "NOW (), "
       ":creationIp) "
       "RETURNING account_id";
 
@@ -41,8 +41,6 @@ namespace yse
     query.Write (accountTable_.GetPassword ());
     query.Write (accountTable_.GetEmail ());
     query.Write (static_cast<int> (accountTable_.GetPermissions ()));
-    query.Write ("NOW()");
-    query.Write ("NOW()");
     query.Write (accountTable_.GetCreationIP ());
 
     id_ = yap::ID (query.ReadInt ());

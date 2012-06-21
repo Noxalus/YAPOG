@@ -27,6 +27,7 @@ namespace yse
     user_.SetParent (this);
 
     ADD_HANDLER(ClientRequestLogin, ClientSession::HandleClientRequestLogin);
+    ADD_HANDLER(ClientRequestRegistration, ClientSession::HandleClientRequestRegistration);
     ADD_HANDLER(
       ClientInfoDeconnection,
       ClientSession::HandleClientInfoDeconnection);
@@ -146,9 +147,31 @@ namespace yse
     yap::DebugLogger::Instance ().LogLine ("Client logged: `" + login + "'.");
   }
 
-  void ClientSession::HandleClientRequestRegister (yap::IPacket& packet)
+  void ClientSession::HandleClientRequestRegistration (yap::IPacket& packet)
   {
+    yap::String login (packet.ReadString ());
+    yap::String password (packet.ReadString ());
+    yap::String email (packet.ReadString ());
 
+    if (user_.Register (login, password, email, socket_.GetRemoteAddress ()))
+    {
+      yap::Packet registrationValidationPacket;
+      registrationValidationPacket.CreateFromType (
+        yap::PacketType::ServerInfoRegistrationValidation);
+      SendPacket (registrationValidationPacket);
+
+      yap::Packet primaryDataPacket;
+      primaryDataPacket.CreateFromType (
+        yap::PacketType::ServerInfoPrimaryData);
+
+      SendObjectFactoryTypes (
+        primaryDataPacket,
+        yap::ObjectFactory::Instance ());
+
+      SendPacket (primaryDataPacket);
+    }
+
+    yap::DebugLogger::Instance ().LogLine ("New account created: `" + login + "'.");
   }
 
   void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)
