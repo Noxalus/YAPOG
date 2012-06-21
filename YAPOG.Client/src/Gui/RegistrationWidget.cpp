@@ -8,7 +8,6 @@
 
 namespace ycl
 {
-
   RegistrationWidget::RegistrationWidget ()
     : yap::BaseWidget ()
     , registrationBox_ (
@@ -20,19 +19,19 @@ namespace ycl
     , yap::Padding (5, 5, 5, 5)
     , true)
     , loginTextBox_ ()
-    , loginLabel_ ("Your Login: ")
+    , loginLabel_ ("Votre nom d'utilisateur: ")
     , passwordBox_ (
     yap::Padding (5, 5, 5, 5)
     , yap::Padding (5, 5, 5, 5)
     , true)
     , passwordTextBox_ ()
-    , passwordLabel_ ("Your Password: ")
+    , passwordLabel_ ("Votre mot de passe: ")
     , emailBox_ (
     yap::Padding (5, 5, 5, 5)
     , yap::Padding (5, 5, 5, 5)
     , true)
     , emailTextBox_ ()
-    , emailLabel_ ("Your Email: ")
+    , emailLabel_ ("Votre Email: ")
   {
   }
 
@@ -41,7 +40,7 @@ namespace ycl
     yap::WidgetBackground* menuBck = 
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
-
+    
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
     yap::Texture* ri = new yap::Texture ();
@@ -75,7 +74,7 @@ namespace ycl
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
     
     loginTextBox_.SetSize (yap::Vector2 (242, 32));
-    passwordTextBox_.SetSize (yap::Vector2 (200, 32));
+    passwordTextBox_.SetSize (yap::Vector2 (242, 32));
     emailTextBox_.SetSize (yap::Vector2 (242, 32));
 
     loginBox_.AddChild (loginLabel_);
@@ -101,13 +100,15 @@ namespace ycl
     registrationBox_.SetBackground (*menuBck);
     registrationBox_.SetBorder (*menuBorder);
 
-    loginTextBox_.Move (yap::Vector2 (10, 0));
-    passwordTextBox_.Move (yap::Vector2 (10, 0));
-    emailTextBox_.Move (yap::Vector2 (10, 0));
-
     loginTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Black.png"));
     passwordTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Green.png"));
     emailTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Red.png"));
+    menuBck->Move (yap::Vector2 (-20, -20));
+    menuBck->SetSize (registrationBox_.GetSize ());
+    menuBck->ChangeColor (sf::Color (255, 255, 255, 200));
+    loginTextBox_.Move (yap::Vector2 (10, 0));
+    passwordTextBox_.Move (yap::Vector2 (55, 0));
+    emailTextBox_.Move (yap::Vector2 (140, 0));
   }
 
   RegistrationWidget::~RegistrationWidget ()

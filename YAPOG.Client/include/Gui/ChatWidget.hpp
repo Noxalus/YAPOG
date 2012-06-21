@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 
@@ -25,9 +26,6 @@ namespace yap
 namespace ycl
 {
   typedef yap::collection::Array<yap::Label*> TabTitleType;
-  typedef yap::collection::Array<
-    std::pair<yap::UInt32, yap::String>>      ResponsesType;
-  typedef std::pair<bool, ResponsesType>      ResponseType;
   class ChatWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(ChatWidget);
@@ -38,6 +36,8 @@ namespace ycl
 
     void                    Init ();
     virtual bool            IsFocusable () const;
+
+    void AddMessage (const yap::String& message);
 
     /// Event raised each time a message is entered by the player.
     yap::Event<ChatWidget&, yap::GameMessage&> OnMessageSent;
@@ -60,7 +60,7 @@ namespace ycl
     void                    InitTab ();
     void                    InitDial ();
     void                    InitEntry ();
-    void                    DisplayResponse (ResponseType response);
+    void                    DisplayResponse (yap::ResponseType response);
     bool                    TestAddChan (const yap::GuiEvent& guiEvent);
     bool                    TestSwitchTab (const yap::GuiEvent& guiEvent);
     bool                    TabAndChanHandler (bool chan, bool add, int i);

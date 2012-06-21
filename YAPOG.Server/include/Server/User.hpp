@@ -9,6 +9,7 @@
 namespace yap
 {
   class GameMessage;
+  class DatabaseManager;
 } // namespace yap
 
 namespace yse
@@ -37,7 +38,12 @@ namespace yse
       void RemoveFromWorld ();
 
       const yap::String& GetLogin () const;
-      bool Login (const yap::String& login);
+      bool Login (
+        const yap::String& login, 
+        const yap::String& password, 
+        const yap::String& ip);
+
+      void SetDatabaseManager (yap::DatabaseManager* databaseManager);
 
       /// @name IPacketHandler members.
       /// @{
@@ -71,6 +77,7 @@ namespace yse
       World* world_;
       Map* map_;
       Player* player_;
+      yap::DatabaseManager* databaseManager_;
   };
 } // namespace yse
 

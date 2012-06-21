@@ -2,12 +2,15 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
+#include "YAPOG/Database/DatabaseManager.hpp"
 
 #include "Server/User.hpp"
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/DynamicObjectFactory.hpp"
+#include "Account/AccountManager.hpp"
+
 
 namespace yse
 {
@@ -20,6 +23,7 @@ namespace yse
   {
     ADD_HANDLER(ClientRequestStartInfo, User::HandleClientRequestStartInfo);
     ADD_HANDLER(ClientInfoApplyForce, User::HandleClientInfoApplyForce);
+    ADD_HANDLER(ClientInfoGameMessage, User::HandleClientInfoGameMessage);
   }
 
   User::~User ()
@@ -41,9 +45,15 @@ namespace yse
     return login_;
   }
 
-  bool User::Login (const yap::String& login)
+  bool User::Login (
+    const yap::String& login, 
+    const yap::String& password, 
+    const yap::String& ip)
   {
     login_ = login;
+
+    AccountManager am (*databaseManager_);
+    am.Login (login, password, ip);
 
     return true;
   }
@@ -121,6 +131,11 @@ namespace yse
 
     AddRelay (player_);
     player_->SetParent (this);
+  }
+
+  void User::SetDatabaseManager (yap::DatabaseManager* databaseManager)
+  {
+    databaseManager_ = databaseManager;
   }
 
   void User::HandleClientRequestStartInfo (yap::IPacket& packet)

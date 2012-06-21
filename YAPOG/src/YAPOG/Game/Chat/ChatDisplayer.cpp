@@ -162,20 +162,24 @@ namespace yap
   
   void                ChatDisplayer::MyDisplayAdder (size_t index,
     size_t last,
-    ResponsesType* rt)
+    ResponseType* rt)
   {
     MyDisplay (index, last);
     for (size_t i = index; i < last ; i++)
-      rt->Add (std::make_pair (buff_[i].first->ChanNb, buff_[i].second));
+    {
+      rt->Channb.Add (buff_[i].first->ChanNb);
+      rt->Message.Add (buff_[i].second);
+    }
   }
 
   ResponseType        ChatDisplayer::DisplayTab ()
   {
     size_t size = buff_.Count ();
     size_t i = 0;
-    ResponsesType rt;
+    ResponseType rt;
     
-    rt.Clear ();
+    rt.Message.Clear ();
+    rt.Channb.Clear ();
     if (size < CHANMAXBUF)
       MyDisplayAdder (i, size, &rt);
     else
@@ -184,24 +188,27 @@ namespace yap
       MyDisplayAdder (index, size, &rt);
       MyDisplayAdder (i, index, &rt);
     }
+    rt.Clean = true;
 
-    return std::make_pair (true, rt);
+    return rt;
   }
 
   ResponseType        ChatDisplayer::Display ()
   {
-    ResponsesType rt;
+    ResponseType rt;
 
-    rt.Clear ();
+    rt.Message.Clear ();
+    rt.Channb.Clear ();
     if (!output_.second.empty ())
     {
       DISPLAYS (output_.first->Name
         + " (" + output_.first->Color
         + ") :: " + output_.second);
-      rt.Add (std::make_pair (output_.first->ChanNb, output_.second));
+      rt.Channb.Add (output_.first->ChanNb);
+      rt.Message.Add (output_.second);
     }
 
-    return std::make_pair (false, rt);
+    return rt;
   }
 
   String              ChatDisplayer::GetName ()

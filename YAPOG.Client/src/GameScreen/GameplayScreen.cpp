@@ -19,6 +19,8 @@
 #include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+#include "YAPOG/Game/Chat/GameMessage.hpp"
+
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -64,6 +66,13 @@ namespace ycl
       Player* args)
     {
       SetPlayer (args);
+    };
+
+    session_.GetUser ().OnMessageReceived += [&] (
+      const User& sender,
+      const yap::GameMessage& message)
+    {
+      chat_->AddMessage (message.GetContent ());
     };
 
     world_.OnMapChanged += [&] (

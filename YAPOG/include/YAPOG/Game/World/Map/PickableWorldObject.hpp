@@ -5,6 +5,7 @@
 
 namespace yap
 {
+  /// @brief Pickable map object like map item.
   class PickableWorldObject : public DynamicWorldObject
   {
   };

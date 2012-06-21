@@ -69,7 +69,7 @@ namespace ycl
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     loginTextBox_.SetSize (yap::Vector2 (242, 32));
-    passwordTextBox_.SetSize (yap::Vector2 (200, 32));
+    passwordTextBox_.SetSize (yap::Vector2 (242, 32));
 
     loginBox_.AddChild (loginLabel_);
     loginBox_.AddChild (loginTextBox_);
@@ -90,11 +90,13 @@ namespace ycl
     widgetBox_.SetBackground (*menuBck);
     widgetBox_.SetBorder (*menuBorder);
 
-    loginTextBox_.Move (yap::Vector2 (10, 0));
-    passwordTextBox_.Move (yap::Vector2 (10, 0));
-
     loginTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Black.png"));
     passwordTextBox_.SetBorder (*new yap::WidgetBorder ("Test/Green.png"));
+    menuBck->Move (yap::Vector2 (-20, -20));
+    menuBck->SetSize (widgetBox_.GetSize ());
+    menuBck->ChangeColor (sf::Color (255, 255, 255, 200));
+    loginTextBox_.Move (yap::Vector2 (52, 0));
+    passwordTextBox_.Move (yap::Vector2 (10, 0));
   }
 
   LoginWidget::~LoginWidget ()

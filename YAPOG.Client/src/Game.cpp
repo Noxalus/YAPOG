@@ -334,14 +334,14 @@ namespace ycl
     screenManager_ = new yap::GameScreenManager ();
 
     screenManager_->AddGameScreen (new LoadingScreen ());
-//    screenManager_->AddGameScreen (new UpdateScreen ());
+    screenManager_->AddGameScreen (new UpdateScreen ());
     screenManager_->AddGameScreen (new OptionScreen ());
     screenManager_->AddGameScreen (new LoginScreen ());
     screenManager_->AddGameScreen (
       new GameplayScreen (
       drawingContext_->GetCamera (
       "World")));
-    screenManager_->AddGameScreen (new BattleScreen ());
+    //screenManager_->AddGameScreen (new BattleScreen ());
     screenManager_->AddGameScreen (new MainMenuScreen ());
     screenManager_->AddGameScreen (new RegistrationScreen ());
     screenManager_->AddGameScreen (new SplashScreen ());
@@ -351,7 +351,7 @@ namespace ycl
 #ifndef YAPOG_WIN
     screenManager_->Init ("MainMenu");
 #else
-    screenManager_->Init ("Gameplay");
+    screenManager_->Init ("Loading");
 #endif
   }
 

@@ -25,7 +25,11 @@ namespace ycl
 
       void Refresh ();
 
-      void Login (const yap::String& login);
+      void Login (const yap::String& login, const yap::String& password);
+      void Register (
+        const yap::String& login, 
+        const yap::String& password,
+        const yap::String& email);
       void Disconnect ();
 
       User& GetUser ();

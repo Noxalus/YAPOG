@@ -143,17 +143,23 @@ namespace ycl
     return bigLayout_->GetSize ();
   }
 
-  void ChatWidget::DisplayResponse (ResponseType res)
+  void ChatWidget::AddMessage (const yap::String& message)
   {
-    bool toclear = res.first;
-    ResponsesType response = res.second;
+    dialog_->AddText (message, 12, sf::Color (127, 127, 127));
+  }
+
+  void ChatWidget::DisplayResponse (yap::ResponseType res)
+  {
+    bool toclear = res.Clean;
+    yap::collection::Array<yap::UInt32> responseChan = res.Channb;
+    yap::collection::Array<yap::String> responseString = res.Message;
 
     if (toclear)
       dialog_->Clear ();
-    for (size_t i = 0; i < response.Count (); i++)
+    for (size_t i = 0; i < responseString.Count (); i++)
     {
       sf::Color color = sf::Color::Black;
-      switch (response[i].first)
+      switch (responseChan[i])
       {
       case 1:
         color = sf::Color::Black;
@@ -175,16 +181,25 @@ namespace ycl
         break;
       }
 
-      yap::String message = response[i].second;
-      dialog_->AddText (message,
-        12,
-        color);
+      yap::String message = responseString[i];
+      if (res.Command)
+      {
+        dialog_->AddText (
+          message,
+          12,
+          color);
+        continue;
+      }
+
+      yap::GameMessage gameMessage;
+      gameMessage.SetContent (message);
+      OnMessageSent (*this, gameMessage);
     }
   }
 
   bool ChatWidget::TabAndChanHandler (bool chan, bool add, int i)
   {
-    ResponseType response;
+    yap::ResponseType response;
     if (chan)
       chat_->SetBuf ((add ? "/addchan " : "/switchchan ") +
       yap::StringHelper::ToString (i));
@@ -192,11 +207,10 @@ namespace ycl
       chat_->SetBuf ("/switchtab " + yap::StringHelper::ToString (i));
     chat_->Parse ();
     response = chat_->Exec ();
-    if (!chan && response.second.IsEmpty ())
-    {
-      response.first = true;
-      response.second = yap::ResponsesType ();
-    }
+
+    if (!chan && response.Message.IsEmpty ())
+      response.Clean = true;
+    response.Command = true;
     DisplayResponse (response);
 
     return true;
@@ -295,12 +309,14 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
-        ResponseType response;
+        yap::ResponseType response;
         yap::String todisplay = lineCatcher_->GetContent ();
+
         chat_->SetBuf (todisplay);
         chat_->Parse ();
         response = chat_->Exec ();
-        if (!response.second.IsEmpty ())
+        response.Command = chat_->GetIsCommand ();
+        if (!response.Message.IsEmpty ())
           DisplayResponse (response);
         lineCatcher_->Clear ();
       }

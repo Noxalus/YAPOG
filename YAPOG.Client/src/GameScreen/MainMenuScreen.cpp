@@ -1,5 +1,8 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
+#include "YAPOG/Graphics/Gui/PictureBox.hpp"
 
+#include "GameScreen/RegistrationScreen.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 #include "GameScreen/MainMenuScreen.hpp"
 #include "Gui/MainMenu.hpp"
 
@@ -22,6 +25,34 @@ namespace ycl
 
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
+    
+    yap::PictureBox* bg = new yap::PictureBox ();
+
+    yap::RandomHelper* random;
+    int nb = random->GetNext (0, 4242) % 5;
+    switch (nb)
+    {
+    case 0:
+      bg->SetPicture ("WindowSkins/BasicSkin/Background/mew.jpg");
+      break;
+    case 1:
+      bg->SetPicture ("WindowSkins/BasicSkin/Background/fete.jpg");
+      break;
+    case 2:
+      bg->SetPicture ("WindowSkins/BasicSkin/Background/rondoudou.jpg");
+      break;
+    case 3:
+      bg->SetPicture ("WindowSkins/BasicSkin/Background/dresseur.jpg");
+      break;
+    case 4:
+      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      break;
+    default:
+      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      break;
+    }
+    bg->SetSize (yap::Vector2 (800, 600));
+    guiManager_->AddChild (*bg);
 
     mainMenu->GetLoginItem ().OnActivated +=
       [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)

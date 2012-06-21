@@ -47,6 +47,7 @@ namespace yse
     , objectFactory_ (yap::ObjectFactory::Instance ())
     , worldObjectStateFactory_ (yap::WorldObjectStateFactory::Instance ())
     , logger_ (yap::DebugLogger::Instance ())
+    , databaseManager_ ()
   {
   }
 
@@ -62,6 +63,8 @@ namespace yse
     InitWorldObjectStateFactory ();
 
     InitLoggerManager ();
+
+    databaseManager_.Connect ();
 
     LoadMaps ();
 
@@ -112,6 +115,8 @@ namespace yse
   void Server::AddClient (ClientSession* client)
   {
     client->GetUser ().SetWorld (&world_);
+
+    client->GetUser ().SetDatabaseManager (&databaseManager_);
 
     client->Init ();
 
