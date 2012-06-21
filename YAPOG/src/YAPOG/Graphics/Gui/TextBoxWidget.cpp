@@ -117,9 +117,9 @@ namespace yap
     label_->ChangeColor (color);
   }
 
-  String TextBoxWidget::GetContent () const
+  const String& TextBoxWidget::GetContent () const
   {
-    return label_->GetText ();
+    return content_;
   }
 
   void TextBoxWidget::SetTextSize (uint size)
@@ -132,7 +132,7 @@ namespace yap
   bool TextBoxWidget::HandleOnEvent (const GuiEvent& guiEvent)
   {
     if ((guiEvent.type == sf::Event::KeyPressed)
-      && !guiEvent.key.alt 
+      && !guiEvent.key.alt
       && !guiEvent.key.control
       && !(guiEvent.key.code == sf::Keyboard::Escape)
       && !(guiEvent.key.code >= sf::Keyboard::F1

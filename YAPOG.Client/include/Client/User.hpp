@@ -42,9 +42,10 @@ namespace ycl
       /// @}
 
       yap::Event<const User&, Player*> OnPlayerCreated;
+      yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
 
     private:
-      /// @name Setters.
+      /// @name Getters.
       /// @{
       World& GetWorld ();
       Map& GetMap ();
@@ -64,6 +65,8 @@ namespace ycl
 
       void HandleServerInfoAddObject (yap::IPacket& packet);
       void HandleServerInfoRemoveObject (yap::IPacket& packet);
+
+      void HandleServerInfoGameMessage (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 

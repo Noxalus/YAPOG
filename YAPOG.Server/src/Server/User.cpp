@@ -20,6 +20,7 @@ namespace yse
   {
     ADD_HANDLER(ClientRequestStartInfo, User::HandleClientRequestStartInfo);
     ADD_HANDLER(ClientInfoApplyForce, User::HandleClientInfoApplyForce);
+    ADD_HANDLER(ClientInfoGameMessage, User::HandleClientInfoGameMessage);
   }
 
   User::~User ()
