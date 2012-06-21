@@ -1,7 +1,7 @@
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "Battle/WildBattle.hpp"
-#include "Battle/Phase/BeginBattlePhase.hpp"
+#include "Battle/Phase/BeginWildBattlePhase.hpp"
 #include "Battle/Phase/SelectionPhase.hpp"
 #include "Battle/Phase/EndPokemonSwitchPhase.hpp"
 #include "Battle/Battle.hpp"
@@ -23,13 +23,16 @@ namespace ycl
   {
     Battle::HandleInit ();
 
-    BeginBattlePhase* beginBattlePhase = new BeginBattlePhase (*this, battleInterface_);
+    /*
+    BeginWildBattlePhase* beginWildBattlePhase = 
+      new BeginWildBattlePhase (*this, battleInterface_);
     EndPokemonSwitchPhase* switchPhase = new EndPokemonSwitchPhase (*this, battleInterface_);
     SelectionPhase* selectionPhase = new SelectionPhase (*this, battleInterface_);
 
-    AddPhase (yap::BattlePhaseState::BeginBattle, beginBattlePhase);
+    AddPhase (yap::BattlePhaseState::BeginBattle, beginWildBattlePhase);
     AddPhase (yap::BattlePhaseState::Switch, switchPhase);
     AddPhase (yap::BattlePhaseState::Selection, selectionPhase);
+    */
   }
 
   void WildBattle::HandleUpdate (const yap::Time& dt)

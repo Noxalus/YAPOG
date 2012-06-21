@@ -57,7 +57,10 @@ namespace yap
 
     // If this screen doesn't exist
     if (!screens_.Contains (currentScreenType_))
-      YAPOG_THROW("This screen doesn't exist !");
+    {
+      YAPOG_THROW("This screen doesn't exist ! (Screen name: " + 
+        currentScreenType_ + ")");
+    }
 
     currentScreen_ = screens_[currentScreenType_];
 

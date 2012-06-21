@@ -2,8 +2,9 @@
 # define YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/BeginBattlePhase.hpp"
+# include "YAPOG/Game/Battle/Phase/BeginWildBattlePhase.hpp"
 
 namespace yap
 {
@@ -15,12 +16,13 @@ namespace ycl
   class Battle;
   class BattleInterface;
 
-  class BeginBattlePhase
-    : public yap::BeginBattlePhase
+  class BeginWildBattlePhase
+    : public yap::BeginWildBattlePhase
     , public yap::IDrawable
   {
   public:
-    virtual ~BeginBattlePhase ();
+    BeginWildBattlePhase (Battle& battle, BattleInterface& battleInterface);
+    virtual ~BeginWildBattlePhase ();
 
     /// @name BattlePhase members.
     /// @{
@@ -29,19 +31,7 @@ namespace ycl
     virtual void HandleEnd ();
     /// @}
 
-    /// @name IDrawable members.
-    /// @{
-    virtual void Draw (yap::IDrawingContext& context);
-
-    virtual bool IsVisible () const;
-    virtual void Show (bool isVisible);
-
-    virtual void ChangeColor (const sf::Color& color);
-    /// @}
-
   protected:
-    BeginBattlePhase (Battle& battle, BattleInterface& battleInterface);
-
     virtual void HandleDraw (yap::IDrawingContext& context);
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
@@ -53,8 +43,16 @@ namespace ycl
     sf::Color color_;
 
   private:
+    void UpdatePlayerTrainerBack ();
+    void UpdateOpponentFront ();
+
     Battle& battle_;
     BattleInterface& battleInterface_;
+
+    yap::String nextState_;
+
+    static const float GROUND_SPEED;
+    static const yap::String FISRT_STATE;
   };
 } // namespace ycl
 
