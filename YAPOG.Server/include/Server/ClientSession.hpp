@@ -62,7 +62,7 @@ namespace yse
     void Disconnect ();
 
     void HandleClientRequestLogin (yap::IPacket& packet);
-    void HandleClientRequestRegister (yap::IPacket& packet);
+    void HandleClientRequestRegistration (yap::IPacket& packet);
     void HandleClientInfoDeconnection (yap::IPacket& packet);
 
     void SendObjectFactoryTypes (

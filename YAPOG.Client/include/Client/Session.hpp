@@ -53,6 +53,7 @@ namespace ycl
       void HandleReception ();
 
       void HandleServerInfoLoginValidation (yap::IPacket& packet);
+      void HandleServerInfoRegistrationValidation (yap::IPacket& packet);
       void HandleServerInfoLoginError (yap::IPacket& packet);
 
       void HandleServerInfoPrimaryData (yap::IPacket& packet);

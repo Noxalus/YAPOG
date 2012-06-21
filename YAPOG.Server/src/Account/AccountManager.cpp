@@ -1,4 +1,7 @@
 #include "YAPOG/Database/DatabaseStream.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+
 #include "Account/AccountManager.hpp"
 #include "Database/Tables/AccountTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
@@ -41,11 +44,13 @@ namespace yse
         << name << ")" << std::endl;
     }
 
+    /*
     PlayerDataTable playerDataTable (ia.GetID ());
     PlayerDataInsertRequest ipd (playerDataTable);
 
     if (ipd.Insert (databaseManager_))
       std::cout << "Player data have been created !" << std::endl;
+      */
   }
 
   void AccountManager::Login (
@@ -148,7 +153,7 @@ namespace yse
     if (accounts_.Contains (name))
       return *accounts_[name];
     else
-      throw yap::Exception ("This account doesn't exist !");
+      YAPOG_THROW("This account doesn't exist !");
   }
 
   yap::String AccountManager::EncodePassword (

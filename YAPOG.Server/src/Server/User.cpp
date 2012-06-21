@@ -58,6 +58,20 @@ namespace yse
     return true;
   }
 
+  bool User::Register (
+    const yap::String& login, 
+    const yap::String& password, 
+    const yap::String& email, 
+    const yap::String& ip)
+  {
+    login_ = login;
+
+    AccountManager am (*databaseManager_);
+    am.CreateNewAccount (login, password, email, ip);
+
+    return true; 
+  }
+
   bool User::HandlePacket (yap::IPacket& packet)
   {
     return packetHandler_.HandlePacket (packet);
@@ -150,8 +164,8 @@ namespace yse
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (
-        "Player",
-        playerID));
+      "Player",
+      playerID));
 
     SetMap (&world_->GetMap (playerMapWorldID));
 

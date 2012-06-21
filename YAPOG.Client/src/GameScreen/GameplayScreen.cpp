@@ -96,10 +96,12 @@ namespace ycl
     */
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
+    /*
     yap::PokemonTeam* team = new yap::PokemonTeam ();
     PokemonTeamWidget* pokteam = new PokemonTeamWidget (team);
     pokteam->Init ();
     guiManager_->AddChild (*pokteam);
+    */
     /*
     yap::Pokedex* pokedexInfo = new yap::Pokedex ();
     for (int i = 1; i < 4; i++)

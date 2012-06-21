@@ -26,6 +26,7 @@ namespace yap
 
     // from server to client
     ServerInfoLoginValidation,
+    ServerInfoRegistrationValidation,
     ServerInfoLoginError,
 
     ServerInfoPrimaryData,

@@ -23,6 +23,9 @@ namespace ycl
     ADD_HANDLER(
       ServerInfoLoginValidation,
       Session::HandleServerInfoLoginValidation);
+    ADD_HANDLER(
+      ServerInfoRegistrationValidation,
+      Session::HandleServerInfoRegistrationValidation);
     ADD_HANDLER(ServerInfoLoginError, Session::HandleServerInfoLoginError);
     ADD_HANDLER(ServerInfoPrimaryData, Session::HandleServerInfoPrimaryData);
   }
@@ -79,7 +82,7 @@ namespace ycl
                   + DEFAULT_REMOTE_IP
                   + "'.");
 
-    /// @todo login request
+    /// @todo registration request
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ClientRequestRegistration);
     packet.Write (login);
@@ -162,6 +165,11 @@ namespace ycl
     yap::Packet response;
     response.CreateFromType (yap::PacketType::ClientRequestStartInfo);
     SendPacket (response);
+  }
+
+  void Session::HandleServerInfoRegistrationValidation (yap::IPacket& packet)
+  {
+    yap::DebugLogger::Instance ().LogLine ("Registration successful !");
   }
 
   void Session::HandleServerInfoLoginError (yap::IPacket& packet)
