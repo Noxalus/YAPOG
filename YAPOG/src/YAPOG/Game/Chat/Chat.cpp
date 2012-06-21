@@ -85,7 +85,6 @@ namespace yap
 
   String                    Chat::Parse ()
   {
-    
     chatmanager_->Request.Clear ();
     std::pair<bool, String> upOrDown = TestHistoryChecker ();
 
