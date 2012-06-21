@@ -40,8 +40,8 @@ namespace yap
     uint GetCharHeight () const;
     Vector2 CharPos (uint pos) const;
     uint Length () const;
+    virtual void SetDefaultColor (const sf::Color& color);
     virtual void SetBackground (WidgetBackground& background);
-
   private:
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;

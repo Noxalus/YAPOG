@@ -64,6 +64,11 @@ namespace yap
     isPosSet_ = false;
   }
 
+  void Label::SetDefaultColor (const sf::Color& color)
+  {
+    if (!isChangeColorCall_)
+    drawableText_.setColor (color);
+  }
   uint Label::Length () const
   {
     return textContent_.length ();
