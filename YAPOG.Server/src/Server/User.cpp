@@ -2,12 +2,15 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
+#include "YAPOG/Database/DatabaseManager.hpp"
 
 #include "Server/User.hpp"
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/DynamicObjectFactory.hpp"
+#include "Account/AccountManager.hpp"
+
 
 namespace yse
 {
@@ -42,9 +45,17 @@ namespace yse
     return login_;
   }
 
-  bool User::Login (const yap::String& login)
+  bool User::Login (
+    const yap::String& login, 
+    const yap::String& password, 
+    const yap::String& ip)
   {
     login_ = login;
+
+    /*
+    AccountManager am;
+    am.Login (login, password, ip);
+    */
 
     return true;
   }

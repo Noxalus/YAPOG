@@ -20,19 +20,19 @@ namespace ycl
     , yap::Padding (5, 5, 5, 5)
     , true)
     , loginTextBox_ ()
-    , loginLabel_ ("Your Login: ")
+    , loginLabel_ ("Votre nom d'utilisateur: ")
     , passwordBox_ (
     yap::Padding (5, 5, 5, 5)
     , yap::Padding (5, 5, 5, 5)
     , true)
     , passwordTextBox_ ()
-    , passwordLabel_ ("Your Password: ")
+    , passwordLabel_ ("Votre mot de passe: ")
     , emailBox_ (
     yap::Padding (5, 5, 5, 5)
     , yap::Padding (5, 5, 5, 5)
     , true)
     , emailTextBox_ ()
-    , emailLabel_ ("Your Email: ")
+    , emailLabel_ ("Votre Email: ")
   {
   }
 

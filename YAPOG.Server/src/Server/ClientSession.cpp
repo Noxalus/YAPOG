@@ -118,8 +118,9 @@ namespace yse
   void ClientSession::HandleClientRequestLogin (yap::IPacket& packet)
   {
     yap::String login (packet.ReadString ());
+    yap::String password (packet.ReadString ());
 
-    if (user_.Login (login))
+    if (user_.Login (login, password, socket_.GetRemoteAddress ()))
     {
       yap::Packet loginValidationPacket;
       loginValidationPacket.CreateFromType (
@@ -138,6 +139,11 @@ namespace yse
     }
 
     yap::DebugLogger::Instance ().LogLine ("Client logged: `" + login + "'.");
+  }
+
+  void ClientSession::HandleClientRequestRegister (yap::IPacket& packet)
+  {
+
   }
 
   void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)

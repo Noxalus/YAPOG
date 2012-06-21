@@ -37,7 +37,10 @@ namespace yse
       void RemoveFromWorld ();
 
       const yap::String& GetLogin () const;
-      bool Login (const yap::String& login);
+      bool Login (
+        const yap::String& login, 
+        const yap::String& password, 
+        const yap::String& ip);
 
       /// @name IPacketHandler members.
       /// @{

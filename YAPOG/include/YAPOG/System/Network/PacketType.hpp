@@ -13,6 +13,7 @@ namespace yap
 
     // from client to server
     ClientRequestLogin,
+    ClientRequestRegistration,
     ClientInfoDeconnection,
 
     ClientRequestStartInfo,

@@ -51,7 +51,9 @@ namespace ycl
         yap::String email =
           registrationWidget_.GetEmailTextBox ().GetContent ();
 
-        session_.Login (login);
+        session_.Register (login, password, email);
+
+        //@todo Check
         nextScreen_ = "Gameplay";
         return true;
       }

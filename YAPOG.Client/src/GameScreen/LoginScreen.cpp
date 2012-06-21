@@ -62,7 +62,7 @@ namespace ycl
         yap::String login = loginWidget_.GetLoginTextBox ().GetContent ();
         yap::String password = loginWidget_.GetPasswordTextBox ().GetContent ();
 
-        session_.Login (login);
+        session_.Login (login, password);
         nextScreen_ = "Gameplay";
         return true;
       }
