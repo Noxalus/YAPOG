@@ -26,6 +26,7 @@ namespace ycl
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
     ADD_HANDLER(ServerInfoRemoveObject, User::HandleServerInfoRemoveObject);
+    ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
   }
 
   User::~User ()
@@ -222,5 +223,17 @@ namespace ycl
     }
 
     map.RemoveDrawableDynamicObject (worldID);
+  }
+
+  void User::HandleServerInfoGameMessage (yap::IPacket& packet)
+  {
+    yap::String senderName = packet.ReadString ();
+    yap::String content = packet.ReadString ();
+
+    yap::GameMessage gameMessage;
+    gameMessage.SetSenderName (senderName);
+    gameMessage.SetContent (content);
+
+    OnMessageReceived (*this, gameMessage);
   }
 } // namespace ycl

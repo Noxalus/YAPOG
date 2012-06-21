@@ -143,6 +143,11 @@ namespace ycl
     return bigLayout_->GetSize ();
   }
 
+  void ChatWidget::AddMessage (const yap::String& message)
+  {
+    dialog_->AddText (message, 12, sf::Color (127, 127, 127));
+  }
+
   void ChatWidget::DisplayResponse (yap::ResponseType res)
   {
     bool toclear = res.Clean;
@@ -177,9 +182,18 @@ namespace ycl
       }
 
       yap::String message = responseString[i];
-      dialog_->AddText (message,
-        12,
-        color);
+      if (res.Command)
+      {
+        dialog_->AddText (
+          message,
+          12,
+          color);
+        continue;
+      }
+
+      yap::GameMessage gameMessage;
+      gameMessage.SetContent (message);
+      OnMessageSent (*this, gameMessage);
     }
   }
 
@@ -193,8 +207,10 @@ namespace ycl
       chat_->SetBuf ("/switchtab " + yap::StringHelper::ToString (i));
     chat_->Parse ();
     response = chat_->Exec ();
+
     if (!chan && response.Message.IsEmpty ())
       response.Clean = true;
+    response.Command = true;
     DisplayResponse (response);
 
     return true;
@@ -295,9 +311,11 @@ namespace ycl
       {
         yap::ResponseType response;
         yap::String todisplay = lineCatcher_->GetContent ();
+
         chat_->SetBuf (todisplay);
         chat_->Parse ();
         response = chat_->Exec ();
+        response.Command = chat_->GetIsCommand ();
         if (!response.Message.IsEmpty ())
           DisplayResponse (response);
         lineCatcher_->Clear ();

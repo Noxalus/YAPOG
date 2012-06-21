@@ -78,8 +78,8 @@ ${inc_root}/Game/Chat/GameMessage.hpp
 ${src_root}/Game/Chat/GameMessage.cpp
 
 ${inc_root}/Game/World/Map/Direction.hpp
-${inc_root}/Game/World/Map/BattleSpawnerArea.hpp
-${src_root}/Game/World/Map/BattleSpawnerArea.cpp
+${inc_root}/Game/World/Map/MapArea.hpp
+${src_root}/Game/World/Map/MapArea.cpp
 ${inc_root}/Game/World/Map/DestructibleObject.hpp
 ${src_root}/Game/World/Map/DestructibleObject.cpp
 ${inc_root}/Game/World/Map/DynamicWorldObject.hpp

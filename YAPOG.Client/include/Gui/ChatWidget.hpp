@@ -37,6 +37,8 @@ namespace ycl
     void                    Init ();
     virtual bool            IsFocusable () const;
 
+    void AddMessage (const yap::String& message);
+
     /// Event raised each time a message is entered by the player.
     yap::Event<ChatWidget&, yap::GameMessage&> OnMessageSent;
 
