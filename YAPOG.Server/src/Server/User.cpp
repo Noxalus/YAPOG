@@ -46,14 +46,15 @@ namespace yse
   }
 
   bool User::Login (
-    const yap::String& login, 
-    const yap::String& password, 
+    const yap::String& login,
+    const yap::String& password,
     const yap::String& ip)
   {
     login_ = login;
 
-    AccountManager am (*databaseManager_);
-    am.Login (login, password, ip);
+/// @warning Commented.
+//    AccountManager am (*databaseManager_);
+//    am.Login (login, password, ip);
 
     return true;
   }

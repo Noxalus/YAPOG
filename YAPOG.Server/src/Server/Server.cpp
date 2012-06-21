@@ -64,7 +64,7 @@ namespace yse
 
     InitLoggerManager ();
 
-    databaseManager_.Connect ();
+//    databaseManager_.Connect ();
 
     LoadMaps ();
 
