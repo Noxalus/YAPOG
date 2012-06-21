@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  class DestroyObjectMapEventAction : public BaseMapEventAction
+  class YAPOG_LIB DestroyObjectMapEventAction : public BaseMapEventAction
   {
       DISALLOW_ASSIGN(DestroyObjectMapEventAction);
 
