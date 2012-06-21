@@ -1,7 +1,20 @@
+- Screen:
+  - Login & registration database link
+  - Updater (checksum send to the server)
+  - Add background and music to the menu screens
 - Gui:
-  - Add a grid menu (for the battle system)
-  - Add a default font color for widgets that contain text like DialogBox widget
-  - Add a multi lines label (for the chat system)
-  
+  - Team manager
+  - Trade interface (?)
 - Game:
   - Create GameData settings class (reduce dependence with Game.hpp)
+- Chat
+  - ?
+- Map
+  - Do a beautiful map (3 maps => 1 global, 1 for the pokemon center and 1 other)
+  - Create a battle spawner
+- Network
+  - Lock
+  - Battle communication
+- Battle
+  - Trainer battle
+  - Catch
