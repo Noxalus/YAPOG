@@ -7,6 +7,7 @@
 
 namespace yap
 {
+  /// @brief Represents an area of the map where happen related events.
   class MapArea : public DynamicWorldObject
   {
       DISALLOW_ASSIGN(MapArea);
@@ -23,9 +24,15 @@ namespace yap
 
       void SetArea (const FloatRect& area);
 
+      virtual void HandleSetArea (const FloatRect& area);
+
     private:
 
+      static const bool DEFAULT_TRIGGERS_BATTLE;
+
       FloatRect area_;
+
+      bool triggersBattle_;
   };
 } // namespace yap
 
