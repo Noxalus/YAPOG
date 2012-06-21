@@ -39,6 +39,8 @@ namespace ycl
     void                    Init ();
     virtual bool            IsFocusable () const;
 
+    void AddMessage (const yap::String& message);
+
     /// Event raised each time a message is entered by the player.
     yap::Event<ChatWidget&, yap::GameMessage&> OnMessageSent;
 
@@ -60,7 +62,7 @@ namespace ycl
     void                    InitTab ();
     void                    InitDial ();
     void                    InitEntry ();
-    void                    DisplayResponse (ResponseType response);
+    void                    DisplayResponse (ResponseType response, bool send);
     bool                    TestAddChan (const yap::GuiEvent& guiEvent);
     bool                    TestSwitchTab (const yap::GuiEvent& guiEvent);
     bool                    TabAndChanHandler (bool chan, bool add, int i);

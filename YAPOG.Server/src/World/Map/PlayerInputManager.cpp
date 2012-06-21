@@ -3,7 +3,9 @@
 namespace yse
 {
   PlayerInputManager::PlayerInputManager ()
+    : gameInputs_ ()
   {
+    gameInputs_.Add (yap::GameInputType::MapAction, false);
   }
 
   PlayerInputManager::~PlayerInputManager ()
