@@ -64,8 +64,16 @@ namespace ycl
 
   void Map::ClearDynamicObjects ()
   {
+    yap::collection::Queue<yap::ID> objectsToRemove;
     for (auto& idObjectPair : GetDynamicObjects ())
-      RemoveDrawableDynamicObject (idObjectPair.first);
+      objectsToRemove.Enqueue (idObjectPair.first);
+
+    while (!objectsToRemove.IsEmpty ())
+    {
+      yap::ID objectToRemove = objectsToRemove.Dequeue (objectToRemove);
+
+      RemoveDrawableDynamicObject (objectToRemove);
+    }
   }
 
   void Map::Draw (yap::IDrawingContext& context)

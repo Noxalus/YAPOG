@@ -65,6 +65,8 @@ namespace yap
       collection::Queue<MapEventContext*> leaveEvents_;
       collection::Queue<MapEventContext*> enterEvents_;
 
+      collection::Queue<const DynamicWorldObject*> objectsToRemove_;
+
       CollidableArea* collidableArea_;
   };
 } // namespace yap

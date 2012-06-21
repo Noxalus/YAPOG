@@ -11,6 +11,7 @@ namespace yap
     : events_ ()
     , leaveEvents_ ()
     , enterEvents_ ()
+    , objectsToRemove_ ()
     , collidableArea_ (nullptr)
   {
   }
@@ -26,6 +27,27 @@ namespace yap
 
   void MapEventManager::Update (const Time& dt)
   {
+    while (!objectsToRemove_.IsEmpty ())
+    {
+      const DynamicWorldObject* object = nullptr;
+      objectsToRemove_.Dequeue (object);
+
+      events_.Remove (object);
+
+      collection::Queue<MapEventContext*> eventsToRemove;
+      for (auto& objectEventsPair : events_)
+        for (auto& eventContextPair : objectEventsPair.second)
+          for (MapEventContext* eventContext : eventContextPair.second)
+            if (&eventContext->GetMapEventInfo ().GetParent () == object)
+              eventsToRemove.Enqueue (eventContext);
+
+      while (!eventsToRemove.IsEmpty ())
+      {
+        MapEventContext* event = eventsToRemove.Dequeue (event);
+        RemoveEventEntry (event);
+      }
+    }
+
     while (!leaveEvents_.IsEmpty ())
     {
       MapEventContext* event = leaveEvents_.Dequeue (event);
@@ -52,20 +74,7 @@ namespace yap
 
   void MapEventManager::RemoveObject (const DynamicWorldObject& object)
   {
-    events_.Remove (&object);
-
-    collection::Queue<MapEventContext*> eventsToRemove;
-    for (auto& objectEventsPair : events_)
-      for (auto& eventContextPair : objectEventsPair.second)
-        for (MapEventContext* eventContext : eventContextPair.second)
-          if (&eventContext->GetMapEventInfo ().GetParent () == &object)
-            eventsToRemove.Enqueue (eventContext);
-
-    while (!eventsToRemove.IsEmpty ())
-    {
-      MapEventContext* event = eventsToRemove.Dequeue (event);
-      RemoveEventEntry (event);
-    }
+    objectsToRemove_.Enqueue (&object);
   }
 
   void MapEventManager::UpdateObjectOut (const DynamicWorldObject& object)
