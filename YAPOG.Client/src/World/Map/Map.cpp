@@ -54,7 +54,7 @@ namespace ycl
   {
     players_.Remove (player->GetWorldID ());
 
-    RemoveDrawableDynamicObject (player);
+    RemoveDrawableDynamicObject (player->GetWorldID ());
   }
 
   void Map::RemovePlayer (const yap::ID& worldID)
@@ -150,9 +150,17 @@ namespace ycl
 
   void Map::RemoveDrawableDynamicObject (const yap::ID& worldID)
   {
-    RemoveDrawableObject (drawableDynamicObjects_[worldID]);
+    yap::IDrawableDynamicWorldObject& drawableDynamicObject =
+      *drawableDynamicObjects_[worldID];
+
+    RemoveDrawableObject (&drawableDynamicObject);
+
+    drawableDynamicObject.OnOrderStateChangedEvent ().RemoveHandler (
+      DRAW_ORDER_HANDLER_NAME);
 
     drawableDynamicObjects_.Remove (worldID);
+
+    RemoveDynamicObject (&GetObject (worldID));
   }
 
   bool Map::SupportsEvents () const

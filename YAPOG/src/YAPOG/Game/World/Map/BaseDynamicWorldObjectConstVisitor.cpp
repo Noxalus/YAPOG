@@ -24,4 +24,14 @@ namespace yap
     const Teleporter& visitable)
   {
   }
+
+  void BaseDynamicWorldObjectConstVisitor::VisitDestructibleObject (
+    const DestructibleObject& visitable)
+  {
+  }
+
+  void BaseDynamicWorldObjectConstVisitor::VisitBattleSpawnerArea (
+    const BattleSpawnerArea& visitable)
+  {
+  }
 } // namespace yap

@@ -94,6 +94,7 @@ namespace yap
 
       virtual const String& GetObjectFactoryTypeName () const = 0;
 
+      virtual void HandleSetWorldID (const ID& worldID);
       virtual void HandleSetCollidableArea (CollidableArea* collidableArea);
 
       virtual void HandleApplyForce (const Vector2& force);

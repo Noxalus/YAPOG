@@ -15,6 +15,8 @@
 #include "YAPOG/Game/World/Map/MapElement.hpp"
 #include "YAPOG/Game/World/Map/MapElementReader.hpp"
 #include "YAPOG/Game/World/Map/TeleporterReader.hpp"
+#include "YAPOG/Game/World/Map/DestructibleObject.hpp"
+#include "YAPOG/Game/World/Map/DestructibleObjectReader.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -158,6 +160,14 @@ namespace yse
       new yap::XmlObjectIDLoader<NPC, NPCReader> (
         yap::Path ("NPC"),
         "NPC"));
+
+    objectFactory_.RegisterLoader (
+      "DestructibleObject",
+      new yap::XmlObjectIDLoader<
+        yap::DestructibleObject,
+        yap::DestructibleObjectReader> (
+          yap::Path ("DestructibleObject"),
+          "DestructibleObject"));
 
     objectFactory_.RegisterLoader (
       "Player",

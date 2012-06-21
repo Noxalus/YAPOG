@@ -22,10 +22,6 @@ namespace yap
       void AddGameInput (GameInput* gameInput);
       void RemoveGameInput (GameInput* gameInput);
 
-      bool GameInputIsActive (GameInputType gameInputType) const;
-      bool GameInputIsActivated (GameInputType gameInputType) const;
-      bool GameInputIsDeactivated (GameInputType gameInputType) const;
-
       bool GameInputIsActive (
         GameInputType gameInputType,
         const GuiEvent& guiEvent) const;

@@ -6,6 +6,11 @@
 # include "YAPOG/System/Network/PacketHandler.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 
+namespace yap
+{
+  class GameMessage;
+} // namespace yap
+
 namespace ycl
 {
   class World;
@@ -23,6 +28,8 @@ namespace ycl
       virtual ~User ();
 
       void SetWorld (World* world);
+
+      void SendGameMessage (const yap::GameMessage& message);
 
       /// @name IPacketHandler members.
       /// @{

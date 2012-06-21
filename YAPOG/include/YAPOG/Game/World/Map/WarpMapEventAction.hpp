@@ -17,15 +17,24 @@ namespace yap
       WarpMapEventAction (
         MapEventActionType type,
         const ID& mapWorldID,
-        const Vector2& point);
+        const Vector2& mapPoint);
       virtual ~WarpMapEventAction ();
 
       virtual void VisitPlayer (IPlayer& visitable);
 
+      /// @name ICloneable members.
+      /// @{
+      virtual WarpMapEventAction* Clone () const;
+      /// @}
+
+    protected:
+
+      WarpMapEventAction (const WarpMapEventAction& copy);
+
     private:
 
       ID mapWorldID_;
-      Vector2 point_;
+      Vector2 mapPoint_;
   };
 } // namespace yap
 

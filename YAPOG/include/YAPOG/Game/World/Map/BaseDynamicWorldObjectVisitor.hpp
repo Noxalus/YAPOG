@@ -18,6 +18,8 @@ namespace yap
       virtual void VisitCharacter (Character& visitable);
       virtual void VisitPlayer (IPlayer& visitable);
       virtual void VisitTeleporter (Teleporter& visitable);
+      virtual void VisitDestructibleObject (DestructibleObject& visitable);
+      virtual void VisitBattleSpawnerArea (BattleSpawnerArea& visitable);
 
     protected:
 

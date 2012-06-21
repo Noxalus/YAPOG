@@ -7,10 +7,10 @@ namespace yap
   WarpMapEventAction::WarpMapEventAction (
     MapEventActionType type,
     const ID& mapWorldID,
-    const Vector2& point)
+    const Vector2& mapPoint)
     : BaseMapEventAction (type)
     , mapWorldID_ (mapWorldID)
-    , point_ (point)
+    , mapPoint_ (mapPoint)
   {
   }
 
@@ -18,10 +18,22 @@ namespace yap
   {
   }
 
+  WarpMapEventAction::WarpMapEventAction (const WarpMapEventAction& copy)
+    : BaseMapEventAction (copy)
+    , mapWorldID_ (copy.mapWorldID_)
+    , mapPoint_ (copy.mapPoint_)
+  {
+  }
+
+  WarpMapEventAction* WarpMapEventAction::Clone () const
+  {
+    return new WarpMapEventAction (*this);
+  }
+
   void WarpMapEventAction::VisitPlayer (IPlayer& visitable)
   {
     DebugLogger::Instance ().LogLine ("TP!");
 
-    visitable.Warp (mapWorldID_, point_);
+    visitable.Warp (mapWorldID_, mapPoint_);
   }
 } // namespace yap

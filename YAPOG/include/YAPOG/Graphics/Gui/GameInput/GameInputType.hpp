@@ -7,6 +7,8 @@ namespace yap
 {
   enum class YAPOG_LIB GameInputType
   {
+    MapAction,
+
     Action,
     Back,
     Left,

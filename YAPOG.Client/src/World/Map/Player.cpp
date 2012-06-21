@@ -37,7 +37,19 @@ namespace ycl
     visitor.VisitPlayer (*this);
   }
 
+  bool Player::HasInput (yap::GameInputType gameInputType) const
+  {
+    // Does nothing, server side only.
+
+    return false;
+  }
+
   void Player::Warp (const yap::ID& mapWorldID, const yap::Vector2& point)
+  {
+    // Does nothing, server side only.
+  }
+
+  void Player::DestroyObject (const yap::ID& objectWorldID)
   {
     // Does nothing, server side only.
   }

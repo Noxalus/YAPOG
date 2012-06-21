@@ -7,6 +7,7 @@
 # include "YAPOG/System/Network/PacketHandler.hpp"
 
 # include "World/Map/Character.hpp"
+# include "World/Map/PlayerInputManager.hpp"
 
 namespace yse
 {
@@ -49,7 +50,11 @@ namespace yse
       virtual void Accept (
         yap::IDynamicWorldObjectConstVisitor& visitor) const;
 
+      virtual bool HasInput (const yap::GameInputType gameInputType) const;
+
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
+
+      virtual void DestroyObject (const yap::ID& objectWorldID);
       /// @}
 
     protected:
@@ -60,13 +65,19 @@ namespace yse
 
     private:
 
+      void InitHandlers ();
+
       User& GetParent ();
+
+      void HandleClientInfoGameInput (yap::IPacket& packet);
 
       static const yap::String OBJECT_FACTORY_TYPE_NAME;
 
       User* parentUser_;
 
       yap::PacketHandler packetHandler_;
+
+      PlayerInputManager inputManager_;
   };
 } // namespace yse
 

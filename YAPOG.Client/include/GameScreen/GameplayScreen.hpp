@@ -43,6 +43,7 @@ namespace ycl
       void UpdatePlayer (const yap::Time& dt);
 
       void SendApplyForce (const yap::Vector2& force);
+      void SendGameInput (yap::GameInputType gameInputType, bool state);
 
       static const yap::ScreenType DEFAULT_NAME;
 

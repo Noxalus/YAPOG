@@ -28,7 +28,6 @@
 #include "Gui/PokedexCompositeWidget.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
 
-
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -47,6 +46,18 @@ namespace ycl
     , pokedex_ (nullptr)
     , chat_ (new ChatWidget ())
   {
+  }
+
+  GameplayScreen::~GameplayScreen ()
+  {
+    delete (chat_);
+    chat_ = nullptr;
+  }
+
+  void GameplayScreen::HandleInit ()
+  {
+    BaseScreen::HandleInit ();
+
     session_.GetUser ().OnPlayerCreated += [&] (
       const User& sender,
       Player* args)
@@ -62,48 +73,44 @@ namespace ycl
     };
 
     session_.GetUser ().SetWorld (&world_);
+
     chat_->Init ();
     chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
-  }
 
-  GameplayScreen::~GameplayScreen ()
-  {
-    delete (chat_);
-    chat_ = nullptr;
-  }
-
-  void GameplayScreen::HandleInit ()
-  {
-    BaseScreen::HandleInit ();
+    chat_->OnMessageSent +=
+      [this] (ChatWidget& sender, yap::GameMessage& args)
+    {
+      session_.GetUser ().SendGameMessage (args);
+    };
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
     /*
-    PokemonTeamWidget* pokteam = new PokemonTeamWidget ();
-    pokteam->Init ();
-    guiManager_->AddChild (*pokteam);
-    yap::Pokedex* pokedexInfo = new yap::Pokedex ();
-    for (int i = 1; i < 4; i++)
-    {
+      PokemonTeamWidget* pokteam = new PokemonTeamWidget ();
+      pokteam->Init ();
+      guiManager_->AddChild (*pokteam);
+      yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+      for (int i = 1; i < 4; i++)
+      {
       yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
       Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (i));
 
       pokedexInfo->AddPokemon (pok);
       pokedexInfo->AddPokemonSeen (pok);
       pokedexInfo->AddPokemonCaught (pok);
-    }
+      }
 
-    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+      yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
       Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
 
-    pokedexInfo->AddPokemon (pok);
-    pokedexInfo->AddPokemonSeen (pok);
-    pokedexInfo->AddPokemonCaught (pok);
+      pokedexInfo->AddPokemon (pok);
+      pokedexInfo->AddPokemonSeen (pok);
+      pokedexInfo->AddPokemonCaught (pok);
 
-    PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
-    pokedex->Init ();
+      PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
+      pokedex->Init ();
 
-    guiManager_->AddChild (*pokedex);*/
+      guiManager_->AddChild (*pokedex);*/
 
     /// @warning Commented.
     //guiManager_->AddChild (*pokedex);
@@ -131,69 +138,69 @@ namespace ycl
   bool GameplayScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Down,
-      guiEvent))
+          yap::GameInputType::Down,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Up,
-      guiEvent))
+          yap::GameInputType::Up,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Left,
-      guiEvent))
+          yap::GameInputType::Left,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsActivated (
-      yap::GameInputType::Right,
-      guiEvent))
+          yap::GameInputType::Right,
+          guiEvent))
     {
       moveController_.EnableDirection (yap::Direction::East);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Down,
-      guiEvent))
+          yap::GameInputType::Down,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::South);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Up,
-      guiEvent))
+          yap::GameInputType::Up,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::North);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Left,
-      guiEvent))
+          yap::GameInputType::Left,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::West);
       return true;
     }
 
     if (gameInputManager_.GameInputIsDeactivated (
-      yap::GameInputType::Right,
-      guiEvent))
+          yap::GameInputType::Right,
+          guiEvent))
     {
       moveController_.DisableDirection (yap::Direction::East);
       return true;
     }
-    
+
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::F10)
@@ -202,7 +209,25 @@ namespace ycl
           chat_->Close ();
         else
           chat_->Open ();
+        return true;
       }
+    }
+
+    if (gameInputManager_.GameInputIsActivated (
+          yap::GameInputType::MapAction,
+          guiEvent))
+    {
+      logger_.LogLine ("ACTION START");
+      SendGameInput (yap::GameInputType::MapAction, true);
+      return true;
+    }
+
+    if (gameInputManager_.GameInputIsDeactivated (
+          yap::GameInputType::MapAction,
+          guiEvent))
+    {
+      logger_.LogLine ("ACTION END");
+      SendGameInput (yap::GameInputType::MapAction, false);
       return true;
     }
 
@@ -255,6 +280,19 @@ namespace ycl
     packet.CreateFromType (yap::PacketType::ClientInfoApplyForce);
 
     packet.Write (force);
+
+    session_.SendPacket (packet);
+  }
+
+  void GameplayScreen::SendGameInput (
+    yap::GameInputType gameInputType,
+    bool state)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ClientInfoGameInput);
+
+    packet.Write (static_cast<yap::Int16> (gameInputType));
+    packet.Write (state);
 
     session_.SendPacket (packet);
   }

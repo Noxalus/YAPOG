@@ -48,23 +48,6 @@ namespace yap
     gameInputs_.Remove (gameInput->GetType ());
   }
 
-  bool GameInputManager::GameInputIsActive (GameInputType gameInputType) const
-  {
-    return gameInputs_[gameInputType]->IsActive ();
-  }
-
-  bool GameInputManager::GameInputIsActivated (
-    GameInputType gameInputType) const
-  {
-    return gameInputs_[gameInputType]->IsActivated ();
-  }
-
-  bool GameInputManager::GameInputIsDeactivated (
-    GameInputType gameInputType) const
-  {
-    return gameInputs_[gameInputType]->IsDeactivated ();
-  }
-
   bool GameInputManager::GameInputIsActive (
     GameInputType gameInputType,
     const GuiEvent& guiEvent) const

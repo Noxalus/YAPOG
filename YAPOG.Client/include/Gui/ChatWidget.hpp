@@ -19,6 +19,7 @@
 namespace yap
 {
   class Chat;
+  class GameMessage;
 }
 
 namespace ycl
@@ -37,6 +38,9 @@ namespace ycl
 
     void                    Init ();
     virtual bool            IsFocusable () const;
+
+    /// Event raised each time a message is entered by the player.
+    yap::Event<ChatWidget&, yap::GameMessage&> OnMessageSent;
 
   protected:
     virtual yap::Vector2    HandleGetSize () const;

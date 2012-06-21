@@ -2,6 +2,7 @@
 #include "YAPOG/Game/Chat/Chat.hpp"
 #include "YAPOG/Game/Chat/ChatDisplayer.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Chat/GameMessage.hpp"
 
 #include "Gui/ChatWidget.hpp"
 #include "Game.hpp"
@@ -95,7 +96,7 @@ namespace ycl
 
   void ChatWidget::Init ()
   {
-    yap::WidgetBackground* chatBground = 
+    yap::WidgetBackground* chatBground =
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png",
       true);
@@ -173,7 +174,9 @@ namespace ycl
         color = sf::Color::Red;
         break;
       }
-      dialog_->AddText (response[i].second,
+
+      yap::String message = response[i].second;
+      dialog_->AddText (message,
         12,
         color);
     }
@@ -183,7 +186,7 @@ namespace ycl
   {
     ResponseType response;
     if (chan)
-      chat_->SetBuf ((add ? "/addchan " : "/switchchan ") + 
+      chat_->SetBuf ((add ? "/addchan " : "/switchchan ") +
       yap::StringHelper::ToString (i));
     else
       chat_->SetBuf ("/switchtab " + yap::StringHelper::ToString (i));
@@ -268,7 +271,7 @@ namespace ycl
       return TabAndChanHandler (false, false, 9);
     return false;
   }
-  
+
   bool ChatWidget::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)

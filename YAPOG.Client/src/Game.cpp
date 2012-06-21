@@ -62,6 +62,8 @@
 #include "World/Map/NPC.hpp"
 #include "World/Map/NPCReader.hpp"
 #include "World/Map/Teleporter.hpp"
+#include "World/Map/DestructibleObject.hpp"
+#include "World/Map/DestructibleObjectReader.hpp"
 
 namespace ycl
 {
@@ -169,6 +171,14 @@ namespace ycl
       yap::AnimatedSpriteReader> ());
 
     objectFactory_.RegisterLoader (
+      "DestructibleObject",
+      new yap::XmlObjectIDLoader<
+        DestructibleObject,
+        DestructibleObjectReader> (
+          yap::Path ("DestructibleObject"),
+          "DestructibleObject"));
+
+    objectFactory_.RegisterLoader (
       "DirectionSpriteSet",
       new yap::XmlObjectLoader<
       yap::SpriteSet<yap::Direction>,
@@ -269,6 +279,10 @@ namespace ycl
 
     gameInputManager_.AddGameInput (
       new yap::GameInput (
+      yap::GameInputType::MapAction,
+      new yap::KeyboardGameInputEntry (yap::Key::A)));
+    gameInputManager_.AddGameInput (
+      new yap::GameInput (
       yap::GameInputType::Action,
       new yap::KeyboardGameInputEntry (yap::Key::Return)));
     gameInputManager_.AddGameInput (
@@ -320,7 +334,7 @@ namespace ycl
     screenManager_ = new yap::GameScreenManager ();
 
     screenManager_->AddGameScreen (new LoadingScreen ());
-    screenManager_->AddGameScreen (new UpdateScreen ());
+//    screenManager_->AddGameScreen (new UpdateScreen ());
     screenManager_->AddGameScreen (new OptionScreen ());
     screenManager_->AddGameScreen (new LoginScreen ());
     screenManager_->AddGameScreen (

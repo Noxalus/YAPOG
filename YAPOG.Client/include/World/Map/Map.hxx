@@ -36,17 +36,6 @@ namespace ycl
 
     AddDrawableDynamicObject (object->GetWorldID (), object);
   }
-
-  template <typename T>
-  inline void Map::RemoveDrawableDynamicObject (T* object)
-  {
-    RemoveDynamicObject (object);
-
-    object->OnOrderStateChangedEvent ().RemoveHandler (
-      DRAW_ORDER_HANDLER_NAME);
-
-    RemoveDrawableDynamicObject (object->GetWorldID ());
-  }
 } // namespace ycl
 
 #endif // YAPOG_CLIENT_MAP_HXX

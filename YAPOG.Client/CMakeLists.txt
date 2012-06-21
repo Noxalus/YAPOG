@@ -129,6 +129,10 @@ ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp
 ${inc_root}/World/Map/CharacterReader.hpp
 ${src_root}/World/Map/CharacterReader.cpp
+${inc_root}/World/Map/DestructibleObject.hpp
+${src_root}/World/Map/DestructibleObject.cpp
+${inc_root}/World/Map/DestructibleObjectReader.hpp
+${src_root}/World/Map/DestructibleObjectReader.cpp
 ${inc_root}/World/Map/Map.hpp
 ${src_root}/World/Map/Map.cpp
 ${inc_root}/World/Map/MapElement.hpp

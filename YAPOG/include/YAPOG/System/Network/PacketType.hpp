@@ -19,6 +19,10 @@ namespace yap
 
     ClientInfoApplyForce,
 
+    ClientInfoGameInput,
+
+    ClientInfoGameMessage,
+
     // from server to client
     ServerInfoLoginValidation,
     ServerInfoLoginError,
@@ -33,7 +37,9 @@ namespace yap
     ServerInfoObjectMoveInfo,
 
     ServerInfoAddObject,
-    ServerInfoRemoveObject
+    ServerInfoRemoveObject,
+
+    ServerInfoGameMessage
   };
 } // namespace yap
 

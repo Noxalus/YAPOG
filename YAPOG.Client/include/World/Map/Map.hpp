@@ -39,13 +39,6 @@ namespace ycl
       void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);
 
-      void ClearDynamicObjects ();
-
-      void AddDrawableDynamicObject (
-        const yap::ID& worldID,
-        yap::IDrawableDynamicWorldObject* drawableObject);
-      void RemoveDrawableDynamicObject (const yap::ID& worldID);
-
       template <typename T>
       void AddDrawableStaticObject (T* object);
       template <typename T>
@@ -53,8 +46,8 @@ namespace ycl
 
       template <typename T>
       void AddDrawableDynamicObject (T* object);
-      template <typename T>
-      void RemoveDrawableDynamicObject (T* object);
+      void RemoveDrawableDynamicObject (const yap::ID& worldID);
+      void ClearDynamicObjects ();
 
       /// @name IDrawable members.
       /// @{
@@ -82,6 +75,10 @@ namespace ycl
       virtual void HandleUpdate (const yap::Time& dt);
 
     private:
+
+      void AddDrawableDynamicObject (
+        const yap::ID& worldID,
+        yap::IDrawableDynamicWorldObject* drawableObject);
 
       void AddDrawableObject (yap::IDrawableWorldObject* drawableObject);
       void RemoveDrawableObject (yap::IDrawableWorldObject* drawableObject);

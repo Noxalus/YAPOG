@@ -46,9 +46,6 @@ namespace yap
   {
     if (copy.physicsCore_ != nullptr)
       SetPhysicsCore (copy.physicsCore_->Clone ());
-
-    for (MapEvent* event : copy.events_)
-      AddEvent (event->Clone ());
   }
 
   const ID& DynamicWorldObject::GetWorldID () const
@@ -59,6 +56,8 @@ namespace yap
   void DynamicWorldObject::SetWorldID (const ID& id)
   {
     worldID_ = id;
+
+    HandleSetWorldID (id);
   }
 
   const ID& DynamicWorldObject::GetTypeID () const
@@ -220,6 +219,10 @@ namespace yap
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);
+  }
+
+  void DynamicWorldObject::HandleSetWorldID (const ID& worldID)
+  {
   }
 
   void DynamicWorldObject::HandleSetCollidableArea (

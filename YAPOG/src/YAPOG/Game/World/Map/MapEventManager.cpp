@@ -58,7 +58,7 @@ namespace yap
     for (auto& objectEventsPair : events_)
       for (auto& eventContextPair : objectEventsPair.second)
         for (MapEventContext* eventContext : eventContextPair.second)
-          if (&eventContext->GetTrigger () == &object)
+          if (&eventContext->GetMapEventInfo ().GetParent () == &object)
             eventsToRemove.Enqueue (eventContext);
 
     while (!eventsToRemove.IsEmpty ())
@@ -139,7 +139,7 @@ namespace yap
 
   bool MapEventManager::RemoveEventEntry (MapEventContext* eventContext)
   {
-    DynamicWorldObject& object = eventContext->GetMapEventInfo ().GetParent ();
+    DynamicWorldObject& object = eventContext->GetTrigger ();
     MapEvent& event = eventContext->GetMapEventInfo ().GetEvent ();
 
     auto eventTriggering = events_.TryGetValue (&object);

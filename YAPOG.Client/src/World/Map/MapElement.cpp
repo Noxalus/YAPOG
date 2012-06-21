@@ -86,6 +86,9 @@ namespace ycl
 
   yap::Vector2 MapElement::HandleGetSize () const
   {
+    if (sprite_ == nullptr)
+      return yap::MapElement::HandleGetSize ();
+
     return sprite_->GetSize ();
   }
 

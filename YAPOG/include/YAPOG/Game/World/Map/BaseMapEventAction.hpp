@@ -27,6 +27,8 @@ namespace yap
       virtual void VisitCharacter (Character& visitable);
       virtual void VisitPlayer (IPlayer& visitable);
       virtual void VisitTeleporter (Teleporter& visitable);
+      virtual void VisitDestructibleObject (DestructibleObject& visitable);
+      virtual void VisitBattleSpawnerArea (BattleSpawnerArea& visitable);
       /// @}
 
     protected:
@@ -35,11 +37,15 @@ namespace yap
 
       BaseMapEventAction (const BaseMapEventAction& copy);
 
+      MapEventArgs& GetArgs ();
+
     private:
 
       virtual bool HandleExecute (MapEventArgs& args);
 
       MapEventActionType type_;
+
+      MapEventArgs* args_;
   };
 } // namespace yap
 
