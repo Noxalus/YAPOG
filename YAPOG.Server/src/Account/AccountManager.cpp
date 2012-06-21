@@ -74,10 +74,12 @@ namespace yse
     */
 
     // Get player data
+    /*
     PlayerDataTable playerDataTable (accountTable.GetID ());
     PlayerDataSelectRequest pdsr (databaseManager_, playerDataTable);
 
     playerDataTable.DisplayData ();
+    */
 
     // Record the login IP
     accountTable.SetCurrentIP (current_ip);

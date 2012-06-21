@@ -52,10 +52,8 @@ namespace yse
   {
     login_ = login;
 
-    /*
-    AccountManager am;
+    AccountManager am (*databaseManager_);
     am.Login (login, password, ip);
-    */
 
     return true;
   }
@@ -133,6 +131,11 @@ namespace yse
 
     AddRelay (player_);
     player_->SetParent (this);
+  }
+
+  void User::SetDatabaseManager (yap::DatabaseManager* databaseManager)
+  {
+    databaseManager_ = databaseManager;
   }
 
   void User::HandleClientRequestStartInfo (yap::IPacket& packet)

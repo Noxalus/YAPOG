@@ -69,6 +69,11 @@ namespace yse
     return socket_;
   }
 
+  void ClientSession::SetDatabaseManager (yap::DatabaseManager* databaseManager)
+  {
+    databaseManager_ = databaseManager;
+  }
+
   bool ClientSession::HandlePacket (yap::IPacket& packet)
   {
     return packetHandler_.HandlePacket (packet);

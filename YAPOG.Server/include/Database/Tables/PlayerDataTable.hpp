@@ -12,7 +12,7 @@ namespace yse
   {
     DISALLOW_COPY(PlayerDataTable);
   public:
-    PlayerDataTable (const yap::ID accountID);
+    explicit PlayerDataTable (const yap::ID& accountID);
 
     void DisplayData ();
 
