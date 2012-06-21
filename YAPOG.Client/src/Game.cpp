@@ -341,7 +341,7 @@ namespace ycl
       new GameplayScreen (
       drawingContext_->GetCamera (
       "World")));
-    //screenManager_->AddGameScreen (new BattleScreen ());
+    screenManager_->AddGameScreen (new BattleScreen ());
     screenManager_->AddGameScreen (new MainMenuScreen ());
     screenManager_->AddGameScreen (new RegistrationScreen ());
     screenManager_->AddGameScreen (new SplashScreen ());
@@ -351,7 +351,7 @@ namespace ycl
 #ifndef YAPOG_WIN
     screenManager_->Init ("MainMenu");
 #else
-    screenManager_->Init ("Battle");
+    screenManager_->Init ("Loading");
 #endif
   }
 
