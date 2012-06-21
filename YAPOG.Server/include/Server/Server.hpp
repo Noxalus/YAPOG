@@ -9,6 +9,7 @@
 # include "YAPOG/System/Path.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/System/Time/Timer.hpp"
+# include "YAPOG/Database/DatabaseManager.hpp"
 
 # include "World/World.hpp"
 # include "Server/ClientManager.hpp"
@@ -76,6 +77,7 @@ namespace yse
       yap::WorldObjectStateFactory& worldObjectStateFactory_;
 
       yap::Logger& logger_;
+      yap::DatabaseManager databaseManager_;
   };
 } // namespace yse
 

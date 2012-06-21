@@ -55,7 +55,7 @@ namespace ycl
     }
   }
 
-  void Session::Login (const yap::String& login)
+  void Session::Login (const yap::String& login, const yap::String& password)
   {
     if (!Connect ())
       YAPOG_THROW("Failed to connect to the server `"
@@ -66,6 +66,26 @@ namespace ycl
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ClientRequestLogin);
     packet.Write (login);
+    packet.Write (password);
+    SendPacket (packet);
+  }
+
+  void Session::Register (
+        const yap::String& login, 
+        const yap::String& password,
+        const yap::String& email)
+  {
+    if (!Connect ())
+      YAPOG_THROW("Failed to connect to the server `"
+                  + DEFAULT_REMOTE_IP
+                  + "'.");
+
+    /// @todo login request
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ClientRequestRegistration);
+    packet.Write (login);
+    packet.Write (password);
+    packet.Write (email);
     SendPacket (packet);
   }
 

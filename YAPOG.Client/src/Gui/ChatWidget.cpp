@@ -148,17 +148,18 @@ namespace ycl
     dialog_->AddText (message, 12, sf::Color (127, 127, 127));
   }
 
-  void ChatWidget::DisplayResponse (ResponseType res, bool send)
+  void ChatWidget::DisplayResponse (yap::ResponseType res)
   {
-    bool toclear = res.first;
-    ResponsesType response = res.second;
+    bool toclear = res.Clean;
+    yap::collection::Array<yap::UInt32> responseChan = res.Channb;
+    yap::collection::Array<yap::String> responseString = res.Message;
 
     if (toclear)
       dialog_->Clear ();
-    for (size_t i = 0; i < response.Count (); i++)
+    for (size_t i = 0; i < responseString.Count (); i++)
     {
       sf::Color color = sf::Color::Black;
-      switch (response[i].first)
+      switch (responseChan[i])
       {
       case 1:
         color = sf::Color::Black;
@@ -180,10 +181,8 @@ namespace ycl
         break;
       }
 
-      yap::String message = response[i].second;
-      /// @warning Temporary.
-      /// @todo Remove.
-      if (!send)
+      yap::String message = responseString[i];
+      if (res.Command)
       {
         dialog_->AddText (
           message,
@@ -200,7 +199,7 @@ namespace ycl
 
   bool ChatWidget::TabAndChanHandler (bool chan, bool add, int i)
   {
-    ResponseType response;
+    yap::ResponseType response;
     if (chan)
       chat_->SetBuf ((add ? "/addchan " : "/switchchan ") +
       yap::StringHelper::ToString (i));
@@ -208,12 +207,11 @@ namespace ycl
       chat_->SetBuf ("/switchtab " + yap::StringHelper::ToString (i));
     chat_->Parse ();
     response = chat_->Exec ();
-    if (!chan && response.second.IsEmpty ())
-    {
-      response.first = true;
-      response.second = yap::ResponsesType ();
-    }
-    DisplayResponse (response, false);
+
+    if (!chan && response.Message.IsEmpty ())
+      response.Clean = true;
+    response.Command = true;
+    DisplayResponse (response);
 
     return true;
   }
@@ -311,14 +309,15 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
-        ResponseType response;
+        yap::ResponseType response;
         yap::String todisplay = lineCatcher_->GetContent ();
 
         chat_->SetBuf (todisplay);
         chat_->Parse ();
         response = chat_->Exec ();
-        if (!response.second.IsEmpty ())
-          DisplayResponse (response, todisplay[0] != '/');
+        response.Command = chat_->GetIsCommand ();
+        if (!response.Message.IsEmpty ())
+          DisplayResponse (response);
         lineCatcher_->Clear ();
       }
 

@@ -38,6 +38,7 @@ namespace yap
     String                  GetStringHistory ();
     BufferType              GetBufHistory ();
     BufferType              GetHistory ();
+    bool                    GetIsCommand ();
     bool                    ChangeChan (ChatDisplayer& display);
 
     String                  GetTabName (UInt32 TabNb);
@@ -47,7 +48,7 @@ namespace yap
   private:
     void                    IncOff ();
     // Check if the user's entry is a command
-    bool					  	      Check ();
+    void					  	      Check ();
     // Execute Echo
     void                    ToEcho (String s);
     // Test History
@@ -62,6 +63,7 @@ namespace yap
     String					        output_;
     BufferType			        buffer_;
     BufferType              history_;
+    bool                    isCommand_;
   };
 } // namespace yap
 

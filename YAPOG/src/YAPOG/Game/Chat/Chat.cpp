@@ -12,6 +12,7 @@ namespace yap
     , output_ ("")
     , buffer_ ()
     , history_ ()
+    , isCommand_ (false)
   {
   }
 
@@ -25,6 +26,7 @@ namespace yap
     , output_ ("")
     , buffer_ ()
     , history_ (*(new BufferType ()))
+    , isCommand_ (false)
   {
     SetBuf (b);
   }
@@ -73,10 +75,10 @@ namespace yap
 
   std::pair<bool, String>   Chat::TestHistoryChecker ()
   {
-    if (Check () && 
+    if (isCommand_ && 
         StringHelper::CompareString (buffer_[0], String ("/up")) == 0)
       return GetUpHistory ();
-    if (Check () && 
+    if (isCommand_ && 
         StringHelper::CompareString (buffer_[0], String ("/down")) == 0)
       return GetDownHistory ();
 
@@ -85,7 +87,6 @@ namespace yap
 
   String                    Chat::Parse ()
   {
-    
     chatmanager_->Request.Clear ();
     std::pair<bool, String> upOrDown = TestHistoryChecker ();
 
@@ -100,11 +101,12 @@ namespace yap
 
     IncOff ();
 
-    if (Check () &&
+    Check ();
+    if (isCommand_ &&
         StringHelper::CompareString (buffer_[0], String ("/history")) == 0)
       return GetStringHistory ();
 
-    if (Check ())
+    if (isCommand_)
     {
       chatcommand_->SetCommand (
         chatcommand_->GetCmd (buffer_[0].substr (1).c_str ()));
@@ -189,8 +191,13 @@ namespace yap
     return history_;
   }
 
-  bool								      Chat::Check ()
+  bool                      Chat::GetIsCommand ()
   {
-    return (buffer_.Count () > 0 && entry_[0] == '/');
+    return isCommand_;
+  }
+
+  void								      Chat::Check ()
+  {
+    isCommand_ = (buffer_.Count () > 0 && entry_[0] == '/');
   }
 } // namespace yap

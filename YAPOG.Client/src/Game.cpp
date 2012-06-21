@@ -334,7 +334,7 @@ namespace ycl
     screenManager_ = new yap::GameScreenManager ();
 
     screenManager_->AddGameScreen (new LoadingScreen ());
-//    screenManager_->AddGameScreen (new UpdateScreen ());
+    screenManager_->AddGameScreen (new UpdateScreen ());
     screenManager_->AddGameScreen (new OptionScreen ());
     screenManager_->AddGameScreen (new LoginScreen ());
     screenManager_->AddGameScreen (
