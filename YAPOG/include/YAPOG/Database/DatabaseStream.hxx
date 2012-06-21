@@ -14,7 +14,10 @@ namespace yap
     }
     catch (pgs::pg_excpt& e)
     {
-      std::cout << "COUCOU DATABASEEXCEPTION !" << std::endl;
+      std::cerr << "DATABASE EXCEPTION:" 
+        << std::endl
+        << e.full_error_txt () 
+        << std::endl;
       throw DatabaseException (e.full_error_txt ());
     }
   }

@@ -13,63 +13,71 @@
 
 # include "Server/User.hpp"
 
+namespace yap
+{
+  class DatabaseManager;
+} // namespace yap
+
 namespace yse
 {
   class ClientSession : public yap::IPacketHandler
   {
-      DISALLOW_COPY(ClientSession);
+    DISALLOW_COPY(ClientSession);
 
-    public:
+  public:
 
-      ClientSession ();
-      virtual ~ClientSession ();
+    ClientSession ();
+    virtual ~ClientSession ();
 
-      void Init ();
+    void Init ();
 
-      void Refresh ();
+    void Refresh ();
 
-      void HandleReception ();
+    void HandleReception ();
 
-      User& GetUser ();
+    User& GetUser ();
 
-      yap::ClientSocket& GetSocket ();
+    yap::ClientSocket& GetSocket ();
 
-      /// @name IPacketHandler members.
-      /// @{
-      virtual bool HandlePacket (yap::IPacket& packet);
-      virtual bool SendPacket (yap::IPacket& packet);
+    void SetDatabaseManager (yap::DatabaseManager* databaseManager);
 
-      virtual void AddRelay (yap::IPacketHandler* relay);
-      virtual void RemoveRelay (yap::IPacketHandler* relay);
-      virtual void SetParent (yap::IPacketHandler* parent);
-      /// @}
+    /// @name IPacketHandler members.
+    /// @{
+    virtual bool HandlePacket (yap::IPacket& packet);
+    virtual bool SendPacket (yap::IPacket& packet);
 
-      yap::Event<
-        const ClientSession&,
-        const yap::EmptyEventArgs&> OnDisconnected;
+    virtual void AddRelay (yap::IPacketHandler* relay);
+    virtual void RemoveRelay (yap::IPacketHandler* relay);
+    virtual void SetParent (yap::IPacketHandler* parent);
+    /// @}
 
-    private:
+    yap::Event<
+      const ClientSession&,
+      const yap::EmptyEventArgs&> OnDisconnected;
 
-      bool IsConnected () const;
+  private:
 
-      void Disconnect ();
+    bool IsConnected () const;
 
-      void HandleClientRequestLogin (yap::IPacket& packet);
-      void HandleClientRequestRegister (yap::IPacket& packet);
-      void HandleClientInfoDeconnection (yap::IPacket& packet);
+    void Disconnect ();
 
-      void SendObjectFactoryTypes (
-        yap::IPacket& packet,
-        const yap::ObjectFactory& objectFactory);
+    void HandleClientRequestLogin (yap::IPacket& packet);
+    void HandleClientRequestRegister (yap::IPacket& packet);
+    void HandleClientInfoDeconnection (yap::IPacket& packet);
 
-      bool isConnected_;
+    void SendObjectFactoryTypes (
+      yap::IPacket& packet,
+      const yap::ObjectFactory& objectFactory);
 
-      yap::PacketHandler packetHandler_;
+    bool isConnected_;
 
-      yap::ClientSocket socket_;
-      yap::NetworkHandler networkHandler_;
+    yap::PacketHandler packetHandler_;
 
-      User user_;
+    yap::ClientSocket socket_;
+    yap::NetworkHandler networkHandler_;
+
+    User user_;
+    yap::DatabaseManager* databaseManager_;
   };
 } // namespace yap
 

@@ -5,7 +5,7 @@ namespace yse
 {
   const yap::Vector2 PlayerDataTable::DEFAULT_POSITION (42.69f, 1337.56f);
 
-  PlayerDataTable::PlayerDataTable (const yap::ID accountID)
+  PlayerDataTable::PlayerDataTable (const yap::ID& accountID)
     : accountID_ (accountID)
     , position_ (DEFAULT_POSITION)
   {

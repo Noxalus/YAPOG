@@ -4,12 +4,13 @@ namespace yse
 {
   AccountTable::AccountTable ()
     : permissions_ (AccountPermission::Normal)
+    , id_ ()
   {
   }
 
   /// Getters
   const yap::ID& AccountTable::GetID () const
-{ return id_; }
+  { return id_; }
   const yap::String& AccountTable::GetName () const
   { return name_; }
   const yap::String& AccountTable::GetPassword () const
@@ -26,7 +27,7 @@ namespace yse
   { return creationIP_; }
   const yap::String& AccountTable::GetCurrentIP () const
   { return currentIP_; }
-  
+
   /// Setters
   void AccountTable::SetID (const yap::ID& value) 
   { id_ = value; }
