@@ -6,14 +6,19 @@
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Graphics/Gui/PictureBox.hpp"
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
 # include "YAPOG/Game/Pokemon/Pokemon.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 # include "YAPOG/Game/Pokemon/Gender.hpp"
+# include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
+# include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 
 namespace yap
 {
-  class Menu;
+  class GridMenu;
+  class WidgetBackground;
 }
 
 namespace ycl
@@ -26,7 +31,7 @@ namespace ycl
   public:
 
 
-    PokemonTeamWidget ();
+    PokemonTeamWidget (yap::PokemonTeam* team);
     void Init ();
     virtual ~PokemonTeamWidget();
     virtual bool IsFocusable () const;
@@ -43,83 +48,94 @@ namespace ycl
 
     virtual void HandleUpdate (const yap::Time& dt);
 
+    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
   private:
 
     class InfoBox : public yap::BaseWidget
     {
     public:
       InfoBox (bool isMainPok, yap::Pokemon* info)
-        : pokIcon_ ()
-        , pokName_ (info->GetName ())
-        , pokLevel_ ("N. " + yap::StringHelper::ToString (info->GetLevel ()))
-        , pokGender_ ()
-        , HpBar_ ()
-        , HpBarContent_ ()
-        , hpLevel_ (yap::StringHelper::ToString (info->GetCurrentHP ()) + " / " + yap::StringHelper::ToString (info->GetMaxHP ()))
+        : pokIcon_ (nullptr)
+        , pokName_ (new yap::Label (info->GetName ()))
+        , pokLevel_ (new yap::Label ("N. " + yap::StringHelper::ToString (info->GetLevel ())))
+        , pokGender_ (nullptr)
+        , HpBar_ (nullptr)
+        , HpBarContent_ (nullptr)
+        , hpLevel_ (new yap::Label (yap::StringHelper::ToString (info->GetCurrentHP ()) + " / " + yap::StringHelper::ToString (info->GetMaxHP ())))
+        , vlayout_ (nullptr)
         , iSmainPok_ (isMainPok)
       {
-        pokIcon_.SetPicture (info->GetIcon ());
+        pokIcon_ = new yap::PictureBox ();
+        pokGender_ = new yap::PictureBox ();
+        HpBarContent_ = new yap::PictureBox ();
+        HpBar_ = new yap::PictureBox ();
+
+        pokIcon_->SetPicture (info->GetIcon ());
         if (info->GetGender () == yap::Gender::Female)
         {
-          pokGender_.SetPicture ("Pictures/Battle/FemaleIcon.png");
+          pokGender_->SetPicture ("Pictures/Battle/FemaleIcon.png");
         }
         else
         {
-          pokGender_.SetPicture ("Pictures/Battle/MaleIcon.png");
+          pokGender_->SetPicture ("Pictures/Battle/MaleIcon.png");
         }
-        HpBar_.SetPicture ("Pictures/Battle/HPTeamManagerBar.png");
-        HpBarContent_.SetPicture ("Pictures/Battle/HPBarContent.png");
-        HpBarContent_.SetSize (yap::Vector2 (172, HpBarContent_.GetSize ().y));
-        
-        if (isMainPok)
+        HpBar_->SetPicture ("Pictures/Battle/HPTeamManagerBar.png");
+        HpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
+        HpBarContent_->SetSize (yap::Vector2 (172, HpBarContent_->GetSize ().y));
+        if (isMainPok) 
         {
-          SetSize (yap::Vector2 (230, 166));
+          SetSize (yap::Vector2 (275, 172));
           SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/ItemBackground.png", true));
-          pokIcon_.SetPosition (GetPosition () + yap::Vector2 (10, 10));
-          pokName_.SetPosition (GetPosition () + yap::Vector2 (10 + pokIcon_.GetSize ().x, 10));
+
+          yap::HorizontalLayout* hor1 = new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);          
+          hor1->SetDefaultColor (sf::Color::White);
+          yap::HorizontalLayout* hor2 = new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);          
+          hor2->SetDefaultColor (sf::Color::White);
+          hor1->AddChild (*pokIcon_);
+          hor1->AddChild (*pokName_);
+
+          hor2->AddChild (*pokLevel_);
+          hor2->AddChild (*pokGender_);
+
+          vlayout_ = new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
+          vlayout_->SetSize (GetSize ());
+          vlayout_->SetDefaultColor (sf::Color::White);
+          vlayout_->AddChild (*hor1);
+          vlayout_->AddChild (*hor2);
+          vlayout_->AddChild (*HpBar_);
+          vlayout_->AddChild (*hpLevel_, yap::LayoutBox::Align::RIGHT);
+          AddChild (*vlayout_);
         }
+
+      }
+      virtual bool IsFocusable () const
+      {
+        return false;
       }
 
     private:
-      yap::PictureBox pokIcon_;
-      yap::Label pokName_;
-      yap::Label pokLevel_;
-      yap::PictureBox pokGender_;
-      yap::PictureBox HpBar_;
-      yap::PictureBox HpBarContent_;
-      yap::Label hpLevel_;
+      yap::PictureBox* pokIcon_;
+      yap::Label* pokName_;
+      yap::Label* pokLevel_;
+      yap::PictureBox* pokGender_;
+      yap::PictureBox* HpBar_;
+      yap::PictureBox* HpBarContent_;
+      yap::Label* hpLevel_;
+      yap::VerticalLayout* vlayout_;
       bool iSmainPok_;
 
     protected:
       virtual void HandleMove (const yap::Vector2& offset)
       {
-        pokIcon_.Move (offset);
-        pokName_.Move (offset);
-        pokLevel_.Move (offset);
-        pokGender_.Move (offset);
-        HpBar_.Move (offset);
-        HpBarContent_.Move (offset);
-        hpLevel_.Move (offset);
+
       }
       virtual void HandleScale (const yap::Vector2& factor)
-    {
-        pokIcon_.Scale (factor);
-        pokName_.Scale (factor);
-        pokLevel_.Scale (factor);
-        pokGender_.Scale (factor);
-        HpBar_.Scale (factor);
-        HpBarContent_.Scale (factor);
-        hpLevel_.Scale (factor);
+      {
+
       }
       virtual void HandleDraw (yap::IDrawingContext& offset)
       {
-        pokIcon_.Draw (offset);
-        pokName_.Draw (offset);
-        pokLevel_.Draw (offset);
-        pokGender_.Draw (offset);
-        HpBar_.Draw (offset);
-        HpBarContent_.Draw (offset);
-        hpLevel_.Draw (offset);
+
       }
       virtual void HandleShow (bool isVisible)
       {
@@ -134,8 +150,13 @@ namespace ycl
 
     yap::Label* state_;
     yap::Pokemon* current_;
-    yap::Menu* menu_;
+    yap::GridMenu* menu_;
     yap::VerticalLayout* vlayoutMenu_;
+    yap::PokemonTeam* team_;
+    yap::collection::Array<InfoBox*> pokemons;
+    InfoBox* currentBox_;
+    yap::WidgetBackground* selecBckgrd_;
+    yap::uint ite_;
 
 
   };

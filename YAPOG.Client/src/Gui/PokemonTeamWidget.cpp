@@ -3,7 +3,7 @@
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
-#include "YAPOG/Graphics/Gui/Menu.hpp"
+#include "YAPOG/Graphics/Gui/GridMenu.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
@@ -15,8 +15,14 @@
 namespace ycl
 {
 
-  PokemonTeamWidget::PokemonTeamWidget ()
+  PokemonTeamWidget::PokemonTeamWidget (yap::PokemonTeam* team)
     : state_ (nullptr)
+    , current_ (nullptr)
+    , menu_ (nullptr)
+    , vlayoutMenu_ (nullptr)
+    , team_ (team)
+    , pokemons ()
+    , ite_ (0)
 
   {
 
@@ -52,20 +58,79 @@ namespace ycl
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
     state_->SetSize (yap::Vector2 (250, 64));
-    
+
     state_->SetBackground (*new yap::WidgetBackground ("Test/White.png", true));
     state_->SetPadding (yap::Padding (32, 0, 5, 32));
     AddChild (*state_);
     state_->SetPosition (GetSize () - state_->GetSize () - yap::Vector2 (15, 15));
     state_->SetBorder (*stateBorder);
 
+    team_->AddPokemon (new yap::Pokemon (yap::ID (1)));
+    team_->AddPokemon (new yap::Pokemon (yap::ID (2)));
+    team_->AddPokemon (new yap::Pokemon (yap::ID (3)));
 
+    InfoBox* box = new InfoBox (true, team_->GetPokemon (0));
+    box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
+    pokemons.Add (box);
+
+    vlayoutMenu_ = new yap::VerticalLayout (yap::Padding (), yap::Padding (), true);
+
+    for (int i = 1; i < 1; i++) // iterate over team.
+    {
+      InfoBox* box = new InfoBox (false, team_->GetPokemon (i));
+      vlayoutMenu_->AddChild (*box);
+      pokemons.Add (box);
+    }
+
+    AddChild (*vlayoutMenu_);
 
   }
 
   bool PokemonTeamWidget::IsFocusable () const
   {
     return true;
+  }
+
+  bool PokemonTeamWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    if (pokemons.Count () == 0)
+      return false;
+
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Up)
+      {
+
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Down)
+      {
+
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Left)
+      {
+
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Right)
+      {
+
+        return true;
+      }
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {
+
+        return true;
+      }
+
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   yap::Vector2 PokemonTeamWidget::HandleGetSize () const
@@ -82,7 +147,10 @@ namespace ycl
   }
   void PokemonTeamWidget::HandleDraw (yap::IDrawingContext& context)
   {
-
+    for (InfoBox* b : pokemons)
+    {
+      b->Draw (context);
+    }
   }
   void PokemonTeamWidget::HandleShow (bool isVisible)
   {
