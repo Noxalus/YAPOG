@@ -1,10 +1,11 @@
-#ifndef YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
-# define YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
+#ifndef YAPOG_CLIENT_BEGINWILDBATTLEPHASE_HPP
+# define YAPOG_CLIENT_BEGINWILDBATTLEPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/BeginWildBattlePhase.hpp"
+
+# include "Battle/Phase/BeginBattlePhase.hpp"
 
 namespace yap
 {
@@ -17,8 +18,7 @@ namespace ycl
   class BattleInterface;
 
   class BeginWildBattlePhase
-    : public yap::BeginWildBattlePhase
-    , public yap::IDrawable
+    : public BeginBattlePhase
   {
   public:
     BeginWildBattlePhase (Battle& battle, BattleInterface& battleInterface);
@@ -46,9 +46,6 @@ namespace ycl
     void UpdatePlayerTrainerBack ();
     void UpdateOpponentFront ();
 
-    Battle& battle_;
-    BattleInterface& battleInterface_;
-
     yap::String nextState_;
 
     static const float GROUND_SPEED;
@@ -56,4 +53,4 @@ namespace ycl
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_BEGINBATTLEPHASE_HPP
+#endif // YAPOG_CLIENT_BEGINWILDBATTLEPHASE_HPP

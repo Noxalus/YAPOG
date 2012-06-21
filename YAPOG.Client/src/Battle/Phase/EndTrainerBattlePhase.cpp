@@ -9,8 +9,7 @@ namespace ycl
   const sf::Color EndTrainerBattlePhase::DEFAULT_COLOR = sf::Color ();
 
   EndTrainerBattlePhase::EndTrainerBattlePhase (Battle& battle)
-    : yap::EndTrainerBattlePhase (battle)
-    , battle_ (battle)
+    : EndBattlePhase (battle)
   {
   }
 
@@ -20,7 +19,7 @@ namespace ycl
 
   void EndTrainerBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
-    BattlePhase::HandleStart (args);
+    EndTrainerBattlePhase::HandleStart (args);
   }
 
   void EndTrainerBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -29,7 +28,7 @@ namespace ycl
 
   void EndTrainerBattlePhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    EndTrainerBattlePhase::HandleEnd ();
   }
 
   void EndTrainerBattlePhase::HandleDraw (yap::IDrawingContext& context)

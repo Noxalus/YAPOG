@@ -15,10 +15,9 @@ namespace ycl
   const float BeginWildBattlePhase::GROUND_SPEED = 500.f;
   const yap::String BeginWildBattlePhase::FISRT_STATE = "Init";
 
-  BeginWildBattlePhase::BeginWildBattlePhase (Battle& battle, BattleInterface& battleInterface)
-    : yap::BeginWildBattlePhase (battle)
-    , battle_ (battle)
-    , battleInterface_  (battleInterface)
+  BeginWildBattlePhase::BeginWildBattlePhase 
+    (Battle& battle, BattleInterface& battleInterface)
+    : BeginBattlePhase (battle, battleInterface)
     , nextState_ (FISRT_STATE)
   {
   }
@@ -29,7 +28,7 @@ namespace ycl
 
   void BeginWildBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
-    yap::BeginWildBattlePhase::HandleStart (args);
+    BeginBattlePhase::HandleStart (args);
 
     // Begin battle little phases booleans init.
     nextState_ = FISRT_STATE;
@@ -86,7 +85,7 @@ namespace ycl
 
   void BeginWildBattlePhase::HandleUpdate (const yap::Time& dt)
   {
-    yap::BeginWildBattlePhase::HandleUpdate (dt);
+    BeginBattlePhase::HandleUpdate (dt);
 
     if (nextState_ == FISRT_STATE)
     {
@@ -178,7 +177,7 @@ namespace ycl
 
   void BeginWildBattlePhase::HandleEnd ()
   {
-    yap::BeginWildBattlePhase::HandleEnd ();
+    BeginBattlePhase::HandleEnd ();
   }
 
   void BeginWildBattlePhase::HandleDraw (yap::IDrawingContext& context)

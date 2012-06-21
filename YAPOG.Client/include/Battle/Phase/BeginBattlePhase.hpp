@@ -52,7 +52,6 @@ namespace ycl
     bool isVisible_;
     sf::Color color_;
 
-  private:
     Battle& battle_;
     BattleInterface& battleInterface_;
   };

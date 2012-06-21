@@ -9,8 +9,7 @@ namespace ycl
   const sf::Color EndWildBattlePhase::DEFAULT_COLOR = sf::Color ();
 
   EndWildBattlePhase::EndWildBattlePhase (Battle& battle)
-    : yap::EndWildBattlePhase (battle)
-    , battle_ (battle)
+    : EndBattlePhase (battle)
   {
   }
 

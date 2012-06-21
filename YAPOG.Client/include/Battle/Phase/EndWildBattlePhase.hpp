@@ -3,7 +3,8 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/EndWildBattlePhase.hpp"
+
+# include "Battle/Phase/EndBattlePhase.hpp"
 
 namespace yap
 {
@@ -15,8 +16,7 @@ namespace ycl
   class Battle;
 
   class EndWildBattlePhase
-    : public yap::EndWildBattlePhase
-    , public yap::IDrawable
+    : public EndBattlePhase
   {
   public:
     EndWildBattlePhase (Battle& battle);
@@ -39,9 +39,6 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
-
-  private:
-    Battle& battle_;
   };
 } // namespace ycl
 

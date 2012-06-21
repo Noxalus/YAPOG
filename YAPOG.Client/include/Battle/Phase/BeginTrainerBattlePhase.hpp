@@ -4,7 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/BeginTrainerBattlePhase.hpp"
+
+# include "Battle/Phase/BeginBattlePhase.hpp"
 
 namespace yap
 {
@@ -17,8 +18,7 @@ namespace ycl
   class BattleInterface;
 
   class BeginTrainerBattlePhase
-    : public yap::BeginTrainerBattlePhase
-    , public yap::IDrawable
+    : public BeginBattlePhase
   {
   public:
     BeginTrainerBattlePhase (Battle& battle, BattleInterface& battleInterface);
@@ -45,9 +45,6 @@ namespace ycl
   private:
     void UpdatePlayerTrainerBack ();
     void UpdateOpponentFront ();
-
-    Battle& battle_;
-    BattleInterface& battleInterface_;
   };
 } // namespace ycl
 

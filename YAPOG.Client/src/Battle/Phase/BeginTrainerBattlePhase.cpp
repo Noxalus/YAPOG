@@ -13,10 +13,9 @@ namespace ycl
   const bool BeginTrainerBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color BeginTrainerBattlePhase::DEFAULT_COLOR = sf::Color ();
 
-  BeginTrainerBattlePhase::BeginTrainerBattlePhase (Battle& battle, BattleInterface& battleInterface)
-    : yap::BeginTrainerBattlePhase (battle)
-    , battle_ (battle)
-    , battleInterface_  (battleInterface)
+  BeginTrainerBattlePhase::BeginTrainerBattlePhase 
+    (Battle& battle, BattleInterface& battleInterface)
+    : BeginBattlePhase (battle, battleInterface)
   {
   }
 
@@ -26,17 +25,17 @@ namespace ycl
 
   void BeginTrainerBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
-    yap::BeginTrainerBattlePhase::HandleStart (args);
+    BeginBattlePhase::HandleStart (args);
   }
 
   void BeginTrainerBattlePhase::HandleUpdate (const yap::Time& dt)
   {
-    yap::BeginTrainerBattlePhase::HandleUpdate (dt);
+    BeginBattlePhase::HandleUpdate (dt);
   }
 
   void BeginTrainerBattlePhase::HandleEnd ()
   {
-    yap::BeginTrainerBattlePhase::HandleEnd ();
+    BeginBattlePhase::HandleEnd ();
   }
 
   void BeginTrainerBattlePhase::HandleDraw (yap::IDrawingContext& context)

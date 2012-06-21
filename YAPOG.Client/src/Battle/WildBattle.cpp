@@ -23,7 +23,6 @@ namespace ycl
   {
     Battle::HandleInit ();
 
-    /*
     BeginWildBattlePhase* beginWildBattlePhase = 
       new BeginWildBattlePhase (*this, battleInterface_);
     EndPokemonSwitchPhase* switchPhase = new EndPokemonSwitchPhase (*this, battleInterface_);
@@ -32,7 +31,6 @@ namespace ycl
     AddPhase (yap::BattlePhaseState::BeginBattle, beginWildBattlePhase);
     AddPhase (yap::BattlePhaseState::Switch, switchPhase);
     AddPhase (yap::BattlePhaseState::Selection, selectionPhase);
-    */
   }
 
   void WildBattle::HandleUpdate (const yap::Time& dt)
