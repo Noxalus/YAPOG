@@ -2,6 +2,8 @@
 
 namespace yap
 {
+  const bool MapEventArgs::DEFAULT_ABORT_EVENTS_STATE = false;
+
   MapEventArgs::MapEventArgs (
     const Time& dt,
     DynamicWorldObject& trigger,
@@ -11,6 +13,7 @@ namespace yap
     , trigger_ (trigger)
     , triggerCollidable_ (triggerCollidable)
     , mapContext_ (mapContext)
+    , abortEvents_ (DEFAULT_ABORT_EVENTS_STATE)
   {
   }
 
@@ -32,5 +35,15 @@ namespace yap
   MapEventInfo& MapEventArgs::GetMapContext ()
   {
     return mapContext_;
+  }
+
+  void MapEventArgs::AbortEvents (bool abortEvents)
+  {
+    abortEvents_ = abortEvents;
+  }
+
+  bool MapEventArgs::AbortEvents () const
+  {
+    return abortEvents_;
   }
 } // namespace yap

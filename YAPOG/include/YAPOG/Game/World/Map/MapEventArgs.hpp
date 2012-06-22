@@ -30,7 +30,12 @@ namespace yap
 
       MapEventInfo& GetMapContext ();
 
+      void AbortEvents (bool abortEvents);
+      bool AbortEvents () const;
+
     private:
+
+      static const bool DEFAULT_ABORT_EVENTS_STATE;
 
       const Time& dt_;
 
@@ -38,6 +43,8 @@ namespace yap
       const ICollidable& triggerCollidable_;
 
       MapEventInfo& mapContext_;
+
+      bool abortEvents_;
   };
 } // namespace yap
 

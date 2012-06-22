@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/DestroyObjectMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/IPlayer.hpp"
+#include "YAPOG/Game/World/Map/MapEventArgs.hpp"
 
 namespace yap
 {
@@ -37,6 +38,9 @@ namespace yap
 
     /// @todo Make `GameInputIsActivatedMapEventCondition' class.
     if (visitable.HasInput (GameInputType::MapAction))
+    {
       visitable.DestroyObject (targetWorldID_);
+      GetArgs ().AbortEvents (true);
+    }
   }
 } // namespace yap

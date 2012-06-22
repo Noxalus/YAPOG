@@ -55,6 +55,12 @@ namespace yap
     {
       return data_.size ();
     }
+
+    template <typename T>
+    inline void Queue<T>::Clear ()
+    {
+      InnerType ().swap (data_);
+    }
   } // namespace collection
 } // namespace yap
 

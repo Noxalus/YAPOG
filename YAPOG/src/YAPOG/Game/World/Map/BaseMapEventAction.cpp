@@ -57,6 +57,11 @@ namespace yap
   {
   }
 
+  MapEventArgs& BaseMapEventAction::GetArgs ()
+  {
+    return *args_;
+  }
+
   bool BaseMapEventAction::HandleExecute (MapEventArgs& args)
   {
     return true;

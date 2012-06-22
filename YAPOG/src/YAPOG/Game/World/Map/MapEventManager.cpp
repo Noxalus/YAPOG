@@ -13,6 +13,7 @@ namespace yap
     , enterEvents_ ()
     , objectsToRemove_ ()
     , collidableArea_ (nullptr)
+    , abortEvents_ (false)
   {
   }
 
@@ -48,22 +49,48 @@ namespace yap
       }
     }
 
+    CallEvents (dt);
+
+    if (abortEvents_)
+    {
+      abortEvents_ = false;
+      Update (dt);
+    }
+  }
+
+  void MapEventManager::CallEvents (const Time& dt)
+  {
     while (!leaveEvents_.IsEmpty ())
     {
       MapEventContext* event = leaveEvents_.Dequeue (event);
       CallEvent (MapEventActionType::Leave, dt, *event);
+
+      if (abortEvents_)
+        return;
     }
 
     while (!enterEvents_.IsEmpty ())
     {
       MapEventContext* event = enterEvents_.Dequeue (event);
       CallEvent (MapEventActionType::Enter, dt, *event);
+
+      if (abortEvents_)
+        return;
     }
 
     for (auto& objectEvents : events_)
+    {
       for (auto& eventTriggering : objectEvents.second)
+      {
         for (MapEventContext* event : eventTriggering.second)
+        {
           CallEvent (MapEventActionType::In, dt, *event);
+
+          if (abortEvents_)
+            return;
+        }
+      }
+    }
   }
 
   void MapEventManager::UpdateObject (DynamicWorldObject& object)
@@ -196,6 +223,22 @@ namespace yap
       eventContext.GetTriggerCollidable (),
       eventContext.GetMapEventInfo ());
 
-    return event.Call (type, args);
+    bool successful = event.Call (type, args);
+
+    if (args.AbortEvents ())
+      AbortEvents ();
+
+    return successful;
+  }
+
+  void MapEventManager::AbortEvents ()
+  {
+    abortEvents_ = true;
+
+    leaveEvents_.Clear ();
+    enterEvents_.Clear ();
+    events_.Clear ();
+
+    OnEventsAborted (*this, EmptyEventArgs ());
   }
 } // namespace yap

@@ -1,5 +1,6 @@
 #include "YAPOG/Game/World/Map/WarpMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/IPlayer.hpp"
+#include "YAPOG/Game/World/Map/MapEventArgs.hpp"
 
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yap
@@ -34,6 +35,7 @@ namespace yap
   {
     DebugLogger::Instance ().LogLine ("TP!");
 
+    GetArgs ().AbortEvents (true);
     visitable.Warp (mapWorldID_, mapPoint_);
   }
 } // namespace yap

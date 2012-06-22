@@ -29,6 +29,8 @@ namespace yap
         bool IsEmpty () const;
         SizeType Count () const;
 
+        void Clear ();
+
       private:
 
         InnerType data_;

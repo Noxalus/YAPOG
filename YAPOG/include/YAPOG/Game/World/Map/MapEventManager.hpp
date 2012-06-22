@@ -8,6 +8,7 @@
 # include "YAPOG/Game/World/Map/MapEventContextTriggerComparator.hpp"
 # include "YAPOG/Game/World/Map/MapEvent.hpp"
 # include "YAPOG/Collection/Queue.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -45,6 +46,8 @@ namespace yap
       virtual void Update (const Time& dt);
       /// @}
 
+      yap::Event<MapEventManager&> OnEventsAborted;
+
     private:
 
       bool AddEventEntry (MapEventContext* eventContext);
@@ -56,10 +59,14 @@ namespace yap
       void AddLeaveEvent (MapEventContext* event);
       void AddEnterEvent (MapEventContext* event);
 
+      void CallEvents (const Time& dt);
+
       bool CallEvent (
         MapEventActionType type,
         const Time& dt,
         MapEventContext& eventContext);
+
+      void AbortEvents ();
 
       ObjectEventsType events_;
       collection::Queue<MapEventContext*> leaveEvents_;
@@ -68,6 +75,8 @@ namespace yap
       collection::Queue<const DynamicWorldObject*> objectsToRemove_;
 
       CollidableArea* collidableArea_;
+
+      bool abortEvents_;
   };
 } // namespace yap
 

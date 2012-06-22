@@ -26,7 +26,15 @@ namespace yap
     , dynamicObjects_ ()
     , updateables_ ()
     , collidableArea_ (nullptr)
+    , eventManager_ ()
   {
+    eventManager_.OnEventsAborted += [this] (
+      MapEventManager& sender,
+      const EmptyEventArgs& args)
+    {
+      for (const auto& idObjectPair : dynamicObjects_)
+        UpdateObjectEvents (*idObjectPair.second);
+    };
   }
 
   Map::~Map ()
