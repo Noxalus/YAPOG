@@ -8,16 +8,15 @@ namespace yap
 {
   class RandomTileLayoutHandler;
 
-  class YAPOG_LIB RandomTileLayoutHandlerReader : public TileLayoutHandlerReader
+  class YAPOG_LIB RandomTileLayoutHandlerReader
+    : public TileLayoutHandlerReader
   {
       DISALLOW_COPY(RandomTileLayoutHandlerReader);
 
     public:
 
-      explicit RandomTileLayoutHandlerReader (
-        RandomTileLayoutHandler& tileLayoutHandler);
       RandomTileLayoutHandlerReader (
-        RandomTileLayoutHandler& tileLayoutHandler,
+        RandomTileLayoutHandler& randomTileLayoutHandler,
         const String& xmlRootNodeName);
       virtual ~RandomTileLayoutHandlerReader ();
 
@@ -25,7 +24,7 @@ namespace yap
 
     private:
 
-      RandomTileLayoutHandler& tileLayoutHandler_;
+      RandomTileLayoutHandler& randomTileLayoutHandler_;
   };
 } // namespace yap
 

@@ -44,7 +44,7 @@ namespace ycl
         yap::ObjectFactory::Instance ().Create<yap::TileLayoutHandler> (
           layoutHandlerType,
           *tileSetReader,
-          "tileLayer");
+          layoutHandlerType);
 
       map_.AddTileLayer (height, tileLayoutHandler);
     }

@@ -9,17 +9,10 @@
 namespace yap
 {
   RandomTileLayoutHandlerReader::RandomTileLayoutHandlerReader (
-    RandomTileLayoutHandler& tileLayoutHandler)
-    : TileLayoutHandlerReader ()
-    , tileLayoutHandler_ (tileLayoutHandler)
-  {
-  }
-
-  RandomTileLayoutHandlerReader::RandomTileLayoutHandlerReader (
-    RandomTileLayoutHandler& tileLayoutHandler,
+    RandomTileLayoutHandler& randomTileLayoutHandler,
     const String& xmlRootNodeName)
-    : TileLayoutHandlerReader (xmlRootNodeName)
-    , tileLayoutHandler_ (tileLayoutHandler)
+    : TileLayoutHandlerReader (randomTileLayoutHandler, xmlRootNodeName)
+    , randomTileLayoutHandler_ (randomTileLayoutHandler)
   {
   }
 
@@ -38,7 +31,7 @@ namespace yap
         TileLayoutHandlerReader::DEFAULT_XML_TILE_NODE_NAME,
         tileReader->ReadID (XmlHelper::GetAttrNodeName ("id")));
 
-      tileLayoutHandler_.AddTile (tile);
+      randomTileLayoutHandler_.AddTile (tile);
     }
   }
 } // namespace yap

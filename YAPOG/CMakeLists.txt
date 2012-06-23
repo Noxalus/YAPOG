@@ -358,6 +358,10 @@ ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp
 ${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandler.cpp
 ${inc_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp
 ${src_root}/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.cpp
+${inc_root}/Graphics/Game/World/Map/SelectionTileLayoutHandler.hpp
+${src_root}/Graphics/Game/World/Map/SelectionTileLayoutHandler.cpp
+${inc_root}/Graphics/Game/World/Map/SelectionTileLayoutHandlerReader.hpp
+${src_root}/Graphics/Game/World/Map/SelectionTileLayoutHandlerReader.cpp
 ${inc_root}/Graphics/Game/World/Map/TileFamily.hpp
 ${src_root}/Graphics/Game/World/Map/TileFamily.cpp
 ${inc_root}/Graphics/Game/World/Map/Tile.hpp

@@ -7,23 +7,30 @@
 
 namespace yap
 {
+  class TileLayoutHandler;
+
   class YAPOG_LIB TileLayoutHandlerReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(TileLayoutHandlerReader);
 
     public:
 
-      TileLayoutHandlerReader ();
-      explicit TileLayoutHandlerReader (const String& xmlRootNodeName);
       virtual ~TileLayoutHandlerReader ();
 
     protected:
 
-      static const String DEFAULT_XML_ROOT_NODE_NAME;
+      TileLayoutHandlerReader (
+        TileLayoutHandler& tileLayoutHandler,
+        const String& xmlRootNodeName);
+
       static const String DEFAULT_XML_TYPE_NODE_NAME;
       static const String DEFAULT_XML_TILE_NODE_NAME;
 
       String xmlRootNodeName_;
+
+    private:
+
+      TileLayoutHandler& tileLayoutHandler_;
   };
 } // namespace yap
 

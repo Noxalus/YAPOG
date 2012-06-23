@@ -30,6 +30,8 @@ namespace yap
       if (&copy == this)
         return *this;
 
+      width_ = copy.width_;
+      height_ = copy.height_;
       data_ = copy.data_;
 
       return *this;

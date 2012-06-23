@@ -23,6 +23,8 @@
 #include "YAPOG/Graphics/Game/Sprite/SpriteReader.hpp"
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandler.hpp"
 #include "YAPOG/Graphics/Game/World/Map/RandomTileLayoutHandlerReader.hpp"
+#include "YAPOG/Graphics/Game/World/Map/SelectionTileLayoutHandler.hpp"
+#include "YAPOG/Graphics/Game/World/Map/SelectionTileLayoutHandlerReader.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/TextureReader.hpp"
 #include "YAPOG/Graphics/Game/Sprite/RegularAnimatedSprite.hpp"
@@ -219,6 +221,12 @@ namespace ycl
       new yap::XmlObjectLoader<
       yap::RandomTileLayoutHandler,
       yap::RandomTileLayoutHandlerReader> ());
+
+    objectFactory_.RegisterLoader (
+      "SelectionTileLayoutHandler",
+      new yap::XmlObjectLoader<
+      yap::SelectionTileLayoutHandler,
+      yap::SelectionTileLayoutHandlerReader> ());
 
     objectFactory_.RegisterLoader (
       "Sprite",

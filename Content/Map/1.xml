@@ -5,11 +5,21 @@
   <ground>
     <tileLayer>
       <height>0</height>
-      <layoutHandlerType>RandomTileLayoutHandler</layoutHandlerType>
-      <Tile id="1"/>
-      <Tile id="2"/>
-      <Tile id="3"/>
-      <Tile id="4"/>
+      <layoutHandlerType>SelectionTileLayoutHandler</layoutHandlerType>
+      <SelectionTileLayoutHandler>
+        <width>200</width>
+        <height>200</height>
+        <defaultTile id="1"/>
+        <Tile id="2">
+          <position>3,3</position>
+        </Tile>
+        <Tile id="2">
+          <position>4,3</position>
+        </Tile>
+        <Tile id="2">
+          <position>5,4</position>
+        </Tile>
+      </SelectionTileLayoutHandler>
     </tileLayer>
   </ground>
   <staticObjects>
