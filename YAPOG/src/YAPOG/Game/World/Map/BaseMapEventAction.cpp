@@ -52,11 +52,6 @@ namespace yap
   {
   }
 
-  void BaseMapEventAction::VisitBattleSpawnerArea (
-    BattleSpawnerArea& visitable)
-  {
-  }
-
   MapEventArgs& BaseMapEventAction::GetArgs ()
   {
     return *args_;

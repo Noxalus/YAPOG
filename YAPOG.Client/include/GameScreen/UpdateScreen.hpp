@@ -27,6 +27,8 @@ namespace ycl
 
       virtual void HandleInit ();
 
+      virtual void HandleOnActivate ();
+
       virtual void HandleRun (
         const yap::Time& dt,
         yap::IDrawingContext& context);

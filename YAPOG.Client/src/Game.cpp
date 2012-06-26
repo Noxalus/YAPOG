@@ -339,27 +339,27 @@ namespace ycl
 
   void Game::InitScreenManager ()
   {
-    screenManager_ = new yap::GameScreenManager ();
+    SetScreenManager (new yap::GameScreenManager ());
 
-    screenManager_->AddGameScreen (new LoadingScreen ());
-    screenManager_->AddGameScreen (new UpdateScreen ());
-    screenManager_->AddGameScreen (new OptionScreen ());
-    screenManager_->AddGameScreen (new LoginScreen ());
-    screenManager_->AddGameScreen (
+    GetScreenManager ().AddGameScreen (new LoadingScreen ());
+    GetScreenManager ().AddGameScreen (new UpdateScreen ());
+    GetScreenManager ().AddGameScreen (new OptionScreen ());
+    GetScreenManager ().AddGameScreen (new LoginScreen ());
+    GetScreenManager ().AddGameScreen (
       new GameplayScreen (
       drawingContext_->GetCamera (
       "World")));
-    //screenManager_->AddGameScreen (new BattleScreen ());
-    screenManager_->AddGameScreen (new MainMenuScreen ());
-    screenManager_->AddGameScreen (new RegistrationScreen ());
-    screenManager_->AddGameScreen (new SplashScreen ());
-    screenManager_->AddGameScreen (new CreditScreen ());
+    //GetScreenManager ().AddGameScreen (new BattleScreen ());
+    GetScreenManager ().AddGameScreen (new MainMenuScreen ());
+    GetScreenManager ().AddGameScreen (new RegistrationScreen ());
+    GetScreenManager ().AddGameScreen (new SplashScreen ());
+    GetScreenManager ().AddGameScreen (new CreditScreen ());
 
     /// @warning Temporary.
 #ifndef YAPOG_WIN
-    screenManager_->Init ("MainMenu");
+    GetScreenManager ().Init ("MainMenu");
 #else
-    screenManager_->Init ("Loading");
+    GetScreenManager ().Init ("Loading");
 #endif
   }
 

@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Game/IGameScreen.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -29,6 +30,8 @@ namespace yap
       /// @param dt Delta time since last frame.
       /// @param context IDrawingContext where to draw graphical elements.
       virtual void Run (const Time& dt, IDrawingContext& context) = 0;
+
+      virtual Event<IGameScreenManager&>& OnGameExitedEvent () = 0;
   };
 } // namespace yap
 

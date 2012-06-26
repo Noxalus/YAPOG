@@ -32,9 +32,15 @@ namespace yap
 
       virtual void NextFrame ();
       virtual void Run (const Time& dt, IDrawingContext& context);
+
+      virtual Event<IGameScreenManager&>& OnGameExitedEvent ();
       /// @}
 
+      Event<IGameScreenManager&> OnGameExited;
+
     private:
+
+      static const String GAME_EXITED_EVENT_HANDLER_NAME;
 
       ScreenType currentScreenType_;
 

@@ -66,6 +66,11 @@ namespace yap
     return type_;
   }
 
+  Event<IGameScreen&>& GameScreen::OnGameExitedEvent ()
+  {
+    return OnGameExited;
+  }
+
   bool GameScreen::OnEvent (const GuiEvent& guiEvent)
   {
     if (guiManager_->OnEvent (guiEvent))
@@ -80,6 +85,11 @@ namespace yap
       return true;
 
     return guiManager_->OnPriorityEvent (guiEvent);
+  }
+
+  void GameScreen::ExitGame ()
+  {
+    OnGameExited (*this, EmptyEventArgs ());
   }
 
   void GameScreen::CreateGuiManager ()

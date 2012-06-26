@@ -35,12 +35,15 @@ namespace yap
 
     protected:
 
+      void Stop ();
+
+      IGameScreenManager& GetScreenManager ();
+      void SetScreenManager (IGameScreenManager* screenManager);
+
       virtual void HandleInit () = 0;
       virtual void HandleRun (const Time& dt, IDrawingContext& context);
       virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
       virtual void HandleDispose ();
-
-      IGameScreenManager* screenManager_;
 
       IDrawingContext* drawingContext_;
 
@@ -51,6 +54,8 @@ namespace yap
     private:
 
       static const sf::Color DEFAULT_CLEAR_COLOR;
+
+      IGameScreenManager* screenManager_;
 
       bool isRunning_;
       Timer timer_;

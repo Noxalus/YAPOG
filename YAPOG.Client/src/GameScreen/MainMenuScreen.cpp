@@ -25,7 +25,7 @@ namespace ycl
 
     MainMenu* mainMenu = new MainMenu ();
     mainMenu->Init ();
-    
+
     yap::PictureBox* bg = new yap::PictureBox ();
 
     yap::RandomHelper* random;
@@ -65,11 +65,11 @@ namespace ycl
     {
       nextScreen_ = "Registration";
     };
-    
+
     mainMenu->GetExitItem ().OnActivated +=
       [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
     {
-      exit (EXIT_SUCCESS);
+      ExitGame ();
     };
 
     guiManager_->AddChild (*mainMenu);

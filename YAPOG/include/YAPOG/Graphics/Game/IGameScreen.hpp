@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Graphics/Gui/IEventHandler.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -44,6 +45,8 @@ namespace yap
 
       /// @brief Gets the unique type name of this Screen.
       virtual const ScreenType& GetType () const = 0;
+
+      virtual Event<IGameScreen&>& OnGameExitedEvent () = 0;
   };
 } // namespace yap
 

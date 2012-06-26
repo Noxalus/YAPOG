@@ -4,6 +4,9 @@
 
 namespace yap
 {
+  const String GameScreenManager::GAME_EXITED_EVENT_HANDLER_NAME =
+    "GameExitedEventHandler";
+
   GameScreenManager::GameScreenManager ()
     : currentScreenType_ ()
     , currentScreen_ (nullptr)
@@ -37,11 +40,23 @@ namespace yap
 
   void GameScreenManager::AddGameScreen (IGameScreen* gameScreen)
   {
+    gameScreen->OnGameExitedEvent ().AddHandler (
+      GAME_EXITED_EVENT_HANDLER_NAME,
+      [this] (IGameScreen& sender, const EmptyEventArgs& args)
+      {
+        OnGameExited (*this, EmptyEventArgs ());
+      });
+
     screens_.Add (gameScreen->GetType (), gameScreen);
   }
 
   void GameScreenManager::RemoveGameScreen (const ScreenType& screenType)
   {
+    IGameScreen& gameScreen = *screens_[screenType];
+
+    gameScreen.OnGameExitedEvent ().RemoveHandler (
+      GAME_EXITED_EVENT_HANDLER_NAME);
+
     screens_.Remove (screenType);
   }
 
@@ -58,7 +73,7 @@ namespace yap
     // If this screen doesn't exist
     if (!screens_.Contains (currentScreenType_))
     {
-      YAPOG_THROW("This screen doesn't exist ! (Screen name: " + 
+      YAPOG_THROW("This screen doesn't exist ! (Screen name: " +
         currentScreenType_ + ")");
     }
 
@@ -75,5 +90,10 @@ namespace yap
   void GameScreenManager::Run (const Time& dt, IDrawingContext& context)
   {
     SetCurrentScreen (currentScreen_->Run (dt, context));
+  }
+
+  Event<IGameScreenManager&>& GameScreenManager::OnGameExitedEvent ()
+  {
+    return OnGameExited;
   }
 } // namespace yap

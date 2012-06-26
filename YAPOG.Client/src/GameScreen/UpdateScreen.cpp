@@ -63,18 +63,6 @@ namespace ycl
     yap::WidgetBorder* updaterBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    boost::filesystem::path client (boost::filesystem::current_path());
-    fc_ = new yap::FileChecker (client);
-
-    boost::filesystem::path serv ("");
-    yap::FileChecker fs (serv);
-
-    // List of name file needed to be download by the client
-    fs.SendFileToDownload(fc_);
-
-    // Network test
-    fc_->Launch ();
-
     backgroundbox_->SetSize (yap::Vector2 (
       157,
       21));
@@ -106,6 +94,21 @@ namespace ycl
     secondLayout_ = nullptr;
     delete (bigLayout_);
     bigLayout_ = nullptr;
+  }
+
+  void UpdateScreen::HandleOnActivate ()
+  {
+    boost::filesystem::path client (boost::filesystem::current_path());
+    fc_ = new yap::FileChecker (client);
+
+    boost::filesystem::path serv ("");
+    yap::FileChecker fs (serv);
+
+    // List of name file needed to be download by the client
+    fs.SendFileToDownload(fc_);
+
+    // Network test
+    fc_->Launch ();
   }
 
   void UpdateScreen::HandleRun (

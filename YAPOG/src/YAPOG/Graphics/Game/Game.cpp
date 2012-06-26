@@ -10,10 +10,10 @@ namespace yap
   const sf::Color Game::DEFAULT_CLEAR_COLOR = sf::Color::White;
 
   Game::Game (const String& name)
-    : screenManager_ (nullptr)
-    , drawingContext_ (nullptr)
+    : drawingContext_ (nullptr)
     , window_ (nullptr)
     , name_ (name)
+    , screenManager_ (nullptr)
     , isRunning_ (false)
     , timer_ ()
   {
@@ -67,7 +67,7 @@ namespace yap
 
       HandleRun (dt, *drawingContext_);
 
-      isRunning_ = window_->isOpen ();
+      isRunning_ &= window_->isOpen ();
 
       window_->display ();
     }
@@ -78,6 +78,28 @@ namespace yap
   void Game::Dispose ()
   {
     HandleDispose ();
+  }
+
+  void Game::Stop ()
+  {
+    isRunning_ = false;
+  }
+
+  IGameScreenManager& Game::GetScreenManager ()
+  {
+    return *screenManager_;
+  }
+
+  void Game::SetScreenManager (IGameScreenManager* screenManager)
+  {
+    screenManager_ = screenManager;
+
+    GetScreenManager ().OnGameExitedEvent () += [this] (
+      IGameScreenManager& sender,
+      const EmptyEventArgs& args)
+    {
+      Stop ();
+    };
   }
 
   void Game::HandleRun (const Time& dt, IDrawingContext& context)

@@ -31,6 +31,8 @@ namespace yap
       virtual GuiManager& GetGuiManager ();
 
       virtual const ScreenType& GetType () const;
+
+      virtual Event<IGameScreen&>& OnGameExitedEvent ();
       /// @}
 
       /// @name IEventHandler members.
@@ -39,7 +41,11 @@ namespace yap
       virtual bool OnPriorityEvent (const GuiEvent& guiEvent);
       /// @}
 
+      Event<IGameScreen&> OnGameExited;
+
     protected:
+
+      void ExitGame ();
 
       virtual void CreateGuiManager ();
 
