@@ -29,4 +29,9 @@ namespace yap
     const DestructibleObject& visitable)
   {
   }
+
+  void BaseDynamicWorldObjectConstVisitor::VisitBattleSpawnerArea (
+    const BattleSpawnerArea& visitable)
+  {
+  }
 } // namespace yap

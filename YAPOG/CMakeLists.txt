@@ -80,6 +80,8 @@ ${src_root}/Game/Chat/GameMessage.cpp
 ${inc_root}/Game/World/Map/Direction.hpp
 ${inc_root}/Game/World/Map/MapArea.hpp
 ${src_root}/Game/World/Map/MapArea.cpp
+${inc_root}/Game/World/Map/MapAreaReader.hpp
+${src_root}/Game/World/Map/MapAreaReader.cpp
 ${inc_root}/Game/World/Map/DestructibleObject.hpp
 ${src_root}/Game/World/Map/DestructibleObject.cpp
 ${inc_root}/Game/World/Map/DynamicWorldObject.hpp
@@ -129,6 +131,14 @@ ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp
 ${src_root}/Game/World/Map/Physics/MapEventInfo.cpp
 ${inc_root}/Game/World/Map/MapReader.hpp
 ${src_root}/Game/World/Map/MapReader.cpp
+${inc_root}/Game/World/Map/BattleSpawnerArea.hpp
+${src_root}/Game/World/Map/BattleSpawnerArea.cpp
+${inc_root}/Game/World/Map/BattleSpawnerAreaReader.hpp
+${src_root}/Game/World/Map/BattleSpawnerAreaReader.cpp
+${inc_root}/Game/World/Map/OpenBattleSpawnerArea.hpp
+${src_root}/Game/World/Map/OpenBattleSpawnerArea.cpp
+${inc_root}/Game/World/Map/OpenBattleSpawnerAreaReader.hpp
+${src_root}/Game/World/Map/OpenBattleSpawnerAreaReader.cpp
 
 ${inc_root}/Game/World/Map/Physics/BoundingBox.hpp
 ${src_root}/Game/World/Map/Physics/BoundingBox.cpp

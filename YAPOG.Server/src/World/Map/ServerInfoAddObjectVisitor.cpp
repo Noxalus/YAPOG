@@ -1,6 +1,7 @@
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/Graphics/RectWriter.hpp"
 #include "YAPOG/Game/World/Map/DestructibleObject.hpp"
+#include "YAPOG/Game/World/Map/BattleSpawnerArea.hpp"
 
 #include "World/Map/ServerInfoAddObjectVisitor.hpp"
 #include "World/Map/Player.hpp"
@@ -52,6 +53,17 @@ namespace yse
     BaseDynamicWorldObjectConstVisitor::VisitDestructibleObject (visitable);
 
     WriteAddObject (visitable);
+  }
+
+  void ServerInfoAddObjectVisitor::VisitBattleSpawnerArea (
+    const yap::BattleSpawnerArea& visitable)
+  {
+    BaseDynamicWorldObjectConstVisitor::VisitBattleSpawnerArea (visitable);
+
+    WriteAddObject (visitable);
+
+    packet_.Write (visitable.GetWidth ());
+    packet_.Write (visitable.GetHeight ());
   }
 
   void ServerInfoAddObjectVisitor::WriteAddObject (

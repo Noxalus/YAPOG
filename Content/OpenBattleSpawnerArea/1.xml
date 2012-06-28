@@ -1,0 +1,8 @@
+<OpenBattleSpawnerArea id="1">
+  <baseSprite>
+    <type>Sprite</type>
+    <Sprite>
+      <Texture id="30"/>
+    </Sprite>
+  </baseSprite>
+</OpenBattleSpawnerArea>

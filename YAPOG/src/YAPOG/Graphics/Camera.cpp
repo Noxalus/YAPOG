@@ -56,7 +56,8 @@ namespace yap
         GetSize ().x * factor.x,
         GetSize ().y * factor.y));
 
-    view_.setSize (spatialInfo_.GetSize ());
+    view_.reset (GetRectangle ());
+//    view_.setSize (spatialInfo_.GetSize ());
   }
 
   void Camera::SetPosition (const Vector2& position)

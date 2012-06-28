@@ -27,8 +27,8 @@ namespace ycl
 
     object->OnOrderStateChangedEvent ().AddHandler (
       DRAW_ORDER_HANDLER_NAME,
-      [&] (yap::IDrawableDynamicWorldObject& sender,
-           const yap::Vector2& args)
+      [this] (yap::IDrawableDynamicWorldObject& sender,
+              const yap::Vector2& args)
       {
         /// @todo Sort by adding manually.
         drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();

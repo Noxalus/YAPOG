@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Physics/CharacterMoveController.hpp"
 # include "YAPOG/Graphics/ProgressiveCameraController.hpp"
+# include "YAPOG/System/Time/Timer.hpp"
 
 # include "GameScreen/BaseScreen.hpp"
 # include "World/World.hpp"
@@ -60,6 +61,9 @@ namespace ycl
 
       PokedexWidget* pokedex_;
       ChatWidget* chat_;
+
+      yap::Label* fpsLabel_;
+      yap::Timer fpsDisplayTimer_;
   };
 } // namespace ycl
 

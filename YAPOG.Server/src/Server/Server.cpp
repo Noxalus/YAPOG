@@ -17,6 +17,8 @@
 #include "YAPOG/Game/World/Map/TeleporterReader.hpp"
 #include "YAPOG/Game/World/Map/DestructibleObject.hpp"
 #include "YAPOG/Game/World/Map/DestructibleObjectReader.hpp"
+#include "YAPOG/Game/World/Map/OpenBattleSpawnerArea.hpp"
+#include "YAPOG/Game/World/Map/OpenBattleSpawnerAreaReader.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -185,6 +187,14 @@ namespace yse
       new yap::XmlObjectIDLoader<yap::MapElement, yap::MapElementReader> (
         yap::Path ("MapElement"),
         "MapElement"));
+
+    objectFactory_.RegisterLoader (
+      "OpenBattleSpawnerArea",
+      new yap::XmlObjectIDLoader<
+        yap::OpenBattleSpawnerArea,
+        yap::OpenBattleSpawnerAreaReader> (
+          yap::Path ("OpenBattleSpawnerArea"),
+          "OpenBattleSpawnerArea"));
 
     objectFactory_.RegisterLoader (
       "Teleporter",

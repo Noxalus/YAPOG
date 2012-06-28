@@ -19,6 +19,8 @@ namespace yap
       virtual void VisitTeleporter (const Teleporter& visitable) = 0;
       virtual void VisitDestructibleObject (
         const DestructibleObject& visitable) = 0;
+      virtual void VisitBattleSpawnerArea (
+        const BattleSpawnerArea& visitable) = 0;
   };
 } // namespace yap
 

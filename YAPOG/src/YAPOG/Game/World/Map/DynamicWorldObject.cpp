@@ -85,20 +85,20 @@ namespace yap
     physicsCore_ = physicsCore;
 
     physicsCore_->OnMoved +=
-      [&] (const PhysicsCore& sender, const EmptyEventArgs& args)
+      [this] (const PhysicsCore& sender, const EmptyEventArgs& args)
     {
       TryChangeState ("Moving");
     };
 
     physicsCore_->OnStopped +=
-      [&] (const PhysicsCore& sender, const EmptyEventArgs& args)
+      [this] (const PhysicsCore& sender, const EmptyEventArgs& args)
     {
       SetInactive ();
     };
 
     physicsCore_->OnVelocityChanged +=
-      [&] (const PhysicsCore& sender,
-           const ChangeEventArgs<const Vector2&>& args)
+      [this] (const PhysicsCore& sender,
+              const ChangeEventArgs<const Vector2&>& args)
     {
       HandleOnVelocityChanged (args.Old, args.Current);
     };

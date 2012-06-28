@@ -2,12 +2,9 @@
 
 namespace yap
 {
-  const bool MapArea::DEFAULT_TRIGGERS_BATTLE = true;
-
   MapArea::MapArea (const ID& id)
     : DynamicWorldObject (id)
     , area_ ()
-    , triggersBattle_ (DEFAULT_TRIGGERS_BATTLE)
   {
   }
 
@@ -18,7 +15,6 @@ namespace yap
   MapArea::MapArea (const MapArea& copy)
     : DynamicWorldObject (copy)
     , area_ (copy.area_)
-    , triggersBattle_ (copy.triggersBattle_)
   {
   }
 

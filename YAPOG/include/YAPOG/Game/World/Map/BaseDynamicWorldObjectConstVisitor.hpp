@@ -20,6 +20,7 @@ namespace yap
       virtual void VisitTeleporter (const Teleporter& visitable);
       virtual void VisitDestructibleObject (
         const DestructibleObject& visitable);
+      virtual void VisitBattleSpawnerArea (const BattleSpawnerArea& visitable);
 
     protected:
 

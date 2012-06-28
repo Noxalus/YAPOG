@@ -159,6 +159,10 @@ ${inc_root}/World/Map/PlayerReader.hpp
 ${src_root}/World/Map/PlayerReader.cpp
 ${inc_root}/World/Map/Teleporter.hpp
 ${src_root}/World/Map/Teleporter.cpp
+${inc_root}/World/Map/OpenBattleSpawnerArea.hpp
+${src_root}/World/Map/OpenBattleSpawnerArea.cpp
+${inc_root}/World/Map/OpenBattleSpawnerAreaReader.hpp
+${src_root}/World/Map/OpenBattleSpawnerAreaReader.cpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
 )

@@ -4,6 +4,7 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/MapElement.hpp"
 #include "YAPOG/Game/World/Map/DestructibleObject.hpp"
+#include "YAPOG/Game/World/Map/OpenBattleSpawnerArea.hpp"
 #include "YAPOG/Graphics/RectReader.hpp"
 
 #include "World/Map/MapReader.hpp"
@@ -99,6 +100,33 @@ namespace yse
       destructibleObject->SetPosition (destructibleObjectPosition);
 
       map_.AddObject (destructibleObject);
+    }
+
+    yap::XmlReaderCollection openBattleSpawnerAreaReaders;
+    reader.ReadNodes ("OpenBattleSpawnerArea", openBattleSpawnerAreaReaders);
+    for (auto& openBattleSpawnerAreaReader : openBattleSpawnerAreaReaders)
+    {
+      yap::ID openBattleSpawnerAreaID = openBattleSpawnerAreaReader->ReadID (
+        yap::XmlHelper::GetAttrNodeName ("id"));
+
+      yap::OpenBattleSpawnerArea* openBattleSpawnerArea =
+        DynamicObjectFactory::Instance ().Create<yap::OpenBattleSpawnerArea> (
+          "OpenBattleSpawnerArea",
+          openBattleSpawnerAreaID);
+
+      auto areaReader = openBattleSpawnerAreaReader->ChangeRoot ("area");
+      yap::uint areaWidth = areaReader->ReadUInt ("width");
+      yap::uint areaHeight = areaReader->ReadUInt ("height");
+
+      openBattleSpawnerArea->InitArea (areaWidth, areaHeight);
+
+      yap::Vector2 openBattleSpawnerAreaPosition =
+        openBattleSpawnerAreaReader->ReadVector2 (
+          "position");
+
+      openBattleSpawnerArea->SetPosition (openBattleSpawnerAreaPosition);
+
+      map_.AddObject (openBattleSpawnerArea);
     }
   }
 

@@ -29,6 +29,8 @@ namespace yse
       virtual void VisitTeleporter (const yap::Teleporter& visitable);
       virtual void VisitDestructibleObject (
         const yap::DestructibleObject& visitable);
+      virtual void VisitBattleSpawnerArea (
+        const yap::BattleSpawnerArea& visitable);
 
     private:
 

@@ -28,11 +28,7 @@ namespace yap
 
     private:
 
-      static const bool DEFAULT_TRIGGERS_BATTLE;
-
       FloatRect area_;
-
-      bool triggersBattle_;
   };
 } // namespace yap
 

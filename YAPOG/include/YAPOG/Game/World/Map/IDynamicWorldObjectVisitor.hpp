@@ -18,6 +18,7 @@ namespace yap
       virtual void VisitPlayer (IPlayer& visitable) = 0;
       virtual void VisitTeleporter (Teleporter& visitable) = 0;
       virtual void VisitDestructibleObject (DestructibleObject& visitable) = 0;
+      virtual void VisitBattleSpawnerArea (BattleSpawnerArea& visitable) = 0;
   };
 } // namespace yap
 

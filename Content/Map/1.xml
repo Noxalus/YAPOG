@@ -75,5 +75,12 @@
     <DestructibleObject id="1">
       <position>50,120</position>
     </DestructibleObject>
+    <OpenBattleSpawnerArea id="1">
+      <area>
+        <width>10</width>
+        <height>3</height>
+      </area>
+      <position>350,120</position>
+    </OpenBattleSpawnerArea>
   </dynamicObjects>
 </Map>

@@ -10,6 +10,7 @@
 #include "World//Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/NPC.hpp"
+#include "World/Map/OpenBattleSpawnerArea.hpp"
 #include "World/Map/Teleporter.hpp"
 #include "World/Map/DestructibleObject.hpp"
 #include "Battle/PlayerTrainer.hpp"
@@ -139,6 +140,9 @@ namespace ycl
     yap::ID typeID = packet.ReadID ();
     yap::ID id = packet.ReadID ();
 
+    yap::Vector2 position = packet.ReadVector2 ();
+    yap::String state = packet.ReadString ();
+
     const yap::String& objectTypeName =
       yap::ObjectFactory::Instance ().GetType (typeID);
 
@@ -180,9 +184,6 @@ namespace ycl
       object = teleporter;
       teleporter->SetWorldID (worldID);
 
-      object->SetPosition (packet.ReadVector2 ());
-      object->RawSetState (packet.ReadString ());
-
       yap::ID mapWorldID = packet.ReadID ();
       yap::Vector2 mapPoint = packet.ReadVector2 ();
       yap::FloatRect area;
@@ -191,8 +192,6 @@ namespace ycl
 
       teleporter->Init (mapWorldID, mapPoint, area);
       map.AddDrawableDynamicObject (teleporter);
-
-      return;
     }
     if (objectTypeName == "DestructibleObject")
     {
@@ -205,9 +204,25 @@ namespace ycl
 
       map.AddDrawableDynamicObject (destructibleObject);
     }
+    if (objectTypeName == "OpenBattleSpawnerArea")
+    {
+      OpenBattleSpawnerArea* openBattleSpawnerArea =
+        yap::ObjectFactory::Instance ().Create<OpenBattleSpawnerArea> (
+          typeID,
+          id);
 
-    object->SetPosition (packet.ReadVector2 ());
-    object->RawSetState (packet.ReadString ());
+      object = openBattleSpawnerArea;
+      openBattleSpawnerArea->SetWorldID (worldID);
+
+      yap::uint width = packet.ReadUInt ();
+      yap::uint height = packet.ReadUInt ();
+      openBattleSpawnerArea->InitArea (width, height);
+
+      map.AddDrawableDynamicObject (openBattleSpawnerArea);
+    }
+
+    object->SetPosition (position);
+    object->RawSetState (state);
   }
 
   void User::HandleServerInfoRemoveObject (yap::IPacket& packet)

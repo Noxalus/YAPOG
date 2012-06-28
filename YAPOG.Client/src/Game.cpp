@@ -66,6 +66,8 @@
 #include "World/Map/Teleporter.hpp"
 #include "World/Map/DestructibleObject.hpp"
 #include "World/Map/DestructibleObjectReader.hpp"
+#include "World/Map/OpenBattleSpawnerArea.hpp"
+#include "World/Map/OpenBattleSpawnerAreaReader.hpp"
 
 namespace ycl
 {
@@ -203,6 +205,14 @@ namespace ycl
       new yap::XmlObjectIDLoader<NPC, NPCReader> (
       yap::Path ("NPC"),
       "NPC"));
+
+    objectFactory_.RegisterLoader (
+      "OpenBattleSpawnerArea",
+      new yap::XmlObjectIDLoader<
+        OpenBattleSpawnerArea,
+        OpenBattleSpawnerAreaReader> (
+          yap::Path ("OpenBattleSpawnerArea"),
+          "OpenBattleSpawnerArea"));
 
     objectFactory_.RegisterLoader (
       "Player",
@@ -369,3 +379,5 @@ namespace ycl
     logger_.AddMode (new yap::TimeLoggerMode ());
   }
 } // namespace ycl
+
+#undef REGISTER_LOADER

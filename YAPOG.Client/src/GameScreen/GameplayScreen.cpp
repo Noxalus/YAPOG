@@ -21,7 +21,6 @@
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
 
-
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
@@ -36,7 +35,7 @@ namespace ycl
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
   const yap::Vector2 GameplayScreen::DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR =
-    yap::Vector2 (1.0f, 1.0f);
+    yap::Vector2 (1.1f, 1.1f);
 
   GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
     : BaseScreen (DEFAULT_NAME)
@@ -48,6 +47,8 @@ namespace ycl
     , lastForce_ ()
     , pokedex_ (nullptr)
     , chat_ (new ChatWidget ())
+    , fpsLabel_ (nullptr)
+    , fpsDisplayTimer_ ()
   {
   }
 
@@ -61,21 +62,21 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    session_.GetUser ().OnPlayerCreated += [&] (
+    session_.GetUser ().OnPlayerCreated += [this] (
       const User& sender,
       Player* args)
     {
       SetPlayer (args);
     };
 
-    session_.GetUser ().OnMessageReceived += [&] (
+    session_.GetUser ().OnMessageReceived += [this] (
       const User& sender,
       const yap::GameMessage& message)
     {
       chat_->AddMessage (message.GetContent ());
     };
 
-    world_.OnMapChanged += [&] (
+    world_.OnMapChanged += [this] (
       const World& sender,
       const yap::ChangeEventArgs<Map*>& args)
     {
@@ -132,12 +133,21 @@ namespace ycl
     //guiManager_->AddChild (*chat_);
     /// @warning Commented.
     //guiManager_->AddChild (*pokedex);
+
+    fpsLabel_ = new yap::Label ();
+
+    guiManager_->AddChild (*fpsLabel_);
   }
 
   void GameplayScreen::HandleRun (
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
+    if (fpsDisplayTimer_.DelayIsComplete (yap::Time (0.5f), true))
+      fpsLabel_->SetText (
+        "FPS: " +
+        yap::StringHelper::ToString<int> (1.0f / dt.GetValue ()));
+
     world_.Update (dt);
 
     cameraController_.Update (dt);
