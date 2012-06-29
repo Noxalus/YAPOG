@@ -365,12 +365,7 @@ namespace ycl
     GetScreenManager ().AddGameScreen (new SplashScreen ());
     GetScreenManager ().AddGameScreen (new CreditScreen ());
 
-    /// @warning Temporary.
-#ifndef YAPOG_WIN
     GetScreenManager ().Init ("MainMenu");
-#else
-    GetScreenManager ().Init ("Loading");
-#endif
   }
 
   void Game::InitLoggerManager ()
