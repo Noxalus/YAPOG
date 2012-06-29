@@ -34,6 +34,12 @@ namespace yap
     IDrawableWorldObject* const& left,
     IDrawableWorldObject* const& right) const
   {
-    return left->CompareOrder (*right);
+    if (left->GetLayerDepth () < right->GetLayerDepth ())
+      return -1;
+
+    if (left->GetLayerDepth () > right->GetLayerDepth ())
+      return 1;
+
+    return left->GetComparisonPoint () - right->GetComparisonPoint ();
   }
 } // namespace yap

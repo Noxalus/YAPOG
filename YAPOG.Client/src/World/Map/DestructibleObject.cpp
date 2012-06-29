@@ -7,6 +7,8 @@ namespace ycl
   const bool DestructibleObject::DEFAULT_VISIBLE_STATE = true;
   const sf::Color DestructibleObject::DEFAULT_COLOR = sf::Color ();
 
+  const int DestructibleObject::DEFAULT_LAYER_DEPTH = 1;
+
   const yap::String DestructibleObject::OBJECT_FACTORY_TYPE_NAME =
     "DestructibleObject";
 
@@ -69,15 +71,14 @@ namespace ycl
     HandleChangeColor (color);
   }
 
-  int DestructibleObject::CompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return HandleCompareOrder (other);
-  }
-
   float DestructibleObject::GetComparisonPoint () const
   {
     return HandleGetComparisonPoint ();
+  }
+
+  int DestructibleObject::GetLayerDepth () const
+  {
+    return HandleGetLayerDepth ();
   }
 
   yap::Event<
@@ -132,14 +133,13 @@ namespace ycl
       sprite_->ChangeColor (color);
   }
 
-  int DestructibleObject::HandleCompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return GetComparisonPoint () - other.GetComparisonPoint ();
-  }
-
   float DestructibleObject::HandleGetComparisonPoint () const
   {
     return GetBottomRight ().y;
+  }
+
+  int DestructibleObject::HandleGetLayerDepth () const
+  {
+    return DEFAULT_LAYER_DEPTH;
   }
 } // namespace ycl

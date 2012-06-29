@@ -7,6 +7,8 @@ namespace ycl
   const bool MapElement::DEFAULT_VISIBLE_STATE = true;
   const sf::Color MapElement::DEFAULT_COLOR = sf::Color ();
 
+  const int MapElement::DEFAULT_LAYER_DEPTH = 1;
+
   MapElement::MapElement (const yap::ID& id)
     : yap::MapElement (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
@@ -66,14 +68,14 @@ namespace ycl
     HandleChangeColor (color);
   }
 
-  int MapElement::CompareOrder (const yap::IDrawableWorldObject& other) const
-  {
-    return HandleCompareOrder (other);
-  }
-
   float MapElement::GetComparisonPoint () const
   {
     return HandleGetComparisonPoint ();
+  }
+
+  int MapElement::GetLayerDepth () const
+  {
+    return HandleGetLayerDepth ();
   }
 
   void MapElement::HandleUpdate (const yap::Time& dt)
@@ -112,14 +114,13 @@ namespace ycl
       sprite_->ChangeColor (color);
   }
 
-  int MapElement::HandleCompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return GetComparisonPoint () - other.GetComparisonPoint ();
-  }
-
   float MapElement::HandleGetComparisonPoint () const
   {
     return GetBottomRight ().y;
+  }
+
+  int MapElement::HandleGetLayerDepth () const
+  {
+    return DEFAULT_LAYER_DEPTH;
   }
 } // namespace ycl

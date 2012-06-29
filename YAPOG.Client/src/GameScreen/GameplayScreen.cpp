@@ -35,7 +35,7 @@ namespace ycl
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
   const yap::Vector2 GameplayScreen::DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR =
-    yap::Vector2 (1.1f, 1.1f);
+    yap::Vector2 (1.0f, 1.0f);
 
   GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
     : BaseScreen (DEFAULT_NAME)
@@ -135,6 +135,7 @@ namespace ycl
     //guiManager_->AddChild (*pokedex);
 
     fpsLabel_ = new yap::Label ();
+    fpsLabel_->SetTextSize (18);
 
     guiManager_->AddChild (*fpsLabel_);
   }

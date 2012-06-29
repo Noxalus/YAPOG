@@ -36,9 +36,9 @@ namespace ycl
 
       /// @name IDrawableWorldObject members.
       /// @{
-      virtual int CompareOrder (const yap::IDrawableWorldObject& other) const;
-
       virtual float GetComparisonPoint () const;
+
+      virtual int GetLayerDepth () const;
       /// @}
 
       /// @name IDrawableDynamicWorldObject members.
@@ -73,15 +73,16 @@ namespace ycl
       virtual void HandleShow (bool isVisible);
       virtual void HandleChangeColor (const sf::Color& color);
 
-      virtual int HandleCompareOrder (
-        const yap::IDrawableWorldObject& other) const;
-
       virtual float HandleGetComparisonPoint () const;
+
+      virtual int HandleGetLayerDepth () const;
 
     private:
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;
+
+      static const int DEFAULT_LAYER_DEPTH;
 
       bool isVisible_;
       sf::Color color_;

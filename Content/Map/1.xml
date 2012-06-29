@@ -82,5 +82,12 @@
       </area>
       <position>350,120</position>
     </OpenBattleSpawnerArea>
+    <OpenBattleSpawnerArea id="1">
+      <area>
+        <width>2</width>
+        <height>7</height>
+      </area>
+      <position>280,390</position>
+    </OpenBattleSpawnerArea>
   </dynamicObjects>
 </Map>

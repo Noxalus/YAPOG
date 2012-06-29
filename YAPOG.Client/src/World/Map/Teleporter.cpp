@@ -5,6 +5,8 @@ namespace ycl
   const bool Teleporter::DEFAULT_VISIBLE_STATE = true;
   const sf::Color Teleporter::DEFAULT_COLOR = sf::Color ();
 
+  const int Teleporter::DEFAULT_LAYER_DEPTH = 1;
+
   const yap::String Teleporter::OBJECT_FACTORY_TYPE_NAME = "Teleporter";
 
   Teleporter::Teleporter (const yap::ID& id)
@@ -68,14 +70,14 @@ namespace ycl
     HandleChangeColor (color);
   }
 
-  int Teleporter::CompareOrder (const yap::IDrawableWorldObject& other) const
-  {
-    return HandleCompareOrder (other);
-  }
-
   float Teleporter::GetComparisonPoint () const
   {
     return HandleGetComparisonPoint ();
+  }
+
+  int Teleporter::GetLayerDepth () const
+  {
+    return HandleGetLayerDepth ();
   }
 
   yap::Event<
@@ -102,14 +104,13 @@ namespace ycl
   {
   }
 
-  int Teleporter::HandleCompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return GetComparisonPoint () - other.GetComparisonPoint ();
-  }
-
   float Teleporter::HandleGetComparisonPoint () const
   {
     return GetBottomRight ().y;
+  }
+
+  int Teleporter::HandleGetLayerDepth () const
+  {
+    return DEFAULT_LAYER_DEPTH;
   }
 } // namespace ycl

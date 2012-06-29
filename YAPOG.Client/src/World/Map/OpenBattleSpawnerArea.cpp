@@ -7,6 +7,8 @@ namespace ycl
   const bool OpenBattleSpawnerArea::DEFAULT_VISIBLE_STATE = true;
   const sf::Color OpenBattleSpawnerArea::DEFAULT_COLOR = sf::Color ();
 
+  const int OpenBattleSpawnerArea::DEFAULT_LAYER_DEPTH = 0;
+
   const yap::String OpenBattleSpawnerArea::OBJECT_FACTORY_TYPE_NAME =
     "OpenBattleSpawnerArea";
 
@@ -77,15 +79,14 @@ namespace ycl
     HandleChangeColor (color);
   }
 
-  int OpenBattleSpawnerArea::CompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return HandleCompareOrder (other);
-  }
-
   float OpenBattleSpawnerArea::GetComparisonPoint () const
   {
     return HandleGetComparisonPoint ();
+  }
+
+  int OpenBattleSpawnerArea::GetLayerDepth () const
+  {
+    return HandleGetLayerDepth ();
   }
 
   yap::Event<
@@ -141,15 +142,14 @@ namespace ycl
       sprite->ChangeColor (color);
   }
 
-  int OpenBattleSpawnerArea::HandleCompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return GetComparisonPoint () - other.GetComparisonPoint ();
-  }
-
   float OpenBattleSpawnerArea::HandleGetComparisonPoint () const
   {
     return GetBottomRight ().y;
+  }
+
+  int OpenBattleSpawnerArea::HandleGetLayerDepth () const
+  {
+    return DEFAULT_LAYER_DEPTH;
   }
 
   void OpenBattleSpawnerArea::AddSprite (uint x, uint y, yap::ISprite* sprite)

@@ -5,6 +5,8 @@ namespace ycl
   const bool Character::DEFAULT_VISIBLE_STATE = true;
   const sf::Color Character::DEFAULT_COLOR = sf::Color ();
 
+  const int Character::DEFAULT_LAYER_DEPTH = 1;
+
   Character::Character (const yap::ID& id)
     : yap::Character (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
@@ -66,14 +68,14 @@ namespace ycl
     HandleChangeColor (color);
   }
 
-  int Character::CompareOrder (const yap::IDrawableWorldObject& other) const
-  {
-    return HandleCompareOrder (other);
-  }
-
   float Character::GetComparisonPoint () const
   {
     return HandleGetComparisonPoint ();
+  }
+
+  int Character::GetLayerDepth () const
+  {
+    return HandleGetLayerDepth ();
   }
 
   yap::Event<
@@ -133,14 +135,13 @@ namespace ycl
     sprites_->ChangeColor (color);
   }
 
-  int Character::HandleCompareOrder (
-    const yap::IDrawableWorldObject& other) const
-  {
-    return GetComparisonPoint () - other.GetComparisonPoint ();
-  }
-
   float Character::HandleGetComparisonPoint () const
   {
     return GetBottomRight ().y;
+  }
+
+  int Character::HandleGetLayerDepth () const
+  {
+    return DEFAULT_LAYER_DEPTH;
   }
 } // namespace ycl
