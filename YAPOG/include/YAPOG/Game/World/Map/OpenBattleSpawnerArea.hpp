@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class OpenBattleSpawnerArea : public BattleSpawnerArea
+  class YAPOG_LIB OpenBattleSpawnerArea : public BattleSpawnerArea
   {
       DISALLOW_ASSIGN(OpenBattleSpawnerArea);
 

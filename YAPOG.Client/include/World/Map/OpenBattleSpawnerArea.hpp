@@ -61,7 +61,7 @@ namespace ycl
 
       OpenBattleSpawnerArea (const OpenBattleSpawnerArea& copy);
 
-      virtual void HandleInitArea (uint width, uint height);
+      virtual void HandleInitArea (yap::uint width, yap::uint height);
 
       virtual const yap::String& GetObjectFactoryTypeName () const;
 
@@ -80,7 +80,7 @@ namespace ycl
 
     private:
 
-      void AddSprite (uint x, uint y, yap::ISprite* sprite);
+      void AddSprite (yap::uint x, yap::uint y, yap::ISprite* sprite);
 
       static const bool DEFAULT_VISIBLE_STATE;
       static const sf::Color DEFAULT_COLOR;

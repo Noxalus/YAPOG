@@ -96,12 +96,14 @@ namespace ycl
     return OnOrderStateChanged;
   }
 
-  void OpenBattleSpawnerArea::HandleInitArea (uint width, uint height)
+  void OpenBattleSpawnerArea::HandleInitArea (
+    yap::uint width,
+    yap::uint height)
   {
     yap::OpenBattleSpawnerArea::HandleInitArea (width, height);
 
-    for (uint y = 0; y < height; ++y)
-      for (uint x = 0; x < width; ++x)
+    for (yap::uint y = 0; y < height; ++y)
+      for (yap::uint x = 0; x < width; ++x)
         AddSprite (x, y, baseSprite_->Clone ());
   }
 
@@ -152,7 +154,10 @@ namespace ycl
     return DEFAULT_LAYER_DEPTH;
   }
 
-  void OpenBattleSpawnerArea::AddSprite (uint x, uint y, yap::ISprite* sprite)
+  void OpenBattleSpawnerArea::AddSprite (
+    yap::uint x,
+    yap::uint y,
+    yap::ISprite* sprite)
   {
     sprite->SetPosition (
       yap::Vector2 (
