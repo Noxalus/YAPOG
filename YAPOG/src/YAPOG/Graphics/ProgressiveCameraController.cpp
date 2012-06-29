@@ -11,9 +11,10 @@ namespace yap
 
   ProgressiveCameraController::ProgressiveCameraController (ICamera& camera)
     : CameraController (camera)
-    , velocityFactor_ (Vector2 (
-                         DEFAULT_VELOCITY_FACTOR,
-                         DEFAULT_VELOCITY_FACTOR))
+    , velocityFactor_ (
+        Vector2 (
+          DEFAULT_VELOCITY_FACTOR,
+          DEFAULT_VELOCITY_FACTOR))
   {
   }
 
@@ -25,6 +26,11 @@ namespace yap
     const Vector2& velocityFactor)
   {
     velocityFactor_ = velocityFactor;
+  }
+
+  void ProgressiveCameraController::HandleFocusTarget ()
+  {
+    CenterOnTarget ();
   }
 
   void ProgressiveCameraController::HandleUpdate (const Time& dt)
@@ -57,19 +63,7 @@ namespace yap
         cameraSizeFactor.x *
         dt.GetValue ();
 
-    if (camera_.GetTopLeft ().x + offset.x < bounds_.left)
-      offset.x = bounds_.left - camera_.GetTopLeft ().x;
-
-    if (camera_.GetBottomRight ().x + offset.x >
-        (bounds_.left + bounds_.width))
-      offset.x = bounds_.left + bounds_.width - camera_.GetBottomRight ().x;
-
-    if (camera_.GetTopLeft ().y + offset.y < bounds_.top)
-      offset.y = bounds_.top - camera_.GetTopLeft ().y;
-
-    if (camera_.GetBottomRight ().y + offset.y >
-        (bounds_.top + bounds_.height))
-      offset.y = bounds_.top + bounds_.height - camera_.GetBottomRight ().y;
+    CheckBounds (offset);
 
     camera_.Move (offset);
   }

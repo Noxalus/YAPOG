@@ -17,6 +17,8 @@ namespace yap
 
     protected:
 
+      virtual void HandleFocusTarget ();
+
       virtual void HandleUpdate (const Time& dt);
   };
 } // namespace yap

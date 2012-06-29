@@ -20,6 +20,9 @@ namespace yap
 
       void SetTarget (ISpatial& target);
 
+      /// @brief Forces the controlled ICamera to jump into its target.
+      void FocusTarget ();
+
       void SetBounds (const FloatRect& bounds);
 
       /// @name IUpdateable members.
@@ -29,7 +32,13 @@ namespace yap
 
     protected:
 
-      CameraController (ICamera& camera);
+      explicit CameraController (ICamera& camera);
+
+      void CheckBounds (Vector2& offset);
+
+      void CenterOnTarget ();
+
+      virtual void HandleFocusTarget () = 0;
 
       virtual void HandleUpdate (const Time& dt) = 0;
 

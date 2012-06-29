@@ -270,6 +270,8 @@ namespace ycl
       yap::FloatRect (
       yap::Vector2 (),
       map.GetSize ()));
+
+    cameraController_.FocusTarget ();
   }
 
   void GameplayScreen::SetPlayer (Player* player)
