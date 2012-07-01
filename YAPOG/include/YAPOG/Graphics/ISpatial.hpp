@@ -8,11 +8,18 @@
 
 namespace yap
 {
+  /// @brief Represents objects that evolve in the plan.
   struct ISpatial
   {
-      virtual ~ISpatial () {}
+      virtual ~ISpatial () { }
 
+      /// @brief Gets the coordinates in pixels
+      /// of the origin of this ISpatial from the global origin.
+      /// @return The coordinates in pixels
+      /// of the origin of this ISpatial from the global origin.
       virtual const Vector2& GetPosition () const = 0;
+      /// @brief Gets the size in pixels of this ISpatial.
+      /// @return The size in pixels of this ISpatial.
       virtual const Vector2& GetSize () const = 0;
 
       virtual const Vector2& GetTopLeft () const = 0;

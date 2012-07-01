@@ -21,7 +21,7 @@ namespace ycl
       void AddGameWidget (const yap::String& name, yap::IWidget* gameWidget);
 
       void SetCurrentWidget (const yap::String& name);
-      void UnsetCurrentWidget ();
+      bool UnsetCurrentWidget ();
 
     protected:
 

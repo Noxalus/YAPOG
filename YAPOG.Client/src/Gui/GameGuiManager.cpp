@@ -40,13 +40,16 @@ namespace ycl
     currentWidget_->Open ();
   }
 
-  void GameGuiManager::UnsetCurrentWidget ()
+  bool GameGuiManager::UnsetCurrentWidget ()
   {
+    if (currentWidget_ == nullptr)
+      return false;
+
     currentWidget_->Close ();
 
-    currentWidgetName_ = "";
-
     currentWidget_ = nullptr;
+
+    return true;
   }
 
   bool GameGuiManager::HandleOnEvent (const yap::GuiEvent& guiEvent)
@@ -67,7 +70,8 @@ namespace ycl
         {
           case sf::Keyboard::Escape:
 
-            UnsetCurrentWidget ();
+            if (!UnsetCurrentWidget ())
+              break;
 
             return true;
 
