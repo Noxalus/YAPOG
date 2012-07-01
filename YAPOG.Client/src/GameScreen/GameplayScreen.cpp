@@ -25,6 +25,8 @@
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
+#include "Gui/GameGuiManager.hpp"
+#include "Gui/GameMainMenu.hpp"
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
@@ -45,10 +47,13 @@ namespace ycl
     , player_ (nullptr)
     , moveController_ ()
     , lastForce_ ()
-    , pokedex_ (nullptr)
-    , chat_ (new ChatWidget ())
-    , fpsLabel_ (nullptr)
     , fpsDisplayTimer_ ()
+    , gameGuiManager_ (nullptr)
+    , mainMenu_ (nullptr)
+    , pokedex_ (nullptr)
+    , pokemonTeam_ (nullptr)
+    , chat_ (nullptr)
+    , fpsLabel_ (nullptr)
   {
   }
 
@@ -84,6 +89,8 @@ namespace ycl
     };
 
     session_.GetUser ().SetWorld (&world_);
+
+    chat_ = new ChatWidget ();
     /*
     chat_->Init ();
     chat_->ChangeColor (sf::Color (0, 0, 0));
@@ -97,42 +104,54 @@ namespace ycl
     */
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
-    /*
     yap::PokemonTeam* team = new yap::PokemonTeam ();
-    PokemonTeamWidget* pokteam = new PokemonTeamWidget (team);
-    pokteam->Init ();
-    guiManager_->AddChild (*pokteam);
-    */
-    /*
+    pokemonTeam_ = new PokemonTeamWidget (team);
+    pokemonTeam_->Init ();
+    pokemonTeam_->Close ();
+    gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeam_);
+
     yap::Pokedex* pokedexInfo = new yap::Pokedex ();
     for (int i = 1; i < 4; i++)
     {
-    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-    Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (i));
+      yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (i));
 
-    pokedexInfo->AddPokemon (pok);
-    pokedexInfo->AddPokemonSeen (pok);
-    pokedexInfo->AddPokemonCaught (pok);
+      pokedexInfo->AddPokemon (pok);
+      pokedexInfo->AddPokemonSeen (pok);
+      pokedexInfo->AddPokemonCaught (pok);
     }
 
     yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-    Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
+      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
 
     pokedexInfo->AddPokemon (pok);
     pokedexInfo->AddPokemonSeen (pok);
     pokedexInfo->AddPokemonCaught (pok);
 
-    PokedexWidget* pokedex = new PokedexWidget (pokedexInfo);
-    pokedex->Init ();
+    pokedex_ = new PokedexWidget (pokedexInfo);
+    pokedex_->Close ();
+    pokedex_->Init ();
 
-    guiManager_->AddChild (*pokedex);*/
+    gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
-    /// @warning Commented.
-    //guiManager_->AddChild (*pokedex);
+    mainMenu_ = new GameMainMenu ();
+    mainMenu_->Init ("toto");
+    mainMenu_->OnPokedexItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("Pokedex");
+    };
+    mainMenu_->OnPokemonItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("PokemonTeam");
+    };
 
-    //guiManager_->AddChild (*chat_);
-    /// @warning Commented.
-    //guiManager_->AddChild (*pokedex);
+    gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
+
+    mainMenu_->Close ();
 
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
@@ -162,6 +181,36 @@ namespace ycl
 
   bool GameplayScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
+    switch (guiEvent.type)
+    {
+      case sf::Event::KeyPressed:
+
+        switch (guiEvent.key.code)
+        {
+          case sf::Keyboard::Space:
+
+            if (player_ != nullptr && player_->IsActive ())
+              break;
+
+            gameGuiManager_->SetCurrentWidget ("Menu");
+
+            return true;
+
+          default: break;
+        }
+
+        break;
+
+      case sf::Event::KeyReleased:
+
+        switch (guiEvent.key.code)
+        {
+          default: break;
+        }
+
+      default: break;
+    }
+
     if (gameInputManager_.GameInputIsActivated (
       yap::GameInputType::Down,
       guiEvent))
@@ -242,7 +291,6 @@ namespace ycl
       yap::GameInputType::MapAction,
       guiEvent))
     {
-      logger_.LogLine ("ACTION START");
       SendGameInput (yap::GameInputType::MapAction, true);
       return true;
     }
@@ -251,7 +299,6 @@ namespace ycl
       yap::GameInputType::MapAction,
       guiEvent))
     {
-      logger_.LogLine ("ACTION END");
       SendGameInput (yap::GameInputType::MapAction, false);
       return true;
     }
@@ -322,5 +369,12 @@ namespace ycl
     packet.Write (state);
 
     session_.SendPacket (packet);
+  }
+
+  void GameplayScreen::CreateGuiManager ()
+  {
+    gameGuiManager_ = new GameGuiManager ();
+
+    guiManager_ = gameGuiManager_;
   }
 } // namespace ycl

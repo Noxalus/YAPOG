@@ -7,32 +7,40 @@
 
 namespace ycl
 {
+  const yap::Menu::Type GameMainMenu::DEFAULT_ALIGNMENT =
+    yap::Menu::Type::VERTICAL;
+  const yap::Padding GameMainMenu::DEFAULT_PADDING = yap::Padding (5, 5, 5, 5);
+
+  const sf::Color GameMainMenu::DEFAULT_ITEM_COLOR = sf::Color (127, 127, 127);
+  const yap::LayoutBox::Align GameMainMenu::DEFAULT_ITEM_ALIGNMENT =
+    yap::LayoutBox::Align::LEFT;
 
   GameMainMenu::GameMainMenu ()
-    : Menu (yap::Menu::Type::VERTICAL, 
-    yap::Padding (5, 5, 5, 5), 
-    yap::Padding (5, 5, 5, 5), 
-    false)
-  
-  {  
+    : Menu (
+        DEFAULT_ALIGNMENT,
+        DEFAULT_PADDING,
+        DEFAULT_PADDING,
+        false)
+  {
   }
 
-  void GameMainMenu::Init (yap::String playerName)
+  void GameMainMenu::Init (const yap::String& playerName)
   {
-    /*
-    yap::WidgetBackground* menuBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
-    //    yap::WidgetBackground* menuItemBck = new yap::WidgetBackground ("whiteBckgrd.png", true);
+    yap::WidgetBackground* menuBck =
+      new yap::WidgetBackground ("whiteBckgrd.png", true);
 
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
-    yap::Texture* ri = new yap::Texture ();    
-    yap::Texture* bri = new yap::Texture ();    
-    yap::Texture* bi = new yap::Texture ();    
-    yap::Texture* bli = new yap::Texture ();    
+    yap::Texture* ri = new yap::Texture ();
+    yap::Texture* bri = new yap::Texture ();
+    yap::Texture* bi = new yap::Texture ();
+    yap::Texture* bli = new yap::Texture ();
     yap::Texture* li = new yap::Texture ();
-    li->LoadFromFile ("menuCursor.png");
+    li->LoadFromFile ("WindowSkins/BasicSkin/Global/Cursor.png");
     yap::Texture* tli = new yap::Texture ();
-    yap::WidgetBorder* menuItemBrd = new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
+    yap::WidgetBorder* menuItemBrd =
+      new yap::WidgetBorder (
+        *ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("T.png");
@@ -51,49 +59,58 @@ namespace ycl
     yap::Texture* tl = new yap::Texture ();
     tl->LoadFromFile ("TL.png");
 
-    yap::WidgetBorder* menuBorder = new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
+    yap::WidgetBorder* menuBorder =
+      new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    //    SetSelectedBackground (*menuItemBck);
     SetSelectedBorder (*menuItemBrd);
 
-    yap::MenuItem* item1 = new yap::MenuItem (true);
-    yap::MenuItem* item2 = new yap::MenuItem (true);
-    yap::MenuItem* item3 = new yap::MenuItem (true);
-    yap::MenuItem* item4 = new yap::MenuItem (true);
-    yap::MenuItem* item5 = new yap::MenuItem (true);
-    yap::MenuItem* item6 = new yap::MenuItem (true);
-    yap::MenuItem* item7 = new yap::MenuItem (true);
+    yap::MenuItem& pokedexItem = AddItem ("POKeDEX");
+    pokedexItem.OnActivated += [this] (
+      yap::MenuItem& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      OnPokedexItemActivated (*this, yap::EmptyEventArgs ());
+    };
 
-    item1->SetContent ("POKeDEX");    
-    item2->SetContent ("POKeMON");
-    item3->SetContent ("SAC");
-    item4->SetContent (playerName);
-    item5->SetContent ("SAVE");
-    item6->SetContent ("OPTIONS");
-    item7->SetContent ("EXIT");
+    yap::MenuItem& pokemonItem = AddItem ("POKeMON");
+    pokemonItem.OnActivated += [this] (
+      yap::MenuItem& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      OnPokemonItemActivated (*this, yap::EmptyEventArgs ());
+    };
 
-    item1->ChangeColor (sf::Color (128, 128, 128));
-    item2->ChangeColor (sf::Color (128, 128, 128));
-    item3->ChangeColor (sf::Color (128, 128, 128));
-    item4->ChangeColor (sf::Color (128, 128, 128));
-    item5->ChangeColor (sf::Color (128, 128, 128));
-    item6->ChangeColor (sf::Color (128, 128, 128));
-    item7->ChangeColor (sf::Color (128, 128, 128));
+    yap::MenuItem& bagItem = AddItem ("SAC");
 
-    AddChild (*item1, yap::LayoutBox::Align::LEFT);
-    AddChild (*item2, yap::LayoutBox::Align::LEFT);
-    AddChild (*item3, yap::LayoutBox::Align::LEFT);
-    AddChild (*item4, yap::LayoutBox::Align::LEFT);
-    AddChild (*item5, yap::LayoutBox::Align::LEFT);
-    AddChild (*item6, yap::LayoutBox::Align::LEFT);
-    AddChild (*item7, yap::LayoutBox::Align::LEFT);
+    yap::MenuItem& playerItem = AddItem (playerName);
+
+    yap::MenuItem& optionItem = AddItem ("OPTIONS");
+
+    yap::MenuItem& exitItem = AddItem ("EXIT");
+    exitItem.OnActivated += [this] (
+      yap::MenuItem& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      Close ();
+    };
 
     SetBackground (*menuBck);
     SetBorder (*menuBorder);
-    */
   }
 
   GameMainMenu::~GameMainMenu ()
   {
+  }
+
+  yap::MenuItem& GameMainMenu::AddItem (const yap::String& itemName)
+  {
+    yap::MenuItem* item = new yap::MenuItem (true);
+    item->SetContent (itemName);
+
+    item->ChangeColor (DEFAULT_ITEM_COLOR);
+
+    AddChild (*item, DEFAULT_ITEM_ALIGNMENT);
+
+    return *item;
   }
 } // namespace ycl

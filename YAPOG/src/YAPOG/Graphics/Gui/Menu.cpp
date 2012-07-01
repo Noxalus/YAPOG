@@ -92,7 +92,7 @@ namespace yap
     {
       itemz_.Add (&child);
     }
-    
+
     layout_->AddChild (child, align);
     layoutManager_->AddItem (&child);
 
@@ -177,7 +177,15 @@ namespace yap
         OnDesactivated (*this, EmptyEventArgs ());
         return true;
       }
+
+      // Menu captures every key pressed
+      return true;
     }
+
+    // Menu captures every key released
+    if (guiEvent.type == sf::Event::KeyReleased)
+      return true;
+
     return false;
   }
 
