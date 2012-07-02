@@ -91,7 +91,6 @@ namespace ycl
     session_.GetUser ().SetWorld (&world_);
 
     chat_ = new ChatWidget ();
-    /*
     chat_->Init ();
     chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
@@ -99,9 +98,10 @@ namespace ycl
     chat_->OnMessageSent +=
     [this] (ChatWidget& sender, yap::GameMessage& args)
     {
-    session_.GetUser ().SendGameMessage (args);
+      session_.GetUser ().SendGameMessage (args);
     };
-    */
+    gameGuiManager_->AddGameWidget ("Chat", chat_);
+
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
     yap::PokemonTeam* team = new yap::PokemonTeam ();
@@ -193,6 +193,15 @@ namespace ycl
               break;
 
             gameGuiManager_->SetCurrentWidget ("Menu");
+
+            return true;
+
+          case sf::Keyboard::C:
+
+            if (player_ != nullptr && player_->IsActive ())
+              break;
+
+            gameGuiManager_->SetCurrentWidget ("Chat");
 
             return true;
 
