@@ -1,8 +1,9 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "GameScreen/RegistrationScreen.hpp"
-#include "YAPOG/System/RandomHelper.hpp"
 #include "GameScreen/MainMenuScreen.hpp"
 #include "Gui/MainMenu.hpp"
 
@@ -73,6 +74,8 @@ namespace ycl
     };
 
     guiManager_->AddChild (*mainMenu);
+
+    yap::AudioManager::Instance ().PlayMusic ("BGM/Opening.ogg");
   }
 
   void MainMenuScreen::HandleRun (

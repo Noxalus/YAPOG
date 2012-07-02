@@ -9,10 +9,10 @@ namespace ycl
 {
 
   MainMenu::MainMenu ()
-    : Menu (yap::Menu::Type::VERTICAL,
-            yap::Padding (10, 10, 10, 10),
-            yap::Padding (10, 10, 10, 10),
-            false)
+    : GameMenu (yap::Menu::Type::VERTICAL,
+    yap::Padding (10, 10, 10, 10),
+    yap::Padding (10, 10, 10, 10),
+    false)
     , loginItem_ (nullptr)
     , registrationItem_ (nullptr)
     , exitItem_ (nullptr)

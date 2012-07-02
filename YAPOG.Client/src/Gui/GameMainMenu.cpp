@@ -16,11 +16,11 @@ namespace ycl
     yap::LayoutBox::Align::LEFT;
 
   GameMainMenu::GameMainMenu ()
-    : Menu (
-        DEFAULT_ALIGNMENT,
-        DEFAULT_PADDING,
-        DEFAULT_PADDING,
-        false)
+    : GameMenu (
+    DEFAULT_ALIGNMENT,
+    DEFAULT_PADDING,
+    DEFAULT_PADDING,
+    false)
   {
   }
 
@@ -40,7 +40,7 @@ namespace ycl
     yap::Texture* tli = new yap::Texture ();
     yap::WidgetBorder* menuItemBrd =
       new yap::WidgetBorder (
-        *ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
+      *ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("WindowSkins/BasicSkin/Global/TopBorder.png");

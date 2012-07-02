@@ -26,6 +26,9 @@ source_files
 ${pgstream_inc_root}/pgstream.hpp
 ${pgstream_src_root}/pgstream.cpp
 
+${inc_root}/Audio/AudioManager.hpp
+${src_root}/Audio/AudioManager.cpp
+
 ${inc_root}/Collection/Array.hpp
 ${inc_root}/Collection/Array.hxx
 ${inc_root}/Collection/List.hpp
