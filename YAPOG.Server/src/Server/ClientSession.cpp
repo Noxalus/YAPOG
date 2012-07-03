@@ -41,7 +41,7 @@ namespace yse
 
       yap::DebugLogger::Instance ().LogLine (
         "Packet: " + yap::StringHelper::ToString (
-          static_cast<int> (packet->GetType ())));
+        static_cast<int> (packet->GetType ())));
 
       try
       {
@@ -126,25 +126,36 @@ namespace yse
     yap::String login (packet.ReadString ());
     yap::String password (packet.ReadString ());
 
-    if (user_.Login (login, password, socket_.GetRemoteAddress ()))
+    try
     {
-      yap::Packet loginValidationPacket;
-      loginValidationPacket.CreateFromType (
-        yap::PacketType::ServerInfoLoginValidation);
-      SendPacket (loginValidationPacket);
+      if (user_.Login (login, password, socket_.GetRemoteAddress ()))
+      {
+        yap::Packet loginValidationPacket;
+        loginValidationPacket.CreateFromType (
+          yap::PacketType::ServerInfoLoginValidation);
+        SendPacket (loginValidationPacket);
 
-      yap::Packet primaryDataPacket;
-      primaryDataPacket.CreateFromType (
-        yap::PacketType::ServerInfoPrimaryData);
+        yap::Packet primaryDataPacket;
+        primaryDataPacket.CreateFromType (
+          yap::PacketType::ServerInfoPrimaryData);
 
-      SendObjectFactoryTypes (
-        primaryDataPacket,
-        yap::ObjectFactory::Instance ());
+        SendObjectFactoryTypes (
+          primaryDataPacket,
+          yap::ObjectFactory::Instance ());
 
-      SendPacket (primaryDataPacket);
+        SendPacket (primaryDataPacket);
+      }
+
+      yap::DebugLogger::Instance ().LogLine ("Client logged: `" + login + "'.");
     }
+    catch (...)
+    {
+      yap::Packet loginErrorPacket;
+      loginErrorPacket.CreateFromType (
+        yap::PacketType::ServerInfoLoginError);
 
-    yap::DebugLogger::Instance ().LogLine ("Client logged: `" + login + "'.");
+      SendPacket (loginErrorPacket);
+    }
   }
 
   void ClientSession::HandleClientRequestRegistration (yap::IPacket& packet)
@@ -153,25 +164,36 @@ namespace yse
     yap::String password (packet.ReadString ());
     yap::String email (packet.ReadString ());
 
-    if (user_.Register (login, password, email, socket_.GetRemoteAddress ()))
+    try
     {
-      yap::Packet registrationValidationPacket;
-      registrationValidationPacket.CreateFromType (
-        yap::PacketType::ServerInfoRegistrationValidation);
-      SendPacket (registrationValidationPacket);
+      if (user_.Register (login, password, email, socket_.GetRemoteAddress ()))
+      {
+        yap::Packet registrationValidationPacket;
+        registrationValidationPacket.CreateFromType (
+          yap::PacketType::ServerInfoRegistrationValidation);
+        SendPacket (registrationValidationPacket);
 
-      yap::Packet primaryDataPacket;
-      primaryDataPacket.CreateFromType (
-        yap::PacketType::ServerInfoPrimaryData);
+        yap::Packet primaryDataPacket;
+        primaryDataPacket.CreateFromType (
+          yap::PacketType::ServerInfoPrimaryData);
 
-      SendObjectFactoryTypes (
-        primaryDataPacket,
-        yap::ObjectFactory::Instance ());
+        SendObjectFactoryTypes (
+          primaryDataPacket,
+          yap::ObjectFactory::Instance ());
 
-      SendPacket (primaryDataPacket);
+        SendPacket (primaryDataPacket);
+      }
+
+      yap::DebugLogger::Instance ().LogLine ("New account created: `" + login + "'.");
     }
+    catch (...)
+    {
+      yap::Packet registrationErrorPacket;
+      registrationErrorPacket.CreateFromType (
+        yap::PacketType::ServerInfoRegistrationError);
 
-    yap::DebugLogger::Instance ().LogLine ("New account created: `" + login + "'.");
+      SendPacket (registrationErrorPacket);
+    }
   }
 
   void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)

@@ -21,6 +21,7 @@ namespace ycl
     , socket_ ()
     , networkHandler_ (socket_)
     , user_ ()
+    , isConnected_ (false)
   {
     ADD_HANDLER(
       ServerInfoLoginValidation,
@@ -62,9 +63,10 @@ namespace ycl
   void Session::Login (const yap::String& login, const yap::String& password)
   {
     if (!Connect ())
-      YAPOG_THROW("Failed to connect to the server `"
-      + DEFAULT_REMOTE_IP
-      + "'.");
+      return;
+    //  YAPOG_THROW("Failed to connect to the server `"
+    //  + DEFAULT_REMOTE_IP
+    //  + "'.");
 
     /// @todo login request
     yap::Packet packet;
@@ -80,9 +82,7 @@ namespace ycl
     const yap::String& email)
   {
     if (!Connect ())
-      YAPOG_THROW("Failed to connect to the server `"
-      + DEFAULT_REMOTE_IP
-      + "'.");
+      return;
 
     /// @todo registration request
     yap::Packet packet;
@@ -127,6 +127,9 @@ namespace ycl
 
   bool Session::Connect ()
   {
+    if (isConnected_)
+      return true;
+
     if (!socket_.Connect (DEFAULT_REMOTE_IP, DEFAULT_REMOTE_PORT))
       return false;
 
@@ -135,6 +138,8 @@ namespace ycl
 
     receptionIsActive_ = true;
     receptionThread_.Launch ();
+
+    isConnected_ = true;
 
     return true;
   }
@@ -162,6 +167,8 @@ namespace ycl
 
   void Session::HandleServerInfoLoginValidation (yap::IPacket& packet)
   {
+    OnLogginValidation (*this, yap::EmptyEventArgs ());
+
     yap::DebugLogger::Instance ().LogLine ("Login successful !");
 
     yap::Packet response;
@@ -171,12 +178,23 @@ namespace ycl
 
   void Session::HandleServerInfoRegistrationValidation (yap::IPacket& packet)
   {
+    OnRegistrationValidation (*this, yap::EmptyEventArgs ());
+
     yap::DebugLogger::Instance ().LogLine ("Registration successful !");
   }
 
   void Session::HandleServerInfoLoginError (yap::IPacket& packet)
   {
+    OnLogginError (*this, yap::EmptyEventArgs ());
+
     yap::DebugLogger::Instance ().LogLine ("Wrong login.");
+  }
+
+  void Session::HandleServerInfoRegistrationError (yap::IPacket& packet)
+  {
+    OnRegistrationError (*this, yap::EmptyEventArgs ());
+
+    yap::DebugLogger::Instance ().LogLine ("Registration error.");
   }
 
   void Session::HandleServerInfoPrimaryData (yap::IPacket& packet)

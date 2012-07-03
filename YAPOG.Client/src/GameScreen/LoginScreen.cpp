@@ -27,6 +27,34 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
+    session_.OnLogginValidation += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Gameplay";
+    };
+
+    session_.OnRegistrationValidation += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Gameplay";
+    };
+
+    session_.OnLogginError += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      loginWidget_.SetErrorText ("Failed to loggin");
+    };
+
+    session_.OnRegistrationError += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      loginWidget_.SetErrorText ("Failed to register");
+    };
+
     yap::PictureBox* bg = new yap::PictureBox ();
 
     yap::RandomHelper* random;
@@ -83,7 +111,7 @@ namespace ycl
 
         //loginWidget_.SetErrorText ("Nom d'utilisateur incorrect !");
 
-        nextScreen_ = "Gameplay";
+        //nextScreen_ = "Gameplay";
         return true;
       }
 

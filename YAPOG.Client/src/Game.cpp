@@ -141,9 +141,9 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
-    yap::Game::HandleRun (dt, context);
-
     session_.Refresh ();
+
+    yap::Game::HandleRun (dt, context);
   }
 
   void Game::HandleDispose ()
@@ -179,10 +179,10 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "DestructibleObject",
       new yap::XmlObjectIDLoader<
-        DestructibleObject,
-        DestructibleObjectReader> (
-          yap::Path ("DestructibleObject"),
-          "DestructibleObject"));
+      DestructibleObject,
+      DestructibleObjectReader> (
+      yap::Path ("DestructibleObject"),
+      "DestructibleObject"));
 
     objectFactory_.RegisterLoader (
       "DirectionSpriteSet",
@@ -211,10 +211,10 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "OpenBattleSpawnerArea",
       new yap::XmlObjectIDLoader<
-        OpenBattleSpawnerArea,
-        OpenBattleSpawnerAreaReader> (
-          yap::Path ("OpenBattleSpawnerArea"),
-          "OpenBattleSpawnerArea"));
+      OpenBattleSpawnerArea,
+      OpenBattleSpawnerAreaReader> (
+      yap::Path ("OpenBattleSpawnerArea"),
+      "OpenBattleSpawnerArea"));
 
     objectFactory_.RegisterLoader (
       "Player",

@@ -24,6 +24,4 @@ int main ()
     std::cout << boost::diagnostic_information (ex) << std::endl;
     getchar ();
   }
-
-  getchar ();
 }

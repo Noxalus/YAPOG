@@ -28,6 +28,7 @@ namespace yap
     ServerInfoLoginValidation,
     ServerInfoRegistrationValidation,
     ServerInfoLoginError,
+    ServerInfoRegistrationError,
 
     ServerInfoPrimaryData,
 
