@@ -47,6 +47,8 @@ namespace yap
         void Add (const T& data);
         void Add (const Array<T>& data);
 
+        void Insert (ItType index, const T& data);
+
         bool Contains (const T& data) const;
         bool Contains (const Array<T>& data) const;
 

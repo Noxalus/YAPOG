@@ -88,7 +88,7 @@ namespace yap
 
       virtual void HandleSetCollidableArea (CollidableArea* collidableArea);
 
-      Vector2 HandleGetSize () const;
+      virtual Vector2 HandleGetSize () const;
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
       virtual void HandleSetZ (int z);

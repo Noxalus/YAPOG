@@ -10,19 +10,15 @@
         <width>200</width>
         <height>200</height>
         <defaultTile id="1"/>
-        <Tile id="2">
-          <position>3,3</position>
-        </Tile>
-        <Tile id="2">
-          <position>4,3</position>
-        </Tile>
-        <Tile id="2">
-          <position>5,4</position>
-        </Tile>
+        <Tile id="2"><position>3,3</position></Tile>
+        <Tile id="2"><position>4,3</position></Tile>
+        <Tile id="2"><position>5,4</position></Tile>
+        <Tile id="5"><position>7,7</position></Tile>
       </SelectionTileLayoutHandler>
     </tileLayer>
   </ground>
   <staticObjects>
+    <MapElement id="142"><position>100,180</position></MapElement>
     <MapElement id="1"><position>8,334</position></MapElement>
     <MapElement id="1"><position>40,334</position></MapElement>
     <MapElement id="1"><position>72,334</position></MapElement>

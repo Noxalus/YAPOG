@@ -4,6 +4,7 @@
 # include                                                               \
   "YAPOG/Graphics/Game/World/Map/DrawableWorldObjectOrderComparator.hpp"
 
+#include "YAPOG/Log.hpp"
 namespace ycl
 {
   template <typename T>
@@ -30,8 +31,24 @@ namespace ycl
       [this] (yap::IDrawableDynamicWorldObject& sender,
               const yap::Vector2& args)
       {
+//        DLOGGER.LogLine ("SORT DRAWING");
+
         /// @todo Sort by adding manually.
         drawableObjects_.Sort<yap::DrawableWorldObjectOrderComparator> ();
+
+        /*      RemoveDrawableObject (&sender);
+
+        yap::DrawableWorldObjectOrderComparator comparator;
+
+        yap::collection::Array<yap::IDrawableWorldObject*>::ItType it =
+          drawableObjects_.Begin ();
+        for (; it < drawableObjects_.End (); ++it)
+        {
+          if (comparator.Compare (&sender, *it) < 0)
+            break;
+        }
+
+        drawableObjects_.Insert (it, &sender);*/
       });
 
     AddDrawableDynamicObject (object->GetWorldID (), object);

@@ -97,6 +97,12 @@ namespace yap
     }
 
     template <typename T>
+    inline void Array<T>::Insert (ItType index, const T& data)
+    {
+      data_.insert (index, data);
+    }
+
+    template <typename T>
     inline bool Array<T>::Contains (const T& data) const
     {
       return std::find (Begin (), End (), data) != End ();
