@@ -35,6 +35,9 @@ namespace yap
     uint GetCurrentSelect () const;
     void SetFixed (bool state);
     void Clear ();
+
+    virtual void HandleItemActivated ();
+    virtual void HandleItemSelected ();
   private:
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
@@ -47,6 +50,7 @@ namespace yap
 
     virtual void HandleUpdate (const Time& dt);
     bool HandleOnEvent (const GuiEvent& guiEvent);
+
     void SetFormItem ();
     void SetUnformItem ();
 

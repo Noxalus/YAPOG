@@ -20,6 +20,7 @@
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -313,6 +314,11 @@ namespace ycl
     }
 
     return false;
+  }
+
+  void GameplayScreen::HandleActivate ()
+  {
+    yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg");
   }
 
   Map& GameplayScreen::GetCurrentMap ()

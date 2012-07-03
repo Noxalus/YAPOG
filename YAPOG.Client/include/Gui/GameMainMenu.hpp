@@ -4,9 +4,11 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/Menu.hpp"
 
+# include "Gui/GameMenu.hpp"
+
 namespace ycl
 {
-  class GameMainMenu : public yap::Menu
+  class GameMainMenu : public GameMenu
   {
       DISALLOW_COPY(GameMainMenu);
 

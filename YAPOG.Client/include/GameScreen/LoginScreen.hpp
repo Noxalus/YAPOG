@@ -8,7 +8,6 @@
 # include "Gui/LoginWidget.hpp"
 # include "GameScreen/BaseScreen.hpp"
 
-
 namespace ycl
 {
   class LoginScreen : public BaseScreen

@@ -25,6 +25,11 @@ namespace ycl
     yap::TextBoxWidget& GetPasswordTextBox ();
     /// @}
 
+    /// @name Setters.
+    /// @{
+    void SetErrorText (const yap::String& error);
+    /// @}
+
     virtual bool IsFocusable () const;
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -46,6 +51,7 @@ namespace ycl
     /// @{
     yap::Label loginLabel_;
     yap::Label passwordLabel_;
+    yap::Label errorLabel_;
     /// @}
 
     /// @name TextWidget.

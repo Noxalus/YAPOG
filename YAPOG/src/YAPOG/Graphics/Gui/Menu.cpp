@@ -150,6 +150,7 @@ namespace yap
         layoutManager_->SetCurrentSel (currentSelec_);
         SetFormItem ();
         itemz_[currentSelec_]->OnSelected (*itemz_[currentSelec_], EmptyEventArgs ());
+        HandleItemSelected ();
         return true;
       }
       if (guiEvent.key.code == sf::Keyboard::Down)
@@ -162,6 +163,7 @@ namespace yap
         layoutManager_->SetCurrentSel (currentSelec_);
         SetFormItem ();
         itemz_[currentSelec_]->OnSelected (*itemz_[currentSelec_], EmptyEventArgs ());
+        HandleItemSelected ();
         return true;
       }
 
@@ -169,6 +171,7 @@ namespace yap
       {
         itemz_[currentSelec_]->Do ();
         itemz_[currentSelec_]->OnActivated (*itemz_[currentSelec_], EmptyEventArgs ());
+        HandleItemActivated ();
         return true;
       }
 
@@ -208,4 +211,13 @@ namespace yap
   void Menu::HandleChangeColor (const sf::Color& color)
   {
   }
+
+  void Menu::HandleItemActivated ()
+  {
+  }
+
+   void Menu::HandleItemSelected ()
+  {
+  }
+
 } //namespace yap
