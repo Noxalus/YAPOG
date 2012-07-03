@@ -26,7 +26,7 @@ namespace ycl
   void LoginScreen::HandleInit ()
   {
     BaseScreen::HandleInit ();
-    
+
     yap::PictureBox* bg = new yap::PictureBox ();
 
     yap::RandomHelper* random;
@@ -80,8 +80,12 @@ namespace ycl
         yap::String password = loginWidget_.GetPasswordTextBox ().GetContent ();
 
         session_.Login (login, password);
+
+        loginWidget_.SetErrorText ("Nom d'utilisateur incorrect !");
+        /*
         nextScreen_ = "Gameplay";
         return true;
+        */
       }
 
     }

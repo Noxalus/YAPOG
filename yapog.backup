@@ -1,0 +1,201 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.4
+-- Dumped by pg_dump version 9.1.4
+-- Started on 2012-07-03 11:09:19
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 164 (class 3079 OID 11639)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1868 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 161 (class 1259 OID 16439)
+-- Dependencies: 6
+-- Name: account; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE account (
+    account_id integer NOT NULL,
+    account_name character varying(15) NOT NULL,
+    account_password character(32) NOT NULL,
+    account_email character varying(60) NOT NULL,
+    account_permissions smallint NOT NULL,
+    account_creation_date timestamp without time zone NOT NULL,
+    account_last_login_date timestamp without time zone NOT NULL,
+    account_creation_ip inet NOT NULL,
+    account_current_ip inet
+);
+
+
+ALTER TABLE public.account OWNER TO postgres;
+
+--
+-- TOC entry 162 (class 1259 OID 16445)
+-- Dependencies: 6 161
+-- Name: account_account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE account_account_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_account_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 1869 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: account_account_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE account_account_id_seq OWNED BY account.account_id;
+
+
+--
+-- TOC entry 1870 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: account_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('account_account_id_seq', 41147, true);
+
+
+--
+-- TOC entry 163 (class 1259 OID 16452)
+-- Dependencies: 6
+-- Name: player_data; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE player_data (
+    account_id integer NOT NULL,
+    player_data_position point,
+    player_data_time integer,
+    player_data_step_count integer,
+    player_data_respawn_spot point,
+    player_data_flee_count integer,
+    player_data_box_number integer,
+    player_data_battle_count integer,
+    player_data_money integer
+);
+
+
+ALTER TABLE public.player_data OWNER TO postgres;
+
+--
+-- TOC entry 1853 (class 2604 OID 16447)
+-- Dependencies: 162 161
+-- Name: account_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY account ALTER COLUMN account_id SET DEFAULT nextval('account_account_id_seq'::regclass);
+
+
+--
+-- TOC entry 1861 (class 0 OID 16439)
+-- Dependencies: 161
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY account (account_id, account_name, account_password, account_email, account_permissions, account_creation_date, account_last_login_date, account_creation_ip, account_current_ip) FROM stdin;
+41147	coucou	coucou                          	coucou	1	1991-05-12 00:00:00	2012-06-21 09:17:33.065	127.0.0.1	192.168.0.12
+\.
+
+
+--
+-- TOC entry 1862 (class 0 OID 16452)
+-- Dependencies: 163
+-- Data for Name: player_data; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY player_data (account_id, player_data_position, player_data_time, player_data_step_count, player_data_respawn_spot, player_data_flee_count, player_data_box_number, player_data_battle_count, player_data_money) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1855 (class 2606 OID 16449)
+-- Dependencies: 161 161
+-- Name: account_account_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY account
+    ADD CONSTRAINT account_account_name_key UNIQUE (account_name);
+
+
+--
+-- TOC entry 1857 (class 2606 OID 16451)
+-- Dependencies: 161 161
+-- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (account_id);
+
+
+--
+-- TOC entry 1859 (class 2606 OID 16456)
+-- Dependencies: 163 163
+-- Name: player_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY player_data
+    ADD CONSTRAINT player_data_pkey PRIMARY KEY (account_id);
+
+
+--
+-- TOC entry 1860 (class 2606 OID 16457)
+-- Dependencies: 1856 161 163
+-- Name: player_data_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY player_data
+    ADD CONSTRAINT player_data_account_id_fkey FOREIGN KEY (account_id) REFERENCES account(account_id);
+
+
+--
+-- TOC entry 1867 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2012-07-03 11:09:20
+
+--
+-- PostgreSQL database dump complete
+--
+
