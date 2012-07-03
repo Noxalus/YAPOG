@@ -8,7 +8,7 @@
 namespace ycl
 {
   const yap::String Session::DEFAULT_REMOTE_IP = "localhost";
-//  const yap::String Session::DEFAULT_REMOTE_IP = "192.168.0.10";
+  //const yap::String Session::DEFAULT_REMOTE_IP = "192.168.0.10";
   //const yap::String Session::DEFAULT_REMOTE_IP = "88.186.172.45";
   const yap::Int16 Session::DEFAULT_REMOTE_PORT = 8008;
 
@@ -63,8 +63,8 @@ namespace ycl
   {
     if (!Connect ())
       YAPOG_THROW("Failed to connect to the server `"
-                  + DEFAULT_REMOTE_IP
-                  + "'.");
+      + DEFAULT_REMOTE_IP
+      + "'.");
 
     /// @todo login request
     yap::Packet packet;
@@ -75,14 +75,14 @@ namespace ycl
   }
 
   void Session::Register (
-        const yap::String& login,
-        const yap::String& password,
-        const yap::String& email)
+    const yap::String& login,
+    const yap::String& password,
+    const yap::String& email)
   {
     if (!Connect ())
       YAPOG_THROW("Failed to connect to the server `"
-                  + DEFAULT_REMOTE_IP
-                  + "'.");
+      + DEFAULT_REMOTE_IP
+      + "'.");
 
     /// @todo registration request
     yap::Packet packet;

@@ -119,6 +119,8 @@ ${inc_root}/Gui/ChatWidget.hpp
 ${src_root}/Gui/ChatWidget.cpp
 ${inc_root}/Gui/GameMainMenu.hpp
 ${src_root}/Gui/GameMainMenu.cpp
+${inc_root}/Gui/GameMenu.hpp
+${src_root}/Gui/GameMenu.cpp
 ${inc_root}/Gui/LoginWidget.hpp
 ${src_root}/Gui/LoginWidget.cpp
 ${inc_root}/Gui/MainMenu.hpp

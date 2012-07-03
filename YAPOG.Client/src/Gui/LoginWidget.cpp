@@ -25,6 +25,7 @@ namespace ycl
     , true)
     , loginLabel_ ("Login: ")
     , passwordLabel_ ("Password: ")
+    , errorLabel_ ("")
     , loginTextBox_ ()
     , passwordTextBox_ ()
   {
@@ -80,6 +81,9 @@ namespace ycl
     widgetBox_.AddChild (loginBox_, yap::LayoutBox::Align::LEFT);
     widgetBox_.AddChild (passwordBox_, yap::LayoutBox::Align::LEFT);
 
+    errorLabel_.ChangeColor (sf::Color::Red);
+    widgetBox_.AddChild (errorLabel_, yap::LayoutBox::Align::LEFT);
+
     AddChild (widgetBox_);
     
     SetPosition (yap::Vector2 (
@@ -113,6 +117,12 @@ namespace ycl
   bool LoginWidget::IsFocusable () const
   {
     return false;
+  }
+
+  /// Setters
+  void LoginWidget::SetErrorText (const yap::String& error)
+  {
+    errorLabel_.SetText (error);
   }
 
   void LoginWidget::HandleMove (const yap::Vector2& offset)

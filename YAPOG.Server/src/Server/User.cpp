@@ -52,9 +52,8 @@ namespace yse
   {
     login_ = login;
 
-/// @warning Commented.
-//    AccountManager am (*databaseManager_);
-//    am.Login (login, password, ip);
+    AccountManager am (*databaseManager_);
+    am.Login (login, password, ip);
 
     return true;
   }

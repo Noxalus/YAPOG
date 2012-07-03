@@ -164,6 +164,8 @@ namespace ycl
 
     contentManager_.SetTexturePath (yap::Path ("Graphics"));
     contentManager_.SetFontPath (yap::Path ("Graphics/Fonts"));
+    contentManager_.SetMusicPath (yap::Path ("Audio/"));
+    contentManager_.SetSoundBufferPath (yap::Path ("Audio/"));
   }
 
   void Game::InitObjectFactory ()
