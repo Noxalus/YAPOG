@@ -49,7 +49,7 @@ namespace ycl
     yap::HorizontalLayout passwordBox_;
     yap::TextBoxWidget    passwordTextBox_;
     yap::Label            passwordLabel_;
-    yap::HorizontalLayout emailBox_;
+    yap::HorizontalLayout emailBsox_;
     yap::TextBoxWidget    emailTextBox_;
     yap::Label            emailLabel_;
     yap::Label            errorLabel_;
