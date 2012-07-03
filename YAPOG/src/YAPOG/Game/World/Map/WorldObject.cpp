@@ -77,16 +77,25 @@ namespace yap
 
   const Vector2& WorldObject::GetBottomRight () const
   {
+    /// @warning Temporary.
+    GetSize ();
+
     return spatial3Info_.GetBottomRight ();
   }
 
   const Vector2& WorldObject::GetCenter () const
   {
+    /// @warning Temporary.
+    GetSize ();
+
     return spatial3Info_.GetCenter ();
   }
 
   const sf::FloatRect& WorldObject::GetRectangle () const
   {
+    /// @warning Temporary.
+    GetSize ();
+
     return spatial3Info_.GetRectangle ();
   }
 
