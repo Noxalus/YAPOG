@@ -81,11 +81,10 @@ namespace ycl
 
         session_.Login (login, password);
 
-        loginWidget_.SetErrorText ("Nom d'utilisateur incorrect !");
-        /*
+        //loginWidget_.SetErrorText ("Nom d'utilisateur incorrect !");
+
         nextScreen_ = "Gameplay";
         return true;
-        */
       }
 
     }

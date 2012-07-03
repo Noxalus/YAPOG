@@ -66,15 +66,15 @@ namespace yse
 
     InitLoggerManager ();
 
-//    databaseManager_.Connect ();
+    databaseManager_.Connect ();
 
     LoadMaps ();
 
     if (!socket_.Listen (port_))
       YAPOG_THROW(
-        "Failed to listen port `" +
-        yap::StringHelper::ToString (port_) +
-        "'.");
+      "Failed to listen port `" +
+      yap::StringHelper::ToString (port_) +
+      "'.");
   }
 
   void Server::Launch ()
@@ -133,8 +133,8 @@ namespace yse
 
       if (!socket_.Accept (client->GetSocket ()))
         YAPOG_THROW("Failed to accept client `" +
-                    client->GetSocket ().GetRemoteAddress () +
-                    "'.");
+        client->GetSocket ().GetRemoteAddress () +
+        "'.");
 
       yap::DebugLogger::Instance ().LogLine (
         "Client connected: `" +
@@ -160,47 +160,47 @@ namespace yse
     objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
-        yap::Path ("Map"), "Map"));
+      yap::Path ("Map"), "Map"));
 
     objectFactory_.RegisterLoader (
       "NPC",
       new yap::XmlObjectIDLoader<NPC, NPCReader> (
-        yap::Path ("NPC"),
-        "NPC"));
+      yap::Path ("NPC"),
+      "NPC"));
 
     objectFactory_.RegisterLoader (
       "DestructibleObject",
       new yap::XmlObjectIDLoader<
-        yap::DestructibleObject,
-        yap::DestructibleObjectReader> (
-          yap::Path ("DestructibleObject"),
-          "DestructibleObject"));
+      yap::DestructibleObject,
+      yap::DestructibleObjectReader> (
+      yap::Path ("DestructibleObject"),
+      "DestructibleObject"));
 
     objectFactory_.RegisterLoader (
       "Player",
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
-        yap::Path ("Player"),
-        "Player"));
+      yap::Path ("Player"),
+      "Player"));
 
     objectFactory_.RegisterLoader (
       "MapElement",
       new yap::XmlObjectIDLoader<yap::MapElement, yap::MapElementReader> (
-        yap::Path ("MapElement"),
-        "MapElement"));
+      yap::Path ("MapElement"),
+      "MapElement"));
 
     objectFactory_.RegisterLoader (
       "OpenBattleSpawnerArea",
       new yap::XmlObjectIDLoader<
-        yap::OpenBattleSpawnerArea,
-        yap::OpenBattleSpawnerAreaReader> (
-          yap::Path ("OpenBattleSpawnerArea"),
-          "OpenBattleSpawnerArea"));
+      yap::OpenBattleSpawnerArea,
+      yap::OpenBattleSpawnerAreaReader> (
+      yap::Path ("OpenBattleSpawnerArea"),
+      "OpenBattleSpawnerArea"));
 
     objectFactory_.RegisterLoader (
       "Teleporter",
       new yap::XmlObjectIDLoader<Teleporter, yap::TeleporterReader> (
-        yap::Path ("Teleporter"),
-        "Teleporter"));
+      yap::Path ("Teleporter"),
+      "Teleporter"));
   }
 
   void Server::InitWorldObjectStateFactory ()

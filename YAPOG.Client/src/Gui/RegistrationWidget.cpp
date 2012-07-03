@@ -32,6 +32,7 @@ namespace ycl
     , true)
     , emailTextBox_ ()
     , emailLabel_ ("Votre Email: ")
+    , errorLabel_ ()
   {
   }
 
@@ -40,7 +41,7 @@ namespace ycl
     yap::WidgetBackground* menuBck = 
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
-    
+
     yap::Texture* ti = new yap::Texture ();
     yap::Texture* tri = new yap::Texture ();
     yap::Texture* ri = new yap::Texture ();
@@ -72,17 +73,19 @@ namespace ycl
 
     yap::WidgetBorder* menuBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
-    
+
     loginTextBox_.SetSize (yap::Vector2 (242, 32));
     passwordTextBox_.SetSize (yap::Vector2 (242, 32));
     emailTextBox_.SetSize (yap::Vector2 (242, 32));
 
+    errorLabel_.ChangeColor (sf::Color::Red);
+
     loginBox_.AddChild (loginLabel_);
     loginBox_.AddChild (loginTextBox_);
-    
+
     passwordBox_.AddChild (passwordLabel_);
     passwordBox_.AddChild (passwordTextBox_);
-    
+
     emailBox_.AddChild (emailLabel_);
     emailBox_.AddChild (emailTextBox_);
 
@@ -90,8 +93,10 @@ namespace ycl
     registrationBox_.AddChild (passwordBox_, yap::LayoutBox::Align::LEFT);
     registrationBox_.AddChild (emailBox_, yap::LayoutBox::Align::LEFT);
 
+    registrationBox_.AddChild (errorLabel_, yap::LayoutBox::Align::LEFT);
+
     AddChild (registrationBox_);
-    
+
     SetPosition (yap::Vector2 (
       (Game::SCREEN_SIZE.x - registrationBox_.GetSize ().x) / 2,
       (Game::SCREEN_SIZE.y - registrationBox_.GetSize ().y) / 2
@@ -124,6 +129,12 @@ namespace ycl
 
   yap::TextBoxWidget& RegistrationWidget::GetEmailTextBox ()
   { return emailTextBox_; }
+
+  /// Setters
+  void RegistrationWidget::SetErrorText (const yap::String& error)
+  {
+    errorLabel_.SetText (error);
+  }
 
   bool RegistrationWidget::IsFocusable () const
   {

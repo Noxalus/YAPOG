@@ -27,6 +27,11 @@ namespace ycl
     yap::TextBoxWidget& GetEmailTextBox ();
     /// @}
 
+    /// @name Setters.
+    /// @{
+    void SetErrorText (const yap::String& error);
+    /// @}
+
     virtual bool IsFocusable () const;
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -47,6 +52,7 @@ namespace ycl
     yap::HorizontalLayout emailBox_;
     yap::TextBoxWidget    emailTextBox_;
     yap::Label            emailLabel_;
+    yap::Label            errorLabel_;
   };
 } // namespace ycl
 

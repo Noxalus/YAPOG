@@ -84,6 +84,8 @@ namespace ycl
 
         session_.Register (login, password, email);
         
+        //registrationWidget_.SetErrorText ("Ce nom d'utilisateur existe déjà !");
+
         nextScreen_ = "MainMenu";
         return true;
       }

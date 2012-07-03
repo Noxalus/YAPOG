@@ -44,13 +44,11 @@ namespace yse
         << name << ")" << std::endl;
     }
 
-    /*
     PlayerDataTable playerDataTable (ia.GetID ());
     PlayerDataInsertRequest ipd (playerDataTable);
 
     if (ipd.Insert (databaseManager_))
-      std::cout << "Player data have been created !" << std::endl;
-      */
+    std::cout << "Player data have been created !" << std::endl;
   }
 
   void AccountManager::Login (
@@ -75,16 +73,14 @@ namespace yse
     /*
     // Check if the account is already logged in
     if (accountTable.IsLogged ())
-      throw yap::Exception ("A person is already using this account !");
+    throw yap::Exception ("A person is already using this account !");
     */
 
     // Get player data
-    /*
     PlayerDataTable playerDataTable (accountTable.GetID ());
     PlayerDataSelectRequest pdsr (databaseManager_, playerDataTable);
 
     playerDataTable.DisplayData ();
-    */
 
     // Record the login IP
     accountTable.SetCurrentIP (current_ip);
@@ -108,7 +104,7 @@ namespace yse
 
     /*
     if (account->IsLogged ())
-      std::cout << "This account is logged !" << std::endl;
+    std::cout << "This account is logged !" << std::endl;
 
     accounts_.Add (name, account);
     */
@@ -144,7 +140,7 @@ namespace yse
   {
     /*
     for (const auto& sa : accounts_)
-      std::cout << sa.second->GetName () << std::endl;
+    std::cout << sa.second->GetName () << std::endl;
     */
   }
 
