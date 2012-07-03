@@ -1,54 +1,639 @@
 <Map id="1">
-  <name>t</name>
-  <width>200</width>
-  <height>200</height>
+  <name>DemoMap - 1</name>
+  <width>50</width>
+  <height>38</height>
   <ground>
     <tileLayer>
       <height>0</height>
       <layoutHandlerType>SelectionTileLayoutHandler</layoutHandlerType>
       <SelectionTileLayoutHandler>
-        <width>200</width>
-        <height>200</height>
+        <width>50</width>
+        <height>38</height>
         <defaultTile id="1"/>
-        <Tile id="2">
-          <position>3,3</position>
-        </Tile>
-        <Tile id="2">
-          <position>4,3</position>
-        </Tile>
-        <Tile id="2">
-          <position>5,4</position>
-        </Tile>
+	<!-- Bifurcation gauche -->
+        <Tile id="423"><position>0,0</position></Tile>
+        <Tile id="424"><position>0,1</position></Tile>
+        <Tile id="425"><position>0,2</position></Tile>
+        <Tile id="423"><position>1,0</position></Tile>
+        <Tile id="424"><position>1,1</position></Tile>
+        <Tile id="425"><position>1,2</position></Tile>
+        <Tile id="423"><position>2,0</position></Tile>
+        <Tile id="424"><position>2,1</position></Tile>
+        <Tile id="425"><position>2,2</position></Tile>
+        <Tile id="423"><position>3,0</position></Tile>
+        <Tile id="424"><position>3,1</position></Tile>
+        <Tile id="425"><position>3,2</position></Tile>
+        <Tile id="423"><position>4,0</position></Tile>
+        <Tile id="424"><position>4,1</position></Tile>
+        <Tile id="425"><position>4,2</position></Tile>
+        <Tile id="423"><position>5,0</position></Tile>
+        <Tile id="424"><position>5,1</position></Tile>
+        <Tile id="425"><position>5,2</position></Tile>
+	<!-- Bifurcation gauche -->
+
+
+	<!-- Côté gauche -->
+        <Tile id="423"><position>6,0</position></Tile>
+        <Tile id="424"><position>6,1</position></Tile>
+        <Tile id="432"><position>6,2</position></Tile>
+        <Tile id="421"><position>6,3</position></Tile>
+        <Tile id="421"><position>6,4</position></Tile>
+        <Tile id="421"><position>6,5</position></Tile>
+        <Tile id="421"><position>6,6</position></Tile>
+        <Tile id="421"><position>6,7</position></Tile>
+        <Tile id="421"><position>6,8</position></Tile>
+        <Tile id="421"><position>6,9</position></Tile>
+        <Tile id="421"><position>6,10</position></Tile>
+        <Tile id="421"><position>6,11</position></Tile>
+        <Tile id="421"><position>6,12</position></Tile>
+        <Tile id="421"><position>6,13</position></Tile>
+        <Tile id="421"><position>6,14</position></Tile>
+        <Tile id="421"><position>6,15</position></Tile>
+        <Tile id="421"><position>6,16</position></Tile>
+        <Tile id="421"><position>6,17</position></Tile>
+        <Tile id="421"><position>6,18</position></Tile>
+        <Tile id="421"><position>6,19</position></Tile>
+        <Tile id="421"><position>6,20</position></Tile>
+        <Tile id="421"><position>6,21</position></Tile>
+        <Tile id="421"><position>6,22</position></Tile>
+        <Tile id="421"><position>6,23</position></Tile>
+        <Tile id="421"><position>6,24</position></Tile>
+        <Tile id="421"><position>6,25</position></Tile>
+        <Tile id="421"><position>6,26</position></Tile>
+        <Tile id="421"><position>6,27</position></Tile>
+        <Tile id="421"><position>6,28</position></Tile>
+        <Tile id="421"><position>6,29</position></Tile>
+        <Tile id="421"><position>6,30</position></Tile>
+        <Tile id="421"><position>6,31</position></Tile>
+        <Tile id="421"><position>6,32</position></Tile>
+        <Tile id="421"><position>6,33</position></Tile>
+        <Tile id="421"><position>6,34</position></Tile>
+        <Tile id="421"><position>6,35</position></Tile>
+        <Tile id="421"><position>6,36</position></Tile>
+        <Tile id="421"><position>6,37</position></Tile>
+	<!-- Centre -->
+        <Tile id="423"><position>7,0</position></Tile>
+        <Tile id="424"><position>7,1</position></Tile>
+        <Tile id="424"><position>7,2</position></Tile>
+        <Tile id="424"><position>7,3</position></Tile>
+        <Tile id="424"><position>7,4</position></Tile>
+        <Tile id="424"><position>7,5</position></Tile>
+        <Tile id="424"><position>7,6</position></Tile>
+        <Tile id="424"><position>7,7</position></Tile>
+        <Tile id="424"><position>7,8</position></Tile>
+        <Tile id="424"><position>7,9</position></Tile>
+        <Tile id="424"><position>7,10</position></Tile>
+        <Tile id="424"><position>7,11</position></Tile>
+        <Tile id="424"><position>7,12</position></Tile>
+        <Tile id="424"><position>7,13</position></Tile>
+        <Tile id="424"><position>7,14</position></Tile>
+        <Tile id="424"><position>7,15</position></Tile>
+        <Tile id="424"><position>7,16</position></Tile>
+        <Tile id="424"><position>7,17</position></Tile>
+        <Tile id="424"><position>7,18</position></Tile>
+        <Tile id="424"><position>7,19</position></Tile>
+        <Tile id="424"><position>7,20</position></Tile>
+        <Tile id="424"><position>7,21</position></Tile>
+        <Tile id="424"><position>7,22</position></Tile>
+        <Tile id="424"><position>7,23</position></Tile>
+        <Tile id="424"><position>7,24</position></Tile>
+        <Tile id="424"><position>7,25</position></Tile>
+        <Tile id="424"><position>7,26</position></Tile>
+        <Tile id="424"><position>7,27</position></Tile>
+        <Tile id="424"><position>7,28</position></Tile>
+        <Tile id="424"><position>7,29</position></Tile>
+        <Tile id="424"><position>7,30</position></Tile>
+        <Tile id="424"><position>7,31</position></Tile>
+        <Tile id="424"><position>7,32</position></Tile>
+        <Tile id="424"><position>7,33</position></Tile>
+        <Tile id="424"><position>7,34</position></Tile>
+        <Tile id="424"><position>7,35</position></Tile>
+        <Tile id="424"><position>7,36</position></Tile>
+        <Tile id="424"><position>7,37</position></Tile>
+        <Tile id="423"><position>8,0</position></Tile>
+        <Tile id="424"><position>8,1</position></Tile>
+        <Tile id="424"><position>8,2</position></Tile>
+        <Tile id="424"><position>8,3</position></Tile>
+        <Tile id="424"><position>8,4</position></Tile>
+        <Tile id="424"><position>8,5</position></Tile>
+        <Tile id="424"><position>8,6</position></Tile>
+        <Tile id="424"><position>8,7</position></Tile>
+        <Tile id="424"><position>8,8</position></Tile>
+        <Tile id="424"><position>8,9</position></Tile>
+        <Tile id="424"><position>8,10</position></Tile>
+        <Tile id="424"><position>8,11</position></Tile>
+        <Tile id="424"><position>8,12</position></Tile>
+        <Tile id="424"><position>8,13</position></Tile>
+        <Tile id="424"><position>8,14</position></Tile>
+        <Tile id="424"><position>8,15</position></Tile>
+        <Tile id="424"><position>8,16</position></Tile>
+        <Tile id="424"><position>8,17</position></Tile>
+        <Tile id="424"><position>8,18</position></Tile>
+        <Tile id="424"><position>8,19</position></Tile>
+        <Tile id="424"><position>8,20</position></Tile>
+        <Tile id="424"><position>8,21</position></Tile>
+        <Tile id="424"><position>8,22</position></Tile>
+        <Tile id="424"><position>8,23</position></Tile>
+        <Tile id="424"><position>8,24</position></Tile>
+        <Tile id="424"><position>8,25</position></Tile>
+        <Tile id="424"><position>8,26</position></Tile>
+        <Tile id="424"><position>8,27</position></Tile>
+        <Tile id="424"><position>8,28</position></Tile>
+        <Tile id="424"><position>8,29</position></Tile>
+        <Tile id="424"><position>8,30</position></Tile>
+        <Tile id="424"><position>8,31</position></Tile>
+        <Tile id="424"><position>8,32</position></Tile>
+        <Tile id="424"><position>8,33</position></Tile>
+        <Tile id="424"><position>8,34</position></Tile>
+        <Tile id="424"><position>8,35</position></Tile>
+        <Tile id="424"><position>8,36</position></Tile>
+        <Tile id="424"><position>8,37</position></Tile>
+	<!-- Côté droite -->
+        <Tile id="426"><position>9,0</position></Tile>
+        <Tile id="427"><position>9,1</position></Tile>
+        <Tile id="427"><position>9,2</position></Tile>
+        <Tile id="427"><position>9,3</position></Tile>
+        <Tile id="427"><position>9,4</position></Tile>
+        <Tile id="427"><position>9,5</position></Tile>
+        <Tile id="427"><position>9,6</position></Tile>
+        <Tile id="427"><position>9,7</position></Tile>
+        <Tile id="427"><position>9,8</position></Tile>
+        <Tile id="427"><position>9,9</position></Tile>
+        <Tile id="427"><position>9,10</position></Tile>
+        <Tile id="427"><position>9,11</position></Tile>
+        <Tile id="427"><position>9,12</position></Tile>
+        <Tile id="427"><position>9,13</position></Tile>
+        <Tile id="427"><position>9,14</position></Tile>
+        <Tile id="427"><position>9,15</position></Tile>
+        <Tile id="427"><position>9,16</position></Tile>
+        <Tile id="427"><position>9,17</position></Tile>
+        <Tile id="427"><position>9,18</position></Tile>
+        <Tile id="427"><position>9,19</position></Tile>
+        <Tile id="427"><position>9,20</position></Tile>
+        <Tile id="427"><position>9,21</position></Tile>
+        <Tile id="427"><position>9,22</position></Tile>
+        <Tile id="427"><position>9,23</position></Tile>
+        <Tile id="427"><position>9,24</position></Tile>
+        <Tile id="427"><position>9,25</position></Tile>
+        <Tile id="427"><position>9,26</position></Tile>
+
+	<!-- Bifurcation droite -->
+        <Tile id="429"><position>9,27</position></Tile>
+        <Tile id="423"><position>10,27</position></Tile>
+        <Tile id="423"><position>11,27</position></Tile>
+        <Tile id="423"><position>12,27</position></Tile>
+        <Tile id="423"><position>13,27</position></Tile>
+        <Tile id="423"><position>14,27</position></Tile>
+        <Tile id="423"><position>15,27</position></Tile>
+        <Tile id="423"><position>16,27</position></Tile>
+
+        <Tile id="421"><position>17,24</position></Tile>
+        <Tile id="421"><position>17,25</position></Tile>
+        <Tile id="421"><position>17,26</position></Tile>
+        <Tile id="431"><position>17,27</position></Tile>
+        <Tile id="424"><position>18,24</position></Tile>
+        <Tile id="424"><position>18,25</position></Tile>
+        <Tile id="424"><position>18,26</position></Tile>
+        <Tile id="424"><position>18,27</position></Tile>
+        <Tile id="427"><position>19,24</position></Tile>
+        <Tile id="427"><position>19,25</position></Tile>
+        <Tile id="427"><position>19,26</position></Tile>
+        <Tile id="429"><position>19,27</position></Tile>
+
+        <Tile id="423"><position>20,27</position></Tile>
+        <Tile id="423"><position>21,27</position></Tile>
+        <Tile id="423"><position>22,27</position></Tile>
+        <Tile id="423"><position>23,27</position></Tile>
+        <Tile id="423"><position>24,27</position></Tile>
+        <Tile id="423"><position>25,27</position></Tile>
+        <Tile id="423"><position>26,27</position></Tile>
+        <Tile id="423"><position>27,27</position></Tile>
+        <Tile id="423"><position>28,27</position></Tile>
+        <Tile id="423"><position>29,27</position></Tile>
+        <Tile id="423"><position>30,27</position></Tile>
+        <Tile id="423"><position>31,27</position></Tile>
+        <Tile id="423"><position>32,27</position></Tile>
+        <Tile id="423"><position>33,27</position></Tile>
+        <Tile id="423"><position>34,27</position></Tile>
+        <Tile id="423"><position>35,27</position></Tile>
+        <Tile id="423"><position>36,27</position></Tile>
+        <Tile id="423"><position>37,27</position></Tile>
+        <Tile id="423"><position>38,27</position></Tile>
+        <Tile id="423"><position>39,27</position></Tile>
+        <Tile id="423"><position>40,27</position></Tile>
+        <Tile id="423"><position>41,27</position></Tile>
+        <Tile id="423"><position>42,27</position></Tile>
+        <Tile id="423"><position>43,27</position></Tile>
+        <Tile id="423"><position>44,27</position></Tile>
+        <Tile id="423"><position>45,27</position></Tile>
+        <Tile id="426"><position>46,27</position></Tile>
+        <Tile id="424"><position>9,28</position></Tile>
+        <Tile id="424"><position>10,28</position></Tile>
+        <Tile id="424"><position>11,28</position></Tile>
+        <Tile id="424"><position>12,28</position></Tile>
+        <Tile id="424"><position>13,28</position></Tile>
+        <Tile id="424"><position>14,28</position></Tile>
+        <Tile id="424"><position>15,28</position></Tile>
+        <Tile id="424"><position>16,28</position></Tile>
+        <Tile id="424"><position>17,28</position></Tile>
+        <Tile id="424"><position>18,28</position></Tile>
+        <Tile id="424"><position>19,28</position></Tile>
+        <Tile id="424"><position>20,28</position></Tile>
+        <Tile id="424"><position>21,28</position></Tile>
+        <Tile id="424"><position>22,28</position></Tile>
+        <Tile id="424"><position>23,28</position></Tile>
+        <Tile id="424"><position>24,28</position></Tile>
+        <Tile id="424"><position>25,28</position></Tile>
+        <Tile id="424"><position>26,28</position></Tile>
+        <Tile id="424"><position>27,28</position></Tile>
+        <Tile id="424"><position>28,28</position></Tile>
+        <Tile id="424"><position>29,28</position></Tile>
+        <Tile id="424"><position>30,28</position></Tile>
+        <Tile id="424"><position>31,28</position></Tile>
+        <Tile id="424"><position>32,28</position></Tile>
+        <Tile id="424"><position>33,28</position></Tile>
+        <Tile id="424"><position>34,28</position></Tile>
+        <Tile id="424"><position>35,28</position></Tile>
+        <Tile id="424"><position>36,28</position></Tile>
+        <Tile id="424"><position>37,28</position></Tile>
+        <Tile id="424"><position>38,28</position></Tile>
+        <Tile id="424"><position>39,28</position></Tile>
+        <Tile id="424"><position>40,28</position></Tile>
+        <Tile id="424"><position>41,28</position></Tile>
+        <Tile id="424"><position>42,28</position></Tile>
+        <Tile id="424"><position>43,28</position></Tile>
+        <Tile id="424"><position>44,28</position></Tile>
+        <Tile id="424"><position>45,28</position></Tile>
+        <Tile id="427"><position>46,28</position></Tile>
+        <Tile id="424"><position>9,29</position></Tile>
+        <Tile id="424"><position>10,29</position></Tile>
+        <Tile id="424"><position>11,29</position></Tile>
+        <Tile id="424"><position>12,29</position></Tile>
+        <Tile id="424"><position>13,29</position></Tile>
+        <Tile id="424"><position>14,29</position></Tile>
+        <Tile id="424"><position>15,29</position></Tile>
+        <Tile id="424"><position>16,29</position></Tile>
+        <Tile id="424"><position>17,29</position></Tile>
+        <Tile id="424"><position>18,29</position></Tile>
+        <Tile id="424"><position>19,29</position></Tile>
+        <Tile id="424"><position>20,29</position></Tile>
+        <Tile id="424"><position>21,29</position></Tile>
+        <Tile id="424"><position>22,29</position></Tile>
+        <Tile id="424"><position>23,29</position></Tile>
+        <Tile id="424"><position>24,29</position></Tile>
+        <Tile id="424"><position>25,29</position></Tile>
+        <Tile id="424"><position>26,29</position></Tile>
+        <Tile id="424"><position>27,29</position></Tile>
+        <Tile id="424"><position>28,29</position></Tile>
+        <Tile id="424"><position>29,29</position></Tile>
+        <Tile id="424"><position>30,29</position></Tile>
+        <Tile id="424"><position>31,29</position></Tile>
+        <Tile id="424"><position>32,29</position></Tile>
+        <Tile id="424"><position>33,29</position></Tile>
+        <Tile id="424"><position>34,29</position></Tile>
+        <Tile id="424"><position>35,29</position></Tile>
+        <Tile id="424"><position>36,29</position></Tile>
+        <Tile id="424"><position>37,29</position></Tile>
+        <Tile id="424"><position>38,29</position></Tile>
+        <Tile id="424"><position>39,29</position></Tile>
+        <Tile id="424"><position>40,29</position></Tile>
+        <Tile id="424"><position>41,29</position></Tile>
+        <Tile id="424"><position>42,29</position></Tile>
+        <Tile id="424"><position>43,29</position></Tile>
+        <Tile id="424"><position>44,29</position></Tile>
+        <Tile id="424"><position>45,29</position></Tile>
+        <Tile id="427"><position>46,29</position></Tile>
+        <Tile id="430"><position>9,30</position></Tile>
+        <Tile id="425"><position>10,30</position></Tile>
+        <Tile id="425"><position>11,30</position></Tile>
+        <Tile id="425"><position>12,30</position></Tile>
+        <Tile id="425"><position>13,30</position></Tile>
+        <Tile id="425"><position>14,30</position></Tile>
+        <Tile id="425"><position>15,30</position></Tile>
+        <Tile id="425"><position>16,30</position></Tile>
+        <Tile id="425"><position>17,30</position></Tile>
+        <Tile id="425"><position>18,30</position></Tile>
+        <Tile id="425"><position>19,30</position></Tile>
+        <Tile id="425"><position>20,30</position></Tile>
+        <Tile id="425"><position>21,30</position></Tile>
+        <Tile id="425"><position>22,30</position></Tile>
+        <Tile id="425"><position>23,30</position></Tile>
+        <Tile id="425"><position>24,30</position></Tile>
+        <Tile id="425"><position>25,30</position></Tile>
+        <Tile id="425"><position>26,30</position></Tile>
+        <Tile id="425"><position>27,30</position></Tile>
+        <Tile id="425"><position>28,30</position></Tile>
+        <Tile id="425"><position>29,30</position></Tile>
+        <Tile id="425"><position>30,30</position></Tile>
+        <Tile id="425"><position>31,30</position></Tile>
+        <Tile id="425"><position>32,30</position></Tile>
+        <Tile id="425"><position>33,30</position></Tile>
+        <Tile id="425"><position>34,30</position></Tile>
+        <Tile id="425"><position>35,30</position></Tile>
+        <Tile id="425"><position>36,30</position></Tile>
+        <Tile id="425"><position>37,30</position></Tile>
+        <Tile id="425"><position>38,30</position></Tile>
+        <Tile id="425"><position>39,30</position></Tile>
+        <Tile id="425"><position>40,30</position></Tile>
+        <Tile id="425"><position>41,30</position></Tile>
+        <Tile id="425"><position>42,30</position></Tile>
+        <Tile id="425"><position>43,30</position></Tile>
+        <Tile id="425"><position>44,30</position></Tile>
+        <Tile id="425"><position>45,30</position></Tile>
+        <Tile id="428"><position>46,30</position></Tile>
+	<!-- Bifurcation droite -->
+
+        <Tile id="427"><position>9,31</position></Tile>
+        <Tile id="427"><position>9,32</position></Tile>
+        <Tile id="427"><position>9,33</position></Tile>
+        <Tile id="427"><position>9,34</position></Tile>
+        <Tile id="427"><position>9,35</position></Tile>
+        <Tile id="427"><position>9,36</position></Tile>
+        <Tile id="427"><position>9,37</position></Tile>
+
+	<!-- Grotte droite -->
+        <Tile id="450"><position>48,0</position></Tile>
+        <Tile id="450"><position>48,1</position></Tile>
+        <Tile id="450"><position>48,2</position></Tile>
+        <Tile id="450"><position>48,3</position></Tile>
+        <Tile id="450"><position>48,4</position></Tile>
+        <Tile id="450"><position>48,5</position></Tile>
+        <Tile id="450"><position>48,6</position></Tile>
+        <Tile id="450"><position>48,7</position></Tile>
+        <Tile id="450"><position>48,8</position></Tile>
+        <Tile id="450"><position>48,9</position></Tile>
+        <Tile id="450"><position>48,10</position></Tile>
+        <Tile id="450"><position>48,11</position></Tile>
+        <Tile id="450"><position>48,12</position></Tile>
+        <Tile id="450"><position>48,13</position></Tile>
+        <Tile id="450"><position>48,14</position></Tile>
+        <Tile id="450"><position>48,15</position></Tile>
+        <Tile id="450"><position>48,16</position></Tile>
+        <Tile id="450"><position>48,17</position></Tile>
+        <Tile id="450"><position>48,18</position></Tile>
+        <Tile id="450"><position>48,19</position></Tile>
+        <Tile id="450"><position>48,20</position></Tile>
+        <Tile id="450"><position>48,21</position></Tile>
+        <Tile id="450"><position>48,22</position></Tile>
+        <Tile id="450"><position>48,23</position></Tile>
+        <Tile id="450"><position>48,24</position></Tile>
+        <Tile id="450"><position>48,25</position></Tile>
+        <Tile id="450"><position>48,26</position></Tile>
+        <Tile id="450"><position>48,27</position></Tile>
+        <Tile id="450"><position>48,28</position></Tile>
+        <Tile id="450"><position>48,29</position></Tile>
+        <Tile id="450"><position>48,30</position></Tile>
+        <Tile id="450"><position>48,31</position></Tile>
+        <Tile id="450"><position>48,32</position></Tile>
+        <Tile id="450"><position>48,33</position></Tile>
+        <Tile id="450"><position>48,34</position></Tile>
+        <Tile id="450"><position>48,35</position></Tile>
+        <Tile id="450"><position>48,36</position></Tile>
+        <Tile id="450"><position>48,37</position></Tile>
+        <Tile id="450"><position>49,0</position></Tile>
+        <Tile id="450"><position>49,1</position></Tile>
+        <Tile id="450"><position>49,2</position></Tile>
+        <Tile id="450"><position>49,3</position></Tile>
+        <Tile id="450"><position>49,4</position></Tile>
+        <Tile id="450"><position>49,5</position></Tile>
+        <Tile id="450"><position>49,6</position></Tile>
+        <Tile id="450"><position>49,7</position></Tile>
+        <Tile id="450"><position>49,8</position></Tile>
+        <Tile id="450"><position>49,9</position></Tile>
+        <Tile id="450"><position>49,10</position></Tile>
+        <Tile id="450"><position>49,11</position></Tile>
+        <Tile id="450"><position>49,12</position></Tile>
+        <Tile id="450"><position>49,13</position></Tile>
+        <Tile id="450"><position>49,14</position></Tile>
+        <Tile id="450"><position>49,15</position></Tile>
+        <Tile id="450"><position>49,16</position></Tile>
+        <Tile id="450"><position>49,17</position></Tile>
+        <Tile id="450"><position>49,18</position></Tile>
+        <Tile id="450"><position>49,19</position></Tile>
+        <Tile id="450"><position>49,20</position></Tile>
+        <Tile id="450"><position>49,21</position></Tile>
+        <Tile id="450"><position>49,22</position></Tile>
+        <Tile id="450"><position>49,23</position></Tile>
+        <Tile id="450"><position>49,24</position></Tile>
+        <Tile id="450"><position>49,25</position></Tile>
+        <Tile id="450"><position>49,26</position></Tile>
+        <Tile id="450"><position>49,27</position></Tile>
+        <Tile id="450"><position>49,28</position></Tile>
+        <Tile id="450"><position>49,29</position></Tile>
+        <Tile id="450"><position>49,30</position></Tile>
+        <Tile id="450"><position>49,31</position></Tile>
+        <Tile id="450"><position>49,32</position></Tile>
+        <Tile id="450"><position>49,33</position></Tile>
+        <Tile id="450"><position>49,34</position></Tile>
+        <Tile id="450"><position>49,35</position></Tile>
+        <Tile id="450"><position>49,36</position></Tile>
+        <Tile id="450"><position>49,37</position></Tile>
+	<!-- Grotte droite -->
+
       </SelectionTileLayoutHandler>
     </tileLayer>
   </ground>
   <staticObjects>
-    <MapElement id="1"><position>8,334</position></MapElement>
-    <MapElement id="1"><position>40,334</position></MapElement>
-    <MapElement id="1"><position>72,334</position></MapElement>
-    <MapElement id="1"><position>104,334</position></MapElement>
-    <MapElement id="1"><position>136,334</position></MapElement>
-    <MapElement id="1"><position>168,334</position></MapElement>
-    <MapElement id="1"><position>200,334</position></MapElement>
-    <MapElement id="1"><position>232,334</position></MapElement>
-    <MapElement id="1"><position>296,334</position></MapElement>
-    <MapElement id="1"><position>328,334</position></MapElement>
-    <MapElement id="1"><position>360,334</position></MapElement>
-    <MapElement id="1"><position>392,334</position></MapElement>
-    <MapElement id="1"><position>424,334</position></MapElement>
-    <MapElement id="1"><position>456,334</position></MapElement>
-    <MapElement id="1"><position>488,334</position></MapElement>
-    <MapElement id="1"><position>520,334</position></MapElement>
-    <MapElement id="1"><position>552,334</position></MapElement>
-    <MapElement id="1">
-      <position>200,234</position>
-    </MapElement>
-    <MapElement id="1">
-      <position>150,134</position>
-    </MapElement>
-    <MapElement id="1">
-      <position>500,434</position>
-    </MapElement>
+    <!-- Mur droite -->
+    <MapElement id="7"><position>1504,0</position></MapElement>
+    <MapElement id="7"><position>1504,0</position></MapElement>
+    <MapElement id="7"><position>1504,32</position></MapElement>
+    <MapElement id="7"><position>1504,64</position></MapElement>
+    <MapElement id="7"><position>1504,96</position></MapElement>
+    <MapElement id="7"><position>1504,128</position></MapElement>
+    <MapElement id="7"><position>1504,160</position></MapElement>
+    <MapElement id="7"><position>1504,192</position></MapElement>
+    <MapElement id="7"><position>1504,224</position></MapElement>
+    <MapElement id="7"><position>1504,256</position></MapElement>
+    <MapElement id="7"><position>1504,288</position></MapElement>
+    <MapElement id="7"><position>1504,320</position></MapElement>
+    <MapElement id="7"><position>1504,352</position></MapElement>
+    <MapElement id="7"><position>1504,384</position></MapElement>
+    <MapElement id="7"><position>1504,416</position></MapElement>
+    <MapElement id="7"><position>1504,448</position></MapElement>
+    <MapElement id="7"><position>1504,480</position></MapElement>
+    <MapElement id="7"><position>1504,512</position></MapElement>
+    <MapElement id="7"><position>1504,544</position></MapElement>
+    <MapElement id="7"><position>1504,576</position></MapElement>
+    <MapElement id="7"><position>1504,608</position></MapElement>
+    <MapElement id="7"><position>1504,640</position></MapElement>
+    <MapElement id="7"><position>1504,672</position></MapElement>
+    <MapElement id="7"><position>1504,704</position></MapElement>
+    <MapElement id="7"><position>1504,736</position></MapElement>
+    <MapElement id="7"><position>1504,768</position></MapElement>
+    <MapElement id="7"><position>1504,800</position></MapElement>
+    <MapElement id="7"><position>1504,832</position></MapElement>
+    <MapElement id="6"><position>1504,960</position></MapElement>
+    <MapElement id="7"><position>1504,992</position></MapElement>
+    <MapElement id="7"><position>1504,1024</position></MapElement>
+    <MapElement id="7"><position>1504,1056</position></MapElement>
+    <MapElement id="7"><position>1504,1088</position></MapElement>
+    <MapElement id="7"><position>1504,1120</position></MapElement>
+    <MapElement id="7"><position>1504,1152</position></MapElement>
+    <MapElement id="7"><position>1504,1184</position></MapElement>
+    <!-- Mur droite -->
+
+    <MapElement id="1"><position>-32,0</position></MapElement>
+    <MapElement id="1"><position>-32,32</position></MapElement>
+    <MapElement id="1"><position>-32,64</position></MapElement>
+    <MapElement id="1"><position>-32,96</position></MapElement>
+    <MapElement id="1"><position>-32,128</position></MapElement>
+
+    <MapElement id="1"><position>160,0</position></MapElement>
+    <MapElement id="1"><position>160,64</position></MapElement>
+    <MapElement id="1"><position>160,96</position></MapElement>
+    <MapElement id="1"><position>160,128</position></MapElement>
+    <MapElement id="1"><position>160,160</position></MapElement>
+    <MapElement id="1"><position>160,192</position></MapElement>
+    <MapElement id="1"><position>160,224</position></MapElement>
+    <MapElement id="1"><position>160,256</position></MapElement>
+    <MapElement id="1"><position>160,288</position></MapElement>
+    <MapElement id="1"><position>160,320</position></MapElement>
+    <MapElement id="1"><position>160,352</position></MapElement>
+    <MapElement id="1"><position>160,384</position></MapElement>
+    <MapElement id="1"><position>160,416</position></MapElement>
+    <MapElement id="1"><position>160,448</position></MapElement>
+    <MapElement id="1"><position>160,480</position></MapElement>
+    <MapElement id="1"><position>160,512</position></MapElement>
+    <MapElement id="1"><position>160,544</position></MapElement>
+    <MapElement id="1"><position>160,576</position></MapElement>
+    <MapElement id="1"><position>160,610</position></MapElement>
+    <MapElement id="1"><position>160,642</position></MapElement>
+    <MapElement id="1"><position>160,674</position></MapElement>
+    <MapElement id="1"><position>160,708</position></MapElement>
+    <MapElement id="1"><position>160,740</position></MapElement>
+    <MapElement id="1"><position>160,772</position></MapElement>
+    <MapElement id="1"><position>160,804</position></MapElement>
+    <MapElement id="1"><position>160,836</position></MapElement>
+    <MapElement id="1"><position>160,868</position></MapElement>
+    <MapElement id="1"><position>160,900</position></MapElement>
+    <MapElement id="1"><position>160,932</position></MapElement>
+    <MapElement id="1"><position>160,964</position></MapElement>
+    <MapElement id="1"><position>160,996</position></MapElement>
+    <MapElement id="1"><position>160,1028</position></MapElement>
+    <MapElement id="1"><position>160,1060</position></MapElement>
+    <MapElement id="1"><position>160,1092</position></MapElement>
+    <MapElement id="1"><position>160,1124</position></MapElement>
+    <MapElement id="1"><position>160,1158</position></MapElement>
+    <MapElement id="1"><position>160,1160</position></MapElement>
+    <MapElement id="1"><position>160,1192</position></MapElement>
+
+    <MapElement id="1"><position>0,96</position></MapElement>
+    <MapElement id="1"><position>32,96</position></MapElement>
+    <MapElement id="1"><position>64,96</position></MapElement>
+    <MapElement id="1"><position>96,96</position></MapElement>
+    <MapElement id="1"><position>128,96</position></MapElement>
+    <MapElement id="1"><position>160,96</position></MapElement>
+    <!-- Blocage de route nord -->
+    <MapElement id="1"><position>0,-32</position></MapElement>
+    <MapElement id="1"><position>32,-32</position></MapElement>
+    <MapElement id="1"><position>64,-32</position></MapElement>
+    <MapElement id="1"><position>96,-32</position></MapElement>
+    <MapElement id="1"><position>128,-32</position></MapElement>
+    <MapElement id="1"><position>160,-32</position></MapElement>
+    <MapElement id="1"><position>192,-32</position></MapElement>
+    <MapElement id="1"><position>224,-32</position></MapElement>
+    <MapElement id="1"><position>256,-32</position></MapElement>
+    <MapElement id="1"><position>288,-32</position></MapElement>
+    <MapElement id="1"><position>320,-32</position></MapElement>
+    <MapElement id="1"><position>352,-32</position></MapElement>
+    <MapElement id="1"><position>384,-32</position></MapElement>
+    <MapElement id="1"><position>416,-32</position></MapElement>
+    <MapElement id="1"><position>448,-32</position></MapElement>
+    <MapElement id="1"><position>480,-32</position></MapElement>
+    <MapElement id="1"><position>512,-32</position></MapElement>
+    <MapElement id="1"><position>544,-32</position></MapElement>
+    <MapElement id="1"><position>576,-32</position></MapElement>
+    <MapElement id="1"><position>608,-32</position></MapElement>
+    <MapElement id="1"><position>640,-32</position></MapElement>
+    <MapElement id="1"><position>672,-32</position></MapElement>
+    <MapElement id="1"><position>704,-32</position></MapElement>
+    <MapElement id="1"><position>736,-32</position></MapElement>
+    <MapElement id="1"><position>768,-32</position></MapElement>
+    <MapElement id="1"><position>800,-32</position></MapElement>
+    <MapElement id="1"><position>832,-32</position></MapElement>
+    <MapElement id="1"><position>864,-32</position></MapElement>
+    <MapElement id="1"><position>896,-32</position></MapElement>
+    <MapElement id="1"><position>928,-32</position></MapElement>
+    <MapElement id="1"><position>960,-32</position></MapElement>
+    <MapElement id="1"><position>992,-32</position></MapElement>
+    <MapElement id="1"><position>1024,-32</position></MapElement>
+    <MapElement id="1"><position>1056,-32</position></MapElement>
+    <MapElement id="1"><position>1088,-32</position></MapElement>
+    <MapElement id="1"><position>1120,-32</position></MapElement>
+    <MapElement id="1"><position>1152,-32</position></MapElement>
+    <MapElement id="1"><position>1184,-32</position></MapElement>
+    <MapElement id="1"><position>1216,-32</position></MapElement>
+    <MapElement id="1"><position>1248,-32</position></MapElement>
+    <MapElement id="1"><position>1280,-32</position></MapElement>
+    <MapElement id="1"><position>1312,-32</position></MapElement>
+    <MapElement id="1"><position>1344,-32</position></MapElement>
+    <MapElement id="1"><position>1376,-32</position></MapElement>
+    <MapElement id="1"><position>1408,-32</position></MapElement>
+    <MapElement id="1"><position>1440,-32</position></MapElement>
+    <MapElement id="1"><position>1472,-32</position></MapElement>
+    <MapElement id="1"><position>1504,-32</position></MapElement>
+    <MapElement id="1"><position>1536,-32</position></MapElement>
+    <!-- Blocage de route nord -->
+
+    <!-- Blocage de route sud -->
+    <MapElement id="1"><position>320,1092</position></MapElement>
+    <MapElement id="1"><position>352,1092</position></MapElement>
+    <MapElement id="1"><position>384,1092</position></MapElement>
+    <MapElement id="1"><position>416,1092</position></MapElement>
+    <MapElement id="1"><position>448,1092</position></MapElement>
+    <MapElement id="1"><position>480,1092</position></MapElement>
+    <MapElement id="1"><position>512,1092</position></MapElement>
+    <MapElement id="1"><position>544,1092</position></MapElement>
+    <MapElement id="1"><position>576,1092</position></MapElement>
+    <MapElement id="1"><position>608,1092</position></MapElement>
+    <MapElement id="1"><position>640,1092</position></MapElement>
+    <MapElement id="1"><position>672,1092</position></MapElement>
+    <MapElement id="1"><position>704,1092</position></MapElement>
+    <MapElement id="1"><position>736,1092</position></MapElement>
+    <MapElement id="1"><position>768,1092</position></MapElement>
+    <MapElement id="1"><position>800,1092</position></MapElement>
+    <MapElement id="1"><position>832,1092</position></MapElement>
+    <MapElement id="1"><position>864,1092</position></MapElement>
+    <MapElement id="1"><position>896,1092</position></MapElement>
+    <MapElement id="1"><position>928,1092</position></MapElement>
+    <MapElement id="1"><position>960,1092</position></MapElement>
+    <MapElement id="1"><position>992,1092</position></MapElement>
+    <MapElement id="1"><position>1024,1092</position></MapElement>
+    <MapElement id="1"><position>1056,1092</position></MapElement>
+    <MapElement id="1"><position>1088,1092</position></MapElement>
+    <MapElement id="1"><position>1120,1092</position></MapElement>
+    <MapElement id="1"><position>1152,1092</position></MapElement>
+    <MapElement id="1"><position>1184,1092</position></MapElement>
+    <MapElement id="1"><position>1216,1092</position></MapElement>
+    <MapElement id="1"><position>1248,1092</position></MapElement>
+    <MapElement id="1"><position>1280,1092</position></MapElement>
+    <MapElement id="1"><position>1312,1092</position></MapElement>
+    <MapElement id="1"><position>1344,1092</position></MapElement>
+    <MapElement id="1"><position>1376,1092</position></MapElement>
+    <MapElement id="1"><position>1408,1092</position></MapElement>
+    <MapElement id="1"><position>1440,1092</position></MapElement>
+    <MapElement id="1"><position>1472,1092</position></MapElement>
+    <!-- Blocage de route sud -->
+    <MapElement id="1"><position>320,1124</position></MapElement>
+    <MapElement id="1"><position>320,1158</position></MapElement>
+    <MapElement id="1"><position>320,1160</position></MapElement>
+    <MapElement id="1"><position>320,1192</position></MapElement>
+
+
+    <MapElement id="2"><position>512,650</position></MapElement>
+    <!-- Porte grotte -->
+    <MapElement id="18"><position>1536,880</position></MapElement>
+    <MapElement id="17"><position>1504,864</position></MapElement>
+    <MapElement id="19"><position>1536,928</position></MapElement>
+    <MapElement id="20"><position>1536,912</position></MapElement>
+    <!-- Porte grotte -->
+    <MapElement id="5"><position>420,420</position></MapElement>
+    <MapElement id="5"><position>500,100</position></MapElement>
+    <MapElement id="5"><position>500,300</position></MapElement>
+    <MapElement id="5"><position>1250,100</position></MapElement>
+    <MapElement id="5"><position>1350,420</position></MapElement>
+    <MapElement id="5"><position>850,342</position></MapElement>
   </staticObjects>
   <dynamicObjects>
     <NPC id="1">
@@ -60,34 +645,7 @@
       <mapPoint>250,200</mapPoint>
       <area>0,0,50,50</area>
     </Teleporter>
-    <DestructibleObject id="1">
-      <position>150,32</position>
-    </DestructibleObject>
-    <DestructibleObject id="1">
-      <position>264,328</position>
-    </DestructibleObject>
-    <DestructibleObject id="1">
-      <position>500,75</position>
-    </DestructibleObject>
-    <DestructibleObject id="1">
-      <position>234,394</position>
-    </DestructibleObject>
-    <DestructibleObject id="1">
-      <position>50,120</position>
-    </DestructibleObject>
-    <OpenBattleSpawnerArea id="1">
-      <area>
-        <width>10</width>
-        <height>3</height>
-      </area>
-      <position>350,120</position>
-    </OpenBattleSpawnerArea>
-    <OpenBattleSpawnerArea id="1">
-      <area>
-        <width>2</width>
-        <height>7</height>
-      </area>
-      <position>280,390</position>
-    </OpenBattleSpawnerArea>
+    <DestructibleObject id="1"><position>150,32</position></DestructibleObject>
+    <DestructibleObject id="1"><position>700,32</position></DestructibleObject>
   </dynamicObjects>
 </Map>

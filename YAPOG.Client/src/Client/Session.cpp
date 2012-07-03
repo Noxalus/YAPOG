@@ -7,7 +7,6 @@
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace ycl
 {
-
   const yap::String Session::DEFAULT_REMOTE_IP = "localhost";
   //const yap::String Session::DEFAULT_REMOTE_IP = "192.168.0.10";
   //const yap::String Session::DEFAULT_REMOTE_IP = "88.186.172.45";
