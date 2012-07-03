@@ -92,7 +92,7 @@ namespace ycl
 
     chat_ = new ChatWidget ();
     chat_->Init ();
-    chat_->ChangeColor (sf::Color (0, 0, 0));
+    //chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
 
     chat_->OnMessageSent +=

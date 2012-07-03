@@ -1,0 +1,93 @@
+<Map id="42">
+  <name>t</name>
+  <width>200</width>
+  <height>200</height>
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <layoutHandlerType>SelectionTileLayoutHandler</layoutHandlerType>
+      <SelectionTileLayoutHandler>
+        <width>200</width>
+        <height>200</height>
+        <defaultTile id="1"/>
+        <Tile id="2">
+          <position>3,3</position>
+        </Tile>
+        <Tile id="2">
+          <position>4,3</position>
+        </Tile>
+        <Tile id="2">
+          <position>5,4</position>
+        </Tile>
+      </SelectionTileLayoutHandler>
+    </tileLayer>
+  </ground>
+  <staticObjects>
+    <MapElement id="1"><position>8,334</position></MapElement>
+    <MapElement id="1"><position>40,334</position></MapElement>
+    <MapElement id="1"><position>72,334</position></MapElement>
+    <MapElement id="1"><position>104,334</position></MapElement>
+    <MapElement id="1"><position>136,334</position></MapElement>
+    <MapElement id="1"><position>168,334</position></MapElement>
+    <MapElement id="1"><position>200,334</position></MapElement>
+    <MapElement id="1"><position>232,334</position></MapElement>
+    <MapElement id="1"><position>296,334</position></MapElement>
+    <MapElement id="1"><position>328,334</position></MapElement>
+    <MapElement id="1"><position>360,334</position></MapElement>
+    <MapElement id="1"><position>392,334</position></MapElement>
+    <MapElement id="1"><position>424,334</position></MapElement>
+    <MapElement id="1"><position>456,334</position></MapElement>
+    <MapElement id="1"><position>488,334</position></MapElement>
+    <MapElement id="1"><position>520,334</position></MapElement>
+    <MapElement id="1"><position>552,334</position></MapElement>
+    <MapElement id="1">
+      <position>200,234</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>150,134</position>
+    </MapElement>
+    <MapElement id="1">
+      <position>500,434</position>
+    </MapElement>
+  </staticObjects>
+  <dynamicObjects>
+    <NPC id="1">
+      <position>200,350</position>
+    </NPC>
+    <Teleporter id="1">
+      <position>40,440</position>
+      <mapWorldID>2</mapWorldID>
+      <mapPoint>250,200</mapPoint>
+      <area>0,0,50,50</area>
+    </Teleporter>
+    <DestructibleObject id="1">
+      <position>150,32</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>264,328</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>500,75</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>234,394</position>
+    </DestructibleObject>
+    <DestructibleObject id="1">
+      <position>50,120</position>
+    </DestructibleObject>
+    <OpenBattleSpawnerArea id="1">
+      <area>
+        <width>10</width>
+        <height>3</height>
+      </area>
+      <position>350,120</position>
+    </OpenBattleSpawnerArea>
+    <OpenBattleSpawnerArea id="1">
+      <area>
+        <width>2</width>
+        <height>7</height>
+      </area>
+      <position>280,390</position>
+    </OpenBattleSpawnerArea>
+  </dynamicObjects>
+</Map>
