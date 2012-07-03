@@ -82,6 +82,11 @@ namespace yap
     SetCurrentFrame (defaultIndex_);
   }
 
+  Vector2 AnimatedSprite::HandleGetSize () const
+  {
+    return currentFrame_->GetSize ();
+  }
+
   void AnimatedSprite::HandleMove (const Vector2& offset)
   {
     for (ISprite* it : sprites_)

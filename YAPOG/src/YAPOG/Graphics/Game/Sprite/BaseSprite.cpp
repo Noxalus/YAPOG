@@ -35,16 +35,25 @@ namespace yap
 
   const Vector2& BaseSprite::GetBottomRight () const
   {
+    /// @warning Temporary.
+    GetSize ();
+
     return spatialInfo_.GetBottomRight ();
   }
 
   const Vector2& BaseSprite::GetCenter () const
   {
+    /// @warning Temporary.
+    GetSize ();
+
     return spatialInfo_.GetCenter ();
   }
 
   const sf::FloatRect& BaseSprite::GetRectangle () const
   {
+    /// @warning Temporary.
+    GetSize ();
+
     return spatialInfo_.GetRectangle ();
   }
 
