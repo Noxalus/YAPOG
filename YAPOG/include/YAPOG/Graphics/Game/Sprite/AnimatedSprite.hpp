@@ -42,10 +42,7 @@ namespace yap
 
       void SetFrameSwitcher (FrameSwitcher* frameSwitcher);
 
-    private:
-
-      void SetCurrentFrame (IndexType index);
-      void SetDefaultFrame ();
+      virtual Vector2 HandleGetSize () const;
 
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);
@@ -56,6 +53,11 @@ namespace yap
       virtual void HandleChangeColor (const sf::Color& color);
 
       virtual void HandleUpdate (const Time& dt);
+
+    private:
+
+      void SetCurrentFrame (IndexType index);
+      void SetDefaultFrame ();
 
       static const PlayState DEFAULT_PLAY_STATE;
       static const IndexType DEFAULT_DEFAULT_INDEX;

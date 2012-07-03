@@ -30,6 +30,8 @@
 #include "World/Map/NPCReader.hpp"
 #include "World/Map/Teleporter.hpp"
 
+// #define YAPOG_DB_MODE
+
 namespace yse
 {
   const bool Server::DEFAULT_RUNNING_STATE = false;
@@ -66,7 +68,9 @@ namespace yse
 
     InitLoggerManager ();
 
+#ifdef YAPOG_DB_MODE
     databaseManager_.Connect ();
+#endif // YAPOG_DB_MODE
 
     LoadMaps ();
 

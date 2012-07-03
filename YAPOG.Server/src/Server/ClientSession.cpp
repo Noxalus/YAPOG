@@ -27,7 +27,9 @@ namespace yse
     user_.SetParent (this);
 
     ADD_HANDLER(ClientRequestLogin, ClientSession::HandleClientRequestLogin);
-    ADD_HANDLER(ClientRequestRegistration, ClientSession::HandleClientRequestRegistration);
+    ADD_HANDLER(
+      ClientRequestRegistration,
+      ClientSession::HandleClientRequestRegistration);
     ADD_HANDLER(
       ClientInfoDeconnection,
       ClientSession::HandleClientInfoDeconnection);
@@ -70,7 +72,8 @@ namespace yse
     return socket_;
   }
 
-  void ClientSession::SetDatabaseManager (yap::DatabaseManager* databaseManager)
+  void ClientSession::SetDatabaseManager (
+    yap::DatabaseManager* databaseManager)
   {
     databaseManager_ = databaseManager;
   }
@@ -146,7 +149,8 @@ namespace yse
         SendPacket (primaryDataPacket);
       }
 
-      yap::DebugLogger::Instance ().LogLine ("Client logged: `" + login + "'.");
+      yap::DebugLogger::Instance ().LogLine (
+        "Client logged: `" + login + "'.");
     }
     catch (...)
     {
@@ -184,7 +188,8 @@ namespace yse
         SendPacket (primaryDataPacket);
       }
 
-      yap::DebugLogger::Instance ().LogLine ("New account created: `" + login + "'.");
+      yap::DebugLogger::Instance ().LogLine (
+        "New account created: `" + login + "'.");
     }
     catch (...)
     {

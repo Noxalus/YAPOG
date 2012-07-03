@@ -111,7 +111,8 @@ namespace ycl
 
         //loginWidget_.SetErrorText ("Nom d'utilisateur incorrect !");
 
-        //nextScreen_ = "Gameplay";
+        /// @warning temp
+//        nextScreen_ = "Gameplay";
         return true;
       }
 

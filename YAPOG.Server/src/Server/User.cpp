@@ -11,7 +11,6 @@
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
 
-
 namespace yse
 {
   User::User ()
@@ -52,24 +51,28 @@ namespace yse
   {
     login_ = login;
 
+#ifdef YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
     am.Login (login, password, ip);
+#endif // YAPOG_DB_MODE
 
     return true;
   }
 
   bool User::Register (
-    const yap::String& login, 
-    const yap::String& password, 
-    const yap::String& email, 
+    const yap::String& login,
+    const yap::String& password,
+    const yap::String& email,
     const yap::String& ip)
   {
     login_ = login;
 
+#ifdef YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
     am.CreateNewAccount (login, password, email, ip);
+#endif // YAPOG_DB_MODE
 
-    return true; 
+    return true;
   }
 
   bool User::HandlePacket (yap::IPacket& packet)
