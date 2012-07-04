@@ -38,7 +38,7 @@ namespace ycl
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
   const yap::Vector2 GameplayScreen::DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR =
-    yap::Vector2 (2.0f, 2.0f);
+    yap::Vector2 (1.0f, 1.0f);
 
   GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
     : BaseScreen (DEFAULT_NAME)

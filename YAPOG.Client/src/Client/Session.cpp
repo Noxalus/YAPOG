@@ -3,6 +3,7 @@
 #include "YAPOG/System/Network/Packet.hpp"
 
 #include "Client/Session.hpp"
+#include "Configuration/GameData.hpp"
 
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace ycl
@@ -130,7 +131,7 @@ namespace ycl
     if (isConnected_)
       return true;
 
-    if (!socket_.Connect (DEFAULT_REMOTE_IP, DEFAULT_REMOTE_PORT))
+    if (!socket_.Connect (GameData::RemoteIPAddress (), DEFAULT_REMOTE_PORT))
       return false;
 
     AddRelay (&user_);
