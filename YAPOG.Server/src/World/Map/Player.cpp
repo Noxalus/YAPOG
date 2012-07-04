@@ -104,6 +104,8 @@ namespace yse
 
   void Player::TriggerBattle ()
   {
+    SetInactive ();
+
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ServerInfoTriggerBattle);
 

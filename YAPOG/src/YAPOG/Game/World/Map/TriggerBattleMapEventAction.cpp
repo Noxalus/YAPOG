@@ -88,10 +88,8 @@ namespace yap
 
     gRange *= offset.x + offset.y;
 
-    DLOGGER.LogLine ("BATTLE TRIGGERED!!");
-
     return
-      RandomHelper::GetNext (1, gRange) !=
+      RandomHelper::GetNext (1, gRange) ==
       RandomHelper::GetNext (1, gRange);
   }
 } // namespace yap
