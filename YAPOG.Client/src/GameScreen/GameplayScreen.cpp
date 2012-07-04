@@ -79,8 +79,8 @@ namespace ycl
     session_.GetUser ().OnPlayerCreated += [this] (
       const User& sender,
       Player* args)
-    {     
-      SetPlayer (args);      
+    {
+      SetPlayer (args);
     };
 
     session_.GetUser ().OnMessageReceived += [this] (
@@ -162,7 +162,7 @@ namespace ycl
 
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
-    
+
 
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
@@ -339,7 +339,7 @@ namespace ycl
 
   void GameplayScreen::SetPlayer (Player* player)
   {
-    player_ = player;    
+    player_ = player;
     SetPlayerName ();
 
     moveController_.SetValue (player_->GetMaxVelocity ());
