@@ -2,7 +2,7 @@
   <boundingBoxes>
     <entry>
       <BoundingBox>
-        <rect>0,0,32,32</rect>
+        <rect>0,0,32,96</rect>
         <z>0</z>
         <h>1</h>
       </BoundingBox>
@@ -10,6 +10,6 @@
   </boundingBoxes>
   <spriteType>Sprite</spriteType>
   <Sprite>
-    <Texture id="0"/>
+    <Texture id="399"/>
   </Sprite>
 </MapElement>
