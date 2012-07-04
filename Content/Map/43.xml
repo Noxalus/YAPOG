@@ -1,0 +1,25 @@
+<Map id="43">
+  <name>t2</name>
+  <width>508</width>
+  <height>200</height>
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <layoutHandlerType>RandomTileLayoutHandler</layoutHandlerType>
+      <Tile id="1"/>
+    </tileLayer>
+  </ground>
+  <staticObjects>
+    <MapElement id="1">
+      <position>250,250</position>
+    </MapElement>
+  </staticObjects>
+  <dynamicObjects>
+    <Teleporter id="1">
+      <position>500,500</position>
+      <mapWorldID>1</mapWorldID>
+      <mapPoint>30,50</mapPoint>
+      <area>0,0,500,500</area>
+    </Teleporter>
+  </dynamicObjects>
+</Map>
