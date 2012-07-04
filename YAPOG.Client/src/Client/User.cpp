@@ -34,6 +34,16 @@ namespace ycl
   {
   }
 
+  PlayerTrainer& User::GetTrainer ()
+  {
+    return *trainer_;
+  }
+
+   void User::SetTrainer (PlayerTrainer* trainer)
+  {
+    trainer_ = trainer;
+  }
+
   void User::SetWorld (World* world)
   {
     world_ = world;
@@ -100,11 +110,6 @@ namespace ycl
     player_ = player;
 
     OnPlayerCreated (*this, player_);
-  }
-
-  void User::SetTrainer (PlayerTrainer* trainer)
-  {
-    trainer_ = trainer;
   }
 
   void User::HandleServerInfoSetUserPlayer (yap::IPacket& packet)

@@ -20,6 +20,11 @@ namespace ycl
     PlayerTrainer ();
     virtual ~PlayerTrainer ();
 
+    /// @name Getters.
+    /// @{
+    PokemonFighterTeam& GetTeam ();
+    /// @}
+
     /// @name Setters.
     /// @{
     void SetTeam (PokemonFighterTeam* value);

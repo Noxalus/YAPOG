@@ -55,6 +55,7 @@ namespace ycl
   private:
     Battle& battle_;
     BattleInterface& battleInterface_;
+    yap::BattlePhaseState nextPhase_;
   };
 } // namespace ycl
 

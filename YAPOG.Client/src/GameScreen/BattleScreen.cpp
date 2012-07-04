@@ -10,6 +10,8 @@
 #include "Pokemon/PokemonTeam.hpp"
 #include "Battle/PokemonFighter.hpp"
 #include "Battle/PokemonFighterTeam.hpp"
+#include "Client/Session.hpp"
+#include "Battle/PlayerTrainer.hpp"
 
 namespace ycl
 {
@@ -43,24 +45,7 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    PokemonTeam* team = new PokemonTeam ();
-    team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
-    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
-
-    PokemonFighter* wildPokemon =
-      new PokemonFighter (GeneratePokemon (), true);
-    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
-    playerFighterTeam->AddPokemon (
-      new PokemonFighter (team->GetPokemon (0), false));
-    playerFighterTeam->AddPokemon (
-      new PokemonFighter (team->GetPokemon (1), false));
-
     battleInterface_ = new BattleInterface ();
-
-    battle_ = new WildBattle (*battleInterface_);
-    battle_->SetPlayerTeam (playerFighterTeam);
-    battle_->SetOpponent (wildPokemon);
-    battle_->Init ();
 
     guiManager_->AddChild (*battleInterface_);
   }
@@ -78,6 +63,36 @@ namespace ycl
   void BattleScreen::HandleActivate ()
   {
     yap::AudioManager::Instance ().PlayMusic ("BGM/WildPokemonBattleShort.ogg");
+
+    PokemonTeam* team = new PokemonTeam ();
+    team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
+    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
+
+    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (0), false));
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (1), false));
+
+    PokemonFighter* wildPokemon =
+      new PokemonFighter (GeneratePokemon (), true);
+
+    battle_ = new WildBattle (*battleInterface_);
+
+    battle_->SetPlayerTeam (playerFighterTeam);
+    battle_->SetOpponent (wildPokemon);
+    battle_->Init ();
+
+    battle_->OnBattleEnd +=
+      [&] (const yap::Battle& sender, const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Gameplay";
+    };
+  }
+
+  void BattleScreen::HandleDeactivate ()
+  {
+    battleInterface_->Reset ();
   }
 
 } // namespace ycl

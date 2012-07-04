@@ -27,6 +27,8 @@ namespace yap
     virtual bool IsFocusable () const;
     void SetShowText (bool state);
 
+    void SkipText ();
+
   protected:
     void Refresh ();
     virtual bool HandleOnEvent (const GuiEvent& guiEvent);

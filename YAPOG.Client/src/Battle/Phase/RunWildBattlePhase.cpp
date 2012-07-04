@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 #include "Battle/Phase/RunWildBattlePhase.hpp"
 #include "Battle/Battle.hpp"
@@ -13,6 +14,7 @@ namespace ycl
     : yap::RunWildBattlePhase (battle)
     , battle_ (battle)
     , battleInterface_ (battleInterface)
+    , flagEndBattle_ (false)
   {
   }
 
@@ -26,17 +28,35 @@ namespace ycl
 
   void RunWildBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
-    BattlePhase::HandleStart (args);
+    yap::RunWildBattlePhase::HandleStart (args);
+
+    battleInterface_.GetBattleMenu ().Close ();
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+    battleInterface_.GetBattleInfoDialogBox ().AddText (
+      "Vous prenez la fuite !");
+
+    battleInterface_.GetBattleInfoDialogBox ().Show (true);
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+
+    battleInterface_.GetBattleInfoDialogBox ().OnTextChanged.AddHandler (
+      "SKIP_RUN_TEXT_EVENT_HANDLER",
+      [&] (const yap::BaseWidget& sender, const yap::EmptyEventArgs& args)
+    {
+      battleInterface_.GetBattleInfoDialogBox ().
+        OnTextChanged.RemoveHandler ("SKIP_RUN_TEXT_EVENT_HANDLER");
+
+      battle_.OnBattleEnd (battle_, yap::EmptyEventArgs ());
+    });
   }
 
   void RunWildBattlePhase::HandleUpdate (const yap::Time& dt)
   {
-    BattlePhase::HandleUpdate (dt);
+    yap::RunWildBattlePhase::HandleUpdate (dt);
   }
 
   void RunWildBattlePhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::RunWildBattlePhase::HandleEnd ();
   }
 
   void RunWildBattlePhase::Draw (yap::IDrawingContext& context)

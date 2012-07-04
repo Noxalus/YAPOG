@@ -27,8 +27,8 @@ namespace ycl
       const yap::Time& dt,
       yap::IDrawingContext& context);
 
-    void HandleActivate ();
-
+    virtual void HandleActivate ();
+    virtual void HandleDeactivate ();
   private:
     Battle* battle_;
     BattleInterface* battleInterface_;

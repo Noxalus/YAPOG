@@ -26,6 +26,8 @@ namespace ycl
   public:
     BattleInterface ();
 
+    void Reset ();
+
     /// @name Getters.
     /// @{
     yap::DialogBoxWidget& GetBattleInfoDialogBox ();

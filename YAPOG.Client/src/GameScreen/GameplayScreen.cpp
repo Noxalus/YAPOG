@@ -21,6 +21,8 @@
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
 #include "YAPOG/Audio/AudioManager.hpp"
+#include "YAPOG/Game/Battle/PlayerTrainer.hpp"
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -32,6 +34,15 @@
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
+
+#include "Client/Session.hpp"
+#include "Client/User.hpp"
+#include "Battle/PlayerTrainer.hpp"
+#include "Pokemon/Pokemon.hpp"
+#include "Pokemon/PokemonTeam.hpp"
+#include "Battle/PokemonFighter.hpp"
+#include "Battle/PokemonFighterTeam.hpp"
+
 
 namespace ycl
 {
@@ -96,7 +107,7 @@ namespace ycl
     chat_->Close ();
 
     chat_->OnMessageSent +=
-    [this] (ChatWidget& sender, yap::GameMessage& args)
+      [this] (ChatWidget& sender, yap::GameMessage& args)
     {
       session_.GetUser ().SendGameMessage (args);
     };
@@ -104,7 +115,22 @@ namespace ycl
 
     worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
+    // @todo Provide theses information from the database
     yap::PokemonTeam* team = new yap::PokemonTeam ();
+    
+    /*
+    team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
+    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
+
+    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (0), false));
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (1), false));
+
+    session_.GetUser ().GetTrainer ().SetTeam (playerFighterTeam);
+    */
+
     pokemonTeam_ = new PokemonTeamWidget (team);
     pokemonTeam_->Init ();
     pokemonTeam_->Close ();
@@ -165,8 +191,8 @@ namespace ycl
   {
     if (fpsDisplayTimer_.DelayIsComplete (yap::Time (0.5f), true))
       fpsLabel_->SetText (
-        "FPS: " +
-        yap::StringHelper::ToString<int> (1.0f / dt.GetValue ()));
+      "FPS: " +
+      yap::StringHelper::ToString<int> (1.0f / dt.GetValue ()));
 
     world_.Update (dt);
 
@@ -183,44 +209,44 @@ namespace ycl
   {
     switch (guiEvent.type)
     {
-      case sf::Event::KeyPressed:
+    case sf::Event::KeyPressed:
 
-        switch (guiEvent.key.code)
-        {
-          case sf::Keyboard::Space:
+      switch (guiEvent.key.code)
+      {
+      case sf::Keyboard::Space:
 
-            if (player_ != nullptr && player_->IsActive ())
-              break;
+        if (player_ != nullptr && player_->IsActive ())
+          break;
 
-            gameGuiManager_->SetCurrentWidget ("Menu");
+        gameGuiManager_->SetCurrentWidget ("Menu");
 
-            /// @warning Battle Test
-            nextScreen_ = "Battle";
+        /// @warning Battle Test
+        nextScreen_ = "Battle";
 
-            return true;
+        return true;
 
-          case sf::Keyboard::C:
+      case sf::Keyboard::C:
 
-            if (player_ != nullptr && player_->IsActive ())
-              break;
+        if (player_ != nullptr && player_->IsActive ())
+          break;
 
-            gameGuiManager_->SetCurrentWidget ("Chat");
+        gameGuiManager_->SetCurrentWidget ("Chat");
 
-            return true;
-
-          default: break;
-        }
-
-        break;
-
-      case sf::Event::KeyReleased:
-
-        switch (guiEvent.key.code)
-        {
-          default: break;
-        }
+        return true;
 
       default: break;
+      }
+
+      break;
+
+    case sf::Event::KeyReleased:
+
+      switch (guiEvent.key.code)
+      {
+      default: break;
+      }
+
+    default: break;
     }
 
     if (gameInputManager_.GameInputIsActivated (

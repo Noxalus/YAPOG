@@ -30,6 +30,7 @@ namespace ycl
     SelectionPhase* selectionPhase = new SelectionPhase (*this, battleInterface_);
     RunWildBattlePhase* runPhase = new RunWildBattlePhase (*this, battleInterface_);
 
+    beginWildBattlePhase->Init ();
     selectionPhase->Init ();
 
     AddPhase (yap::BattlePhaseState::BeginBattle, beginWildBattlePhase);

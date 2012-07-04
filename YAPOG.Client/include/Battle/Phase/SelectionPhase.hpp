@@ -56,6 +56,7 @@ namespace ycl
   private:
     Battle& battle_;
     BattleInterface& battleInterface_;
+    bool runFlag_;
   };
 } // namespace ycl
 
