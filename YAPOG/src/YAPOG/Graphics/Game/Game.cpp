@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  const sf::Color Game::DEFAULT_CLEAR_COLOR = sf::Color::White;
+  const sf::Color Game::DEFAULT_CLEAR_COLOR = sf::Color::Black;
 
   Game::Game (const String& name)
     : drawingContext_ (nullptr)

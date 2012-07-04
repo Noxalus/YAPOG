@@ -27,6 +27,7 @@ namespace yap
       virtual void Deactivate () = 0;
 
       virtual void NextFrame () = 0;
+
       /// @brief Performs one frame of the screen life.
       /// @param dt Delta time elapsed since last frame.
       /// @param context Drawing context where are drawn graphical elements.
