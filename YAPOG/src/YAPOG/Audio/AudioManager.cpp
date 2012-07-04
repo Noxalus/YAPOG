@@ -29,6 +29,7 @@ namespace yap
 
     currentMusic_ = &ContentManager::Instance ().LoadMusic (musicName);
 
+    currentMusic_->setLoop (true);
     currentMusic_->play ();
   }
 
