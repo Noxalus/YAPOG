@@ -29,6 +29,7 @@ namespace ycl
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
     ADD_HANDLER(ServerInfoRemoveObject, User::HandleServerInfoRemoveObject);
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
+    ADD_HANDLER(ServerInfoTriggerBattle, User::HandleServerInfoTriggerBattle);
   }
 
   User::~User ()
@@ -261,5 +262,10 @@ namespace ycl
     gameMessage.SetContent (content);
 
     OnMessageReceived (*this, gameMessage);
+  }
+
+  void User::HandleServerInfoTriggerBattle (yap::IPacket& packet)
+  {
+    OnBattleTriggered (*this, yap::EmptyEventArgs ());
   }
 } // namespace ycl

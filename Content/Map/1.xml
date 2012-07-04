@@ -647,24 +647,13 @@
       <position>200,350</position>
     </NPC>
 
-    <Teleporter id="1">
-      <position>300,200</position>
-      <mapWorldID>2</mapWorldID>
-      <mapPoint>250,200</mapPoint>
-      <area>0,0,240,250</area>
-    </Teleporter>
-    <Teleporter id="1">
-      <position>140,400</position>
-      <mapWorldID>2</mapWorldID>
-      <mapPoint>250,200</mapPoint>
-      <area>0,0,240,250</area>
-    </Teleporter>
-    <Teleporter id="1">
-      <position>540,300</position>
-      <mapWorldID>2</mapWorldID>
-      <mapPoint>250,200</mapPoint>
-      <area>0,0,240,250</area>
-    </Teleporter>
+    <OpenBattleSpawnerArea id="1">
+      <area>
+        <width>2</width>
+        <height>7</height>
+      </area>
+      <position>280,390</position>
+    </OpenBattleSpawnerArea>
 
     <DestructibleObject id="1"><position>150,32</position></DestructibleObject>
     <DestructibleObject id="1"><position>700,32</position></DestructibleObject>

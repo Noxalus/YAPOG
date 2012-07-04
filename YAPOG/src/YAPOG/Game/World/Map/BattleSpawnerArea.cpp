@@ -1,11 +1,8 @@
 #include "YAPOG/Game/World/Map/BattleSpawnerArea.hpp"
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
-#include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
-#include "YAPOG/Game/World/Map/MapEventArgs.hpp"
-#include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/World/Map/TriggerBattleMapEventAction.hpp"
 
-#include "YAPOG/Log.hpp"
 namespace yap
 {
   const uint BattleSpawnerArea::DEFAULT_CELL_SIZE = 32;
@@ -15,9 +12,6 @@ namespace yap
 
   const int BattleSpawnerArea::DEFAULT_BATTLE_SPAWNING_AREA_Z = 0;
   const int BattleSpawnerArea::DEFAULT_BATTLE_SPAWNING_AREA_H = 1;
-
-  const String BattleSpawnerArea::OBJECT_ENTERING_HANDLER_NAME =
-    "ObjectEntering";
 
   BattleSpawnerArea::BattleSpawnerArea (const ID& id)
     : MapArea (id)
@@ -90,44 +84,13 @@ namespace yap
         DEFAULT_BATTLE_SPAWNING_AREA_H));
 
     battleSpawningEvent->AddAction (
-      new AnyMapEventAction (
+      new TriggerBattleMapEventAction (
         MapEventActionType::Enter,
-        [this] (MapEventArgs& args)
-        {
-          args.GetTrigger ().OnMoved.AddHandler (
-            OBJECT_ENTERING_HANDLER_NAME +
-            yap::StringHelper::ToString (
-              args.GetTrigger ().GetWorldID ().GetValue ()),
-            [this] (
-              DynamicWorldObject& sender,
-              const Vector2& args)
-            {
-              DLOGGER.LogLine ("BATTLE TRIGGERED!!");
-            });
-
-          return true;
-        }));
-
+        *this));
     battleSpawningEvent->AddAction (
-      new AnyMapEventAction (
-        MapEventActionType::In,
-        [this] (MapEventArgs& args)
-        {
-          return true;
-        }));
-
-    battleSpawningEvent->AddAction (
-      new AnyMapEventAction (
+      new TriggerBattleMapEventAction (
         MapEventActionType::Leave,
-        [this] (MapEventArgs& args)
-        {
-          args.GetTrigger ().OnMoved.RemoveHandler (
-            OBJECT_ENTERING_HANDLER_NAME +
-            yap::StringHelper::ToString (
-              args.GetTrigger ().GetWorldID ().GetValue ()));
-
-          return true;
-        }));
+        *this));
 
     AddEvent (battleSpawningEvent);
   }

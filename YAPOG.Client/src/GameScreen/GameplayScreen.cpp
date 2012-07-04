@@ -79,6 +79,13 @@ namespace ycl
       chat_->AddMessage (message.GetContent ());
     };
 
+    session_.GetUser ().OnBattleTriggered += [this] (
+      const User& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Battle";
+    };
+
     world_.OnMapChanged += [this] (
       const World& sender,
       const yap::ChangeEventArgs<Map*>& args)

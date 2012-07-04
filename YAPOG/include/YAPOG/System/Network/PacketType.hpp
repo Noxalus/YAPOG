@@ -42,7 +42,9 @@ namespace yap
     ServerInfoAddObject,
     ServerInfoRemoveObject,
 
-    ServerInfoGameMessage
+    ServerInfoGameMessage,
+
+    ServerInfoTriggerBattle
   };
 } // namespace yap
 

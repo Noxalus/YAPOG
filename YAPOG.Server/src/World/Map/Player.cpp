@@ -1,6 +1,7 @@
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
 
 #include "World/Map/Player.hpp"
 #include "Server/User.hpp"
@@ -81,6 +82,11 @@ namespace yse
     visitor.VisitCharacter (*this);
   }
 
+  const yap::String& Player::GetName () const
+  {
+    return GetName ();
+  }
+
   bool Player::HasInput (const yap::GameInputType gameInputType) const
   {
     return inputManager_.InputIsActive (gameInputType);
@@ -94,6 +100,21 @@ namespace yse
   void Player::DestroyObject (const yap::ID& objectWorldID)
   {
     GetParent ().GetMap ().RemoveObject (objectWorldID);
+  }
+
+  void Player::TriggerBattle ()
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoTriggerBattle);
+
+    SendPacket (packet);
+  }
+
+  yap::Event<
+    yap::DynamicWorldObject&,
+    const yap::Vector2&>& Player::OnMovedEvent ()
+  {
+    return OnMoved;
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const

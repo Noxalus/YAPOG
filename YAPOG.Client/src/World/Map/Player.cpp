@@ -37,6 +37,11 @@ namespace ycl
     visitor.VisitPlayer (*this);
   }
 
+  const yap::String& Player::GetName () const
+  {
+    return GetName ();
+  }
+
   bool Player::HasInput (yap::GameInputType gameInputType) const
   {
     // Does nothing, server side only.
@@ -52,6 +57,18 @@ namespace ycl
   void Player::DestroyObject (const yap::ID& objectWorldID)
   {
     // Does nothing, server side only.
+  }
+
+  void Player::TriggerBattle ()
+  {
+    // Does nothing, server side only.
+  }
+
+  yap::Event<
+    yap::DynamicWorldObject&,
+    const yap::Vector2&>& Player::OnMovedEvent ()
+  {
+    return OnMoved;
   }
 
   const yap::String& Player::GetObjectFactoryTypeName () const

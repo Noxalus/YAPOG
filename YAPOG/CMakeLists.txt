@@ -128,6 +128,8 @@ ${inc_root}/Game/World/Map/AnyMapEventAction.hpp
 ${src_root}/Game/World/Map/AnyMapEventAction.cpp
 ${inc_root}/Game/World/Map/DestroyObjectMapEventAction.hpp
 ${src_root}/Game/World/Map/DestroyObjectMapEventAction.cpp
+${inc_root}/Game/World/Map/TriggerBattleMapEventAction.hpp
+${src_root}/Game/World/Map/TriggerBattleMapEventAction.cpp
 ${inc_root}/Game/World/Map/WarpMapEventAction.hpp
 ${src_root}/Game/World/Map/WarpMapEventAction.cpp
 ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp
