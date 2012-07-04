@@ -19,6 +19,7 @@ namespace ycl
 {
   User::User ()
     : packetHandler_ ()
+    , login_ ()
     , world_ (nullptr)
     , player_ (nullptr)
     , trainer_ (nullptr)
@@ -32,6 +33,16 @@ namespace ycl
 
   User::~User ()
   {
+  }
+
+  const yap::String& User::GetLogin () const
+  {
+    return login_;
+  }
+
+  void User::SetLogin (const yap::String& login)
+  {
+    login_ = login;
   }
 
   void User::SetWorld (World* world)

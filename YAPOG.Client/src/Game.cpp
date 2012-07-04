@@ -43,6 +43,7 @@
 
 #include "Client/Session.hpp"
 #include "Game.hpp"
+#include "Configuration/GameData.hpp"
 #include "GameScreen/LoadingScreen.hpp"
 #include "GameScreen/UpdateScreen.hpp"
 #include "GameScreen/OptionScreen.hpp"
@@ -91,15 +92,13 @@ namespace ycl
   void Game::HandleInit ()
   {
     InitRandom ();
-#ifndef YAPOG_WIN
-    InitContentManager (yap::Path ("../Content/"));
-#else
-    InitContentManager (yap::Path ("../../Content/"));
-#endif // YAPOG_WIN
+
+    InitContentManager (yap::Path (GameData::ContentPath ()));
+
     InitObjectFactory ();
     InitGameInputManager ();
     InitWorldObjectStateFactory ();
-    InitDrawingContext (yap::Vector2 (SCREEN_SIZE.x, SCREEN_SIZE.y));
+    InitDrawingContext (GameData::WindowSize ());
     InitScreenManager ();
 
     InitLoggerManager ();
@@ -109,29 +108,29 @@ namespace ycl
   {
     switch (guiEvent.type)
     {
-    case yap::GuiEventType::Closed:
-
-      window_->close ();
-
-      return true;
-
-    case yap::GuiEventType::KeyPressed:
-
-      switch (guiEvent.key.code)
-      {
-      case yap::Key::Escape:
+      case yap::GuiEventType::Closed:
 
         window_->close ();
 
         return true;
+
+      case yap::GuiEventType::KeyPressed:
+
+        switch (guiEvent.key.code)
+        {
+          case yap::Key::Escape:
+
+            window_->close ();
+
+            return true;
+          default:
+            break;
+        }
+
+        break;
+
       default:
         break;
-      }
-
-      break;
-
-    default:
-      break;
     }
 
     return false;
@@ -162,10 +161,10 @@ namespace ycl
   {
     contentManager_.Init (contentRootPath);
 
-    contentManager_.SetTexturePath (yap::Path ("Graphics"));
-    contentManager_.SetFontPath (yap::Path ("Graphics/Fonts"));
-    contentManager_.SetMusicPath (yap::Path ("Audio/"));
-    contentManager_.SetSoundBufferPath (yap::Path ("Audio/"));
+    contentManager_.SetTexturePath (yap::Path (GameData::TexturePath ()));
+    contentManager_.SetFontPath (yap::Path (GameData::FontPath ()));
+    contentManager_.SetMusicPath (yap::Path (GameData::MusicPath ()));
+    contentManager_.SetSoundBufferPath (yap::Path (GameData::SoundPath ()));
   }
 
   void Game::InitObjectFactory ()
@@ -181,8 +180,8 @@ namespace ycl
       new yap::XmlObjectIDLoader<
       DestructibleObject,
       DestructibleObjectReader> (
-      yap::Path ("DestructibleObject"),
-      "DestructibleObject"));
+        yap::Path ("DestructibleObject"),
+        "DestructibleObject"));
 
     objectFactory_.RegisterLoader (
       "DirectionSpriteSet",
@@ -193,40 +192,40 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
-      yap::Path ("Map"),
-      "Map"));
+        yap::Path ("Map"),
+        "Map"));
 
     objectFactory_.RegisterLoader (
       "MapElement",
       new yap::XmlObjectIDLoader<MapElement, MapElementReader> (
-      yap::Path ("MapElement"),
-      "MapElement"));
+        yap::Path ("MapElement"),
+        "MapElement"));
 
     objectFactory_.RegisterLoader (
       "NPC",
       new yap::XmlObjectIDLoader<NPC, NPCReader> (
-      yap::Path ("NPC"),
-      "NPC"));
+        yap::Path ("NPC"),
+        "NPC"));
 
     objectFactory_.RegisterLoader (
       "OpenBattleSpawnerArea",
       new yap::XmlObjectIDLoader<
       OpenBattleSpawnerArea,
       OpenBattleSpawnerAreaReader> (
-      yap::Path ("OpenBattleSpawnerArea"),
-      "OpenBattleSpawnerArea"));
+        yap::Path ("OpenBattleSpawnerArea"),
+        "OpenBattleSpawnerArea"));
 
     objectFactory_.RegisterLoader (
       "Player",
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
-      yap::Path ("Player"),
-      "Player"));
+        yap::Path ("Player"),
+        "Player"));
 
     objectFactory_.RegisterLoader (
       "Teleporter",
       new yap::XmlObjectIDLoader<Teleporter, yap::TeleporterReader> (
-      yap::Path ("Teleporter"),
-      "Teleporter"));
+        yap::Path ("Teleporter"),
+        "Teleporter"));
 
     objectFactory_.RegisterLoader (
       "RandomTileLayoutHandler",
@@ -253,38 +252,38 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Texture",
       new yap::XmlObjectIDLoader<yap::Texture, yap::TextureReader> (
-      yap::Path ("Texture"),
-      "Texture"));
+        yap::Path ("Texture"),
+        "Texture"));
 
     objectFactory_.RegisterLoader (
       "Tile",
       new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
-      yap::Path ("Tile"),
-      "Tile"));
+        yap::Path ("Tile"),
+        "Tile"));
 
     objectFactory_.RegisterLoader (
       "PokemonInfo",
       new yap::XmlObjectIDLoader<PokemonInfo, PokemonInfoReader> (
-      yap::Path ("Pokemon/Pokemon"),
-      "PokemonInfo"));
+        yap::Path ("Pokemon/Pokemon"),
+        "PokemonInfo"));
 
     objectFactory_.RegisterLoader (
       "NatureInfo",
       new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader> (
-      yap::Path ("Pokemon/Nature"),
-      "Nature"));
+        yap::Path ("Pokemon/Nature"),
+        "Nature"));
 
     objectFactory_.RegisterLoader (
       "TypeInfo",
       new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader> (
-      yap::Path ("Pokemon/Types"),
-      "Type"));
+        yap::Path ("Pokemon/Types"),
+        "Type"));
 
     objectFactory_.RegisterLoader (
       "SkillInfo",
       new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader> (
-      yap::Path ("Pokemon/Skills"),
-      "Skill"));
+        yap::Path ("Pokemon/Skills"),
+        "Skill"));
   }
 
   void Game::InitWorldObjectStateFactory ()
@@ -299,32 +298,32 @@ namespace ycl
 
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::MapAction,
-      new yap::KeyboardGameInputEntry (yap::Key::A)));
+        yap::GameInputType::MapAction,
+        new yap::KeyboardGameInputEntry (yap::Key::A)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Action,
-      new yap::KeyboardGameInputEntry (yap::Key::Return)));
+        yap::GameInputType::Action,
+        new yap::KeyboardGameInputEntry (yap::Key::Return)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Misc,
-      new yap::KeyboardGameInputEntry (yap::Key::M)));
+        yap::GameInputType::Misc,
+        new yap::KeyboardGameInputEntry (yap::Key::M)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Up,
-      new yap::KeyboardGameInputEntry (yap::Key::Up)));
+        yap::GameInputType::Up,
+        new yap::KeyboardGameInputEntry (yap::Key::Up)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Down,
-      new yap::KeyboardGameInputEntry (yap::Key::Down)));
+        yap::GameInputType::Down,
+        new yap::KeyboardGameInputEntry (yap::Key::Down)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Left,
-      new yap::KeyboardGameInputEntry (yap::Key::Left)));
+        yap::GameInputType::Left,
+        new yap::KeyboardGameInputEntry (yap::Key::Left)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Right,
-      new yap::KeyboardGameInputEntry (yap::Key::Right)));
+        yap::GameInputType::Right,
+        new yap::KeyboardGameInputEntry (yap::Key::Right)));
   }
 
   void Game::InitDrawingContext (const yap::Vector2& resolution)
@@ -359,8 +358,8 @@ namespace ycl
     GetScreenManager ().AddGameScreen (new LoginScreen ());
     GetScreenManager ().AddGameScreen (
       new GameplayScreen (
-      drawingContext_->GetCamera (
-      "World")));
+        drawingContext_->GetCamera (
+          "World")));
     //GetScreenManager ().AddGameScreen (new BattleScreen ());
     GetScreenManager ().AddGameScreen (new MainMenuScreen ());
     GetScreenManager ().AddGameScreen (new RegistrationScreen ());

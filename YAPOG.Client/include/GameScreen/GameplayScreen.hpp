@@ -45,6 +45,8 @@ namespace ycl
       void SetCurrentMap (Map& map);
       void SetPlayer (Player* player);
 
+      void SetPlayerName ();
+
       void UpdatePlayer (const yap::Time& dt);
 
       void SendApplyForce (const yap::Vector2& force);

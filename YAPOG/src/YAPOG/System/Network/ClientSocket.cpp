@@ -6,7 +6,7 @@
 namespace yap
 {
   const bool ClientSocket::DEFAULT_BLOCKING_STATE = false;
-  const Time ClientSocket::DEFAULT_CONNECTION_TIMEOUT = Time (5.0f);
+  const Time ClientSocket::DEFAULT_CONNECTION_TIMEOUT = Time (3.0f);
 
   ClientSocket::ClientSocket ()
     : Socket ()

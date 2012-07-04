@@ -25,6 +25,7 @@ namespace yap
       virtual void Deactivate ();
 
       virtual void NextFrame ();
+
       virtual const ScreenType& Run (const Time& dt, IDrawingContext& context);
 
       virtual const GuiManager& GetGuiManager () const;

@@ -2,6 +2,8 @@
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
+#include "YAPOG/Game/World/Map/MapEventArgs.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 #include "YAPOG/Log.hpp"
 namespace yap
@@ -13,6 +15,9 @@ namespace yap
 
   const int BattleSpawnerArea::DEFAULT_BATTLE_SPAWNING_AREA_Z = 0;
   const int BattleSpawnerArea::DEFAULT_BATTLE_SPAWNING_AREA_H = 1;
+
+  const String BattleSpawnerArea::OBJECT_ENTERING_HANDLER_NAME =
+    "ObjectEntering";
 
   BattleSpawnerArea::BattleSpawnerArea (const ID& id)
     : MapArea (id)
@@ -89,7 +94,16 @@ namespace yap
         MapEventActionType::Enter,
         [this] (MapEventArgs& args)
         {
-          DLOGGER.LogLine ("ENTERING BATTLE AREA");
+          args.GetTrigger ().OnMoved.AddHandler (
+            OBJECT_ENTERING_HANDLER_NAME +
+            yap::StringHelper::ToString (
+              args.GetTrigger ().GetWorldID ().GetValue ()),
+            [this] (
+              DynamicWorldObject& sender,
+              const Vector2& args)
+            {
+              DLOGGER.LogLine ("BATTLE TRIGGERED!!");
+            });
 
           return true;
         }));
@@ -99,8 +113,6 @@ namespace yap
         MapEventActionType::In,
         [this] (MapEventArgs& args)
         {
-          DLOGGER.LogLine ("IN BATTLE AREA");
-
           return true;
         }));
 
@@ -109,7 +121,10 @@ namespace yap
         MapEventActionType::Leave,
         [this] (MapEventArgs& args)
         {
-          DLOGGER.LogLine ("LEAVING BATTLE AREA");
+          args.GetTrigger ().OnMoved.RemoveHandler (
+            OBJECT_ENTERING_HANDLER_NAME +
+            yap::StringHelper::ToString (
+              args.GetTrigger ().GetWorldID ().GetValue ()));
 
           return true;
         }));

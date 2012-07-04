@@ -41,6 +41,8 @@ namespace yap
       static const int DEFAULT_BATTLE_SPAWNING_AREA_Z;
       static const int DEFAULT_BATTLE_SPAWNING_AREA_H;
 
+      static const String OBJECT_ENTERING_HANDLER_NAME;
+
       uint width_;
       uint height_;
 

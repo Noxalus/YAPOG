@@ -104,7 +104,7 @@ namespace ycl
   yap::Vector2 DestructibleObject::HandleGetSize () const
   {
     if (sprite_ == nullptr)
-      return yap::DestructibleObject::HandleGetSize ();
+      return yap::WorldObject::HandleGetSize ();
 
     return sprite_->GetSize ();
   }

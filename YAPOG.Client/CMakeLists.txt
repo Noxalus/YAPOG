@@ -78,6 +78,11 @@ ${src_root}/Client/Session.cpp
 ${inc_root}/Client/User.hpp
 ${src_root}/Client/User.cpp
 
+${inc_root}/Configuration/ConfigurationReader.hpp
+${src_root}/Configuration/ConfigurationReader.cpp
+${inc_root}/Configuration/GameData.hpp
+${src_root}/Configuration/GameData.cpp
+
 ${inc_root}/GameInput/GameInputReader.hpp
 ${src_root}/GameInput/GameInputReader.cpp
 ${inc_root}/GameScreen/BaseScreen.hpp
