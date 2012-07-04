@@ -39,7 +39,7 @@ namespace ycl
 
   const yap::String& Player::GetName () const
   {
-    return GetName ();
+    return yap::WorldObject::GetName ();
   }
 
   bool Player::HasInput (yap::GameInputType gameInputType) const

@@ -84,7 +84,7 @@ namespace yse
 
   const yap::String& Player::GetName () const
   {
-    return GetName ();
+    return yap::WorldObject::GetName ();
   }
 
   bool Player::HasInput (const yap::GameInputType gameInputType) const
