@@ -128,6 +128,8 @@ ${inc_root}/Game/World/Map/AnyMapEventAction.hpp
 ${src_root}/Game/World/Map/AnyMapEventAction.cpp
 ${inc_root}/Game/World/Map/DestroyObjectMapEventAction.hpp
 ${src_root}/Game/World/Map/DestroyObjectMapEventAction.cpp
+${inc_root}/Game/World/Map/TriggerBattleMapEventAction.hpp
+${src_root}/Game/World/Map/TriggerBattleMapEventAction.cpp
 ${inc_root}/Game/World/Map/WarpMapEventAction.hpp
 ${src_root}/Game/World/Map/WarpMapEventAction.cpp
 ${inc_root}/Game/World/Map/Physics/MapEventInfo.hpp
@@ -469,6 +471,8 @@ ${src_root}/Graphics/Vector2.cpp
 
 ${inc_root}/Macros.hpp
 
+${inc_root}/System/Configuration/ConfigurationReader.hpp
+${src_root}/System/Configuration/ConfigurationReader.cpp
 ${inc_root}/System/Error/ContentLoadingFailException.hpp
 ${src_root}/System/Error/ContentLoadingFailException.cpp
 ${inc_root}/System/Error/Exception.hpp

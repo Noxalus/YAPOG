@@ -1,9 +1,8 @@
 #include "YAPOG/Game/World/Map/BattleSpawnerArea.hpp"
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
-#include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
+#include "YAPOG/Game/World/Map/TriggerBattleMapEventAction.hpp"
 
-#include "YAPOG/Log.hpp"
 namespace yap
 {
   const uint BattleSpawnerArea::DEFAULT_CELL_SIZE = 32;
@@ -85,34 +84,13 @@ namespace yap
         DEFAULT_BATTLE_SPAWNING_AREA_H));
 
     battleSpawningEvent->AddAction (
-      new AnyMapEventAction (
+      new TriggerBattleMapEventAction (
         MapEventActionType::Enter,
-        [this] (MapEventArgs& args)
-        {
-          DLOGGER.LogLine ("ENTERING BATTLE AREA");
-
-          return true;
-        }));
-
+        *this));
     battleSpawningEvent->AddAction (
-      new AnyMapEventAction (
-        MapEventActionType::In,
-        [this] (MapEventArgs& args)
-        {
-          DLOGGER.LogLine ("IN BATTLE AREA");
-
-          return true;
-        }));
-
-    battleSpawningEvent->AddAction (
-      new AnyMapEventAction (
+      new TriggerBattleMapEventAction (
         MapEventActionType::Leave,
-        [this] (MapEventArgs& args)
-        {
-          DLOGGER.LogLine ("LEAVING BATTLE AREA");
-
-          return true;
-        }));
+        *this));
 
     AddEvent (battleSpawningEvent);
   }

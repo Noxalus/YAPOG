@@ -1,13 +1,22 @@
 #include <iostream>
 
-#include "Game.hpp"
-#include "boost/exception/all.hpp"
+#include <boost/exception/all.hpp>
+
 #include "YAPOG/System/Error/Exception.hpp"
+
+#include "Game.hpp"
+#include "Configuration/GameData.hpp"
 
 int main ()
 {
   try
   {
+#ifndef YAPOG_WIN
+    ycl::GameData::Init ("../Content/Configuration.xml");
+# else
+    ycl::GameData::Init ("../../Content/Configuration.xml");
+#endif // YAPOG_WIN
+
     ycl::Game game ("YAPOG");
 
     game.Init ();

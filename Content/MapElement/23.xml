@@ -1,0 +1,15 @@
+<MapElement>
+  <boundingBoxes>
+    <entry>
+      <BoundingBox>
+        <rect>0,0,32,32</rect>
+        <z>0</z>
+        <h>1</h>
+      </BoundingBox>
+    </entry>
+  </boundingBoxes>
+  <spriteType>Sprite</spriteType>
+  <Sprite>
+    <Texture id="406"/>
+  </Sprite>
+</MapElement>

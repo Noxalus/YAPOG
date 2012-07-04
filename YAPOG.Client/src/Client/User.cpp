@@ -19,6 +19,7 @@ namespace ycl
 {
   User::User ()
     : packetHandler_ ()
+    , login_ ()
     , world_ (nullptr)
     , player_ (nullptr)
     , trainer_ (nullptr)
@@ -28,6 +29,7 @@ namespace ycl
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
     ADD_HANDLER(ServerInfoRemoveObject, User::HandleServerInfoRemoveObject);
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
+    ADD_HANDLER(ServerInfoTriggerBattle, User::HandleServerInfoTriggerBattle);
   }
 
   User::~User ()
@@ -39,9 +41,19 @@ namespace ycl
     return *trainer_;
   }
 
-   void User::SetTrainer (PlayerTrainer* trainer)
+  void User::SetTrainer (PlayerTrainer* trainer)
   {
     trainer_ = trainer;
+  }
+
+  const yap::String& User::GetLogin () const
+  {
+    return login_;
+  }
+
+  void User::SetLogin (const yap::String& login)
+  {
+    login_ = login;
   }
 
   void User::SetWorld (World* world)
@@ -202,8 +214,8 @@ namespace ycl
     {
       DestructibleObject* destructibleObject =
         yap::ObjectFactory::Instance ().Create<DestructibleObject> (
-          typeID,
-          id);
+        typeID,
+        id);
       object = destructibleObject;
       destructibleObject->SetWorldID (worldID);
 
@@ -213,8 +225,8 @@ namespace ycl
     {
       OpenBattleSpawnerArea* openBattleSpawnerArea =
         yap::ObjectFactory::Instance ().Create<OpenBattleSpawnerArea> (
-          typeID,
-          id);
+        typeID,
+        id);
 
       object = openBattleSpawnerArea;
       openBattleSpawnerArea->SetWorldID (worldID);
@@ -255,5 +267,10 @@ namespace ycl
     gameMessage.SetContent (content);
 
     OnMessageReceived (*this, gameMessage);
+  }
+
+  void User::HandleServerInfoTriggerBattle (yap::IPacket& packet)
+  {
+    OnBattleTriggered (*this, yap::EmptyEventArgs ());
   }
 } // namespace ycl

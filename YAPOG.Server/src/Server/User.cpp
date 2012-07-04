@@ -169,8 +169,8 @@ namespace yse
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (
-      "Player",
-      playerID));
+        "Player",
+        playerID));
 
     SetMap (&world_->GetMap (playerMapWorldID));
 

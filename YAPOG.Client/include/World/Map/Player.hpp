@@ -29,11 +29,19 @@ namespace ycl
       virtual void Accept (
         yap::IDynamicWorldObjectConstVisitor& visitor) const;
 
+      virtual const yap::String& GetName () const;
+
       virtual bool HasInput (yap::GameInputType gameInputType) const;
 
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
 
       virtual void DestroyObject (const yap::ID& objectWorldID);
+
+      virtual void TriggerBattle ();
+
+      virtual yap::Event<
+        yap::DynamicWorldObject&,
+        const yap::Vector2&>& OnMovedEvent ();
       /// @}
 
     protected:

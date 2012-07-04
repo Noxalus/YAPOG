@@ -22,7 +22,7 @@ namespace yse
     /// Add all maps.
 
     /// TMP
-    for (yap::ID::ValueType it = 1; it <= 2; ++it)
+    for (yap::ID::ValueType it = 1; it <= 4; ++it)
     {
       Map* map = yap::ObjectFactory::Instance ().Get<Map> (
         "Map",

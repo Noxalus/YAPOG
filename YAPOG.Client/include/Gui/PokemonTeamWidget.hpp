@@ -81,11 +81,20 @@ namespace ycl
         }
         HpBar_->SetPicture ("Pictures/Battle/HPTeamManagerBar.png");
         HpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
-        HpBarContent_->SetSize (yap::Vector2 (172, HpBarContent_->GetSize ().y));
-        if (isMainPok) 
+        HpBarContent_->SetSize (yap::Vector2 (130 * (info->GetCurrentHP () / info->GetMaxHP ()), HpBarContent_->GetSize ().y));
+        HpBar_->AddChild (*HpBarContent_);
+        HpBarContent_->Move (yap::Vector2 (45.f, 6.f));
+        
+        if (static_cast<float> (info->GetCurrentHP ()) / static_cast<float> (info->GetMaxHP ())  <= 0.25)
+          HpBarContent_->ChangeColor (sf::Color (250, 90, 60));
+        else if (static_cast<float> (info->GetCurrentHP ()) / static_cast<float> (info->GetMaxHP ())  <= 0.5)
+          HpBarContent_->ChangeColor (sf::Color (250, 225, 50));
+        else
+          HpBarContent_->ChangeColor (sf::Color (110, 250, 170));
+        if (isMainPok)
         {
           SetSize (yap::Vector2 (275, 172));
-          SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/ItemBackground.png", true));
+          SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/ItemB.png", true));
 
           yap::HorizontalLayout* hor1 = new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);          
           hor1->SetDefaultColor (sf::Color::White);

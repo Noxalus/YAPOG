@@ -7,7 +7,6 @@
 
 #include "Client/Session.hpp"
 
-
 namespace ycl
 {
   const yap::ScreenType LoginScreen::DEFAULT_NAME = "Login";

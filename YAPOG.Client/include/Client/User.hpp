@@ -27,9 +27,13 @@ namespace ycl
       User ();
       virtual ~User ();
 
+
       PlayerTrainer& GetTrainer ();
       void SetTrainer (PlayerTrainer* trainer);
-      
+
+      const yap::String& GetLogin () const;
+      void SetLogin (const yap::String& login);
+
       void SetWorld (World* world);
 
       void SendGameMessage (const yap::GameMessage& message);
@@ -46,6 +50,8 @@ namespace ycl
 
       yap::Event<const User&, Player*> OnPlayerCreated;
       yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
+
+      yap::Event<const User&> OnBattleTriggered;
 
     private:
       /// @name Getters.
@@ -69,7 +75,11 @@ namespace ycl
 
       void HandleServerInfoGameMessage (yap::IPacket& packet);
 
+      void HandleServerInfoTriggerBattle (yap::IPacket& packet);
+
       yap::PacketHandler packetHandler_;
+
+      yap::String login_;
 
       World* world_;
 

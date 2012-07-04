@@ -31,6 +31,7 @@ namespace yap
       virtual void SetCurrentScreen (const ScreenType& screenType);
 
       virtual void NextFrame ();
+
       virtual void Run (const Time& dt, IDrawingContext& context);
 
       virtual Event<IGameScreenManager&>& OnGameExitedEvent ();

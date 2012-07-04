@@ -48,9 +48,6 @@ namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
-  const yap::Vector2 GameplayScreen::DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR =
-    yap::Vector2 (1.0f, 1.0f);
-
   GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
     : BaseScreen (DEFAULT_NAME)
     , world_ ()
@@ -82,8 +79,8 @@ namespace ycl
     session_.GetUser ().OnPlayerCreated += [this] (
       const User& sender,
       Player* args)
-    {
-      SetPlayer (args);
+    {     
+      SetPlayer (args);      
     };
 
     session_.GetUser ().OnMessageReceived += [this] (
@@ -91,6 +88,13 @@ namespace ycl
       const yap::GameMessage& message)
     {
       chat_->AddMessage (message.GetContent ());
+    };
+
+    session_.GetUser ().OnBattleTriggered += [this] (
+      const User& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "Battle";
     };
 
     world_.OnMapChanged += [this] (
@@ -112,8 +116,6 @@ namespace ycl
       session_.GetUser ().SendGameMessage (args);
     };
     gameGuiManager_->AddGameWidget ("Chat", chat_);
-
-    worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
     // @todo Provide theses information from the database
     yap::PokemonTeam* team = new yap::PokemonTeam ();
@@ -160,24 +162,7 @@ namespace ycl
 
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
-    mainMenu_ = new GameMainMenu ();
-    mainMenu_->Init ("toto");
-    mainMenu_->OnPokedexItemActivated += [this] (
-      GameMainMenu& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      gameGuiManager_->SetCurrentWidget ("Pokedex");
-    };
-    mainMenu_->OnPokemonItemActivated += [this] (
-      GameMainMenu& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      gameGuiManager_->SetCurrentWidget ("PokemonTeam");
-    };
-
-    gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
-
-    mainMenu_->Close ();
+    
 
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
@@ -354,12 +339,38 @@ namespace ycl
 
   void GameplayScreen::SetPlayer (Player* player)
   {
-    player_ = player;
+    player_ = player;    
+    SetPlayerName ();
 
     moveController_.SetValue (player_->GetMaxVelocity ());
 
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
+  }
+
+  void GameplayScreen::SetPlayerName ()
+  {
+    player_->SetName (session_.GetUser ().GetLogin ());
+
+    mainMenu_ = new GameMainMenu ();
+    mainMenu_->Init (player_->GetName ());
+    mainMenu_->OnPokedexItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("Pokedex");
+    };
+    mainMenu_->OnPokemonItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("PokemonTeam");
+    };
+
+    gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
+
+    mainMenu_->Close ();
+    /// @todo Set menu's name.
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)

@@ -1,0 +1,93 @@
+<Map id="3">
+  <name>DemoMap - Cavern</name>
+  <width>50</width>
+  <height>38</height>
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <layoutHandlerType>SelectionTileLayoutHandler</layoutHandlerType>
+      <SelectionTileLayoutHandler>
+        <width>50</width>
+        <height>38</height>
+        <defaultTile id="0"/>
+	<Tile id="450"><position>0,26</position></Tile>
+	<Tile id="450"><position>1,26</position></Tile>
+	<Tile id="450"><position>2,26</position></Tile>
+	<Tile id="450"><position>3,26</position></Tile>
+	<Tile id="450"><position>4,26</position></Tile>
+	<Tile id="450"><position>5,26</position></Tile>
+	<Tile id="450"><position>6,26</position></Tile>
+	<Tile id="450"><position>7,26</position></Tile>
+	<Tile id="450"><position>8,26</position></Tile>
+	<Tile id="450"><position>9,26</position></Tile>
+	<Tile id="450"><position>9,27</position></Tile>
+	<Tile id="450"><position>9,28</position></Tile>
+	<Tile id="450"><position>9,29</position></Tile>
+	<Tile id="450"><position>9,30</position></Tile>
+	<Tile id="450"><position>9,31</position></Tile>
+
+	<Tile id="455"><position>0,28</position></Tile>
+	<Tile id="455"><position>0,29</position></Tile>
+	<Tile id="455"><position>0,30</position></Tile>
+	<Tile id="455"><position>1,28</position></Tile>
+	<Tile id="455"><position>1,29</position></Tile>
+	<Tile id="455"><position>1,30</position></Tile>
+	<Tile id="455"><position>2,28</position></Tile>
+	<Tile id="455"><position>2,29</position></Tile>
+	<Tile id="455"><position>2,30</position></Tile>
+	<Tile id="455"><position>3,28</position></Tile>
+	<Tile id="455"><position>3,29</position></Tile>
+	<Tile id="455"><position>3,30</position></Tile>
+	<Tile id="455"><position>4,28</position></Tile>
+	<Tile id="455"><position>4,29</position></Tile>
+	<Tile id="455"><position>4,30</position></Tile>
+	<Tile id="455"><position>5,28</position></Tile>
+	<Tile id="455"><position>5,29</position></Tile>
+	<Tile id="455"><position>5,30</position></Tile>
+	<Tile id="455"><position>6,28</position></Tile>
+	<Tile id="455"><position>6,29</position></Tile>
+	<Tile id="455"><position>6,30</position></Tile>
+	<Tile id="455"><position>7,28</position></Tile>
+	<Tile id="455"><position>7,29</position></Tile>
+	<Tile id="455"><position>7,30</position></Tile>
+	<Tile id="455"><position>8,28</position></Tile>
+	<Tile id="455"><position>8,29</position></Tile>
+	<Tile id="455"><position>8,30</position></Tile>
+      </SelectionTileLayoutHandler>
+    </tileLayer>
+  </ground>
+  <staticObjects>
+    <MapElement id="20"><position>256,896</position></MapElement>
+    <MapElement id="20"><position>256,928</position></MapElement>
+    <MapElement id="20"><position>256,912</position></MapElement>
+    <MapElement id="20"><position>256,944</position></MapElement>
+    <MapElement id="10"><position>256,864</position></MapElement>
+    <MapElement id="10"><position>224,864</position></MapElement>
+    <MapElement id="10"><position>192,864</position></MapElement>
+    <MapElement id="10"><position>160,864</position></MapElement>
+    <MapElement id="10"><position>128,864</position></MapElement>
+    <MapElement id="10"><position>96,864</position></MapElement>
+    <MapElement id="10"><position>64,864</position></MapElement>
+    <MapElement id="10"><position>32,864</position></MapElement>
+    <MapElement id="10"><position>0,864</position></MapElement>
+    <MapElement id="9"><position>256,992</position></MapElement>
+    <MapElement id="9"><position>224,992</position></MapElement>
+    <MapElement id="9"><position>192,992</position></MapElement>
+    <MapElement id="9"><position>160,992</position></MapElement>
+    <MapElement id="9"><position>128,992</position></MapElement>
+    <MapElement id="9"><position>96,992</position></MapElement>
+    <MapElement id="9"><position>64,992</position></MapElement>
+    <MapElement id="9"><position>32,992</position></MapElement>
+    <MapElement id="9"><position>0,992</position></MapElement>
+    <MapElement id="19"><position>256,960</position></MapElement>
+    <MapElement id="18"><position>256,864</position></MapElement>
+  </staticObjects>
+  <dynamicObjects>
+    <Teleporter id="1">
+      <position>0,864</position>
+      <mapWorldID>1</mapWorldID>
+      <mapPoint>1472,904</mapPoint>
+      <area>0,0,32,192</area>
+    </Teleporter>
+  </dynamicObjects>
+</Map>
