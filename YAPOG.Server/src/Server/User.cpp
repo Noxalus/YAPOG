@@ -11,6 +11,8 @@
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
 
+#define YAPOG_DB_MODE 0
+
 namespace yse
 {
   User::User ()
@@ -51,7 +53,7 @@ namespace yse
   {
     login_ = login;
 
-#ifdef YAPOG_DB_MODE
+#if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
     am.Login (login, password, ip);
 #endif // YAPOG_DB_MODE
@@ -67,7 +69,7 @@ namespace yse
   {
     login_ = login;
 
-#ifdef YAPOG_DB_MODE
+#if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
     am.CreateNewAccount (login, password, email, ip);
 #endif // YAPOG_DB_MODE

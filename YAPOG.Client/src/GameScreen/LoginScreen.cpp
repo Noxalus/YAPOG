@@ -108,14 +108,18 @@ namespace ycl
 
         session_.Login (login, password);
 
-        //loginWidget_.SetErrorText ("Nom d'utilisateur incorrect !");
-
-        /// @warning temp
-//        nextScreen_ = "Gameplay";
         return true;
       }
 
     }
     return false;
   }
+
+  void LoginScreen::HandleDeactivate ()
+  {
+    loginWidget_.GetLoginTextBox ().Clear ();
+    loginWidget_.GetPasswordTextBox ().Clear ();
+    loginWidget_.SetErrorText ("");
+  }
+
 } // namespace ycl

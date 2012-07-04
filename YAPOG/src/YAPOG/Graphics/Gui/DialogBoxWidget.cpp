@@ -103,16 +103,7 @@ namespace yap
     {
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
-        currentText_++;
-        OnTextChanged (*this, EmptyEventArgs ());
-        if (currentText_ == labels_.Count ())
-        {
-          isVisible_ = false;
-        }
-        else
-        {
-          isVisible_ = true;
-        }
+        SkipText ();
         return true;
       }
     }
@@ -155,4 +146,19 @@ namespace yap
     labels_.Add (lb);
     Refresh ();
   }
+
+  void DialogBoxWidget::SkipText ()
+  {
+    currentText_++;
+    OnTextChanged (*this, EmptyEventArgs ());
+    if (currentText_ == labels_.Count ())
+    {
+      isVisible_ = false;
+    }
+    else
+    {
+      isVisible_ = true;
+    }
+  }
+
 } // namespace yap

@@ -23,6 +23,8 @@ namespace ycl
     explicit SelectionPhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~SelectionPhase ();
 
+    void Init ();
+
     /// @name BattlePhase members.
     /// @{
     virtual void HandleStart (yap::PhaseArgs* args);
@@ -54,6 +56,7 @@ namespace ycl
   private:
     Battle& battle_;
     BattleInterface& battleInterface_;
+    bool runFlag_;
   };
 } // namespace ycl
 

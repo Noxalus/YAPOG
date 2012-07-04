@@ -24,6 +24,8 @@ namespace ycl
     BeginWildBattlePhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~BeginWildBattlePhase ();
 
+    void Init ();
+
     /// @name BattlePhase members.
     /// @{
     virtual void HandleStart (yap::PhaseArgs* args);

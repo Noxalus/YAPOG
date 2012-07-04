@@ -1,9 +1,9 @@
-#ifndef YAPOG_CLIENT_ENDPOKEMONSWITCHPHASE_HPP
-# define YAPOG_CLIENT_ENDPOKEMONSWITCHPHASE_HPP
+#ifndef YAPOG_CLIENT_RUNWILDBATTLEPHASE_HPP
+# define YAPOG_CLIENT_RUNWILDBATTLEPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/EndPokemonSwitchPhase.hpp"
+# include "YAPOG/Game/Battle/Phase/RunWildBattlePhase.hpp"
 
 namespace yap
 {
@@ -15,13 +15,15 @@ namespace ycl
   class Battle;
   class BattleInterface;
 
-  class EndPokemonSwitchPhase
-    : public yap::EndPokemonSwitchPhase
+  class RunWildBattlePhase
+    : public yap::RunWildBattlePhase
     , public yap::IDrawable
   {
   public:
-    explicit EndPokemonSwitchPhase (Battle& battle, BattleInterface& battleInterface);
-    virtual ~EndPokemonSwitchPhase ();
+    RunWildBattlePhase (Battle& battle, BattleInterface& battleInterface);
+    virtual ~RunWildBattlePhase ();
+
+    void Init ();
 
     /// @name BattlePhase members.
     /// @{
@@ -47,7 +49,6 @@ namespace ycl
 
     static const bool DEFAULT_VISIBLE_STATE;
     static const sf::Color DEFAULT_COLOR;
-    static const float BATTLE_INFO_SPEED;
 
     bool isVisible_;
     sf::Color color_;
@@ -55,8 +56,8 @@ namespace ycl
   private:
     Battle& battle_;
     BattleInterface& battleInterface_;
-    yap::BattlePhaseState nextPhase_;
+    bool flagEndBattle_;
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_ENDPOKEMONSWITCHPHASE_HPP
+#endif // YAPOG_CLIENT_RUNWILDBATTLEPHASE_HPP

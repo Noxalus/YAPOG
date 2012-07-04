@@ -27,6 +27,10 @@ namespace ycl
       User ();
       virtual ~User ();
 
+
+      PlayerTrainer& GetTrainer ();
+      void SetTrainer (PlayerTrainer* trainer);
+
       const yap::String& GetLogin () const;
       void SetLogin (const yap::String& login);
 
@@ -57,13 +61,11 @@ namespace ycl
       Map& GetMap ();
 
       Player& GetPlayer ();
-      PlayerTrainer& GetTrainer ();
       /// @}
 
       /// @name Setters.
       /// @{
       void SetPlayer (Player* player);
-      void SetTrainer (PlayerTrainer* trainer);
       /// @}
 
       void HandleServerInfoSetUserPlayer (yap::IPacket& packet);

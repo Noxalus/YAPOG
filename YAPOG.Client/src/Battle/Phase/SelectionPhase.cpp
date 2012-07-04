@@ -14,6 +14,7 @@ namespace ycl
     : yap::SelectionPhase (battle)
     , battle_ (battle)
     , battleInterface_  (battleInterface)
+    , runFlag_ (false)
   {
   }
 
@@ -21,21 +22,38 @@ namespace ycl
   {
   }
 
+  void SelectionPhase::Init ()
+  {
+    battleInterface_.GetBattleMenu ().GetItem (3).OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      runFlag_ = true;
+    };
+  }
+
   void SelectionPhase::HandleStart (yap::PhaseArgs* args)
   {
     yap::SelectionPhase::HandleStart (args);
 
-    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
-    battleInterface_.GetBattleMenu ().Open ();
-
     battleInterface_.GetBattleInfoDialogBox ().AddText (
-      "Que doit faire " + battle_.GetPlayerTeam ().GetName () +
-      " ?");
+      "Que doit faire\n\n" +
+      battle_.GetPlayerTeam ().GetName () + " ?");
+
+    battleInterface_.GetBattleInfoDialogBox ().Show (true);
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+
+    battleInterface_.GetBattleMenu ().Open ();
   }
 
   void SelectionPhase::HandleUpdate (const yap::Time& dt)
   {
     yap::SelectionPhase::HandleUpdate (dt);
+
+    if (runFlag_)
+    {
+      battleInterface_.GetBattleInfoDialogBox ().SkipText ();
+      yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Run);
+    }
   }
 
   void SelectionPhase::HandleEnd ()

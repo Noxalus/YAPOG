@@ -36,6 +36,16 @@ namespace ycl
   {
   }
 
+  PlayerTrainer& User::GetTrainer ()
+  {
+    return *trainer_;
+  }
+
+  void User::SetTrainer (PlayerTrainer* trainer)
+  {
+    trainer_ = trainer;
+  }
+
   const yap::String& User::GetLogin () const
   {
     return login_;
@@ -112,11 +122,6 @@ namespace ycl
     player_ = player;
 
     OnPlayerCreated (*this, player_);
-  }
-
-  void User::SetTrainer (PlayerTrainer* trainer)
-  {
-    trainer_ = trainer;
   }
 
   void User::HandleServerInfoSetUserPlayer (yap::IPacket& packet)
@@ -214,8 +219,8 @@ namespace ycl
     {
       DestructibleObject* destructibleObject =
         yap::ObjectFactory::Instance ().Create<DestructibleObject> (
-          typeID,
-          id);
+        typeID,
+        id);
       object = destructibleObject;
       destructibleObject->SetWorldID (worldID);
 
@@ -225,8 +230,8 @@ namespace ycl
     {
       OpenBattleSpawnerArea* openBattleSpawnerArea =
         yap::ObjectFactory::Instance ().Create<OpenBattleSpawnerArea> (
-          typeID,
-          id);
+        typeID,
+        id);
 
       object = openBattleSpawnerArea;
       openBattleSpawnerArea->SetWorldID (worldID);

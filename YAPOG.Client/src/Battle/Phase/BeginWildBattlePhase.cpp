@@ -26,6 +26,33 @@ namespace ycl
   {
   }
 
+  void BeginWildBattlePhase::Init ()
+  {
+    battle_.GetOpponent ().OnHPChangedEvent () +=
+      [&] (const yap::IBattleEntity& sender, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>& args)
+    {
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPColor (
+        battle_.GetOpponent ().GetHPPercentage ());
+
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
+        battle_.GetOpponent ().GetHPPercentage ());
+    };
+
+    battleInterface_.GetBattleInfoDialogBox ().OnTextChanged +=
+      [&] (const yap::BaseWidget& sender, const yap::EmptyEventArgs& args)
+    {
+      if (nextState_ == "WaitUser")
+      {
+        battleInterface_.GetBattleInfoDialogBox ().
+          AddText (battle_.GetPlayerTeam ().GetName () + "! GO !");
+
+        nextState_ = "PlayerBack";
+        battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+      }
+    };
+  }
+
   void BeginWildBattlePhase::HandleStart (yap::PhaseArgs* args)
   {
     BeginBattlePhase::HandleStart (args);
@@ -55,11 +82,13 @@ namespace ycl
 
     // Battle dialog box init.
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+    battleInterface_.GetBattleInfoDialogBox ().Show (true);
     battleInterface_.GetBattleInfoDialogBox ().SetShowText (false);
     battleInterface_.GetBattleInfoDialogBox ().
       AddText ("Un " + opponentName + " sauvage apparait !");
 
     // Opponent's side.
+    battleInterface_.GetOpponentInfoWidget ().Show (true);
     battleInterface_.GetOpponentInfoWidget ().SetName (opponentName);
     battleInterface_.GetOpponentInfoWidget ().SetLevel (
       battle_.GetOpponent ().GetLevel ());
@@ -71,16 +100,7 @@ namespace ycl
       battle_.GetOpponentInfoPosition ().y));
     /// @}
 
-    battle_.GetOpponent ().OnHPChangedEvent () +=
-      [&] (const yap::IBattleEntity& sender, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>& args)
-    {
-      battleInterface_.GetOpponentInfoWidget ().UpdateHPColor (
-        battle_.GetOpponent ().GetHPPercentage ());
-
-      battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
-        battle_.GetOpponent ().GetHPPercentage ());
-    };
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
   }
 
   void BeginWildBattlePhase::HandleUpdate (const yap::Time& dt)
@@ -150,9 +170,8 @@ namespace ycl
         battleInterface_.GetOpponentInfoWidget ().SetPosition (
           battle_.GetOpponentInfoPosition ());
 
-        nextState_ = "PlayerBack";
-        battleInterface_.GetBattleInfoDialogBox ().
-          AddText (battle_.GetPlayerTeam ().GetName () + "! GO !");
+        battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+        nextState_ = "WaitUser";
       }
     }
 
@@ -165,10 +184,7 @@ namespace ycl
           yap::Vector2 ((-1) * ((GROUND_SPEED * 2) * dt.GetValue ()), 0));
       }
       else
-      {
         nextState_ = "SwitchPhase";
-        battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
-      }
     }
 
     if (nextState_ == "SwitchPhase")

@@ -14,6 +14,7 @@ namespace yap
     Selection,
     Action,
     EndTurn,
+    Run,
     EndBattle
   };
 } // namespace yap

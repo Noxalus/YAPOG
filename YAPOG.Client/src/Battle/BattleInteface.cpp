@@ -41,7 +41,7 @@ namespace ycl
       *(new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
 
-    battleInfoDialogBox_->ChangeColor (sf::Color::White);
+    battleInfoDialogBox_->SetDefaultColor (sf::Color::White);
 
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
@@ -50,6 +50,7 @@ namespace ycl
     opponentInfoWidget_->Init ();
 
     pokemonInfoWidget_->Show (false);
+    opponentInfoWidget_->Show (false);
 
     battleMenu_.SetPosition (yap::Vector2 (
       Game::SCREEN_SIZE.x - battleMenu_.GetSize ().x , 
@@ -126,5 +127,16 @@ namespace ycl
   {
     battleMoveMenu_.Open ();
     battleMoveInfoMenu_.Open ();
+  }
+
+  void BattleInterface::Reset ()
+  {
+    battleMoveMenu_.Close ();
+    battleMoveInfoMenu_.Close ();
+    battleMenu_.Close ();
+
+    battleInfoDialogBox_->Open ();
+    pokemonInfoWidget_->Close ();
+    opponentInfoWidget_->Close ();
   }
 }

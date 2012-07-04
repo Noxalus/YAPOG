@@ -15,6 +15,13 @@ namespace ycl
   {
   }
 
+  /// Getters.
+  PokemonFighterTeam& PlayerTrainer::GetTeam ()
+  {
+    return *team_;
+  }
+
+  /// Setters.
   void PlayerTrainer::SetTeam (PokemonFighterTeam* value)
   {
     team_ = value;

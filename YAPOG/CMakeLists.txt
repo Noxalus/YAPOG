@@ -310,6 +310,10 @@ ${src_root}/Game/Battle/Phase/SelectionPhase.cpp
 ${inc_root}/Game/Battle/Phase/SelectionPhase.hpp
 ${src_root}/Game/Battle/Phase/EndPokemonSwitchPhase.cpp
 ${inc_root}/Game/Battle/Phase/EndPokemonSwitchPhase.hpp
+${src_root}/Game/Battle/Phase/RunPhase.cpp
+${inc_root}/Game/Battle/Phase/RunPhase.hpp
+${src_root}/Game/Battle/Phase/RunWildBattlePhase.cpp
+${inc_root}/Game/Battle/Phase/RunWildBattlePhase.hpp
 
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp

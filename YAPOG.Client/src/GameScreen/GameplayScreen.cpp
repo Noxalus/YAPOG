@@ -21,6 +21,8 @@
 #include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
 #include "YAPOG/Audio/AudioManager.hpp"
+#include "YAPOG/Game/Battle/PlayerTrainer.hpp"
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -32,6 +34,15 @@
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
+
+#include "Client/Session.hpp"
+#include "Client/User.hpp"
+#include "Battle/PlayerTrainer.hpp"
+#include "Pokemon/Pokemon.hpp"
+#include "Pokemon/PokemonTeam.hpp"
+#include "Battle/PokemonFighter.hpp"
+#include "Battle/PokemonFighterTeam.hpp"
+
 
 namespace ycl
 {
@@ -107,13 +118,28 @@ namespace ycl
     chat_->Close ();
 
     chat_->OnMessageSent +=
-    [this] (ChatWidget& sender, yap::GameMessage& args)
+      [this] (ChatWidget& sender, yap::GameMessage& args)
     {
       session_.GetUser ().SendGameMessage (args);
     };
     gameGuiManager_->AddGameWidget ("Chat", chat_);
 
+    // @todo Provide theses information from the database
     yap::PokemonTeam* team = new yap::PokemonTeam ();
+    
+    /*
+    team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
+    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
+
+    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (0), false));
+    playerFighterTeam->AddPokemon (
+      new PokemonFighter (team->GetPokemon (1), false));
+
+    session_.GetUser ().GetTrainer ().SetTeam (playerFighterTeam);
+    */
+
     pokemonTeam_ = new PokemonTeamWidget (team);
     pokemonTeam_->Init ();
     pokemonTeam_->Close ();
@@ -155,8 +181,8 @@ namespace ycl
   {
     if (fpsDisplayTimer_.DelayIsComplete (yap::Time (0.5f), true))
       fpsLabel_->SetText (
-        "FPS: " +
-        yap::StringHelper::ToString<int> (1.0f / dt.GetValue ()));
+      "FPS: " +
+      yap::StringHelper::ToString<int> (1.0f / dt.GetValue ()));
 
     world_.Update (dt);
 
@@ -173,41 +199,44 @@ namespace ycl
   {
     switch (guiEvent.type)
     {
-      case sf::Event::KeyPressed:
+    case sf::Event::KeyPressed:
 
-        switch (guiEvent.key.code)
-        {
-          case sf::Keyboard::Space:
+      switch (guiEvent.key.code)
+      {
+      case sf::Keyboard::Space:
 
-            if (player_ != nullptr && player_->IsActive ())
-              break;
+        if (player_ != nullptr && player_->IsActive ())
+          break;
 
-            gameGuiManager_->SetCurrentWidget ("Menu");
+        gameGuiManager_->SetCurrentWidget ("Menu");
 
-            return true;
+        /// @warning Battle Test
+        nextScreen_ = "Battle";
 
-          case sf::Keyboard::C:
+        return true;
 
-            if (player_ != nullptr && player_->IsActive ())
-              break;
+      case sf::Keyboard::C:
 
-            gameGuiManager_->SetCurrentWidget ("Chat");
+        if (player_ != nullptr && player_->IsActive ())
+          break;
 
-            return true;
+        gameGuiManager_->SetCurrentWidget ("Chat");
 
-          default: break;
-        }
-
-        break;
-
-      case sf::Event::KeyReleased:
-
-        switch (guiEvent.key.code)
-        {
-          default: break;
-        }
+        return true;
 
       default: break;
+      }
+
+      break;
+
+    case sf::Event::KeyReleased:
+
+      switch (guiEvent.key.code)
+      {
+      default: break;
+      }
+
+    default: break;
     }
 
     if (gameInputManager_.GameInputIsActivated (
@@ -272,18 +301,6 @@ namespace ycl
     {
       moveController_.DisableDirection (yap::Direction::East);
       return true;
-    }
-
-    if (guiEvent.type == sf::Event::KeyPressed)
-    {
-      if (guiEvent.key.code == sf::Keyboard::F10)
-      {
-        if (chat_->IsVisible ())
-          chat_->Close ();
-        else
-          chat_->Open ();
-        return true;
-      }
     }
 
     if (gameInputManager_.GameInputIsActivated (

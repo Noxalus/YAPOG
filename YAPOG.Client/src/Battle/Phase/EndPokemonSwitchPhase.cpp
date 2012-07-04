@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 #include "YAPOG/Game/Battle/Phase/ActionPhaseArgs.hpp"
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 #include "Game.hpp"
 
@@ -20,6 +21,7 @@ namespace ycl
     : yap::EndPokemonSwitchPhase (battle)
     , battle_ (battle)
     , battleInterface_ (battleInterface)
+    , nextPhase_ (yap::BattlePhaseState::Switch)
   {
   }
 
@@ -32,6 +34,8 @@ namespace ycl
     yap::EndPokemonSwitchPhase::HandleStart (args);
 
     /* Battle interface */
+
+    battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
 
     // Battle info widget initial position
     battleInterface_.GetPokemonInfoWidget ().SetPosition (yap::Vector2 (
@@ -127,6 +131,16 @@ namespace ycl
         };
       }
     }
+
+    battleInterface_.GetBattleInfoDialogBox ().OnTextChanged.AddHandler (
+      "SKIP_TEXT_EVENT_HANDLER",
+      [&] (const yap::BaseWidget& sender, const yap::EmptyEventArgs& args)
+    {
+      if (previousPhase_ == yap::BattlePhaseState::BeginBattle)
+        nextPhase_ = yap::BattlePhaseState::Selection;
+      else
+        nextPhase_ = yap::BattlePhaseState::Action;
+    });
   }
 
   void EndPokemonSwitchPhase::HandleUpdate (const yap::Time& dt)
@@ -143,21 +157,24 @@ namespace ycl
     {
       battleInterface_.GetPokemonInfoWidget ().SetPosition (
         battle_.GetPokemonInfoPosition ());
+
+      battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
     }
 
     if (battleInterface_.GetPokemonInfoWidget ().GetPosition () ==
       battle_.GetPokemonInfoPosition ())
     {
-      if (previousPhase_ == yap::BattlePhaseState::BeginBattle)
-        yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Selection);
-      else
-        yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Action);
+      if (nextPhase_ != yap::BattlePhaseState::Switch)
+        yap::BattlePhase::SwitchPhase (nextPhase_);
     }
   }
 
   void EndPokemonSwitchPhase::HandleEnd ()
   {
     yap::EndPokemonSwitchPhase::HandleEnd ();
+
+    battleInterface_.GetBattleInfoDialogBox ().
+      OnTextChanged.RemoveHandler ("SKIP_TEXT_EVENT_HANDLER");
   }
 
   void EndPokemonSwitchPhase::Draw (yap::IDrawingContext& context)
