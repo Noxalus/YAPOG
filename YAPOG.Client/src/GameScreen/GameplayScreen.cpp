@@ -130,7 +130,7 @@ namespace ycl
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
     mainMenu_ = new GameMainMenu ();
-    mainMenu_->Init ("toto");
+    mainMenu_->Init ("coucou");
     mainMenu_->OnPokedexItemActivated += [this] (
       GameMainMenu& sender,
       const yap::EmptyEventArgs& args)

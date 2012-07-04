@@ -134,11 +134,11 @@ namespace yap
         //Performed a cycle, give control to the parent
         if (focusedChild_ == 0)
         {
-          child = focusables_[focusedChild_];
-
+          child = focusables_[focusedChild_];          
+          child->SetFocused (true);
           eventHandlers_.Remove (child);
           eventHandlers_.AddFront (child);
-          isFocused_ = false;
+          isFocused_ = true; //to make cycle
           return false;
         }
 
