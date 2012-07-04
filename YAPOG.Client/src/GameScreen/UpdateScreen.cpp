@@ -24,8 +24,8 @@ namespace ycl
     yap::Padding (5, 5, 5, 5), false))
     , secondLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5),
     yap::Padding (5, 10, 5, 5), false))
-    , bigLayout_ (new yap::VerticalLayout (yap::Padding (5, 5, 5, 5),
-    yap::Padding (5, 5, 5, 5), false))
+    , bigLayout_ (new yap::VerticalLayout (yap::Padding (0, 0, 0, 0),
+    yap::Padding (0, 0, 0, 0), false))
   {
     firstLayout_->SetSize (yap::Vector2 (300, 75));
     secondLayout_->SetSize (yap::Vector2 (300, 75));
@@ -96,19 +96,19 @@ namespace ycl
     bigLayout_ = nullptr;
   }
 
-  void UpdateScreen::HandleOnActivate ()
+  void UpdateScreen::HandleActivate ()
   {
-    boost::filesystem::path client (boost::filesystem::current_path());
+    boost::filesystem::path client (boost::filesystem::current_path ());
     fc_ = new yap::FileChecker (client);
 
-    boost::filesystem::path serv ("");
+    boost::filesystem::path serv (boost::filesystem::current_path().string () + "/FileServer");
     yap::FileChecker fs (serv);
 
     // List of name file needed to be download by the client
     fs.SendFileToDownload(fc_);
 
     // Network test
-    fc_->Launch ();
+    fc_->Launch (boost::filesystem::current_path().string () + "/FileServer");
   }
 
   void UpdateScreen::HandleRun (

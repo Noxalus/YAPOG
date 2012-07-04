@@ -14,7 +14,7 @@ int main ()
 #ifndef YAPOG_WIN
     ycl::GameData::Init ("../Content/Configuration.xml");
 # else
-    ycl::GameData::Init ("../../Content/Configuration.xml");
+    ycl::GameData::Init ("Content/Configuration.xml");
 #endif // YAPOG_WIN
 
     ycl::Game game ("YAPOG");

@@ -369,7 +369,7 @@ namespace ycl
     GetScreenManager ().AddGameScreen (new SplashScreen ());
     GetScreenManager ().AddGameScreen (new CreditScreen ());
 
-    GetScreenManager ().Init ("MainMenu");
+    GetScreenManager ().Init ("Loading");
   }
 
   void Game::InitLoggerManager ()

@@ -53,6 +53,7 @@ namespace yap
     VFileType&        GetVFileToDl ();
 
     void              Launch ();
+    void              Launch (String sourcepath);
 		void    		      SendFileToDownload (FileChecker* fc);
     bool		          Update (FileChecker* fc);
 
@@ -62,6 +63,7 @@ namespace yap
 		bool		          Compare (FileChecker* const c, FileChecker* const s);
 		String	          VectorFind (VFilesType vp, FileChecker* p);
 		bool		          UpdateFTP (FileChecker* fc);
+    bool              LocalUpdate (FileChecker* fc);
 
 		VFilesType		    vfile_;
 		VFileType		      vstring_;
@@ -73,6 +75,8 @@ namespace yap
     UInt16            fileDownloaded_;
 		VFileType		      vfiletodl_;
     bool              dlend_;
+
+    String            sourcepath_;
 	};
 } // namespace yap
 

@@ -102,7 +102,7 @@ namespace yap
   {
     return vfile_;
   }
-  
+
   FileChecker::VFileType& FileChecker::GetVFileToDl ()
   {
     return vfiletodl_;
@@ -212,7 +212,14 @@ namespace yap
 
   void                    FileChecker::Launch ()
   {
-    Thread* th = new Thread (MEMBER_WORKER(FileChecker::Update), this);
+    Thread* th = new Thread (MEMBER_WORKER(FileChecker::LocalUpdate), this);
+    th->Launch ();
+  }
+  
+  void                    FileChecker::Launch (String sourcePath)
+  {
+    sourcepath_ = sourcePath;
+    Thread* th = new Thread (MEMBER_WORKER(FileChecker::LocalUpdate), this);
     th->Launch ();
   }
 
@@ -418,6 +425,56 @@ namespace yap
     {
       std::cout << "Exception: " << e.what () << std::endl;
       return false;
+    }
+
+    fc->SetDlEnd (true);
+    return true;
+  }
+
+  bool FileChecker::LocalUpdate (FileChecker* fc)
+  {
+    FileChecker::VFileType& vs = fc->GetVFileToDl ();
+    size_t vectorSize = vs.Count ();
+
+    // Get a list of endpoints corresponding to the server name.
+    // Try each endpoint until we successfully establish a connection.
+    FileChecker::VFileType::ConstItType it (vs.begin ());
+    FileChecker::VFileType::ConstItType it_end (vs.end ());
+
+    for (; it != it_end; it++)
+    {
+      sizeDownloaded_ = 0;
+      String n = (*it)->Filename;
+      std::replace (n.begin (), n.end (), '\\', '/');
+      String path = path_.string ();
+      String newpath = "";
+
+      int i = n.rfind ('/');
+      bool dl = true;
+      String name = n;
+      if (n[n.size () - 1] == '0')
+      {
+        dl = false;
+        name = n.substr(0, n.size () - 1);
+        boost::filesystem::create_directory (path + "/" + name);
+      }
+      else
+      {
+        if (i != String::npos)
+        {
+          name.assign (n, i + 1, n.size ());
+          newpath.assign (n, 0, i);
+        }
+      }
+      if (dl)
+      {
+        filename_ = name;
+        IFStream in (sourcepath_ + "/" + n, IFStream::binary);
+        OFStream out (path + "/" + n, OFStream::trunc|OFStream::binary);
+        out << in.rdbuf ();
+        fileDownloaded_++;
+        yap::Thread::Sleep (yap::Time (.5f));
+      }
     }
 
     fc->SetDlEnd (true);
