@@ -138,7 +138,7 @@ namespace yap
           child->SetFocused (true);
           eventHandlers_.Remove (child);
           eventHandlers_.AddFront (child);
-          isFocused_ = true //to make cycle
+          isFocused_ = true; //to make cycle
           return false;
         }
 

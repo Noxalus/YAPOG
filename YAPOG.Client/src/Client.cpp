@@ -11,7 +11,7 @@ int main ()
 {
   try
   {
-    ycl::GameData::Init ("../Content/Configuration.xml");
+    ycl::GameData::Init ("../../Content/Configuration.xml");
 
     ycl::Game game ("YAPOG");
 
