@@ -7,6 +7,10 @@
 
 namespace yap
 {
+  /// @WARNING TEMPORARY !
+  /// @TODO REMOVE !
+  sf::Color Game::CLEAR_COLOR = sf::Color::White;
+
   const sf::Color Game::DEFAULT_CLEAR_COLOR = sf::Color::Black;
 
   Game::Game (const String& name)
@@ -63,7 +67,7 @@ namespace yap
 
       GameInputManager::Instance ().EndUpdate ();
 
-      window_->clear (DEFAULT_CLEAR_COLOR);
+      window_->clear (CLEAR_COLOR);
 
       HandleRun (dt, *drawingContext_);
 

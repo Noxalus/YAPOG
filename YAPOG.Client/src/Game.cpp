@@ -378,5 +378,3 @@ namespace ycl
     logger_.AddMode (new yap::TimeLoggerMode ());
   }
 } // namespace ycl
-
-#undef REGISTER_LOADER

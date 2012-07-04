@@ -77,8 +77,8 @@ namespace yap
     }
   }
 
-  const int BATTLE_TRIGGERING_RANDOM_RANGE = 950;
-  const int BATTLE_TRIGGERING_RANDOM_DRANGE = 100;
+  const int BATTLE_TRIGGERING_RANDOM_RANGE = 2550;
+  const int BATTLE_TRIGGERING_RANDOM_DRANGE = 400;
   bool TriggerBattleMapEventAction::TriggerBattle (const Vector2& offset)
   {
     int dRange = RandomHelper::GetNext (1, BATTLE_TRIGGERING_RANDOM_DRANGE);

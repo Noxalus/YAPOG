@@ -12,6 +12,7 @@ namespace ycl
 
   PokemonFighterTeam::PokemonFighterTeam ()
     : yap::PokemonFighterTeam ()
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
     , fighters_ (PokemonTeam::MAX_POKEMON_TEAM_NUMBER, nullptr)
   {
   }
