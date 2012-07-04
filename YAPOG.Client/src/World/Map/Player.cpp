@@ -53,7 +53,6 @@ namespace ycl
   {
     // Does nothing, server side only.
   }
-
   const yap::String& Player::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;

@@ -68,8 +68,8 @@ namespace ycl
     session_.GetUser ().OnPlayerCreated += [this] (
       const User& sender,
       Player* args)
-    {
-      SetPlayer (args);
+    {     
+      SetPlayer (args);      
     };
 
     session_.GetUser ().OnMessageReceived += [this] (
@@ -129,24 +129,7 @@ namespace ycl
 
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
-    mainMenu_ = new GameMainMenu ();
-    mainMenu_->Init ("coucou");
-    mainMenu_->OnPokedexItemActivated += [this] (
-      GameMainMenu& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      gameGuiManager_->SetCurrentWidget ("Pokedex");
-    };
-    mainMenu_->OnPokemonItemActivated += [this] (
-      GameMainMenu& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      gameGuiManager_->SetCurrentWidget ("PokemonTeam");
-    };
-
-    gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
-
-    mainMenu_->Close ();
+    
 
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
@@ -332,8 +315,7 @@ namespace ycl
 
   void GameplayScreen::SetPlayer (Player* player)
   {
-    player_ = player;
-
+    player_ = player;    
     SetPlayerName ();
 
     moveController_.SetValue (player_->GetMaxVelocity ());
@@ -346,6 +328,24 @@ namespace ycl
   {
     player_->SetName (session_.GetUser ().GetLogin ());
 
+    mainMenu_ = new GameMainMenu ();
+    mainMenu_->Init (player_->GetName ());
+    mainMenu_->OnPokedexItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("Pokedex");
+    };
+    mainMenu_->OnPokemonItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("PokemonTeam");
+    };
+
+    gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
+
+    mainMenu_->Close ();
     /// @todo Set menu's name.
   }
 

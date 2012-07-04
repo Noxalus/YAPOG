@@ -34,6 +34,7 @@ namespace ycl
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
 
       virtual void DestroyObject (const yap::ID& objectWorldID);
+
       /// @}
 
     protected:
@@ -42,6 +43,7 @@ namespace ycl
 
       virtual const yap::String& GetObjectFactoryTypeName () const;
 
+      yap::String name_;
     private:
 
       static const yap::String OBJECT_FACTORY_TYPE_NAME;
