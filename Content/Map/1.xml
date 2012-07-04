@@ -1,7 +1,10 @@
 <Map id="1">
+
   <name>DemoMap - 1</name>
+
   <width>50</width>
   <height>38</height>
+
   <ground>
     <tileLayer>
       <height>0</height>
@@ -432,7 +435,9 @@
 
       </SelectionTileLayoutHandler>
     </tileLayer>
+
   </ground>
+
   <staticObjects>
 
     <!-- Mur droite -->
@@ -636,17 +641,33 @@
     <MapElement id="5"><position>1350,420</position></MapElement>
     <MapElement id="5"><position>850,342</position></MapElement>
   </staticObjects>
+
   <dynamicObjects>
     <NPC id="1">
       <position>200,350</position>
     </NPC>
+
     <Teleporter id="1">
-      <position>40,440</position>
+      <position>300,200</position>
       <mapWorldID>2</mapWorldID>
       <mapPoint>250,200</mapPoint>
-      <area>0,0,50,50</area>
+      <area>0,0,240,250</area>
     </Teleporter>
+    <Teleporter id="1">
+      <position>140,400</position>
+      <mapWorldID>2</mapWorldID>
+      <mapPoint>250,200</mapPoint>
+      <area>0,0,240,250</area>
+    </Teleporter>
+    <Teleporter id="1">
+      <position>540,300</position>
+      <mapWorldID>2</mapWorldID>
+      <mapPoint>250,200</mapPoint>
+      <area>0,0,240,250</area>
+    </Teleporter>
+
     <DestructibleObject id="1"><position>150,32</position></DestructibleObject>
     <DestructibleObject id="1"><position>700,32</position></DestructibleObject>
   </dynamicObjects>
+
 </Map>

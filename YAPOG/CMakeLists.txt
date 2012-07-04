@@ -465,6 +465,8 @@ ${src_root}/Graphics/Vector2.cpp
 
 ${inc_root}/Macros.hpp
 
+${inc_root}/System/Configuration/ConfigurationReader.hpp
+${src_root}/System/Configuration/ConfigurationReader.cpp
 ${inc_root}/System/Error/ContentLoadingFailException.hpp
 ${src_root}/System/Error/ContentLoadingFailException.cpp
 ${inc_root}/System/Error/Exception.hpp

@@ -37,9 +37,6 @@ namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
-  const yap::Vector2 GameplayScreen::DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR =
-    yap::Vector2 (1.0f, 1.0f);
-
   GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
     : BaseScreen (DEFAULT_NAME)
     , world_ ()
@@ -93,7 +90,6 @@ namespace ycl
 
     chat_ = new ChatWidget ();
     chat_->Init ();
-    //chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
 
     chat_->OnMessageSent +=
@@ -102,8 +98,6 @@ namespace ycl
       session_.GetUser ().SendGameMessage (args);
     };
     gameGuiManager_->AddGameWidget ("Chat", chat_);
-
-    worldCamera_.Scale (DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR);
 
     yap::PokemonTeam* team = new yap::PokemonTeam ();
     pokemonTeam_ = new PokemonTeamWidget (team);
