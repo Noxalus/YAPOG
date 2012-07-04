@@ -126,16 +126,16 @@ namespace ycl
 
     // @todo Provide theses information from the database
     yap::PokemonTeam* team = new yap::PokemonTeam ();
-    
+
     /*
     team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
     team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
 
     PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
     playerFighterTeam->AddPokemon (
-      new PokemonFighter (team->GetPokemon (0), false));
+    new PokemonFighter (team->GetPokemon (0), false));
     playerFighterTeam->AddPokemon (
-      new PokemonFighter (team->GetPokemon (1), false));
+    new PokemonFighter (team->GetPokemon (1), false));
 
     session_.GetUser ().GetTrainer ().SetTeam (playerFighterTeam);
     */
@@ -203,15 +203,17 @@ namespace ycl
 
       switch (guiEvent.key.code)
       {
+      case sf::Keyboard::B:
+        /// @warning Battle Test
+        nextScreen_ = "Battle";
+        break;
+
       case sf::Keyboard::Space:
 
         if (player_ != nullptr && player_->IsActive ())
           break;
 
         gameGuiManager_->SetCurrentWidget ("Menu");
-
-        /// @warning Battle Test
-        nextScreen_ = "Battle";
 
         return true;
 

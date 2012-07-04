@@ -30,7 +30,7 @@
 #include "World/Map/NPCReader.hpp"
 #include "World/Map/Teleporter.hpp"
 
-#define YAPOG_DB_MODE 0
+#define YAPOG_DB_MODE 1
 
 namespace yse
 {
