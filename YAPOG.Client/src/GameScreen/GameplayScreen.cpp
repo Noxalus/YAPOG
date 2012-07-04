@@ -23,6 +23,7 @@
 #include "YAPOG/Audio/AudioManager.hpp"
 #include "YAPOG/Game/Battle/PlayerTrainer.hpp"
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
+#include "YAPOG/Graphics/Game/Game.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -326,6 +327,8 @@ namespace ycl
 
   void GameplayScreen::HandleActivate ()
   {
+    yap::Game::CLEAR_COLOR = sf::Color::Black;
+
     yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg");
   }
 

@@ -3,7 +3,6 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
-#include "YAPOG/Graphics/Game/Game.hpp"
 
 #include "GameScreen/SplashScreen.hpp"
 
@@ -46,8 +45,6 @@ namespace ycl
   void SplashScreen::HandleActivate ()
   {
     yap::GameScreen::HandleActivate ();
-
-    yap::Game::CLEAR_COLOR = sf::Color::Black;
   }
 
   void SplashScreen::HandleRun (

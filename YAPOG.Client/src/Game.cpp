@@ -120,9 +120,11 @@ namespace ycl
         {
           case yap::Key::Escape:
 
-            window_->close ();
+//            window_->close ();
 
-            return true;
+//            return true;
+
+            break;
           default:
             break;
         }
