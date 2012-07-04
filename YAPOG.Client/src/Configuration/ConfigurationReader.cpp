@@ -22,5 +22,14 @@ namespace ycl
     yap::ConfigurationReader::HandleVisitXmlReader (visitable);
 
     gameData_.remoteIPAddress_ = visitable.ReadString ("IP");
+
+    gameData_.windowSize_ = visitable.ReadVector2 ("WindowSize");
+    gameData_.resolution_ = visitable.ReadVector2 ("Resolution");
+
+    gameData_.contentPath_ = visitable.ReadString ("ContentPath");
+    gameData_.texturePath_ = visitable.ReadString ("TexturePath");
+    gameData_.fontPath_ = visitable.ReadString ("FontPath");
+    gameData_.musicPath_ = visitable.ReadString ("MusicPath");
+    gameData_.soundPath_ = visitable.ReadString ("SoundPath");
   }
 } // namespace ycl
