@@ -58,6 +58,12 @@ namespace ycl
     /// @}
 
     static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;
+
+    /// @name Events.
+    /// @{
+    yap::Event<const Battle&> OnBattleEnd;
+    /// @}
+
   protected:
     virtual void HandleInit ();
     virtual void HandleUpdate (const yap::Time& dt);
@@ -71,8 +77,6 @@ namespace ycl
 
     bool isVisible_;
     sf::Color color_;
-
-  protected:
     BattleInterface& battleInterface_;
 
   private:

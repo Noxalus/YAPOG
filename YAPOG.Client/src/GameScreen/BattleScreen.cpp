@@ -1,5 +1,5 @@
 #include "YAPOG/System/RandomHelper.hpp"
-
+#include "YAPOG/Audio/AudioManager.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 #include "GameScreen/BattleScreen.hpp"
@@ -73,6 +73,11 @@ namespace ycl
     battle_->Draw (context);
 
     BaseScreen::HandleRun (dt, context);
+  }
+
+  void BattleScreen::HandleActivate ()
+  {
+    yap::AudioManager::Instance ().PlayMusic ("BGM/WildPokemonBattleShort.ogg");
   }
 
 } // namespace ycl

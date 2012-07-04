@@ -22,9 +22,13 @@ namespace ycl
     yap::MenuItem& GetItem (int index);
     /// @}
 
+  protected:
+    virtual void HandleItemActivated ();
+    virtual void HandleItemSelected ();
+
   private:
     yap::collection::Array<yap::MenuItem*> items_;
-    
+
     static const int ITEM_NUMBER = 4;
     static const yap::String DEFAULT_LABELS[ITEM_NUMBER];
   };

@@ -30,7 +30,7 @@
 #include "World/Map/NPCReader.hpp"
 #include "World/Map/Teleporter.hpp"
 
-// #define YAPOG_DB_MODE
+#define YAPOG_DB_MODE 1
 
 namespace yse
 {
@@ -68,7 +68,7 @@ namespace yse
 
     InitLoggerManager ();
 
-#ifdef YAPOG_DB_MODE
+#if YAPOG_DB_MODE
     databaseManager_.Connect ();
 #endif // YAPOG_DB_MODE
 

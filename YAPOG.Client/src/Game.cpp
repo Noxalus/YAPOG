@@ -361,12 +361,14 @@ namespace ycl
       new GameplayScreen (
       drawingContext_->GetCamera (
       "World")));
-    //GetScreenManager ().AddGameScreen (new BattleScreen ());
+    GetScreenManager ().AddGameScreen (new BattleScreen ());
     GetScreenManager ().AddGameScreen (new MainMenuScreen ());
     GetScreenManager ().AddGameScreen (new RegistrationScreen ());
     GetScreenManager ().AddGameScreen (new SplashScreen ());
     GetScreenManager ().AddGameScreen (new CreditScreen ());
 
+    /// @warning Battle test
+    //GetScreenManager ().Init ("Battle");
     GetScreenManager ().Init ("MainMenu");
   }
 

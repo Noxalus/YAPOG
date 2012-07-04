@@ -2,6 +2,8 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
+#include "YAPOG/Graphics/Gui/Menu.hpp"
 
 #include "Battle/BattleMenu.hpp"
 
@@ -67,6 +69,22 @@ namespace ycl
   yap::MenuItem& BattleMenu::GetItem (int index)
   {
     return *items_[index];
+  }
+
+  void BattleMenu::HandleItemActivated ()
+  {
+    //yap::Menu::HandleItemActivated ();
+
+    // Play a sound
+    yap::AudioManager::Instance ().PlaySound ("SE/Choose.wav");
+  }
+
+  void BattleMenu::HandleItemSelected ()
+  {
+    //yap::Menu::HandleItemSelected ();
+
+    // Play a sound
+    yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
   }
 
 } // namespace yap

@@ -21,6 +21,15 @@ namespace ycl
   {
   }
 
+  void SelectionPhase::Init ()
+  {
+    battleInterface_.GetBattleMenu ().GetItem (3).OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Run);
+    };
+  }
+
   void SelectionPhase::HandleStart (yap::PhaseArgs* args)
   {
     yap::SelectionPhase::HandleStart (args);

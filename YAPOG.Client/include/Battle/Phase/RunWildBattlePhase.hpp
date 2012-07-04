@@ -1,9 +1,9 @@
-#ifndef YAPOG_CLIENT_SELECTIONPHASE_HPP
-# define YAPOG_CLIENT_SELECTIONPHASE_HPP
+#ifndef YAPOG_CLIENT_RUNWILDBATTLEPHASE_HPP
+# define YAPOG_CLIENT_RUNWILDBATTLEPHASE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
-# include "YAPOG/Game/Battle/Phase/SelectionPhase.hpp"
+# include "YAPOG/Game/Battle/Phase/RunWildBattlePhase.hpp"
 
 namespace yap
 {
@@ -15,13 +15,13 @@ namespace ycl
   class Battle;
   class BattleInterface;
 
-  class SelectionPhase
-    : public yap::SelectionPhase
+  class RunWildBattlePhase
+    : public yap::RunWildBattlePhase
     , public yap::IDrawable
   {
   public:
-    explicit SelectionPhase (Battle& battle, BattleInterface& battleInterface);
-    virtual ~SelectionPhase ();
+    RunWildBattlePhase (Battle& battle, BattleInterface& battleInterface);
+    virtual ~RunWildBattlePhase ();
 
     void Init ();
 
@@ -59,4 +59,4 @@ namespace ycl
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_SELECTIONPHASE_HPP
+#endif // YAPOG_CLIENT_RUNWILDBATTLEPHASE_HPP

@@ -93,7 +93,6 @@ namespace ycl
 
     chat_ = new ChatWidget ();
     chat_->Init ();
-    //chat_->ChangeColor (sf::Color (0, 0, 0));
     chat_->Close ();
 
     chat_->OnMessageSent +=
@@ -195,6 +194,9 @@ namespace ycl
 
             gameGuiManager_->SetCurrentWidget ("Menu");
 
+            /// @warning Battle Test
+            nextScreen_ = "Battle";
+
             return true;
 
           case sf::Keyboard::C:
@@ -283,18 +285,6 @@ namespace ycl
     {
       moveController_.DisableDirection (yap::Direction::East);
       return true;
-    }
-
-    if (guiEvent.type == sf::Event::KeyPressed)
-    {
-      if (guiEvent.key.code == sf::Keyboard::F10)
-      {
-        if (chat_->IsVisible ())
-          chat_->Close ();
-        else
-          chat_->Open ();
-        return true;
-      }
     }
 
     if (gameInputManager_.GameInputIsActivated (

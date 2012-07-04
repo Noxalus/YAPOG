@@ -71,6 +71,8 @@ ${inc_root}/Battle/Phase/SelectionPhase.hpp
 ${src_root}/Battle/Phase/SelectionPhase.cpp
 ${inc_root}/Battle/Phase/EndPokemonSwitchPhase.hpp
 ${src_root}/Battle/Phase/EndPokemonSwitchPhase.cpp
+${inc_root}/Battle/Phase/RunWildBattlePhase.hpp
+${src_root}/Battle/Phase/RunWildBattlePhase.cpp
 
 ${src_root}/Client.cpp
 ${inc_root}/Client/Session.hpp
