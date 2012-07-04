@@ -11,7 +11,7 @@
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
 
-#define YAPOG_DB_MODE 0
+#define YAPOG_DB_MODE 1
 
 namespace yse
 {
