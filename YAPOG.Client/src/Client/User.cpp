@@ -162,12 +162,17 @@ namespace ycl
 
     Map& map = GetMap ();
 
+    bool playerIsWarped = false;
+
     if (objectTypeName == "Player")
     {
       Player* player = nullptr;
 
       if (player_ != nullptr && GetPlayer ().GetWorldID () == worldID)
+      {
         player = player_;
+        playerIsWarped = true;
+      }
       else
       {
         player = yap::ObjectFactory::Instance ().Create<Player> (
@@ -235,6 +240,9 @@ namespace ycl
 
     object->SetPosition (position);
     object->RawSetState (state);
+
+    if (playerIsWarped)
+      OnPlayerWarped (*this, *player_);
   }
 
   void User::HandleServerInfoRemoveObject (yap::IPacket& packet)

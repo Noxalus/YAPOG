@@ -1,6 +1,7 @@
 #include "YAPOG/System/RandomHelper.hpp"
 
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 
 #include "GameScreen/BattleScreen.hpp"
 #include "Game.hpp"
@@ -69,8 +70,12 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
+    context.SetMode ("Battle");
+
     battle_->Update (dt);
     battle_->Draw (context);
+
+    context.SetDefaultCamera ();
 
     BaseScreen::HandleRun (dt, context);
   }

@@ -48,6 +48,7 @@ namespace ycl
       void SetPlayerName ();
 
       void UpdatePlayer (const yap::Time& dt);
+      void HandleOnPlayerWarped ();
 
       void SendApplyForce (const yap::Vector2& force);
       void SendGameInput (yap::GameInputType gameInputType, bool state);

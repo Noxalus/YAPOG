@@ -345,6 +345,9 @@ namespace ycl
     drawingContext_->AddCamera (
       "Gui", new yap::Camera (yap::Vector2 (), resolution));
 
+    drawingContext_->AddCamera (
+      "Battle", new yap::Camera (yap::Vector2 (), resolution));
+
     window_ = &drawingContext->GetWindow ();
   }
 

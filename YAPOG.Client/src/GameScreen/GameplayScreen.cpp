@@ -72,6 +72,13 @@ namespace ycl
       SetPlayer (args);
     };
 
+    session_.GetUser ().OnPlayerWarped += [this] (
+      const User& sender,
+      Player& args)
+    {
+      HandleOnPlayerWarped ();
+    };
+
     session_.GetUser ().OnMessageReceived += [this] (
       const User& sender,
       const yap::GameMessage& message)
@@ -135,8 +142,6 @@ namespace ycl
     pokedex_->Init ();
 
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
-
-
 
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
@@ -316,8 +321,6 @@ namespace ycl
       yap::FloatRect (
       yap::Vector2 (),
       map.GetSize ()));
-
-    cameraController_.FocusTarget ();
   }
 
   void GameplayScreen::SetPlayer (Player* player)
@@ -353,7 +356,6 @@ namespace ycl
     gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
 
     mainMenu_->Close ();
-    /// @todo Set menu's name.
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)
@@ -371,6 +373,11 @@ namespace ycl
     player_->ApplyForce (force);
 
     lastForce_ = force;
+  }
+
+  void GameplayScreen::HandleOnPlayerWarped ()
+  {
+    cameraController_.FocusTarget ();
   }
 
   void GameplayScreen::SendApplyForce (const yap::Vector2& force)

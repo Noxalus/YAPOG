@@ -45,6 +45,7 @@ namespace ycl
       /// @}
 
       yap::Event<const User&, Player*> OnPlayerCreated;
+      yap::Event<const User&, Player&> OnPlayerWarped;
       yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
 
       yap::Event<const User&> OnBattleTriggered;
