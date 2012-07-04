@@ -28,10 +28,10 @@ namespace ycl
     , pokSeen_ (nullptr)
     , pokCaught_ (nullptr)
   {
-    pokedexInfo_ = new PokedexCompositeWidget ();
+    /*pokedexInfo_ = new PokedexCompositeWidget ();
     pokedexInfo_->Init ();
     pokedexInfo_->Close ();
-    AddChild (*pokedexInfo_);
+    AddChild (*pokedexInfo_);*/
 
     pokedex_->OnAddPokemon += [this] (yap::Pokedex& sender, const yap::EmptyEventArgs& args)
     {
@@ -102,8 +102,8 @@ namespace ycl
           [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
           validatedPokemon_ = pokedex_->GetPokemon (menu_->GetCurrentSelect ());
-          firstHLayout_->Close ();
-          pokedexInfo_->Open ();
+          //firstHLayout_->Close ();
+          //pokedexInfo_->Open ();
         };
       }
       item->ChangeColor (sf::Color (0, 0, 0));
@@ -162,8 +162,8 @@ namespace ycl
             [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
           {
             validatedPokemon_ = pokedex_->GetPokemon (menu_->GetCurrentSelect ());
-            firstHLayout_->Close ();
-            pokedexInfo_->Open ();
+            //firstHLayout_->Close ();
+            //pokedexInfo_->Open ();
           };
         }
         item->ChangeColor (sf::Color (0, 0, 0));

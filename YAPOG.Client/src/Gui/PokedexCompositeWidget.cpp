@@ -29,8 +29,8 @@ namespace ycl
 
   void PokedexCompositeWidget::Init ()
   {
-    //background_ = new yap::WidgetBackground ("Pictures/PokedexShfond1.png", true);
-    background_ = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png", true);
+    background_ = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/PokedexShfond1.png", true);
+    //background_ = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png", true);
     SetBackground (*background_);
   }
 
