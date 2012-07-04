@@ -8,16 +8,13 @@
 #include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace ycl
 {
-  const yap::String Session::DEFAULT_REMOTE_IP = "localhost";
-  //const yap::String Session::DEFAULT_REMOTE_IP = "169.254.182.200";
-  //const yap::String Session::DEFAULT_REMOTE_IP = "88.186.172.45";
   const yap::Int16 Session::DEFAULT_REMOTE_PORT = 8008;
 
   const yap::Time Session::DEFAULT_RECEPTION_SLEEP_DELAY = yap::Time (0.005f);
 
   Session::Session ()
     : packetHandler_ ()
-    , receptionThread_ ([&] () { HandleReception (); })
+    , receptionThread_ ([this] () { HandleReception (); })
     , receptionIsActive_ (false)
     , socket_ ()
     , networkHandler_ (socket_)
@@ -68,6 +65,8 @@ namespace ycl
     //  YAPOG_THROW("Failed to connect to the server `"
     //  + DEFAULT_REMOTE_IP
     //  + "'.");
+
+    user_.SetLogin (login);
 
     /// @todo login request
     yap::Packet packet;
@@ -154,10 +153,15 @@ namespace ycl
     socket_.Disconnect ();
 
     receptionIsActive_ = false;
+
+    isConnected_ = false;
   }
 
   void Session::HandleReception ()
   {
+    if (!isConnected_)
+      return;
+
     while (receptionIsActive_)
     {
       yap::Thread::Sleep (DEFAULT_RECEPTION_SLEEP_DELAY);

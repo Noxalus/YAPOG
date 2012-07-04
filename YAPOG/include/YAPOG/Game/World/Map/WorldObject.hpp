@@ -5,6 +5,7 @@
 # include "YAPOG/Game/World/Map/Physics/ICollidable.hpp"
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/ID.hpp"
+# include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/World/Spatial3Info.hpp"
 # include "YAPOG/Game/World/Map/Physics/PhysicsBoundingBoxCollection.hpp"
 
@@ -24,6 +25,9 @@ namespace yap
 
       const ID& GetID () const;
       void SetID (const ID& id);
+
+      const String& GetName () const;
+      void SetName (const String& name);
 
       void SetCollidableArea (CollidableArea* collidableArea);
       void AddPhysicsBoundingBox (BoundingBox* boundingBox);
@@ -96,7 +100,12 @@ namespace yap
 
     private:
 
+      static const String DEFAULT_NAME;
+
       ID id_;
+
+      String name_;
+
       mutable Spatial3Info spatial3Info_;
 
       PhysicsBoundingBoxCollection physicsBoundingBoxes_;

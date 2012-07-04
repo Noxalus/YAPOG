@@ -27,6 +27,9 @@ namespace ycl
       User ();
       virtual ~User ();
 
+      const yap::String& GetLogin () const;
+      void SetLogin (const yap::String& login);
+
       void SetWorld (World* world);
 
       void SendGameMessage (const yap::GameMessage& message);
@@ -69,6 +72,8 @@ namespace ycl
       void HandleServerInfoGameMessage (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
+
+      yap::String login_;
 
       World* world_;
 

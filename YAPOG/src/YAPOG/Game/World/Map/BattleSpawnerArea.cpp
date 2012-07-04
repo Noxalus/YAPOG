@@ -2,6 +2,7 @@
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/World/Map/AnyMapEventAction.hpp"
+#include "YAPOG/Game/World/Map/MapEventArgs.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
 #include "YAPOG/Log.hpp"
@@ -93,15 +94,16 @@ namespace yap
         MapEventActionType::Enter,
         [this] (MapEventArgs& args)
         {
-/*          args.GetTrigger ().OnMoved.AddHandler (
+          args.GetTrigger ().OnMoved.AddHandler (
             OBJECT_ENTERING_HANDLER_NAME +
-            yap::StringHelper (args.GetTrigger ().GetWorldID ()),
+            yap::StringHelper::ToString (
+              args.GetTrigger ().GetWorldID ().GetValue ()),
             [this] (
               DynamicWorldObject& sender,
               const Vector2& args)
             {
               DLOGGER.LogLine ("BATTLE TRIGGERED!!");
-              });*/
+            });
 
           return true;
         }));
@@ -119,9 +121,10 @@ namespace yap
         MapEventActionType::Leave,
         [this] (MapEventArgs& args)
         {
-/*          args.GetTrigger ().OnMoved.RemoveHandler (
+          args.GetTrigger ().OnMoved.RemoveHandler (
             OBJECT_ENTERING_HANDLER_NAME +
-            yap::StringHelper (args.GetTrigger ().GetWorldID ()));*/
+            yap::StringHelper::ToString (
+              args.GetTrigger ().GetWorldID ().GetValue ()));
 
           return true;
         }));

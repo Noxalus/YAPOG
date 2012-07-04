@@ -334,10 +334,19 @@ namespace ycl
   {
     player_ = player;
 
+    SetPlayerName ();
+
     moveController_.SetValue (player_->GetMaxVelocity ());
 
     cameraController_.SetTarget (*player);
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
+  }
+
+  void GameplayScreen::SetPlayerName ()
+  {
+    player_->SetName (session_.GetUser ().GetLogin ());
+
+    /// @todo Set menu's name.
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)
