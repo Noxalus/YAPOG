@@ -7,7 +7,7 @@
 
 namespace yap
 {
-  class ConfigurationReader : public BaseReaderVisitor
+  class YAPOG_LIB ConfigurationReader : public BaseReaderVisitor
   {
       DISALLOW_COPY(ConfigurationReader);
 

@@ -89,8 +89,6 @@ namespace yap
         MapEventActionType::Enter,
         [this] (MapEventArgs& args)
         {
-          DLOGGER.LogLine ("ENTERING BATTLE AREA");
-
           return true;
         }));
 
@@ -99,8 +97,6 @@ namespace yap
         MapEventActionType::In,
         [this] (MapEventArgs& args)
         {
-          DLOGGER.LogLine ("IN BATTLE AREA");
-
           return true;
         }));
 
@@ -109,8 +105,6 @@ namespace yap
         MapEventActionType::Leave,
         [this] (MapEventArgs& args)
         {
-          DLOGGER.LogLine ("LEAVING BATTLE AREA");
-
           return true;
         }));
 
