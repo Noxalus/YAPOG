@@ -29,6 +29,7 @@ namespace ycl
         yap::IDrawingContext& context);
 
       virtual void HandleInit ();
+      virtual void HandleActivate ();
       virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
 
     private:

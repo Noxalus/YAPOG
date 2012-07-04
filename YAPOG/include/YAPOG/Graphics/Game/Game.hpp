@@ -33,6 +33,10 @@ namespace yap
       virtual void Dispose ();
       /// @}
 
+      /// @WARNING TEMPORARY !
+      /// @TODO REMOVE !
+      static sf::Color CLEAR_COLOR;
+
     protected:
 
       void Stop ();

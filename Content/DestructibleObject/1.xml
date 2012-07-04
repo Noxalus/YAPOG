@@ -2,7 +2,7 @@
   <boundingBoxes>
     <entry>
       <BoundingBox>
-        <rect>8,0,16,32</rect>
+        <rect>8,4,16,24</rect>
         <z>0</z>
         <h>1</h>
       </BoundingBox>

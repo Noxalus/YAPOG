@@ -3,6 +3,7 @@
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Graphics/Game/Game.hpp"
 
 #include "GameScreen/UpdateScreen.hpp"
 
@@ -96,8 +97,11 @@ namespace ycl
     bigLayout_ = nullptr;
   }
 
-  void UpdateScreen::HandleOnActivate ()
+  void UpdateScreen::HandleActivate ()
   {
+    yap::Game::CLEAR_COLOR = sf::Color::White;
+
+
     boost::filesystem::path client (boost::filesystem::current_path());
     fc_ = new yap::FileChecker (client);
 

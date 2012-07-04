@@ -11,6 +11,7 @@ namespace ycl
 
   PokemonFighter::PokemonFighter (Pokemon* originalPokemon, bool isOpponent)
     : yap::PokemonFighter (originalPokemon)
+    , isVisible_ (DEFAULT_VISIBLE_STATE)
     , originalPokemon_ (originalPokemon)
     , battleSprite_ (nullptr)
     , isOpponent_ (isOpponent)
