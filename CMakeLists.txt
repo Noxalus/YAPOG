@@ -42,8 +42,10 @@ if( UNIX )
          ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2
          ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/postgresql
     )
-    SET( EXT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2
-                         ${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql
+    SET( EXT_INCLUDE_DIR 
+		 ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2
+         ${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql			 
+		 ${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0 #Boost include directory.
     )
 endif()
 
