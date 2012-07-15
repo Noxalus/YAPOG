@@ -38,6 +38,12 @@ SET( EXT_INCLUDE_DIR
 endif()
 
 if( UNIX )
+	FIND_PACKAGE(Boost)
+	MESSAGE("Boost information:") 
+	MESSAGE("  Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}") 
+	MESSAGE("  Boost_LIBRARIES: ${Boost_LIBRARIES}") 
+	MESSAGE("  Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
+
     SET( EXT_LIB_DIR
          ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2
          ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/postgresql
