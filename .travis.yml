@@ -4,6 +4,7 @@ compiler:
   - clang
 # Change this to your needs
 before_script: 
+  - ls -l
   - mkdir _build
   - cd _build
   - cmake ..
