@@ -38,15 +38,10 @@ SET( EXT_INCLUDE_DIR
 endif()
 
 if( UNIX )
-	FIND_PACKAGE(Boost)
-	MESSAGE("Boost information:") 
-	MESSAGE("  Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}") 
-	MESSAGE("  Boost_LIBRARIES: ${Boost_LIBRARIES}") 
-	MESSAGE("  Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
-
     SET( EXT_LIB_DIR
          ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/sfml2
          ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/postgresql
+		 ${CMAKE_SOURCE_DIR}/extlibs/libs-unix/boost_1_47_0
     )
     SET( EXT_INCLUDE_DIR 
 		 ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2
@@ -130,17 +125,13 @@ SET(
 	${sfml_audio_lib}
 	${boost_signals_lib}
 	${boost_date_time_lib}
-        ${boost_filesystem_lib}
+    ${boost_filesystem_lib}
 	${boost_regex_lib}
 	${boost_system_lib}
 	${pgsql_lib}
-        ${pthread_lib}
+    ${pthread_lib}
 )
 
 ADD_SUBDIRECTORY( YAPOG )
 ADD_SUBDIRECTORY( YAPOG.Client )
 ADD_SUBDIRECTORY( YAPOG.Server )
-
-if( WIN32 )
-	ADD_SUBDIRECTORY( YAPOG.Test )
-endif()
