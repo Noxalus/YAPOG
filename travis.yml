@@ -3,4 +3,8 @@ compiler:
   - gcc
   - clang
 # Change this to your needs
-script: ./configure && make
+script: 
+mkdir _build
+cd _build
+cmake ..
+make
