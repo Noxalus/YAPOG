@@ -58,11 +58,13 @@ namespace yse
   void Server::Init ()
   {
     InitRandom ();
+
 #ifndef YAPOG_WIN
     InitContentManager (yap::Path ("../Content/"));
 #else
     InitContentManager (yap::Path ("../../Content/"));
 #endif // YAPOG_WIN
+
     InitObjectFactory ();
     InitWorldObjectStateFactory ();
 

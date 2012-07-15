@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "Battle/Phase/BeginWildBattlePhase.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
@@ -143,6 +144,9 @@ namespace ycl
           battle_.GetOpponentGroundPosition ());
 
         UpdateOpponentFront ();
+
+        yap::AudioManager::Instance ().PlayCry 
+          (battle_.GetOpponent ().GetID ());
       }
 
       if (battle_.GetOpponentGround ().GetPosition () ==

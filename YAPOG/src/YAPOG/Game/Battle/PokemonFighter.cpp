@@ -92,6 +92,11 @@ namespace yap
 
   /// @name IBattleEntity members
   /// @{
+  const yap::ID& PokemonFighter::GetID () const
+  {
+    return originalPokemon_->GetStaticID ();
+  }
+
   const yap::String& PokemonFighter::GetName () const
   {
     return originalPokemon_->GetName ();

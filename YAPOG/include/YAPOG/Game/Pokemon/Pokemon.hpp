@@ -29,6 +29,8 @@ namespace yap
       const UInt16& level, 
       const bool& shiny);
 
+    const ID& GetStaticID () const;
+    const ID& GetUniqueID () const;
     const String& GetName () const;
     const TypeInfo& GetType1 () const;
     const TypeInfo& GetType2 () const;

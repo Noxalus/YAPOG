@@ -3,8 +3,10 @@
 
 # include "SFML/Audio/Music.hpp"
 # include "SFML/Audio/Sound.hpp"
+
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
@@ -16,6 +18,7 @@ namespace yap
     static AudioManager& Instance ();
     void PlayMusic (const String& musicName);
     void PlaySound (const String&soundName);
+    void PlayCry (const ID& staticID);
 
   private:
     AudioManager ();
