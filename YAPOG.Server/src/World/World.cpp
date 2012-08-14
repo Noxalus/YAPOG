@@ -16,6 +16,17 @@ namespace yse
   {
   }
 
+  /// TMP
+  void World::LoadMap (const yap::ID& id)
+  {
+    Map* map = yap::ObjectFactory::Instance ().Get<Map> (
+      "Map",
+      yap::ID (id));
+
+    map->SetWorldID (yap::ID (id));
+
+    AddMap (map);
+  }
   void World::LoadMaps ()
   {
     /// @todo Add folder traversals algo into ContentManager.
@@ -32,6 +43,8 @@ namespace yse
 
       AddMap (map);
     }
+
+    LoadMap (yap::ID (16));
   }
 
   bool World::HandlePacket (yap::IPacket& packet)

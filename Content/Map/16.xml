@@ -1,0 +1,46 @@
+<Map id="16">
+
+  <name>TEST_MAP</name>
+  <width>200</width>
+  <height>200</height>
+
+  <ground>
+    <tileLayer>
+      <height>0</height>
+      <layoutHandlerType>SelectionTileLayoutHandler</layoutHandlerType>
+      <SelectionTileLayoutHandler>
+        <width>200</width>
+        <height>200</height>
+        <defaultTile id="1"/>
+        <Tile id="2">
+          <position>3,3</position>
+        </Tile>
+        <Tile id="2">
+          <position>4,3</position>
+        </Tile>
+        <Tile id="2">
+          <position>5,4</position>
+        </Tile>
+      </SelectionTileLayoutHandler>
+    </tileLayer>
+  </ground>
+
+  <staticObjects>
+    <MapElement id="16"><position>0,0</position></MapElement>
+    <MapElement id="16"><position>51,0</position></MapElement>
+    <MapElement id="16"><position>51,51</position></MapElement>
+    <MapElement id="16"><position>102,0</position></MapElement>
+    <MapElement id="16"><position>0,51</position></MapElement>
+    <MapElement id="16"><position>102,51</position></MapElement>
+    <MapElement id="16"><position>102,102</position></MapElement>
+    <MapElement id="16"><position>51,102</position></MapElement>
+    <MapElement id="16"><position>0,102</position></MapElement>
+  </staticObjects>
+
+  <dynamicObjects>
+    <NPC id="1">
+      <position>200,350</position>
+    </NPC>
+  </dynamicObjects>
+
+</Map>

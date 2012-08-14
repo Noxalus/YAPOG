@@ -22,6 +22,9 @@ namespace yse
       World ();
       virtual ~World ();
 
+      /// TMP
+      void LoadMap (const yap::ID& id);
+
       void LoadMaps ();
 
       Map& GetMap (const yap::ID& worldID);
