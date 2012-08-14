@@ -99,8 +99,6 @@ namespace yap
 
       ID id_;
 
-      String name_;
-
       mutable Spatial3Info spatial3Info_;
 
       PhysicsBoundingBoxCollection physicsBoundingBoxes_;
