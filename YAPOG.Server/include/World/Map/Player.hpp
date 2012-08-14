@@ -29,6 +29,8 @@ namespace yse
 
       void SetParentUser (User* parent);
 
+      void SetName (const yap::String& name);
+
       /// @name ICloneable members.
       /// @{
       virtual Player* Clone () const;
@@ -81,7 +83,11 @@ namespace yse
 
       static const yap::String OBJECT_FACTORY_TYPE_NAME;
 
+      static const yap::String DEFAULT_NAME;
+
       User* parentUser_;
+
+      yap::String name_;
 
       yap::PacketHandler packetHandler_;
 

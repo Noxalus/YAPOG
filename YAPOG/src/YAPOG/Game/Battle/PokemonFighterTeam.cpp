@@ -11,11 +11,6 @@ namespace yap
 
   /// @name IBattleEntity members
   /// @{
-  const yap::ID& PokemonFighterTeam::GetID () const
-  {
-    return GetCurrentFighter ().GetID ();
-  }
-
   const String& PokemonFighterTeam::GetName () const
   {
     return GetCurrentFighter ().GetName ();

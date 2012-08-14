@@ -16,7 +16,6 @@ namespace yap
 
     /// @name IBattleEntity members
     /// @{
-    virtual const ID& GetID () const;
     virtual const String& GetName () const;
     virtual const UInt16& GetLevel () const;
     virtual const Gender& GetGender () const;

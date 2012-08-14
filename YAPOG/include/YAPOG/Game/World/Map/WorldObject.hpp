@@ -26,9 +26,6 @@ namespace yap
       const ID& GetID () const;
       void SetID (const ID& id);
 
-      const String& GetName () const;
-      void SetName (const String& name);
-
       void SetCollidableArea (CollidableArea* collidableArea);
       void AddPhysicsBoundingBox (BoundingBox* boundingBox);
       void RemovePhysicsBoundingBox (BoundingBox* boundingBox);
@@ -99,8 +96,6 @@ namespace yap
       virtual void HandleSetH (int h);
 
     private:
-
-      static const String DEFAULT_NAME;
 
       ID id_;
 

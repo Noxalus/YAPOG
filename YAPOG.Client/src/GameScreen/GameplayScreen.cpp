@@ -392,7 +392,11 @@ namespace ycl
 
     SendApplyForce (force);
 
+#if YAPOG_MOVE_PREDICTION
+    // in case of client side move prediction player is moved
+    // before server aknowledgement is received
     player_->ApplyForce (force);
+#endif // YAPOG_MOVE_PREDICTION
 
     lastForce_ = force;
   }

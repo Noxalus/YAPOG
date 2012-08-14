@@ -21,7 +21,6 @@ namespace yap
 
     /// @name Getters.
     /// @{
-    virtual const ID& GetID () const = 0;
     virtual const String& GetName () const = 0;
     virtual const UInt16& GetLevel () const = 0;
     virtual const Gender& GetGender () const = 0;

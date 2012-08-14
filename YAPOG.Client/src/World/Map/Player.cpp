@@ -7,8 +7,11 @@ namespace ycl
 {
   const yap::String Player::OBJECT_FACTORY_TYPE_NAME = "Player";
 
+  const yap::String Player::DEFAULT_NAME = "<UNKOWN_PLAYER>";
+
   Player::Player (const yap::ID& id)
     : Character (id)
+    , name_ (DEFAULT_NAME)
   {
   }
 
@@ -18,12 +21,18 @@ namespace ycl
 
   Player::Player (const Player& copy)
     : Character (copy)
+    , name_ (copy.name_)
   {
   }
 
   Player* Player::Clone () const
   {
     return new Player (*this);
+  }
+
+  void Player::SetName (const yap::String& name)
+  {
+    name_ = name;
   }
 
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
@@ -39,7 +48,7 @@ namespace ycl
 
   const yap::String& Player::GetName () const
   {
-    return yap::WorldObject::GetName ();
+    return name_;
   }
 
   bool Player::HasInput (yap::GameInputType gameInputType) const

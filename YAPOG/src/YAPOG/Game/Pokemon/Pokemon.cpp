@@ -137,16 +137,6 @@ namespace yap
       gender_ = Gender::Male;
   }
 
-  const ID& Pokemon::GetStaticID () const
-  {
-    return staticID_;
-  }
-
-  const ID& Pokemon::GetUniqueID () const
-  {
-    return uniqueID_;
-  }
-
   const String& Pokemon::GetName () const
   {
     if (pokemonInfo_ != nullptr)

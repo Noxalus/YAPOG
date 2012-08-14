@@ -654,7 +654,7 @@
       <mapPoint>624,454</mapPoint>
       <area>0,0,32,32</area>
     </Teleporter>
-    <DestructibleObject id="1"><position>154,32</position></DestructibleObject>
+    <DestructibleObject id="1"><position>150,32</position></DestructibleObject>
     <DestructibleObject id="1"><position>224,230</position></DestructibleObject>
     <DestructibleObject id="1"><position>426,560</position></DestructibleObject>
     <DestructibleObject id="1"><position>456,550</position></DestructibleObject>

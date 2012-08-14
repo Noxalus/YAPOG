@@ -4,11 +4,8 @@
 
 namespace yap
 {
-  const String WorldObject::DEFAULT_NAME = "<UNKNOWN_OBJECT>";
-
   WorldObject::WorldObject (const ID& id)
     : id_ (id)
-    , name_ (DEFAULT_NAME)
     , spatial3Info_ ()
     , physicsBoundingBoxes_ ()
   {
@@ -20,7 +17,6 @@ namespace yap
 
   WorldObject::WorldObject (const WorldObject& copy)
     : id_ (copy.id_)
-    , name_ (copy.name_)
     , spatial3Info_ (copy.spatial3Info_)
     , physicsBoundingBoxes_ (copy.physicsBoundingBoxes_)
   {
@@ -34,16 +30,6 @@ namespace yap
   void WorldObject::SetID (const ID& id)
   {
     id_ = id;
-  }
-
-  const String& WorldObject::GetName () const
-  {
-    return name_;
-  }
-
-  void WorldObject::SetName (const String& name)
-  {
-    name_ = name;
   }
 
   void WorldObject::SetCollidableArea (CollidableArea* collidableArea)

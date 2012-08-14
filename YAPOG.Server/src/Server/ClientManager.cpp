@@ -10,7 +10,7 @@ namespace yse
 
   ClientManager::ClientManager ()
     : clients_ ()
-    , receptionThread_ ([&] () { HandleReception (); })
+    , receptionThread_ ([this] () { HandleReception (); })
     , receptionIsActive_ (false)
   {
   }

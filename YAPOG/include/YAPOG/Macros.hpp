@@ -1,6 +1,14 @@
 #ifndef YAPOG_MACROS_HPP
 # define YAPOG_MACROS_HPP
 
+# ifndef YAPOG_TRUE
+#  define YAPOG_TRUE 1
+# endif // YAPOG_TRUE
+
+# ifndef YAPOG_FALSE
+#  define YAPOG_FALSE 0
+# endif // YAPOG_FALSE
+
 /// Disallowing copy
 # define DISALLOW_COPY(TYPE)                    \
   private:                                      \
@@ -34,6 +42,8 @@
 #  pragma warning(disable : 4251)
 #  pragma warning(disable : 4275)
 # endif
+
+# define YAPOG_MOVE_PREDICTION YAPOG_FALSE
 
 // Temporary
 #include <iostream>

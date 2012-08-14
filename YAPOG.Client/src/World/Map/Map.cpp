@@ -38,7 +38,7 @@ namespace ycl
     return *players_[worldID];
   }
 
-  bool Map::ContainsPlayer (const yap::ID& worldID)
+  bool Map::ContainsPlayer (const yap::ID& worldID) const
   {
     return players_.Contains (worldID);
   }

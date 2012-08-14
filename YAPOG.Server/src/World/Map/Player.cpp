@@ -12,9 +12,12 @@ namespace yse
 {
   const yap::String Player::OBJECT_FACTORY_TYPE_NAME = "Player";
 
+  const yap::String Player::DEFAULT_NAME = "<UNKNOWN_PLAYER>";
+
   Player::Player (const yap::ID& id)
     : Character (id)
     , parentUser_ (nullptr)
+    , name_ (DEFAULT_NAME)
     , packetHandler_ ()
     , inputManager_ ()
   {
@@ -28,6 +31,7 @@ namespace yse
   Player::Player (const Player& copy)
     : Character (copy)
     , parentUser_ (nullptr)
+    , name_ (copy.name_)
     , packetHandler_ ()
     , inputManager_ ()
   {
@@ -42,6 +46,11 @@ namespace yse
   void Player::SetParentUser (User* parentUser)
   {
     parentUser_ = parentUser;
+  }
+
+  void Player::SetName (const yap::String& name)
+  {
+    name_ = name;
   }
 
   bool Player::HandlePacket (yap::IPacket& packet)
@@ -84,7 +93,7 @@ namespace yse
 
   const yap::String& Player::GetName () const
   {
-    return yap::WorldObject::GetName ();
+    return name_;
   }
 
   bool Player::HasInput (const yap::GameInputType gameInputType) const

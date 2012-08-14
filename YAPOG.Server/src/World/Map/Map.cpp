@@ -102,7 +102,7 @@ namespace yse
 
     object->OnVelocityChanged.AddHandler (
       VELOCITY_CHANGED_SYNCHRONIZATION_HANDLER_NAME,
-      [&] (yap::DynamicWorldObject& sender,
+      [this] (yap::DynamicWorldObject& sender,
            const yap::ChangeEventArgs<const yap::Vector2&>& args)
       {
         HandleOnObjectVelocityChanged (sender, args.Old, args.Current);
@@ -110,7 +110,7 @@ namespace yse
 
     object->OnStateChanged.AddHandler (
       STATE_CHANGED_SYNCHRONIZATION_HANDLER_NAME,
-      [&] (yap::DynamicWorldObject& sender,
+      [this] (yap::DynamicWorldObject& sender,
            const yap::ChangeEventArgs<const yap::String&>& args)
       {
         HandleOnObjectStateChanged (sender, args.Old, args.Current);

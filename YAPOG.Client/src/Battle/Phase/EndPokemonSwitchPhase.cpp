@@ -2,7 +2,6 @@
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 #include "YAPOG/Game/Battle/Phase/ActionPhaseArgs.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
-#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "Game.hpp"
 
@@ -142,10 +141,6 @@ namespace ycl
       else
         nextPhase_ = yap::BattlePhaseState::Action;
     });
-
-    // Play the Pokemon cry
-    yap::AudioManager::Instance ().PlayCry 
-      (battle_.GetPlayerTeam ().GetID ());
   }
 
   void EndPokemonSwitchPhase::HandleUpdate (const yap::Time& dt)

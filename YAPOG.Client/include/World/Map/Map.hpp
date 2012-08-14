@@ -33,7 +33,7 @@ namespace ycl
         yap::TileLayoutHandler* tileLayoutHandler);
 
       Player& GetPlayer (const yap::ID& worldID);
-      bool ContainsPlayer (const yap::ID& worldID);
+      bool ContainsPlayer (const yap::ID& worldID) const;
 
       void AddPlayer (Player* player);
       void RemovePlayer (Player* player);

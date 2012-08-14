@@ -2,7 +2,6 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Content/ContentManager.hpp"
-#include "YAPOG/System/StringHelper.hpp"
 
 namespace yap
 {
@@ -43,12 +42,6 @@ namespace yap
       ContentManager::Instance ().LoadSoundBuffer (soundName));
 
     currentSound_->play ();
-  }
-
-  void AudioManager::PlayCry (const ID& staticID)
-  {
-    PlaySound ("Cries/" + 
-      StringHelper::ToString (staticID.GetValue ()) + ".wav");
   }
 
 } // namespace yap

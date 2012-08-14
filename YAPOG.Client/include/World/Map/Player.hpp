@@ -18,6 +18,8 @@ namespace ycl
       Player (const yap::ID& id);
       virtual ~Player ();
 
+      void SetName (const yap::String& name);
+
       /// @name ICloneable members.
       /// @{
       virtual Player* Clone () const;
@@ -53,6 +55,10 @@ namespace ycl
     private:
 
       static const yap::String OBJECT_FACTORY_TYPE_NAME;
+
+      static const yap::String DEFAULT_NAME;
+
+      yap::String name_;
   };
 } // namespace ycl
 
