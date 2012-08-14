@@ -40,6 +40,18 @@ namespace yap
   {
     return value < 0 ? -value : value;
   }
+
+  template <typename T>
+  T MathHelper::Cos (const T& angle)
+  {
+    return std::cos (angle);
+  }
+
+  template <typename T>
+  T MathHelper::Sin (const T& angle)
+  {
+    return std::sin (angle);
+  }
 } // namespace yap
 
 #endif // YAPOG_MATHHELPER_HXX

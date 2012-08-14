@@ -29,6 +29,12 @@ namespace yap
       template <typename T>
       static T Abs (const T& value);
 
+      template <typename T>
+      static T Cos (const T& angle);
+
+      template <typename T>
+      static T Sin (const T& angle);
+
     private:
 
       MathHelper ();

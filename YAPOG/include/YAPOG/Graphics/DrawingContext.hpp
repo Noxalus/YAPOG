@@ -39,9 +39,18 @@ namespace yap
       virtual sf::RenderTarget& GetRenderTarget ();
 
       virtual void Draw (const sf::Drawable& drawable);
+      virtual void Draw (
+        const sf::Drawable& drawable,
+        const sf::RenderStates& states);
       /// @}
 
       sf::RenderWindow& GetWindow ();
+
+    protected:
+
+      virtual void HandleDraw (
+        const sf::Drawable& drawable,
+        const sf::RenderStates& states);
 
     private:
 

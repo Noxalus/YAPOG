@@ -81,7 +81,21 @@ namespace yap
 
   void DrawingContext::Draw (const sf::Drawable& drawable)
   {
-    GetRenderTarget ().draw (drawable);
+    Draw (drawable, sf::RenderStates::Default);
+  }
+
+  void DrawingContext::Draw (
+    const sf::Drawable& drawable,
+    const sf::RenderStates& states)
+  {
+    HandleDraw (drawable, states);
+  }
+
+  void DrawingContext::HandleDraw (
+    const sf::Drawable& drawable,
+    const sf::RenderStates& states)
+  {
+    GetRenderTarget ().draw (drawable, states);
   }
 
   void DrawingContext::SetCurrentMode (const CameraMode& mode)
