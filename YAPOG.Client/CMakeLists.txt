@@ -141,9 +141,6 @@ ${src_root}/Gui/PokedexCompositeWidget.cpp
 ${inc_root}/Gui/RegistrationWidget.hpp
 ${src_root}/Gui/RegistrationWidget.cpp
 
-${inc_root}/Game.hpp
-${src_root}/Game.cpp
-
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp
 ${inc_root}/World/Map/CharacterReader.hpp
@@ -176,6 +173,9 @@ ${inc_root}/World/Map/OpenBattleSpawnerAreaReader.hpp
 ${src_root}/World/Map/OpenBattleSpawnerAreaReader.cpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
+
+${inc_root}/Game.hpp
+${src_root}/Game.cpp
 )
 
 ADD_EXECUTABLE(

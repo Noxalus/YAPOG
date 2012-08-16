@@ -13,6 +13,11 @@
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 
+namespace yap
+{
+  struct IWorldDrawingPolicy;
+} // namespace yap
+
 namespace ycl
 {
   class Player;
@@ -25,7 +30,7 @@ namespace ycl
 
     public:
 
-      Map (const yap::ID& id);
+      explicit Map (const yap::ID& id);
       virtual ~Map ();
 
       void AddTileLayer (
@@ -48,6 +53,9 @@ namespace ycl
       void AddDrawableDynamicObject (T* object);
       void RemoveDrawableDynamicObject (const yap::ID& worldID);
       void ClearDynamicObjects ();
+
+      void SetWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
 
       /// @name IDrawable members.
       /// @{
@@ -89,6 +97,8 @@ namespace ycl
       void HandleServerInfoUpdateObjectState (yap::IPacket& packet);
 
       static const yap::String DRAW_ORDER_HANDLER_NAME;
+
+      const yap::IWorldDrawingPolicy* worldDrawingPolicy_;
 
       yap::TileLayerStack tileLayers_;
 

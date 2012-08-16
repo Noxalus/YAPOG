@@ -13,6 +13,7 @@ namespace ycl
     : yap::Teleporter (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , worldDrawingPolicy_ (nullptr)
   {
   }
 
@@ -24,6 +25,7 @@ namespace ycl
     : yap::Teleporter (copy)
     , isVisible_ (copy.isVisible_)
     , color_ (copy.color_)
+    , worldDrawingPolicy_ (copy.worldDrawingPolicy_)
   {
   }
 
@@ -80,6 +82,14 @@ namespace ycl
     return HandleGetLayerDepth ();
   }
 
+  void Teleporter::ChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    HandleChangeWorldDrawingPolicy (worldDrawingPolicy);
+  }
+
   yap::Event<
     yap::IDrawableDynamicWorldObject&,
     const yap::Vector2&>& Teleporter::OnOrderStateChangedEvent ()
@@ -112,5 +122,10 @@ namespace ycl
   int Teleporter::HandleGetLayerDepth () const
   {
     return DEFAULT_LAYER_DEPTH;
+  }
+
+  void Teleporter::HandleChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
   }
 } // namespace ycl

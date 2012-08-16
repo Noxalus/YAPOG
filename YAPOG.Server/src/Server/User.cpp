@@ -165,13 +165,13 @@ namespace yse
 
     /// @todo Reach from DB
     yap::ID playerID = yap::ID (1);
-    yap::ID playerMapWorldID = yap::ID (16);
+    yap::ID playerMapWorldID = yap::ID (1);
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (
         "Player",
         playerID));
-    player_->Move (yap::Vector2 (240.0f, 240.0f));
+    player_->Move (yap::Vector2 (10.0f, 10.0f));
 
     SetMap (&world_->GetMap (playerMapWorldID));
 

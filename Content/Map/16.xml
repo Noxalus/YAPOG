@@ -1,16 +1,16 @@
 <Map id="16">
 
   <name>TEST_MAP</name>
-  <width>200</width>
-  <height>200</height>
+  <width>100</width>
+  <height>100</height>
 
   <ground>
     <tileLayer>
       <height>0</height>
       <layoutHandlerType>SelectionTileLayoutHandler</layoutHandlerType>
       <SelectionTileLayoutHandler>
-        <width>200</width>
-        <height>200</height>
+        <width>100</width>
+        <height>100</height>
         <defaultTile id="1"/>
         <Tile id="2">
           <position>3,3</position>
@@ -27,14 +27,59 @@
 
   <staticObjects>
     <MapElement id="16"><position>0,0</position></MapElement>
-    <MapElement id="16"><position>51,0</position></MapElement>
-    <MapElement id="16"><position>51,51</position></MapElement>
-    <MapElement id="16"><position>102,0</position></MapElement>
-    <MapElement id="16"><position>0,51</position></MapElement>
-    <MapElement id="16"><position>102,51</position></MapElement>
-    <MapElement id="16"><position>102,102</position></MapElement>
-    <MapElement id="16"><position>51,102</position></MapElement>
-    <MapElement id="16"><position>0,102</position></MapElement>
+    <MapElement id="16"><position>42,0</position></MapElement>
+    <MapElement id="16"><position>84,0</position></MapElement>
+    <MapElement id="16"><position>126,0</position></MapElement>
+    <MapElement id="16"><position>168,0</position></MapElement>
+    <MapElement id="16"><position>210,0</position></MapElement>
+    <MapElement id="16"><position>252,0</position></MapElement>
+    <MapElement id="16"><position>294,0</position></MapElement>
+    <MapElement id="16"><position>338,0</position></MapElement>
+    <MapElement id="16"><position>380,0</position></MapElement>
+
+    <MapElement id="16"><position>0,42</position></MapElement>
+    <MapElement id="16"><position>42,42</position></MapElement>
+    <MapElement id="16"><position>84,42</position></MapElement>
+    <MapElement id="16"><position>126,42</position></MapElement>
+    <MapElement id="16"><position>168,42</position></MapElement>
+    <MapElement id="16"><position>210,42</position></MapElement>
+    <MapElement id="16"><position>252,42</position></MapElement>
+    <MapElement id="16"><position>294,42</position></MapElement>
+    <MapElement id="16"><position>338,42</position></MapElement>
+    <MapElement id="16"><position>380,42</position></MapElement>
+
+    <MapElement id="16"><position>0,84</position></MapElement>
+    <MapElement id="16"><position>42,84</position></MapElement>
+    <MapElement id="16"><position>84,84</position></MapElement>
+    <MapElement id="16"><position>126,84</position></MapElement>
+    <MapElement id="16"><position>168,84</position></MapElement>
+    <MapElement id="16"><position>210,84</position></MapElement>
+    <MapElement id="16"><position>252,84</position></MapElement>
+    <MapElement id="16"><position>294,84</position></MapElement>
+    <MapElement id="16"><position>338,84</position></MapElement>
+    <MapElement id="16"><position>380,84</position></MapElement>
+
+    <MapElement id="16"><position>0,126</position></MapElement>
+    <MapElement id="16"><position>42,126</position></MapElement>
+    <MapElement id="16"><position>84,126</position></MapElement>
+    <MapElement id="16"><position>126,126</position></MapElement>
+    <MapElement id="16"><position>168,126</position></MapElement>
+    <MapElement id="16"><position>210,126</position></MapElement>
+    <MapElement id="16"><position>252,126</position></MapElement>
+    <MapElement id="16"><position>294,126</position></MapElement>
+    <MapElement id="16"><position>338,126</position></MapElement>
+    <MapElement id="16"><position>380,126</position></MapElement>
+
+    <MapElement id="16"><position>0,168</position></MapElement>
+    <MapElement id="16"><position>42,168</position></MapElement>
+    <MapElement id="16"><position>84,168</position></MapElement>
+    <MapElement id="16"><position>126,168</position></MapElement>
+    <MapElement id="16"><position>168,168</position></MapElement>
+    <MapElement id="16"><position>210,168</position></MapElement>
+    <MapElement id="16"><position>252,168</position></MapElement>
+    <MapElement id="16"><position>294,168</position></MapElement>
+    <MapElement id="16"><position>338,168</position></MapElement>
+    <MapElement id="16"><position>380,168</position></MapElement>
   </staticObjects>
 
   <dynamicObjects>

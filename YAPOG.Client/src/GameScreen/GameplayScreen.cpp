@@ -24,6 +24,8 @@
 #include "YAPOG/Game/Battle/PlayerTrainer.hpp"
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/Graphics/Game/Game.hpp"
+#include "YAPOG/Graphics/Game/World/RegularWorldDrawingPolicy.hpp"
+#include "YAPOG/Graphics/Game/World/IsometricWorldDrawingPolicy.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -104,6 +106,8 @@ namespace ycl
     {
       nextScreen_ = "Battle";
     };
+
+    world_.SetDrawingPolicy (*new yap::RegularWorldDrawingPolicy ());
 
     world_.OnMapChanged += [this] (
       const World& sender,

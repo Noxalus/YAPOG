@@ -6,13 +6,21 @@
 
 namespace yap
 {
+  struct ISpatial3;
+
   /// @brief Describes actions to perform when drawing game world.
   struct IWorldDrawingPolicy
   {
       virtual ~IWorldDrawingPolicy () { }
 
-      virtual Vector2 GetDrawingPosition (
+      virtual Vector2 ToScreenPosition (
         const Vector3& worldPosition) const = 0;
+
+      virtual Vector2 ToScreenOffset (
+        const Vector3& worldOffset) const = 0;
+
+      virtual float GetComparisonPoint (
+        const ISpatial3& spatial) const = 0;
   };
 } // namespace yap
 

@@ -13,6 +13,7 @@ namespace ycl
     , OnMapChanged ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , drawingPolicy_ (nullptr)
     , currentMapID_ ()
     , currentMap_ (nullptr)
     , maps_ ()
@@ -65,12 +66,23 @@ namespace ycl
 
   void World::AddMap (Map* map)
   {
+    if (drawingPolicy_ != nullptr)
+      map->SetWorldDrawingPolicy (*drawingPolicy_);
+
     maps_.Add (map->GetWorldID (), map);
   }
 
   void World::RemoveMap (const yap::ID& worldID)
   {
     maps_.Remove (worldID);
+  }
+
+  void World::SetDrawingPolicy (const yap::IWorldDrawingPolicy& drawingPolicy)
+  {
+    drawingPolicy_ = &drawingPolicy;
+
+    for (auto& idMapPair : maps_)
+      idMapPair.second->SetWorldDrawingPolicy (*drawingPolicy_);
   }
 
   void World::Draw (yap::IDrawingContext& context)

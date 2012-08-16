@@ -6,6 +6,8 @@
 
 namespace yap
 {
+  struct IWorldDrawingPolicy;
+
   struct IDrawableWorldObject : public IDrawable
   {
       virtual ~IDrawableWorldObject () { }
@@ -19,6 +21,12 @@ namespace yap
       /// The layer depth is a prioritary factor for drawing order.
       /// @return Layer depth
       virtual int GetLayerDepth () const = 0;
+
+      /// @brief Changes the way that instance of IDrawableWorldObject
+      /// is represented on the screen from its world position.
+      /// @param New IWorldDrawingPolicy to be applied.
+      virtual void ChangeWorldDrawingPolicy (
+        const IWorldDrawingPolicy& worldDrawingPolicy) = 0;
   };
 } // namespace yap
 

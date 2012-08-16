@@ -341,9 +341,14 @@ ${inc_root}/Graphics/TextureReader.hpp
 ${src_root}/Graphics/TextureReader.cpp
 ${inc_root}/Graphics/Vector2.hpp
 ${src_root}/Graphics/Vector2.cpp
-${inc_root}/Graphics/IWorldDrawingPolicy.hpp
-${inc_root}/Graphics/WorldDrawingPolicy.hpp
-${src_root}/Graphics/WorldDrawingPolicy.cpp
+
+${inc_root}/Graphics/Game/World/IWorldDrawingPolicy.hpp
+${inc_root}/Graphics/Game/World/WorldDrawingPolicy.hpp
+${src_root}/Graphics/Game/World/WorldDrawingPolicy.cpp
+${inc_root}/Graphics/Game/World/RegularWorldDrawingPolicy.hpp
+${src_root}/Graphics/Game/World/RegularWorldDrawingPolicy.cpp
+${inc_root}/Graphics/Game/World/IsometricWorldDrawingPolicy.hpp
+${src_root}/Graphics/Game/World/IsometricWorldDrawingPolicy.cpp
 
 ${inc_root}/Graphics/Game/Game.hpp
 ${src_root}/Graphics/Game/Game.cpp

@@ -24,6 +24,8 @@ namespace ycl
 
       void SetSprite (yap::ISprite* sprite);
 
+      void SetLayerDepth (int layerDepth);
+
       /// @name ICloneable members.
       /// @{
       virtual MapElement* Clone () const;
@@ -44,6 +46,9 @@ namespace ycl
       virtual float GetComparisonPoint () const;
 
       virtual int GetLayerDepth () const;
+
+      virtual void ChangeWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
       /// @}
 
     protected:
@@ -64,6 +69,9 @@ namespace ycl
 
       virtual int HandleGetLayerDepth () const;
 
+      virtual void HandleChangeWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
+
     private:
 
       static const bool DEFAULT_VISIBLE_STATE;
@@ -73,6 +81,9 @@ namespace ycl
 
       bool isVisible_;
       sf::Color color_;
+
+      int layerDepth_;
+      const yap::IWorldDrawingPolicy* worldDrawingPolicy_;
 
       yap::ISprite* sprite_;
   };

@@ -16,6 +16,7 @@ namespace ycl
     : yap::DestructibleObject (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , worldDrawingPolicy_ (nullptr)
     , sprite_ (nullptr)
   {
   }
@@ -28,6 +29,7 @@ namespace ycl
     : yap::DestructibleObject (copy)
     , isVisible_ (copy.isVisible_)
     , color_ (copy.color_)
+    , worldDrawingPolicy_ (copy.worldDrawingPolicy_)
     , sprite_ (nullptr)
   {
     if (copy.sprite_ != nullptr)
@@ -79,6 +81,14 @@ namespace ycl
   int DestructibleObject::GetLayerDepth () const
   {
     return HandleGetLayerDepth ();
+  }
+
+  void DestructibleObject::ChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    HandleChangeWorldDrawingPolicy (worldDrawingPolicy);
   }
 
   yap::Event<
@@ -141,5 +151,10 @@ namespace ycl
   int DestructibleObject::HandleGetLayerDepth () const
   {
     return DEFAULT_LAYER_DEPTH;
+  }
+
+  void DestructibleObject::HandleChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
   }
 } // namespace ycl

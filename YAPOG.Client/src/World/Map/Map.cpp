@@ -10,6 +10,7 @@ namespace ycl
 
   Map::Map (const yap::ID& id)
     : yap::Map (id)
+    , worldDrawingPolicy_ (nullptr)
     , tileLayers_ ()
     , drawableObjects_ ()
     , drawableDynamicObjects_ ()
@@ -76,6 +77,15 @@ namespace ycl
     }
   }
 
+  void Map::SetWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    for (auto drawableObject : drawableObjects_)
+      drawableObject->ChangeWorldDrawingPolicy (*worldDrawingPolicy_);
+  }
+
   void Map::Draw (yap::IDrawingContext& context)
   {
     if (!IsVisible ())
@@ -139,6 +149,9 @@ namespace ycl
 
   void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
   {
+    if (worldDrawingPolicy_ != nullptr)
+      drawableObject->ChangeWorldDrawingPolicy (*worldDrawingPolicy_);
+
     drawableObjects_.Add (drawableObject);
   }
 
