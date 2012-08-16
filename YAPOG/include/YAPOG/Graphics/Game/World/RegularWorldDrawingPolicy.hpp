@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class RegularWorldDrawingPolicy : public WorldDrawingPolicy
+  class YAPOG_LIB RegularWorldDrawingPolicy : public WorldDrawingPolicy
   {
       DISALLOW_COPY(RegularWorldDrawingPolicy);
 
