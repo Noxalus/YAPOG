@@ -1,14 +1,35 @@
 #include "Database/Tables/PlayerDataTable.hpp"
+#include "Account/PlayerData.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 
 namespace yse
 {
-  const yap::Vector2 PlayerDataTable::DEFAULT_POSITION (42.69f, 1337.56f);
-
   PlayerDataTable::PlayerDataTable (const yap::ID& accountID)
     : accountID_ (accountID)
-    , position_ (DEFAULT_POSITION)
+    , position_ (PlayerData::DEFAULT_POSITION)
+    , mapPosition_ (PlayerData::DEFAULT_MAP_POSITION)
+    , playTime_ (0)
+    , stepCount_ (0)
+    , respawnSpot_ (PlayerData::DEFAULT_RESPAWN_SPOT)
+    , fleeCount_ (0)
+    , boxNumber_ (PlayerData::DEFAULT_BOX_NUMBER)
+    , battleCount_ (0)
+    , money_ (PlayerData::DEFAULT_MONEY)
   {
+  }
+
+  void PlayerDataTable::LoadFromPlayerData (const PlayerData& playerData)
+  {
+    SetAccountID (playerData.GetAccountID ());
+    SetPosition (playerData.GetPosition ());
+    SetMapPosition (playerData.GetMapPosition ());
+    SetPlayTime (playerData.GetPlayTime ());
+    SetStepCount (playerData.GetStepCount ());
+    SetRespawnSpot (playerData.GetRespawnSpot ());
+    SetFleeCount (playerData.GetFleeCount ());
+    SetBoxNumber (playerData.GetBoxNumber ());
+    SetBattleCount (playerData.GetBattleCount ());
+    SetMoney (playerData.GetMoney ());
   }
 
   /// Getters
@@ -16,12 +37,44 @@ namespace yse
   { return accountID_; }
   const yap::Vector2& PlayerDataTable::GetPosition () const 
   { return position_; }
+  const yap::ID& PlayerDataTable::GetMapPosition () const
+  { return mapPosition_; }
+  int PlayerDataTable::GetPlayTime () const
+  { return playTime_; }
+  int PlayerDataTable::GetStepCount () const
+  { return stepCount_; }
+  const yap::Vector2& PlayerDataTable::GetRespawnSpot () const
+  { return respawnSpot_; }
+  int PlayerDataTable::GetFleeCount () const
+  { return fleeCount_; }
+  int PlayerDataTable::GetBoxNumber () const
+  { return boxNumber_; }
+  int PlayerDataTable::GetBattleCount () const
+  { return battleCount_; }
+  int PlayerDataTable::GetMoney () const
+  { return money_; }
 
   /// Setters
   void PlayerDataTable::SetAccountID (const yap::ID& value)
   { accountID_ = value; }
   void PlayerDataTable::SetPosition (const yap::Vector2& value)
   { position_ = value; }
+  void PlayerDataTable::SetMapPosition (const yap::ID& value)
+  { mapPosition_ = value; }
+  void PlayerDataTable::SetPlayTime (int value)
+  { playTime_ = value; }
+  void PlayerDataTable::SetStepCount (int value)
+  { stepCount_ = value; }
+  void PlayerDataTable::SetRespawnSpot (const yap::Vector2& value)
+  { respawnSpot_ = value; }
+  void PlayerDataTable::SetFleeCount (int value)
+  { fleeCount_ = value; }
+  void PlayerDataTable::SetBoxNumber (int value)
+  { boxNumber_ = value; }
+  void PlayerDataTable::SetBattleCount (int value)
+  { battleCount_ = value; }
+  void PlayerDataTable::SetMoney (int value)
+  { money_ = value; }
 
   void PlayerDataTable::DisplayData ()
   {

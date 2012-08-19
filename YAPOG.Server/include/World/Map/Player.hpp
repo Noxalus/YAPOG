@@ -27,6 +27,8 @@ namespace yse
       explicit Player (const yap::ID& id);
       virtual ~Player ();
 
+      const yap::Vector2& GetPosition () const;
+
       void SetParentUser (User* parent);
 
       void SetName (const yap::String& name);

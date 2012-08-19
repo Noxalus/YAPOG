@@ -1,10 +1,12 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 
 #include "Server/ClientSession.hpp"
+#include "Account/PlayerData.hpp"
+#include "World/Map/Player.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yse
 {
   ClientSession::ClientSession ()
@@ -211,6 +213,17 @@ namespace yse
 
   void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)
   {
+    // Copy some data to prepare update of the database
+    yap::Vector2 currentPosition = user_.GetPlayer ().GetPosition ();
+    user_.GetAccount ().GetPlayerData ().SetPosition (currentPosition);
+
+    // Save the player data in the database
+    user_.SaveAccountData ();
+
+    yap::DebugLogger::Instance ().LogLine (
+      user_.GetLogin () +
+      "'s player data have been save.");
+
     yap::DebugLogger::Instance ().LogLine (
       "Client disconnected: `" +
       user_.GetLogin () +

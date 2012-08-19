@@ -18,16 +18,11 @@ SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
 SET(
 source_files
 ${src_root}/Server.cpp
-${inc_root}/Database/Tables/ITable.hpp
+
 ${inc_root}/Database/Requests/IRequest.hpp
 ${inc_root}/Database/Requests/Inserts/IInsertRequest.hpp
 ${inc_root}/Database/Requests/Selects/ISelectRequest.hpp
 ${inc_root}/Database/Requests/Updates/IUpdateRequest.hpp
-
-${inc_root}/Database/Tables/AccountTable.hpp
-${src_root}/Database/Tables/AccountTable.cpp
-${inc_root}/Database/Tables/PlayerDataTable.hpp
-${src_root}/Database/Tables/PlayerDataTable.cpp
 
 ${inc_root}/Database/Requests/Inserts/AccountInsertRequest.hpp
 ${src_root}/Database/Requests/Inserts/AccountInsertRequest.cpp
@@ -44,6 +39,12 @@ ${src_root}/Database/Requests/Updates/AccountUpdateRequest.cpp
 ${inc_root}/Database/Requests/Updates/PlayerDataUpdateRequest.hpp
 ${src_root}/Database/Requests/Updates/PlayerDataUpdateRequest.cpp
 
+${inc_root}/Database/Tables/ITable.hpp
+${inc_root}/Database/Tables/AccountTable.hpp
+${src_root}/Database/Tables/AccountTable.cpp
+${inc_root}/Database/Tables/PlayerDataTable.hpp
+${src_root}/Database/Tables/PlayerDataTable.cpp
+
 ${inc_root}/Server/Server.hpp
 ${src_root}/Server/Server.cpp
 ${inc_root}/Server/ClientManager.hpp
@@ -57,6 +58,8 @@ ${src_root}/Account/AccountManager.cpp
 ${inc_root}/Account/Account.hpp
 ${src_root}/Account/Account.cpp
 ${inc_root}/Account/AccountPermission.hpp
+${inc_root}/Account/PlayerData.hpp
+${src_root}/Account/PlayerData.cpp
 
 ${inc_root}/World/Map/DynamicObjectFactory.hpp
 ${src_root}/World/Map/DynamicObjectFactory.cpp

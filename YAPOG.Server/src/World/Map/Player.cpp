@@ -2,6 +2,7 @@
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/Game/World/Map/WorldObject.hpp"
 
 #include "World/Map/Player.hpp"
 #include "Server/User.hpp"
@@ -41,6 +42,11 @@ namespace yse
   Player* Player::Clone () const
   {
     return new Player (*this);
+  }
+
+  const yap::Vector2& Player::GetPosition () const
+  {
+    return yap::WorldObject::GetPosition ();
   }
 
   void Player::SetParentUser (User* parentUser)

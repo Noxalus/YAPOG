@@ -56,7 +56,7 @@ namespace yse
     return false;
   }
 
-  void AccountManager::Login (
+  Account* AccountManager::Login (
     const yap::String& name, 
     const yap::String& password, 
     const yap::String& current_ip)
@@ -88,6 +88,7 @@ namespace yse
     playerDataTable.DisplayData ();
 
     // Record the login IP
+    /*
     accountTable.SetCurrentIP (current_ip);
 
     yap::String queryString = 
@@ -106,7 +107,12 @@ namespace yse
     std::cout 
       << "This account is now in use for the "
       << "server and the database !" << std::endl;
+    */
 
+    Account* account = new Account ();
+    account->LoadFromTable (accountTable, playerDataTable);
+
+    return account;
     /*
     if (account->IsLogged ())
     std::cout << "This account is logged !" << std::endl;

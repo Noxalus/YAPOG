@@ -362,6 +362,7 @@ namespace ycl
 
     mainMenu_ = new GameMainMenu ();
     mainMenu_->Init (player_->GetName ());
+
     mainMenu_->OnPokedexItemActivated += [this] (
       GameMainMenu& sender,
       const yap::EmptyEventArgs& args)

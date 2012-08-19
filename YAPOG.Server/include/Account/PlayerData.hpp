@@ -1,24 +1,22 @@
-#ifndef YAPOG_PLAYERDATATABLE_HPP
-# define YAPOG_PLAYERDATATABLE_HPP
+#ifndef YAPOG_PLAYERDATA_HPP
+# define YAPOG_PLAYERDATA_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
-# include "Database/Tables/ITable.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/System/String.hpp"
 
 namespace yse
 {
-  class PlayerData;
+  class PlayerDataTable;
 
-  class PlayerDataTable : public ITable
+  class PlayerData
   {
-    DISALLOW_COPY(PlayerDataTable);
+    DISALLOW_COPY(PlayerData);
   public:
-    explicit PlayerDataTable (const yap::ID& accountID);
+    PlayerData ();
 
-    void LoadFromPlayerData (const PlayerData& playerData);
-
-    void DisplayData ();
+    void LoadFromTable (const PlayerDataTable& pdt);
 
     /// Getters
     const yap::ID& GetAccountID () const;
@@ -44,6 +42,13 @@ namespace yse
     void SetBattleCount (int value);
     void SetMoney (int value);
 
+    static const yap::ID DEFAULT_ACCOUNT_ID;
+    static const yap::Vector2 DEFAULT_POSITION;
+    static const yap::ID DEFAULT_MAP_POSITION;
+    static const yap::Vector2 DEFAULT_RESPAWN_SPOT;
+    static const int DEFAULT_BOX_NUMBER;
+    static const int DEFAULT_MONEY;
+
   private:
     yap::ID accountID_;
     yap::Vector2 position_;
@@ -58,4 +63,4 @@ namespace yse
   };
 } // namespace yse
 
-#endif // YAPOG_PLAYERDATATABLE_HPP
+#endif // YAPOG_PLAYERDATA_HPP

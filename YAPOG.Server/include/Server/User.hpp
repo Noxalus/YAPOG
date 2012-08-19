@@ -5,6 +5,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
+# include "Account/Account.hpp"
 
 namespace yap
 {
@@ -27,12 +28,16 @@ namespace yse
       User ();
       virtual ~User ();
 
+      void SaveAccountData ();
+
       void ChangeMap (
         const yap::ID& mapWorldID,
         const yap::Vector2& mapPoint);
 
       World& GetWorld ();
       Map& GetMap ();
+      Account& GetAccount ();
+      const Player& GetPlayer () const;
 
       void SetWorld (World* world);
       void RemoveFromWorld ();
@@ -83,6 +88,7 @@ namespace yse
       Map* map_;
       Player* player_;
       yap::DatabaseManager* databaseManager_;
+      Account* account_;
   };
 } // namespace yse
 

@@ -10,6 +10,7 @@
 #include "World/Map/Player.hpp"
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
+#include "Account/Account.hpp"
 
 #define YAPOG_DB_MODE 1
 
@@ -21,6 +22,7 @@ namespace yse
     , world_ (nullptr)
     , map_ (nullptr)
     , player_ (nullptr)
+    , account_ (nullptr)
   {
     ADD_HANDLER(ClientRequestStartInfo, User::HandleClientRequestStartInfo);
     ADD_HANDLER(ClientInfoApplyForce, User::HandleClientInfoApplyForce);
@@ -29,6 +31,11 @@ namespace yse
 
   User::~User ()
   {
+  }
+
+  void User::SaveAccountData ()
+  {
+    account_->SaveAccountData (*databaseManager_);
   }
 
   void User::SetWorld (World* world)
@@ -55,7 +62,7 @@ namespace yse
 
 #if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
-    am.Login (login, password, ip);
+    account_ = am.Login (login, password, ip);
 #endif // YAPOG_DB_MODE
 
     return true;
@@ -112,6 +119,16 @@ namespace yse
     return *map_;
   }
 
+  Account& User::GetAccount ()
+  {
+    return *account_;
+  }
+
+  const Player& User::GetPlayer () const
+  {
+    return *player_;
+  }
+
   void User::SetMap (Map* map)
   {
     map_ = map;
@@ -165,12 +182,20 @@ namespace yse
 
     /// @todo Reach from DB
     yap::ID playerID = yap::ID (1);
-    yap::ID playerMapWorldID = yap::ID (1);
+    
+    //yap::ID playerMapWorldID = yap::ID (1);
+   
+    yap::ID playerMapWorldID = 
+      account_->GetPlayerData ().GetMapPosition ();
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (
       "Player",
       playerID));
+
+    // Get the actual position from the database
+    player_->SetPosition (
+      account_->GetPlayerData ().GetPosition ());
 
     SetMap (&world_->GetMap (playerMapWorldID));
 

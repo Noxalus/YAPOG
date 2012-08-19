@@ -26,7 +26,7 @@ namespace yse
       const yap::String& email, 
       const yap::String& creationIp);
 
-    void Login (
+    Account* Login (
       const yap::String& name, 
       const yap::String& password, 
       const yap::String& current_ip);
