@@ -4,6 +4,7 @@
 #include "YAPOG/System/IO/Log/Logger.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/ICamera.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
@@ -26,6 +27,7 @@
 #include "YAPOG/Graphics/Game/Game.hpp"
 #include "YAPOG/Graphics/Game/World/RegularWorldDrawingPolicy.hpp"
 #include "YAPOG/Graphics/Game/World/IsometricWorldDrawingPolicy.hpp"
+#include "YAPOG/Graphics/Gui/Game/World/GameWorldGuiManager.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
@@ -51,16 +53,17 @@ namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
-  GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
-    : BaseScreen (DEFAULT_NAME)
+  GameplayScreen::GameplayScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , world_ ()
-    , worldCamera_ (worldCamera)
-    , cameraController_ (worldCamera_)
+    , worldDrawingPolicy_ (nullptr)
+    , cameraController_ (context.GetCamera ("World"))
     , player_ (nullptr)
     , moveController_ ()
     , lastForce_ ()
     , fpsDisplayTimer_ ()
     , gameGuiManager_ (nullptr)
+    , gameWorldGuiManager_ (nullptr)
     , mainMenu_ (nullptr)
     , pokedex_ (nullptr)
     , pokemonTeam_ (nullptr)
@@ -71,8 +74,6 @@ namespace ycl
 
   GameplayScreen::~GameplayScreen ()
   {
-    delete (chat_);
-    chat_ = nullptr;
   }
 
   void GameplayScreen::HandleInit ()
@@ -107,7 +108,8 @@ namespace ycl
       nextScreen_ = "Battle";
     };
 
-    world_.SetDrawingPolicy (*new yap::RegularWorldDrawingPolicy ());
+    CreateWorldDrawingPolicy ();
+    world_.SetDrawingPolicy (*worldDrawingPolicy_);
 
     world_.OnMapChanged += [this] (
       const World& sender,
@@ -117,6 +119,12 @@ namespace ycl
     };
 
     session_.GetUser ().SetWorld (&world_);
+
+    gameWorldGuiManager_ = new yap::GameWorldGuiManager (
+      context_.GetCamera ("Gui"),
+      context_.GetCamera ("World"),
+      *worldDrawingPolicy_);
+    guiManager_->AddChild (*gameWorldGuiManager_);
 
     chat_ = new ChatWidget ();
     chat_->Init ();
@@ -331,7 +339,7 @@ namespace ycl
 
   void GameplayScreen::HandleActivate ()
   {
-    yap::Game::CLEAR_COLOR = sf::Color::Black;
+    context_.SetTargetClearColor (sf::Color::Black);
 
     yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg");
   }
@@ -431,6 +439,11 @@ namespace ycl
     packet.Write (state);
 
     session_.SendPacket (packet);
+  }
+
+  void GameplayScreen::CreateWorldDrawingPolicy ()
+  {
+    worldDrawingPolicy_ = new yap::RegularWorldDrawingPolicy ();
   }
 
   void GameplayScreen::CreateGuiManager ()

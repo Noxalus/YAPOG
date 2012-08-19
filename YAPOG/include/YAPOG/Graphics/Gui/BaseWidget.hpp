@@ -11,7 +11,7 @@
 # include "YAPOG/Graphics/Gui/Padding.hpp"
 
 namespace yap
-{  
+{
   class WidgetBackground;
   class WidgetBorder;
 
@@ -133,12 +133,12 @@ namespace yap
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
 
-    virtual void HandleMove (const Vector2& offset) = 0;
-    virtual void HandleScale (const Vector2& factor) = 0;
-    virtual void HandleDraw (IDrawingContext& context) = 0;
-    virtual void HandleShow (bool isVisible) = 0;
-    virtual void HandleChangeColor (const sf::Color& color) = 0;
-    virtual void HandleUpdate (const Time& dt) = 0;
+    virtual void HandleMove (const Vector2& offset);
+    virtual void HandleScale (const Vector2& factor);
+    virtual void HandleDraw (IDrawingContext& context);
+    virtual void HandleShow (bool isVisible);
+    virtual void HandleChangeColor (const sf::Color& color);
+    virtual void HandleUpdate (const Time& dt);
 
     virtual bool HandleOnEvent (const GuiEvent& guiEvent);
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
@@ -167,7 +167,7 @@ namespace yap
     sf::Color userColor_;
     bool isChangeColorCall_;
   private:
-    void SetPosAfterBorder (uint width, uint height, bool refreshing);    
+    void SetPosAfterBorder (uint width, uint height, bool refreshing);
   };
 } // namespace yap
 

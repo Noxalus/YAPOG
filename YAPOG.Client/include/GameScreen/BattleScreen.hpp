@@ -12,28 +12,30 @@ namespace ycl
 
   class BattleScreen : public BaseScreen
   {
-    DISALLOW_COPY(BattleScreen);
+      DISALLOW_COPY(BattleScreen);
 
-  public:
+    public:
 
-    BattleScreen ();
-    virtual ~BattleScreen ();
+      explicit BattleScreen (yap::IDrawingContext& context);
+      virtual ~BattleScreen ();
 
-  protected:
+    protected:
 
-    virtual void HandleInit ();
+      virtual void HandleInit ();
 
-    virtual void HandleRun (
-      const yap::Time& dt,
-      yap::IDrawingContext& context);
+      virtual void HandleRun (
+        const yap::Time& dt,
+        yap::IDrawingContext& context);
 
-    virtual void HandleActivate ();
-    virtual void HandleDeactivate ();
-  private:
-    Battle* battle_;
-    BattleInterface* battleInterface_;
+      virtual void HandleActivate ();
+      virtual void HandleDeactivate ();
 
-    static const yap::ScreenType DEFAULT_NAME;
+    private:
+
+      Battle* battle_;
+      BattleInterface* battleInterface_;
+
+      static const yap::ScreenType DEFAULT_NAME;
   };
 } // namespace ycl
 

@@ -13,6 +13,7 @@ namespace yap
   {
       virtual ~IWorldDrawingPolicy () { }
 
+      /// @todo Rename into ToWorldPosition...
       virtual Vector2 ToScreenPosition (
         const Vector3& worldPosition) const = 0;
 

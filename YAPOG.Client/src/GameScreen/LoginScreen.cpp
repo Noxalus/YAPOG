@@ -11,8 +11,8 @@ namespace ycl
 {
   const yap::ScreenType LoginScreen::DEFAULT_NAME = "Login";
 
-  LoginScreen::LoginScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  LoginScreen::LoginScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , loginWidget_ ()
   {
     loginWidget_.Init ();

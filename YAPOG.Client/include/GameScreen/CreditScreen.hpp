@@ -13,7 +13,7 @@ namespace ycl
 
     public:
 
-      CreditScreen ();
+      explicit CreditScreen (yap::IDrawingContext& context);
       virtual ~CreditScreen ();
 
     protected:

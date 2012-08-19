@@ -140,6 +140,8 @@ ${inc_root}/Gui/PokedexCompositeWidget.hpp
 ${src_root}/Gui/PokedexCompositeWidget.cpp
 ${inc_root}/Gui/RegistrationWidget.hpp
 ${src_root}/Gui/RegistrationWidget.cpp
+${inc_root}/Gui/MapRootWidget.hpp
+${src_root}/Gui/MapRootWidget.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

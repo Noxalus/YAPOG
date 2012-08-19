@@ -3,6 +3,7 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 
 #include "GameScreen/SplashScreen.hpp"
 
@@ -11,8 +12,8 @@ namespace ycl
   const yap::ScreenType SplashScreen::DEFAULT_NAME = "Splash";
   const yap::String SplashScreen::DEFAULT_SPLASH_TEXT = "Appuyez sur Start !";
 
-  SplashScreen::SplashScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  SplashScreen::SplashScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , logo_ (nullptr)
     , splashText_ (DEFAULT_SPLASH_TEXT)
   {
@@ -45,6 +46,8 @@ namespace ycl
   void SplashScreen::HandleActivate ()
   {
     yap::GameScreen::HandleActivate ();
+
+    context_.SetTargetClearColor (sf::Color::White);
   }
 
   void SplashScreen::HandleRun (

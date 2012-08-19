@@ -4,8 +4,8 @@ namespace ycl
 {
   const yap::ScreenType LoadingScreen::DEFAULT_NAME = "Loading";
 
-  LoadingScreen::LoadingScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  LoadingScreen::LoadingScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
   {
   }
 

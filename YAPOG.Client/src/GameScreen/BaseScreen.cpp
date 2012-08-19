@@ -9,8 +9,11 @@
 
 namespace ycl
 {
-  BaseScreen::BaseScreen (const yap::ScreenType& screenType)
+  BaseScreen::BaseScreen (
+    const yap::ScreenType& screenType,
+    yap::IDrawingContext& context)
     : yap::GameScreen (screenType)
+    , context_ (context)
     , session_ (Session::Instance ())
     , contentManager_ (yap::ContentManager::Instance ())
     , objectFactory_ (yap::ObjectFactory::Instance ())

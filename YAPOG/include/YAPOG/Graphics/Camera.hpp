@@ -48,6 +48,15 @@ namespace yap
       virtual const sf::View& GetInnerView () const;
       /// @}
 
+    protected:
+
+      virtual bool HandleIsInView (
+        const Vector2& point,
+        const Vector2& size) const;
+
+      virtual Vector2 HandleToLocal (const Vector2& globalPoint) const;
+      virtual Vector2 HandleToGlobal (const Vector2& localPoint) const;
+
     private:
 
       SpatialInfo spatialInfo_;

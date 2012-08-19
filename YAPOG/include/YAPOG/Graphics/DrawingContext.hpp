@@ -42,6 +42,9 @@ namespace yap
       virtual void Draw (
         const sf::Drawable& drawable,
         const sf::RenderStates& states);
+
+      virtual const sf::Color& GetTargetClearColor () const;
+      virtual void SetTargetClearColor (const sf::Color& color);
       /// @}
 
       sf::RenderWindow& GetWindow ();
@@ -56,10 +59,14 @@ namespace yap
 
       void SetCurrentMode (const CameraMode& mode);
 
+      static const sf::Color DEFAULT_TARGET_CLEAR_COLOR;
+
       sf::RenderWindow window_;
       CameraMode currentMode_;
       CameraMode defaultMode_;
       collection::Map<CameraMode, ICamera*> cameras_;
+
+      sf::Color targetClearColor_;
   };
 } // namespace yap
 

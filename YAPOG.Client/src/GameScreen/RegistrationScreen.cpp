@@ -9,8 +9,8 @@ namespace ycl
 {
   const yap::ScreenType RegistrationScreen::DEFAULT_NAME = "Registration";
 
-  RegistrationScreen::RegistrationScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  RegistrationScreen::RegistrationScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , registrationWidget_ ()
   {
     registrationWidget_.Init ();
@@ -60,7 +60,7 @@ namespace ycl
   {
     BaseScreen::HandleRun (dt, context);
   }
-  
+
   bool RegistrationScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
@@ -83,7 +83,7 @@ namespace ycl
         //@todo Check
 
         session_.Register (login, password, email);
-        
+
         //registrationWidget_.SetErrorText ("Ce nom d'utilisateur existe déjà !");
 
         nextScreen_ = "MainMenu";

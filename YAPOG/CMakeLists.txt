@@ -479,6 +479,15 @@ ${inc_root}/Graphics/Gui/IWidget.hpp
 ${inc_root}/Graphics/Gui/GridMenu.hpp
 ${src_root}/Graphics/Gui/GridMenu.cpp
 
+${inc_root}/Graphics/Gui/Game/GameWidget.hpp
+${src_root}/Graphics/Gui/Game/GameWidget.cpp
+${inc_root}/Graphics/Gui/Game/World/GameWorldWidget.hpp
+${src_root}/Graphics/Gui/Game/World/GameWorldWidget.cpp
+${inc_root}/Graphics/Gui/Game/World/GameWorldGuiManager.hpp
+${src_root}/Graphics/Gui/Game/World/GameWorldGuiManager.cpp
+${inc_root}/Graphics/Gui/Game/World/MapRootWidget.hpp
+${src_root}/Graphics/Gui/Game/World/MapRootWidget.cpp
+
 ${inc_root}/Macros.hpp
 
 ${inc_root}/System/Configuration/ConfigurationReader.hpp

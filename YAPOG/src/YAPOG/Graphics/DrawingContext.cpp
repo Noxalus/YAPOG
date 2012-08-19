@@ -2,11 +2,15 @@
 
 namespace yap
 {
+  const sf::Color DrawingContext::DEFAULT_TARGET_CLEAR_COLOR =
+    sf::Color::Black;
+
   DrawingContext::DrawingContext (const Vector2& size, const String& name)
     : window_ (sf::VideoMode (size.x, size.y), name)
     , currentMode_ ()
     , defaultMode_ ()
     , cameras_ ()
+    , targetClearColor_ (DEFAULT_TARGET_CLEAR_COLOR)
   {
   }
 
@@ -89,6 +93,16 @@ namespace yap
     const sf::RenderStates& states)
   {
     HandleDraw (drawable, states);
+  }
+
+  const sf::Color& DrawingContext::GetTargetClearColor () const
+  {
+    return targetClearColor_;
+  }
+
+  void DrawingContext::SetTargetClearColor (const sf::Color& color)
+  {
+    targetClearColor_ = color;
   }
 
   void DrawingContext::HandleDraw (

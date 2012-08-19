@@ -32,8 +32,8 @@ namespace ycl
     return p;
   }
 
-  BattleScreen::BattleScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  BattleScreen::BattleScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , battleInterface_ (nullptr)
   {
   }

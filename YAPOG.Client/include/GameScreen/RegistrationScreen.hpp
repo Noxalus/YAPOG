@@ -14,7 +14,7 @@ namespace ycl
 
     public:
 
-      RegistrationScreen ();
+      explicit RegistrationScreen (yap::IDrawingContext& context);
       virtual ~RegistrationScreen ();
 
     protected:

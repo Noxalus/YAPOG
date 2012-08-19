@@ -103,8 +103,8 @@ namespace yap
 
     spatialInfo_.SetSize (
       Vector2 (
-      GetSize ().x * factor.x,
-      GetSize ().y * factor.y));
+        GetSize ().x * factor.x,
+        GetSize ().y * factor.y));
 
     OnScaled (*this, EventArgs (factor));
     HandleScale (factor);
@@ -130,7 +130,7 @@ namespace yap
   {
     userSize_ = size;
     Vector2 scaleFactor (size.x / GetSize ().x,
-      size.y / GetSize ().y);
+                         size.y / GetSize ().y);
 
     for (IWidget* child : childen_)
     {
@@ -143,8 +143,8 @@ namespace yap
 
     spatialInfo_.SetSize (
       Vector2 (
-      size.x,
-      size.y));
+        size.x,
+        size.y));
 
     OnSizeSet (*this, EventArgs (size));
     HandleScale (scaleFactor);
@@ -394,10 +394,10 @@ namespace yap
       border_->SetBorder (GetUserSize ());
     uint paddingBorder = border_->GetSize ().y > 0
       ? border_->GetSize ().y : border_->GetSize ().x;
-  /*  if (border_->GetSize ().y == 0)
-      SetPosAfterBorder (paddingBorder, 0, false);
-    else
-      SetPosAfterBorder (paddingBorder, paddingBorder, false);*/
+    /*  if (border_->GetSize ().y == 0)
+        SetPosAfterBorder (paddingBorder, 0, false);
+        else
+        SetPosAfterBorder (paddingBorder, paddingBorder, false);*/
   }
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
@@ -443,4 +443,27 @@ namespace yap
     Show (false);
   }
 
+  void BaseWidget::HandleMove (const Vector2& offset)
+  {
+  }
+
+  void BaseWidget::HandleScale (const Vector2& factor)
+  {
+  }
+
+  void BaseWidget::HandleDraw (IDrawingContext& context)
+  {
+  }
+
+  void BaseWidget::HandleShow (bool isVisible)
+  {
+  }
+
+  void BaseWidget::HandleChangeColor (const sf::Color& color)
+  {
+  }
+
+  void BaseWidget::HandleUpdate (const Time& dt)
+  {
+  }
 } // namespace yap
