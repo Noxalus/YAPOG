@@ -24,10 +24,17 @@ namespace ycl
     ADD_HANDLER(
       ServerInfoLoginValidation,
       Session::HandleServerInfoLoginValidation);
+
     ADD_HANDLER(
       ServerInfoRegistrationValidation,
       Session::HandleServerInfoRegistrationValidation);
+
     ADD_HANDLER(ServerInfoLoginError, Session::HandleServerInfoLoginError);
+    
+    ADD_HANDLER(
+      ServerInfoRegistrationError, 
+      Session::HandleServerInfoRegistrationError);
+
     ADD_HANDLER(ServerInfoPrimaryData, Session::HandleServerInfoPrimaryData);
   }
 
@@ -172,7 +179,7 @@ namespace ycl
 
   void Session::HandleServerInfoLoginValidation (yap::IPacket& packet)
   {
-    OnLogginValidation (*this, yap::EmptyEventArgs ());
+    OnLoginValidation (*this, yap::EmptyEventArgs ());
 
     yap::DebugLogger::Instance ().LogLine ("Login successful !");
 
@@ -190,7 +197,7 @@ namespace ycl
 
   void Session::HandleServerInfoLoginError (yap::IPacket& packet)
   {
-    OnLogginError (*this, yap::EmptyEventArgs ());
+    OnLoginError (*this, yap::EmptyEventArgs ());
 
     yap::DebugLogger::Instance ().LogLine ("Wrong login.");
   }

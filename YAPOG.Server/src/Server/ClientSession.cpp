@@ -186,10 +186,18 @@ namespace yse
           yap::ObjectFactory::Instance ());
 
         SendPacket (primaryDataPacket);
-      }
 
-      yap::DebugLogger::Instance ().LogLine (
-        "New account created: `" + login + "'.");
+        yap::DebugLogger::Instance ().LogLine (
+          "New account created: `" + login + "'.");
+      }
+      else
+      {
+        yap::Packet registrationErrorPacket;
+        registrationErrorPacket.CreateFromType (
+          yap::PacketType::ServerInfoRegistrationError);
+
+        SendPacket (registrationErrorPacket);
+      }
     }
     catch (...)
     {

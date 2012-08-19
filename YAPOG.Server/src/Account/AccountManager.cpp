@@ -25,7 +25,7 @@ namespace yse
       delete it.second;
   }
 
-  void AccountManager::CreateNewAccount (
+  bool AccountManager::CreateNewAccount (
     const yap::String& name,
     const yap::String& password,
     const yap::String& email,
@@ -42,13 +42,18 @@ namespace yse
     {
       std::cout << "A new accout has been created ! (" 
         << name << ")" << std::endl;
+
+      PlayerDataTable playerDataTable (ia.GetID ());
+      PlayerDataInsertRequest ipd (playerDataTable);
+
+      if (ipd.Insert (databaseManager_))
+      {
+        std::cout << "Player data have been created !" << std::endl;
+        return true;
+      }
     }
 
-    PlayerDataTable playerDataTable (ia.GetID ());
-    PlayerDataInsertRequest ipd (playerDataTable);
-
-    if (ipd.Insert (databaseManager_))
-    std::cout << "Player data have been created !" << std::endl;
+    return false;
   }
 
   void AccountManager::Login (

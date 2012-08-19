@@ -30,7 +30,7 @@
 #include "World/Map/NPCReader.hpp"
 #include "World/Map/Teleporter.hpp"
 
-#define YAPOG_DB_MODE 0
+#define YAPOG_DB_MODE 1
 
 namespace yse
 {
@@ -58,11 +58,13 @@ namespace yse
   void Server::Init ()
   {
     InitRandom ();
+
 #ifndef YAPOG_WIN
     InitContentManager (yap::Path ("../Content/"));
 #else
     InitContentManager (yap::Path ("../../Content/"));
 #endif // YAPOG_WIN
+
     InitObjectFactory ();
     InitWorldObjectStateFactory ();
 

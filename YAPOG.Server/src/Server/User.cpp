@@ -11,7 +11,7 @@
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
 
-#define YAPOG_DB_MODE 0
+#define YAPOG_DB_MODE 1
 
 namespace yse
 {
@@ -71,7 +71,7 @@ namespace yse
 
 #if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
-    am.CreateNewAccount (login, password, email, ip);
+    return am.CreateNewAccount (login, password, email, ip);
 #endif // YAPOG_DB_MODE
 
     return true;
@@ -169,8 +169,8 @@ namespace yse
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (
-        "Player",
-        playerID));
+      "Player",
+      playerID));
 
     SetMap (&world_->GetMap (playerMapWorldID));
 

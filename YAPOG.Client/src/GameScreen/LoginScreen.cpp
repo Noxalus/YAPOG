@@ -26,32 +26,18 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    session_.OnLogginValidation += [this] (
+    session_.OnLoginValidation += [this] (
       Session& sender,
       const yap::EmptyEventArgs& args)
     {
       nextScreen_ = "Gameplay";
     };
 
-    session_.OnRegistrationValidation += [this] (
+    session_.OnLoginError += [this] (
       Session& sender,
       const yap::EmptyEventArgs& args)
     {
-      nextScreen_ = "Gameplay";
-    };
-
-    session_.OnLogginError += [this] (
-      Session& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      loginWidget_.SetErrorText ("Failed to loggin");
-    };
-
-    session_.OnRegistrationError += [this] (
-      Session& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      loginWidget_.SetErrorText ("Failed to register");
+      loginWidget_.SetErrorText ("Failed to login !");
     };
 
     yap::PictureBox* bg = new yap::PictureBox ();

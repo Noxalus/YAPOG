@@ -46,9 +46,9 @@ namespace ycl
 
     /// @Events.
     /// @{
-    yap::Event<Session&, yap::EmptyEventArgs> OnLogginValidation;
+    yap::Event<Session&, yap::EmptyEventArgs> OnLoginValidation;
     yap::Event<Session&, yap::EmptyEventArgs> OnRegistrationValidation;
-    yap::Event<Session&, yap::EmptyEventArgs> OnLogginError;
+    yap::Event<Session&, yap::EmptyEventArgs> OnLoginError;
     yap::Event<Session&, yap::EmptyEventArgs> OnRegistrationError;
     /// @}
 

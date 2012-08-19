@@ -24,6 +24,20 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
+    session_.OnRegistrationValidation += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "MainMenu";
+    };
+
+    session_.OnRegistrationError += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      registrationWidget_.SetErrorText ("Failed to register !");
+    };
+
     yap::PictureBox* bg = new yap::PictureBox ();
 
     yap::RandomHelper* random;
@@ -49,6 +63,7 @@ namespace ycl
       bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
       break;
     }
+
     bg->SetSize (yap::Vector2 (800, 600));
     guiManager_->AddChild (*bg);
     guiManager_->AddChild (registrationWidget_);
@@ -60,7 +75,7 @@ namespace ycl
   {
     BaseScreen::HandleRun (dt, context);
   }
-  
+
   bool RegistrationScreen::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
     if (guiEvent.type == sf::Event::KeyPressed)
@@ -83,14 +98,20 @@ namespace ycl
         //@todo Check
 
         session_.Register (login, password, email);
-        
-        //registrationWidget_.SetErrorText ("Ce nom d'utilisateur existe déjà !");
 
-        nextScreen_ = "MainMenu";
         return true;
       }
 
     }
     return false;
   }
+
+  void RegistrationScreen::HandleDeactivate ()
+  {
+    registrationWidget_.GetLoginTextBox ().Clear ();
+    registrationWidget_.GetPasswordTextBox ().Clear ();
+    registrationWidget_.GetEmailTextBox ().Clear ();
+    registrationWidget_.SetErrorText ("");
+  }
+
 } // namespace ycl

@@ -212,14 +212,14 @@ namespace yap
 
   void                    FileChecker::Launch ()
   {
-    Thread* th = new Thread (MEMBER_WORKER(FileChecker::LocalUpdate), this);
+    Thread* th = new Thread (MEMBER_WORKER(FileChecker::Update), this);
     th->Launch ();
   }
   
   void                    FileChecker::Launch (String sourcePath)
   {
     sourcepath_ = sourcePath;
-    Thread* th = new Thread (MEMBER_WORKER(FileChecker::LocalUpdate), this);
+    Thread* th = new Thread (MEMBER_WORKER(FileChecker::Update), this);
     th->Launch ();
   }
 
