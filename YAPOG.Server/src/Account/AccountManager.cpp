@@ -1,6 +1,7 @@
 #include "YAPOG/Database/DatabaseStream.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/System/Hash/Md5.hpp"
 
 #include "Account/AccountManager.hpp"
 #include "Database/Tables/AccountTable.hpp"
@@ -10,6 +11,7 @@
 #include "Database/Requests/Selects/AccountSelectRequest.hpp"
 #include "Database/Requests/Inserts/PlayerDataInsertRequest.hpp"
 #include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
+
 
 namespace yse
 {
@@ -32,8 +34,12 @@ namespace yse
     const yap::String& creationIP)
   {
     AccountTable accountTable;
+
+    // Hash password
+    yap::String hashedPassword = EncodePassword (password);
+
     accountTable.SetName (name);
-    accountTable.SetPassword (password);
+    accountTable.SetPassword (hashedPassword);
     accountTable.SetEmail (email);
     accountTable.SetCreationIP (creationIP);
     AccountInsertRequest ia (accountTable);
@@ -69,10 +75,10 @@ namespace yse
 
     accountTable.DisplayData ();
 
-    yap::String encodedPassword = EncodePassword (password);
+    yap::String hashPassword = EncodePassword (password);
 
     // Check if this is the corresponding password
-    if (accountTable.GetPassword () != encodedPassword)
+    if (accountTable.GetPassword () != hashPassword)
       throw yap::Exception ("Wrong password !");
 
     /*
@@ -92,21 +98,21 @@ namespace yse
     accountTable.SetCurrentIP (current_ip);
 
     yap::String queryString = 
-      "UPDATE account SET "
-      "account_current_ip = :currentIp, "
-      "account_last_login_date = NOW () "
-      " WHERE account_name = :name";
+    "UPDATE account SET "
+    "account_current_ip = :currentIp, "
+    "account_last_login_date = NOW () "
+    " WHERE account_name = :name";
 
     yap::DatabaseStream queryUpdateCurrentIp (
-      queryString, 
-      databaseManager_.GetConnection ());
+    queryString, 
+    databaseManager_.GetConnection ());
 
     queryUpdateCurrentIp.Write (current_ip);
     queryUpdateCurrentIp.Write (name);
 
     std::cout 
-      << "This account is now in use for the "
-      << "server and the database !" << std::endl;
+    << "This account is now in use for the "
+    << "server and the database !" << std::endl;
     */
 
     Account* account = new Account ();
@@ -166,16 +172,10 @@ namespace yse
   yap::String AccountManager::EncodePassword (
     const yap::String& password)
   {
-    yap::String encodedPassword = password;
-    int counter = password.length ();
+    yap::Md5 md5;
+    yap::String hashedPassword = md5.Calculate (password);
 
-    while (counter < 32)
-    {
-      encodedPassword += ' ';
-      counter++;
-    }
-
-    return encodedPassword;
+    return hashedPassword;
   }
 
   void AccountManager::Disconnect (const yap::String& name)

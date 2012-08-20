@@ -186,7 +186,7 @@ namespace yse
     //yap::ID playerMapWorldID = yap::ID (1);
    
     yap::ID playerMapWorldID = 
-      account_->GetPlayerData ().GetMapPosition ();
+      account_->GetPlayerData ().GetMapID ();
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (

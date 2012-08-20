@@ -7,7 +7,7 @@ namespace yse
   PlayerDataTable::PlayerDataTable (const yap::ID& accountID)
     : accountID_ (accountID)
     , position_ (PlayerData::DEFAULT_POSITION)
-    , mapPosition_ (PlayerData::DEFAULT_MAP_POSITION)
+    , mapID_ (PlayerData::DEFAULT_MAP_ID)
     , playTime_ (0)
     , stepCount_ (0)
     , respawnSpot_ (PlayerData::DEFAULT_RESPAWN_SPOT)
@@ -22,7 +22,7 @@ namespace yse
   {
     SetAccountID (playerData.GetAccountID ());
     SetPosition (playerData.GetPosition ());
-    SetMapPosition (playerData.GetMapPosition ());
+    SetMapID (playerData.GetMapID ());
     SetPlayTime (playerData.GetPlayTime ());
     SetStepCount (playerData.GetStepCount ());
     SetRespawnSpot (playerData.GetRespawnSpot ());
@@ -37,8 +37,8 @@ namespace yse
   { return accountID_; }
   const yap::Vector2& PlayerDataTable::GetPosition () const 
   { return position_; }
-  const yap::ID& PlayerDataTable::GetMapPosition () const
-  { return mapPosition_; }
+  const yap::ID& PlayerDataTable::GetMapID () const
+  { return mapID_; }
   int PlayerDataTable::GetPlayTime () const
   { return playTime_; }
   int PlayerDataTable::GetStepCount () const
@@ -59,8 +59,8 @@ namespace yse
   { accountID_ = value; }
   void PlayerDataTable::SetPosition (const yap::Vector2& value)
   { position_ = value; }
-  void PlayerDataTable::SetMapPosition (const yap::ID& value)
-  { mapPosition_ = value; }
+  void PlayerDataTable::SetMapID (const yap::ID& value)
+  { mapID_ = value; }
   void PlayerDataTable::SetPlayTime (int value)
   { playTime_ = value; }
   void PlayerDataTable::SetStepCount (int value)

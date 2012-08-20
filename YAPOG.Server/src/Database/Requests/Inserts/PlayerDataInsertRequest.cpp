@@ -22,7 +22,7 @@ namespace yse
       "INSERT INTO player_data ("
       "account_id, "
       "player_data_position, "
-      "player_data_map_position, "
+      "player_data_map_id, "
       "player_data_time , "
       "player_data_step_count , "
       "player_data_respawn_spot , "
@@ -48,7 +48,7 @@ namespace yse
 
     query.Write (playerDataTable_.GetAccountID ().GetValue ());
     query.Write (playerDataTable_.GetPosition ());
-    query.Write (playerDataTable_.GetMapPosition ());
+    query.Write (playerDataTable_.GetMapID ());
     query.Write (playerDataTable_.GetPlayTime ());
     query.Write (playerDataTable_.GetStepCount ());
     query.Write (playerDataTable_.GetRespawnSpot ());

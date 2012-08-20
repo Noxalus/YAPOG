@@ -6,6 +6,8 @@
 #include "Server/ClientSession.hpp"
 #include "Account/PlayerData.hpp"
 #include "World/Map/Player.hpp"
+#include "World/World.hpp"
+#include "World/Map/Map.hpp"
 
 namespace yse
 {
@@ -216,6 +218,12 @@ namespace yse
     // Copy some data to prepare update of the database
     yap::Vector2 currentPosition = user_.GetPlayer ().GetPosition ();
     user_.GetAccount ().GetPlayerData ().SetPosition (currentPosition);
+
+    /*
+    yap::ID worldID = user_.GetPlayer ().GetWorldID ();
+    yap::ID mapID = user_.GetWorld ().GetMap (worldID).GetID ();
+    user_.GetAccount ().GetPlayerData ().SetMapID (mapID);
+    */
 
     // Save the player data in the database
     user_.SaveAccountData ();
