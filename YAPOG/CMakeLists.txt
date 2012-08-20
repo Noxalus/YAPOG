@@ -604,7 +604,6 @@ ADD_CUSTOM_COMMAND(
 	POST_BUILD
 	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Client\\bin\\\$\(Configuration\)
 	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND copy ARGS \$\(CodeAnalysisInputAssembly\) \$\(SolutionDir\)YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the YAPOG DLL file in the good directory !"
 )
 
@@ -626,8 +625,6 @@ ADD_CUSTOM_COMMAND(
 							\$\(SolutionDir\)YAPOG.Client\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
 							\$\(SolutionDir\)YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\sfml2\\\$\(Configuration\)
-							\$\(SolutionDir\)YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the SFML2 DLL files in the good directory !"
 )
 
@@ -639,8 +636,6 @@ ADD_CUSTOM_COMMAND(
 							\$\(SolutionDir\)\\YAPOG.Client\\bin\\\$\(Configuration\)
 	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
 							\$\(SolutionDir\)\\YAPOG.Server\\bin\\\$\(Configuration\)
-	COMMAND xcopy ARGS /s/y ${CMAKE_SOURCE_DIR_VS}\\extlibs\\bin\\x86\\postgresql
-							\$\(SolutionDir\)\\YAPOG.Test\\bin\\\$\(Configuration\)
 	COMMENT "Copy the Postgre DLL files in the good directory !"
 )
 endif()
