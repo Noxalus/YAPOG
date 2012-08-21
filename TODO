@@ -4,3 +4,8 @@
 - Allow the player to launch skills in battle
 - Save the pokemon team in the database
 - Complete the pokemon team manager
+
+Noxalus:
+- Finish the PokemonSelectRequest and PokemonUpdateRequest classes
+- Do the same thing for PokemonMove, PokemonEV and PokemonStats classes
+- Add a loading method for a Pokemon to construct itself from database
