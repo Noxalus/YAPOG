@@ -30,4 +30,4 @@ Documentation
 A complete documentation can be generate from our source code with Doxygen, and if you want to read it,
 you can go to the current official web site: [here][1].
 
-[1]: yapog.free.fr/doc/index.html
+[1]: http://yapog.free.fr/doc/index.html
