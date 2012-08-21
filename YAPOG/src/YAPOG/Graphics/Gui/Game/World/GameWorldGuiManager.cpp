@@ -12,7 +12,6 @@ namespace yap
     , guiCamera_ (guiCamera)
     , worldCamera_ (worldCamera)
     , worldDrawingPolicy_ (&worldDrawingPolicy)
-    , gameWorldWidgets_ ()
   {
   }
 
@@ -26,16 +25,8 @@ namespace yap
     worldDrawingPolicy_ = &worldDrawingPolicy;
   }
 
-  void GameWorldGuiManager::AddGameWorldWidget (
-    GameWorldWidget* gameWorldWidget)
-  {
-    gameWorldWidget->SetGameWorldRoot (*this);
-
-    gameWorldWidgets_.Add (gameWorldWidget);
-  }
-
   Vector2 GameWorldGuiManager::WorldPointToGuiPoint (
-    const Vector3& worldPoint)
+    const Vector3& worldPoint) const
   {
     return guiCamera_.ToLocal (
       worldCamera_.ToLocal (
@@ -43,8 +34,13 @@ namespace yap
           worldPoint)));
   }
 
-  bool GameWorldGuiManager::IsFocusable () const
+  const ICamera& GameWorldGuiManager::GetWorldCamera () const
   {
-    return false;
+    return worldCamera_;
+  }
+
+  const GameWorldGuiManager& GameWorldGuiManager::GetGameWorldRoot () const
+  {
+    return *this;
   }
 } // namespace yap

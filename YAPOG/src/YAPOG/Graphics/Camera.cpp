@@ -47,6 +47,8 @@ namespace yap
     spatialInfo_.SetPosition (GetPosition () + offset);
 
     view_.move (offset);
+
+    OnMoved (*this, offset);
   }
 
   void Camera::Scale (const Vector2& factor)
@@ -95,6 +97,11 @@ namespace yap
   const sf::View& Camera::GetInnerView () const
   {
     return view_;
+  }
+
+  Event<ICamera&, const Vector2&>& Camera::OnMovedEvent () const
+  {
+    return OnMoved;
   }
 
   bool Camera::HandleIsInView (const Vector2& point, const Vector2& size) const

@@ -34,12 +34,12 @@
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
 #include "Gui/GameGuiManager.hpp"
+#include "Gui/MapRootWidget.hpp"
 #include "Gui/GameMainMenu.hpp"
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
-
 #include "Client/Session.hpp"
 #include "Client/User.hpp"
 #include "Battle/PlayerTrainer.hpp"
@@ -64,6 +64,7 @@ namespace ycl
     , fpsDisplayTimer_ ()
     , gameGuiManager_ (nullptr)
     , gameWorldGuiManager_ (nullptr)
+    , mapRootWidget_ (nullptr)
     , mainMenu_ (nullptr)
     , pokedex_ (nullptr)
     , pokemonTeam_ (nullptr)
@@ -124,7 +125,12 @@ namespace ycl
       context_.GetCamera ("Gui"),
       context_.GetCamera ("World"),
       *worldDrawingPolicy_);
+    gameWorldGuiManager_->SetWorldDrawingPolicy (*worldDrawingPolicy_);
     guiManager_->AddChild (*gameWorldGuiManager_);
+
+    mapRootWidget_ = new MapRootWidget ();
+
+    gameWorldGuiManager_->AddGameWorldWidget (mapRootWidget_);
 
     chat_ = new ChatWidget ();
     chat_->Init ();
@@ -351,6 +357,8 @@ namespace ycl
 
   void GameplayScreen::SetCurrentMap (Map& map)
   {
+    mapRootWidget_->SetCurrentMap (&map);
+
     cameraController_.SetBounds (
       yap::FloatRect (
       yap::Vector2 (),

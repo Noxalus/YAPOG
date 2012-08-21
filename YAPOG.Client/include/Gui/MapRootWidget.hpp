@@ -7,6 +7,7 @@
 namespace ycl
 {
   class Map;
+  class Player;
 
   class MapRootWidget : public yap::GameWorldWidget
   {
@@ -25,6 +26,9 @@ namespace ycl
       Map& GetCurrentMap ();
 
     private:
+
+      void HandleSetCurrentMap (Map* map);
+      void HandlePlayerAdded (Player& player);
 
       Map* currentMap_;
   };

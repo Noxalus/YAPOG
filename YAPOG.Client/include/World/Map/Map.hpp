@@ -57,6 +57,9 @@ namespace ycl
       void SetWorldDrawingPolicy (
         const yap::IWorldDrawingPolicy& worldDrawingPolicy);
 
+      yap::Event<Map&, Player&> OnPlayerAdded;
+      yap::Event<Map&, Player&> OnPlayerRemoved;
+
       /// @name IDrawable members.
       /// @{
       virtual void Draw (yap::IDrawingContext& context);

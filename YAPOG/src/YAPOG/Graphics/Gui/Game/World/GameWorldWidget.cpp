@@ -4,6 +4,8 @@ namespace yap
 {
   GameWorldWidget::GameWorldWidget ()
     : GameWidget ()
+    , gameWorldParent_ (nullptr)
+    , gameWorldWidgets_ ()
   {
   }
 
@@ -11,9 +13,36 @@ namespace yap
   {
   }
 
-  void GameWorldWidget::SetGameWorldRoot (
-    const GameWorldGuiManager& gameWorldRoot)
+  void GameWorldWidget::AddGameWorldWidget (
+    GameWorldWidget* gameWorldWidget)
   {
-    gameWorldRoot_ = &gameWorldRoot;
+    gameWorldWidget->SetGameWorldParent (*this);
+
+    gameWorldWidgets_.Add (gameWorldWidget);
+
+    AddChild (*gameWorldWidget);
+  }
+
+  void GameWorldWidget::SetGameWorldParent (
+    const GameWorldWidget& gameWorldParent)
+  {
+    gameWorldParent_ = &gameWorldParent;
+
+    HandleSetGameWorldParent (gameWorldParent);
+  }
+
+  bool GameWorldWidget::IsFocusable () const
+  {
+    return false;
+  }
+
+  const GameWorldGuiManager& GameWorldWidget::GetGameWorldRoot () const
+  {
+    return gameWorldParent_->GetGameWorldRoot ();
+  }
+
+  void GameWorldWidget::HandleSetGameWorldParent (
+    const GameWorldWidget& gameWorldParent)
+  {
   }
 } // namespace yap

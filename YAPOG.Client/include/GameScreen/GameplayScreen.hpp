@@ -25,6 +25,7 @@ namespace ycl
   class PokedexWidget;
   class PokemonTeamWidget;
   class ChatWidget;
+  class MapRootWidget;
 
   class GameplayScreen : public BaseScreen
   {
@@ -84,6 +85,7 @@ namespace ycl
       GameGuiManager* gameGuiManager_;
 
       yap::GameWorldGuiManager* gameWorldGuiManager_;
+      MapRootWidget* mapRootWidget_;
 
       GameMainMenu* mainMenu_;
 

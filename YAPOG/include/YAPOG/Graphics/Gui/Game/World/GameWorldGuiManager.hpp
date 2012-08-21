@@ -25,11 +25,13 @@ namespace yap
       void SetWorldDrawingPolicy (
         const IWorldDrawingPolicy& worldDrawingPolicy);
 
-      void AddGameWorldWidget (GameWorldWidget* gameWorldWidget);
+      Vector2 WorldPointToGuiPoint (const Vector3& worldPoint) const;
 
-      Vector2 WorldPointToGuiPoint (const Vector3& worldPoint);
+      const ICamera& GetWorldCamera () const;
 
-      virtual bool IsFocusable () const;
+    protected:
+
+      virtual const GameWorldGuiManager& GetGameWorldRoot () const;
 
     private:
 
@@ -37,8 +39,6 @@ namespace yap
       const ICamera& worldCamera_;
 
       const IWorldDrawingPolicy* worldDrawingPolicy_;
-
-      collection::List<GameWorldWidget*> gameWorldWidgets_;
   };
 } // namespace yap
 

@@ -49,6 +49,8 @@ namespace ycl
     players_.Add (player->GetWorldID (), player);
 
     AddDrawableDynamicObject (player);
+
+    OnPlayerAdded (*this, *player);
   }
 
   void Map::RemovePlayer (Player* player)
@@ -56,6 +58,8 @@ namespace ycl
     players_.Remove (player->GetWorldID ());
 
     RemoveDrawableDynamicObject (player->GetWorldID ());
+
+    OnPlayerRemoved (*this, *player);
   }
 
   void Map::RemovePlayer (const yap::ID& worldID)

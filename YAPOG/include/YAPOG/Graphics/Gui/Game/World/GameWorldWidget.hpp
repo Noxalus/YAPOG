@@ -16,13 +16,26 @@ namespace yap
 
       virtual ~GameWorldWidget ();
 
-      void SetGameWorldRoot (const GameWorldGuiManager& gameWorldRoot);
+      virtual void AddGameWorldWidget (GameWorldWidget* gameWorldWidget);
+
+      virtual bool IsFocusable () const;
 
     protected:
 
       GameWorldWidget ();
 
-      const GameWorldGuiManager* gameWorldRoot_;
+      virtual const GameWorldGuiManager& GetGameWorldRoot () const;
+
+      virtual void HandleSetGameWorldParent (
+        const GameWorldWidget& gameWorldParent);
+
+    private:
+
+      void SetGameWorldParent (const GameWorldWidget& gameWorldParent);
+
+      const GameWorldWidget* gameWorldParent_;
+
+      collection::List<GameWorldWidget*> gameWorldWidgets_;
   };
 } // namespace yap
 
