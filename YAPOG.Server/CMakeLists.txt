@@ -28,22 +28,36 @@ ${inc_root}/Database/Requests/Inserts/AccountInsertRequest.hpp
 ${src_root}/Database/Requests/Inserts/AccountInsertRequest.cpp
 ${inc_root}/Database/Requests/Inserts/PlayerDataInsertRequest.hpp
 ${src_root}/Database/Requests/Inserts/PlayerDataInsertRequest.cpp
+${inc_root}/Database/Requests/Inserts/PokemonInsertRequest.hpp
+${src_root}/Database/Requests/Inserts/PokemonInsertRequest.cpp
 
 ${inc_root}/Database/Requests/Selects/AccountSelectRequest.hpp
 ${src_root}/Database/Requests/Selects/AccountSelectRequest.cpp
 ${inc_root}/Database/Requests/Selects/PlayerDataSelectRequest.hpp
 ${src_root}/Database/Requests/Selects/PlayerDataSelectRequest.cpp
+${inc_root}/Database/Requests/Selects/PokemonSelectRequest.hpp
+${src_root}/Database/Requests/Selects/PokemonSelectRequest.cpp
 
 ${inc_root}/Database/Requests/Updates/AccountUpdateRequest.hpp
 ${src_root}/Database/Requests/Updates/AccountUpdateRequest.cpp
 ${inc_root}/Database/Requests/Updates/PlayerDataUpdateRequest.hpp
 ${src_root}/Database/Requests/Updates/PlayerDataUpdateRequest.cpp
+${inc_root}/Database/Requests/Updates/PokemonUpdateRequest.hpp
+${src_root}/Database/Requests/Updates/PokemonUpdateRequest.cpp
 
 ${inc_root}/Database/Tables/ITable.hpp
 ${inc_root}/Database/Tables/AccountTable.hpp
 ${src_root}/Database/Tables/AccountTable.cpp
 ${inc_root}/Database/Tables/PlayerDataTable.hpp
 ${src_root}/Database/Tables/PlayerDataTable.cpp
+${inc_root}/Database/Tables/PokemonTable.hpp
+${src_root}/Database/Tables/PokemonTable.cpp
+${inc_root}/Database/Tables/PokemonMoveTable.hpp
+${src_root}/Database/Tables/PokemonMoveTable.cpp
+${inc_root}/Database/Tables/PokemonEVTable.hpp
+${src_root}/Database/Tables/PokemonEVTable.cpp
+${inc_root}/Database/Tables/PokemonStatsTable.hpp
+${src_root}/Database/Tables/PokemonStatsTable.cpp
 
 ${inc_root}/Server/Server.hpp
 ${src_root}/Server/Server.cpp

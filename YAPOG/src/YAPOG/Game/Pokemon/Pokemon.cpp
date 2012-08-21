@@ -137,6 +137,11 @@ namespace yap
       gender_ = Gender::Male;
   }
 
+  const ID& Pokemon::GetStaticID () const
+  {
+    return staticID_;
+  }
+
   const String& Pokemon::GetName () const
   {
     if (pokemonInfo_ != nullptr)
@@ -202,7 +207,7 @@ namespace yap
   {
     return stats_;
   }
-  
+
   const String& Pokemon::GetIcon () const
   {
     return pokemonInfo_->GetIcon ();
@@ -214,6 +219,23 @@ namespace yap
     return level_;
   }
 
+  const bool Pokemon::GetShiny () const
+  {
+    return shiny_;
+  }
+
+  const Int16& Pokemon::GetLoyalty () const
+  {
+    return loyalty_;
+  }
+
+  const yap::ID& Pokemon::GetNature () const
+  {
+    if (nature_ == nullptr)
+      throw yap::Exception ("The nature of this Pokemon is null !");
+
+    return nature_->GetID ();
+  }
 
   const Gender& Pokemon::GetGender () const
   {

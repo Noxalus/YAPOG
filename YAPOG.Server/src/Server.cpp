@@ -116,6 +116,8 @@ int main ()
   {
     //test_db ();
 
+    std::cout << "Server launched !" << std::endl;
+
     yse::Server server;
 
     server.Init ();

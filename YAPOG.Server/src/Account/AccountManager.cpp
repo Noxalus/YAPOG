@@ -2,19 +2,36 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Hash/Md5.hpp"
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
 
 #include "Account/AccountManager.hpp"
 #include "Database/Tables/AccountTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
+#include "Database/Tables/PokemonTable.hpp"
 #include "Database/Requests/Inserts/AccountInsertRequest.hpp"
 #include "Database/Requests/Selects/AccountSelectRequest.hpp"
 #include "Database/Requests/Inserts/PlayerDataInsertRequest.hpp"
 #include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
-
+#include "Database/Requests/Inserts/PokemonInsertRequest.hpp"
 
 namespace yse
 {
+  yap::Pokemon* GenerateRandomPokemon ()
+  {
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
+
+    if (staticID == yap::ID (4))
+      staticID = yap::ID (16);
+
+    int level = yap::RandomHelper::GetNext (1, 100);
+
+    yap::Pokemon* p = new yap::Pokemon (staticID, level, false);
+
+    return p;
+  }
+
   AccountManager::AccountManager (yap::DatabaseManager& dm)
     : databaseManager_ (dm)
     , accounts_ ()
@@ -44,19 +61,39 @@ namespace yse
     accountTable.SetCreationIP (creationIP);
     AccountInsertRequest ia (accountTable);
 
-    if (ia.Insert (databaseManager_))
+    try
     {
-      std::cout << "A new accout has been created ! (" 
-        << name << ")" << std::endl;
 
-      PlayerDataTable playerDataTable (ia.GetID ());
-      PlayerDataInsertRequest ipd (playerDataTable);
-
-      if (ipd.Insert (databaseManager_))
+      if (ia.Insert (databaseManager_))
       {
-        std::cout << "Player data have been created !" << std::endl;
-        return true;
+        std::cout << "A new accout has been created ! (" 
+          << name << ")" << std::endl;
+
+        PlayerDataTable playerDataTable (ia.GetID ());
+        PlayerDataInsertRequest ipd (playerDataTable);
+
+        if (ipd.Insert (databaseManager_))
+        {
+          std::cout << "Player data have been created !" << std::endl;
+
+          // Add first Pokemon
+          PokemonTable pokemonTable (ia.GetID ());
+          pokemonTable.LoadFromPokemon (*GenerateRandomPokemon ());
+          PokemonInsertRequest insert (pokemonTable);
+
+          if (insert.Insert (databaseManager_))
+          {
+            std::cout << "A random Pokemon have been added to the player !" 
+              << std::endl;
+
+            return true;
+          }
+        }
       }
+    }
+    catch (yap::Exception e)
+    {
+      e.GetMessage (std::cout);
     }
 
     return false;

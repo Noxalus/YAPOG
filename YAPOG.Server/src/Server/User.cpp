@@ -234,7 +234,7 @@ namespace yse
     yap::String content = packet.ReadString ();
 
     yap::GameMessage gameMessage;
-    gameMessage.SetSenderName (senderName);
+    gameMessage.SetSenderName (login_);
     gameMessage.SetContent (content);
 
     SendGameMessage (gameMessage);

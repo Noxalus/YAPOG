@@ -16,9 +16,7 @@
 
 namespace ycl
 {
-  const yap::ScreenType BattleScreen::DEFAULT_NAME = "Battle";
-
-  Pokemon* GeneratePokemon ()
+  Pokemon* GenerateRandomPokemon ()
   {
     yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
 
@@ -31,6 +29,8 @@ namespace ycl
 
     return p;
   }
+
+  const yap::ScreenType BattleScreen::DEFAULT_NAME = "Battle";
 
   BattleScreen::BattleScreen ()
     : BaseScreen (DEFAULT_NAME)
@@ -80,7 +80,7 @@ namespace ycl
       new PokemonFighter (team->GetPokemon (1), false));
 
     PokemonFighter* wildPokemon =
-      new PokemonFighter (GeneratePokemon (), true);
+      new PokemonFighter (GenerateRandomPokemon (), true);
 
     battle_ = new WildBattle (*battleInterface_);
 

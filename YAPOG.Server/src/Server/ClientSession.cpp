@@ -219,11 +219,8 @@ namespace yse
     yap::Vector2 currentPosition = user_.GetPlayer ().GetPosition ();
     user_.GetAccount ().GetPlayerData ().SetPosition (currentPosition);
 
-    /*
-    yap::ID worldID = user_.GetPlayer ().GetWorldID ();
-    yap::ID mapID = user_.GetWorld ().GetMap (worldID).GetID ();
+    yap::ID mapID = user_.GetMap ().GetID ();
     user_.GetAccount ().GetPlayerData ().SetMapID (mapID);
-    */
 
     // Save the player data in the database
     user_.SaveAccountData ();

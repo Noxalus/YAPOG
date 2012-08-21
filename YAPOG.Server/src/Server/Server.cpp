@@ -19,6 +19,14 @@
 #include "YAPOG/Game/World/Map/DestructibleObjectReader.hpp"
 #include "YAPOG/Game/World/Map/OpenBattleSpawnerArea.hpp"
 #include "YAPOG/Game/World/Map/OpenBattleSpawnerAreaReader.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Game/Pokemon/NatureInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/NatureInfo.hpp"
+#include "YAPOG/Game/Pokemon/TypeInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/TypeInfo.hpp"
+#include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
+#include "YAPOG/Game/Pokemon/SkillInfo.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -207,6 +215,30 @@ namespace yse
       new yap::XmlObjectIDLoader<Teleporter, yap::TeleporterReader> (
       yap::Path ("Teleporter"),
       "Teleporter"));
+
+    objectFactory_.RegisterLoader (
+      "PokemonInfo",
+      new yap::XmlObjectIDLoader<yap::PokemonInfo, yap::PokemonInfoReader> (
+      yap::Path ("Pokemon/Pokemon"),
+      "PokemonInfo"));
+
+    objectFactory_.RegisterLoader (
+      "NatureInfo",
+      new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader> (
+      yap::Path ("Pokemon/Nature"),
+      "Nature"));
+
+    objectFactory_.RegisterLoader (
+      "TypeInfo",
+      new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader> (
+      yap::Path ("Pokemon/Types"),
+      "Type"));
+
+    objectFactory_.RegisterLoader (
+      "SkillInfo",
+      new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader> (
+      yap::Path ("Pokemon/Skills"),
+      "Skill"));
   }
 
   void Server::InitWorldObjectStateFactory ()

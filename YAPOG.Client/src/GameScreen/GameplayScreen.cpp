@@ -147,22 +147,16 @@ namespace ycl
     gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeam_);
 
     yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+
     for (int i = 1; i < 4; i++)
     {
       yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (i));
+        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (i));
 
       pokedexInfo->AddPokemon (pok);
       pokedexInfo->AddPokemonSeen (pok);
       pokedexInfo->AddPokemonCaught (pok);
     }
-
-    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
-
-    pokedexInfo->AddPokemon (pok);
-    pokedexInfo->AddPokemonSeen (pok);
-    pokedexInfo->AddPokemonCaught (pok);
 
     pokedex_ = new PokedexWidget (pokedexInfo);
     pokedex_->Close ();
