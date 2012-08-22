@@ -6,6 +6,7 @@ namespace yse
 {
   AccountInsertRequest::AccountInsertRequest (const AccountTable& accountTable)
     : accountTable_ (accountTable)
+    , id_ ()
   {
   }
 
@@ -34,25 +35,18 @@ namespace yse
       ":creationIp) "
       "RETURNING account_id";
 
-    try
-    {
-      yap::DatabaseStream query 
-        (query_string, databaseManager.GetConnection ());
+    yap::DatabaseStream query 
+      (query_string, databaseManager.GetConnection ());
 
-      query.Write (accountTable_.GetName ());
-      query.Write (accountTable_.GetPassword ());
-      query.Write (accountTable_.GetEmail ());
-      query.Write (static_cast<int> (accountTable_.GetPermissions ()));
-      query.Write (accountTable_.GetCreationIP ());
+    query.Write (accountTable_.GetName ());
+    query.Write (accountTable_.GetPassword ());
+    query.Write (accountTable_.GetEmail ());
+    query.Write (static_cast<int> (accountTable_.GetPermissions ()));
+    query.Write (accountTable_.GetCreationIP ());
 
-      id_ = yap::ID (query.ReadInt ());
+    id_ = yap::ID (query.ReadInt ());
 
-      return true;
-    }
-    catch (...)
-    {
-      return false;
-    }
+    return true;
   }
 
   const yap::ID& AccountInsertRequest::GetID ()

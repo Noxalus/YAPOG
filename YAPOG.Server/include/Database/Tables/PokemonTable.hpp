@@ -17,7 +17,7 @@ namespace yse
   {
     DISALLOW_COPY(PokemonTable);
   public:
-    PokemonTable (const yap::ID& accountID);
+    PokemonTable ();
 
     void LoadFromPokemon (const yap::Pokemon& pokemon);
 
@@ -25,7 +25,7 @@ namespace yse
     const yap::ID& GetAccountID () const;
     const yap::ID& GetID () const;
     const yap::ID& GetStaticID () const;
-    const yap::UInt32& GetExperience () const;
+    const yap::uint& GetExperience () const;
     const yap::UInt8& GetGender () const;
     const yap::String& GetNickname () const;
     const yap::UInt16& GetLevel () const;
@@ -34,12 +34,15 @@ namespace yse
     const yap::ID& GetNature () const;
     const yap::UInt16& GetTradingNumber () const;
     const yap::ID& GetTraderAccountID () const;
+    const yap::UInt8& GetBoxNumber () const;
+    const yap::ID& GetBoxIndex () const;
+    const yap::String& GetCatchDate () const;
 
     /// Setters
-    //void SetAccountID (const yap::ID& value);
+    void SetAccountID (const yap::ID& value);
     void SetID (const yap::ID& value);
     void SetStaticID (const yap::ID& value);
-    void SetExperience (const yap::UInt32& value);
+    void SetExperience (const yap::uint& value);
     void SetGender (const yap::UInt8& value);
     void SetNickname (const yap::String& value);
     void SetLevel (const yap::UInt16& value);
@@ -48,6 +51,9 @@ namespace yse
     void SetNature (const yap::ID& value);
     void SetTradingNumber (const yap::UInt16& value);
     void SetTraderAccountID (const yap::ID& value);
+    void SetBoxNumber (const yap::UInt8& value);
+    void SetBoxIndex (const yap::ID& value);
+    void SetCatchDate (const yap::String& value);
 
     void DisplayData ();
 
@@ -55,27 +61,34 @@ namespace yse
     yap::ID accountID_;
     yap::ID id_;
     yap::ID staticID_;
-    yap::UInt32 experience_;
+    yap::uint experience_;
     yap::UInt8 gender_;
     yap::String nickname_;
     yap::UInt16 level_;
     bool shiny_;
     yap::Int16 loyalty_;
     yap::ID nature_;
-    yap::UInt32 tradingNumber_;
+    yap::uint tradingNumber_;
     yap::ID traderAccountID_;
+    yap::UInt8 boxNumber_;
+    yap::ID boxIndex_;
+    yap::String catchDate_;
 
+    static const yap::ID DEFAULT_ACCOUNT_ID;
     static const yap::ID DEFAULT_ID;
     static const yap::ID DEFAULT_STATIC_ID;
-    static const yap::UInt32 DEFAULT_EXPERIENCE;
+    static const yap::uint DEFAULT_EXPERIENCE;
     static const yap::UInt8 DEFAULT_GENDER;
     static const yap::String DEFAULT_NICKNAME;
     static const yap::UInt16 DEFAULT_LEVEL;
     static const bool DEFAULT_SHINY;
     static const yap::Int16 DEFAULT_LOYALTY;
     static const yap::ID DEFAULT_NATURE;
-    static const yap::UInt32 DEFAULT_TRADING_NUMBER;
+    static const yap::uint DEFAULT_TRADING_NUMBER;
     static const yap::ID DEFAULT_TRADER_ACCOUNT_ID;
+    static const yap::UInt8 DEFAULT_BOX_NUMBER;
+    static const yap::ID DEFAULT_BOX_INDEX;
+    static const yap::String DEFAULT_CATCH_DATE;
   };
 } // namespace yse
 

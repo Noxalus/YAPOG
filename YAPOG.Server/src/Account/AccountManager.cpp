@@ -1,4 +1,5 @@
 #include "YAPOG/Database/DatabaseStream.hpp"
+#include "YAPOG/Database/DatabaseTransaction.hpp"
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Hash/Md5.hpp"
@@ -15,6 +16,8 @@
 #include "Database/Requests/Inserts/PlayerDataInsertRequest.hpp"
 #include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
 #include "Database/Requests/Inserts/PokemonInsertRequest.hpp"
+#include "Database/Requests/Updates/PokemonUpdateRequest.hpp"
+#include "Database/Requests/Selects/PokemonSelectRequest.hpp"
 
 namespace yse
 {
@@ -63,6 +66,7 @@ namespace yse
 
     try
     {
+      yap::DatabaseTransaction trans (databaseManager_.GetConnection ());
 
       if (ia.Insert (databaseManager_))
       {
@@ -77,7 +81,8 @@ namespace yse
           std::cout << "Player data have been created !" << std::endl;
 
           // Add first Pokemon
-          PokemonTable pokemonTable (ia.GetID ());
+          PokemonTable pokemonTable;
+          pokemonTable.SetAccountID (ia.GetID ());
           pokemonTable.LoadFromPokemon (*GenerateRandomPokemon ());
           PokemonInsertRequest insert (pokemonTable);
 
@@ -86,7 +91,10 @@ namespace yse
             std::cout << "A random Pokemon have been added to the player !" 
               << std::endl;
 
+            trans.Commit ();
+
             return true;
+
           }
         }
       }
@@ -154,6 +162,10 @@ namespace yse
 
     Account* account = new Account ();
     account->LoadFromTable (accountTable, playerDataTable);
+
+    yap::collection::List<PokemonTable*> pokemonTableList;
+    PokemonSelectRequest selectPokemon (databaseManager_);
+    pokemonTableList = selectPokemon.SelectPokemonTeam (account->GetID ());
 
     return account;
     /*

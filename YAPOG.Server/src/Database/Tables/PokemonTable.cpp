@@ -3,21 +3,24 @@
 
 namespace yse
 {
+  const yap::ID PokemonTable::DEFAULT_ACCOUNT_ID (1);
   const yap::ID PokemonTable::DEFAULT_ID (1);
   const yap::ID PokemonTable::DEFAULT_STATIC_ID (1);
-  const yap::UInt32 PokemonTable::DEFAULT_EXPERIENCE = 0;
+  const yap::uint PokemonTable::DEFAULT_EXPERIENCE = 0;
   const yap::UInt8 PokemonTable::DEFAULT_GENDER = 0;
   const yap::String PokemonTable::DEFAULT_NICKNAME ("");
   const yap::UInt16 PokemonTable::DEFAULT_LEVEL = 1;
   const bool PokemonTable::DEFAULT_SHINY = false;
   const yap::Int16 PokemonTable::DEFAULT_LOYALTY = 0;
   const yap::ID PokemonTable::DEFAULT_NATURE (1);
-  const yap::UInt32 PokemonTable::DEFAULT_TRADING_NUMBER = 42;
+  const yap::uint PokemonTable::DEFAULT_TRADING_NUMBER = 42;
   const yap::ID PokemonTable::DEFAULT_TRADER_ACCOUNT_ID (1);
+  const yap::UInt8 PokemonTable::DEFAULT_BOX_NUMBER = 0;
+  const yap::ID PokemonTable::DEFAULT_BOX_INDEX (1);
+  const yap::String PokemonTable::DEFAULT_CATCH_DATE ("");
 
-  PokemonTable::PokemonTable (
-    const yap::ID& accountID)
-    : accountID_ (accountID) 
+  PokemonTable::PokemonTable ()
+    : accountID_ (DEFAULT_ACCOUNT_ID) 
     , id_ (DEFAULT_ID)
     , staticID_ (DEFAULT_STATIC_ID)
     , experience_ (DEFAULT_EXPERIENCE)
@@ -29,6 +32,9 @@ namespace yse
     , nature_ (DEFAULT_NATURE)
     , tradingNumber_ (DEFAULT_TRADING_NUMBER)
     , traderAccountID_ (DEFAULT_TRADER_ACCOUNT_ID)
+    , boxNumber_ (DEFAULT_BOX_NUMBER)
+    , boxIndex_ (DEFAULT_BOX_INDEX)
+    , catchDate_ (DEFAULT_CATCH_DATE)
   {
   }
 
@@ -42,9 +48,10 @@ namespace yse
     SetShiny (pokemon.GetShiny ());
     SetLoyalty (pokemon.GetLoyalty ());
     SetNature (pokemon.GetNature ());
-    // @todo Finish this trading part
+    /// @todo Finish this trading part
     SetTradingNumber (DEFAULT_TRADING_NUMBER);
     SetTraderAccountID (DEFAULT_TRADER_ACCOUNT_ID);
+    /// @todo Add boxNumber, boxIndex and catchDate
   }
 
   /// Getters
@@ -54,7 +61,7 @@ namespace yse
   { return id_; }
   const yap::ID& PokemonTable::GetStaticID () const
   { return staticID_; }
-  const yap::UInt32& PokemonTable::GetExperience () const
+  const yap::uint& PokemonTable::GetExperience () const
   { return experience_; }
   const yap::UInt8& PokemonTable::GetGender () const
   { return gender_; }
@@ -72,17 +79,21 @@ namespace yse
   { return tradingNumber_; }
   const yap::ID& PokemonTable::GetTraderAccountID () const
   { return traderAccountID_; }
+  const yap::UInt8& PokemonTable::GetBoxNumber () const
+  { return boxNumber_; }
+  const yap::ID& PokemonTable::GetBoxIndex () const
+  { return boxIndex_; }
+  const yap::String& PokemonTable::GetCatchDate () const
+  { return catchDate_; }
 
   /// Setters
   void PokemonTable::SetID (const yap::ID& value) 
   { id_ = value; }
-  /*
   void PokemonTable::SetAccountID (const yap::ID& value)
   { accountID_ = value; }
-  */
   void PokemonTable::SetStaticID (const yap::ID& value)
   { staticID_ = value; }
-  void PokemonTable::SetExperience (const yap::UInt32& value)
+  void PokemonTable::SetExperience (const yap::uint& value)
   { experience_ = value; }
   void PokemonTable::SetGender (const yap::UInt8& value)
   { gender_ = value; }
@@ -100,7 +111,12 @@ namespace yse
   { tradingNumber_ = value; }
   void PokemonTable::SetTraderAccountID (const yap::ID& value)
   { traderAccountID_ = value; }
-
+  void PokemonTable::SetBoxNumber (const yap::UInt8& value)
+  { boxNumber_ = value; }
+  void PokemonTable::SetBoxIndex (const yap::ID& value)
+  { boxIndex_ = value; }
+  void PokemonTable::SetCatchDate (const yap::String& value)
+  { catchDate_ = value; }
 
   void PokemonTable::DisplayData ()
   {

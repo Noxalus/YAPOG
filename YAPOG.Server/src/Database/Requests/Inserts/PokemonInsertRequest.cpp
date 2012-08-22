@@ -9,6 +9,7 @@ namespace yse
   PokemonInsertRequest::PokemonInsertRequest 
     (const PokemonTable& pokemonTable)
     : pokemonTable_ (pokemonTable)
+    , id_ ()
   {
   }
 
@@ -31,7 +32,11 @@ namespace yse
       "pokemon_loyalty, "
       "pokemon_nature, "
       "pokemon_trading_number, "
-      "pokemon_trader_account_id)"
+      "pokemon_trader_account_id, "
+      "pokemon_box_number, "
+      "pokemon_box_index, "
+      "pokemon_catch_date "
+      ")"
       "VALUES ("
       ":accountID, "
       ":staticID, " 
@@ -43,23 +48,45 @@ namespace yse
       ":loyalty, "
       ":nature, "
       ":tradingNumber, "
-      ":traderAccountID)";
+      ":traderAccountID, "
+      ":boxNumber, "
+      ":boxIndex, "
+      "NOW ()"
+      ")"
+      "RETURNING pokemon_id";
 
     yap::DatabaseStream query 
       (query_string, databaseManager.GetConnection ());
 
-    query.Write (pokemonTable_.GetAccountID ().GetValue ());
-    query.Write (pokemonTable_.GetStaticID ());
-    query.Write (pokemonTable_.GetExperience ());
-    query.Write (pokemonTable_.GetGender ());
-    query.Write (pokemonTable_.GetNickname ());
-    query.Write (pokemonTable_.GetLevel ());
-    query.Write (pokemonTable_.GetShiny ());
-    query.Write (pokemonTable_.GetLoyalty ());
-    query.Write (pokemonTable_.GetNature ());
-    query.Write (pokemonTable_.GetTradingNumber ());
-    query.Write (pokemonTable_.GetTraderAccountID ());
+    try
+    {
+      query.Write (pokemonTable_.GetAccountID ().GetValue ());
+      query.Write (pokemonTable_.GetStaticID ());
+      query.Write (pokemonTable_.GetExperience ());
+      query.Write (pokemonTable_.GetGender ());
+      query.Write (pokemonTable_.GetNickname ());
+      query.Write (pokemonTable_.GetLevel ());
+      query.Write (pokemonTable_.GetShiny ());
+      query.Write (pokemonTable_.GetLoyalty ());
+      query.Write (pokemonTable_.GetNature ());
+      query.Write (pokemonTable_.GetTradingNumber ());
+      query.Write (pokemonTable_.GetTraderAccountID ());
+      query.Write (pokemonTable_.GetBoxNumber ());
+      query.Write (pokemonTable_.GetBoxIndex ());
 
-    return true;
+      id_ = yap::ID (query.ReadInt ());
+
+      return true;
+    }
+    catch (const pgs::pg_excpt& e)
+    {
+      std::cerr << e.errmsg () << std::endl;
+    }
   }
+
+  const yap::ID& PokemonInsertRequest::GetID ()
+  {
+    return id_;
+  }
+
 } // namespace yse

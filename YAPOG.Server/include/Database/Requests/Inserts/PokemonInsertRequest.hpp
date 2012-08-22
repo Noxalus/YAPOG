@@ -25,6 +25,7 @@ namespace yse
     /// @}
 
   private:
+    yap::ID id_;
     const PokemonTable& pokemonTable_;
   };
 

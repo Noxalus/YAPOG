@@ -7,7 +7,8 @@
 
 namespace yap
 {
-  class YAPOG_LIB DatabaseException : public Exception
+  class YAPOG_LIB DatabaseException 
+    : public Exception
   {
     public:
       explicit DatabaseException (const String& message);

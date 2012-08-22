@@ -17,6 +17,7 @@ namespace yse
     /// @{
     virtual bool Update (yap::DatabaseManager& databaseManager);
     /// @}
+
   private:
     const PokemonTable& pokemonTable_;
   };

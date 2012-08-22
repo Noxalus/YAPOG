@@ -584,6 +584,8 @@ ${src_root}/Database/DatabaseManager.cpp
 ${inc_root}/Database/DatabaseStream.hpp
 ${inc_root}/Database/DatabaseStream.hxx
 ${src_root}/Database/DatabaseStream.cpp
+${inc_root}/Database/DatabaseTransaction.hpp
+${src_root}/Database/DatabaseTransaction.cpp
 )
 
 ADD_LIBRARY(

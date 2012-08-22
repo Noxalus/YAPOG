@@ -19,6 +19,7 @@ namespace yse
     /// @{
     virtual bool Update (yap::DatabaseManager& databaseManager);
     /// @}
+
   private:
     const AccountTable& accountTable_;
   };

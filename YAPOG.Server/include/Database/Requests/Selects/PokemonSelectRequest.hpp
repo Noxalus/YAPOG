@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/Collection/List.hpp"
 # include "YAPOG/Database/DatabaseManager.hpp"
 # include "Database/Requests/Selects/ISelectRequest.hpp"
 # include "Database/Tables/PokemonTable.hpp"
@@ -15,9 +16,16 @@ namespace yse
     DISALLOW_COPY(PokemonSelectRequest);
 
   public:
-    PokemonSelectRequest (
-      yap::DatabaseManager& dm, 
-      PokemonTable& pokemonTable);
+    PokemonSelectRequest (yap::DatabaseManager& dm);
+
+    bool Select (PokemonTable& pokemonTable);
+    PokemonTable* SelectPokemon (const yap::ID& pokemonID);
+    yap::collection::List<PokemonTable*> 
+      SelectPokemonTeam (const yap::ID& accountID);
+
+  private:
+    yap::DatabaseManager& databaseManager_;
+
   };
 } // namespace yse
 
