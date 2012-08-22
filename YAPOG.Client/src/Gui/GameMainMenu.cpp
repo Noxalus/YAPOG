@@ -2,6 +2,7 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "Gui/GameMainMenu.hpp"
 
@@ -92,6 +93,7 @@ namespace ycl
       const yap::EmptyEventArgs& args)
     {
       Close ();
+      yap::AudioManager::Instance ().ResumePreviousMusic ();
     };
 
     SetBackground (*menuBck);

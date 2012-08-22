@@ -14,13 +14,15 @@ namespace yap
 
   public:
     static AudioManager& Instance ();
-    void PlayMusic (const String& musicName);
+    void PlayMusic (const String& musicName, bool fromBegin = true);
     void PlaySound (const String&soundName);
+    void ResumePreviousMusic ();
 
   private:
     AudioManager ();
     ~AudioManager ();
     sf::Music* currentMusic_;
+    sf::Music* previousMusic_;
     sf::Sound* currentSound_;
   };
 } // namespace yap

@@ -209,6 +209,7 @@ namespace ycl
           break;
 
         gameGuiManager_->SetCurrentWidget ("Menu");
+        yap::AudioManager::Instance ().PlayMusic ("BGM/SettingMenu.ogg");
 
         return true;
 
@@ -323,7 +324,7 @@ namespace ycl
   {
     yap::Game::CLEAR_COLOR = sf::Color::Black;
 
-    yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg");
+    yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg", false);
   }
 
   Map& GameplayScreen::GetCurrentMap ()

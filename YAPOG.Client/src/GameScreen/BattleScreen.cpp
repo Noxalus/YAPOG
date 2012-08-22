@@ -91,6 +91,7 @@ namespace ycl
     battle_->OnBattleEnd +=
       [&] (const yap::Battle& sender, const yap::EmptyEventArgs& args)
     {
+       yap::AudioManager::Instance ().ResumePreviousMusic ();
       nextScreen_ = "Gameplay";
     };
   }
