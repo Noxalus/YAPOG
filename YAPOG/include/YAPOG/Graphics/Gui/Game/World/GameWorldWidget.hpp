@@ -17,6 +17,7 @@ namespace yap
       virtual ~GameWorldWidget ();
 
       virtual void AddGameWorldWidget (GameWorldWidget* gameWorldWidget);
+      virtual void RemoveGameWorldWidget (GameWorldWidget* gameWorldWidget);
 
       virtual bool IsFocusable () const;
 

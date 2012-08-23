@@ -23,6 +23,14 @@ namespace yap
     AddChild (*gameWorldWidget);
   }
 
+  void GameWorldWidget::RemoveGameWorldWidget (
+    GameWorldWidget* gameWorldWidget)
+  {
+    gameWorldWidgets_.Remove (gameWorldWidget);
+
+    RemoveChild (*gameWorldWidget);
+  }
+
   void GameWorldWidget::SetGameWorldParent (
     const GameWorldWidget& gameWorldParent)
   {

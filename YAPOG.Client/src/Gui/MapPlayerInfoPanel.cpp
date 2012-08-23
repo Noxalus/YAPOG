@@ -23,7 +23,8 @@ namespace ycl
   {
     player_ = &player;
 
-    playerNameLabel_ = new yap::Label ("<PLAYER>");
+    playerNameLabel_ = new yap::Label (player.GetName ());
+    playerNameLabel_->SetTextSize (12);
     AddChild (*playerNameLabel_);
 
     player.OnMoved += [this] (
@@ -47,13 +48,14 @@ namespace ycl
     };
   }
 
+  /// [TMP]
   void MapPlayerInfoPanel::UpdateLabel (const yap::Vector2& position)
   {
     playerNameLabel_->SetPosition (
       GetGameWorldRoot ().WorldPointToGuiPoint (
         yap::Vector3 (
-          position.x,
-          position.y,
+          position.x - playerNameLabel_->GetSize ().x / 2.0f + 16.0f,
+          position.y - 24.0f,
           0.0f)));
   }
 } // namespace ycl

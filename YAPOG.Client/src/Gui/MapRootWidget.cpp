@@ -16,9 +16,11 @@ namespace ycl
 
   void MapRootWidget::SetCurrentMap (Map* map)
   {
+    Map* oldMap = currentMap_;
+
     currentMap_ = map;
 
-    HandleSetCurrentMap (map);
+    HandleSetCurrentMap (oldMap, map);
   }
 
   Map& MapRootWidget::GetCurrentMap ()
@@ -26,22 +28,58 @@ namespace ycl
     return *currentMap_;
   }
 
-  void MapRootWidget::HandleSetCurrentMap (Map* map)
-  {
-    currentMap_->OnPlayerAdded += [this] (
-      Map& sender,
-      Player& args)
-    {
-      HandlePlayerAdded (args);
-    };
-  }
-
-  void MapRootWidget::HandlePlayerAdded (Player& player)
+  void MapRootWidget::AddPlayerInfoPanel (Player* player)
   {
     MapPlayerInfoPanel* playerInfoPanel = new MapPlayerInfoPanel ();
 
-    playerInfoPanel->Init (player);
+    playerInfoPanel->Init (*player);
+
+    playerInfoPanels_.Add (player, playerInfoPanel);
 
     AddGameWorldWidget (playerInfoPanel);
+  }
+
+  void MapRootWidget::RemovePlayerInfoPanel (Player* player)
+  {
+    MapPlayerInfoPanel* playerInfoPanel = playerInfoPanels_[player];
+
+    RemoveGameWorldWidget (playerInfoPanel);
+
+    playerInfoPanels_.Remove (player);
+  }
+
+  void MapRootWidget::HandleSetCurrentMap (Map* oldMap, Map* map)
+  {
+    if (oldMap != nullptr)
+    {
+      oldMap->OnPlayerAdded.RemoveHandler ("AddPlayerInfoPanelHandler");
+      oldMap->OnPlayerAdded.RemoveHandler ("RemovePlayerInfoPanelHandler");
+
+      Clear ();
+    }
+
+    currentMap_->OnPlayerAdded.AddHandler (
+      "AddPlayerInfoPanelHandler",
+      [this] (
+        Map& sender,
+        Player& args)
+      {
+        AddPlayerInfoPanel (&args);
+      });
+
+      currentMap_->OnPlayerRemoved.AddHandler (
+        "RemovePlayerInfoPanelHandler",
+        [this] (
+          Map& sender,
+          Player& args)
+        {
+          RemovePlayerInfoPanel (&args);
+        });
+  }
+
+  void MapRootWidget::Clear ()
+  {
+    for (auto& playerPlayerInfoPanelPair : playerInfoPanels_)
+      RemovePlayerInfoPanel (playerPlayerInfoPanelPair.first);
   }
 } // namespace ycl

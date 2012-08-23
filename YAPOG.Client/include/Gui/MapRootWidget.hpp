@@ -3,11 +3,13 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/Game/World/GameWorldWidget.hpp"
+# include "YAPOG/Collection/Map.hpp"
 
 namespace ycl
 {
   class Map;
   class Player;
+  class MapPlayerInfoPanel;
 
   class MapRootWidget : public yap::GameWorldWidget
   {
@@ -27,10 +29,16 @@ namespace ycl
 
     private:
 
-      void HandleSetCurrentMap (Map* map);
-      void HandlePlayerAdded (Player& player);
+      void AddPlayerInfoPanel (Player* player);
+      void RemovePlayerInfoPanel (Player* player);
+
+      void Clear ();
+
+      void HandleSetCurrentMap (Map* oldMap, Map* map);
 
       Map* currentMap_;
+
+      yap::collection::Map<Player*, MapPlayerInfoPanel*> playerInfoPanels_;
   };
 } // namespace ycl
 
