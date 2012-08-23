@@ -43,13 +43,15 @@ namespace ycl
     nameLabel_.ChangeColor (sf::Color::Black);
     levelLabel_.ChangeColor (sf::Color::Black);
 
-    hpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
-    hpBarPictureBox_->SetPicture ("Pictures/Battle/HPBattleBar.png");
+    hpBarContent_->SetPicture (new yap::Sprite ("Pictures/Battle/HPBarContent.png"));
+    hpBarPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/HPBattleBar.png"));
 
     hpBarContent_->SetSize (yap::Vector2 (
       MAX_HP_BAR_SIZE,
       hpBarContent_->GetSize ().y));
     hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
+
+    SetGender (yap::Gender::Genderless);
 
     // First line
     nameBox_.AddChild (nameLabel_);
@@ -126,13 +128,13 @@ namespace ycl
     switch (value)
     {
     case yap::Gender::Female:
-      genderPictureBox_->SetPicture ("Pictures/Battle/FemaleIcon.png");
+      genderPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/FemaleIcon.png"));
       break;
     case yap::Gender::Male:
-      genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
+      genderPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/MaleIcon.png"));
       break;
     default:
-      genderPictureBox_->SetPicture ("Pictures/Battle/MaleIcon.png");
+      genderPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/MaleIcon.png"));
       break;
     }
   }

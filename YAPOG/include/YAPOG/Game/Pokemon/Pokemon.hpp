@@ -47,7 +47,7 @@ namespace yap
     UInt16 GetCurrentHP () const;
     UInt16 GetMaxHP () const;
     const collection::Array<PokemonSkill*>& GetMoves () const;
-    const String& GetIcon () const;
+    const String& GetIconPath () const;
 
     /// Setters
     void SetUniqueID (const ID& value);

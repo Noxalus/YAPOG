@@ -213,9 +213,9 @@ namespace yap
     return stats_;
   }
 
-  const String& Pokemon::GetIcon () const
+  const String& Pokemon::GetIconPath () const
   {
-    return pokemonInfo_->GetIcon ();
+    return pokemonInfo_->GetIconPath ();
   }
 
 
@@ -267,7 +267,8 @@ namespace yap
     if (nature_ != nullptr)
       delete nature_;
 
-    nature_ = new NatureInfo (value); 
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  value);
   }
 
   void Pokemon::AddExperience (const Int32& value)

@@ -24,9 +24,9 @@ namespace yse
 {
   Pokemon* GenerateRandomPokemon ()
   {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 5));
 
-    if (staticID == yap::ID (4))
+    if (staticID == yap::ID (5))
       staticID = yap::ID (16);
 
     int level = yap::RandomHelper::GetNext (1, 100);
@@ -82,21 +82,25 @@ namespace yse
           std::cout << "Player data have been created !" << std::endl;
 
           // Add first Pokemon
-          PokemonTable pokemonTable;
-          pokemonTable.SetAccountID (ia.GetID ());
-          pokemonTable.LoadFromPokemon (*GenerateRandomPokemon ());
-          PokemonInsertRequest insert (pokemonTable);
-
-          if (insert.Insert (databaseManager_))
+          for (int i = 1; i <= 6; i++)
           {
-            std::cout << "A random Pokemon have been added to the player !" 
-              << std::endl;
+            PokemonTable pokemonTable;
+            pokemonTable.SetAccountID (ia.GetID ());
+            pokemonTable.LoadFromPokemon (*GenerateRandomPokemon ());
+            pokemonTable.SetBoxIndex (yap::ID (i));
+            PokemonInsertRequest insert (pokemonTable);
 
-            trans.Commit ();
-
-            return true;
-
+            if (insert.Insert (databaseManager_))
+            {
+              std::cout << "A random Pokemon have been added to the player !" 
+                << std::endl;
+            }
           }
+
+
+          trans.Commit ();
+
+          return true;
         }
       }
     }

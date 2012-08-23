@@ -59,6 +59,7 @@ namespace yse
   {
     Pokemon* pokemon = new Pokemon (GetStaticID ());
 
+    pokemon->SetUniqueID (GetID ());
     pokemon->SetExperience (GetExperience ());
     pokemon->SetGender ((yap::UInt8)GetGender ());
     pokemon->SetNickname (GetNickname ());

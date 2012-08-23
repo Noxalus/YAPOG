@@ -17,12 +17,13 @@ namespace ycl
     PokemonTeam ();
     virtual ~PokemonTeam ();
 
-    virtual Pokemon* GetPokemon (int index) const;
-    virtual int GetPokemonCount () const;
-    virtual bool AddPokemon (Pokemon* pokemon);
+    Pokemon& GetPokemon (int index) const;
+    int GetPokemonCount () const;
+    bool AddPokemon (Pokemon* pokemon);
 
   private:
     yap::collection::Array<Pokemon*> pokemonTeam_;
+    yap::UInt8 pokemonCount_;
   };
 } // namespace ycl
 

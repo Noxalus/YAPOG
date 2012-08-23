@@ -261,31 +261,25 @@ namespace yse
     packet.CreateFromType (yap::PacketType::ServerInfoPokemonTeam);
 
     // Send the number of Pokemon in the team
-    packet.Write (pokemonTeam.GetPokemonCount ());
+    int pokemonNumber = pokemonTeam.GetPokemonCount ();
+    packet.Write (pokemonNumber);
 
     Pokemon* currentPokemon = nullptr;
 
-    for (int i = 0; i < yap::PokemonTeam::MAX_POKEMON_TEAM_NUMBER; i++)
+    for (int i = 0; i < pokemonNumber; i++)
     {
-      try
-      {
-        currentPokemon = pokemonTeam.GetPokemon (i);
+      currentPokemon = &pokemonTeam.GetPokemon (i);
 
-        // We write the current pokemon information in the packet
-        packet.Write (currentPokemon->GetStaticID ());
-        packet.Write (currentPokemon->GetUniqueID ());
-        packet.Write (currentPokemon->GetTotalExperience ());
-        packet.Write ((yap::UInt8)currentPokemon->GetGender ());
-        packet.Write (currentPokemon->GetName ());
-        packet.Write (currentPokemon->GetLevel ());
-        packet.Write (currentPokemon->GetShiny ());
-        packet.Write (currentPokemon->GetLoyalty ());
-        packet.Write (currentPokemon->GetNature ());
-      }
-      catch (yap::Exception e)
-      {
-        break;
-      }
+      // We write the current pokemon information in the packet
+      packet.Write (currentPokemon->GetStaticID ());
+      packet.Write (currentPokemon->GetUniqueID ());
+      packet.Write (currentPokemon->GetTotalExperience ());
+      packet.Write ((yap::UInt8)currentPokemon->GetGender ());
+      packet.Write (currentPokemon->GetName ());
+      packet.Write (currentPokemon->GetLevel ());
+      packet.Write (currentPokemon->GetShiny ());
+      packet.Write (currentPokemon->GetLoyalty ());
+      packet.Write (currentPokemon->GetNature ());
     }
 
     SendPacket (packet);

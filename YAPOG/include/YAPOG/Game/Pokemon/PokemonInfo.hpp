@@ -61,17 +61,17 @@ namespace yap
     void SetEvolutionLevel (UInt16 value);
     void SetPokemonEvolutionID (const ID& value);
 
-    void SetIcon (const yap::String& value);
+    void SetIconPath (const yap::String& value);
 
-    void SetMaleFront (const yap::String& value);
-    void SetMaleBack (const yap::String& value);
-    void SetShinyMaleFront (const yap::String& value);
-    void SetShinyMaleBack (const yap::String& value);
+    void SetMaleFrontPath (const yap::String& value);
+    void SetMaleBackPath (const yap::String& value);
+    void SetShinyMaleFrontPath (const yap::String& value);
+    void SetShinyMaleBackPath (const yap::String& value);
 
-    void SetFemaleFront (const yap::String& value);
-    void SetFemaleBack (const yap::String& value);
-    void SetShinyFemaleFront (const yap::String& value);
-    void SetShinyFemaleBack (const yap::String& value);
+    void SetFemaleFrontPath (const yap::String& value);
+    void SetFemaleBackPath (const yap::String& value);
+    void SetShinyFemaleFrontPath (const yap::String& value);
+    void SetShinyFemaleBackPath (const yap::String& value);
     /// @}
 
     /// @name Getters.
@@ -104,17 +104,17 @@ namespace yap
     const UInt16& GetEvolutionLevel () const;
     const ID& GetPokemonEvolutionID () const;
 
-    const yap::String& GetIcon () const;
+    const yap::String& GetIconPath () const;
 
-    const yap::String& GetMaleFront () const;
-    const yap::String& GetMaleBack () const;
-    const yap::String& GetShinyMaleFront () const;
-    const yap::String& GetShinyMaleBack () const;
+    const yap::String& GetMaleFrontPath () const;
+    const yap::String& GetMaleBackPath () const;
+    const yap::String& GetShinyMaleFrontPath () const;
+    const yap::String& GetShinyMaleBackPath () const;
 
-    const yap::String& GetFemaleFront () const;
-    const yap::String& GetFemaleBack () const;
-    const yap::String& GetShinyFemaleFront () const;
-    const yap::String& GetShinyFemaleBack () const;
+    const yap::String& GetFemaleFrontPath () const;
+    const yap::String& GetFemaleBackPath () const;
+    const yap::String& GetShinyFemaleFrontPath () const;
+    const yap::String& GetShinyFemaleBackPath () const;
     /// @}
 
     void PrintBaseStats ();
@@ -157,22 +157,22 @@ namespace yap
 
     /// @name Graphic fields.
     /// @{
-    yap::String icon_;
+    yap::String iconPath_;
 
     /// @name Male Pokemon battle sprite strings.
     /// @{
-    yap::String maleFront_;
-    yap::String maleBack_;
-    yap::String shinyMaleFront_;
-    yap::String shinyMaleBack_;
+    yap::String maleFrontPath_;
+    yap::String maleBackPath_;
+    yap::String shinyMaleFrontPath_;
+    yap::String shinyMaleBackPath_;
     /// @}
 
     /// @name Female Pokemon battle sprite strings.
     /// @{
-    yap::String femaleFront_;
-    yap::String femaleBack_;
-    yap::String shinyFemaleFront_;
-    yap::String shinyFemaleBack_;
+    yap::String femaleFrontPath_;
+    yap::String femaleBackPath_;
+    yap::String shinyFemaleFrontPath_;
+    yap::String shinyFemaleBackPath_;
     /// @}
     
     /// @}

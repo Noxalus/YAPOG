@@ -69,6 +69,13 @@ namespace ycl
     box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
     pokemons.Add (box);
 
+    for (int i = 1; i < team_.GetPokemonCount (); i++)
+    {
+      InfoBox* box = new InfoBox (false, team_.GetPokemon (i));
+      box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
+      pokemons.Add (box);
+    }
+
     vlayoutMenu_ = new yap::VerticalLayout (yap::Padding (), yap::Padding (), true);
 
     for (int i = 1; i < 1; i++) // iterate over team.

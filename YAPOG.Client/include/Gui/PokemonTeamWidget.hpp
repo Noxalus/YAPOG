@@ -8,11 +8,14 @@
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 # include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
-# include "YAPOG/Game/Pokemon/Pokemon.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 # include "YAPOG/Game/Pokemon/Gender.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/Graphics/Gui/GuiEvent.hpp"
+# include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+# include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
+
+# include "Pokemon/Pokemon.hpp"
 
 namespace yap
 {
@@ -53,14 +56,16 @@ namespace ycl
     class InfoBox : public yap::BaseWidget
     {
     public:
-      InfoBox (bool isMainPok, yap::Pokemon* info)
+      InfoBox (bool isMainPok, const Pokemon& pokemon)
         : pokIcon_ (nullptr)
-        , pokName_ (new yap::Label (info->GetName ()))
-        , pokLevel_ (new yap::Label ("N. " + yap::StringHelper::ToString (info->GetLevel ())))
+        , pokName_ (new yap::Label (pokemon.GetName ()))
+        , pokLevel_ (
+        new yap::Label (
+        "N. " + yap::StringHelper::ToString (pokemon.GetLevel ())))
         , pokGender_ (nullptr)
         , HpBar_ (nullptr)
         , HpBarContent_ (nullptr)
-        , hpLevel_ (new yap::Label (yap::StringHelper::ToString (info->GetCurrentHP ()) + " / " + yap::StringHelper::ToString (info->GetMaxHP ())))
+        , hpLevel_ (new yap::Label (yap::StringHelper::ToString (pokemon.GetCurrentHP ()) + " / " + yap::StringHelper::ToString (pokemon.GetMaxHP ())))
         , vlayout_ (nullptr)
         , iSmainPok_ (isMainPok)
       {
@@ -69,31 +74,30 @@ namespace ycl
         HpBarContent_ = new yap::PictureBox ();
         HpBar_ = new yap::PictureBox ();
 
-        pokIcon_->SetPicture (info->GetIcon ());
-        if (info->GetGender () == yap::Gender::Female)
-        {
-          pokGender_->SetPicture ("Pictures/Battle/FemaleIcon.png");
-        }
-        else
-        {
-          pokGender_->SetPicture ("Pictures/Battle/MaleIcon.png");
-        }
-        HpBar_->SetPicture ("Pictures/Battle/HPTeamManagerBar.png");
-        HpBarContent_->SetPicture ("Pictures/Battle/HPBarContent.png");
-        HpBarContent_->SetSize (yap::Vector2 (130 * (info->GetCurrentHP () / info->GetMaxHP ()), HpBarContent_->GetSize ().y));
+        pokIcon_->SetPicture (&pokemon.GetIcon ());
+        pokGender_->SetPicture (&pokemon.GetGenderIcon ());
+
+        // HP Bar
+        HpBar_->SetPicture (
+          new yap::Sprite ("Pictures/Battle/HPTeamManagerBar.png"));
+        HpBarContent_->SetPicture (
+          new yap::Sprite ("Pictures/Battle/HPBarContent.png"));
+
+        HpBarContent_->SetSize (yap::Vector2 (130 * (pokemon.GetCurrentHP () / pokemon.GetMaxHP ()), HpBarContent_->GetSize ().y));
         HpBar_->AddChild (*HpBarContent_);
         HpBarContent_->Move (yap::Vector2 (45.f, 6.f));
-        
-        if (static_cast<float> (info->GetCurrentHP ()) / static_cast<float> (info->GetMaxHP ())  <= 0.25)
+
+        if (static_cast<float> (pokemon.GetCurrentHP ()) / static_cast<float> (pokemon.GetMaxHP ())  <= 0.25)
           HpBarContent_->ChangeColor (sf::Color (250, 90, 60));
-        else if (static_cast<float> (info->GetCurrentHP ()) / static_cast<float> (info->GetMaxHP ())  <= 0.5)
+        else if (static_cast<float> (pokemon.GetCurrentHP ()) / static_cast<float> (pokemon.GetMaxHP ())  <= 0.5)
           HpBarContent_->ChangeColor (sf::Color (250, 225, 50));
         else
           HpBarContent_->ChangeColor (sf::Color (110, 250, 170));
+
         if (isMainPok)
         {
           SetSize (yap::Vector2 (275, 172));
-          SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/ItemB.png", true));
+          SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/ItemBox.png", true));
 
           yap::HorizontalLayout* hor1 = new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);          
           hor1->SetDefaultColor (sf::Color::White);
@@ -113,6 +117,60 @@ namespace ycl
           vlayout_->AddChild (*HpBar_);
           vlayout_->AddChild (*hpLevel_, yap::LayoutBox::Align::RIGHT);
           AddChild (*vlayout_);
+        }
+        else
+        {
+          SetSize (yap::Vector2 (425, 75));
+
+          SetBackground (*new yap::WidgetBackground (
+            "Pictures/TeamManager/ItemBox.png", true));
+
+          yap::HorizontalLayout* hor1 = 
+            new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);
+
+          yap::VerticalLayout* ver1 = 
+            new yap::VerticalLayout (yap::Padding (), yap::Padding (), true);
+          yap::VerticalLayout* ver2 = 
+            new yap::VerticalLayout (yap::Padding (), yap::Padding (), true);
+          yap::VerticalLayout* ver3 = 
+            new yap::VerticalLayout (yap::Padding (), yap::Padding (), true); 
+
+          hor1->SetDefaultColor (sf::Color::White);
+
+          ver1->SetDefaultColor (sf::Color::White);
+          ver2->SetDefaultColor (sf::Color::White);
+          ver3->SetDefaultColor (sf::Color::White);
+
+          hor1->AddChild (*pokLevel_);
+          hor1->AddChild (*pokGender_);
+
+          ver1->AddChild (*pokIcon_);
+          ver1->SetSize (yap::Vector2 (64, 64));
+
+          ver2->AddChild (*pokName_);
+          ver2->AddChild (*hor1);
+
+          ver3->AddChild (*HpBar_);
+          ver3->AddChild (*hpLevel_, yap::LayoutBox::Align::RIGHT);
+
+          /*
+          vlayout_ = new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
+          vlayout_->SetSize (GetSize ());
+          vlayout_->SetDefaultColor (sf::Color::White);
+          vlayout_->AddChild (*ver1);
+          vlayout_->AddChild (*ver2);
+          vlayout_->AddChild (*ver3);
+          */
+
+          yap::HorizontalLayout* hlayout = 
+            new yap::HorizontalLayout (yap::Padding (), yap::Padding (), false);
+          hlayout->SetSize (GetSize ());
+          hlayout->SetDefaultColor (sf::Color::White);
+          hlayout->AddChild (*ver1);
+          hlayout->AddChild (*ver2);
+          hlayout->AddChild (*ver3);
+
+          AddChild (*hlayout);
         }
 
       }
@@ -157,7 +215,7 @@ namespace ycl
     };
 
     yap::Label* state_;
-    yap::Pokemon* current_;
+    Pokemon* current_;
     yap::GridMenu* menu_;
     yap::VerticalLayout* vlayoutMenu_;
     const PokemonTeam& team_;

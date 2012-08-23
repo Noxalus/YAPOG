@@ -9,29 +9,20 @@
 
 namespace yap
 {
+  struct ISprite;
+
   class YAPOG_LIB PictureBox : public BaseWidget
   {
     DISALLOW_COPY(PictureBox);
 
   public:
-
-    struct EventArgsTexture
-    {
-      Texture& newContent;
-      EventArgsTexture (Texture& content)
-        : newContent (content)
-      {
-      }
-    };
-
     PictureBox ();
     virtual ~PictureBox ();
 
     virtual bool IsFocusable () const;
 
-    void SetPicture (String file);
-    const Texture& GetPicture () const;
-    Event<const PictureBox&, const EventArgsTexture&> OnPictureSet;
+    void SetPicture (ISprite* sprite);
+    const ISprite& GetPicture () const;
 
   private:
     virtual Vector2 HandleGetSize () const;
@@ -46,7 +37,7 @@ namespace yap
 
     virtual void HandleUpdate (const Time& dt);
 
-    Texture picture_;
+    ISprite* picture_;
   };
 } // namespace yap
 

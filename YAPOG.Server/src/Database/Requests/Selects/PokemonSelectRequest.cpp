@@ -121,7 +121,7 @@ namespace yse
 
     yap::String queryString = 
       "SELECT "
-      "account_id, "
+      "pokemon_id, "
       "pokemon_static_id, "
       "pokemon_experience, "
       "pokemon_gender, "
@@ -152,7 +152,8 @@ namespace yse
     {
       PokemonTable* pokemonTable = new PokemonTable ();
 
-      pokemonTable->SetAccountID (select.ReadID ());
+      pokemonTable->SetAccountID (accountID);
+      pokemonTable->SetID (select.ReadID ());
       pokemonTable->SetStaticID (select.ReadID ());
       pokemonTable->SetExperience (select.ReadUInt ());
       pokemonTable->SetGender (select.ReadUInt ());

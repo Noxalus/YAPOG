@@ -1,5 +1,5 @@
 <PokemonInfo id="4">
-	<name>Salamèche</name>
+	<name>Salameche</name>
 	<description>La flamme qui brûle au bout de sa queue indique son humeur. Elle vacille lorsqu'il est content mais prend de l'importance et brûle plus ardemment lorsqu'il s'énerve.</description>
 	<species>Lézard</species>
 	<height>1.0</height>
@@ -76,7 +76,7 @@
 	<learnableCapacities>
 		<capacity>1</capacity>
 		<capacity>4</capacity>
-	</learnableCapacities
+	</learnableCapacities>
 	<graphics>
 		<icon>Pokemon/Icons/4.png</icon>
 		<male>

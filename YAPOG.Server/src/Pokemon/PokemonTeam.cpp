@@ -15,7 +15,7 @@ namespace yse
   {
   }
 
-  Pokemon* PokemonTeam::GetPokemon (int index) const
+  Pokemon& PokemonTeam::GetPokemon (int index) const
   {
     if (index >= MAX_POKEMON_TEAM_NUMBER)
       YAPOG_THROW("Pokemon Team: index out of bound (" + yap::StringHelper::ToString (index) + ")");
@@ -23,7 +23,7 @@ namespace yse
     if (pokemonTeam_[index] == nullptr)
       YAPOG_THROW("Pokemon Team: no Pokemon at this index (" + yap::StringHelper::ToString (index) + ")");
 
-    return pokemonTeam_[index];
+    return *pokemonTeam_[index];
   }
 
   int PokemonTeam::GetPokemonCount () const

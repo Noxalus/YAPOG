@@ -295,7 +295,9 @@ namespace ycl
 
     for (int i = 0; i < pokemonCount; i++)
     {
-      Pokemon* currentPokemon = new Pokemon (packet.ReadID ());
+      yap::ID staticID = packet.ReadID ();
+
+      Pokemon* currentPokemon = new Pokemon (staticID);
 
       currentPokemon->SetUniqueID (packet.ReadID ());
       currentPokemon->SetExperience (packet.ReadUInt ());
@@ -303,7 +305,7 @@ namespace ycl
       currentPokemon->SetNickname (packet.ReadString ());
       currentPokemon->SetLevel (packet.ReadUInt16 ());
       currentPokemon->SetShiny (packet.ReadBool ());
-      currentPokemon->SetLoyalty (packet.ReadInt ());
+      currentPokemon->SetLoyalty (packet.ReadInt16 ());
       currentPokemon->SetNature (packet.ReadID ());
 
       pokemonTeam->AddPokemon (currentPokemon);
