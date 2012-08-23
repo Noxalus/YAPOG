@@ -9,13 +9,14 @@
 #include "YAPOG/Graphics/Texture.hpp"
 
 #include "Gui/PokemonTeamWidget.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
 #include "Game.hpp"
 
 namespace ycl
 {
 
-  PokemonTeamWidget::PokemonTeamWidget (yap::PokemonTeam* team)
+  PokemonTeamWidget::PokemonTeamWidget (const PokemonTeam& team)
     : state_ (nullptr)
     , current_ (nullptr)
     , menu_ (nullptr)
@@ -23,7 +24,6 @@ namespace ycl
     , team_ (team)
     , pokemons ()
     , ite_ (0)
-
   {
 
   }
@@ -65,11 +65,7 @@ namespace ycl
     state_->SetPosition (GetSize () - state_->GetSize () - yap::Vector2 (15, 15));
     state_->SetBorder (*stateBorder);
 
-    team_->AddPokemon (new yap::Pokemon (yap::ID (1)));
-    team_->AddPokemon (new yap::Pokemon (yap::ID (2)));
-    team_->AddPokemon (new yap::Pokemon (yap::ID (3)));
-
-    InfoBox* box = new InfoBox (true, team_->GetPokemon (0));
+    InfoBox* box = new InfoBox (true, team_.GetPokemon (0));
     box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
     pokemons.Add (box);
 
@@ -77,7 +73,7 @@ namespace ycl
 
     for (int i = 1; i < 1; i++) // iterate over team.
     {
-      InfoBox* box = new InfoBox (false, team_->GetPokemon (i));
+      InfoBox* box = new InfoBox (false, team_.GetPokemon (i));
       vlayoutMenu_->AddChild (*box);
       pokemons.Add (box);
     }

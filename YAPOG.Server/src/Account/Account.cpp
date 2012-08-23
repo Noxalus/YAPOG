@@ -1,10 +1,12 @@
 #include "YAPOG/Database/DatabaseManager.hpp"
 
 #include "Account/Account.hpp"
+#include "Account/PlayerData.hpp"
 #include "Database/Tables/AccountTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
 #include "Database/Requests/Updates/AccountUpdateRequest.hpp"
 #include "Database/Requests/Updates/PlayerDataUpdateRequest.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
 namespace yse
 {
@@ -30,6 +32,7 @@ namespace yse
     , creationIP_ (DEFAULT_ACCOUNT_CREATION_IP)
     , currentIP_ (DEFAULT_ACCOUNT_CURRENT_IP)
     , playerData_ (nullptr)
+    , team_ (nullptr)
   {
   }
 
@@ -90,6 +93,8 @@ namespace yse
 
   PlayerData& Account::GetPlayerData () const
   { return *playerData_; }
+  PokemonTeam& Account::GetTeam () const
+  { return *team_; }
 
   /// Setters
   void Account::SetID (const yap::ID& value) 
@@ -110,5 +115,8 @@ namespace yse
   { creationIP_ = value; }
   void Account::SetCurrentIP (const yap::String& value) 
   { currentIP_ = value; }
+
+  void Account::SetTeam (PokemonTeam* value)
+  { team_ = value; }
 
 } // namespace yse

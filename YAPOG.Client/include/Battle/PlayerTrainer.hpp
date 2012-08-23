@@ -12,7 +12,8 @@ namespace yap
 namespace ycl
 {
   class BattleInterface;
-  class PokemonFighterTeam;
+  //class PokemonFighterTeam;
+  class PokemonTeam;
 
   class PlayerTrainer : public yap::PlayerTrainer
   {
@@ -22,16 +23,20 @@ namespace ycl
 
     /// @name Getters.
     /// @{
-    PokemonFighterTeam& GetTeam ();
+    //PokemonFighterTeam& GetTeam ();
+    PokemonTeam& GetTeam ();
     /// @}
 
     /// @name Setters.
     /// @{
-    void SetTeam (PokemonFighterTeam* value);
+    //void SetTeam (PokemonFighterTeam* value);
+    void SetTeam (PokemonTeam* value);
     void SetPokedex (yap::Pokedex* value);
+
     /// @}
 
-    PokemonFighterTeam* team_;
+    //PokemonFighterTeam* team_;
+    PokemonTeam* team_;
     yap::Pokedex* pokedex_;
   };
 } // namespace ycl

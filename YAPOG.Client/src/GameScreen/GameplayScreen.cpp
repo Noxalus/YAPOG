@@ -61,7 +61,7 @@ namespace ycl
     , gameGuiManager_ (nullptr)
     , mainMenu_ (nullptr)
     , pokedex_ (nullptr)
-    , pokemonTeam_ (nullptr)
+    , pokemonTeamWidget_ (nullptr)
     , chat_ (nullptr)
     , fpsLabel_ (nullptr)
   {
@@ -105,6 +105,18 @@ namespace ycl
       nextScreen_ = "Battle";
     };
 
+    session_.GetUser ().OnPokemonTeamReceived += [this] (
+      const User& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      // Team Manager Widget
+      pokemonTeamWidget_ = new PokemonTeamWidget (
+        session_.GetUser ().GetTrainer ().GetTeam ());
+      pokemonTeamWidget_->Init ();
+      pokemonTeamWidget_->Close ();
+      gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeamWidget_);
+    };
+
     world_.OnMapChanged += [this] (
       const World& sender,
       const yap::ChangeEventArgs<Map*>& args)
@@ -114,6 +126,7 @@ namespace ycl
 
     session_.GetUser ().SetWorld (&world_);
 
+    // Chat
     chat_ = new ChatWidget ();
     chat_->Init ();
     chat_->Close ();
@@ -123,10 +136,9 @@ namespace ycl
     {
       session_.GetUser ().SendGameMessage (args);
     };
+
     gameGuiManager_->AddGameWidget ("Chat", chat_);
 
-    // @todo Provide theses information from the database
-    yap::PokemonTeam* team = new yap::PokemonTeam ();
 
     /*
     team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
@@ -141,11 +153,7 @@ namespace ycl
     session_.GetUser ().GetTrainer ().SetTeam (playerFighterTeam);
     */
 
-    pokemonTeam_ = new PokemonTeamWidget (team);
-    pokemonTeam_->Init ();
-    pokemonTeam_->Close ();
-    gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeam_);
-
+    // Pokedex
     yap::Pokedex* pokedexInfo = new yap::Pokedex ();
 
     for (int i = 1; i < 4; i++)
@@ -164,6 +172,7 @@ namespace ycl
 
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
+    // FPS
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
 

@@ -1,5 +1,5 @@
 #include "Database/Tables/PokemonTable.hpp"
-#include "YAPOG/Game/Pokemon/Pokemon.hpp"
+#include "Pokemon/Pokemon.hpp"
 
 namespace yse
 {
@@ -38,8 +38,9 @@ namespace yse
   {
   }
 
-  void PokemonTable::LoadFromPokemon (const yap::Pokemon& pokemon)
+  void PokemonTable::LoadFromPokemon (const Pokemon& pokemon)
   {
+    SetID (pokemon.GetUniqueID ());
     SetStaticID (pokemon.GetStaticID ());
     SetExperience (pokemon.GetTotalExperience ());
     SetGender ((yap::UInt8)pokemon.GetGender ());
@@ -52,6 +53,27 @@ namespace yse
     SetTradingNumber (DEFAULT_TRADING_NUMBER);
     SetTraderAccountID (DEFAULT_TRADER_ACCOUNT_ID);
     /// @todo Add boxNumber, boxIndex and catchDate
+  }
+
+  Pokemon* PokemonTable::CreatePokemon ()
+  {
+    Pokemon* pokemon = new Pokemon (GetStaticID ());
+
+    pokemon->SetExperience (GetExperience ());
+    pokemon->SetGender ((yap::UInt8)GetGender ());
+    pokemon->SetNickname (GetNickname ());
+    pokemon->SetLevel (GetLevel ());
+    pokemon->SetShiny (GetShiny ());
+    pokemon->SetLoyalty (GetLoyalty ());
+    pokemon->SetNature (GetNature ());
+    /// @todo Finish this trading part
+    /*
+    pokemon->SetTradingNumber (DEFAULT_TRADING_NUMBER);
+    pokemon->SetTraderAccountID (DEFAULT_TRADER_ACCOUNT_ID);
+    */
+    /// @todo Add boxNumber, boxIndex and catchDate
+
+    return pokemon;
   }
 
   /// Getters

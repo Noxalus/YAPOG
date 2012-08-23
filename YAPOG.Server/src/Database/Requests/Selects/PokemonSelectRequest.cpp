@@ -1,7 +1,9 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Collection/Array.hpp"
-#include "Database/Requests/Selects/PokemonSelectRequest.hpp"
 #include "YAPOG/Database/DatabaseStream.hpp"
+
+#include "Database/Requests/Selects/PokemonSelectRequest.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
 namespace yse
 {
@@ -112,10 +114,10 @@ namespace yse
     return pokemonTable;
   }
 
-  yap::collection::List<PokemonTable*> 
-    PokemonSelectRequest::SelectPokemonTeam (const yap::ID& accountID)
+  PokemonTeam* PokemonSelectRequest::SelectPokemonTeam (
+    const yap::ID& accountID)
   {
-    yap::collection::List<PokemonTable*>  pokemonTeam;
+    yap::collection::List<PokemonTable*>  pokemonTableTeam;
 
     yap::String queryString = 
       "SELECT "
@@ -165,12 +167,19 @@ namespace yse
       pokemonTable->SetBoxIndex (select.ReadID ());
       pokemonTable->SetCatchDate (select.ReadString ());
 
-      pokemonTeam.Add (pokemonTable);
+      pokemonTableTeam.Add (pokemonTable);
 
       counter++;
 
       if (counter > 6)
         throw yap::DatabaseException ("This team have more of 6 Pokemon !");
+    }
+
+    PokemonTeam* pokemonTeam = new PokemonTeam ();
+
+    for (PokemonTable* pt : pokemonTableTeam)
+    {
+      pokemonTeam->AddPokemon (pt->CreatePokemon ());
     }
 
     return pokemonTeam;

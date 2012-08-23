@@ -53,6 +53,7 @@ namespace ycl
       yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
 
       yap::Event<const User&> OnBattleTriggered;
+       yap::Event<const User&> OnPokemonTeamReceived;
 
     private:
       /// @name Getters.
@@ -77,6 +78,8 @@ namespace ycl
       void HandleServerInfoGameMessage (yap::IPacket& packet);
 
       void HandleServerInfoTriggerBattle (yap::IPacket& packet);
+
+      void HandlerServerInfoPokemonTeam (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 

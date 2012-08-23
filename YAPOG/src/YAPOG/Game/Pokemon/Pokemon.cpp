@@ -137,6 +137,11 @@ namespace yap
       gender_ = Gender::Male;
   }
 
+  const ID& Pokemon::GetUniqueID () const
+  {
+    return uniqueID_;
+  }
+
   const ID& Pokemon::GetStaticID () const
   {
     return staticID_;
@@ -240,6 +245,29 @@ namespace yap
   const Gender& Pokemon::GetGender () const
   {
     return gender_;
+  }
+
+  // Setters
+  void Pokemon::SetUniqueID (const ID& value)
+  { uniqueID_ = value; }
+  void Pokemon::SetExperience (const UInt32& value)
+  { exp_->SetValue (value); }
+  void Pokemon::SetGender (const UInt8& value)
+  { gender_ = (Gender)value; }
+  void Pokemon::SetNickname (const String& value)
+  { nickname_ = value; }
+  void Pokemon::SetLevel (const UInt16& value)
+  { level_ = value; }
+  void Pokemon::SetShiny (bool value)
+  { shiny_ = value; }
+  void Pokemon::SetLoyalty (int value)
+  { loyalty_ = value; }
+  void Pokemon::SetNature (const ID& value)
+  {
+    if (nature_ != nullptr)
+      delete nature_;
+
+    nature_ = new NatureInfo (value); 
   }
 
   void Pokemon::AddExperience (const Int32& value)

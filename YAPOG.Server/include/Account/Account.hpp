@@ -4,8 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
+
 # include "Account/AccountPermission.hpp"
-# include "Account/PlayerData.hpp"
 
 namespace yap
 {
@@ -15,6 +15,9 @@ namespace yap
 namespace yse
 {
   class AccountTable;
+  class PlayerDataTable;
+  class PlayerData;
+  class PokemonTeam;
 
   class Account
   {
@@ -37,6 +40,7 @@ namespace yse
     const yap::String& GetCurrentIP () const;
 
     PlayerData& GetPlayerData () const;
+    PokemonTeam& GetTeam () const;
 
     /// Setters
     void SetID (const yap::ID& value);
@@ -48,6 +52,8 @@ namespace yse
     void SetLastLoginDate (const yap::String& value);
     void SetCreationIP (const yap::String& value);
     void SetCurrentIP (const yap::String& value);
+
+    void SetTeam (PokemonTeam* value);
 
     static const yap::ID& DEFAULT_ACCOUNT_ID;
     static const yap::String DEFAULT_ACCOUNT_NAME;
@@ -70,6 +76,7 @@ namespace yse
     yap::String currentIP_;
 
     PlayerData* playerData_;
+    PokemonTeam* team_;
   };
 } // namespace yse
 

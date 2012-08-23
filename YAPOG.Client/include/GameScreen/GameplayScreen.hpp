@@ -77,7 +77,7 @@ namespace ycl
       GameMainMenu* mainMenu_;
 
       PokedexWidget* pokedex_;
-      PokemonTeamWidget* pokemonTeam_;
+      PokemonTeamWidget* pokemonTeamWidget_;
 
       ChatWidget* chat_;
 

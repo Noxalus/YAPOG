@@ -11,6 +11,8 @@
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
 #include "Account/Account.hpp"
+#include "Account/PlayerData.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
 #define YAPOG_DB_MODE 1
 
@@ -182,9 +184,9 @@ namespace yse
 
     /// @todo Reach from DB
     yap::ID playerID = yap::ID (1);
-    
+
     //yap::ID playerMapWorldID = yap::ID (1);
-   
+
     yap::ID playerMapWorldID = 
       account_->GetPlayerData ().GetMapID ();
 
@@ -206,6 +208,8 @@ namespace yse
     setUserPlayerPacket.Write (player_->GetWorldID ());
 
     SendPacket (setUserPlayerPacket);
+
+    SendPokemonTeam (account_->GetTeam ());
   }
 
   void User::HandleClientInfoApplyForce (yap::IPacket& packet)
@@ -250,4 +254,41 @@ namespace yse
 
     GetWorld ().SendPacket (packet);
   }
+
+  void User::SendPokemonTeam (PokemonTeam& pokemonTeam)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoPokemonTeam);
+
+    // Send the number of Pokemon in the team
+    packet.Write (pokemonTeam.GetPokemonCount ());
+
+    Pokemon* currentPokemon = nullptr;
+
+    for (int i = 0; i < yap::PokemonTeam::MAX_POKEMON_TEAM_NUMBER; i++)
+    {
+      try
+      {
+        currentPokemon = pokemonTeam.GetPokemon (i);
+
+        // We write the current pokemon information in the packet
+        packet.Write (currentPokemon->GetStaticID ());
+        packet.Write (currentPokemon->GetUniqueID ());
+        packet.Write (currentPokemon->GetTotalExperience ());
+        packet.Write ((yap::UInt8)currentPokemon->GetGender ());
+        packet.Write (currentPokemon->GetName ());
+        packet.Write (currentPokemon->GetLevel ());
+        packet.Write (currentPokemon->GetShiny ());
+        packet.Write (currentPokemon->GetLoyalty ());
+        packet.Write (currentPokemon->GetNature ());
+      }
+      catch (yap::Exception e)
+      {
+        break;
+      }
+    }
+
+    SendPacket (packet);
+  }
+
 } // namespace yse

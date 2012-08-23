@@ -14,6 +14,8 @@
 #include "World/Map/Teleporter.hpp"
 #include "World/Map/DestructibleObject.hpp"
 #include "Battle/PlayerTrainer.hpp"
+#include "Pokemon/Pokemon.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
 namespace ycl
 {
@@ -30,6 +32,7 @@ namespace ycl
     ADD_HANDLER(ServerInfoRemoveObject, User::HandleServerInfoRemoveObject);
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
     ADD_HANDLER(ServerInfoTriggerBattle, User::HandleServerInfoTriggerBattle);
+    ADD_HANDLER(ServerInfoPokemonTeam, User::HandlerServerInfoPokemonTeam);
   }
 
   User::~User ()
@@ -281,4 +284,34 @@ namespace ycl
   {
     OnBattleTriggered (*this, yap::EmptyEventArgs ());
   }
+
+  void User::HandlerServerInfoPokemonTeam (yap::IPacket& packet)
+  {
+    PokemonTeam* pokemonTeam = new PokemonTeam ();
+
+    trainer_ = new PlayerTrainer ();
+
+    int pokemonCount = packet.ReadInt ();
+
+    for (int i = 0; i < pokemonCount; i++)
+    {
+      Pokemon* currentPokemon = new Pokemon (packet.ReadID ());
+
+      currentPokemon->SetUniqueID (packet.ReadID ());
+      currentPokemon->SetExperience (packet.ReadUInt ());
+      currentPokemon->SetGender (packet.ReadUChar ());
+      currentPokemon->SetNickname (packet.ReadString ());
+      currentPokemon->SetLevel (packet.ReadUInt16 ());
+      currentPokemon->SetShiny (packet.ReadBool ());
+      currentPokemon->SetLoyalty (packet.ReadInt ());
+      currentPokemon->SetNature (packet.ReadID ());
+
+      pokemonTeam->AddPokemon (currentPokemon);
+    }
+
+    trainer_->SetTeam (pokemonTeam);
+
+    OnPokemonTeamReceived (*this, yap::EmptyEventArgs ());
+  }
+
 } // namespace ycl

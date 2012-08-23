@@ -75,6 +75,11 @@ ${inc_root}/Account/AccountPermission.hpp
 ${inc_root}/Account/PlayerData.hpp
 ${src_root}/Account/PlayerData.cpp
 
+${inc_root}/Pokemon/Pokemon.hpp
+${src_root}/Pokemon/Pokemon.cpp
+${inc_root}/Pokemon/PokemonTeam.hpp
+${src_root}/Pokemon/PokemonTeam.cpp
+
 ${inc_root}/World/Map/DynamicObjectFactory.hpp
 ${src_root}/World/Map/DynamicObjectFactory.cpp
 ${inc_root}/World/Map/IDGenerator.hpp

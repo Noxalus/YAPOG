@@ -6,20 +6,18 @@
 # include "YAPOG/System/String.hpp"
 # include "Database/Tables/ITable.hpp"
 
-namespace yap
-{
-  class Pokemon;
-}
-
 namespace yse
 {
+  class Pokemon;
+
   class PokemonTable : public ITable
   {
     DISALLOW_COPY(PokemonTable);
   public:
     PokemonTable ();
 
-    void LoadFromPokemon (const yap::Pokemon& pokemon);
+    void LoadFromPokemon (const Pokemon& pokemon);
+    Pokemon* CreatePokemon ();
 
     /// Getters
     const yap::ID& GetAccountID () const;

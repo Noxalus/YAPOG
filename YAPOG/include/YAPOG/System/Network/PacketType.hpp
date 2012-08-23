@@ -44,7 +44,9 @@ namespace yap
 
     ServerInfoGameMessage,
 
-    ServerInfoTriggerBattle
+    ServerInfoTriggerBattle,
+
+    ServerInfoPokemonTeam
   };
 } // namespace yap
 

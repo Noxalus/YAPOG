@@ -11,7 +11,6 @@
 # include "YAPOG/Game/Pokemon/Pokemon.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 # include "YAPOG/Game/Pokemon/Gender.hpp"
-# include "YAPOG/Game/Pokemon/PokemonTeam.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 
@@ -23,15 +22,15 @@ namespace yap
 
 namespace ycl
 {
+  class PokemonTeam;
+
   class PokemonTeamWidget : public yap::BaseWidget
   {
 
     DISALLOW_COPY(PokemonTeamWidget);
 
   public:
-
-
-    PokemonTeamWidget (yap::PokemonTeam* team);
+    PokemonTeamWidget (const PokemonTeam& team);
     void Init ();
     virtual ~PokemonTeamWidget();
     virtual bool IsFocusable () const;
@@ -161,7 +160,7 @@ namespace ycl
     yap::Pokemon* current_;
     yap::GridMenu* menu_;
     yap::VerticalLayout* vlayoutMenu_;
-    yap::PokemonTeam* team_;
+    const PokemonTeam& team_;
     yap::collection::Array<InfoBox*> pokemons;
     InfoBox* currentBox_;
     yap::WidgetBackground* selecBckgrd_;

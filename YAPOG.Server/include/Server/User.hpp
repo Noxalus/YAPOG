@@ -18,6 +18,7 @@ namespace yse
   class World;
   class Map;
   class Player;
+  class PokemonTeam;
 
   class User : public yap::IPacketHandler
   {
@@ -79,6 +80,7 @@ namespace yse
       void SendChangeMap (Map& map);
 
       void SendGameMessage (const yap::GameMessage& message);
+      void SendPokemonTeam (PokemonTeam& pokemonTeam);
 
       yap::PacketHandler packetHandler_;
 

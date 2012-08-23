@@ -11,6 +11,8 @@
 
 namespace yse
 {
+  class PokemonTeam;
+
   class PokemonSelectRequest : public ISelectRequest
   {
     DISALLOW_COPY(PokemonSelectRequest);
@@ -20,8 +22,7 @@ namespace yse
 
     bool Select (PokemonTable& pokemonTable);
     PokemonTable* SelectPokemon (const yap::ID& pokemonID);
-    yap::collection::List<PokemonTable*> 
-      SelectPokemonTeam (const yap::ID& accountID);
+    PokemonTeam* SelectPokemonTeam (const yap::ID& accountID);
 
   private:
     yap::DatabaseManager& databaseManager_;

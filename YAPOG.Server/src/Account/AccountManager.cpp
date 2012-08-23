@@ -3,7 +3,6 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Hash/Md5.hpp"
-#include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
 
 #include "Account/AccountManager.hpp"
@@ -18,10 +17,12 @@
 #include "Database/Requests/Inserts/PokemonInsertRequest.hpp"
 #include "Database/Requests/Updates/PokemonUpdateRequest.hpp"
 #include "Database/Requests/Selects/PokemonSelectRequest.hpp"
+#include "Pokemon/PokemonTeam.hpp"
+#include "Pokemon/Pokemon.hpp"
 
 namespace yse
 {
-  yap::Pokemon* GenerateRandomPokemon ()
+  Pokemon* GenerateRandomPokemon ()
   {
     yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
 
@@ -30,7 +31,7 @@ namespace yse
 
     int level = yap::RandomHelper::GetNext (1, 100);
 
-    yap::Pokemon* p = new yap::Pokemon (staticID, level, false);
+    Pokemon* p = new Pokemon (staticID, level, false);
 
     return p;
   }
@@ -163,9 +164,11 @@ namespace yse
     Account* account = new Account ();
     account->LoadFromTable (accountTable, playerDataTable);
 
-    yap::collection::List<PokemonTable*> pokemonTableList;
+    PokemonTeam* pokemonTeam;
     PokemonSelectRequest selectPokemon (databaseManager_);
-    pokemonTableList = selectPokemon.SelectPokemonTeam (account->GetID ());
+    pokemonTeam = selectPokemon.SelectPokemonTeam (account->GetID ());
+
+    account->SetTeam (pokemonTeam);
 
     return account;
     /*
