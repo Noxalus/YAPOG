@@ -14,13 +14,13 @@
 # include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 # include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 # include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
+# include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
 # include "Pokemon/Pokemon.hpp"
 
 namespace yap
 {
   class GridMenu;
-  class WidgetBackground;
 }
 
 namespace ycl
@@ -83,7 +83,11 @@ namespace ycl
         HpBarContent_->SetPicture (
           new yap::Sprite ("Pictures/Battle/HPBarContent.png"));
 
-        HpBarContent_->SetSize (yap::Vector2 (130 * (pokemon.GetCurrentHP () / pokemon.GetMaxHP ()), HpBarContent_->GetSize ().y));
+        yap::Vector2 hpBarSize = 
+          yap::Vector2 (130 * ((float)pokemon.GetCurrentHP () / 
+          (float)pokemon.GetMaxHP ()), HpBarContent_->GetSize ().y);
+
+        HpBarContent_->SetSize (hpBarSize);
         HpBar_->AddChild (*HpBarContent_);
         HpBarContent_->Move (yap::Vector2 (45.f, 6.f));
 

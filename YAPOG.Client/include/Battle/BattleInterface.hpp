@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
+# include "YAPOG/Graphics/Gui/GuiManager.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
 # include "Battle/BattleMenu.hpp"
@@ -28,6 +29,11 @@ namespace ycl
 
     void Reset ();
 
+    void AddBattleWidget (const yap::String& name, yap::IWidget* battleWidget);
+
+    void SetCurrentWidget (const yap::String& name);
+    bool UnsetCurrentWidget ();
+
     /// @name Getters.
     /// @{
     yap::DialogBoxWidget& GetBattleInfoDialogBox ();
@@ -47,6 +53,12 @@ namespace ycl
     BattleMenu battleMenu_;
     BattleMoveMenu battleMoveMenu_;
     BattleMoveInfoMenu battleMoveInfoMenu_;
+
+    yap::String currentWidgetName_;
+    yap::IWidget* currentWidget_;
+    yap::collection::Map<yap::String, yap::IWidget*> battleWidgets_;
+
+    static const bool DEFAULT_ADDED_WIDGET_STATE;
   };
 } // namespace ycl
 

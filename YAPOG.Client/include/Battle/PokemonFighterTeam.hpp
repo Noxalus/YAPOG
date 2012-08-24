@@ -11,6 +11,7 @@
 namespace ycl
 {
   class Pokemon;
+  class PokemonTeam;
 
   class PokemonFighterTeam
     : public yap::PokemonFighterTeam
@@ -21,7 +22,7 @@ namespace ycl
     PokemonFighterTeam ();
     virtual ~PokemonFighterTeam ();
 
-    virtual bool AddPokemon (PokemonFighter* pokemon);
+    void LoadFromPokemonTeam (PokemonTeam& pokemonTeam, bool isOpponent);
 
     /// @name IDrawable members.
     /// @{
@@ -52,6 +53,7 @@ namespace ycl
     sf::Color color_;
 
   private:
+    virtual bool AddPokemon (PokemonFighter* pokemon);
     virtual PokemonFighter& GetCurrentFighter ();
     virtual const PokemonFighter& GetCurrentFighter () const;
     yap::collection::Array<PokemonFighter*> fighters_;

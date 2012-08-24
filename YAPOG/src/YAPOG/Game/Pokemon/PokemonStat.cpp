@@ -126,4 +126,9 @@ namespace yap
       natureInfo.GetSpeedFactor ());
   }
 
+  void PokemonStat::RestoreHP ()
+  {
+    hitPoint_.Restore ();
+  }
+
 } // namespace yap

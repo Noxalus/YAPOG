@@ -300,13 +300,13 @@ namespace ycl
       Pokemon* currentPokemon = new Pokemon (staticID);
 
       currentPokemon->SetUniqueID (packet.ReadID ());
-      currentPokemon->SetExperience (packet.ReadUInt ());
       currentPokemon->SetGender (packet.ReadUChar ());
       currentPokemon->SetNickname (packet.ReadString ());
       currentPokemon->SetLevel (packet.ReadUInt16 ());
       currentPokemon->SetShiny (packet.ReadBool ());
       currentPokemon->SetLoyalty (packet.ReadInt16 ());
       currentPokemon->SetNature (packet.ReadID ());
+      currentPokemon->SetExperience (packet.ReadUInt ());
 
       pokemonTeam->AddPokemon (currentPokemon);
     }

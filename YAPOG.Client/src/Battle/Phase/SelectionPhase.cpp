@@ -24,6 +24,12 @@ namespace ycl
 
   void SelectionPhase::Init ()
   {
+    battleInterface_.GetBattleMenu ().GetItem (2).OnActivated +=
+      [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+    {
+      battleInterface_.SetCurrentWidget ("PokemonTeam");
+    };
+
     battleInterface_.GetBattleMenu ().GetItem (3).OnActivated +=
       [&] (const yap::MenuItem& sender, const yap::EmptyEventArgs& args)
     {

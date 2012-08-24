@@ -48,23 +48,6 @@
 #include "Battle/WildBattle.hpp"
 #include "Battle/BattleInterface.hpp"
 
-namespace debug
-{
-  ycl::Pokemon* GenerateRandomPokemon ()
-  {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
-
-    if (staticID == yap::ID (4))
-      staticID = yap::ID (16);
-
-    int level = yap::RandomHelper::GetNext (1, 100);
-
-    ycl::Pokemon* p = new ycl::Pokemon (staticID, level, false);
-
-    return p;
-  }
-}
-
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -122,38 +105,6 @@ namespace ycl
       const User& sender,
       const yap::EmptyEventArgs& args)
     {
-      /*
-      PokemonTeam* team = new PokemonTeam ();
-      team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
-      team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
-      */
-
-      PokemonTeam& playerTeam = session_.GetUser ().GetTrainer ().GetTeam ();
-
-      PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
-      playerFighterTeam->AddPokemon (
-        new PokemonFighter (&playerTeam.GetPokemon (0), false));
-      playerFighterTeam->AddPokemon (
-        new PokemonFighter (&playerTeam.GetPokemon (1), false));
-
-      PokemonFighter* wildPokemon =
-        new PokemonFighter (debug::GenerateRandomPokemon (), true);
-
-      BattleInterface* battleInterface_ = new BattleInterface ();
-
-      Battle* battle = new WildBattle (*battleInterface_);
-
-      battle->SetPlayerTeam (playerFighterTeam);
-      battle->SetOpponent (wildPokemon);
-      battle->Init ();
-
-      battle->OnBattleEnd +=
-        [&] (const yap::Battle& sender, const yap::EmptyEventArgs& args)
-      {
-        yap::AudioManager::Instance ().ResumePreviousMusic ();
-        nextScreen_ = "Gameplay";
-      };
-
       nextScreen_ = "Battle";
     };
 
@@ -218,6 +169,13 @@ namespace ycl
       pokedexInfo->AddPokemonCaught (pok);
     }
 
+    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (16));
+
+    pokedexInfo->AddPokemon (pok);
+    pokedexInfo->AddPokemonSeen (pok);
+    pokedexInfo->AddPokemonCaught (pok);
+
     pokedex_ = new PokedexWidget (pokedexInfo);
     pokedex_->Close ();
     pokedex_->Init ();
@@ -270,6 +228,7 @@ namespace ycl
           break;
 
         gameGuiManager_->SetCurrentWidget ("Menu");
+
         yap::AudioManager::Instance ().PlayMusic ("BGM/SettingMenu.ogg");
 
         return true;
@@ -425,6 +384,7 @@ namespace ycl
     {
       gameGuiManager_->SetCurrentWidget ("Pokedex");
     };
+
     mainMenu_->OnPokemonItemActivated += [this] (
       GameMainMenu& sender,
       const yap::EmptyEventArgs& args)

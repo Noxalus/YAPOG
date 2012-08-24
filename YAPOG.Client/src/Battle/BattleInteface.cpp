@@ -1,7 +1,6 @@
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
-#include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
@@ -20,12 +19,17 @@
 
 namespace ycl
 {
+  const bool BattleInterface::DEFAULT_ADDED_WIDGET_STATE = false;
+
   BattleInterface::BattleInterface ()
     : battleInfoDialogBox_ (nullptr)
     , pokemonInfoWidget_ (nullptr)
     , opponentInfoWidget_ (nullptr)
     , battleMenu_ ()
     , battleMoveMenu_ ()
+    , currentWidgetName_ ()
+    , currentWidget_ (nullptr)
+    , battleWidgets_ ()
   {
     battleInfoDialogBox_ = new yap::DialogBoxWidget ();
 
@@ -84,12 +88,49 @@ namespace ycl
       battleMenu_.Open ();
     };
 
-    this->AddChild (*pokemonInfoWidget_);
-    this->AddChild (*opponentInfoWidget_);
-    this->AddChild (*battleInfoDialogBox_);
-    this->AddChild (battleMenu_);
-    this->AddChild (battleMoveMenu_);
-    this->AddChild (battleMoveInfoMenu_);
+    this->AddBattleWidget ("PokemonInfo", pokemonInfoWidget_);
+    this->AddBattleWidget ("OpponentInfo", opponentInfoWidget_);
+    this->AddBattleWidget ("BattleInfo", battleInfoDialogBox_);
+    this->AddBattleWidget ("Menu", &battleMenu_);
+    this->AddBattleWidget ("MoveMenu", &battleMoveMenu_);
+    this->AddBattleWidget ("MoveInfo", &battleMoveInfoMenu_);
+  }
+
+  void BattleInterface::AddBattleWidget (
+    const yap::String& name,
+    yap::IWidget* battleWidget)
+  {
+    DEFAULT_ADDED_WIDGET_STATE ? battleWidget->Open () : battleWidget->Close ();
+
+    AddChild (*battleWidget);
+    battleWidgets_.Add (name, battleWidget);
+  }
+
+  void BattleInterface::SetCurrentWidget (const yap::String& name)
+  {
+    currentWidgetName_ = name;
+
+    currentWidget_ = battleWidgets_[currentWidgetName_];
+
+    eventHandlers_.Remove (currentWidget_);
+    eventHandlers_.AddFront (currentWidget_);
+
+    drawables_.Remove (currentWidget_);
+    drawables_.Add (currentWidget_);
+
+    currentWidget_->Open ();
+  }
+
+  bool BattleInterface::UnsetCurrentWidget ()
+  {
+    if (currentWidget_ == nullptr)
+      return false;
+
+    currentWidget_->Close ();
+
+    currentWidget_ = nullptr;
+
+    return true;
   }
 
   /// Getters

@@ -251,7 +251,13 @@ namespace yap
   void Pokemon::SetUniqueID (const ID& value)
   { uniqueID_ = value; }
   void Pokemon::SetExperience (const UInt32& value)
-  { exp_->SetValue (value); }
+  { 
+    exp_->SetValue (value); 
+
+    stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
+
+    RestoreHP ();
+  }
   void Pokemon::SetGender (const UInt8& value)
   { gender_ = (Gender)value; }
   void Pokemon::SetNickname (const String& value)
@@ -346,6 +352,11 @@ namespace yap
 
     staticID_ = pokemonInfo_->GetPokemonEvolutionID ();
     Reset ();
+  }
+
+  void Pokemon::RestoreHP ()
+  {
+    stats_.RestoreHP ();
   }
 
   void Pokemon::TakeDamage (int damage)

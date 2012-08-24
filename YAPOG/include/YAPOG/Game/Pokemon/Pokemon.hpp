@@ -62,6 +62,8 @@ namespace yap
     bool LearnSkill (const ID& skillID);
     void ReplaceSkill (const ID& skillID, int index);
 
+    /// @brief Restore all the hp of the Pokemon
+    void RestoreHP ();
     void TakeDamage (int damage);
 
     void AddExperience (const Int32& value);

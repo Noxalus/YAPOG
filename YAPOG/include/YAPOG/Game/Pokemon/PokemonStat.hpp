@@ -71,6 +71,8 @@ namespace yap
       const UInt16& level, 
       const NatureInfo& natureInfo);
 
+    void RestoreHP ();
+
   private:
     HitPoint hitPoint_;
     Attack attack_;

@@ -35,4 +35,9 @@ namespace yap
       currentValue_ = value;
   }
 
+  void HitPoint::Restore ()
+  {
+    currentValue_ = value_;
+  }
+
 } // namespace yap
