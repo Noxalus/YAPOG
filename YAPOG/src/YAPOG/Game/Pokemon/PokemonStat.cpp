@@ -88,6 +88,16 @@ namespace yap
   void PokemonStat::SetCurrentHP (const yap::UInt16& value)
   { hitPoint_.SetCurrentValue (value); }
 
+  void PokemonStat::LoadFromPokemonStat (const PokemonStat& stats)
+  {
+    hitPoint_ = stats.GetHitPoint ();
+    attack_ = stats.GetAttack ();
+    defense_ = stats.GetDefense ();
+    specialAttack_ = stats.GetSpecialAttack ();
+    specialDefense_ = stats.GetSpecialDefense ();
+    speed_ = stats.GetSpeed ();
+  }
+
   void PokemonStat::ModifyHitPoint (int value)
   {
     hitPoint_.AddValue (value);

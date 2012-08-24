@@ -270,7 +270,7 @@ namespace yse
     {
       currentPokemon = &pokemonTeam.GetPokemon (i);
 
-      // We write the current pokemon information in the packet
+      // Write the current pokemon information in the packet
       packet.Write (currentPokemon->GetStaticID ());
       packet.Write (currentPokemon->GetUniqueID ());
       packet.Write ((yap::UInt8)currentPokemon->GetGender ());
@@ -280,6 +280,13 @@ namespace yse
       packet.Write (currentPokemon->GetLoyalty ());
       packet.Write (currentPokemon->GetNature ());
       packet.Write (currentPokemon->GetTotalExperience ());
+      // Write the current information stats
+      /*
+      packet.Write (currentPokemon->GetStats ().
+        GetHitPoint ().GetCurrentValue ());
+      packet.Write (currentPokemon->GetStats ().
+        GetHitPoint ().GetValue ());
+      */
     }
 
     SendPacket (packet);

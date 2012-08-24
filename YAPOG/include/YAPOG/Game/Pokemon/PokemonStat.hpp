@@ -55,6 +55,7 @@ namespace yap
     void SetSpecialAttack (const SpecialAttack& value);
     void SetSpecialDefense (const SpecialDefense& value);
     void SetSpeed (const Speed& value);
+    void LoadFromPokemonStat (const PokemonStat& stats);
     /// @}
 
     void SetCurrentHP (const yap::UInt16& value);

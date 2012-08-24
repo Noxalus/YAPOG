@@ -30,6 +30,12 @@ ${inc_root}/Database/Requests/Inserts/PlayerDataInsertRequest.hpp
 ${src_root}/Database/Requests/Inserts/PlayerDataInsertRequest.cpp
 ${inc_root}/Database/Requests/Inserts/PokemonInsertRequest.hpp
 ${src_root}/Database/Requests/Inserts/PokemonInsertRequest.cpp
+${inc_root}/Database/Requests/Inserts/PokemonStatsInsertRequest.hpp
+${src_root}/Database/Requests/Inserts/PokemonStatsInsertRequest.cpp
+${inc_root}/Database/Requests/Inserts/PokemonEVInsertRequest.hpp
+${src_root}/Database/Requests/Inserts/PokemonEVInsertRequest.cpp
+${inc_root}/Database/Requests/Inserts/PokemonMoveInsertRequest.hpp
+${src_root}/Database/Requests/Inserts/PokemonMoveInsertRequest.cpp
 
 ${inc_root}/Database/Requests/Selects/AccountSelectRequest.hpp
 ${src_root}/Database/Requests/Selects/AccountSelectRequest.cpp
@@ -37,6 +43,12 @@ ${inc_root}/Database/Requests/Selects/PlayerDataSelectRequest.hpp
 ${src_root}/Database/Requests/Selects/PlayerDataSelectRequest.cpp
 ${inc_root}/Database/Requests/Selects/PokemonSelectRequest.hpp
 ${src_root}/Database/Requests/Selects/PokemonSelectRequest.cpp
+${inc_root}/Database/Requests/Selects/PokemonStatsSelectRequest.hpp
+${src_root}/Database/Requests/Selects/PokemonStatsSelectRequest.cpp
+${inc_root}/Database/Requests/Selects/PokemonEVSelectRequest.hpp
+${src_root}/Database/Requests/Selects/PokemonEVSelectRequest.cpp
+${inc_root}/Database/Requests/Selects/PokemonMoveSelectRequest.hpp
+${src_root}/Database/Requests/Selects/PokemonMoveSelectRequest.cpp
 
 ${inc_root}/Database/Requests/Updates/AccountUpdateRequest.hpp
 ${src_root}/Database/Requests/Updates/AccountUpdateRequest.cpp
@@ -44,6 +56,12 @@ ${inc_root}/Database/Requests/Updates/PlayerDataUpdateRequest.hpp
 ${src_root}/Database/Requests/Updates/PlayerDataUpdateRequest.cpp
 ${inc_root}/Database/Requests/Updates/PokemonUpdateRequest.hpp
 ${src_root}/Database/Requests/Updates/PokemonUpdateRequest.cpp
+${inc_root}/Database/Requests/Updates/PokemonStatsUpdateRequest.hpp
+${src_root}/Database/Requests/Updates/PokemonStatsUpdateRequest.cpp
+${inc_root}/Database/Requests/Updates/PokemonEVUpdateRequest.hpp
+${src_root}/Database/Requests/Updates/PokemonEVUpdateRequest.cpp
+${inc_root}/Database/Requests/Updates/PokemonMoveUpdateRequest.hpp
+${src_root}/Database/Requests/Updates/PokemonMoveUpdateRequest.cpp
 
 ${inc_root}/Database/Tables/ITable.hpp
 ${inc_root}/Database/Tables/AccountTable.hpp
