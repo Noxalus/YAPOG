@@ -35,6 +35,17 @@ namespace yap
     return std::pow (number, pow);
   }
 
+  template <typename T1, typename T2>
+  T1 MathHelper::Sqrt (const T1& number, const T2& pow)
+  {
+    T1 result = number;
+
+    for (int i = 0; i < pow; i++)
+      result = std::sqrt (result);
+
+    return result;
+  }
+
   template <typename T>
   T MathHelper::Abs (const T& value)
   {

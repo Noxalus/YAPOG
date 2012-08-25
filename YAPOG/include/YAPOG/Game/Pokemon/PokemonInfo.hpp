@@ -10,7 +10,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
-# include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
+# include "YAPOG/Game/Pokemon/PokemonMove.hpp"
 # include "YAPOG/Game/Pokemon/ExperienceType.hpp"
 
 namespace yap
@@ -21,7 +21,7 @@ namespace yap
     PokemonInfo ();
     PokemonInfo (const ID& id);
     void InitMoveSet (
-      collection::Array<PokemonSkill*>& moveSet,
+      collection::Array<PokemonMove*>& moveSet,
       const UInt16& level);
 
     bool CanEvolve () const;

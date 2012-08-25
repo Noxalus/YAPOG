@@ -10,15 +10,16 @@
 
 namespace yap
 {
-  class YAPOG_LIB PokemonSkill
+  class YAPOG_LIB PokemonMove
   {
   public:
-    PokemonSkill ();
-    PokemonSkill (const ID& skillID);
+    PokemonMove ();
+    PokemonMove (const ID& skillID);
 
     void SetSkillInfo (const ID& skillID);
 
     /// Getters
+    const ID& GetStaticID () const;
     const String& GetName () const;
     const UInt16& GetPower () const;
     const UInt16& GetCurrentPP () const;
@@ -38,10 +39,12 @@ namespace yap
   private:
     const UInt16& GetLimitPPMax () const;
 
+    ID staticID_;
     UInt16 currentPP_;
     UInt16 maxPP_;
     SkillInfo* skillInfo_;
 
+    static const ID DEFAULT_STATIC_ID;
     static const UInt16 DEFAULT_PP_VALUE;
     static const UInt16 DEFAULT_MAX_PP_VALUE;
   };

@@ -10,13 +10,21 @@
 #include "Database/Tables/PlayerDataTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
 #include "Database/Tables/PokemonTable.hpp"
+#include "Database/Tables/PokemonStatsTable.hpp"
+#include "Database/Tables/PokemonMoveTable.hpp"
+
 #include "Database/Requests/Inserts/AccountInsertRequest.hpp"
-#include "Database/Requests/Selects/AccountSelectRequest.hpp"
 #include "Database/Requests/Inserts/PlayerDataInsertRequest.hpp"
-#include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
 #include "Database/Requests/Inserts/PokemonInsertRequest.hpp"
-#include "Database/Requests/Updates/PokemonUpdateRequest.hpp"
+#include "Database/Requests/Inserts/PokemonStatsInsertRequest.hpp"
+#include "Database/Requests/Inserts/PokemonMoveInsertRequest.hpp"
+
+#include "Database/Requests/Selects/AccountSelectRequest.hpp"
+#include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
 #include "Database/Requests/Selects/PokemonSelectRequest.hpp"
+
+#include "Database/Requests/Updates/PokemonUpdateRequest.hpp"
+
 #include "Pokemon/PokemonTeam.hpp"
 #include "Pokemon/Pokemon.hpp"
 
@@ -84,19 +92,41 @@ namespace yse
           // Add first Pokemon
           for (int i = 1; i <= 6; i++)
           {
-            PokemonTable pokemonTable;
-            pokemonTable.SetAccountID (ia.GetID ());
-            pokemonTable.LoadFromPokemon (*GenerateRandomPokemon ());
-            pokemonTable.SetBoxIndex (yap::ID (i));
-            PokemonInsertRequest insert (pokemonTable);
+            Pokemon* p = GenerateRandomPokemon ();
 
-            if (insert.Insert (databaseManager_))
+            // Insertion of the current Pokemon's basics information
+            PokemonTable pokemonTable;
+            pokemonTable.accountID_ = ia.GetID ();
+            pokemonTable.LoadFromPokemon (*p);
+            pokemonTable.boxIndex_ = yap::ID (i);
+            PokemonInsertRequest pokemonInsert (pokemonTable);
+
+            if (pokemonInsert.Insert (databaseManager_))
             {
-              std::cout << "A random Pokemon have been added to the player !" 
-                << std::endl;
+              // Insertion of the current Pokemon's stats
+              PokemonStatsTable pokemonStatsTable;
+              pokemonStatsTable.LoadFromPokemon (*p);
+              pokemonStatsTable.pokemonID_ = pokemonInsert.GetID ();
+              PokemonStatsInsertRequest pokemonStatsInsert (pokemonStatsTable);
+
+              if (pokemonStatsInsert.Insert (databaseManager_))
+              {
+                for (int i = 0; i < 4; i++)
+                {
+                  // Insertion of the current Pokemon's moves
+                  PokemonMoveTable pokemonMoveTable;
+                  pokemonMoveTable.LoadFromPokemon (*p, yap::ID(i));
+                  pokemonMoveTable.pokemonID_ = pokemonInsert.GetID ();
+                  PokemonMoveInsertRequest pokemonStatsInsert (pokemonMoveTable);
+
+                  pokemonStatsInsert.Insert (databaseManager_);
+                }
+
+                std::cout << "A random Pokemon have been added to the player !" 
+                  << std::endl;
+              }
             }
           }
-
 
           trans.Commit ();
 
@@ -171,6 +201,7 @@ namespace yse
     PokemonTeam* pokemonTeam;
     PokemonSelectRequest selectPokemon (databaseManager_);
     pokemonTeam = selectPokemon.SelectPokemonTeam (account->GetID ());
+
 
     account->SetTeam (pokemonTeam);
 

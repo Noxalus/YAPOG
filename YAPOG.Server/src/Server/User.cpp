@@ -273,13 +273,17 @@ namespace yse
       // Write the current pokemon information in the packet
       packet.Write (currentPokemon->GetStaticID ());
       packet.Write (currentPokemon->GetUniqueID ());
-      packet.Write ((yap::UInt8)currentPokemon->GetGender ());
-      packet.Write (currentPokemon->GetName ());
-      packet.Write (currentPokemon->GetLevel ());
+      packet.Write (static_cast<yap::UInt8>(currentPokemon->GetGender ()));
+      packet.Write (static_cast<yap::UInt8>(currentPokemon->GetStatus ()));
+      packet.Write (currentPokemon->GetNickname ());
       packet.Write (currentPokemon->GetShiny ());
       packet.Write (currentPokemon->GetLoyalty ());
       packet.Write (currentPokemon->GetNature ());
       packet.Write (currentPokemon->GetTotalExperience ());
+      packet.Write (currentPokemon->GetBoxNumber ());
+      packet.Write (currentPokemon->GetBoxIndex ());
+      packet.Write (currentPokemon->GetCatchDate ());
+
       // Write the current information stats
       /*
       packet.Write (currentPokemon->GetStats ().

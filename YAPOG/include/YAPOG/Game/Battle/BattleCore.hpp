@@ -14,7 +14,7 @@ namespace yap
     BattleCore ();
 
     int ComputeDamage (
-      const PokemonSkill& move, 
+      const PokemonMove& move, 
       const PokemonFighter& attacker, 
       const PokemonFighter& defender);
   };

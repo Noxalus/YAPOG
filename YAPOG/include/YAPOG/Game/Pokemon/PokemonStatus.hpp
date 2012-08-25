@@ -1,11 +1,11 @@
-#ifndef YAPOG_STATUS_HPP
-# define YAPOG_STATUS_HPP
+#ifndef YAPOG_POKEMONSTATUS_HPP
+# define YAPOG_POKEMONSTATUS_HPP
 
 # include "YAPOG/Macros.hpp"
 
 namespace yap
 {
-  enum class YAPOG_LIB Status
+  enum class YAPOG_LIB PokemonStatus
   {
     Normal,
     Poisoned,
@@ -19,4 +19,4 @@ namespace yap
   };
 } // namespace yap
 
-#endif // YAPOG_STATUS_HPP
+#endif // YAPOG_POKEMONSTATUS_HPP

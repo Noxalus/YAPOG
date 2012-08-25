@@ -17,15 +17,12 @@ namespace yse
     PokemonMoveInsertRequest (const PokemonMoveTable& pokemonMoveTable);
     virtual ~PokemonMoveInsertRequest();
 
-    const yap::ID& GetID ();
-
     /// @name IInsertRequest members.
     /// @{
     virtual bool Insert (yap::DatabaseManager& databaseManager);
     /// @}
 
   private:
-    yap::ID id_;
     const PokemonMoveTable& pokemonMoveTable_;
   };
 

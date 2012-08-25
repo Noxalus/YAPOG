@@ -1,28 +1,37 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
-#include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
+#include "YAPOG/Game/Pokemon/PokemonMove.hpp"
 
 namespace yap
 {
-  const UInt16 PokemonSkill::DEFAULT_PP_VALUE = 0;
-  const UInt16 PokemonSkill::DEFAULT_MAX_PP_VALUE = 0;
+  const ID PokemonMove::DEFAULT_STATIC_ID (1);
+  const UInt16 PokemonMove::DEFAULT_PP_VALUE = 0;
+  const UInt16 PokemonMove::DEFAULT_MAX_PP_VALUE = 0;
 
-  PokemonSkill::PokemonSkill ()
-    : currentPP_ (DEFAULT_PP_VALUE)
+  PokemonMove::PokemonMove ()
+    : staticID_ (DEFAULT_STATIC_ID) 
+    , currentPP_ (DEFAULT_PP_VALUE)
     , maxPP_ (DEFAULT_MAX_PP_VALUE)
   {
     skillInfo_ = new SkillInfo ();
   }
 
-  PokemonSkill::PokemonSkill (const ID& skillID)
-    : currentPP_ (DEFAULT_PP_VALUE)
+  PokemonMove::PokemonMove (const ID& skillID)
+    :  staticID_ (skillID) 
+    , currentPP_ (DEFAULT_PP_VALUE)
     , maxPP_ (DEFAULT_MAX_PP_VALUE)
   {
     SetSkillInfo (skillID);
   }
 
-  const String& PokemonSkill::GetName () const
+  // Getters
+  const ID& PokemonMove::GetStaticID () const
+  {
+    return staticID_;
+  }
+
+  const String& PokemonMove::GetName () const
   {
     if (skillInfo_ == nullptr)
       YAPOG_THROW("This skill's base informations doesn't exist !");
@@ -30,7 +39,7 @@ namespace yap
     return skillInfo_->GetName ();
   }
 
-  const UInt16& PokemonSkill::GetPower () const
+  const UInt16& PokemonMove::GetPower () const
   {
     if (skillInfo_ == nullptr)
       YAPOG_THROW("This skill's base informations doesn't exist !");
@@ -38,17 +47,17 @@ namespace yap
     return skillInfo_->GetPower ();
   }
 
-  const UInt16& PokemonSkill::GetCurrentPP () const
+  const UInt16& PokemonMove::GetCurrentPP () const
   {
     return currentPP_;
   }
 
-  const UInt16& PokemonSkill::GetMaxPP () const
+  const UInt16& PokemonMove::GetMaxPP () const
   {
     return maxPP_;
   }
 
-  const UInt16& PokemonSkill::GetLimitPPMax () const
+  const UInt16& PokemonMove::GetLimitPPMax () const
   {
     if (skillInfo_ == nullptr)
       YAPOG_THROW("This skill's base informations doesn't exist !");
@@ -56,7 +65,7 @@ namespace yap
     return skillInfo_->GetMaxPP ();
   }
 
-  void PokemonSkill::SetSkillInfo (const ID& skillID)
+  void PokemonMove::SetSkillInfo (const ID& skillID)
   {
     skillInfo_ = ObjectFactory::Instance ().
       Create<SkillInfo> ("SkillInfo",  ID (skillID));
@@ -65,18 +74,18 @@ namespace yap
     Refill ();
   }
 
-  void PokemonSkill::Refill ()
+  void PokemonMove::Refill ()
   {
     currentPP_ = maxPP_;
   }
 
-  void PokemonSkill::Use ()
+  void PokemonMove::Use ()
   {
     if (currentPP_ > 0)
       currentPP_--;
   }
 
-  void PokemonSkill::AddPP (int value)
+  void PokemonMove::AddPP (int value)
   {
     maxPP_ += value;
 
@@ -84,17 +93,17 @@ namespace yap
       maxPP_ = GetLimitPPMax ();
   }
 
-  void PokemonSkill::RaiseToMaxPP ()
+  void PokemonMove::RaiseToMaxPP ()
   {
     maxPP_ = GetLimitPPMax ();
   }
 
-  const TypeInfo& PokemonSkill::GetType () const
+  const TypeInfo& PokemonMove::GetType () const
   {
     return skillInfo_->GetType ();
   }
 
-  const UInt16& PokemonSkill::GetCategory () const
+  const UInt16& PokemonMove::GetCategory () const
   {
     return skillInfo_->GetCategory ();
   }

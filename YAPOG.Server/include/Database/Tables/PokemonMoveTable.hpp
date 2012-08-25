@@ -8,24 +8,28 @@
 
 namespace yse
 {
+  class Pokemon;
+
   class PokemonMoveTable : public ITable
   {
     DISALLOW_COPY(PokemonMoveTable);
   public:
     PokemonMoveTable ();
 
-    //void LoadFromX (const X& x);
+    void LoadFromPokemon (
+      const Pokemon& pokemon, 
+      const yap::ID& index);
 
-    /// Getters
-    const yap::ID& GetPokemonID () const;
-
-    /// Setters
-    void SetPokemonID (const yap::ID& value);
-
-    void DisplayData ();
-
-  private:
     yap::ID pokemonID_;
+    yap::ID staticID_;
+    yap::ID index_;
+    yap::UInt16 pp_;
+    yap::UInt16 maxPP_;
+
+    static const yap::ID DEFAULT_STATIC_ID;
+    static const yap::UInt16 DEFAULT_PP;
+    static const yap::UInt16 DEFAULT_MAX_PP;
+
   };
 } // namespace yse
 

@@ -21,7 +21,6 @@ namespace yse
       "pokemon_experience, "
       "pokemon_gender, "
       "pokemon_nickname, "
-      "pokemon_level, "
       "pokemon_shiny,  "
       "pokemon_loyalty, "
       "pokemon_nature, "
@@ -37,25 +36,24 @@ namespace yse
       queryString, 
       databaseManager_.GetConnection ());
 
-    select.Write (pokemonTable.GetID ());
+    select.Write (pokemonTable.id_);
 
     if (select.EndOfStream ())
       throw yap::DatabaseException ("This pokemon doesn't exist !");
 
-    pokemonTable.SetAccountID (select.ReadID ());
-    pokemonTable.SetStaticID (select.ReadID ());
-    pokemonTable.SetExperience (select.ReadUInt ());
-    pokemonTable.SetGender (select.ReadUInt ());
-    pokemonTable.SetNickname (select.ReadString ());
-    pokemonTable.SetLevel (select.ReadUInt ());
-    pokemonTable.SetShiny (select.ReadBool ());
-    pokemonTable.SetLoyalty (select.ReadInt ());
-    pokemonTable.SetNature (select.ReadID ());
-    pokemonTable.SetTradingNumber (select.ReadUInt ());
-    pokemonTable.SetTraderAccountID (select.ReadID ());
-    pokemonTable.SetBoxNumber (select.ReadUInt ());
-    pokemonTable.SetBoxIndex (select.ReadID ());
-    pokemonTable.SetCatchDate (select.ReadString ());
+    pokemonTable.accountID_ = select.ReadID ();
+    pokemonTable.staticID_ = select.ReadID ();
+    pokemonTable.experience_ = select.ReadUInt ();
+    pokemonTable.gender_ = (yap::Gender) select.ReadUInt ();
+    pokemonTable.nickname_ = select.ReadString ();
+    pokemonTable.shiny_ = select.ReadBool ();
+    pokemonTable.loyalty_ = select.ReadInt ();
+    pokemonTable.nature_ = select.ReadID ();
+    pokemonTable.tradingNumber_ = select.ReadUInt ();
+    pokemonTable.traderAccountID_ = select.ReadID ();
+    pokemonTable.boxNumber_ = select.ReadUInt ();
+    pokemonTable.boxIndex_ = select.ReadID ();
+    pokemonTable.catchDate_ = select.ReadString ();
 
     if (!select.EndOfStream ())
       throw yap::DatabaseException ("Pokemon information loading error !");
@@ -72,7 +70,6 @@ namespace yse
       "pokemon_experience, "
       "pokemon_gender, "
       "pokemon_nickname, "
-      "pokemon_level, "
       "pokemon_shiny,  "
       "pokemon_loyalty, "
       "pokemon_nature, "
@@ -93,20 +90,21 @@ namespace yse
     if (select.EndOfStream ())
       throw yap::DatabaseException ("This pokemon doesn't exist !");
 
-    pokemonTable->SetAccountID (select.ReadID ());
-    pokemonTable->SetStaticID (select.ReadID ());
-    pokemonTable->SetExperience (select.ReadUInt ());
-    pokemonTable->SetGender (select.ReadUInt ());
-    pokemonTable->SetNickname (select.ReadString ());
-    pokemonTable->SetLevel (select.ReadUInt ());
-    pokemonTable->SetShiny (select.ReadBool ());
-    pokemonTable->SetLoyalty (select.ReadInt ());
-    pokemonTable->SetNature (select.ReadID ());
-    pokemonTable->SetTradingNumber (select.ReadUInt ());
-    pokemonTable->SetTraderAccountID (select.ReadID ());
-    pokemonTable->SetBoxNumber (select.ReadUInt ());
-    pokemonTable->SetBoxIndex (select.ReadID ());
-    pokemonTable->SetCatchDate (select.ReadString ());
+    pokemonTable->id_ = pokemonID;
+
+    pokemonTable->accountID_ = select.ReadID ();
+    pokemonTable->staticID_ = select.ReadID ();
+    pokemonTable->experience_ = select.ReadUInt ();
+    pokemonTable->gender_ = (yap::Gender) select.ReadUInt ();
+    pokemonTable->nickname_ = select.ReadString ();
+    pokemonTable->shiny_ = select.ReadBool ();
+    pokemonTable->loyalty_ = select.ReadInt ();
+    pokemonTable->nature_ = select.ReadID ();
+    pokemonTable->tradingNumber_ = select.ReadUInt ();
+    pokemonTable->traderAccountID_ = select.ReadID ();
+    pokemonTable->boxNumber_ = select.ReadUInt ();
+    pokemonTable->boxIndex_ = select.ReadID ();
+    pokemonTable->catchDate_ = select.ReadString ();
 
     if (!select.EndOfStream ())
       throw yap::DatabaseException ("Pokemon information loading error !");
@@ -126,8 +124,7 @@ namespace yse
       "pokemon_experience, "
       "pokemon_gender, "
       "pokemon_nickname, "
-      "pokemon_level, "
-      "pokemon_shiny,  "
+      "pokemon_shiny, "
       "pokemon_loyalty, "
       "pokemon_nature, "
       "pokemon_trading_number, "
@@ -152,21 +149,20 @@ namespace yse
     {
       PokemonTable* pokemonTable = new PokemonTable ();
 
-      pokemonTable->SetAccountID (accountID);
-      pokemonTable->SetID (select.ReadID ());
-      pokemonTable->SetStaticID (select.ReadID ());
-      pokemonTable->SetExperience (select.ReadUInt ());
-      pokemonTable->SetGender (select.ReadUInt ());
-      pokemonTable->SetNickname (select.ReadString ());
-      pokemonTable->SetLevel (select.ReadUInt ());
-      pokemonTable->SetShiny (select.ReadBool ());
-      pokemonTable->SetLoyalty (select.ReadInt ());
-      pokemonTable->SetNature (select.ReadID ());
-      pokemonTable->SetTradingNumber (select.ReadUInt ());
-      pokemonTable->SetTraderAccountID (select.ReadID ());
-      pokemonTable->SetBoxNumber (select.ReadUInt ());
-      pokemonTable->SetBoxIndex (select.ReadID ());
-      pokemonTable->SetCatchDate (select.ReadString ());
+      pokemonTable->accountID_ = accountID;
+      pokemonTable->id_ = select.ReadID ();
+      pokemonTable->staticID_ = select.ReadID ();
+      pokemonTable->experience_ = select.ReadUInt ();
+      pokemonTable->gender_ = (yap::Gender) select.ReadUInt ();
+      pokemonTable->nickname_ = select.ReadString ();
+      pokemonTable->shiny_ = select.ReadBool ();
+      pokemonTable->loyalty_ = select.ReadInt ();
+      pokemonTable->nature_ = select.ReadID ();
+      pokemonTable->tradingNumber_ = select.ReadUInt ();
+      pokemonTable->traderAccountID_ = select.ReadID ();
+      pokemonTable->boxNumber_ = select.ReadUInt ();
+      pokemonTable->boxIndex_ = select.ReadID ();
+      pokemonTable->catchDate_ = select.ReadString ();
 
       pokemonTableTeam.Add (pokemonTable);
 
@@ -178,10 +174,13 @@ namespace yse
 
     PokemonTeam* pokemonTeam = new PokemonTeam ();
 
+    // Get the Pokemon's moves from PokemonMoveSelectRequest
+    yap::collection::Array<yap::PokemonMove*> moveSet (4, nullptr);
+    // Get the Pokemon's stats from PokemonStatsSelectRequest
+    yap::PokemonStat stats;
+
     for (PokemonTable* pt : pokemonTableTeam)
-    {
-      pokemonTeam->AddPokemon (pt->CreatePokemon ());
-    }
+      pokemonTeam->AddPokemon (pt->CreatePokemon (stats, moveSet));
 
     return pokemonTeam;
   }

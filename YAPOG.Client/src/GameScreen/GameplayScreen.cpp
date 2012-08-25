@@ -344,7 +344,7 @@ namespace ycl
   {
     yap::Game::CLEAR_COLOR = sf::Color::Black;
 
-    yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg", false);
+    yap::AudioManager::Instance ().PlayMusic ("BGM/City2.ogg", false);
   }
 
   Map& GameplayScreen::GetCurrentMap ()

@@ -11,4 +11,10 @@ namespace yap
   {
     return MathHelper::Pow (level, 3);
   }
+
+  UInt16 ExperienceMediumFast::ComputeLevel ()
+  {
+    return yap::MathHelper::Sqrt (value_, 3);
+  }
+
 } // namespace yap

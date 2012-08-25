@@ -61,7 +61,7 @@ namespace ycl
     pp_.SetText (value);
   }
 
-  void BattleMoveInfoMenu::SetPP (const yap::PokemonSkill& skill)
+  void BattleMoveInfoMenu::SetPP (const yap::PokemonMove& skill)
   {
     pp_.SetText (
       yap::StringHelper::ToString (skill.GetCurrentPP ()) +

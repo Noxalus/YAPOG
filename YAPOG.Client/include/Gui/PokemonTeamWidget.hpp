@@ -61,7 +61,8 @@ namespace ycl
         , pokName_ (new yap::Label (pokemon.GetName ()))
         , pokLevel_ (
         new yap::Label (
-        "N. " + yap::StringHelper::ToString (pokemon.GetLevel ())))
+        "N. " + yap::StringHelper::ToString (
+        static_cast<int>(pokemon.GetLevel ()))))
         , pokGender_ (nullptr)
         , HpBar_ (nullptr)
         , HpBarContent_ (nullptr)

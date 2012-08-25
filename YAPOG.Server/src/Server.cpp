@@ -9,6 +9,7 @@
 #include "YAPOG/Database/DatabaseManager.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 static void test_db ()
 {
@@ -115,18 +116,21 @@ void database_test_accent ()
   try
   {
     pgs::pg_cnx cnx;
-    cnx.connect("dbname=yapog "
-        "user=postgres "
-        "password=COUCOU "
-        "port=5432");
+    cnx.connect("dbname=test "
+      "user=postgres "
+      "password=COUCOU "
+      "port=5432");
+
+    pgs::pg_stmt ("SET client_encoding = 'UTF8';", cnx);
 
     yap::String query_string = 
-      "INSERT INTO test(name) VALUES ('Salamèche')";
+      "INSERT INTO test(name) VALUES ('Ã¨')";
 
     pgs::pg_stream query 
       (query_string, cnx);
 
     std::cout << "Data saved !" << std::endl;
+
     getchar ();
   }
   catch (pgs::pg_excpt e)
@@ -136,12 +140,23 @@ void database_test_accent ()
   }
 }
 
+void math_test ()
+{
+  float result = yap::MathHelper::Sqrt (82.f, 2);
+
+  std::cout << "Result: " << result << std::endl;
+
+  getchar ();
+}
+
 int main ()
 {
   try
   {
     //test_db ();
     //database_test_accent ();
+    //math_test ();
+
     std::cout << "Server launched !" << std::endl;
 
     yse::Server server;

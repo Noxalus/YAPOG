@@ -1,4 +1,4 @@
-#include "YAPOG/Database/DatabaseStream.hpp"
+﻿#include "YAPOG/Database/DatabaseStream.hpp"
 #include "Database/Requests/Updates/PokemonUpdateRequest.hpp"
 
 namespace yse
@@ -31,6 +31,7 @@ namespace yse
     yap::DatabaseStream query 
       (query_string, databaseManager.GetConnection ());
 
+    /*
     query.Write (pokemonTable_.GetAccountID ());
     query.Write (pokemonTable_.GetStaticID ());
     query.Write (pokemonTable_.GetExperience ());
@@ -43,6 +44,7 @@ namespace yse
     query.Write (pokemonTable_.GetTradingNumber ());
     query.Write (pokemonTable_.GetTraderAccountID ());
     query.Write (pokemonTable_.GetID ());
+    */
 
     if (query.AffectedRows () == 1)
       return true;

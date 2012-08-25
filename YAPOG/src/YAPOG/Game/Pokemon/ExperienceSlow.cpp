@@ -11,4 +11,10 @@ namespace yap
   {
     return (5 * MathHelper::Pow (level, 3)) / 4;
   }
+
+  UInt16 ExperienceSlow::ComputeLevel ()
+  {
+    return 1;
+  }
+
 } // namespace yap

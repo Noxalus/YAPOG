@@ -2,14 +2,13 @@
 #include "YAPOG/Database/DatabaseStream.hpp"
 
 #include "Database/Requests/Inserts/PokemonMoveInsertRequest.hpp"
-#include "Database/Tables/PokemonTable.hpp"
+#include "Database/Tables/PokemonMoveTable.hpp"
 
 namespace yse
 {
   PokemonMoveInsertRequest::PokemonMoveInsertRequest 
     (const PokemonMoveTable& pokemonMoveTable)
     : pokemonMoveTable_ (pokemonMoveTable)
-    , id_ ()
   {
   }
 
@@ -20,62 +19,32 @@ namespace yse
   bool PokemonMoveInsertRequest::Insert 
     (yap::DatabaseManager& databaseManager)
   {
-    /*
     yap::String query_string = 
-      "INSERT INTO pokemon ("
-      "account_id, "
-      "pokemon_static_id, "
-      "pokemon_experience, "
-      "pokemon_gender, "
-      "pokemon_nickname, "
-      "pokemon_level, "
-      "pokemon_shiny,  "
-      "pokemon_loyalty, "
-      "pokemon_nature, "
-      "pokemon_trading_number, "
-      "pokemon_trader_account_id, "
-      "pokemon_box_number, "
-      "pokemon_box_index, "
-      "pokemon_catch_date "
+      "INSERT INTO pokemon_move ("
+      "pokemon_id, "
+      "pokemon_move_static_id, "
+      "pokemon_move_index, "
+      "pokemon_move_pp, "
+      "pokemon_move_max_pp"
       ")"
       "VALUES ("
-      ":accountID, "
-      ":staticID, " 
-      ":experience, "
-      ":gender, "
-      ":nickname, "
-      ":level, "
-      ":shiny, "
-      ":loyalty, "
-      ":nature, "
-      ":tradingNumber, "
-      ":traderAccountID, "
-      ":boxNumber, "
-      ":boxIndex, "
-      "NOW ()"
-      ")"
-      "RETURNING pokemon_id";
+      ":pokemonID, "
+      ":staticID, "
+      ":index, "
+      ":pp, "
+      ":maxPP"
+      ")";
 
     yap::DatabaseStream query 
       (query_string, databaseManager.GetConnection ());
 
     try
     {
-      query.Write (pokemonMoveTable_.GetAccountID ().GetValue ());
-      query.Write (pokemonMoveTable_.GetStaticID ());
-      query.Write (pokemonMoveTable_.GetExperience ());
-      query.Write (pokemonMoveTable_.GetGender ());
-      query.Write (pokemonMoveTable_.GetNickname ());
-      query.Write (pokemonMoveTable_.GetLevel ());
-      query.Write (pokemonMoveTable_.GetShiny ());
-      query.Write (pokemonMoveTable_.GetLoyalty ());
-      query.Write (pokemonMoveTable_.GetNature ());
-      query.Write (pokemonMoveTable_.GetTradingNumber ());
-      query.Write (pokemonMoveTable_.GetTraderAccountID ());
-      query.Write (pokemonMoveTable_.GetBoxNumber ());
-      query.Write (pokemonMoveTable_.GetBoxIndex ());
-
-      id_ = yap::ID (query.ReadInt ());
+      query.Write (pokemonMoveTable_.pokemonID_);
+      query.Write (pokemonMoveTable_.staticID_);
+      query.Write (pokemonMoveTable_.index_);
+      query.Write (pokemonMoveTable_.pp_);
+      query.Write (pokemonMoveTable_.maxPP_);
 
       return true;
     }
@@ -83,14 +52,7 @@ namespace yse
     {
       std::cerr << e.errmsg () << std::endl;
     }
-    */
 
     return false;
   }
-
-  const yap::ID& PokemonMoveInsertRequest::GetID ()
-  {
-    return id_;
-  }
-
 } // namespace yse

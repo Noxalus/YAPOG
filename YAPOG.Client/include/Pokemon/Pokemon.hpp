@@ -19,10 +19,28 @@ namespace ycl
 
   public:
     Pokemon (const yap::ID& staticID);
+
     Pokemon (
       const yap::ID& staticID, 
       const yap::UInt16& level, 
       const bool& shiny);
+
+    Pokemon (
+      const yap::ID& uniqueID,
+      const yap::ID& staticID,
+      const yap::String& nickname,
+      const yap::PokemonStat& stats,
+      const yap::Gender& gender,
+      const yap::PokemonStatus& status,
+      const bool shiny,
+      const yap::Int16& loyalty,
+      const yap::collection::Array<yap::PokemonMove*>& moveSet,
+      const yap::ID& natureID,
+      const yap::uint& exp,
+      const yap::UInt8& boxNumber,
+      const yap::ID& boxIndex,
+      const yap::String& catchDate);
+
     virtual ~Pokemon ();
 
     /// Getters
