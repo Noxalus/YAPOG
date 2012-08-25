@@ -1,4 +1,4 @@
-#include "YAPOG/Database/DatabaseStream.hpp"
+﻿#include "YAPOG/Database/DatabaseStream.hpp"
 #include "Database/Requests/Updates/PokemonUpdateRequest.hpp"
 
 namespace yse
@@ -20,29 +20,32 @@ namespace yse
       "pokemon_experience = :experience, "
       "pokemon_gender = :gender, "
       "pokemon_nickname = :nickname, "
-      "pokemon_level = :level, "
       "pokemon_shiny = :shiny,  "
       "pokemon_loyalty = :loyalty, "
       "pokemon_nature = :nature, "
       "pokemon_trading_number = :tradingNumber, "
-      "pokemon_trader_account_id = :traderAccountID "
+      "pokemon_trader_account_id = :traderAccountID, "
+      "pokemon_box_number = :boxNumber, "
+      "pokemon_box_index = :boxInder, "
+      "pokemon_box_catch_date = :catchDate "
       "WHERE pokemon_id = :pokemonID";
 
     yap::DatabaseStream query 
       (query_string, databaseManager.GetConnection ());
 
-    query.Write (pokemonTable_.GetAccountID ());
-    query.Write (pokemonTable_.GetStaticID ());
-    query.Write (pokemonTable_.GetExperience ());
-    query.Write (pokemonTable_.GetGender ());
-    query.Write (pokemonTable_.GetNickname ());
-    query.Write (pokemonTable_.GetLevel ());
-    query.Write (pokemonTable_.GetShiny ());
-    query.Write (pokemonTable_.GetLoyalty ());
-    query.Write (pokemonTable_.GetNature ());
-    query.Write (pokemonTable_.GetTradingNumber ());
-    query.Write (pokemonTable_.GetTraderAccountID ());
-    query.Write (pokemonTable_.GetID ());
+    query.Write (pokemonTable_.accountID_.GetValue ());
+    query.Write (pokemonTable_.staticID_);
+    query.Write (pokemonTable_.experience_);
+    query.Write (static_cast<yap::UInt8>(pokemonTable_.gender_));
+    query.Write (pokemonTable_.nickname_);
+    query.Write (pokemonTable_.shiny_);
+    query.Write (pokemonTable_.loyalty_);
+    query.Write (pokemonTable_.nature_);
+    query.Write (pokemonTable_.tradingNumber_);
+    query.Write (pokemonTable_.traderAccountID_);
+    query.Write (pokemonTable_.boxNumber_);
+    query.Write (pokemonTable_.boxIndex_);
+    query.Write (pokemonTable_.catchDate_);
 
     if (query.AffectedRows () == 1)
       return true;

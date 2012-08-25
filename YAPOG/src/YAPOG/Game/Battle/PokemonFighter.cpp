@@ -127,12 +127,12 @@ namespace yap
     SetCurrentHP (GetCurrentHP () - value);
   }
 
-  const collection::Array<PokemonSkill*>& PokemonFighter::GetMoves () const
+  const collection::Array<PokemonMove*>& PokemonFighter::GetMoves () const
   {
     return originalPokemon_->GetMoves ();
   }
 
-  const PokemonSkill& PokemonFighter::GetMove (int index) const
+  const PokemonMove& PokemonFighter::GetMove (int index) const
   {
     return *GetMoves ()[index];
   }

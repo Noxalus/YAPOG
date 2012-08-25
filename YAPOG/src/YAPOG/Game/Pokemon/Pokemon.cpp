@@ -15,24 +15,44 @@
 namespace yap
 {
   const int Pokemon::MAX_POKEMON_MOVE_NUMBER = 4;
+  const ID Pokemon::DEFAULT_NATURE_ID (2);
+  const UInt32 Pokemon::DEFAULT_EXPERIENCE_AMOUNT = 0;
 
   Pokemon::Pokemon (const ID& staticID)
     : uniqueID_ (ID ())
     , staticID_ (staticID)
-    , nickname_ ("")
+    , nickname_ ()
     , stats_ ()
-    , level_ (PokemonExperience::INITIAL_LEVEL_VALUE)
     , type_ ()
     , gender_ (Gender::Genderless)
-    , status_ (Status::Normal)
+    , status_ (PokemonStatus::Normal)
     , shiny_ (false)
     , loyalty_ (0)
     , moveSet_ (MAX_POKEMON_MOVE_NUMBER, nullptr)
     , pokemonInfo_ ()
     , nature_ ()
     , exp_ ()
+    , boxNumber_ (0)
+    , boxIndex_ (1)
+    , catchDate_ ()
   {
-    Init ();
+    pokemonInfo_ = ObjectFactory::Instance ().
+      Create<PokemonInfo> ("PokemonInfo", staticID_);
+
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  DEFAULT_NATURE_ID);
+
+    SpecifyGender ();
+
+    InitExperience ();
+    exp_->Init (DEFAULT_EXPERIENCE_AMOUNT);
+
+    stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
+
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
+
+    InitMoveSet ();
   }
 
   Pokemon::Pokemon (
@@ -41,40 +61,85 @@ namespace yap
     const bool& shiny)
     : uniqueID_ (ID ())
     , staticID_ (staticID)
-    , nickname_ ("")
+    , nickname_ ()
     , stats_ ()
-    , level_ (level)
     , type_ ()
     , gender_ (Gender::Genderless)
-    , status_ (Status::Normal)
+    , status_ (PokemonStatus::Normal)
     , shiny_ (shiny)
     , loyalty_ (0)
     , moveSet_ (MAX_POKEMON_MOVE_NUMBER, nullptr)
     , pokemonInfo_ ()
     , nature_ ()
     , exp_ ()
-  {
-    Init ();
-  }
-
-  void Pokemon::Init ()
+    , boxNumber_ (0)
+    , boxIndex_ (1)
+    , catchDate_ ()
   {
     pokemonInfo_ = ObjectFactory::Instance ().
       Create<PokemonInfo> ("PokemonInfo", staticID_);
 
     nature_ = ObjectFactory::Instance ().
-      Create<NatureInfo> ("NatureInfo",  ID (2));
+      Create<NatureInfo> ("NatureInfo",  DEFAULT_NATURE_ID);
 
     SpecifyGender ();
 
-    InitExperience ();
+    shiny_ = shiny;
 
-    stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
+    InitExperience ();
+    exp_->InitFromLevel (level);
+
+    stats_.ComputeStats (*pokemonInfo_, level, *nature_);
 
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
 
     InitMoveSet ();
+  }
+
+  Pokemon::Pokemon (
+    const ID& uniqueID,
+    const ID& staticID,
+    const String& nickname,
+    const PokemonStat& stats,
+    const Gender& gender,
+    const PokemonStatus& status,
+    const bool shiny,
+    const Int16& loyalty,
+    const collection::Array<PokemonMove*>& moveSet,
+    const ID& natureID,
+    const uint& exp,
+    const UInt8& boxNumber,
+    const ID& boxIndex,
+    const String& catchDate) 
+    : uniqueID_ (uniqueID)
+    , staticID_ (staticID)
+    , nickname_ (nickname)
+    , stats_ (stats)
+    , type_ ()
+    , gender_ (gender)
+    , status_ (status)
+    , shiny_ (shiny)
+    , loyalty_ (loyalty)
+    , moveSet_ (moveSet)
+    , pokemonInfo_ (nullptr)
+    , nature_ (nullptr)
+    , exp_ (nullptr)
+    , boxNumber_ (boxNumber)
+    , boxIndex_ (boxIndex)
+    , catchDate_ (catchDate)
+  {
+    pokemonInfo_ = ObjectFactory::Instance ().
+      Create<PokemonInfo> ("PokemonInfo", staticID_);
+
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  ID (natureID));
+
+    InitExperience ();
+    exp_->Init (exp);
+
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
   }
 
   void Pokemon::InitExperience ()
@@ -103,19 +168,17 @@ namespace yap
       exp_ = new ExperienceMediumSlow ();
       break;
     }
-
-    exp_->Init (level_);
   }
 
   void Pokemon::InitMoveSet ()
   {
-    pokemonInfo_->InitMoveSet (moveSet_, level_);
+    pokemonInfo_->InitMoveSet (moveSet_, GetLevel ());
   }
 
   void Pokemon::Reset ()
   {
     moveSet_.Clear ();
-    for (PokemonSkill* pk : moveSet_)
+    for (PokemonMove* pk : moveSet_)
       delete pk;
 
     delete pokemonInfo_;
@@ -125,8 +188,6 @@ namespace yap
     pokemonInfo_ = nullptr;
     nature_ = nullptr;
     exp_ = nullptr;
-
-    Init ();
   }
 
   void Pokemon::SpecifyGender ()
@@ -158,6 +219,11 @@ namespace yap
     }
 
     YAPOG_THROW("PokemonInfo is not initialized.");
+  }
+
+  const String& Pokemon::GetNickname () const
+  {
+    return nickname_;
   }
 
   const TypeInfo& Pokemon::GetType1 () const
@@ -221,7 +287,7 @@ namespace yap
 
   const UInt16& Pokemon::GetLevel () const
   {
-    return level_;
+    return exp_->GetLevel ();
   }
 
   const bool Pokemon::GetShiny () const
@@ -247,11 +313,38 @@ namespace yap
     return gender_;
   }
 
+  const PokemonStatus& Pokemon::GetStatus () const
+  {
+    return status_;
+  }
+
+  const yap::UInt8& Pokemon::GetBoxNumber () const
+  {
+    return boxNumber_;
+  }
+
+  const yap::ID& Pokemon::GetBoxIndex () const
+  {
+    return boxIndex_;
+  }
+
+  const yap::String& Pokemon::GetCatchDate () const
+  {
+    return catchDate_;
+  }
+
   // Setters
+  /*
   void Pokemon::SetUniqueID (const ID& value)
   { uniqueID_ = value; }
   void Pokemon::SetExperience (const UInt32& value)
-  { exp_->SetValue (value); }
+  { 
+  exp_->SetValue (value); 
+
+  stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
+
+  RestoreHP ();
+  }
   void Pokemon::SetGender (const UInt8& value)
   { gender_ = (Gender)value; }
   void Pokemon::SetNickname (const String& value)
@@ -264,18 +357,19 @@ namespace yap
   { loyalty_ = value; }
   void Pokemon::SetNature (const ID& value)
   {
-    if (nature_ != nullptr)
-      delete nature_;
+  if (nature_ != nullptr)
+  delete nature_;
 
-    nature_ = ObjectFactory::Instance ().
-      Create<NatureInfo> ("NatureInfo",  value);
+  nature_ = ObjectFactory::Instance ().
+  Create<NatureInfo> ("NatureInfo",  value);
   }
+  */
 
   void Pokemon::AddExperience (const Int32& value)
   {
     if (exp_ != nullptr)
     {
-      int levelEarned = exp_->AddExperience (value, level_);
+      int levelEarned = exp_->AddExperience (value);
       if (levelEarned > 0)
       {
         // Level Up
@@ -283,10 +377,9 @@ namespace yap
 
         while (levelEarned > 0)
         {
-          level_++;
           // Skill learning ?
           const collection::List<ID>* newSkills =
-            pokemonInfo_->GetNewSkills (level_);
+            pokemonInfo_->GetNewSkills (GetLevel ());
           if (newSkills != nullptr)
           {
             for (const ID& skillID : *newSkills)
@@ -302,11 +395,11 @@ namespace yap
         // Evolution ?
         if (pokemonInfo_->CanEvolve ())
         {
-          if (level_ > pokemonInfo_->GetEvolutionLevel ())
+          if (GetLevel () > pokemonInfo_->GetEvolutionLevel ())
             Evolve ();
         }
 
-        stats_.ComputeStats (*pokemonInfo_, level_, *nature_);
+        stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
       }
     }
     else
@@ -316,7 +409,7 @@ namespace yap
     }
   }
 
-  const collection::Array<PokemonSkill*>& Pokemon::GetMoves () const
+  const collection::Array<PokemonMove*>& Pokemon::GetMoves () const
   {
     return moveSet_;
   }
@@ -327,7 +420,7 @@ namespace yap
     {
       if (moveSet_[i] == nullptr)
       {
-        moveSet_[i] = new PokemonSkill (skillID);
+        moveSet_[i] = new PokemonMove (skillID);
         return true;
       }
     }
@@ -337,7 +430,7 @@ namespace yap
 
   void Pokemon::ReplaceSkill (const ID& skillID, int index)
   {
-    moveSet_[index] = new PokemonSkill (skillID);
+    moveSet_[index] = new PokemonMove (skillID);
   }
 
   void Pokemon::Evolve ()
@@ -346,6 +439,11 @@ namespace yap
 
     staticID_ = pokemonInfo_->GetPokemonEvolutionID ();
     Reset ();
+  }
+
+  void Pokemon::RestoreHP ()
+  {
+    stats_.RestoreHP ();
   }
 
   void Pokemon::TakeDamage (int damage)

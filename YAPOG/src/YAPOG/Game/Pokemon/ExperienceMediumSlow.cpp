@@ -16,4 +16,5 @@ namespace yap
 
     return value;
   }
+
 } // namespace yap

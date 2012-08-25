@@ -5,7 +5,7 @@
 # include "YAPOG/Graphics/Gui/PictureBox.hpp"
 # include "YAPOG/Graphics/Gui/Label.hpp"
 # include "YAPOG/Game/Pokemon/TypeInfo.hpp"
-# include "YAPOG/Game/Pokemon/PokemonSkill.hpp"
+# include "YAPOG/Game/Pokemon/PokemonMove.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
 
@@ -22,7 +22,7 @@ namespace ycl
     /// @name Setters.
     /// @{
     void SetPPLabel (const yap::String& value);
-    void SetPP (const yap::PokemonSkill& skill);
+    void SetPP (const yap::PokemonMove& skill);
     void SetType (const yap::TypeInfo& type);
     /// @}
 

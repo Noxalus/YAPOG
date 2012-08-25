@@ -11,4 +11,5 @@ namespace yap
   {
     return ((4.f / 5.f) * MathHelper::Pow (level, 3));
   }
+
 } // namespace yap

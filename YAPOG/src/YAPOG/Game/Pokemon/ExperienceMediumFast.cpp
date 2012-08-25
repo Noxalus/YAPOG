@@ -11,4 +11,5 @@ namespace yap
   {
     return MathHelper::Pow (level, 3);
   }
+
 } // namespace yap

@@ -8,7 +8,7 @@ namespace yap
   }
 
   int BattleCore::ComputeDamage (
-    const PokemonSkill& move, 
+    const PokemonMove& move, 
     const PokemonFighter& attacker, 
     const PokemonFighter& defender)
   {

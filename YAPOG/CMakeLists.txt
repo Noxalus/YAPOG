@@ -224,13 +224,13 @@ ${inc_root}/Game/Pokemon/TypeInfo.hpp
 ${src_root}/Game/Pokemon/PokemonType.cpp
 ${inc_root}/Game/Pokemon/PokemonType.hpp
 ${inc_root}/Game/Pokemon/Gender.hpp
-${inc_root}/Game/Pokemon/Status.hpp
+${inc_root}/Game/Pokemon/PokemonStatus.hpp
 ${src_root}/Game/Pokemon/SkillInfoReader.cpp
 ${inc_root}/Game/Pokemon/SkillInfoReader.hpp
 ${src_root}/Game/Pokemon/SkillInfo.cpp
 ${inc_root}/Game/Pokemon/SkillInfo.hpp
-${src_root}/Game/Pokemon/PokemonSkill.cpp
-${inc_root}/Game/Pokemon/PokemonSkill.hpp
+${src_root}/Game/Pokemon/PokemonMove.cpp
+${inc_root}/Game/Pokemon/PokemonMove.hpp
 ${src_root}/Game/Pokemon/PokemonStat.cpp
 ${inc_root}/Game/Pokemon/PokemonStat.hpp
 ${src_root}/Game/Pokemon/BaseStat.cpp

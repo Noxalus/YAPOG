@@ -46,12 +46,12 @@ namespace yap
     return GetCurrentFighter ().GetHPPercentage ();
   }
 
-  const collection::Array<PokemonSkill*>& PokemonFighterTeam::GetMoves () const
+  const collection::Array<PokemonMove*>& PokemonFighterTeam::GetMoves () const
   {
     return GetCurrentFighter ().GetMoves ();
   }
 
-  const PokemonSkill& PokemonFighterTeam::GetMove (int index) const
+  const PokemonMove& PokemonFighterTeam::GetMove (int index) const
   {
     return GetCurrentFighter ().GetMove (index);
   }

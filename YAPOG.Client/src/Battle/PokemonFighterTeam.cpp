@@ -1,5 +1,6 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Collection/Array.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
 
 #include "Pokemon/Pokemon.hpp"
 #include "Pokemon/PokemonTeam.hpp"
@@ -35,12 +36,32 @@ namespace ycl
     return false;
   }
 
+  void PokemonFighterTeam::LoadFromPokemonTeam (
+    PokemonTeam& pokemonTeam, 
+    bool isOpponent)
+  {
+    int counter = pokemonTeam.GetPokemonCount ();
+
+    for (int i = 0; i < counter; i++)
+    {
+      try
+      {
+        AddPokemon (new PokemonFighter (
+          &(pokemonTeam.GetPokemon (i)), isOpponent));
+      }
+      catch (yap::Exception)
+      {
+        continue;
+      }
+    }
+  }
+
   PokemonFighter& PokemonFighterTeam::GetCurrentFighter ()
   {
     return *fighters_[currentFighterIndex_];
   }
 
-   const PokemonFighter& PokemonFighterTeam::GetCurrentFighter () const
+  const PokemonFighter& PokemonFighterTeam::GetCurrentFighter () const
   {
     return *fighters_[currentFighterIndex_];
   }

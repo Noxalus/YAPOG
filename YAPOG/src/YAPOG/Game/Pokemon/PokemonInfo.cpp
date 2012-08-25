@@ -133,7 +133,7 @@ namespace yap
   }
 
   void PokemonInfo::InitMoveSet (
-    collection::Array<PokemonSkill*>& moveSet,
+    collection::Array<PokemonMove*>& moveSet,
     const UInt16& level)
   {
     int i = level;
@@ -144,7 +144,7 @@ namespace yap
       {
         for (const ID& skillID : baseSkills_[i])
         {
-          moveSet[skillNumber] = new PokemonSkill (skillID);
+          moveSet[skillNumber] = new PokemonMove (skillID);
 
           if (skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER - 1)
             skillNumber++;

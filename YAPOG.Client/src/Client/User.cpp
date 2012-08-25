@@ -296,17 +296,56 @@ namespace ycl
     for (int i = 0; i < pokemonCount; i++)
     {
       yap::ID staticID = packet.ReadID ();
+      yap::ID uniqueID = packet.ReadID ();
+      yap::Gender gender = 
+        static_cast<yap::Gender>(packet.ReadUChar ());
+      yap::PokemonStatus status = 
+        static_cast<yap::PokemonStatus>(packet.ReadUChar ());
+      yap::String nickname = packet.ReadString ();
+      bool shiny = packet.ReadBool ();
+      yap::Int16 loyalty = packet.ReadInt16 ();
+      yap::ID nature = packet.ReadID ();
+      yap::uint experience = packet.ReadUInt ();
+      yap::UInt8 boxNumber = packet.ReadUChar ();
+      yap::ID boxIndex = packet.ReadID ();
+      yap::String catchDate = packet.ReadString ();
 
-      Pokemon* currentPokemon = new Pokemon (staticID);
+      // Read the Pokemon's stats
+      yap::UInt16 currentHP = packet.ReadUInt16 ();
+      yap::UInt16 maxHP = packet.ReadUInt16 ();
+      yap::UInt16 attack = packet.ReadUInt16 ();
+      yap::UInt16 defense = packet.ReadUInt16 ();
+      yap::UInt16 specialAttack = packet.ReadUInt16 ();
+      yap::UInt16 specialDefense = packet.ReadUInt16 ();
+      yap::UInt16 speed = packet.ReadUInt16 ();
 
-      currentPokemon->SetUniqueID (packet.ReadID ());
-      currentPokemon->SetExperience (packet.ReadUInt ());
-      currentPokemon->SetGender (packet.ReadUChar ());
-      currentPokemon->SetNickname (packet.ReadString ());
-      currentPokemon->SetLevel (packet.ReadUInt16 ());
-      currentPokemon->SetShiny (packet.ReadBool ());
-      currentPokemon->SetLoyalty (packet.ReadInt16 ());
-      currentPokemon->SetNature (packet.ReadID ());
+      yap::PokemonStat stats (
+        currentHP, 
+        maxHP, 
+        attack, 
+        defense, 
+        specialAttack, 
+        specialDefense, 
+        speed);
+
+      // Read the Pokemon's move
+      yap::collection::Array<yap::PokemonMove*> moveSet (4, nullptr);
+
+      Pokemon* currentPokemon = new Pokemon (
+        uniqueID,
+        staticID,
+        nickname,
+        stats,
+        gender,
+        status,
+        shiny,
+        loyalty,
+        moveSet,
+        nature,
+        experience,
+        boxNumber,
+        boxIndex,
+        catchDate);
 
       pokemonTeam->AddPokemon (currentPokemon);
     }

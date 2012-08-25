@@ -1,5 +1,5 @@
-#ifndef YAPOG_PLAYERDATAUPDATEREQUEST_HPP
-# define YAPOG_PLAYERDATAUPDATEREQUEST_HPP
+#ifndef YAPOG_SERVER_POKEMONUPDATEREQUEST_HPP
+# define YAPOG_SERVER_POKEMONUPDATEREQUEST_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "Database/Requests/Updates/IUpdateRequest.hpp"
@@ -23,4 +23,4 @@ namespace yse
   };
 } // namespace yse
 
-#endif // YAPOG_PLAYERDATAUPDATEREQUEST_HPP
+#endif // YAPOG_SERVER_POKEMONUPDATEREQUEST_HPP

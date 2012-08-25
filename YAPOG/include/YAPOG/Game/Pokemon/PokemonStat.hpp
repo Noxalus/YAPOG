@@ -20,7 +20,8 @@ namespace yap
     PokemonStat ();
 
     PokemonStat (
-      UInt16 hp, 
+      UInt16 currentHP,
+      UInt16 maxHP, 
       UInt16 atk, 
       UInt16 def, 
       UInt16 speAtk, 
@@ -55,6 +56,7 @@ namespace yap
     void SetSpecialAttack (const SpecialAttack& value);
     void SetSpecialDefense (const SpecialDefense& value);
     void SetSpeed (const Speed& value);
+    void LoadFromPokemonStat (const PokemonStat& stats);
     /// @}
 
     void SetCurrentHP (const yap::UInt16& value);
@@ -70,6 +72,8 @@ namespace yap
       const PokemonInfo& pokeInfo, 
       const UInt16& level, 
       const NatureInfo& natureInfo);
+
+    void RestoreHP ();
 
   private:
     HitPoint hitPoint_;

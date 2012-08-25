@@ -27,7 +27,6 @@ namespace yse
       "pokemon_experience, "
       "pokemon_gender, "
       "pokemon_nickname, "
-      "pokemon_level, "
       "pokemon_shiny,  "
       "pokemon_loyalty, "
       "pokemon_nature, "
@@ -35,7 +34,8 @@ namespace yse
       "pokemon_trader_account_id, "
       "pokemon_box_number, "
       "pokemon_box_index, "
-      "pokemon_catch_date "
+      "pokemon_catch_date, "
+      "pokemon_status "
       ")"
       "VALUES ("
       ":accountID, "
@@ -43,7 +43,6 @@ namespace yse
       ":experience, "
       ":gender, "
       ":nickname, "
-      ":level, "
       ":shiny, "
       ":loyalty, "
       ":nature, "
@@ -51,7 +50,8 @@ namespace yse
       ":traderAccountID, "
       ":boxNumber, "
       ":boxIndex, "
-      "NOW ()"
+      "NOW (), "
+      ":status "
       ")"
       "RETURNING pokemon_id";
 
@@ -60,19 +60,19 @@ namespace yse
 
     try
     {
-      query.Write (pokemonTable_.GetAccountID ().GetValue ());
-      query.Write (pokemonTable_.GetStaticID ());
-      query.Write (pokemonTable_.GetExperience ());
-      query.Write (pokemonTable_.GetGender ());
-      query.Write (pokemonTable_.GetNickname ());
-      query.Write (pokemonTable_.GetLevel ());
-      query.Write (pokemonTable_.GetShiny ());
-      query.Write (pokemonTable_.GetLoyalty ());
-      query.Write (pokemonTable_.GetNature ());
-      query.Write (pokemonTable_.GetTradingNumber ());
-      query.Write (pokemonTable_.GetTraderAccountID ());
-      query.Write (pokemonTable_.GetBoxNumber ());
-      query.Write (pokemonTable_.GetBoxIndex ());
+      query.Write (pokemonTable_.accountID_.GetValue ());
+      query.Write (pokemonTable_.staticID_);
+      query.Write (pokemonTable_.experience_);
+      query.Write (static_cast<yap::UInt8>(pokemonTable_.gender_));
+      query.Write (pokemonTable_.nickname_);
+      query.Write (pokemonTable_.shiny_);
+      query.Write (pokemonTable_.loyalty_);
+      query.Write (pokemonTable_.nature_);
+      query.Write (pokemonTable_.tradingNumber_);
+      query.Write (pokemonTable_.traderAccountID_);
+      query.Write (pokemonTable_.boxNumber_);
+      query.Write (pokemonTable_.boxIndex_);
+      query.Write (static_cast<yap::UInt8>(pokemonTable_.status_));
 
       id_ = yap::ID (query.ReadInt ());
 

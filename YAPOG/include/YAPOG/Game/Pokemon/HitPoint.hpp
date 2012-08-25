@@ -16,6 +16,8 @@ namespace yap
 
       virtual void SetValue (const UInt16& value);
       void SetCurrentValue (const UInt16& value);
+
+      void Restore ();
   private:
     UInt16 currentValue_;
     static const UInt16 INITIAL_CURRENT_VALUE;

@@ -10,10 +10,19 @@ namespace yap
   PokemonExperience::PokemonExperience ()
     : value_ (INITIAL_EXPERIENCE_VALUE)
     , experienceToNextLevel_ (INITIAL_EXPERIENCE_VALUE)
+    , previousValue_ (INITIAL_EXPERIENCE_VALUE + 1)
+    , currentLevel_ (INITIAL_LEVEL_VALUE)
   {
   }
 
-  void PokemonExperience::Init (UInt16 level)
+  void PokemonExperience::Init (UInt32 experience)
+  {
+    value_ = experience;
+
+    ComputeExperienceToNextLevel (GetLevel ());
+  }
+
+  void PokemonExperience::InitFromLevel (UInt16 level)
   {
     if (level == INITIAL_LEVEL_VALUE)
       value_ = INITIAL_EXPERIENCE_VALUE;
@@ -45,21 +54,30 @@ namespace yap
     return experienceToNextLevel_;
   }
 
-  /// Setters
-  void PokemonExperience::SetValue (const UInt32& value)
+  UInt16 PokemonExperience::GetLevel ()
   {
-    value_ = value;
+    if (previousValue_ != value_)
+    {
+      previousValue_ = value_;
+
+      for (int level = currentLevel_ + 1; level <= MAX_LEVEL_VALUE; level++)
+      {
+        if (ComputeExperienceFromLevel (level) > value_)
+        {
+          currentLevel_ = level - 1;
+          break;
+        }
+      }
+    }
+
+    return currentLevel_;
   }
 
-  void PokemonExperience::SetExperienceToNextLevel (const UInt32& value)
-  {
-    experienceToNextLevel_ = value;
-  }
-
-  int PokemonExperience::AddExperience (const UInt32& value, UInt16 level)
+  int PokemonExperience::AddExperience (const UInt32& value)
   {
     int levelEarned = 0;
-    
+    UInt16 level = GetLevel ();
+
     if ((value_ + value) <= MAX_EXPERIENCE_VALUE)
       value_ += value;
 
@@ -81,12 +99,12 @@ namespace yap
   /*
   void PokemonExperience::LevelUp ()
   {
-    if (level_ < MAX_LEVEL_VALUE)
-    {
-      level_++;
-      ComputeExperienceToNextLevel ();
-    }
+  if (level_ < MAX_LEVEL_VALUE)
+  {
+  level_++;
+  ComputeExperienceToNextLevel ();
+  }
   }
   */
-   
+
 } // namespace yap

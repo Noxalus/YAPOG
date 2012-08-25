@@ -1,29 +1,19 @@
 #include "Database/Tables/PokemonStatsTable.hpp"
+#include "Pokemon/Pokemon.hpp"
 
 namespace yse
 {
   PokemonStatsTable::PokemonStatsTable ()
     : pokemonID_ (1)
+    , stats_ ()
   {
   }
 
-  /*
-  void PokemonStatsTable::LoadFromX (const X& x)
+  void PokemonStatsTable::LoadFromPokemon (const Pokemon& pokemon)
   {
-  }
-  */
+    pokemonID_ = pokemon.GetUniqueID ();
 
-  /// Getters
-  const yap::ID& PokemonStatsTable::GetPokemonID () const
-  { return pokemonID_; }
-
-  /// Setters
-  void PokemonStatsTable::SetPokemonID (const yap::ID& value) 
-  { pokemonID_ = value; }
-
-  void PokemonStatsTable::DisplayData ()
-  {
-    std::cout << "ID: " << pokemonID_.GetValue () << std::endl;
+    stats_.LoadFromPokemonStat (pokemon.GetStats ());
   }
 
 } // namespace yse
