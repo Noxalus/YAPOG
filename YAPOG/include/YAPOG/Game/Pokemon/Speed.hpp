@@ -10,7 +10,7 @@ namespace yap
   {
     public:
       Speed ();
-      Speed (UInt16 value);
+      Speed (const UInt16& ev, const UInt16& iv);
   };
 } // namespace yap
 

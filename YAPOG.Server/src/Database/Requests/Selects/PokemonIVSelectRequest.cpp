@@ -2,7 +2,7 @@
 #include "YAPOG/Collection/Array.hpp"
 #include "YAPOG/Database/DatabaseStream.hpp"
 
-#include "Database/Requests/Selects/PokemonStatsSelectRequest.hpp"
+#include "Database/Requests/Selects/PokemonIVSelectRequest.hpp"
 
 namespace yse
 {

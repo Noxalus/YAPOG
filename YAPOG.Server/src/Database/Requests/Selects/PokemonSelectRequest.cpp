@@ -122,6 +122,7 @@ namespace yse
       "pokemon.pokemon_id, "
       "pokemon.pokemon_static_id, "
       "pokemon.pokemon_experience, "
+      "pokemon.pokemon_hp, "
       "pokemon.pokemon_gender, "
       "pokemon.pokemon_nickname, "
       "pokemon.pokemon_shiny, "
@@ -134,17 +135,25 @@ namespace yse
       "pokemon.pokemon_catch_date, "
       "pokemon.pokemon_status, "
 
-      "pokemon_stats.pokemon_stats_hp, "
-      "pokemon_stats.pokemon_stats_max_hp, "
-      "pokemon_stats.pokemon_stats_attack, "
-      "pokemon_stats.pokemon_stats_defense, "
-      "pokemon_stats.pokemon_stats_special_attack, "
-      "pokemon_stats.pokemon_stats_special_defense, "
-      "pokemon_stats.pokemon_stats_speed "
+      "pokemon_ev.pokemon_ev_hp, "
+      "pokemon_ev.pokemon_ev_attack, "
+      "pokemon_ev.pokemon_ev_defense, "
+      "pokemon_ev.pokemon_ev_special_attack, "
+      "pokemon_ev.pokemon_ev_special_defense, "
+      "pokemon_ev.pokemon_ev_speed, "
+
+      "pokemon_iv.pokemon_iv_hp, "
+      "pokemon_iv.pokemon_iv_attack, "
+      "pokemon_iv.pokemon_iv_defense, "
+      "pokemon_iv.pokemon_iv_special_attack, "
+      "pokemon_iv.pokemon_iv_special_defense, "
+      "pokemon_iv.pokemon_iv_speed "
 
       "FROM pokemon "
-      "INNER JOIN pokemon_stats ON "
-      "pokemon_stats.pokemon_id = pokemon.pokemon_id "
+      "INNER JOIN pokemon_ev ON "
+      "pokemon_ev.pokemon_id = pokemon.pokemon_id "
+      "INNER JOIN pokemon_iv ON "
+      "pokemon_iv.pokemon_id = pokemon.pokemon_id "
       "WHERE account_id = :accountID AND pokemon_box_number = 0";
 
     yap::DatabaseStream select (
@@ -169,6 +178,7 @@ namespace yse
       pokemonTable->id_ = select.ReadID ();
       pokemonTable->staticID_ = select.ReadID ();
       pokemonTable->experience_ = select.ReadUInt ();
+      pokemonTable->hp_ = select.ReadUInt16 ();
       pokemonTable->gender_ = static_cast<yap::Gender>(select.ReadUInt ());
       pokemonTable->nickname_ = select.ReadString ();
       pokemonTable->shiny_ = select.ReadBool ();
@@ -181,24 +191,29 @@ namespace yse
       pokemonTable->catchDate_ = select.ReadString ();
       pokemonTable->status_ = static_cast<yap::PokemonStatus>(select.ReadUInt ());
 
-      // Get the Pokemon's stats value
-      yap::HitPoint hp (select.ReadUInt16 ());
-      hp.SetCurrentValue (select.ReadUInt16 ());
-      yap::Attack attack (select.ReadUInt16 ());
-      yap::Defense defense (select.ReadUInt16 ());
-      yap::SpecialAttack specialAttack (select.ReadUInt16 ());
-      yap::SpecialDefense specialDefense (select.ReadUInt16 ());
-      yap::Speed speed (select.ReadUInt16 ());
+      // Get the Pokemon's EV value
+      yap::UInt16 hpEV = select.ReadUInt16 ();
+      yap::UInt16 attackEV = select.ReadUInt16 ();
+      yap::UInt16 defenseEV = select.ReadUInt16 ();
+      yap::UInt16 specialAttackEV = select.ReadUInt16 ();
+      yap::UInt16 specialDefenseEV = select.ReadUInt16 ();
+      yap::UInt16 speedEV = select.ReadUInt16 ();
 
-      // Get the Pokemon's stats EV
-      /*
-      hp.SetEffortValue (select.ReadUInt16 ());
-      attack.SetEffortValue (select.ReadUInt16 ());
-      defense.SetEffortValue (select.ReadUInt16 ());
-      specialAttack.SetEffortValue (select.ReadUInt16 ());
-      specialDefense.SetEffortValue (select.ReadUInt16 ());
-      speed.SetEffortValue (select.ReadUInt16 ());
-      */
+      // Get the Pokemon's IV value
+      yap::UInt16 hpIV = select.ReadUInt16 ();
+      yap::UInt16 attackIV = select.ReadUInt16 ();
+      yap::UInt16 defenseIV = select.ReadUInt16 ();
+      yap::UInt16 specialAttackIV = select.ReadUInt16 ();
+      yap::UInt16 specialDefenseIV = select.ReadUInt16 ();
+      yap::UInt16 speedIV = select.ReadUInt16 ();
+
+      // Set the stats with EV and IV
+      yap::HitPoint hp (pokemonTable->hp_, hpEV, hpIV);
+      yap::Attack attack (attackEV, attackIV);
+      yap::Defense defense (defenseEV, defenseIV);
+      yap::SpecialAttack specialAttack (specialAttackEV, specialAttackIV);
+      yap::SpecialDefense specialDefense (specialDefenseEV, specialDefenseIV);
+      yap::Speed speed (speedEV, speedIV);
 
       yap::PokemonStat stats (
         hp,

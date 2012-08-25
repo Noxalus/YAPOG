@@ -48,6 +48,7 @@ namespace yap
     exp_->Init (DEFAULT_EXPERIENCE_AMOUNT);
 
     stats_.ComputeStats (*pokemonInfo_, GetLevel (), *nature_);
+    stats_.SetCurrentHP (stats_.GetHitPoint ().GetValue ());
 
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
@@ -90,6 +91,7 @@ namespace yap
     exp_->InitFromLevel (level);
 
     stats_.ComputeStats (*pokemonInfo_, level, *nature_);
+    stats_.SetCurrentHP (stats_.GetHitPoint ().GetValue ());
 
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
@@ -137,6 +139,10 @@ namespace yap
 
     InitExperience ();
     exp_->Init (exp);
+
+    UInt16 level = GetLevel ();
+
+    stats_.ComputeStats (*pokemonInfo_, level, *nature_);
 
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));

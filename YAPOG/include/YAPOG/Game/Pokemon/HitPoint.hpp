@@ -10,11 +10,10 @@ namespace yap
   {
     public:
       HitPoint ();
-      HitPoint (UInt16 value);
+      HitPoint (const UInt16& currentValue, const UInt16& ev, const UInt16& iv);
 
       const UInt16& GetCurrentValue () const;
 
-      virtual void SetValue (const UInt16& value);
       void SetCurrentValue (const UInt16& value);
 
       void Restore ();

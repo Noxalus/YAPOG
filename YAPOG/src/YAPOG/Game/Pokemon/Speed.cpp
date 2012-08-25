@@ -6,8 +6,8 @@ namespace yap
   {
   }
 
-  Speed::Speed (UInt16 value)
-    : BaseStat (value)
+  Speed::Speed (const UInt16& ev, const UInt16& iv)
+    : BaseStat (ev, iv)
   {
   }
 } // namespace yap

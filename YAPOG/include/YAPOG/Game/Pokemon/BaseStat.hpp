@@ -11,11 +11,8 @@ namespace yap
     public:
       /// Constructors
       BaseStat ();
-      BaseStat (const UInt16& value);
-      BaseStat (
-        const UInt16& value, 
-        const UInt16& iv, 
-        const UInt16& ev);
+
+      BaseStat (const UInt16& ev, const UInt16& iv);
 
       /// Getters
       const UInt16& GetValue () const;
@@ -23,7 +20,6 @@ namespace yap
       const UInt16& GetEffortValue () const;
 
       /// Setters
-      virtual void SetValue (const UInt16& value);
       void SetIndividualValue (const UInt16& iv);
       void SetEffortValue (const UInt16& ev);
 
@@ -41,8 +37,9 @@ namespace yap
     UInt16 effortValue_;
 
   private:
+    void SetValue (const UInt16& value);
+
     static const UInt16 INITIAL_STAT_VALUE;
-    static const UInt16 INITIAL_INDIVIDUAL_VALUE;
     static const UInt16 INITIAL_EFFORT_VALUE;
   };
 } // namespace yap

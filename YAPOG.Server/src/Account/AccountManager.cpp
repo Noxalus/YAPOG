@@ -10,16 +10,16 @@
 #include "Database/Tables/PlayerDataTable.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
 #include "Database/Tables/PokemonTable.hpp"
-#include "Database/Tables/PokemonStatsTable.hpp"
 #include "Database/Tables/PokemonMoveTable.hpp"
 #include "Database/Tables/PokemonEVTable.hpp"
+#include "Database/Tables/PokemonIVTable.hpp"
 
 #include "Database/Requests/Inserts/AccountInsertRequest.hpp"
 #include "Database/Requests/Inserts/PlayerDataInsertRequest.hpp"
 #include "Database/Requests/Inserts/PokemonInsertRequest.hpp"
-#include "Database/Requests/Inserts/PokemonStatsInsertRequest.hpp"
 #include "Database/Requests/Inserts/PokemonMoveInsertRequest.hpp"
 #include "Database/Requests/Inserts/PokemonEVInsertRequest.hpp"
+#include "Database/Requests/Inserts/PokemonIVInsertRequest.hpp"
 
 #include "Database/Requests/Selects/AccountSelectRequest.hpp"
 #include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
@@ -105,19 +105,19 @@ namespace yse
 
             if (pokemonInsert.Insert (databaseManager_))
             {
-              // Insertion of the current Pokemon's stats
-              PokemonStatsTable pokemonStatsTable;
-              pokemonStatsTable.LoadFromPokemon (*p);
-              pokemonStatsTable.pokemonID_ = pokemonInsert.GetID ();
-              PokemonStatsInsertRequest pokemonStatsInsert (pokemonStatsTable);
-
               // Insertion of the current Pokemon's EV
               PokemonEVTable pokemonEVTable;
               pokemonEVTable.LoadFromPokemon (*p);
               pokemonEVTable.pokemonID_ = pokemonInsert.GetID ();
               PokemonEVInsertRequest pokemonEVInsert (pokemonEVTable);
 
-              if (pokemonStatsInsert.Insert (databaseManager_)
+              // Insertion of the current Pokemon's IV
+              PokemonIVTable pokemonIVTable;
+              pokemonIVTable.LoadFromPokemon (*p);
+              pokemonIVTable.pokemonID_ = pokemonInsert.GetID ();
+              PokemonIVInsertRequest pokemonIVInsert (pokemonIVTable);
+
+              if (pokemonIVInsert.Insert (databaseManager_)
                 && pokemonEVInsert.Insert (databaseManager_))
               {
                 for (int i = 0; i < 4; i++)
@@ -210,7 +210,6 @@ namespace yse
     PokemonTeam* pokemonTeam;
     PokemonSelectRequest selectPokemon (databaseManager_);
     pokemonTeam = selectPokemon.SelectPokemonTeam (account->GetID ());
-
 
     account->SetTeam (pokemonTeam);
 

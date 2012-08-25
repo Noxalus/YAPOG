@@ -8,24 +8,6 @@ namespace yap
   }
 
   PokemonStat::PokemonStat (
-    UInt16 currentHP,
-    UInt16 maxHP, 
-    UInt16 atk, 
-    UInt16 def, 
-    UInt16 speAtk, 
-    UInt16 speDef, 
-    UInt16 speed)
-    : hitPoint_ (maxHP)
-    , attack_ (atk)
-    , defense_ (def)
-    , specialAttack_ (speAtk)
-    , specialDefense_ (speDef)
-    , speed_ (speed)
-  {
-    hitPoint_.SetCurrentValue (currentHP);
-  }
-
-  PokemonStat::PokemonStat (
     const HitPoint& hp,
     const Attack& atk,
     const Defense& def,
@@ -68,24 +50,6 @@ namespace yap
 
   const Speed& PokemonStat::GetSpeed () const
   { return speed_; }
-
-  void PokemonStat::SetHitPoint (const HitPoint& value)
-  { hitPoint_ = value; }
-
-  void PokemonStat::SetAttack(const Attack& value)
-  { attack_ = value; }
-
-  void PokemonStat::SetDefense (const Defense& value)
-  { defense_ = value; }
-
-  void PokemonStat::SetSpecialAttack (const SpecialAttack& value)
-  { specialAttack_ = value; }
-
-  void PokemonStat::SetSpecialDefense (const SpecialDefense& value)
-  { specialDefense_ = value; }
-
-  void PokemonStat::SetSpeed (const Speed& value)
-  { speed_ = value; }
 
   void PokemonStat::SetCurrentHP (const yap::UInt16& value)
   { hitPoint_.SetCurrentValue (value); }

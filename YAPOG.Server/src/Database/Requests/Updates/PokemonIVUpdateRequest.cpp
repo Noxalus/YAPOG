@@ -1,8 +1,9 @@
 #include "YAPOG/Database/DatabaseStream.hpp"
-#include "Database/Requests/Updates/PokemonStatsUpdateRequest.hpp"
+#include "Database/Requests/Updates/PokemonIVUpdateRequest.hpp"
 
 namespace yse
 {
+  /*
   PokemonStatsUpdateRequest::PokemonStatsUpdateRequest 
     (const PokemonStatsTable& pokemonTable)
     : pokemonTable_ (pokemonTable)
@@ -12,7 +13,6 @@ namespace yse
   bool PokemonStatsUpdateRequest::Update 
     (yap::DatabaseManager& databaseManager)
   {
-    /*
     yap::String query_string = 
       "UPDATE pokemon "
       "SET "
@@ -51,9 +51,8 @@ namespace yse
       throw yap::DatabaseException (
       "An error occurs during the update of a Pokemon's tuple."
       "Any tuple seems to be concerned by this update !");
-    */
 
     return false;
   }
-
+  */
 } // namespace yse

@@ -25,9 +25,10 @@ namespace yse
       "account_id, "
       "pokemon_static_id, "
       "pokemon_experience, "
+      "pokemon_hp, "
       "pokemon_gender, "
       "pokemon_nickname, "
-      "pokemon_shiny,  "
+      "pokemon_shiny, "
       "pokemon_loyalty, "
       "pokemon_nature, "
       "pokemon_trading_number, "
@@ -35,12 +36,12 @@ namespace yse
       "pokemon_box_number, "
       "pokemon_box_index, "
       "pokemon_catch_date, "
-      "pokemon_status "
-      ")"
+      "pokemon_status) "
       "VALUES ("
       ":accountID, "
       ":staticID, " 
       ":experience, "
+      ":hp, "
       ":gender, "
       ":nickname, "
       ":shiny, "
@@ -63,6 +64,7 @@ namespace yse
       query.Write (pokemonTable_.accountID_.GetValue ());
       query.Write (pokemonTable_.staticID_);
       query.Write (pokemonTable_.experience_);
+      query.Write (pokemonTable_.hp_);
       query.Write (static_cast<yap::UInt8>(pokemonTable_.gender_));
       query.Write (pokemonTable_.nickname_);
       query.Write (pokemonTable_.shiny_);

@@ -5,22 +5,26 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 # include "Database/Tables/ITable.hpp"
-# include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 
 namespace yse
 {
   class Pokemon;
 
-  class PokemonStatsTable : public ITable
+  class PokemonIVTable : public ITable
   {
-    DISALLOW_COPY(PokemonStatsTable);
+    DISALLOW_COPY(PokemonIVTable);
   public:
-    PokemonStatsTable ();
+    PokemonIVTable ();
 
     void LoadFromPokemon (const Pokemon& pokemon);
 
     yap::ID pokemonID_;
-    yap::PokemonStat stats_;
+    yap::UInt16 hp_;
+    yap::UInt16 attack_;
+    yap::UInt16 defense_;
+    yap::UInt16 specialAttack_;
+    yap::UInt16 specialDefense_;
+    yap::UInt16 speed_;
   };
 } // namespace yse
 

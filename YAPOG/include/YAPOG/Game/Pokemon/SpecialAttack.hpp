@@ -10,7 +10,7 @@ namespace yap
   {
     public:
       SpecialAttack ();
-      SpecialAttack (UInt16 value);
+      SpecialAttack (const UInt16& ev, const UInt16& iv);
   };
 } // namespace yap
 

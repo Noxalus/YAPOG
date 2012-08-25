@@ -10,10 +10,14 @@ namespace yap
     currentValue_ = INITIAL_CURRENT_VALUE;
   }
 
-  HitPoint::HitPoint (UInt16 value)
-    : BaseStat (value)
+  HitPoint::HitPoint (
+    const UInt16& currentValue, 
+    const UInt16& ev, 
+    const UInt16& iv)
+    : BaseStat (ev, iv)
+    , currentValue_ (currentValue)
   {
-    currentValue_ = INITIAL_CURRENT_VALUE;
+    value_ = currentValue_;
   }
 
   const UInt16& HitPoint::GetCurrentValue () const
@@ -25,14 +29,6 @@ namespace yap
   {
     currentValue_ = MathHelper::Clamp 
       (value, INITIAL_CURRENT_VALUE, value_);
-  }
-
-  void HitPoint::SetValue (const UInt16& value)
-  {
-    value_ = value;
-
-    if (currentValue_ == INITIAL_CURRENT_VALUE)
-      currentValue_ = value;
   }
 
   void HitPoint::Restore ()

@@ -6,8 +6,8 @@ namespace yap
   {
   }
 
-  Defense::Defense (UInt16 value)
-    : BaseStat (value)
+  Defense::Defense (const UInt16& ev, const UInt16& iv)
+    : BaseStat (ev, iv)
   {
   }
 } // namespace yap

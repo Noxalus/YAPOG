@@ -309,19 +309,34 @@ namespace ycl
       yap::UInt8 boxNumber = packet.ReadUChar ();
       yap::ID boxIndex = packet.ReadID ();
       yap::String catchDate = packet.ReadString ();
-
-      // Read the Pokemon's stats
       yap::UInt16 currentHP = packet.ReadUInt16 ();
-      yap::UInt16 maxHP = packet.ReadUInt16 ();
-      yap::UInt16 attack = packet.ReadUInt16 ();
-      yap::UInt16 defense = packet.ReadUInt16 ();
-      yap::UInt16 specialAttack = packet.ReadUInt16 ();
-      yap::UInt16 specialDefense = packet.ReadUInt16 ();
-      yap::UInt16 speed = packet.ReadUInt16 ();
+
+      // Read the Pokemon's EV value
+      yap::UInt16 hpEV = packet.ReadUInt16 ();
+      yap::UInt16 attackEV = packet.ReadUInt16 ();
+      yap::UInt16 defenseEV = packet.ReadUInt16 ();
+      yap::UInt16 specialAttackEV = packet.ReadUInt16 ();
+      yap::UInt16 specialDefenseEV = packet.ReadUInt16 ();
+      yap::UInt16 speedEV = packet.ReadUInt16 ();
+
+      // Read the Pokemon's IV value
+      yap::UInt16 hpIV = packet.ReadUInt16 ();
+      yap::UInt16 attackIV = packet.ReadUInt16 ();
+      yap::UInt16 defenseIV = packet.ReadUInt16 ();
+      yap::UInt16 specialAttackIV = packet.ReadUInt16 ();
+      yap::UInt16 specialDefenseIV = packet.ReadUInt16 ();
+      yap::UInt16 speedIV = packet.ReadUInt16 ();
+
+      // Set the stats with EV and IV
+      yap::HitPoint hp (currentHP, hpEV, hpIV);
+      yap::Attack attack (attackEV, attackIV);
+      yap::Defense defense (defenseEV, defenseIV);
+      yap::SpecialAttack specialAttack (specialAttackEV, specialAttackIV);
+      yap::SpecialDefense specialDefense (specialDefenseEV, specialDefenseIV);
+      yap::Speed speed (speedEV, speedIV);
 
       yap::PokemonStat stats (
-        currentHP, 
-        maxHP, 
+        hp, 
         attack, 
         defense, 
         specialAttack, 

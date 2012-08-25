@@ -30,6 +30,7 @@ namespace yse
     yap::ID id_;
     yap::ID staticID_;
     yap::uint experience_;
+    yap::UInt16 hp_;
     yap::Gender gender_;
     yap::String nickname_;
     yap::PokemonStatus status_;
@@ -46,6 +47,7 @@ namespace yse
     static const yap::ID DEFAULT_ID;
     static const yap::ID DEFAULT_STATIC_ID;
     static const yap::uint DEFAULT_EXPERIENCE;
+    static const yap::UInt16 DEFAULT_HP;
     static const yap::Gender DEFAULT_GENDER;
     static const yap::String DEFAULT_NICKNAME;
     static const yap::PokemonStatus DEFAULT_STATUS;

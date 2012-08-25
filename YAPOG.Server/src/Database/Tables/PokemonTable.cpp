@@ -7,6 +7,7 @@ namespace yse
   const yap::ID PokemonTable::DEFAULT_ID (1);
   const yap::ID PokemonTable::DEFAULT_STATIC_ID (1);
   const yap::uint PokemonTable::DEFAULT_EXPERIENCE = 0;
+  const yap::UInt16 PokemonTable::DEFAULT_HP = 0;
   const yap::Gender PokemonTable::DEFAULT_GENDER = yap::Gender::Genderless;
   const yap::String PokemonTable::DEFAULT_NICKNAME ("");
   const yap::PokemonStatus PokemonTable::DEFAULT_STATUS = 
@@ -25,6 +26,7 @@ namespace yse
     , id_ (DEFAULT_ID)
     , staticID_ (DEFAULT_STATIC_ID)
     , experience_ (DEFAULT_EXPERIENCE)
+    , hp_ (DEFAULT_HP)
     , gender_ (DEFAULT_GENDER)
     , nickname_ (DEFAULT_NICKNAME)
     , status_ (DEFAULT_STATUS)
@@ -44,6 +46,7 @@ namespace yse
     id_ = pokemon.uniqueID_;
     staticID_ = pokemon.staticID_;
     experience_ = pokemon.exp_->GetValue ();
+    hp_ = pokemon.GetCurrentHP ();
     gender_ = pokemon.gender_;
     nickname_ = pokemon.nickname_;
     status_ = pokemon.status_;

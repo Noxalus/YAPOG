@@ -283,17 +283,27 @@ namespace yse
       packet.Write (currentPokemon->GetBoxNumber ());
       packet.Write (currentPokemon->GetBoxIndex ());
       packet.Write (currentPokemon->GetCatchDate ());
+      packet.Write (currentPokemon->GetCurrentHP ());
 
       // Write the current Pokemon's stats
-      packet.Write (currentPokemon->GetStats ().
-        GetHitPoint ().GetCurrentValue ());
-      packet.Write (currentPokemon->GetStats ().
-        GetHitPoint ().GetValue ());
-      packet.Write (currentPokemon->GetStats ().GetAttack ().GetValue ());
-      packet.Write (currentPokemon->GetStats ().GetDefense ().GetValue ());
-      packet.Write (currentPokemon->GetStats ().GetSpecialAttack ().GetValue ());
-      packet.Write (currentPokemon->GetStats ().GetSpecialDefense ().GetValue ());
-      packet.Write (currentPokemon->GetStats ().GetSpeed ().GetValue ());
+      const yap::PokemonStat& stats = currentPokemon->GetStats ();
+
+      // Send EV
+      packet.Write (stats.GetHitPoint ().GetEffortValue ());
+      packet.Write (stats.GetAttack ().GetEffortValue ());
+      packet.Write (stats.GetDefense ().GetEffortValue ());
+      packet.Write (stats.GetSpecialAttack ().GetEffortValue ());
+      packet.Write (stats.GetSpecialDefense ().GetEffortValue ());
+      packet.Write (stats.GetSpeed ().GetEffortValue ());
+
+      // Send IV
+      packet.Write (stats.GetHitPoint ().GetIndividualValue ());
+      packet.Write (stats.GetAttack ().GetIndividualValue ());
+      packet.Write (stats.GetDefense ().GetIndividualValue ());
+      packet.Write (stats.GetSpecialAttack ().GetIndividualValue ());
+      packet.Write (stats.GetSpecialDefense ().GetIndividualValue ());
+      packet.Write (stats.GetSpeed ().GetIndividualValue ());
+
     }
 
     SendPacket (packet);

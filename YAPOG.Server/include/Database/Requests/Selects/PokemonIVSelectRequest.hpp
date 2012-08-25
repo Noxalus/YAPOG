@@ -7,7 +7,7 @@
 # include "YAPOG/Collection/List.hpp"
 # include "YAPOG/Database/DatabaseManager.hpp"
 # include "Database/Requests/Selects/ISelectRequest.hpp"
-# include "Database/Tables/PokemonStatsTable.hpp"
+# include "Database/Tables/PokemonIVTable.hpp"
 
 namespace yse
 {
