@@ -110,11 +110,39 @@ static void test_db ()
   }
 }
 
+void database_test_accent ()
+{
+  try
+  {
+    pgs::pg_cnx cnx;
+    cnx.connect("dbname=yapog "
+        "user=postgres "
+        "password=COUCOU "
+        "port=5432");
+
+    yap::String query_string = 
+      "INSERT INTO test(name) VALUES ('Salamèche')";
+
+    pgs::pg_stream query 
+      (query_string, cnx);
+
+    std::cout << "Data saved !" << std::endl;
+    getchar ();
+  }
+  catch (pgs::pg_excpt e)
+  {
+    std::cerr << e.errmsg () << std::endl;
+    getchar ();
+  }
+}
+
 int main ()
 {
   try
   {
-    //   test_db ();
+    //test_db ();
+    //database_test_accent ();
+    std::cout << "Server launched !" << std::endl;
 
     yse::Server server;
 

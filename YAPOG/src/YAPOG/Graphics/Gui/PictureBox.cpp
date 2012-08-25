@@ -2,11 +2,12 @@
 #include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/Padding.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 
 namespace yap
 {
   PictureBox::PictureBox ()
-    : picture_ ()
+    : picture_ (nullptr)
   {
   }
 
@@ -16,8 +17,9 @@ namespace yap
 
   Vector2 PictureBox::HandleGetSize () const
   {
-    return Vector2 (padding_.left + picture_.GetSize ().x + padding_.right,
-      padding_.top + picture_.GetSize ().y + padding_.bottom)
+    return Vector2 (
+      padding_.left + picture_->GetSize ().x + padding_.right,
+      padding_.top + picture_->GetSize ().y + padding_.bottom)
       + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
   }
 
@@ -28,7 +30,7 @@ namespace yap
 
   void PictureBox::HandleDraw (IDrawingContext& context)
   {
-    picture_.Draw (context);
+    picture_->Draw (context);
   }
 
   void PictureBox::HandleShow (bool isVisible)
@@ -37,16 +39,16 @@ namespace yap
 
   void PictureBox::HandleMove (const Vector2& offset)
   {
-    picture_.Move (offset);
-    //picture_.SetPosition (GetPosition() + offset);
+    picture_->Move (offset);
+    //picture_->SetPosition (GetPosition() + offset);
   }
 
   void PictureBox::HandleScale (const Vector2& factor)
   {
-    Vector2 base = picture_.GetSize ();
+    Vector2 base = picture_->GetSize ();
     Vector2 neo (base.x * factor.x, base.y * factor.y);
 
-    picture_.SetSize (neo);
+    picture_->SetSize (neo);
   }
 
   void PictureBox::HandleUpdate (const Time& dt)
@@ -55,31 +57,23 @@ namespace yap
 
   void PictureBox::HandleChangeColor (const sf::Color& color)
   {
-    picture_.ChangeColor (color);
+    picture_->ChangeColor (color);
   }
 
-  const Texture& PictureBox::GetPicture () const
+  const ISprite& PictureBox::GetPicture () const
   {
-    return picture_;
+    return *picture_;
   }
 
-  void PictureBox::SetPicture (String file)
+  void PictureBox::SetPicture (ISprite* picture)
   {
-    if (picture_.GetSize () != Vector2 (0,0))
-    {
-      Vector2 size = picture_.GetSize ();
-      picture_.LoadFromFile (file);
-      //picture_.SetSize (size);
-    }
-    else
-    {
-      picture_.LoadFromFile (file);
-    }
-    
-    picture_.SetPosition (Vector2 (GetPosition ().x + padding_.left,
+    if (picture_ != nullptr)
+      delete picture_;
+
+    picture_ = picture;
+
+    picture_->SetPosition (Vector2 (GetPosition ().x + padding_.left,
       GetPosition ().y + padding_.top));
-
-    OnPictureSet (*this, EventArgsTexture (picture_));
 
     BaseWidget::Refresh ();
   }

@@ -2,7 +2,6 @@
 # define YAPOG_ITABLE_HPP
 
 # include "YAPOG/Macros.hpp"
-# include <iostream>
 
 namespace yse
 {

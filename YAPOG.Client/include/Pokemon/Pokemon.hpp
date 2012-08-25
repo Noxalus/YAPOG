@@ -27,6 +27,7 @@ namespace ycl
 
     /// Getters
     yap::ISprite& GetIcon () const;
+    yap::ISprite& GetGenderIcon () const;
     yap::ISprite& GetBattleBack () const;
     yap::ISprite& GetBattleFront () const;
 
@@ -35,6 +36,7 @@ namespace ycl
     void LoadSprites ();
 
     yap::ISprite* icon_;
+    yap::ISprite* genderIcon_;
     yap::ISprite* battleBack_;
     yap::ISprite* battleFront_;
 

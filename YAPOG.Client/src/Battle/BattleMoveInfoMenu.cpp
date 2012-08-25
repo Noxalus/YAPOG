@@ -1,5 +1,5 @@
 #include "YAPOG/Graphics/Gui/Padding.hpp"
-#include "YAPOG/Graphics/Texture.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/System/StringHelper.hpp"
@@ -39,7 +39,7 @@ namespace ycl
 
     this->SetSize (yap::Vector2 (231, 129));
 
-    type_.SetPicture ("Pictures/Types/0.png");
+    type_.SetPicture (new yap::Sprite ("Pictures/Types/0.png"));
 
     pp_.Move (yap::Vector2 (85, 20));
     type_.Move (yap::Vector2 (70, 70));
@@ -73,9 +73,9 @@ namespace ycl
   {
     type_.Show (true);
 
-    type_.SetPicture ("Pictures/Types/" + 
+    type_.SetPicture (new yap::Sprite ("Pictures/Types/" + 
       yap::StringHelper::ToString (type.GetID ().GetValue ())
-      + ".png");
+      + ".png"));
   }
 
   void BattleMoveInfoMenu::HideType ()

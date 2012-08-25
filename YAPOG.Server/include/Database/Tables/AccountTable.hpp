@@ -9,11 +9,15 @@
 
 namespace yse
 {
+  class Account;
+
   class AccountTable : public ITable
   {
     DISALLOW_COPY(AccountTable);
   public:
     AccountTable ();
+
+    void LoadFromAccount (const Account& account);
 
     /// Getters
     const yap::ID& GetID () const;

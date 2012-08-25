@@ -69,6 +69,8 @@
 #include "World/Map/DestructibleObjectReader.hpp"
 #include "World/Map/OpenBattleSpawnerArea.hpp"
 #include "World/Map/OpenBattleSpawnerAreaReader.hpp"
+#include "Battle/PlayerTrainer.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
 namespace ycl
 {

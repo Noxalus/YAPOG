@@ -8,6 +8,7 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
@@ -57,13 +58,15 @@ namespace ycl
     yap::VerticalLayout* secondVLayout = new yap::VerticalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
     secondHLayout->SetDefaultColor (sf::Color::White);
     yap::PictureBox* title = new yap::PictureBox ();
-    title->SetPicture ("WindowSkins/BasicSkin/Pokedex/Title.png");
+    title->SetPicture (
+      new yap::Sprite ("WindowSkins/BasicSkin/Pokedex/Title.png"));
 
     yap::HorizontalLayout* boxInfo = new yap::HorizontalLayout (yap::Padding (20, 20, 20, 20), yap::Padding (20, 20, 20, 20), false);
     yap::WidgetBackground* pokImgBackground = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/PokemonBoxBackground.png", true);
     pokImgBackground->SetFixed (true);
     boxInfo->SetBackground (*pokImgBackground);
-    boxInfoContent_->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png");
+    boxInfoContent_->SetPicture (
+      new yap::Sprite ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png"));
     boxInfo->AddChild (*boxInfoContent_);
 
     firstVLayout_->AddChild (*title);    
@@ -87,16 +90,20 @@ namespace ycl
         item->OnSelected +=
           [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
-          boxInfoContent_->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png");
+          boxInfoContent_->SetPicture (
+            new yap::Sprite (
+            "WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png"));
         };
       }
       else
       {
         item->SetContent ("N." + yap::StringHelper::ToString(i) + "    " + current->GetName ());
+
         item->OnSelected +=
           [this, current] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
         {
-          boxInfoContent_->SetPicture (current->GetMaleFront ());
+          boxInfoContent_->SetPicture (
+            new yap::Sprite (current->GetMaleFrontPath ()));
         };
         item->OnActivated +=
           [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
@@ -152,7 +159,8 @@ namespace ycl
           item->OnSelected +=
             [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
           {
-            boxInfoContent_->SetPicture ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png");
+            boxInfoContent_->SetPicture (
+              new yap::Sprite ("WindowSkins/BasicSkin/Pokedex/PokemonBoxDefault.png"));
           };
         }
         else

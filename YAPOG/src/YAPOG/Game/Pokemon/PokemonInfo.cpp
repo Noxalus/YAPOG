@@ -35,15 +35,15 @@ namespace yap
     , type1_ (0)
     , type2_ (0)
     , baseSkills_ ()
-    , icon_ ("")
-    , maleFront_ ("")
-    , maleBack_ ("")
-    , shinyMaleFront_ ("")
-    , shinyMaleBack_ ("")
-    , femaleFront_ ("")
-    , femaleBack_ ("")
-    , shinyFemaleFront_ ("")
-    , shinyFemaleBack_ ("")
+    , iconPath_ ("")
+    , maleFrontPath_ ("")
+    , maleBackPath_ ("")
+    , shinyMaleFrontPath_ ("")
+    , shinyMaleBackPath_ ("")
+    , femaleFrontPath_ ("")
+    , femaleBackPath_ ("")
+    , shinyFemaleFrontPath_ ("")
+    , shinyFemaleBackPath_ ("")
   {
   }
 
@@ -75,15 +75,15 @@ namespace yap
     , type1_ (0)
     , type2_ (0)
     , baseSkills_ ()
-    , icon_ ("")
-    , maleFront_ ("")
-    , maleBack_ ("")
-    , shinyMaleFront_ ("")
-    , shinyMaleBack_ ("")
-    , femaleFront_ ("")
-    , femaleBack_ ("")
-    , shinyFemaleFront_ ("")
-    , shinyFemaleBack_ ("")
+    , iconPath_ ("")
+    , maleFrontPath_ ("")
+    , maleBackPath_ ("")
+    , shinyMaleFrontPath_ ("")
+    , shinyMaleBackPath_ ("")
+    , femaleFrontPath_ ("")
+    , femaleBackPath_ ("")
+    , shinyFemaleFrontPath_ ("")
+    , shinyFemaleBackPath_ ("")
   {
   }
 
@@ -115,15 +115,15 @@ namespace yap
     , type1_ (copy.type1_)
     , type2_ (copy.type2_)
     , baseSkills_ (copy.baseSkills_)
-    , icon_ (copy.icon_)
-    , maleFront_ (copy.maleFront_)
-    , maleBack_ (copy.maleBack_)
-    , shinyMaleFront_ (copy.shinyMaleFront_)
-    , shinyMaleBack_ (copy.shinyMaleBack_)
-    , femaleFront_ (copy.femaleFront_)
-    , femaleBack_ (copy.femaleBack_)
-    , shinyFemaleFront_ (copy.shinyFemaleFront_)
-    , shinyFemaleBack_ (copy.shinyFemaleBack_)
+    , iconPath_ (copy.iconPath_)
+    , maleFrontPath_ (copy.maleFrontPath_)
+    , maleBackPath_ (copy.maleBackPath_)
+    , shinyMaleFrontPath_ (copy.shinyMaleFrontPath_)
+    , shinyMaleBackPath_ (copy.shinyMaleBackPath_)
+    , femaleFrontPath_ (copy.femaleFrontPath_)
+    , femaleBackPath_ (copy.femaleBackPath_)
+    , shinyFemaleFrontPath_ (copy.shinyFemaleFrontPath_)
+    , shinyFemaleBackPath_ (copy.shinyFemaleBackPath_)
   {
   }
 
@@ -300,26 +300,26 @@ namespace yap
     return pokemonEvolutionID_;
   }
 
-    const yap::String& PokemonInfo::GetIcon () const
-  { return icon_; }
+    const yap::String& PokemonInfo::GetIconPath () const
+  { return iconPath_; }
 
-  const yap::String& PokemonInfo::GetMaleFront () const
-  { return maleFront_; }
-  const yap::String& PokemonInfo::GetMaleBack () const
-  { return maleBack_; }
-  const yap::String& PokemonInfo::GetShinyMaleFront () const
-  { return shinyMaleFront_; }
-  const yap::String& PokemonInfo::GetShinyMaleBack () const
-  { return shinyMaleBack_; }
+  const yap::String& PokemonInfo::GetMaleFrontPath () const
+  { return maleFrontPath_; }
+  const yap::String& PokemonInfo::GetMaleBackPath () const
+  { return maleBackPath_; }
+  const yap::String& PokemonInfo::GetShinyMaleFrontPath () const
+  { return shinyMaleFrontPath_; }
+  const yap::String& PokemonInfo::GetShinyMaleBackPath () const
+  { return shinyMaleBackPath_; }
 
-  const yap::String& PokemonInfo::GetFemaleFront () const
-  { return femaleFront_; }
-  const yap::String& PokemonInfo::GetFemaleBack () const
-  { return femaleBack_; }
-  const yap::String& PokemonInfo::GetShinyFemaleFront () const
-  { return shinyFemaleFront_; }
-  const yap::String& PokemonInfo::GetShinyFemaleBack () const
-  { return shinyFemaleBack_; }
+  const yap::String& PokemonInfo::GetFemaleFrontPath () const
+  { return femaleFrontPath_; }
+  const yap::String& PokemonInfo::GetFemaleBackPath () const
+  { return femaleBackPath_; }
+  const yap::String& PokemonInfo::GetShinyFemaleFrontPath () const
+  { return shinyFemaleFrontPath_; }
+  const yap::String& PokemonInfo::GetShinyFemaleBackPath () const
+  { return shinyFemaleBackPath_; }
 
   /// Setters.
 
@@ -464,26 +464,26 @@ namespace yap
     pokemonEvolutionID_ = value;
   }
 
-  void PokemonInfo::SetIcon (const yap::String& value)
-  { icon_ = value; }
+  void PokemonInfo::SetIconPath (const yap::String& value)
+  { iconPath_ = value; }
 
-  void PokemonInfo::SetMaleFront (const yap::String& value)
-  { maleFront_ = value; }
-  void PokemonInfo::SetMaleBack (const yap::String& value)
-  { maleBack_ = value; }
-  void PokemonInfo::SetShinyMaleFront (const yap::String& value)
-  { shinyMaleFront_ = value; }
-  void PokemonInfo::SetShinyMaleBack (const yap::String& value)
-  { shinyMaleBack_ = value; }
+  void PokemonInfo::SetMaleFrontPath (const yap::String& value)
+  { maleFrontPath_ = value; }
+  void PokemonInfo::SetMaleBackPath (const yap::String& value)
+  { maleBackPath_ = value; }
+  void PokemonInfo::SetShinyMaleFrontPath (const yap::String& value)
+  { shinyMaleFrontPath_ = value; }
+  void PokemonInfo::SetShinyMaleBackPath (const yap::String& value)
+  { shinyMaleBackPath_ = value; }
 
-  void PokemonInfo::SetFemaleFront (const yap::String& value)
-  { femaleFront_ = value; }
-  void PokemonInfo::SetFemaleBack (const yap::String& value)
-  { femaleBack_ = value; }
-  void PokemonInfo::SetShinyFemaleFront (const yap::String& value)
-  { shinyFemaleFront_ = value; }
-  void PokemonInfo::SetShinyFemaleBack (const yap::String& value)
-  { shinyFemaleBack_ = value; }
+  void PokemonInfo::SetFemaleFrontPath (const yap::String& value)
+  { femaleFrontPath_ = value; }
+  void PokemonInfo::SetFemaleBackPath (const yap::String& value)
+  { femaleBackPath_ = value; }
+  void PokemonInfo::SetShinyFemaleFrontPath (const yap::String& value)
+  { shinyFemaleFrontPath_ = value; }
+  void PokemonInfo::SetShinyFemaleBackPath (const yap::String& value)
+  { shinyFemaleBackPath_ = value; }
 
   void PokemonInfo::PrintBaseStats ()
   {

@@ -2,6 +2,7 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Audio/AudioManager.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "GameScreen/RegistrationScreen.hpp"
 #include "GameScreen/MainMenuScreen.hpp"
@@ -34,22 +35,22 @@ namespace ycl
     switch (nb)
     {
     case 0:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/mew.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/mew.jpg"));
       break;
     case 1:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/fete.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/fete.jpg"));
       break;
     case 2:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/rondoudou.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/rondoudou.jpg"));
       break;
     case 3:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/dresseur.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/dresseur.jpg"));
       break;
     case 4:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/ronflex.gif"));
       break;
     default:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/ronflex.gif"));
       break;
     }
     bg->SetSize (yap::Vector2 (800, 600));

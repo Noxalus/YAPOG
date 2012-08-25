@@ -9,6 +9,7 @@
 namespace ycl
 {
   class Battle;
+  class PokemonTeam;
 
   class BattleScreen : public BaseScreen
   {
@@ -27,10 +28,11 @@ namespace ycl
         const yap::Time& dt,
         yap::IDrawingContext& context);
 
-      virtual void HandleActivate ();
-      virtual void HandleDeactivate ();
+    virtual void HandleActivate ();
+    virtual void HandleDeactivate ();
 
-    private:
+    void SetBattle (Battle* value);
+  private:
 
       Battle* battle_;
       BattleInterface* battleInterface_;

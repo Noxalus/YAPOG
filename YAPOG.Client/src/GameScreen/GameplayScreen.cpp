@@ -1,3 +1,4 @@
+#include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Graphics/Gui/GameInput/GameInputManager.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
@@ -47,7 +48,26 @@
 #include "Pokemon/PokemonTeam.hpp"
 #include "Battle/PokemonFighter.hpp"
 #include "Battle/PokemonFighterTeam.hpp"
+#include "Battle/Battle.hpp"
+#include "Battle/WildBattle.hpp"
+#include "Battle/BattleInterface.hpp"
 
+namespace debug
+{
+  ycl::Pokemon* GenerateRandomPokemon ()
+  {
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 4));
+
+    if (staticID == yap::ID (4))
+      staticID = yap::ID (16);
+
+    int level = yap::RandomHelper::GetNext (1, 100);
+
+    ycl::Pokemon* p = new ycl::Pokemon (staticID, level, false);
+
+    return p;
+  }
+}
 
 namespace ycl
 {
@@ -67,7 +87,7 @@ namespace ycl
     , mapRootWidget_ (nullptr)
     , mainMenu_ (nullptr)
     , pokedex_ (nullptr)
-    , pokemonTeam_ (nullptr)
+    , pokemonTeamWidget_ (nullptr)
     , chat_ (nullptr)
     , fpsLabel_ (nullptr)
   {
@@ -106,7 +126,51 @@ namespace ycl
       const User& sender,
       const yap::EmptyEventArgs& args)
     {
+      /*
+      PokemonTeam* team = new PokemonTeam ();
+      team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
+      team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
+      */
+
+      PokemonTeam& playerTeam = session_.GetUser ().GetTrainer ().GetTeam ();
+
+      PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
+      playerFighterTeam->AddPokemon (
+        new PokemonFighter (&playerTeam.GetPokemon (0), false));
+      playerFighterTeam->AddPokemon (
+        new PokemonFighter (&playerTeam.GetPokemon (1), false));
+
+      PokemonFighter* wildPokemon =
+        new PokemonFighter (debug::GenerateRandomPokemon (), true);
+
+      BattleInterface* battleInterface_ = new BattleInterface ();
+
+      Battle* battle = new WildBattle (*battleInterface_);
+
+      battle->SetPlayerTeam (playerFighterTeam);
+      battle->SetOpponent (wildPokemon);
+      battle->Init ();
+
+      battle->OnBattleEnd +=
+        [&] (const yap::Battle& sender, const yap::EmptyEventArgs& args)
+      {
+        yap::AudioManager::Instance ().ResumePreviousMusic ();
+        nextScreen_ = "Gameplay";
+      };
+
       nextScreen_ = "Battle";
+    };
+
+    session_.GetUser ().OnPokemonTeamReceived += [this] (
+      const User& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      // Team Manager Widget
+      pokemonTeamWidget_ = new PokemonTeamWidget (
+        session_.GetUser ().GetTrainer ().GetTeam ());
+      pokemonTeamWidget_->Init ();
+      pokemonTeamWidget_->Close ();
+      gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeamWidget_);
     };
 
     CreateWorldDrawingPolicy ();
@@ -132,6 +196,9 @@ namespace ycl
 
     gameWorldGuiManager_->AddGameWorldWidget (mapRootWidget_);
 
+#ifdef YAPOG_WIN
+    /// @warning Temporary disabled ==> issue on regex under Linux
+    // Chat
     chat_ = new ChatWidget ();
     chat_->Init ();
     chat_->Close ();
@@ -141,10 +208,9 @@ namespace ycl
     {
       session_.GetUser ().SendGameMessage (args);
     };
-    gameGuiManager_->AddGameWidget ("Chat", chat_);
 
-    // @todo Provide theses information from the database
-    yap::PokemonTeam* team = new yap::PokemonTeam ();
+    gameGuiManager_->AddGameWidget ("Chat", chat_);
+#endif // YAPOG_WIN
 
     /*
     team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
@@ -159,28 +225,18 @@ namespace ycl
     session_.GetUser ().GetTrainer ().SetTeam (playerFighterTeam);
     */
 
-    pokemonTeam_ = new PokemonTeamWidget (team);
-    pokemonTeam_->Init ();
-    pokemonTeam_->Close ();
-    gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeam_);
-
+    // Pokedex
     yap::Pokedex* pokedexInfo = new yap::Pokedex ();
+
     for (int i = 1; i < 4; i++)
     {
       yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (i));
+        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (i));
 
       pokedexInfo->AddPokemon (pok);
       pokedexInfo->AddPokemonSeen (pok);
       pokedexInfo->AddPokemonCaught (pok);
     }
-
-    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID  (16));
-
-    pokedexInfo->AddPokemon (pok);
-    pokedexInfo->AddPokemonSeen (pok);
-    pokedexInfo->AddPokemonCaught (pok);
 
     pokedex_ = new PokedexWidget (pokedexInfo);
     pokedex_->Close ();
@@ -188,6 +244,7 @@ namespace ycl
 
     gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
+    // FPS
     fpsLabel_ = new yap::Label ();
     fpsLabel_->SetTextSize (18);
 
@@ -233,6 +290,7 @@ namespace ycl
           break;
 
         gameGuiManager_->SetCurrentWidget ("Menu");
+        yap::AudioManager::Instance ().PlayMusic ("BGM/SettingMenu.ogg");
 
         return true;
 
@@ -347,7 +405,7 @@ namespace ycl
   {
     context_.SetTargetClearColor (sf::Color::Black);
 
-    yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg");
+    yap::AudioManager::Instance ().PlayMusic ("BGM/City.ogg", false);
   }
 
   Map& GameplayScreen::GetCurrentMap ()
@@ -382,6 +440,7 @@ namespace ycl
 
     mainMenu_ = new GameMainMenu ();
     mainMenu_->Init (player_->GetName ());
+
     mainMenu_->OnPokedexItemActivated += [this] (
       GameMainMenu& sender,
       const yap::EmptyEventArgs& args)

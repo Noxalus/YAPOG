@@ -10,8 +10,11 @@
 #include "World/Map/Player.hpp"
 #include "World/Map/DynamicObjectFactory.hpp"
 #include "Account/AccountManager.hpp"
+#include "Account/Account.hpp"
+#include "Account/PlayerData.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 
-#define YAPOG_DB_MODE 0
+#define YAPOG_DB_MODE 1
 
 namespace yse
 {
@@ -21,6 +24,7 @@ namespace yse
     , world_ (nullptr)
     , map_ (nullptr)
     , player_ (nullptr)
+    , account_ (nullptr)
   {
     ADD_HANDLER(ClientRequestStartInfo, User::HandleClientRequestStartInfo);
     ADD_HANDLER(ClientInfoApplyForce, User::HandleClientInfoApplyForce);
@@ -29,6 +33,11 @@ namespace yse
 
   User::~User ()
   {
+  }
+
+  void User::SaveAccountData ()
+  {
+    account_->SaveAccountData (*databaseManager_);
   }
 
   void User::SetWorld (World* world)
@@ -55,7 +64,7 @@ namespace yse
 
 #if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
-    am.Login (login, password, ip);
+    account_ = am.Login (login, password, ip);
 #endif // YAPOG_DB_MODE
 
     return true;
@@ -71,7 +80,7 @@ namespace yse
 
 #if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
-    am.CreateNewAccount (login, password, email, ip);
+    return am.CreateNewAccount (login, password, email, ip);
 #endif // YAPOG_DB_MODE
 
     return true;
@@ -110,6 +119,16 @@ namespace yse
   Map& User::GetMap ()
   {
     return *map_;
+  }
+
+  Account& User::GetAccount ()
+  {
+    return *account_;
+  }
+
+  const Player& User::GetPlayer () const
+  {
+    return *player_;
   }
 
   void User::SetMap (Map* map)
@@ -165,13 +184,20 @@ namespace yse
 
     /// @todo Reach from DB
     yap::ID playerID = yap::ID (1);
-    yap::ID playerMapWorldID = yap::ID (1);
+
+    //yap::ID playerMapWorldID = yap::ID (1);
+
+    yap::ID playerMapWorldID =
+      account_->GetPlayerData ().GetMapID ();
 
     SetPlayer (
       DynamicObjectFactory::Instance ().Create<Player> (
-        "Player",
-        playerID));
-    player_->Move (yap::Vector2 (10.0f, 10.0f));
+      "Player",
+      playerID));
+
+    // Get the actual position from the database
+    player_->SetPosition (
+      account_->GetPlayerData ().GetPosition ());
 
     SetMap (&world_->GetMap (playerMapWorldID));
 
@@ -182,6 +208,8 @@ namespace yse
     setUserPlayerPacket.Write (player_->GetWorldID ());
 
     SendPacket (setUserPlayerPacket);
+
+    SendPokemonTeam (account_->GetTeam ());
   }
 
   void User::HandleClientInfoApplyForce (yap::IPacket& packet)
@@ -210,7 +238,7 @@ namespace yse
     yap::String content = packet.ReadString ();
 
     yap::GameMessage gameMessage;
-    gameMessage.SetSenderName (senderName);
+    gameMessage.SetSenderName (login_);
     gameMessage.SetContent (content);
 
     SendGameMessage (gameMessage);
@@ -226,4 +254,35 @@ namespace yse
 
     GetWorld ().SendPacket (packet);
   }
+
+  void User::SendPokemonTeam (PokemonTeam& pokemonTeam)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoPokemonTeam);
+
+    // Send the number of Pokemon in the team
+    int pokemonNumber = pokemonTeam.GetPokemonCount ();
+    packet.Write (pokemonNumber);
+
+    Pokemon* currentPokemon = nullptr;
+
+    for (int i = 0; i < pokemonNumber; i++)
+    {
+      currentPokemon = &pokemonTeam.GetPokemon (i);
+
+      // We write the current pokemon information in the packet
+      packet.Write (currentPokemon->GetStaticID ());
+      packet.Write (currentPokemon->GetUniqueID ());
+      packet.Write (currentPokemon->GetTotalExperience ());
+      packet.Write ((yap::UInt8)currentPokemon->GetGender ());
+      packet.Write (currentPokemon->GetName ());
+      packet.Write (currentPokemon->GetLevel ());
+      packet.Write (currentPokemon->GetShiny ());
+      packet.Write (currentPokemon->GetLoyalty ());
+      packet.Write (currentPokemon->GetNature ());
+    }
+
+    SendPacket (packet);
+  }
+
 } // namespace yse

@@ -1,8 +1,6 @@
 <Configuration>
 
   <IP>localhost</IP>
-<!--  <IP>169.254.182.200</IP>-->
-<!--  <IP>192.168.0.10</IP>-->
 
   <WindowSize>800,600</WindowSize>
   <Resolution>800,600</Resolution>

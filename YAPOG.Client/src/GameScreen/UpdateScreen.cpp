@@ -5,6 +5,7 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Game/Game.hpp"
 #include "YAPOG/Graphics/IDrawingContext.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "GameScreen/UpdateScreen.hpp"
 
@@ -33,8 +34,10 @@ namespace ycl
     secondLayout_->SetSize (yap::Vector2 (300, 75));
     bigLayout_->SetSize (yap::Vector2 (300, 150));
     bigLayout_->SetPosition (yap::Vector2 (50, 50));
-    foregroundbox_->SetPicture ("WindowSkins/BasicSkin/Global/BarContent.png");
-    backgroundbox_->SetPicture ("WindowSkins/BasicSkin/Global/Bar.png");
+    foregroundbox_->SetPicture (
+      new yap::Sprite ("WindowSkins/BasicSkin/Global/BarContent.png"));
+    backgroundbox_->SetPicture (
+      new yap::Sprite ("WindowSkins/BasicSkin/Global/Bar.png"));
   }
 
   void UpdateScreen::HandleInit ()

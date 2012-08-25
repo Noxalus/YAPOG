@@ -75,8 +75,7 @@ namespace yap
 
   void DatabaseStream::Write (const uchar& value)
   {
-    YAPOG_THROW(
-      "DatabaseStream::Write (const uchar&)");
+    WriteData (value);
   }
 
   void DatabaseStream::Write (const String& name, const uchar& value)

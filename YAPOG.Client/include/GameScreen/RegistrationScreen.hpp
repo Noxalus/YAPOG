@@ -26,6 +26,8 @@ namespace ycl
         const yap::Time& dt,
         yap::IDrawingContext& context);
 
+      virtual void HandleDeactivate ();
+
     private:
 
       RegistrationWidget registrationWidget_;

@@ -1,10 +1,14 @@
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 
 #include "Server/ClientSession.hpp"
+#include "Account/PlayerData.hpp"
+#include "World/Map/Player.hpp"
+#include "World/World.hpp"
+#include "World/Map/Map.hpp"
 
-#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 namespace yse
 {
   ClientSession::ClientSession ()
@@ -186,10 +190,18 @@ namespace yse
           yap::ObjectFactory::Instance ());
 
         SendPacket (primaryDataPacket);
-      }
 
-      yap::DebugLogger::Instance ().LogLine (
-        "New account created: `" + login + "'.");
+        yap::DebugLogger::Instance ().LogLine (
+          "New account created: `" + login + "'.");
+      }
+      else
+      {
+        yap::Packet registrationErrorPacket;
+        registrationErrorPacket.CreateFromType (
+          yap::PacketType::ServerInfoRegistrationError);
+
+        SendPacket (registrationErrorPacket);
+      }
     }
     catch (...)
     {
@@ -203,6 +215,20 @@ namespace yse
 
   void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)
   {
+    // Copy some data to prepare update of the database
+    yap::Vector2 currentPosition = user_.GetPlayer ().GetPosition ();
+    user_.GetAccount ().GetPlayerData ().SetPosition (currentPosition);
+
+    yap::ID mapID = user_.GetMap ().GetID ();
+    user_.GetAccount ().GetPlayerData ().SetMapID (mapID);
+
+    // Save the player data in the database
+    user_.SaveAccountData ();
+
+    yap::DebugLogger::Instance ().LogLine (
+      user_.GetLogin () +
+      "'s player data have been save.");
+
     yap::DebugLogger::Instance ().LogLine (
       "Client disconnected: `" +
       user_.GetLogin () +

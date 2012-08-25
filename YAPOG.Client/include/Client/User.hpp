@@ -20,73 +20,76 @@ namespace ycl
 
   class User : public yap::IPacketHandler
   {
-      DISALLOW_COPY(User);
+    DISALLOW_COPY(User);
 
-    public:
+  public:
 
-      User ();
-      virtual ~User ();
+    User ();
+    virtual ~User ();
 
 
-      PlayerTrainer& GetTrainer ();
-      void SetTrainer (PlayerTrainer* trainer);
+    PlayerTrainer& GetTrainer ();
+    void SetTrainer (PlayerTrainer* trainer);
 
-      const yap::String& GetLogin () const;
-      void SetLogin (const yap::String& login);
+    const yap::String& GetLogin () const;
+    void SetLogin (const yap::String& login);
 
-      void SetWorld (World* world);
+    void SetWorld (World* world);
 
-      void SendGameMessage (const yap::GameMessage& message);
+    void SendGameMessage (const yap::GameMessage& message);
 
-      /// @name IPacketHandler members.
-      /// @{
-      virtual bool HandlePacket (yap::IPacket& packet);
-      virtual bool SendPacket (yap::IPacket& packet);
+    /// @name IPacketHandler members.
+    /// @{
+    virtual bool HandlePacket (yap::IPacket& packet);
+    virtual bool SendPacket (yap::IPacket& packet);
 
-      virtual void AddRelay (yap::IPacketHandler* relay);
-      virtual void RemoveRelay (yap::IPacketHandler* relay);
-      virtual void SetParent (yap::IPacketHandler* parent);
-      /// @}
+    virtual void AddRelay (yap::IPacketHandler* relay);
+    virtual void RemoveRelay (yap::IPacketHandler* relay);
+    virtual void SetParent (yap::IPacketHandler* parent);
+    /// @}
 
-      yap::Event<const User&, Player*> OnPlayerCreated;
-      yap::Event<const User&, Player&> OnPlayerWarped;
-      yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
+    yap::Event<const User&, Player*> OnPlayerCreated;
+    yap::Event<const User&, Player&> OnPlayerWarped;
+    yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
 
-      yap::Event<const User&> OnBattleTriggered;
+    yap::Event<const User&> OnBattleTriggered;
+    yap::Event<const User&> OnPokemonTeamReceived;
 
-    private:
-      /// @name Getters.
-      /// @{
-      World& GetWorld ();
-      Map& GetMap ();
+  private:
+    /// @name Getters.
+    /// @{
+    World& GetWorld ();
+    Map& GetMap ();
 
-      Player& GetPlayer ();
-      /// @}
+    Player& GetPlayer ();
+    /// @}
 
-      /// @name Setters.
-      /// @{
-      void SetPlayer (Player* player);
-      /// @}
+    /// @name Setters.
+    /// @{
+    void SetPlayer (Player* player);
+    /// @}
 
-      void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
-      void HandleServerInfoChangeMap (yap::IPacket& packet);
+    void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
+    void HandleServerInfoChangeMap (yap::IPacket& packet);
 
-      void HandleServerInfoAddObject (yap::IPacket& packet);
-      void HandleServerInfoRemoveObject (yap::IPacket& packet);
+    void HandleServerInfoAddObject (yap::IPacket& packet);
+    void HandleServerInfoRemoveObject (yap::IPacket& packet);
 
-      void HandleServerInfoGameMessage (yap::IPacket& packet);
+    void HandleServerInfoGameMessage (yap::IPacket& packet);
 
-      void HandleServerInfoTriggerBattle (yap::IPacket& packet);
+    void HandleServerInfoTriggerBattle (yap::IPacket& packet);
 
-      yap::PacketHandler packetHandler_;
+    void HandlerServerInfoPokemonTeam (yap::IPacket& packet);
 
-      yap::String login_;
+    yap::PacketHandler packetHandler_;
 
-      World* world_;
+    yap::String login_;
 
-      Player* player_;
+    World* world_;
 
-      PlayerTrainer* trainer_;
+    Player* player_;
+
+    PlayerTrainer* trainer_;
   };
 } // namespace ycl
 

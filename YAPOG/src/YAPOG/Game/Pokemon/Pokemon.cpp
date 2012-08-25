@@ -137,6 +137,16 @@ namespace yap
       gender_ = Gender::Male;
   }
 
+  const ID& Pokemon::GetUniqueID () const
+  {
+    return uniqueID_;
+  }
+
+  const ID& Pokemon::GetStaticID () const
+  {
+    return staticID_;
+  }
+
   const String& Pokemon::GetName () const
   {
     if (pokemonInfo_ != nullptr)
@@ -202,10 +212,10 @@ namespace yap
   {
     return stats_;
   }
-  
-  const String& Pokemon::GetIcon () const
+
+  const String& Pokemon::GetIconPath () const
   {
-    return pokemonInfo_->GetIcon ();
+    return pokemonInfo_->GetIconPath ();
   }
 
 
@@ -214,10 +224,51 @@ namespace yap
     return level_;
   }
 
+  const bool Pokemon::GetShiny () const
+  {
+    return shiny_;
+  }
+
+  const Int16& Pokemon::GetLoyalty () const
+  {
+    return loyalty_;
+  }
+
+  const yap::ID& Pokemon::GetNature () const
+  {
+    if (nature_ == nullptr)
+      throw yap::Exception ("The nature of this Pokemon is null !");
+
+    return nature_->GetID ();
+  }
 
   const Gender& Pokemon::GetGender () const
   {
     return gender_;
+  }
+
+  // Setters
+  void Pokemon::SetUniqueID (const ID& value)
+  { uniqueID_ = value; }
+  void Pokemon::SetExperience (const UInt32& value)
+  { exp_->SetValue (value); }
+  void Pokemon::SetGender (const UInt8& value)
+  { gender_ = (Gender)value; }
+  void Pokemon::SetNickname (const String& value)
+  { nickname_ = value; }
+  void Pokemon::SetLevel (const UInt16& value)
+  { level_ = value; }
+  void Pokemon::SetShiny (bool value)
+  { shiny_ = value; }
+  void Pokemon::SetLoyalty (int value)
+  { loyalty_ = value; }
+  void Pokemon::SetNature (const ID& value)
+  {
+    if (nature_ != nullptr)
+      delete nature_;
+
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  value);
   }
 
   void Pokemon::AddExperience (const Int32& value)

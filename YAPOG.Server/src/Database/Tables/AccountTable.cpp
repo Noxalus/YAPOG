@@ -1,11 +1,32 @@
 #include "Database/Tables/AccountTable.hpp"
+#include "Account/Account.hpp"
 
 namespace yse
 {
   AccountTable::AccountTable ()
-    : permissions_ (AccountPermission::Normal)
-    , id_ ()
+    : id_ (Account::DEFAULT_ACCOUNT_ID)
+    , name_ (Account::DEFAULT_ACCOUNT_NAME)
+    , password_ (Account::DEFAULT_ACCOUNT_PASSWORD)
+    , email_ (Account::DEFAULT_ACCOUNT_EMAIL)
+    , creationDate_ (Account::DEFAULT_ACCOUNT_CREATION_DATE)
+    , permissions_ (Account::DEFAULT_ACCOUNT_PERMISSION)
+    , lastLoginDate_ (Account::DEFAULT_ACCOUNT_LAST_LOGIN_DATE)
+    , creationIP_ (Account::DEFAULT_ACCOUNT_CREATION_IP)
+    , currentIP_ (Account::DEFAULT_ACCOUNT_CURRENT_IP)
   {
+  }
+
+  void AccountTable::LoadFromAccount (const Account& account)
+  {
+    SetID (account.GetID ());
+    SetName (account.GetName ());
+    SetPassword (account.GetPassword ());
+    SetEmail (account.GetEmail ());
+    SetPermissions (account.GetPermissions ());
+    SetCreationDate (account.GetCreationDate ());
+    SetLastLoginDate (account.GetLastLoginDate ());
+    SetCreationIP (account.GetCreationIP ());
+    SetCurrentIP (account.GetCurrentIP ());
   }
 
   /// Getters

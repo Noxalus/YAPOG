@@ -23,6 +23,7 @@ namespace yse
     /// @{
     virtual bool Insert (yap::DatabaseManager& databaseManager);
     /// @}
+
   private:
     yap::ID id_;
     const AccountTable& accountTable_;

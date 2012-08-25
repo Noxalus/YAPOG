@@ -7,6 +7,7 @@ namespace ycl
   PokemonTeam::PokemonTeam ()
     : yap::PokemonTeam ()
     , pokemonTeam_ (MAX_POKEMON_TEAM_NUMBER, nullptr)
+    , pokemonCount_ (0)
   {
   }
 
@@ -14,7 +15,7 @@ namespace ycl
   {
   }
 
-  Pokemon* PokemonTeam::GetPokemon (int index) const
+  Pokemon& PokemonTeam::GetPokemon (int index) const
   {
     if (index >= MAX_POKEMON_TEAM_NUMBER)
       YAPOG_THROW("Pokemon Team: index out of bound (" + yap::StringHelper::ToString (index) + ")");
@@ -22,12 +23,12 @@ namespace ycl
     if (pokemonTeam_[index] == nullptr)
       YAPOG_THROW("Pokemon Team: no Pokemon at this index (" + yap::StringHelper::ToString (index) + ")");
 
-    return pokemonTeam_[index];
+    return *pokemonTeam_[index];
   }
 
   int PokemonTeam::GetPokemonCount () const
   {
-    return pokemonTeam_.Count ();
+    return pokemonCount_;
   }
 
 
@@ -38,6 +39,9 @@ namespace ycl
       if (pokemonTeam_[i] == nullptr)
       {
         pokemonTeam_[i] = pokemon;
+
+        pokemonCount_++;
+
         return true;
       }
     }

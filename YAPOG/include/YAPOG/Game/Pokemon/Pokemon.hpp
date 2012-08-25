@@ -29,6 +29,9 @@ namespace yap
       const UInt16& level, 
       const bool& shiny);
 
+    /// Getters
+    const ID& GetUniqueID () const;
+    const ID& GetStaticID () const;
     const String& GetName () const;
     const TypeInfo& GetType1 () const;
     const TypeInfo& GetType2 () const;
@@ -36,12 +39,26 @@ namespace yap
     const uint& GetTotalExperience () const;
     const uint& GetExperienceToNextLevel () const;
     const UInt16& GetLevel () const;
+    const bool GetShiny () const;
+    const Int16& GetLoyalty () const;
+    const yap::ID& GetNature () const;
     const PokemonStat& GetStats () const;
     const Gender& GetGender () const;
     UInt16 GetCurrentHP () const;
     UInt16 GetMaxHP () const;
     const collection::Array<PokemonSkill*>& GetMoves () const;
-    const String& GetIcon () const;
+    const String& GetIconPath () const;
+
+    /// Setters
+    void SetUniqueID (const ID& value);
+    void SetExperience (const UInt32& value);
+    void SetGender (const UInt8& value);
+    void SetNickname (const String& value);
+    void SetLevel (const UInt16& value);
+    void SetShiny (bool value);
+    void SetLoyalty (int value);
+    void SetNature (const ID& value);
+
     bool LearnSkill (const ID& skillID);
     void ReplaceSkill (const ID& skillID, int index);
 

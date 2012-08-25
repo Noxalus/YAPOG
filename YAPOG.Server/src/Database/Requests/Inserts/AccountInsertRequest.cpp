@@ -6,6 +6,7 @@ namespace yse
 {
   AccountInsertRequest::AccountInsertRequest (const AccountTable& accountTable)
     : accountTable_ (accountTable)
+    , id_ ()
   {
   }
 

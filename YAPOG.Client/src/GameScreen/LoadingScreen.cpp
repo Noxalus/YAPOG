@@ -17,6 +17,8 @@ namespace ycl
     const yap::Time& dt,
     yap::IDrawingContext& context)
   {
+    /// @TODO Next screen must be "Update" to launch the updater
+
     nextScreen_ = "Splash";
 
     BaseScreen::HandleRun (dt, context);

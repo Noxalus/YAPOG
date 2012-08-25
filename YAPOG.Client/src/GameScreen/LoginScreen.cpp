@@ -1,10 +1,10 @@
 ﻿#include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
-
 #include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
+
 #include "GameScreen/LoginScreen.hpp"
 #include "Gui/GameMainMenu.hpp"
-
 #include "Client/Session.hpp"
 
 namespace ycl
@@ -26,32 +26,18 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
-    session_.OnLogginValidation += [this] (
+    session_.OnLoginValidation += [this] (
       Session& sender,
       const yap::EmptyEventArgs& args)
     {
       nextScreen_ = "Gameplay";
     };
 
-    session_.OnRegistrationValidation += [this] (
+    session_.OnLoginError += [this] (
       Session& sender,
       const yap::EmptyEventArgs& args)
     {
-      nextScreen_ = "Gameplay";
-    };
-
-    session_.OnLogginError += [this] (
-      Session& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      loginWidget_.SetErrorText ("Failed to loggin");
-    };
-
-    session_.OnRegistrationError += [this] (
-      Session& sender,
-      const yap::EmptyEventArgs& args)
-    {
-      loginWidget_.SetErrorText ("Failed to register");
+      loginWidget_.SetErrorText ("Failed to login !");
     };
 
     yap::PictureBox* bg = new yap::PictureBox ();
@@ -61,22 +47,28 @@ namespace ycl
     switch (nb)
     {
     case 0:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/mew.jpg");
+      bg->SetPicture (
+        new yap::Sprite ("WindowSkins/BasicSkin/Background/mew.jpg"));
       break;
     case 1:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/fete.jpg");
+      bg->SetPicture (
+        new yap::Sprite ("WindowSkins/BasicSkin/Background/fete.jpg"));
       break;
     case 2:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/rondoudou.jpg");
+      bg->SetPicture (
+        new yap::Sprite ("WindowSkins/BasicSkin/Background/rondoudou.jpg"));
       break;
     case 3:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/dresseur.jpg");
+      bg->SetPicture (
+        new yap::Sprite ("WindowSkins/BasicSkin/Background/dresseur.jpg"));
       break;
     case 4:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      bg->SetPicture (
+        new yap::Sprite ("WindowSkins/BasicSkin/Background/ronflex.gif"));
       break;
     default:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      bg->SetPicture (
+        new yap::Sprite ("WindowSkins/BasicSkin/Background/ronflex.gif"));
       break;
     }
     bg->SetSize (yap::Vector2 (800, 600));

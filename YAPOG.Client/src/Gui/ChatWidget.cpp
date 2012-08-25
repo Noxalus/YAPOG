@@ -86,7 +86,7 @@ namespace ycl
 
   void ChatWidget::InitEntry ()
   {
-    entryLayout_->SetSize (yap::Vector2 (242, 12));
+    entryLayout_->SetSize (yap::Vector2 (242, 20));
 
     entryLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     lineCatcher_->ChangeColor (sf::Color::Black);
@@ -131,6 +131,8 @@ namespace ycl
       20,
       Game::SCREEN_SIZE.y - GetSize ().y - 20));
     bigLayout_->SetBackground (*chatBground);
+
+    TabAndChanHandler (true, true, 1);
   }
 
   bool ChatWidget::IsFocusable () const

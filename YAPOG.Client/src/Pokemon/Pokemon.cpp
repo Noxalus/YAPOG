@@ -11,6 +11,10 @@ namespace ycl
 {
   Pokemon::Pokemon (const yap::ID& staticID)
     : yap::Pokemon (staticID)
+    , icon_ (nullptr)
+    , genderIcon_ (nullptr)
+    , battleBack_ (nullptr)
+    , battleFront_ (nullptr)
   {
     Init ();
   }
@@ -20,6 +24,10 @@ namespace ycl
     const yap::UInt16& level, 
     const bool& shiny)
     : yap::Pokemon (staticID, level, shiny)
+    , icon_ (nullptr)
+    , genderIcon_ (nullptr)
+    , battleBack_ (nullptr)
+    , battleFront_ (nullptr)
   {
     Init ();
   }
@@ -38,62 +46,60 @@ namespace ycl
 
   void Pokemon::LoadSprites ()
   {
-    icon_ = new yap::Sprite (
-      new yap::Texture (graphicPokemonInfo_->GetIcon ()));
+    icon_ = new yap::Sprite (graphicPokemonInfo_->GetIconPath ());
 
-    if (shiny_)
+    if (gender_ == yap::Gender::Female)
     {
-      if (gender_ == yap::Gender::Female)
+      genderIcon_ = new yap::Sprite ("Pictures/Battle/FemaleIcon.png");
+
+      if (shiny_)
       {
         battleFront_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetShinyFemaleFront ()));
+          new yap::Texture (graphicPokemonInfo_->GetShinyFemaleFrontPath ()));
 
         battleBack_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetShinyFemaleBack ()));
+          new yap::Texture (graphicPokemonInfo_->GetShinyFemaleBackPath ()));
       }
       else
       {
         battleFront_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetShinyMaleFront ()));
+          new yap::Texture (graphicPokemonInfo_->GetFemaleFrontPath ()));
 
         battleBack_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetShinyMaleBack ()));
+          new yap::Texture (graphicPokemonInfo_->GetFemaleBackPath ()));
       }
     }
     else
     {
-      if (gender_ == yap::Gender::Female)
+      genderIcon_ = new yap::Sprite ("Pictures/Battle/MaleIcon.png");
+
+      if (shiny_)
       {
         battleFront_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetFemaleFront ()));
+          new yap::Texture (graphicPokemonInfo_->GetShinyMaleFrontPath ()));
 
         battleBack_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetFemaleBack ()));
+          new yap::Texture (graphicPokemonInfo_->GetShinyMaleBackPath ()));
       }
       else
       {
         battleFront_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetMaleFront ()));
+          new yap::Texture (graphicPokemonInfo_->GetMaleFrontPath ()));
 
         battleBack_ = new yap::Sprite (
-          new yap::Texture (graphicPokemonInfo_->GetMaleBack ()));
+          new yap::Texture (graphicPokemonInfo_->GetMaleBackPath ()));
       }
     }
   }
 
+  // Getters
   yap::ISprite& Pokemon::GetIcon () const
-  {
-    return *icon_;
-  }
-
+  { return *icon_; }
+  yap::ISprite& Pokemon::GetGenderIcon () const
+  { return *genderIcon_; }
   yap::ISprite& Pokemon::GetBattleBack () const
-  {
-    return *battleBack_;
-  }
-
+  { return *battleBack_; }
   yap::ISprite& Pokemon::GetBattleFront () const
-  {
-    return *battleFront_;
-  }
+  { return *battleFront_; }
 
 } // namespace ycl

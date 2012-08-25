@@ -22,19 +22,18 @@ endif()
 # external libs
 if( WIN32 )
     SET( EXT_LIB_DIR
-    	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Debug" #SFML debug lib directory.
-        	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Release" #SFML release lib directory.
-                	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/postgresql" #PostgreSQL lib directory.
-                        	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Debug" #Boost debug lib directory.
-                                	"${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Release"  #Boost release lib directory.
-)
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Debug #SFML debug lib directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Release #SFML release lib directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/postgresql #PostgreSQL lib directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Debug #Boost debug lib directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Release  #Boost release lib directory.
+	)
 
-SET( EXT_INCLUDE_DIR
-     "${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2" #SFML include directory.
-     "${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql" #PostgreSQL include directory.
-     "${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0" #Boost include directory.
-)
-
+	SET( EXT_INCLUDE_DIR
+        ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2 #SFML include directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql #PostgreSQL include directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0 #Boost include directory.
+	)
 endif()
 
 if( UNIX )

@@ -1,6 +1,8 @@
 #include "Battle/PlayerTrainer.hpp"
-#include "Battle/PokemonFighterTeam.hpp"
+//#include "Battle/PokemonFighterTeam.hpp"
+#include "Pokemon/PokemonTeam.hpp"
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
+#include "YAPOG/System/Error/Exception.hpp"
 
 namespace ycl
 {
@@ -16,20 +18,23 @@ namespace ycl
   }
 
   /// Getters.
+  /*
   PokemonFighterTeam& PlayerTrainer::GetTeam ()
-  {
-    return *team_;
-  }
+  { return *team_; }
+  */
+  PokemonTeam& PlayerTrainer::GetTeam ()
+  { return *team_; }
 
   /// Setters.
+  /*
   void PlayerTrainer::SetTeam (PokemonFighterTeam* value)
-  {
-    team_ = value;
-  }
+  { team_ = value; }
+  */
+
+  void PlayerTrainer::SetTeam (PokemonTeam* value)
+  { team_ = value; }
 
   void PlayerTrainer::SetPokedex (yap::Pokedex* value)
-  {
-    pokedex_ = value;
-  }
+  { pokedex_ = value; }
 
 } // namespace yap

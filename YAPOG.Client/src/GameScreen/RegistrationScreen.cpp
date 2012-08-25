@@ -1,8 +1,9 @@
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
+#include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "GameScreen/RegistrationScreen.hpp"
-#include "YAPOG/System/RandomHelper.hpp"
 #include "Client/Session.hpp"
 
 namespace ycl
@@ -24,6 +25,20 @@ namespace ycl
   {
     BaseScreen::HandleInit ();
 
+    session_.OnRegistrationValidation += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      nextScreen_ = "MainMenu";
+    };
+
+    session_.OnRegistrationError += [this] (
+      Session& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      registrationWidget_.SetErrorText ("Failed to register !");
+    };
+
     yap::PictureBox* bg = new yap::PictureBox ();
 
     yap::RandomHelper* random;
@@ -31,24 +46,25 @@ namespace ycl
     switch (nb)
     {
     case 0:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/mew.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/mew.jpg"));
       break;
     case 1:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/fete.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/fete.jpg"));
       break;
     case 2:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/rondoudou.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/rondoudou.jpg"));
       break;
     case 3:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/dresseur.jpg");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/dresseur.jpg"));
       break;
     case 4:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/ronflex.gif"));
       break;
     default:
-      bg->SetPicture ("WindowSkins/BasicSkin/Background/ronflex.gif");
+      bg->SetPicture (new yap::Sprite ("WindowSkins/BasicSkin/Background/ronflex.gif"));
       break;
     }
+
     bg->SetSize (yap::Vector2 (800, 600));
     guiManager_->AddChild (*bg);
     guiManager_->AddChild (registrationWidget_);
@@ -84,13 +100,19 @@ namespace ycl
 
         session_.Register (login, password, email);
 
-        //registrationWidget_.SetErrorText ("Ce nom d'utilisateur existe déjà !");
-
-        nextScreen_ = "MainMenu";
         return true;
       }
 
     }
     return false;
   }
+
+  void RegistrationScreen::HandleDeactivate ()
+  {
+    registrationWidget_.GetLoginTextBox ().Clear ();
+    registrationWidget_.GetPasswordTextBox ().Clear ();
+    registrationWidget_.GetEmailTextBox ().Clear ();
+    registrationWidget_.SetErrorText ("");
+  }
+
 } // namespace ycl

@@ -197,33 +197,33 @@ namespace yap
 
     auto graphicReader = reader->ChangeRoot (DEFAULT_XML_GRAPHICS_NODE_NAME);
 
-    pokemonInfo_.SetIcon (graphicReader->ReadString (DEFAULT_XML_ICON_NODE_NAME));
+    pokemonInfo_.SetIconPath (graphicReader->ReadString (DEFAULT_XML_ICON_NODE_NAME));
 
     // <male>
     auto maleReader = graphicReader->ChangeRoot (DEFAULT_XML_MALE_NODE_NAME);
-    pokemonInfo_.SetMaleFront 
+    pokemonInfo_.SetMaleFrontPath 
       (maleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
-    pokemonInfo_.SetMaleBack 
+    pokemonInfo_.SetMaleBackPath 
       (maleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
 
     auto shinyMaleReader = maleReader->ChangeRoot (DEFAULT_XML_SHINY_NODE_NAME);
-    pokemonInfo_.SetShinyMaleFront 
+    pokemonInfo_.SetShinyMaleFrontPath 
       (shinyMaleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
-    pokemonInfo_.SetShinyMaleBack 
+    pokemonInfo_.SetShinyMaleBackPath 
       (shinyMaleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
     // </male>
 
     // <female>
     auto femaleReader = graphicReader->ChangeRoot (DEFAULT_XML_FEMALE_NODE_NAME);
-    pokemonInfo_.SetFemaleFront 
+    pokemonInfo_.SetFemaleFrontPath 
       (femaleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
-    pokemonInfo_.SetFemaleBack 
+    pokemonInfo_.SetFemaleBackPath 
       (femaleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
 
     auto shinyFemaleReader = femaleReader->ChangeRoot (DEFAULT_XML_SHINY_NODE_NAME);
-    pokemonInfo_.SetShinyFemaleFront 
+    pokemonInfo_.SetShinyFemaleFrontPath 
       (shinyFemaleReader->ReadString (DEFAULT_XML_FRONT_NODE_NAME));
-    pokemonInfo_.SetShinyFemaleBack 
+    pokemonInfo_.SetShinyFemaleBackPath 
       (shinyFemaleReader->ReadString (DEFAULT_XML_BACK_NODE_NAME));
     // </female>
   }

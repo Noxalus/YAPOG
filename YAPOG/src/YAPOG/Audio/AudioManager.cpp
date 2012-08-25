@@ -7,6 +7,7 @@ namespace yap
 {
   AudioManager::AudioManager ()
     : currentMusic_ (nullptr)
+    , previousMusic_ (nullptr)
     , currentSound_ (new sf::Sound ())
   {
   }
@@ -22,14 +23,21 @@ namespace yap
     return instance_;
   }
 
-  void AudioManager::PlayMusic (const String& musicName)
+  void AudioManager::PlayMusic (const String& musicName, bool fromBegin)
   {    
     if (currentMusic_ != nullptr)
-      currentMusic_->stop ();
+    {
+      currentMusic_->pause ();
+      previousMusic_ = currentMusic_;
+    }
 
     currentMusic_ = &ContentManager::Instance ().LoadMusic (musicName);
 
     currentMusic_->setLoop (true);
+
+    if (fromBegin)
+      currentMusic_->stop ();
+
     currentMusic_->play ();
   }
 
@@ -42,6 +50,19 @@ namespace yap
       ContentManager::Instance ().LoadSoundBuffer (soundName));
 
     currentSound_->play ();
+  }
+
+  void AudioManager::ResumePreviousMusic ()
+  {
+    if (previousMusic_ != nullptr)
+    {
+      void* tmp = currentMusic_;
+
+      currentMusic_->pause ();
+      previousMusic_->play ();
+      currentMusic_ = previousMusic_;
+      previousMusic_ = (sf::Music*)tmp;
+    }
   }
 
 } // namespace yap
