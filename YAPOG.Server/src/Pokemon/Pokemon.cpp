@@ -26,7 +26,7 @@ namespace yse
     const yap::PokemonStatus& status,
     const bool shiny,
     const yap::Int16& loyalty,
-    const yap::collection::Array<yap::PokemonMove*>& moveSet,
+    const yap::PokemonMoveSet& moveSet,
     const yap::ID& natureID,
     const yap::uint& exp,
     const yap::UInt8& boxNumber,

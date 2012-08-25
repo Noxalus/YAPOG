@@ -1,5 +1,5 @@
-#ifndef YAPOG_POKEMONSKILL_HPP
-# define YAPOG_POKEMONSKILL_HPP
+#ifndef YAPOG_POKEMONMOVE_HPP
+# define YAPOG_POKEMONMOVE_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
@@ -12,9 +12,11 @@ namespace yap
 {
   class YAPOG_LIB PokemonMove
   {
+    DISALLOW_ASSIGN (PokemonMove);
   public:
     PokemonMove ();
     PokemonMove (const ID& skillID);
+    PokemonMove (const PokemonMove& copy);
 
     void SetSkillInfo (const ID& skillID);
 
@@ -26,6 +28,10 @@ namespace yap
     const UInt16& GetMaxPP () const;
     const TypeInfo& GetType () const;
     const UInt16& GetCategory () const;
+
+    /// Setters
+    void SetPP (const UInt16& value);
+    void SetMaxPP (const UInt16& value);
 
     /// @brief Reset the PP to the maxPP value.
     void Refill ();
@@ -51,4 +57,4 @@ namespace yap
 
 } // namespace yap
 
-#endif // YAPOG_POKEMONSKILL_HPP
+#endif // YAPOG_POKEMONMOVE_HPP

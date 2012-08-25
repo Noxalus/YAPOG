@@ -61,8 +61,8 @@ namespace yse
   }
 
   Pokemon* PokemonTable::CreatePokemon (
-    yap::PokemonStat stats, 
-    yap::collection::Array<yap::PokemonMove*> moveSet)
+    const yap::PokemonStat& stats, 
+    const yap::PokemonMoveSet& moveSet)
   {
     Pokemon* pokemon = new Pokemon (
       id_, 

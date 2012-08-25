@@ -9,9 +9,14 @@
 # include "Database/Requests/Selects/ISelectRequest.hpp"
 # include "Database/Tables/PokemonMoveTable.hpp"
 
+namespace yap
+{
+  class PokemonMoveSet;
+}
+
 namespace yse
 {
-  class PokemonTeam;
+  class PokemonTable;
 
   class PokemonMoveSelectRequest : public ISelectRequest
   {
@@ -20,7 +25,8 @@ namespace yse
   public:
     PokemonMoveSelectRequest (yap::DatabaseManager& dm);
 
-    bool Select (PokemonMoveTable& pokemonTable);
+    //bool Select (PokemonMoveTable& pokemonTable);
+    yap::PokemonMoveSet* SelectPokemonMoves (const yap::ID& pokemonID);
 
   private:
     yap::DatabaseManager& databaseManager_;

@@ -1,8 +1,10 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Collection/Array.hpp"
 #include "YAPOG/Database/DatabaseStream.hpp"
+#include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
 
 #include "Database/Requests/Selects/PokemonSelectRequest.hpp"
+#include "Database/Requests/Selects/PokemonMoveSelectRequest.hpp"
 #include "Pokemon/PokemonTeam.hpp"
 
 namespace yse
@@ -224,7 +226,9 @@ namespace yse
         speed);
 
       // Get the Pokemon's moves from PokemonMoveSelectRequest
-      yap::collection::Array<yap::PokemonMove*> moveSet (4, nullptr);
+      PokemonMoveSelectRequest selectPokemonMoves (databaseManager_);
+      const yap::PokemonMoveSet& moveSet = 
+        *selectPokemonMoves.SelectPokemonMoves (pokemonTable->id_);
 
       pokemonTeam->AddPokemon (pokemonTable->CreatePokemon (stats, moveSet));
 

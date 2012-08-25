@@ -4,6 +4,8 @@
 #include "YAPOG/Graphics/RectReader.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
+#include "YAPOG/Game/Pokemon/PokemonMove.hpp"
+#include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
 
 #include "Client/User.hpp"
 #include "World/World.hpp"
@@ -344,7 +346,19 @@ namespace ycl
         speed);
 
       // Read the Pokemon's move
-      yap::collection::Array<yap::PokemonMove*> moveSet (4, nullptr);
+      yap::PokemonMoveSet moveSet;
+      yap::UInt8 moveNumber = packet.ReadUChar ();
+
+      for (int index = 0; index < moveNumber; index++)
+      {
+        yap::PokemonMove* move = new yap::PokemonMove (packet.ReadID ());
+        yap::UInt8 moveIndex = packet.ReadUChar ();
+
+        move->SetPP (packet.ReadUInt16 ());
+        move->SetMaxPP (packet.ReadUInt16 ());
+
+        moveSet.AddMove (move, moveIndex);
+      }
 
       Pokemon* currentPokemon = new Pokemon (
         uniqueID,

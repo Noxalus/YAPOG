@@ -5,10 +5,15 @@
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStatus.hpp"
-# include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 # include "YAPOG/Game/Pokemon/Gender.hpp"
 
 # include "Database/Tables/ITable.hpp"
+
+namespace yap
+{
+  class PokemonStat;
+  class PokemonMoveSet;
+}
 
 namespace yse
 {
@@ -23,8 +28,8 @@ namespace yse
     void LoadFromPokemon (const Pokemon& pokemon);
 
     Pokemon* CreatePokemon (
-      yap::PokemonStat stats, 
-      yap::collection::Array<yap::PokemonMove*> moveSet);
+      const yap::PokemonStat& stats, 
+      const yap::PokemonMoveSet& moveSet);
 
     yap::ID accountID_;
     yap::ID id_;

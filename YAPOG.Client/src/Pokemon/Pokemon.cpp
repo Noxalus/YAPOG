@@ -3,6 +3,7 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
 
 #include "Pokemon/Pokemon.hpp"
 #include "Pokemon/PokemonInfo.hpp"
@@ -41,7 +42,7 @@ namespace ycl
     const yap::PokemonStatus& status,
     const bool shiny,
     const yap::Int16& loyalty,
-    const yap::collection::Array<yap::PokemonMove*>& moveSet,
+    const yap::PokemonMoveSet& moveSet,
     const yap::ID& natureID,
     const yap::uint& exp,
     const yap::UInt8& boxNumber,

@@ -133,18 +133,18 @@ namespace yap
   }
 
   void PokemonInfo::InitMoveSet (
-    collection::Array<PokemonMove*>& moveSet,
+    PokemonMoveSet& moveSet,
     const UInt16& level)
   {
     int i = level;
-    int skillNumber = 0;
+    UInt8 skillNumber = 0;
     while (i >= 1 && skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER)
     {
       if (baseSkills_.Contains (i))
       {
         for (const ID& skillID : baseSkills_[i])
         {
-          moveSet[skillNumber] = new PokemonMove (skillID);
+          moveSet.AddMove (new PokemonMove (skillID), skillNumber);
 
           if (skillNumber < Pokemon::MAX_POKEMON_MOVE_NUMBER - 1)
             skillNumber++;

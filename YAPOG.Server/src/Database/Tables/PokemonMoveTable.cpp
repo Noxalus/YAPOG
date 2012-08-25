@@ -21,7 +21,8 @@ namespace yse
     pokemonID_ = pokemon.GetUniqueID ();
     index_ = index;
 
-    yap::collection::Array<yap::PokemonMove*> moves = pokemon.GetMoves ();
+    yap::collection::Array<yap::PokemonMove*> moves = 
+      pokemon.GetMoveSet ().GetMoves ();
 
     if (moves[index.GetValue ()] == nullptr)
     {

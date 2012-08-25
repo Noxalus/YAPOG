@@ -2,6 +2,7 @@
 #include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/Pokemon/PokemonMove.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 namespace yap
 {
@@ -13,6 +14,7 @@ namespace yap
     : staticID_ (DEFAULT_STATIC_ID) 
     , currentPP_ (DEFAULT_PP_VALUE)
     , maxPP_ (DEFAULT_MAX_PP_VALUE)
+    , skillInfo_ (nullptr)
   {
     skillInfo_ = new SkillInfo ();
   }
@@ -21,8 +23,18 @@ namespace yap
     :  staticID_ (skillID) 
     , currentPP_ (DEFAULT_PP_VALUE)
     , maxPP_ (DEFAULT_MAX_PP_VALUE)
+    , skillInfo_ (nullptr)
   {
     SetSkillInfo (skillID);
+  }
+
+  PokemonMove::PokemonMove (const PokemonMove& copy)
+    : staticID_ (copy.staticID_)
+    , currentPP_ (copy.currentPP_)
+    , maxPP_ (copy.maxPP_)
+    , skillInfo_ (nullptr)
+  {
+    SetSkillInfo (copy.staticID_);
   }
 
   // Getters
@@ -64,6 +76,19 @@ namespace yap
 
     return skillInfo_->GetMaxPP ();
   }
+
+  // Setters
+  void PokemonMove::SetPP (const UInt16& value)
+  {
+    currentPP_ = yap::MathHelper::Clamp (value, DEFAULT_PP_VALUE, maxPP_);
+  }
+
+  void PokemonMove::SetMaxPP (const UInt16& value)
+  {
+    maxPP_ = yap::MathHelper::Clamp (
+      value, DEFAULT_MAX_PP_VALUE, GetLimitPPMax ());
+  }
+
 
   void PokemonMove::SetSkillInfo (const ID& skillID)
   {

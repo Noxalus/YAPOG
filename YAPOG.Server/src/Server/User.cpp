@@ -3,6 +3,7 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Chat/GameMessage.hpp"
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
 
 #include "Server/User.hpp"
 #include "World/World.hpp"
@@ -303,6 +304,25 @@ namespace yse
       packet.Write (stats.GetSpecialAttack ().GetIndividualValue ());
       packet.Write (stats.GetSpecialDefense ().GetIndividualValue ());
       packet.Write (stats.GetSpeed ().GetIndividualValue ());
+
+      // Send Pokemon's moves
+      const yap::PokemonMoveSet& moveSet =
+        currentPokemon->GetMoveSet ();
+      yap::UInt8 moveNumber = currentPokemon->GetMoveSet ().GetMoveNumber ();
+
+      // Send the move number of the Pokemon
+      packet.Write (moveNumber);
+
+      for (yap::UInt8 index = 0; index < 4; index++)
+      {
+        if (moveSet.GetMove (index) != nullptr)
+        {
+          packet.Write (moveSet.GetMove (index)->GetStaticID ());
+          packet.Write (index);
+          packet.Write (moveSet.GetMove (index)->GetCurrentPP ());
+          packet.Write (moveSet.GetMove (index)->GetMaxPP ());
+        }
+      }
 
     }
 

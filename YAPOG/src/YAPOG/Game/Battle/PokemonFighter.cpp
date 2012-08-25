@@ -74,22 +74,6 @@ namespace yap
     return stats_.GetSpeed ();
   }
 
-  /// Displaying
-  void PokemonFighter::PrintBattleStats ()
-  {
-    std::cout 
-      << GetName () << " ("
-      << GetStringFromGender (GetGender ()) << ")"
-      << " N." << GetLevel () << std::endl
-      << "PV: " << GetCurrentHP () << "/" << GetMaxHP ()
-      << std::endl;
-  }
-
-  void PokemonFighter::PrintStats ()
-  {
-    originalPokemon_->PrintStats ();
-  }
-
   /// @name IBattleEntity members
   /// @{
   const yap::String& PokemonFighter::GetName () const
@@ -129,7 +113,7 @@ namespace yap
 
   const collection::Array<PokemonMove*>& PokemonFighter::GetMoves () const
   {
-    return originalPokemon_->GetMoves ();
+    return originalPokemon_->GetMoveSet ().GetMoves ();
   }
 
   const PokemonMove& PokemonFighter::GetMove (int index) const

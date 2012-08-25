@@ -19,9 +19,6 @@ namespace yap
     const SpecialDefense& GetSpecialDefense () const;
     const Speed& GetSpeed () const;
 
-    void PrintBattleStats ();
-    void PrintStats ();
-
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;

@@ -231,6 +231,8 @@ ${src_root}/Game/Pokemon/SkillInfo.cpp
 ${inc_root}/Game/Pokemon/SkillInfo.hpp
 ${src_root}/Game/Pokemon/PokemonMove.cpp
 ${inc_root}/Game/Pokemon/PokemonMove.hpp
+${src_root}/Game/Pokemon/PokemonMoveSet.cpp
+${inc_root}/Game/Pokemon/PokemonMoveSet.hpp
 ${src_root}/Game/Pokemon/PokemonStat.cpp
 ${inc_root}/Game/Pokemon/PokemonStat.hpp
 ${src_root}/Game/Pokemon/BaseStat.cpp

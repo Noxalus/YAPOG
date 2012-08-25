@@ -10,7 +10,7 @@
 # include "YAPOG/Game/Pokemon/PokemonStatus.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
 # include "YAPOG/Game/Pokemon/PokemonType.hpp"
-# include "YAPOG/Game/Pokemon/PokemonMove.hpp"
+# include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
 # include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 # include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 # include "YAPOG/Game/Pokemon/NatureInfo.hpp"
@@ -39,7 +39,7 @@ namespace yap
       const PokemonStatus& status,
       const bool shiny,
       const Int16& loyalty,
-      const collection::Array<PokemonMove*>& moveSet,
+      const PokemonMoveSet& moveSet,
       const ID& natureID,
       const uint& exp,
       const UInt8& boxNumber,
@@ -68,21 +68,19 @@ namespace yap
     const yap::String& GetCatchDate () const;
     UInt16 GetCurrentHP () const;
     UInt16 GetMaxHP () const;
-    const collection::Array<PokemonMove*>& GetMoves () const;
+    const PokemonMoveSet& GetMoveSet () const;
     const String& GetIconPath () const;
 
     ///
 
-    bool LearnSkill (const ID& skillID);
-    void ReplaceSkill (const ID& skillID, int index);
+    bool LearnMove (const ID& moveID);
+    void ReplaceMove (const ID& moveID, UInt8 index);
 
     /// @brief Restore all the hp of the Pokemon
     void RestoreHP ();
     void TakeDamage (int damage);
 
     void AddExperience (const Int32& value);
-
-    void PrintStats ();
 
     static const int MAX_POKEMON_MOVE_NUMBER;
     static const ID DEFAULT_NATURE_ID;
@@ -98,7 +96,7 @@ namespace yap
     PokemonStatus status_;
     bool shiny_;
     Int16 loyalty_;
-    collection::Array<PokemonMove*> moveSet_;
+    PokemonMoveSet moveSet_;
     PokemonInfo* pokemonInfo_;
     NatureInfo* nature_;
     PokemonExperience* exp_;
@@ -109,7 +107,6 @@ namespace yap
   private:
     void InitExperience ();
     void InitMoveSet ();
-    void Reset ();
     void Evolve ();
     void SpecifyGender ();
   };

@@ -6,6 +6,11 @@
 
 # include "Database/Tables/PokemonTable.hpp"
 
+namespace yap
+{
+  class PokemonMoveSet;
+}
+
 namespace yse
 {
   class Pokemon : public yap::Pokemon
@@ -30,7 +35,7 @@ namespace yse
       const yap::PokemonStatus& status,
       const bool shiny,
       const yap::Int16& loyalty,
-      const yap::collection::Array<yap::PokemonMove*>& moveSet,
+      const yap::PokemonMoveSet& moveSet,
       const yap::ID& natureID,
       const yap::uint& exp,
       const yap::UInt8& boxNumber,
