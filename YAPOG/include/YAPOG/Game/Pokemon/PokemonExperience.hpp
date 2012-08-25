@@ -27,13 +27,10 @@ namespace yap
     static const UInt16 INITIAL_LEVEL_VALUE;
     static const UInt16 MAX_LEVEL_VALUE;
 
-  protected:
-    UInt32 value_;
-
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level) = 0;
-    virtual UInt16 ComputeLevel () = 0;
-
+    
+    UInt32 value_;
     UInt32 experienceToNextLevel_;
     UInt32 previousValue_;
     UInt16 currentLevel_;

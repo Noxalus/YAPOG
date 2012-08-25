@@ -12,9 +12,4 @@ namespace yap
     return ((4.f / 5.f) * MathHelper::Pow (level, 3));
   }
 
-  UInt16 ExperienceFast::ComputeLevel ()
-  {
-    return 1;
-  }
-
 } // namespace yap

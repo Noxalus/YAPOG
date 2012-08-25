@@ -20,8 +20,10 @@ namespace yse
   public:
     PokemonSelectRequest (yap::DatabaseManager& dm);
 
+    /*
     bool Select (PokemonTable& pokemonTable);
     PokemonTable* SelectPokemon (const yap::ID& pokemonID);
+    */
     PokemonTeam* SelectPokemonTeam (const yap::ID& accountID);
 
   private:

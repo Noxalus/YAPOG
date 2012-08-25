@@ -17,7 +17,9 @@ namespace yap
 
   void PokemonExperience::Init (UInt32 experience)
   {
-    ComputeExperienceToNextLevel (ComputeLevel ());
+    value_ = experience;
+
+    ComputeExperienceToNextLevel (GetLevel ());
   }
 
   void PokemonExperience::InitFromLevel (UInt16 level)
@@ -57,7 +59,15 @@ namespace yap
     if (previousValue_ != value_)
     {
       previousValue_ = value_;
-      currentLevel_ = ComputeLevel ();
+
+      for (int level = currentLevel_ + 1; level <= MAX_LEVEL_VALUE; level++)
+      {
+        if (ComputeExperienceFromLevel (level) > value_)
+        {
+          currentLevel_ = level - 1;
+          break;
+        }
+      }
     }
 
     return currentLevel_;
@@ -66,7 +76,7 @@ namespace yap
   int PokemonExperience::AddExperience (const UInt32& value)
   {
     int levelEarned = 0;
-    UInt16 level = ComputeLevel ();
+    UInt16 level = GetLevel ();
 
     if ((value_ + value) <= MAX_EXPERIENCE_VALUE)
       value_ += value;

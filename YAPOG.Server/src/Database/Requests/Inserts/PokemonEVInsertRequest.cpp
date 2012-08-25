@@ -20,20 +20,18 @@ namespace yse
     (yap::DatabaseManager& databaseManager)
   {
     yap::String query_string = 
-      "INSERT INTO pokemon_stats ("
+      "INSERT INTO pokemon_ev ("
       "pokemon_id, "
-      "pokemon_stats_hp, "
-      "pokemon_stats_max_hp, "
-      "pokemon_stats_attack, "
-      "pokemon_stats_defense, "
-      "pokemon_stats_special_attack, "
-      "pokemon_stats_special_defense, "
-      "pokemon_stats_speed"
-      ")"
+      "pokemon_ev_hp, "
+      "pokemon_ev_attack, "
+      "pokemon_ev_defense, "
+      "pokemon_ev_special_attack, "
+      "pokemon_ev_special_defense, "
+      "pokemon_ev_speed"
+      ") "
       "VALUES ("
       ":pokemonID, "
       ":hp, "
-      ":maxHP, "
       ":attack, "
       ":defense, "
       ":specialAttack, "
@@ -46,16 +44,14 @@ namespace yse
 
     try
     {
-      /*
-      query.Write (pokemonStatsTable_.pokemonID_);
-      query.Write (pokemonStatsTable_.stats_.GetHitPoint ().GetCurrentValue ());
-      query.Write (pokemonStatsTable_.stats_.GetHitPoint ().GetValue ());
-      query.Write (pokemonStatsTable_.stats_.GetAttack ().GetValue ());
-      query.Write (pokemonStatsTable_.stats_.GetDefense ().GetValue ());
-      query.Write (pokemonStatsTable_.stats_.GetSpecialAttack ().GetValue ());
-      query.Write (pokemonStatsTable_.stats_.GetSpecialDefense ().GetValue ());
-      query.Write (pokemonStatsTable_.stats_.GetSpeed ().GetValue ());
-      */
+      query.Write (pokemonEVTable_.pokemonID_);
+      query.Write (pokemonEVTable_.hp_);
+      query.Write (pokemonEVTable_.attack_);
+      query.Write (pokemonEVTable_.defense_);
+      query.Write (pokemonEVTable_.specialAttack_);
+      query.Write (pokemonEVTable_.specialDefense_);
+      query.Write (pokemonEVTable_.speed_);
+
       return true;
     }
     catch (const pgs::pg_excpt& e)

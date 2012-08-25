@@ -12,12 +12,14 @@
 #include "Database/Tables/PokemonTable.hpp"
 #include "Database/Tables/PokemonStatsTable.hpp"
 #include "Database/Tables/PokemonMoveTable.hpp"
+#include "Database/Tables/PokemonEVTable.hpp"
 
 #include "Database/Requests/Inserts/AccountInsertRequest.hpp"
 #include "Database/Requests/Inserts/PlayerDataInsertRequest.hpp"
 #include "Database/Requests/Inserts/PokemonInsertRequest.hpp"
 #include "Database/Requests/Inserts/PokemonStatsInsertRequest.hpp"
 #include "Database/Requests/Inserts/PokemonMoveInsertRequest.hpp"
+#include "Database/Requests/Inserts/PokemonEVInsertRequest.hpp"
 
 #include "Database/Requests/Selects/AccountSelectRequest.hpp"
 #include "Database/Requests/Selects/PlayerDataSelectRequest.hpp"
@@ -109,7 +111,14 @@ namespace yse
               pokemonStatsTable.pokemonID_ = pokemonInsert.GetID ();
               PokemonStatsInsertRequest pokemonStatsInsert (pokemonStatsTable);
 
-              if (pokemonStatsInsert.Insert (databaseManager_))
+              // Insertion of the current Pokemon's EV
+              PokemonEVTable pokemonEVTable;
+              pokemonEVTable.LoadFromPokemon (*p);
+              pokemonEVTable.pokemonID_ = pokemonInsert.GetID ();
+              PokemonEVInsertRequest pokemonEVInsert (pokemonEVTable);
+
+              if (pokemonStatsInsert.Insert (databaseManager_)
+                && pokemonEVInsert.Insert (databaseManager_))
               {
                 for (int i = 0; i < 4; i++)
                 {

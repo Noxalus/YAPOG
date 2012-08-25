@@ -11,9 +11,9 @@ namespace yse
   {
   }
 
+  /*
   bool PokemonStatsSelectRequest::Select (PokemonStatsTable& pokemonTable)
   {
-    /*
     yap::String queryString = 
       "SELECT "
       "account_id, "
@@ -59,9 +59,11 @@ namespace yse
 
     if (!select.EndOfStream ())
       throw yap::DatabaseException ("Pokemon information loading error !");
-    */
 
     return false;
   }
+  */
+
+
 
 } // namespace yse

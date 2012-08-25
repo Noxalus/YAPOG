@@ -30,9 +30,4 @@ namespace yap
     return value;
   }
 
-  UInt16 ExperienceFluctuating::ComputeLevel ()
-  {
-    return 1;
-  }
-
 } // namespace yap

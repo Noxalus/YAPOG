@@ -4,25 +4,7 @@
 
 -- Dumped from database version 9.1.4
 -- Dumped by pg_dump version 9.1.4
--- Started on 2012-08-25 04:01:36
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
---
--- TOC entry 1894 (class 1262 OID 16438)
--- Name: yapog; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE yapog WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'French_France.1252' LC_CTYPE = 'French_France.1252';
-
-
-ALTER DATABASE yapog OWNER TO postgres;
-
-\connect yapog
+-- Started on 2012-08-25 16:49:39
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -54,7 +36,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 161 (class 1259 OID 16513)
+-- TOC entry 161 (class 1259 OID 16978)
 -- Dependencies: 6
 -- Name: account; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -75,7 +57,7 @@ CREATE TABLE account (
 ALTER TABLE public.account OWNER TO postgres;
 
 --
--- TOC entry 162 (class 1259 OID 16519)
+-- TOC entry 162 (class 1259 OID 16984)
 -- Dependencies: 6 161
 -- Name: account_account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
@@ -100,7 +82,7 @@ ALTER SEQUENCE account_account_id_seq OWNED BY account.account_id;
 
 
 --
--- TOC entry 163 (class 1259 OID 16521)
+-- TOC entry 163 (class 1259 OID 16986)
 -- Dependencies: 6
 -- Name: player_data; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -122,7 +104,7 @@ CREATE TABLE player_data (
 ALTER TABLE public.player_data OWNER TO postgres;
 
 --
--- TOC entry 164 (class 1259 OID 16605)
+-- TOC entry 164 (class 1259 OID 16989)
 -- Dependencies: 6
 -- Name: pokemon; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -141,14 +123,15 @@ CREATE TABLE pokemon (
     pokemon_trader_account_id integer,
     pokemon_box_number integer NOT NULL,
     pokemon_box_index integer NOT NULL,
-    pokemon_catch_date timestamp without time zone
+    pokemon_catch_date timestamp without time zone,
+    pokemon_status integer NOT NULL
 );
 
 
 ALTER TABLE public.pokemon OWNER TO postgres;
 
 --
--- TOC entry 167 (class 1259 OID 16637)
+-- TOC entry 165 (class 1259 OID 16992)
 -- Dependencies: 6
 -- Name: pokemon_ev; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -167,7 +150,7 @@ CREATE TABLE pokemon_ev (
 ALTER TABLE public.pokemon_ev OWNER TO postgres;
 
 --
--- TOC entry 166 (class 1259 OID 16627)
+-- TOC entry 166 (class 1259 OID 16995)
 -- Dependencies: 6
 -- Name: pokemon_move; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -184,7 +167,7 @@ CREATE TABLE pokemon_move (
 ALTER TABLE public.pokemon_move OWNER TO postgres;
 
 --
--- TOC entry 165 (class 1259 OID 16608)
+-- TOC entry 167 (class 1259 OID 16998)
 -- Dependencies: 164 6
 -- Name: pokemon_pokemon_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
@@ -201,7 +184,7 @@ ALTER TABLE public.pokemon_pokemon_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 1899 (class 0 OID 0)
--- Dependencies: 165
+-- Dependencies: 167
 -- Name: pokemon_pokemon_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -209,7 +192,7 @@ ALTER SEQUENCE pokemon_pokemon_id_seq OWNED BY pokemon.pokemon_id;
 
 
 --
--- TOC entry 168 (class 1259 OID 16647)
+-- TOC entry 168 (class 1259 OID 17000)
 -- Dependencies: 6
 -- Name: pokemon_stats; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -229,7 +212,7 @@ CREATE TABLE pokemon_stats (
 ALTER TABLE public.pokemon_stats OWNER TO postgres;
 
 --
--- TOC entry 1871 (class 2604 OID 16524)
+-- TOC entry 1871 (class 2604 OID 17003)
 -- Dependencies: 162 161
 -- Name: account_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -238,8 +221,8 @@ ALTER TABLE ONLY account ALTER COLUMN account_id SET DEFAULT nextval('account_ac
 
 
 --
--- TOC entry 1872 (class 2604 OID 16610)
--- Dependencies: 165 164
+-- TOC entry 1872 (class 2604 OID 17004)
+-- Dependencies: 167 164
 -- Name: pokemon_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -247,7 +230,7 @@ ALTER TABLE ONLY pokemon ALTER COLUMN pokemon_id SET DEFAULT nextval('pokemon_po
 
 
 --
--- TOC entry 1875 (class 2606 OID 16526)
+-- TOC entry 1875 (class 2606 OID 17006)
 -- Dependencies: 161 161
 -- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -257,7 +240,7 @@ ALTER TABLE ONLY account
 
 
 --
--- TOC entry 1877 (class 2606 OID 16528)
+-- TOC entry 1877 (class 2606 OID 17008)
 -- Dependencies: 163 163
 -- Name: player_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -267,8 +250,8 @@ ALTER TABLE ONLY player_data
 
 
 --
--- TOC entry 1884 (class 2606 OID 16641)
--- Dependencies: 167 167
+-- TOC entry 1882 (class 2606 OID 17010)
+-- Dependencies: 165 165
 -- Name: pokemon_ev_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -277,7 +260,7 @@ ALTER TABLE ONLY pokemon_ev
 
 
 --
--- TOC entry 1882 (class 2606 OID 16631)
+-- TOC entry 1884 (class 2606 OID 17012)
 -- Dependencies: 166 166 166
 -- Name: pokemon_move_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -287,7 +270,7 @@ ALTER TABLE ONLY pokemon_move
 
 
 --
--- TOC entry 1880 (class 2606 OID 16615)
+-- TOC entry 1880 (class 2606 OID 17014)
 -- Dependencies: 164 164
 -- Name: pokemon_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -297,7 +280,7 @@ ALTER TABLE ONLY pokemon
 
 
 --
--- TOC entry 1886 (class 2606 OID 16651)
+-- TOC entry 1886 (class 2606 OID 17016)
 -- Dependencies: 168 168
 -- Name: pokemon_stats_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -307,7 +290,7 @@ ALTER TABLE ONLY pokemon_stats
 
 
 --
--- TOC entry 1873 (class 1259 OID 16529)
+-- TOC entry 1873 (class 1259 OID 17017)
 -- Dependencies: 161 161
 -- Name: account_account_name_unique_index; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -316,7 +299,7 @@ CREATE UNIQUE INDEX account_account_name_unique_index ON account USING btree (lo
 
 
 --
--- TOC entry 1878 (class 1259 OID 16621)
+-- TOC entry 1878 (class 1259 OID 17018)
 -- Dependencies: 164
 -- Name: fki_pokemon_account_id_fkey; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -325,7 +308,7 @@ CREATE INDEX fki_pokemon_account_id_fkey ON pokemon USING btree (account_id);
 
 
 --
--- TOC entry 1887 (class 2606 OID 16600)
+-- TOC entry 1887 (class 2606 OID 17019)
 -- Dependencies: 1874 163 161
 -- Name: player_data_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -335,8 +318,8 @@ ALTER TABLE ONLY player_data
 
 
 --
--- TOC entry 1888 (class 2606 OID 16914)
--- Dependencies: 161 164 1874
+-- TOC entry 1888 (class 2606 OID 17024)
+-- Dependencies: 164 1874 161
 -- Name: pokemon_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -345,8 +328,8 @@ ALTER TABLE ONLY pokemon
 
 
 --
--- TOC entry 1890 (class 2606 OID 16904)
--- Dependencies: 167 1879 164
+-- TOC entry 1889 (class 2606 OID 17029)
+-- Dependencies: 164 165 1879
 -- Name: pokemon_ev_pokemon_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -355,8 +338,8 @@ ALTER TABLE ONLY pokemon_ev
 
 
 --
--- TOC entry 1889 (class 2606 OID 16890)
--- Dependencies: 1879 164 166
+-- TOC entry 1890 (class 2606 OID 17034)
+-- Dependencies: 166 1879 164
 -- Name: pokemon_move_pokemon_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -365,8 +348,8 @@ ALTER TABLE ONLY pokemon_move
 
 
 --
--- TOC entry 1891 (class 2606 OID 16885)
--- Dependencies: 168 164 1879
+-- TOC entry 1891 (class 2606 OID 17039)
+-- Dependencies: 164 168 1879
 -- Name: pokemon_stats_pokemon_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -386,7 +369,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-08-25 04:01:36
+-- Completed on 2012-08-25 16:49:40
 
 --
 -- PostgreSQL database dump complete

@@ -20,7 +20,7 @@ namespace yse
   public:
     PokemonStatsSelectRequest (yap::DatabaseManager& dm);
 
-    bool Select (PokemonStatsTable& pokemonTable);
+    //bool Select (PokemonStatsTable& pokemonTable);
 
   private:
     yap::DatabaseManager& databaseManager_;

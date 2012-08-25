@@ -35,9 +35,4 @@ namespace yap
     return value;
   }
 
-  UInt16 ExperienceErratic::ComputeLevel ()
-  {
-    return 1;
-  }
-
 } // namespace yap

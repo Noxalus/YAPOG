@@ -34,7 +34,8 @@ namespace yse
       "pokemon_trader_account_id, "
       "pokemon_box_number, "
       "pokemon_box_index, "
-      "pokemon_catch_date "
+      "pokemon_catch_date, "
+      "pokemon_status "
       ")"
       "VALUES ("
       ":accountID, "
@@ -49,7 +50,8 @@ namespace yse
       ":traderAccountID, "
       ":boxNumber, "
       ":boxIndex, "
-      "NOW ()"
+      "NOW (), "
+      ":status "
       ")"
       "RETURNING pokemon_id";
 
@@ -61,7 +63,7 @@ namespace yse
       query.Write (pokemonTable_.accountID_.GetValue ());
       query.Write (pokemonTable_.staticID_);
       query.Write (pokemonTable_.experience_);
-      query.Write ((yap::UInt8)pokemonTable_.gender_);
+      query.Write (static_cast<yap::UInt8>(pokemonTable_.gender_));
       query.Write (pokemonTable_.nickname_);
       query.Write (pokemonTable_.shiny_);
       query.Write (pokemonTable_.loyalty_);
@@ -70,6 +72,7 @@ namespace yse
       query.Write (pokemonTable_.traderAccountID_);
       query.Write (pokemonTable_.boxNumber_);
       query.Write (pokemonTable_.boxIndex_);
+      query.Write (static_cast<yap::UInt8>(pokemonTable_.status_));
 
       id_ = yap::ID (query.ReadInt ());
 

@@ -17,9 +17,4 @@ namespace yap
     return value;
   }
 
-  UInt16 ExperienceMediumSlow::ComputeLevel ()
-  {
-    return 1;
-  }
-
 } // namespace yap

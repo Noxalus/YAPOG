@@ -20,7 +20,8 @@ namespace yap
     PokemonStat ();
 
     PokemonStat (
-      UInt16 hp, 
+      UInt16 currentHP,
+      UInt16 maxHP, 
       UInt16 atk, 
       UInt16 def, 
       UInt16 speAtk, 

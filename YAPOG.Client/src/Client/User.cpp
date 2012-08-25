@@ -311,7 +311,22 @@ namespace ycl
       yap::String catchDate = packet.ReadString ();
 
       // Read the Pokemon's stats
-      yap::PokemonStat stats;
+      yap::UInt16 currentHP = packet.ReadUInt16 ();
+      yap::UInt16 maxHP = packet.ReadUInt16 ();
+      yap::UInt16 attack = packet.ReadUInt16 ();
+      yap::UInt16 defense = packet.ReadUInt16 ();
+      yap::UInt16 specialAttack = packet.ReadUInt16 ();
+      yap::UInt16 specialDefense = packet.ReadUInt16 ();
+      yap::UInt16 speed = packet.ReadUInt16 ();
+
+      yap::PokemonStat stats (
+        currentHP, 
+        maxHP, 
+        attack, 
+        defense, 
+        specialAttack, 
+        specialDefense, 
+        speed);
 
       // Read the Pokemon's move
       yap::collection::Array<yap::PokemonMove*> moveSet (4, nullptr);

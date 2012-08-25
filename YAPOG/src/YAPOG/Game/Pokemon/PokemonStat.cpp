@@ -8,19 +8,21 @@ namespace yap
   }
 
   PokemonStat::PokemonStat (
-    UInt16 hp, 
+    UInt16 currentHP,
+    UInt16 maxHP, 
     UInt16 atk, 
     UInt16 def, 
     UInt16 speAtk, 
     UInt16 speDef, 
     UInt16 speed)
-    : hitPoint_ (hp)
+    : hitPoint_ (maxHP)
     , attack_ (atk)
     , defense_ (def)
     , specialAttack_ (speAtk)
     , specialDefense_ (speDef)
     , speed_ (speed)
   {
+    hitPoint_.SetCurrentValue (currentHP);
   }
 
   PokemonStat::PokemonStat (

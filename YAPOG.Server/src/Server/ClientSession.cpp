@@ -156,8 +156,10 @@ namespace yse
       yap::DebugLogger::Instance ().LogLine (
         "Client logged: `" + login + "'.");
     }
-    catch (...)
+    catch (const yap::Exception& e)
     {
+      e.GetMessage (std::cerr);
+
       yap::Packet loginErrorPacket;
       loginErrorPacket.CreateFromType (
         yap::PacketType::ServerInfoLoginError);

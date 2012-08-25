@@ -15,7 +15,6 @@ namespace yap
 
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level);
-    virtual UInt16 ComputeLevel ();
   };
 } // namespace yap
 
