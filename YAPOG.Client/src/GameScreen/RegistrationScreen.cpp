@@ -10,8 +10,8 @@ namespace ycl
 {
   const yap::ScreenType RegistrationScreen::DEFAULT_NAME = "Registration";
 
-  RegistrationScreen::RegistrationScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  RegistrationScreen::RegistrationScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , registrationWidget_ ()
   {
     registrationWidget_.Init ();

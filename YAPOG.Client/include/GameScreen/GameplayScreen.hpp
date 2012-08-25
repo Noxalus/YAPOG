@@ -9,6 +9,13 @@
 # include "GameScreen/BaseScreen.hpp"
 # include "World/World.hpp"
 
+namespace yap
+{
+  struct IWorldDrawingPolicy;
+
+  class GameWorldGuiManager;
+} // namespace yap
+
 namespace ycl
 {
   class Player;
@@ -18,6 +25,7 @@ namespace ycl
   class PokedexWidget;
   class PokemonTeamWidget;
   class ChatWidget;
+  class MapRootWidget;
 
   class GameplayScreen : public BaseScreen
   {
@@ -25,7 +33,7 @@ namespace ycl
 
     public:
 
-      explicit GameplayScreen (yap::ICamera& worldCamera);
+      explicit GameplayScreen (yap::IDrawingContext& context);
       virtual ~GameplayScreen ();
 
     protected:
@@ -53,6 +61,8 @@ namespace ycl
       void SendApplyForce (const yap::Vector2& force);
       void SendGameInput (yap::GameInputType gameInputType, bool state);
 
+      void CreateWorldDrawingPolicy ();
+
       virtual void CreateGuiManager ();
 
       static const yap::ScreenType DEFAULT_NAME;
@@ -60,8 +70,8 @@ namespace ycl
       static const yap::Vector2 DEFAULT_WORLD_CAMERA_DEZOOM_FACTOR;
 
       World world_;
+      const yap::IWorldDrawingPolicy* worldDrawingPolicy_;
 
-      yap::ICamera& worldCamera_;
       yap::ProgressiveCameraController cameraController_;
 
       Player* player_;
@@ -73,6 +83,9 @@ namespace ycl
       /// @name Widgets.
       /// @{
       GameGuiManager* gameGuiManager_;
+
+      yap::GameWorldGuiManager* gameWorldGuiManager_;
+      MapRootWidget* mapRootWidget_;
 
       GameMainMenu* mainMenu_;
 

@@ -42,6 +42,9 @@ namespace ycl
       virtual float GetComparisonPoint () const;
 
       virtual int GetLayerDepth () const;
+
+      virtual void ChangeWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
       /// @}
 
       /// @name IDrawableDynamicWorldObject members.
@@ -70,6 +73,9 @@ namespace ycl
 
       virtual int HandleGetLayerDepth () const;
 
+      virtual void HandleChangeWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
+
     private:
 
       static const bool DEFAULT_VISIBLE_STATE;
@@ -81,6 +87,8 @@ namespace ycl
 
       bool isVisible_;
       sf::Color color_;
+
+      const yap::IWorldDrawingPolicy* worldDrawingPolicy_;
   };
 } // namespace ycl
 

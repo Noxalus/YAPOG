@@ -187,7 +187,7 @@ namespace yse
 
     //yap::ID playerMapWorldID = yap::ID (1);
 
-    yap::ID playerMapWorldID = 
+    yap::ID playerMapWorldID =
       account_->GetPlayerData ().GetMapID ();
 
     SetPlayer (

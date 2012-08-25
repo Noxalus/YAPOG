@@ -4,6 +4,7 @@
 #include "YAPOG/Graphics/Texture.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Game/Game.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "GameScreen/UpdateScreen.hpp"
@@ -12,8 +13,8 @@ namespace ycl
 {
   const yap::ScreenType UpdateScreen::DEFAULT_NAME = "Update";
 
-  UpdateScreen::UpdateScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  UpdateScreen::UpdateScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , lastlength_ (0)
     , fc_ (nullptr)
     , fileName_ ()
@@ -102,7 +103,7 @@ namespace ycl
 
   void UpdateScreen::HandleActivate ()
   {
-    yap::Game::CLEAR_COLOR = sf::Color::White;
+    context_.SetTargetClearColor (sf::Color::White);
 
     boost::filesystem::path client (boost::filesystem::current_path());
 

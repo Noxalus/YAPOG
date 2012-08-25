@@ -359,19 +359,18 @@ namespace ycl
   {
     SetScreenManager (new yap::GameScreenManager ());
 
-    GetScreenManager ().AddGameScreen (new LoadingScreen ());
-    GetScreenManager ().AddGameScreen (new UpdateScreen ());
-    GetScreenManager ().AddGameScreen (new OptionScreen ());
-    GetScreenManager ().AddGameScreen (new LoginScreen ());
+    GetScreenManager ().AddGameScreen (new LoadingScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new UpdateScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new OptionScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new LoginScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new GameplayScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new BattleScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new MainMenuScreen (*drawingContext_));
     GetScreenManager ().AddGameScreen (
-      new GameplayScreen (
-      drawingContext_->GetCamera (
-      "World")));
-    GetScreenManager ().AddGameScreen (new BattleScreen ());
-    GetScreenManager ().AddGameScreen (new MainMenuScreen ());
-    GetScreenManager ().AddGameScreen (new RegistrationScreen ());
-    GetScreenManager ().AddGameScreen (new SplashScreen ());
-    GetScreenManager ().AddGameScreen (new CreditScreen ());
+      new RegistrationScreen (
+        *drawingContext_));
+    GetScreenManager ().AddGameScreen (new SplashScreen (*drawingContext_));
+    GetScreenManager ().AddGameScreen (new CreditScreen (*drawingContext_));
 
     GetScreenManager ().Init ("Loading");
   }

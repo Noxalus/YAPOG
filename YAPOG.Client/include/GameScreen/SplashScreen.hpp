@@ -19,7 +19,7 @@ namespace ycl
 
     public:
 
-      SplashScreen ();
+      explicit SplashScreen (yap::IDrawingContext& context);
       virtual ~SplashScreen ();
 
     protected:

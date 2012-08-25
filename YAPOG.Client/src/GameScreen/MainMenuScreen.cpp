@@ -12,8 +12,8 @@ namespace ycl
 {
   const yap::ScreenType MainMenuScreen::DEFAULT_NAME = "MainMenu";
 
-  MainMenuScreen::MainMenuScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  MainMenuScreen::MainMenuScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
   {
   }
 

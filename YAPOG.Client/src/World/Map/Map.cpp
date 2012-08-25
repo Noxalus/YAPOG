@@ -10,6 +10,7 @@ namespace ycl
 
   Map::Map (const yap::ID& id)
     : yap::Map (id)
+    , worldDrawingPolicy_ (nullptr)
     , tileLayers_ ()
     , drawableObjects_ ()
     , drawableDynamicObjects_ ()
@@ -48,6 +49,8 @@ namespace ycl
     players_.Add (player->GetWorldID (), player);
 
     AddDrawableDynamicObject (player);
+
+    OnPlayerAdded (*this, *player);
   }
 
   void Map::RemovePlayer (Player* player)
@@ -55,6 +58,8 @@ namespace ycl
     players_.Remove (player->GetWorldID ());
 
     RemoveDrawableDynamicObject (player->GetWorldID ());
+
+    OnPlayerRemoved (*this, *player);
   }
 
   void Map::RemovePlayer (const yap::ID& worldID)
@@ -74,6 +79,15 @@ namespace ycl
 
       RemoveDrawableDynamicObject (objectToRemove);
     }
+  }
+
+  void Map::SetWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    for (auto drawableObject : drawableObjects_)
+      drawableObject->ChangeWorldDrawingPolicy (*worldDrawingPolicy_);
   }
 
   void Map::Draw (yap::IDrawingContext& context)
@@ -139,6 +153,9 @@ namespace ycl
 
   void Map::AddDrawableObject (yap::IDrawableWorldObject* drawableObject)
   {
+    if (worldDrawingPolicy_ != nullptr)
+      drawableObject->ChangeWorldDrawingPolicy (*worldDrawingPolicy_);
+
     drawableObjects_.Add (drawableObject);
   }
 

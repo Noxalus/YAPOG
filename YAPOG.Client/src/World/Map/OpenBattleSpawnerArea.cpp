@@ -16,6 +16,7 @@ namespace ycl
     : yap::OpenBattleSpawnerArea (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , worldDrawingPolicy_ (nullptr)
     , baseSprite_ (nullptr)
     , sprites_ ()
   {
@@ -35,6 +36,7 @@ namespace ycl
     : yap::OpenBattleSpawnerArea (copy)
     , isVisible_ (copy.isVisible_)
     , color_ (copy.color_)
+    , worldDrawingPolicy_ (copy.worldDrawingPolicy_)
     , baseSprite_ (nullptr)
     , sprites_ ()
   {
@@ -87,6 +89,14 @@ namespace ycl
   int OpenBattleSpawnerArea::GetLayerDepth () const
   {
     return HandleGetLayerDepth ();
+  }
+
+  void OpenBattleSpawnerArea::ChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    HandleChangeWorldDrawingPolicy (worldDrawingPolicy);
   }
 
   yap::Event<
@@ -152,6 +162,11 @@ namespace ycl
   int OpenBattleSpawnerArea::HandleGetLayerDepth () const
   {
     return DEFAULT_LAYER_DEPTH;
+  }
+
+  void OpenBattleSpawnerArea::HandleChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
   }
 
   void OpenBattleSpawnerArea::AddSprite (

@@ -13,7 +13,7 @@ namespace ycl
 
     public:
 
-      LoadingScreen ();
+      explicit LoadingScreen (yap::IDrawingContext& context);
       virtual ~LoadingScreen ();
 
     protected:

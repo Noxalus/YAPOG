@@ -140,9 +140,10 @@ ${inc_root}/Gui/PokedexCompositeWidget.hpp
 ${src_root}/Gui/PokedexCompositeWidget.cpp
 ${inc_root}/Gui/RegistrationWidget.hpp
 ${src_root}/Gui/RegistrationWidget.cpp
-
-${inc_root}/Game.hpp
-${src_root}/Game.cpp
+${inc_root}/Gui/MapRootWidget.hpp
+${src_root}/Gui/MapRootWidget.cpp
+${inc_root}/Gui/MapPlayerInfoPanel.hpp
+${src_root}/Gui/MapPlayerInfoPanel.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp
@@ -176,6 +177,9 @@ ${inc_root}/World/Map/OpenBattleSpawnerAreaReader.hpp
 ${src_root}/World/Map/OpenBattleSpawnerAreaReader.cpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
+
+${inc_root}/Game.hpp
+${src_root}/Game.cpp
 )
 
 ADD_EXECUTABLE(

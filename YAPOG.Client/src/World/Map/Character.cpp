@@ -1,5 +1,7 @@
 #include "World/Map/Character.hpp"
 
+#include "YAPOG/Graphics/Game/World/IWorldDrawingPolicy.hpp"
+
 namespace ycl
 {
   const bool Character::DEFAULT_VISIBLE_STATE = true;
@@ -11,6 +13,7 @@ namespace ycl
     : yap::Character (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , worldDrawingPolicy_ (nullptr)
     , sprites_ (new yap::SpriteSet<yap::String> ())
     , directionSprites_ ()
   {
@@ -26,6 +29,7 @@ namespace ycl
     : yap::Character (copy)
     , isVisible_ (copy.isVisible_)
     , color_ (copy.color_)
+    , worldDrawingPolicy_ (copy.worldDrawingPolicy_)
     , sprites_ (new yap::SpriteSet<yap::String> ())
     , directionSprites_ ()
   {
@@ -78,6 +82,14 @@ namespace ycl
     return HandleGetLayerDepth ();
   }
 
+  void Character::ChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    HandleChangeWorldDrawingPolicy (worldDrawingPolicy);
+  }
+
   yap::Event<
     yap::IDrawableDynamicWorldObject&,
     const yap::Vector2&>& Character::OnOrderStateChangedEvent ()
@@ -108,7 +120,10 @@ namespace ycl
   {
     yap::Character::HandleMove (offset);
 
-    sprites_->Move (offset);
+    if (worldDrawingPolicy_ != nullptr)
+      sprites_->Move (
+        worldDrawingPolicy_->ToScreenOffset (
+          yap::Vector3 (offset.x, offset.y, 0.0f)));
 
     OnOrderStateChangedEvent () (*this, offset);
   }
@@ -137,11 +152,22 @@ namespace ycl
 
   float Character::HandleGetComparisonPoint () const
   {
-    return GetBottomRight ().y;
+    return worldDrawingPolicy_->GetComparisonPoint (*this);
   }
 
   int Character::HandleGetLayerDepth () const
   {
     return DEFAULT_LAYER_DEPTH;
+  }
+
+  void Character::HandleChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    sprites_->SetPosition (
+      worldDrawingPolicy_->ToScreenPosition (
+        yap::Vector3 (
+          GetPosition ().x,
+          GetPosition ().y,
+          GetZ ())));
   }
 } // namespace ycl

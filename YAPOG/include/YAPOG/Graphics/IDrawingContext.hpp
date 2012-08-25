@@ -3,6 +3,7 @@
 
 # include <SFML/Graphics/RenderTarget.hpp>
 # include <SFML/Graphics/Drawable.hpp>
+# include <SFML/Graphics/Color.hpp>
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
@@ -65,6 +66,9 @@ namespace yap
       /// of this DrawingContext with the current settings.
       /// @param drawable Drawable to render into this IDrawingContext.
       virtual void Draw (const sf::Drawable& drawable) = 0;
+
+      virtual const sf::Color& GetTargetClearColor () const = 0;
+      virtual void SetTargetClearColor (const sf::Color& color) = 0;
   };
 } // namespace yap
 

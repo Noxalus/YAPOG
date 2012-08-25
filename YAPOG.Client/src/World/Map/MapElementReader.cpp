@@ -35,5 +35,8 @@ namespace ycl
         spriteType,
         *reader,
         spriteType));
+
+    if (reader->NodeExists ("layerDepth"))
+      mapElement_.SetLayerDepth (reader->ReadInt ("layerDepth"));
   }
 } // namespace ycl

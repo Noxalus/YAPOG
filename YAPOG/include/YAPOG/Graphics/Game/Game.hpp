@@ -33,10 +33,6 @@ namespace yap
       virtual void Dispose ();
       /// @}
 
-      /// @WARNING TEMPORARY !
-      /// @TODO REMOVE !
-      static sf::Color CLEAR_COLOR;
-
     protected:
 
       void Stop ();
@@ -56,8 +52,6 @@ namespace yap
       const String name_;
 
     private:
-
-      static const sf::Color DEFAULT_CLEAR_COLOR;
 
       IGameScreenManager* screenManager_;
 

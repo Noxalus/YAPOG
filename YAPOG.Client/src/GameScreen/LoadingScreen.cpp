@@ -4,8 +4,8 @@ namespace ycl
 {
   const yap::ScreenType LoadingScreen::DEFAULT_NAME = "Loading";
 
-  LoadingScreen::LoadingScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  LoadingScreen::LoadingScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
   {
   }
 
@@ -18,6 +18,7 @@ namespace ycl
     yap::IDrawingContext& context)
   {
     /// @TODO Next screen must be "Update" to launch the updater
+
     nextScreen_ = "Splash";
 
     BaseScreen::HandleRun (dt, context);

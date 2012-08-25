@@ -47,6 +47,8 @@ namespace yap
     spatialInfo_.SetPosition (GetPosition () + offset);
 
     view_.move (offset);
+
+    OnMoved (*this, offset);
   }
 
   void Camera::Scale (const Vector2& factor)
@@ -79,21 +81,41 @@ namespace yap
 
   bool Camera::IsInView (const Vector2& point, const Vector2& size) const
   {
-    return GetRectangle ().intersects (sf::FloatRect (point, size));
+    return HandleIsInView (point, size);
   }
 
   Vector2 Camera::ToLocal (const Vector2& globalPoint) const
   {
-    return globalPoint - GetPosition ();
+    return HandleToLocal (globalPoint);
   }
 
   Vector2 Camera::ToGlobal (const Vector2& localPoint) const
   {
-    return localPoint + GetPosition ();
+    return HandleToGlobal (localPoint);
   }
 
   const sf::View& Camera::GetInnerView () const
   {
     return view_;
+  }
+
+  Event<ICamera&, const Vector2&>& Camera::OnMovedEvent () const
+  {
+    return OnMoved;
+  }
+
+  bool Camera::HandleIsInView (const Vector2& point, const Vector2& size) const
+  {
+    return GetRectangle ().intersects (sf::FloatRect (point, size));
+  }
+
+  Vector2 Camera::HandleToLocal (const Vector2& globalPoint) const
+  {
+    return globalPoint - GetPosition ();
+  }
+
+  Vector2 Camera::HandleToGlobal (const Vector2& localPoint) const
+  {
+    return localPoint + GetPosition ();
   }
 } // namespace yap

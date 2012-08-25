@@ -7,6 +7,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Graphics/ISpatial.hpp"
+# include "YAPOG/System/Event/Event.hpp"
 
 namespace yap
 {
@@ -23,6 +24,8 @@ namespace yap
       virtual Vector2 ToGlobal (const Vector2& localPoint) const = 0;
 
       virtual const sf::View& GetInnerView () const = 0;
+
+      virtual Event<ICamera&, const Vector2&>& OnMovedEvent () const = 0;
   };
 } // namespace yap
 

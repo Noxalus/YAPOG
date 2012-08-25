@@ -20,7 +20,7 @@ namespace ycl
 
     public:
 
-      UpdateScreen ();
+      explicit UpdateScreen (yap::IDrawingContext& context);
       virtual ~UpdateScreen ();
 
     protected:

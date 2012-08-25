@@ -44,6 +44,9 @@ namespace ycl
       virtual float GetComparisonPoint () const;
 
       virtual int GetLayerDepth () const;
+
+      virtual void ChangeWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
       /// @}
 
       /// @name IDrawableDynamicWorldObject members.
@@ -78,6 +81,9 @@ namespace ycl
 
       virtual int HandleGetLayerDepth () const;
 
+      virtual void HandleChangeWorldDrawingPolicy (
+        const yap::IWorldDrawingPolicy& worldDrawingPolicy);
+
     private:
 
       void AddSprite (yap::uint x, yap::uint y, yap::ISprite* sprite);
@@ -91,6 +97,8 @@ namespace ycl
 
       bool isVisible_;
       sf::Color color_;
+
+      const yap::IWorldDrawingPolicy* worldDrawingPolicy_;
 
       yap::ISprite* baseSprite_;
       yap::collection::List<yap::ISprite*> sprites_;

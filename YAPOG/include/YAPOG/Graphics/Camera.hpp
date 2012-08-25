@@ -46,7 +46,20 @@ namespace yap
       virtual Vector2 ToGlobal (const Vector2& localPoint) const;
 
       virtual const sf::View& GetInnerView () const;
+
+      virtual Event<ICamera&, const Vector2&>& OnMovedEvent () const;
       /// @}
+
+      mutable Event<ICamera&, const Vector2&> OnMoved;
+
+    protected:
+
+      virtual bool HandleIsInView (
+        const Vector2& point,
+        const Vector2& size) const;
+
+      virtual Vector2 HandleToLocal (const Vector2& globalPoint) const;
+      virtual Vector2 HandleToGlobal (const Vector2& localPoint) const;
 
     private:
 

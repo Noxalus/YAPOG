@@ -36,8 +36,8 @@ namespace ycl
 {
   const yap::ScreenType BattleScreen::DEFAULT_NAME = "Battle";
 
-  BattleScreen::BattleScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  BattleScreen::BattleScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , battle_ (nullptr)
     , battleInterface_ (nullptr)
   {
@@ -116,5 +116,4 @@ namespace ycl
   {
     battle_ = value;
   }
-
 } // namespace ycl

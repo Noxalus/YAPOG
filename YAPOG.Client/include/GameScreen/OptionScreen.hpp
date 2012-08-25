@@ -13,7 +13,7 @@ namespace ycl
 
     public:
 
-      OptionScreen ();
+      explicit OptionScreen (yap::IDrawingContext& context);
       virtual ~OptionScreen ();
 
     private:

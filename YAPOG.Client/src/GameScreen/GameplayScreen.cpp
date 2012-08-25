@@ -5,6 +5,7 @@
 #include "YAPOG/System/IO/Log/Logger.hpp"
 #include "YAPOG/Graphics/Gui/GuiManager.hpp"
 #include "YAPOG/Graphics/ICamera.hpp"
+#include "YAPOG/Graphics/IDrawingContext.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Game/Pokemon/Pokedex.hpp"
@@ -25,18 +26,21 @@
 #include "YAPOG/Game/Battle/PlayerTrainer.hpp"
 #include "YAPOG/Game/Pokemon/Pokemon.hpp"
 #include "YAPOG/Graphics/Game/Game.hpp"
+#include "YAPOG/Graphics/Game/World/RegularWorldDrawingPolicy.hpp"
+#include "YAPOG/Graphics/Game/World/IsometricWorldDrawingPolicy.hpp"
+#include "YAPOG/Graphics/Gui/Game/World/GameWorldGuiManager.hpp"
 
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
 #include "Client/Session.hpp"
 #include "Gui/GameGuiManager.hpp"
+#include "Gui/MapRootWidget.hpp"
 #include "Gui/GameMainMenu.hpp"
 #include "Gui/ChatWidget.hpp"
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
-
 #include "Client/Session.hpp"
 #include "Client/User.hpp"
 #include "Battle/PlayerTrainer.hpp"
@@ -52,16 +56,18 @@ namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
 
-  GameplayScreen::GameplayScreen (yap::ICamera& worldCamera)
-    : BaseScreen (DEFAULT_NAME)
+  GameplayScreen::GameplayScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
     , world_ ()
-    , worldCamera_ (worldCamera)
-    , cameraController_ (worldCamera_)
+    , worldDrawingPolicy_ (nullptr)
+    , cameraController_ (context.GetCamera ("World"))
     , player_ (nullptr)
     , moveController_ ()
     , lastForce_ ()
     , fpsDisplayTimer_ ()
     , gameGuiManager_ (nullptr)
+    , gameWorldGuiManager_ (nullptr)
+    , mapRootWidget_ (nullptr)
     , mainMenu_ (nullptr)
     , pokedex_ (nullptr)
     , pokemonTeamWidget_ (nullptr)
@@ -72,8 +78,6 @@ namespace ycl
 
   GameplayScreen::~GameplayScreen ()
   {
-    delete (chat_);
-    chat_ = nullptr;
   }
 
   void GameplayScreen::HandleInit ()
@@ -120,6 +124,9 @@ namespace ycl
       gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeamWidget_);
     };
 
+    CreateWorldDrawingPolicy ();
+    world_.SetDrawingPolicy (*worldDrawingPolicy_);
+
     world_.OnMapChanged += [this] (
       const World& sender,
       const yap::ChangeEventArgs<Map*>& args)
@@ -129,6 +136,19 @@ namespace ycl
 
     session_.GetUser ().SetWorld (&world_);
 
+    gameWorldGuiManager_ = new yap::GameWorldGuiManager (
+      context_.GetCamera ("Gui"),
+      context_.GetCamera ("World"),
+      *worldDrawingPolicy_);
+    gameWorldGuiManager_->SetWorldDrawingPolicy (*worldDrawingPolicy_);
+    guiManager_->AddChild (*gameWorldGuiManager_);
+
+    mapRootWidget_ = new MapRootWidget ();
+
+    gameWorldGuiManager_->AddGameWorldWidget (mapRootWidget_);
+
+#ifdef YAPOG_WIN
+    /// @warning Temporary disabled ==> issue on regex under Linux
     // Chat
     chat_ = new ChatWidget ();
     chat_->Init ();
@@ -141,7 +161,7 @@ namespace ycl
     };
 
     gameGuiManager_->AddGameWidget ("Chat", chat_);
-
+#endif // YAPOG_WIN
 
     /*
     team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
@@ -342,7 +362,7 @@ namespace ycl
 
   void GameplayScreen::HandleActivate ()
   {
-    yap::Game::CLEAR_COLOR = sf::Color::Black;
+    context_.SetTargetClearColor (sf::Color::Black);
 
     yap::AudioManager::Instance ().PlayMusic ("BGM/City2.ogg", false);
   }
@@ -354,6 +374,8 @@ namespace ycl
 
   void GameplayScreen::SetCurrentMap (Map& map)
   {
+    mapRootWidget_->SetCurrentMap (&map);
+
     cameraController_.SetBounds (
       yap::FloatRect (
       yap::Vector2 (),
@@ -444,6 +466,11 @@ namespace ycl
     packet.Write (state);
 
     session_.SendPacket (packet);
+  }
+
+  void GameplayScreen::CreateWorldDrawingPolicy ()
+  {
+    worldDrawingPolicy_ = new yap::RegularWorldDrawingPolicy ();
   }
 
   void GameplayScreen::CreateGuiManager ()

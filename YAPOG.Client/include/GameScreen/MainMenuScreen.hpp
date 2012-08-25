@@ -13,7 +13,7 @@ namespace ycl
 
     public:
 
-      MainMenuScreen ();
+      explicit MainMenuScreen (yap::IDrawingContext& context);
       virtual ~MainMenuScreen ();
 
     protected:

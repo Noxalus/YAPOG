@@ -4,8 +4,8 @@ namespace ycl
 {
   const yap::ScreenType CreditScreen::DEFAULT_NAME = "Credit";
 
-  CreditScreen::CreditScreen ()
-    : BaseScreen (DEFAULT_NAME)
+  CreditScreen::CreditScreen (yap::IDrawingContext& context)
+    : BaseScreen (DEFAULT_NAME, context)
   {
   }
 

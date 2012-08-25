@@ -19,7 +19,7 @@
   private:                                      \
   TYPE& operator= (const TYPE&)
 
-# ifdef _MSC_VER
+# ifdef _WIN32
 #  define YAPOG_WIN
 # else
 #  define YAPOG_LINUX

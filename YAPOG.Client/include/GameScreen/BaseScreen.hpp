@@ -11,7 +11,6 @@ namespace yap
   class WorldObjectStateFactory;
   class GameInputManager;
   class Logger;
-  class DrawingContext;
 } // namespace yap
 
 namespace ycl
@@ -28,7 +27,11 @@ namespace ycl
 
     protected:
 
-      explicit BaseScreen (const yap::ScreenType& type);
+      explicit BaseScreen (
+        const yap::ScreenType& type,
+        yap::IDrawingContext& context);
+
+      yap::IDrawingContext& context_;
 
       Session& session_;
 

@@ -10,6 +10,11 @@
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
 
+namespace yap
+{
+  struct IWorldDrawingPolicy;
+} // namespace yap
+
 namespace ycl
 {
   class Map;
@@ -29,6 +34,8 @@ namespace ycl
 
       void ChangeMap (const yap::ID& worldID);
       Map& GetCurrentMap ();
+
+      void SetDrawingPolicy (const yap::IWorldDrawingPolicy& drawingPolicy);
 
       /// @name IDrawable members.
       /// @{
@@ -72,6 +79,8 @@ namespace ycl
 
       bool isVisible_;
       sf::Color color_;
+
+      const yap::IWorldDrawingPolicy* drawingPolicy_;
 
       yap::ID currentMapID_;
       Map* currentMap_;

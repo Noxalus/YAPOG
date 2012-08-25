@@ -1,6 +1,7 @@
-#include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
-
 #include "World/Map/MapElement.hpp"
+
+#include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+#include "YAPOG/Graphics/Game/World/IWorldDrawingPolicy.hpp"
 
 namespace ycl
 {
@@ -13,6 +14,8 @@ namespace ycl
     : yap::MapElement (id)
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , color_ (DEFAULT_COLOR)
+    , layerDepth_ (DEFAULT_LAYER_DEPTH)
+    , worldDrawingPolicy_ (nullptr)
     , sprite_ (nullptr)
   {
   }
@@ -27,6 +30,8 @@ namespace ycl
     : yap::MapElement (copy)
     , isVisible_ (copy.isVisible_)
     , color_ (copy.color_)
+    , layerDepth_ (copy.layerDepth_)
+    , worldDrawingPolicy_ (copy.worldDrawingPolicy_)
     , sprite_ (nullptr)
   {
     if (copy.sprite_ != nullptr)
@@ -41,6 +46,11 @@ namespace ycl
   void MapElement::SetSprite (yap::ISprite* sprite)
   {
     sprite_ = sprite;
+  }
+
+  void MapElement::SetLayerDepth (int layerDepth)
+  {
+    layerDepth_ = layerDepth;
   }
 
   void MapElement::Draw (yap::IDrawingContext& context)
@@ -78,6 +88,14 @@ namespace ycl
     return HandleGetLayerDepth ();
   }
 
+  void MapElement::ChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    worldDrawingPolicy_ = &worldDrawingPolicy;
+
+    HandleChangeWorldDrawingPolicy (worldDrawingPolicy);
+  }
+
   void MapElement::HandleUpdate (const yap::Time& dt)
   {
     yap::MapElement::HandleUpdate (dt);
@@ -98,8 +116,13 @@ namespace ycl
   {
     yap::MapElement::HandleMove (offset);
 
-    if (sprite_ != nullptr)
-      sprite_->Move (offset);
+    if (sprite_ != nullptr && worldDrawingPolicy_ != nullptr)
+      sprite_->Move (
+        worldDrawingPolicy_->ToScreenOffset (
+          yap::Vector3 (
+            offset.x,
+            offset.y,
+            0.0f)));
   }
 
   void MapElement::HandleDraw (yap::IDrawingContext& context)
@@ -116,11 +139,22 @@ namespace ycl
 
   float MapElement::HandleGetComparisonPoint () const
   {
-    return GetBottomRight ().y;
+    return worldDrawingPolicy_->GetComparisonPoint (*this);
   }
 
   int MapElement::HandleGetLayerDepth () const
   {
-    return DEFAULT_LAYER_DEPTH;
+    return layerDepth_;
+  }
+
+  void MapElement::HandleChangeWorldDrawingPolicy (
+    const yap::IWorldDrawingPolicy& worldDrawingPolicy)
+  {
+    sprite_->SetPosition (
+      worldDrawingPolicy_->ToScreenPosition (
+        yap::Vector3 (
+          GetPosition ().x,
+          GetPosition ().y,
+          GetZ ())));
   }
 } // namespace ycl
