@@ -9,7 +9,7 @@ namespace yap
   struct ICamera;
   struct IWorldDrawingPolicy;
 
-  class GameWorldGuiManager : public GameWorldWidget
+  class YAPOG_LIB GameWorldGuiManager : public GameWorldWidget
   {
       DISALLOW_COPY(GameWorldGuiManager);
 

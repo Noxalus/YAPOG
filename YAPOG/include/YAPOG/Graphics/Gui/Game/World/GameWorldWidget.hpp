@@ -8,7 +8,7 @@ namespace yap
 {
   class GameWorldGuiManager;
 
-  class GameWorldWidget : public GameWidget
+  class YAPOG_LIB GameWorldWidget : public GameWidget
   {
       DISALLOW_COPY(GameWorldWidget);
 
