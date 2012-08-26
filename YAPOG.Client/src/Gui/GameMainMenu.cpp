@@ -65,7 +65,7 @@ namespace ycl
 
     SetSelectedBorder (*menuItemBrd);
 
-    yap::MenuItem& pokedexItem = AddItem ("POKeDEX");
+    yap::MenuItem& pokedexItem = AddItem ("POKÈDEX");
     pokedexItem.OnActivated += [this] (
       yap::MenuItem& sender,
       const yap::EmptyEventArgs& args)
@@ -73,7 +73,7 @@ namespace ycl
       OnPokedexItemActivated (*this, yap::EmptyEventArgs ());
     };
 
-    yap::MenuItem& pokemonItem = AddItem ("POKeMON");
+    yap::MenuItem& pokemonItem = AddItem ("POKÈMON");
     pokemonItem.OnActivated += [this] (
       yap::MenuItem& sender,
       const yap::EmptyEventArgs& args)
@@ -87,7 +87,7 @@ namespace ycl
 
     yap::MenuItem& optionItem = AddItem ("OPTIONS");
 
-    yap::MenuItem& exitItem = AddItem ("EXIT");
+    yap::MenuItem& exitItem = AddItem ("RETOUR");
     exitItem.OnActivated += [this] (
       yap::MenuItem& sender,
       const yap::EmptyEventArgs& args)

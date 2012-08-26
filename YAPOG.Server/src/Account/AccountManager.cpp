@@ -92,7 +92,7 @@ namespace yse
           std::cout << "Player data have been created !" << std::endl;
 
           // Add first Pokemon
-          for (int i = 1; i <= 6; i++)
+          for (int i = 1; i <= 2; i++)
           {
             Pokemon* p = GenerateRandomPokemon ();
 

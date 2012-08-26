@@ -144,6 +144,8 @@ ${inc_root}/Gui/MapRootWidget.hpp
 ${src_root}/Gui/MapRootWidget.cpp
 ${inc_root}/Gui/MapPlayerInfoPanel.hpp
 ${src_root}/Gui/MapPlayerInfoPanel.cpp
+${inc_root}/Gui/PokemonInfoBox.hpp
+${src_root}/Gui/PokemonInfoBox.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

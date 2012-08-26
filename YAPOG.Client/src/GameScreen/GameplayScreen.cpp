@@ -51,6 +51,7 @@
 #include "Battle/Battle.hpp"
 #include "Battle/WildBattle.hpp"
 #include "Battle/BattleInterface.hpp"
+#include "Configuration/GameData.hpp"
 
 namespace ycl
 {
@@ -399,6 +400,10 @@ namespace ycl
 
     mainMenu_ = new GameMainMenu ();
     mainMenu_->Init (player_->GetName ());
+    GameData::Resolution ().x;
+    yap::Vector2 menuPosition (
+      GameData::Resolution ().x - mainMenu_->GetSize ().x, 0);
+    mainMenu_->SetPosition (menuPosition);
 
     mainMenu_->OnPokedexItemActivated += [this] (
       GameMainMenu& sender,

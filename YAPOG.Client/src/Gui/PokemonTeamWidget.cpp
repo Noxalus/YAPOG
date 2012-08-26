@@ -8,6 +8,7 @@
 #include "YAPOG/Graphics/Texture.hpp"
 
 #include "Gui/PokemonTeamWidget.hpp"
+#include "Gui/PokemonInfoBox.hpp"
 #include "Pokemon/PokemonTeam.hpp"
 
 #include "Game.hpp"
@@ -64,13 +65,13 @@ namespace ycl
     state_->SetPosition (GetSize () - state_->GetSize () - yap::Vector2 (15, 15));
     state_->SetBorder (*stateBorder);
 
-    InfoBox* box = new InfoBox (true, team_.GetPokemon (0));
+    PokemonInfoBox* box = new PokemonInfoBox (true, team_.GetPokemon (0));
     box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
     pokemons.Add (box);
 
     for (int i = 1; i < team_.GetPokemonCount (); i++)
     {
-      InfoBox* box = new InfoBox (false, team_.GetPokemon (i));
+      PokemonInfoBox* box = new PokemonInfoBox (false, team_.GetPokemon (i));
       box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
       pokemons.Add (box);
     }
@@ -79,7 +80,7 @@ namespace ycl
 
     for (int i = 1; i < 1; i++) // iterate over team.
     {
-      InfoBox* box = new InfoBox (false, team_.GetPokemon (i));
+      PokemonInfoBox* box = new PokemonInfoBox (false, team_.GetPokemon (i));
       vlayoutMenu_->AddChild (*box);
       pokemons.Add (box);
     }
@@ -149,7 +150,7 @@ namespace ycl
   }
   void PokemonTeamWidget::HandleDraw (yap::IDrawingContext& context)
   {
-    for (InfoBox* b : pokemons)
+    for (PokemonInfoBox* b : pokemons)
     {
       b->Draw (context);
     }
