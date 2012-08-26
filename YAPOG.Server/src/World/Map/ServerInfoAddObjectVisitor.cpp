@@ -23,20 +23,22 @@ namespace yse
   void ServerInfoAddObjectVisitor::VisitCharacter (
     const yap::Character& visitable)
   {
-    BaseDynamicWorldObjectConstVisitor::VisitCharacter (visitable);
+    yap::BaseDynamicWorldObjectConstVisitor::VisitCharacter (visitable);
 
     WriteAddObject (visitable);
   }
 
   void ServerInfoAddObjectVisitor::VisitPlayer (const yap::IPlayer& visitable)
   {
-    BaseDynamicWorldObjectConstVisitor::VisitPlayer (visitable);
+    yap::BaseDynamicWorldObjectConstVisitor::VisitPlayer (visitable);
+
+    packet_.Write (visitable.GetName ());
   }
 
   void ServerInfoAddObjectVisitor::VisitTeleporter (
     const yap::Teleporter& visitable)
   {
-    BaseDynamicWorldObjectConstVisitor::VisitTeleporter (visitable);
+    yap::BaseDynamicWorldObjectConstVisitor::VisitTeleporter (visitable);
 
     WriteAddObject (visitable);
 
@@ -50,7 +52,8 @@ namespace yse
   void ServerInfoAddObjectVisitor::VisitDestructibleObject (
     const yap::DestructibleObject& visitable)
   {
-    BaseDynamicWorldObjectConstVisitor::VisitDestructibleObject (visitable);
+    yap::BaseDynamicWorldObjectConstVisitor::VisitDestructibleObject (
+      visitable);
 
     WriteAddObject (visitable);
   }
@@ -58,7 +61,8 @@ namespace yse
   void ServerInfoAddObjectVisitor::VisitBattleSpawnerArea (
     const yap::BattleSpawnerArea& visitable)
   {
-    BaseDynamicWorldObjectConstVisitor::VisitBattleSpawnerArea (visitable);
+    yap::BaseDynamicWorldObjectConstVisitor::VisitBattleSpawnerArea (
+      visitable);
 
     WriteAddObject (visitable);
 

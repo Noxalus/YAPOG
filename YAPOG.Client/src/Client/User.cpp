@@ -190,6 +190,9 @@ namespace ycl
           id);
 
         player->SetWorldID (worldID);
+
+        yap::String playerName = packet.ReadString ();
+        player->SetName (playerName);
       }
 
       object = player;
@@ -299,9 +302,9 @@ namespace ycl
     {
       yap::ID staticID = packet.ReadID ();
       yap::ID uniqueID = packet.ReadID ();
-      yap::Gender gender = 
+      yap::Gender gender =
         static_cast<yap::Gender>(packet.ReadUChar ());
-      yap::PokemonStatus status = 
+      yap::PokemonStatus status =
         static_cast<yap::PokemonStatus>(packet.ReadUChar ());
       yap::String nickname = packet.ReadString ();
       bool shiny = packet.ReadBool ();
@@ -338,11 +341,11 @@ namespace ycl
       yap::Speed speed (speedEV, speedIV);
 
       yap::PokemonStat stats (
-        hp, 
-        attack, 
-        defense, 
-        specialAttack, 
-        specialDefense, 
+        hp,
+        attack,
+        defense,
+        specialAttack,
+        specialDefense,
         speed);
 
       // Read the Pokemon's move

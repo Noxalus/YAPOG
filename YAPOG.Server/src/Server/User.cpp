@@ -15,8 +15,6 @@
 #include "Account/PlayerData.hpp"
 #include "Pokemon/PokemonTeam.hpp"
 
-#define YAPOG_DB_MODE 1
-
 namespace yse
 {
   User::User ()
@@ -63,10 +61,8 @@ namespace yse
   {
     login_ = login;
 
-#if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
     account_ = am.Login (login, password, ip);
-#endif // YAPOG_DB_MODE
 
     return true;
   }
@@ -79,10 +75,8 @@ namespace yse
   {
     login_ = login;
 
-#if YAPOG_DB_MODE
     AccountManager am (*databaseManager_);
     return am.CreateNewAccount (login, password, email, ip);
-#endif // YAPOG_DB_MODE
 
     return true;
   }
@@ -170,6 +164,8 @@ namespace yse
 
     AddRelay (player_);
     player_->SetParent (this);
+
+    player_->SetName (login_);
   }
 
   void User::SetDatabaseManager (yap::DatabaseManager* databaseManager)

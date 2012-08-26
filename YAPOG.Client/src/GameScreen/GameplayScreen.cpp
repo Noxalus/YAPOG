@@ -394,9 +394,10 @@ namespace ycl
     cameraController_.SetVelocityFactor (player->GetMaxVelocity ());
   }
 
+  /// @todo Remove
   void GameplayScreen::SetPlayerName ()
   {
-    player_->SetName (session_.GetUser ().GetLogin ());
+//    player_->SetName (session_.GetUser ().GetLogin ());
 
     mainMenu_ = new GameMainMenu ();
     mainMenu_->Init (player_->GetName ());

@@ -1,4 +1,4 @@
---
+﻿--
 -- PostgreSQL database dump
 --
 
@@ -254,7 +254,7 @@ ALTER TABLE ONLY pokemon ALTER COLUMN pokemon_id SET DEFAULT nextval('pokemon_po
 --
 
 COPY account (account_id, account_name, account_password, account_email, account_permissions, account_creation_date, account_last_login_date, account_creation_ip, account_current_ip) FROM stdin;
-\.
+
 
 
 --
@@ -264,7 +264,7 @@ COPY account (account_id, account_name, account_password, account_email, account
 --
 
 COPY player_data (account_id, player_data_position, player_data_time, player_data_step_count, player_data_respawn_spot, player_data_flee_count, player_data_box_number, player_data_battle_count, player_data_money, player_data_map_id) FROM stdin;
-\.
+
 
 
 --
@@ -274,7 +274,7 @@ COPY player_data (account_id, player_data_position, player_data_time, player_dat
 --
 
 COPY pokemon (account_id, pokemon_id, pokemon_static_id, pokemon_experience, pokemon_gender, pokemon_nickname, pokemon_shiny, pokemon_loyalty, pokemon_nature, pokemon_trading_number, pokemon_trader_account_id, pokemon_box_number, pokemon_box_index, pokemon_catch_date, pokemon_status, pokemon_hp) FROM stdin;
-\.
+
 
 
 --
@@ -284,7 +284,7 @@ COPY pokemon (account_id, pokemon_id, pokemon_static_id, pokemon_experience, pok
 --
 
 COPY pokemon_ev (pokemon_id, pokemon_ev_attack, pokemon_ev_defense, pokemon_ev_special_attack, pokemon_ev_special_defense, pokemon_ev_speed, pokemon_ev_hp) FROM stdin;
-\.
+
 
 
 --
@@ -294,7 +294,7 @@ COPY pokemon_ev (pokemon_id, pokemon_ev_attack, pokemon_ev_defense, pokemon_ev_s
 --
 
 COPY pokemon_iv (pokemon_id, pokemon_iv_attack, pokemon_iv_defense, pokemon_iv_special_attack, pokemon_iv_special_defense, pokemon_iv_speed, pokemon_iv_hp) FROM stdin;
-\.
+
 
 
 --
@@ -304,7 +304,7 @@ COPY pokemon_iv (pokemon_id, pokemon_iv_attack, pokemon_iv_defense, pokemon_iv_s
 --
 
 COPY pokemon_move (pokemon_move_index, pokemon_id, pokemon_move_static_id, pokemon_move_pp, pokemon_move_max_pp) FROM stdin;
-\.
+
 
 
 --

@@ -44,11 +44,6 @@ namespace yse
     return new Player (*this);
   }
 
-  const yap::Vector2& Player::GetPosition () const
-  {
-    return yap::WorldObject::GetPosition ();
-  }
-
   void Player::SetParentUser (User* parentUser)
   {
     parentUser_ = parentUser;
@@ -86,15 +81,15 @@ namespace yse
 
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
   {
-    visitor.VisitPlayer (*this);
     visitor.VisitCharacter (*this);
+    visitor.VisitPlayer (*this);
   }
 
   void Player::Accept (
     yap::IDynamicWorldObjectConstVisitor& visitor) const
   {
-    visitor.VisitPlayer (*this);
     visitor.VisitCharacter (*this);
+    visitor.VisitPlayer (*this);
   }
 
   const yap::String& Player::GetName () const
