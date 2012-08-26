@@ -81,14 +81,16 @@ namespace yse
 
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
   {
-    visitor.VisitCharacter (*this);
+    Character::Accept (visitor);
+
     visitor.VisitPlayer (*this);
   }
 
   void Player::Accept (
     yap::IDynamicWorldObjectConstVisitor& visitor) const
   {
-    visitor.VisitCharacter (*this);
+    Character::Accept (visitor);
+
     visitor.VisitPlayer (*this);
   }
 

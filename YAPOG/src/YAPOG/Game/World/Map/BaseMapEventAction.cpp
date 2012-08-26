@@ -35,6 +35,11 @@ namespace yap
     return type_;
   }
 
+  void BaseMapEventAction::VisitDynamicWorldObject (
+    DynamicWorldObject& visitable)
+  {
+  }
+
   void BaseMapEventAction::VisitCharacter (Character& visitable)
   {
   }

@@ -36,12 +36,16 @@ namespace yap
 
   void DestructibleObject::Accept (IDynamicWorldObjectVisitor& visitor)
   {
+    DynamicWorldObject::Accept (visitor);
+
     visitor.VisitDestructibleObject (*this);
   }
 
   void DestructibleObject::Accept (
     IDynamicWorldObjectConstVisitor& visitor) const
   {
+    DynamicWorldObject::Accept (visitor);
+
     visitor.VisitDestructibleObject (*this);
   }
 

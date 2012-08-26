@@ -25,11 +25,15 @@ namespace yap
 
   void MapElement::Accept (IStaticWorldObjectVisitor& visitor)
   {
-    visitor.Visit (*this);
+    StaticWorldObject::Accept (visitor);
+
+    visitor.VisitMapElement (*this);
   }
 
   void MapElement::Accept (IStaticWorldObjectConstVisitor& visitor) const
   {
-    visitor.Visit (*this);
+    StaticWorldObject::Accept (visitor);
+
+    visitor.VisitMapElement (*this);
   }
 } // namespace yap

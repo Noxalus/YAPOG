@@ -5,6 +5,7 @@ namespace yap
 {
   struct IPlayer;
 
+  class DynamicWorldObject;
   class Character;
   class Teleporter;
   class DestructibleObject;
@@ -14,6 +15,7 @@ namespace yap
   {
       virtual ~IDynamicWorldObjectVisitor () { }
 
+      virtual void VisitDynamicWorldObject (DynamicWorldObject& visitable) = 0;
       virtual void VisitCharacter (Character& visitable) = 0;
       virtual void VisitPlayer (IPlayer& visitable) = 0;
       virtual void VisitTeleporter (Teleporter& visitable) = 0;

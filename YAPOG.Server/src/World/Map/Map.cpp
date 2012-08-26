@@ -3,6 +3,7 @@
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/ServerInfoAddObjectVisitor.hpp"
+#include "World/Map/ObjectMoveInfoSender.hpp"
 
 namespace yse
 {
@@ -155,9 +156,8 @@ namespace yse
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ServerInfoObjectMoveInfo);
 
-    packet.Write (object.GetWorldID ());
-    packet.Write (object.GetPosition ());
-    packet.Write (velocity);
+    ObjectMoveInfoSender objectMoveInfoSender (packet, velocity);
+    object.Accept (objectMoveInfoSender);
 
     SendPacket (packet);
   }

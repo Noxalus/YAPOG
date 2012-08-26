@@ -156,6 +156,8 @@ namespace ycl
     }
   }
 
+  /// @warning [TEMPORARY]
+  /// @todo use dedicated visitors
   void User::HandleServerInfoAddObject (yap::IPacket& packet)
   {
     yap::ID worldID = packet.ReadID ();
@@ -182,6 +184,12 @@ namespace ycl
       {
         player = player_;
         playerIsWarped = true;
+
+        player->RawSetDirection (
+          static_cast<yap::Direction> (
+            packet.ReadUChar ()));
+
+        packet.ReadString (); // name is read
       }
       else
       {
@@ -190,6 +198,10 @@ namespace ycl
           id);
 
         player->SetWorldID (worldID);
+
+        player->RawSetDirection (
+          static_cast<yap::Direction> (
+            packet.ReadUChar ()));
 
         yap::String playerName = packet.ReadString ();
         player->SetName (playerName);
@@ -204,6 +216,10 @@ namespace ycl
       NPC* npc = yap::ObjectFactory::Instance ().Create<NPC> (typeID, id);
       object = npc;
       npc->SetWorldID (worldID);
+
+      npc->RawSetDirection (
+        static_cast<yap::Direction> (
+          packet.ReadUChar ()));
 
       map.AddDrawableDynamicObject (npc);
     }

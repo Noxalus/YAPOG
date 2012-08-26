@@ -10,7 +10,12 @@ namespace yap
   {
   }
 
-  void BaseStaticWorldObjectVisitor::Visit (MapElement& visitable)
+  void BaseStaticWorldObjectVisitor::VisitStaticWorldObject (
+    StaticWorldObject& visitable)
+  {
+  }
+
+  void BaseStaticWorldObjectVisitor::VisitMapElement (MapElement& visitable)
   {
   }
 } // namespace yap

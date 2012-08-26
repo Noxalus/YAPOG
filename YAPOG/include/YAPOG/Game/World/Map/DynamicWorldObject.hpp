@@ -27,8 +27,8 @@ namespace yap
 
       virtual ~DynamicWorldObject ();
 
-      virtual void Accept (IDynamicWorldObjectVisitor& visitor) = 0;
-      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const = 0;
+      virtual void Accept (IDynamicWorldObjectVisitor& visitor);
+      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const;
 
       const ID& GetWorldID () const;
       void SetWorldID (const ID& id);

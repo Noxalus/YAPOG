@@ -20,8 +20,8 @@ namespace yap
 
       virtual ~StaticWorldObject ();
 
-      virtual void Accept (IStaticWorldObjectVisitor& visitor) = 0;
-      virtual void Accept (IStaticWorldObjectConstVisitor& visitor) const = 0;
+      virtual void Accept (IStaticWorldObjectVisitor& visitor);
+      virtual void Accept (IStaticWorldObjectConstVisitor& visitor) const;
 
       /// @name IUpdateable members.
       /// @{

@@ -3,6 +3,8 @@
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 
 namespace yap
 {
@@ -46,6 +48,17 @@ namespace yap
   {
     if (copy.physicsCore_ != nullptr)
       SetPhysicsCore (copy.physicsCore_->Clone ());
+  }
+
+  void DynamicWorldObject::Accept (IDynamicWorldObjectVisitor& visitor)
+  {
+    visitor.VisitDynamicWorldObject (*this);
+  }
+
+  void DynamicWorldObject::Accept (
+    IDynamicWorldObjectConstVisitor& visitor) const
+  {
+    visitor.VisitDynamicWorldObject (*this);
   }
 
   const ID& DynamicWorldObject::GetWorldID () const

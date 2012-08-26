@@ -18,13 +18,16 @@ namespace yap
       virtual void Accept (IDynamicWorldObjectVisitor& visitor);
       virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const;
 
+      const Direction& GetDirection () const;
+
+      void RawSetDirection (Direction direction);
+
     protected:
 
       explicit Character (const ID& id);
 
       Character (const Character& copy);
 
-      const Direction& GetDirection () const;
       void SetDirection (Direction direction);
 
       virtual void HandleSetDirection (Direction direction);

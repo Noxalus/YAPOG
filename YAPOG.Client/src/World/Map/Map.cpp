@@ -3,6 +3,7 @@
 
 #include "World/Map/Map.hpp"
 #include "World/Map/Player.hpp"
+#include "World/Map/ObjectMoveInfoHandler.hpp"
 
 namespace ycl
 {
@@ -196,13 +197,11 @@ namespace ycl
   void Map::HandleServerInfoObjectMoveInfo (yap::IPacket& packet)
   {
     yap::ID objectWorldID = packet.ReadID ();
-    yap::Vector2 objectPosition = packet.ReadVector2 ();
-    yap::Vector2 objectVelocity = packet.ReadVector2 ();
 
     yap::DynamicWorldObject& object = GetObject (objectWorldID);
 
-    object.SetPosition (objectPosition);
-    object.RawSetVelocity (objectVelocity);
+    ObjectMoveInfoHandler objectMoveInfoHandler (packet);
+    object.Accept (objectMoveInfoHandler);
   }
 
   void Map::HandleServerInfoUpdateObjectState (yap::IPacket& packet)
