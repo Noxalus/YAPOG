@@ -57,7 +57,9 @@ namespace yap
     const TypeInfo& GetType2 () const;
     float GetTypeEffectFactor (const TypeInfo& type) const;
     const uint& GetTotalExperience () const;
-    const uint& GetExperienceToNextLevel () const;
+    const UInt32& GetExperienceToNextLevel () const;
+    const uint& GetTotalExperienceToNextLevel () const;
+    float GetExperiencePercentage () const;
     const UInt16& GetLevel () const;
     const bool GetShiny () const;
     const Int16& GetLoyalty () const;

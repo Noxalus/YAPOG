@@ -18,10 +18,12 @@ namespace yap
 
     const UInt32& GetValue () const;
     const UInt32& GetExperienceToNextLevel () const;
+    const UInt32& GetTotalExperienceToNextLevel () const;
+    float GetExperiencePercentage ();
 
     int AddExperience (const UInt32& value);
 
-    void ComputeExperienceToNextLevel (UInt16 level);
+    void ComputeTotalExperienceToNextLevel (UInt16 level);
     UInt16 GetLevel ();
 
     static const UInt16 INITIAL_LEVEL_VALUE;
@@ -29,9 +31,9 @@ namespace yap
 
   private:
     virtual UInt32 ComputeExperienceFromLevel (const UInt16& level) = 0;
-    
+
     UInt32 value_;
-    UInt32 experienceToNextLevel_;
+    UInt32 totalExperienceToNextLevel_;
     UInt32 previousValue_;
     UInt16 currentLevel_;
     static const UInt32 INITIAL_EXPERIENCE_VALUE;

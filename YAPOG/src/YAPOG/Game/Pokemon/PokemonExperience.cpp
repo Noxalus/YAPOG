@@ -10,7 +10,7 @@ namespace yap
 
   PokemonExperience::PokemonExperience ()
     : value_ (INITIAL_EXPERIENCE_VALUE)
-    , experienceToNextLevel_ (INITIAL_EXPERIENCE_VALUE)
+    , totalExperienceToNextLevel_ (INITIAL_EXPERIENCE_VALUE)
     , previousValue_ (INITIAL_EXPERIENCE_VALUE + 1)
     , currentLevel_ (INITIAL_LEVEL_VALUE)
   {
@@ -20,7 +20,7 @@ namespace yap
   {
     value_ = experience;
 
-    ComputeExperienceToNextLevel (GetLevel ());
+    ComputeTotalExperienceToNextLevel (GetLevel ());
   }
 
   void PokemonExperience::InitFromLevel (UInt16 level)
@@ -35,12 +35,12 @@ namespace yap
       value_ = ComputeExperienceFromLevel (level);
     }
 
-    ComputeExperienceToNextLevel (level);
+    ComputeTotalExperienceToNextLevel (level);
   }
 
-  void PokemonExperience::ComputeExperienceToNextLevel (UInt16 level)
+  void PokemonExperience::ComputeTotalExperienceToNextLevel (UInt16 level)
   {
-    experienceToNextLevel_ = ComputeExperienceFromLevel (level + 1);
+    totalExperienceToNextLevel_ = ComputeExperienceFromLevel (level + 1);
   }
 
   /// Getters
@@ -52,7 +52,18 @@ namespace yap
 
   const UInt32& PokemonExperience::GetExperienceToNextLevel () const
   {
-    return experienceToNextLevel_;
+    return totalExperienceToNextLevel_ - value_;
+  }
+
+  const UInt32& PokemonExperience::GetTotalExperienceToNextLevel () const
+  {
+    return totalExperienceToNextLevel_;
+  }
+
+  float PokemonExperience::GetExperiencePercentage ()
+  {
+    return static_cast<float>(value_) / 
+      static_cast<float>(totalExperienceToNextLevel_);
   }
 
   UInt16 PokemonExperience::GetLevel ()
@@ -85,13 +96,13 @@ namespace yap
     if ((value_ + value) <= MAX_EXPERIENCE_VALUE)
       value_ += value;
 
-    if (value_ >= experienceToNextLevel_)
+    if (value_ >= totalExperienceToNextLevel_)
     {
-      while (value_ >= experienceToNextLevel_)
+      while (value_ >= totalExperienceToNextLevel_)
       {
         levelEarned++;
         level++;
-        ComputeExperienceToNextLevel (level);
+        ComputeTotalExperienceToNextLevel (level);
       }
 
       return levelEarned;

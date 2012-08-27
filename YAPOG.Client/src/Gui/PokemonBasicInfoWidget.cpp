@@ -8,6 +8,7 @@
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
+#include "YAPOG/Game/Factory/ICloneable.hpp"
 
 #include "Gui/PokemonBasicInfoWidget.hpp"
 #include "Pokemon/Pokemon.hpp"
@@ -132,15 +133,15 @@ namespace ycl
     if (pokemon_.GetGender () == yap::Gender::Female)
     {
       gender_->SetPicture (
-      new yap::Sprite ("Pictures/TeamManager/Female.png"));
+        new yap::Sprite ("Pictures/TeamManager/Female.png"));
     }
     else
     {
       gender_->SetPicture (
-      new yap::Sprite ("Pictures/TeamManager/Male.png"));
+        new yap::Sprite ("Pictures/TeamManager/Male.png"));
     }
 
-    spriteFront_->SetPicture (&pokemon_.GetBattleFront ());
+    spriteFront_->SetPicture (pokemon_.GetBattleFront ().Clone ());
 
     spriteFrontLayout_->AddChild (*spriteFront_);
 
@@ -151,7 +152,7 @@ namespace ycl
     nameLayout_->AddChild (*nameLeft_);
     genderLayout_->AddChild (*gender_);
 
-      levelNameGenderLayout_->AddChild (*levelLayout_);
+    levelNameGenderLayout_->AddChild (*levelLayout_);
     levelNameGenderLayout_->AddChild (*nameLayout_);
     levelNameGenderLayout_->AddChild (*genderLayout_);
 

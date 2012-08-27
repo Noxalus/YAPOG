@@ -13,10 +13,9 @@ namespace ycl
   public:
     PokemonStatsInfoWidget (const Pokemon& pokemon);
 
-    virtual bool IsFocusable () const;
+    void Init ();
 
-  private:
-    const Pokemon& pokemon_;
+    virtual bool IsFocusable () const;
 
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -26,6 +25,54 @@ namespace ycl
     virtual void HandleChangeColor (const sf::Color& color);
     virtual void HandleUpdate (const yap::Time& dt);
 
+  private:
+    const Pokemon& pokemon_;
+
+    // Labels
+    yap::Label* nameLeft_;
+    yap::Label* hp_;
+    yap::Label* attack_;
+    yap::Label* defense_;
+    yap::Label* specialAttack_;
+    yap::Label* specialDefense_;
+    yap::Label* speed_;
+    yap::Label* level_;
+    yap::Label* experiencePointLabel_;
+    yap::Label* experiencePoint_;
+    yap::Label* nextLevelPointLabel_;
+    yap::Label* nextLevelPoint_;
+
+
+    // PictureBoxes
+    yap::PictureBox* gender_;
+    yap::PictureBox* spriteFront_;
+    yap::PictureBox* type1_;
+    yap::PictureBox* type2_;
+
+    // Layouts
+    yap::VerticalLayout* mainLayout_;
+
+    yap::HorizontalLayout* firstLine_;
+
+    yap::VerticalLayout* firstLinePartLeft_;
+    yap::VerticalLayout* levelLayout_;
+    yap::VerticalLayout* nameLayout_;
+    yap::HorizontalLayout* genderLayout_;
+    yap::HorizontalLayout* levelNameGenderLayout_;
+
+    yap::VerticalLayout* spriteFrontLayout_;
+
+    yap::VerticalLayout* firstLinePartRight_;
+    yap::VerticalLayout* hpLayout_;
+    yap::VerticalLayout* statsLayout_;
+
+    yap::VerticalLayout* experienceLayout_;
+    yap::HorizontalLayout* experiencePointLayout_;
+    yap::VerticalLayout* experiencePointLabelLayout_;
+    yap::VerticalLayout* experiencePointNumberLayout_;
+    yap::HorizontalLayout* nextLevelPointLayout_;
+    yap::VerticalLayout* nextLevelPointLabelLayout_;
+    yap::VerticalLayout* nextLevelPointNumberLayout_;
   };
 } // namespace ycl
 

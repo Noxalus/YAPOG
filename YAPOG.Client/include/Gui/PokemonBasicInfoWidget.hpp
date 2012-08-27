@@ -69,8 +69,6 @@ namespace ycl
     yap::HorizontalLayout* typesLayout_;
 
     yap::VerticalLayout* secondLine_;
-
-
   };
 } // namespace ycl
 
