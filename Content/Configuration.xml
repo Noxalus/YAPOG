@@ -5,7 +5,7 @@
   <WindowSize>800,600</WindowSize>
   <Resolution>800,600</Resolution>
 
-  <ContentPath>../../Content</ContentPath>
+  <ContentPath>../Content</ContentPath>
   <TexturePath>Graphics</TexturePath>
   <FontPath>Graphics/Fonts</FontPath>
   <MusicPath>Audio</MusicPath>

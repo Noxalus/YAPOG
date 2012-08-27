@@ -45,6 +45,8 @@ namespace yap
 
       virtual const sf::Color& GetTargetClearColor () const;
       virtual void SetTargetClearColor (const sf::Color& color);
+
+      virtual void ChangeSize (const Vector2& size);
       /// @}
 
       sf::RenderWindow& GetWindow ();

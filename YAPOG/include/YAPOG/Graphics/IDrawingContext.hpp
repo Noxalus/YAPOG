@@ -7,6 +7,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/System/String.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 
 namespace yap
 {
@@ -69,6 +70,8 @@ namespace yap
 
       virtual const sf::Color& GetTargetClearColor () const = 0;
       virtual void SetTargetClearColor (const sf::Color& color) = 0;
+
+      virtual void ChangeSize (const Vector2& size) = 0;
   };
 } // namespace yap
 
