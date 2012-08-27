@@ -26,9 +26,11 @@ namespace ycl
     PokemonBasicInfoWidget* pokemonBasicInfoWidget = 
       new PokemonBasicInfoWidget (*pokemon_);
 
+    PokemonStatsInfoWidget* pokemonStatsInfoWidget = 
+      new PokemonStatsInfoWidget (*pokemon_);
 
-    pokemonInfoPages_.Add (pokemonBasicInfoWidget);
-    //pokemonInfoPages_.Add (new PokemonStatsInfoWidget (pokemon));
+    //pokemonInfoPages_.Add (pokemonBasicInfoWidget);
+    pokemonInfoPages_.Add (pokemonStatsInfoWidget);
     //pokemonInfoPages_.Add (new PokemonMoveInfoWidget (pokemon));
 
     for (yap::BaseWidget* widget : pokemonInfoPages_)
@@ -37,7 +39,8 @@ namespace ycl
       AddChild (*widget);
     }
 
-    pokemonBasicInfoWidget->Init ();
+    //pokemonBasicInfoWidget->Init ();
+    pokemonStatsInfoWidget->Init ();
   }
 
   void PokemonInfoWidget::SetPokemon (Pokemon* pokemon)

@@ -255,13 +255,23 @@ namespace yap
 
   const UInt32& Pokemon::GetExperienceToNextLevel () const
   {
+    return exp_->GetExperienceToNextLevel ();
+  }
+
+  const UInt32& Pokemon::GetTotalExperienceToNextLevel () const
+  {
     if (exp_ != nullptr)
-      return exp_->GetExperienceToNextLevel ();
+      return exp_->GetTotalExperienceToNextLevel ();
     else
     {
       YAPOG_THROW("The Pokémon " + GetName () +
         " doesn't have any experience type !");
     }
+  }
+
+  float Pokemon::GetExperiencePercentage () const
+  {
+    return exp_->GetExperiencePercentage ();
   }
 
   UInt16 Pokemon::GetCurrentHP () const

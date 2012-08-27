@@ -141,8 +141,10 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
+        /*
         for (PokemonInfoBox* pokemonInfoBox : pokemonInfoBoxes_)
           pokemonInfoBox->Close ();
+        */
 
         pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
         pokemonInfoWidget_.Open ();
