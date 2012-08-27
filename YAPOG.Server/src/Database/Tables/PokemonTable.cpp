@@ -61,12 +61,14 @@ namespace yse
   }
 
   Pokemon* PokemonTable::CreatePokemon (
+    const yap::String& trainerName,
     const yap::PokemonStat& stats, 
     const yap::PokemonMoveSet& moveSet)
   {
     Pokemon* pokemon = new Pokemon (
       id_, 
       staticID_,
+      trainerName, 
       nickname_,
       stats,
       gender_,

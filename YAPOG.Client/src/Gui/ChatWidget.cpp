@@ -10,8 +10,9 @@
 namespace ycl
 {
 
-  ChatWidget::ChatWidget ()
-    : chat_ (new yap::Chat ())
+  ChatWidget::ChatWidget (const yap::String& userLogin)
+    : userLogin_ (userLogin)
+    , chat_ (new yap::Chat ())
     , line_ ("")
     , lineCatcher_ (new yap::TextBoxWidget ("", 12))
     , tabTitle_ ()
@@ -145,9 +146,12 @@ namespace ycl
     return bigLayout_->GetSize ();
   }
 
-  void ChatWidget::AddMessage (const yap::String& message)
+  void ChatWidget::AddMessage (const yap::GameMessage& message)
   {
-    dialog_->AddText (message, 12, sf::Color (127, 127, 127));
+    yap::String fullMessage = 
+      message.GetSenderName () + ": " + message.GetContent ();
+
+    dialog_->AddText (fullMessage, 12, sf::Color (127, 127, 127));
   }
 
   void ChatWidget::DisplayResponse (yap::ResponseType res)
@@ -158,6 +162,7 @@ namespace ycl
 
     if (toclear)
       dialog_->Clear ();
+
     for (size_t i = 0; i < responseString.Count (); i++)
     {
       sf::Color color = sf::Color::Black;
@@ -184,6 +189,7 @@ namespace ycl
       }
 
       yap::String message = responseString[i];
+
       if (res.Command)
       {
         dialog_->AddText (
@@ -194,6 +200,7 @@ namespace ycl
       }
 
       yap::GameMessage gameMessage;
+      gameMessage.SetSenderName (userLogin_);
       gameMessage.SetContent (message);
       OnMessageSent (*this, gameMessage);
     }

@@ -17,6 +17,7 @@
 # include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
 # include "Pokemon/Pokemon.hpp"
+# include "Gui/PokemonInfoWidget.hpp"
 
 namespace yap
 {
@@ -57,10 +58,8 @@ namespace ycl
     yap::GridMenu* menu_;
     const PokemonTeam& team_;
     yap::collection::Array<PokemonInfoBox*> pokemonInfoBoxes_;
-    yap::WidgetBackground* normalBackground_;
-    yap::WidgetBackground* selectedBackground_;
     yap::uint index_;
-    yap::collection::Array<PokemonInfoWidget*> pokemonInfoWidgets_;
+    PokemonInfoWidget pokemonInfoWidget_;
 
   };
 } // namespace ycl

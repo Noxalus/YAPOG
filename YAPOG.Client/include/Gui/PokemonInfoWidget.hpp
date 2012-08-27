@@ -10,16 +10,19 @@ namespace ycl
 
   class PokemonInfoWidget : public yap::BaseWidget
   {
+     DISALLOW_COPY(PokemonInfoWidget);
   public:
-    PokemonInfoWidget (const Pokemon& pokemon);
+    PokemonInfoWidget ();
     ~PokemonInfoWidget ();
 
-    void Init ();
+    void SetPokemon (Pokemon* pokemon);
 
     virtual bool IsFocusable () const;
 
   private:
-    const Pokemon& pokemon_;
+    void Init ();
+
+    Pokemon* pokemon_;
     yap::UInt8 pageNumber_;
     yap::collection::Array<yap::BaseWidget*> pokemonInfoPages_;
 

@@ -58,11 +58,15 @@ namespace ycl
     yap::HorizontalLayout* firstLine_;
 
     yap::VerticalLayout* firstLinePartLeft_;
+    yap::VerticalLayout* levelLayout_;
+    yap::VerticalLayout* nameLayout_;
+    yap::HorizontalLayout* genderLayout_;
     yap::HorizontalLayout* levelNameGenderLayout_;
-    yap::HorizontalLayout* spriteFrontLayout_;
+
+    yap::VerticalLayout* spriteFrontLayout_;
 
     yap::VerticalLayout* firstLinePartRight_;
-    yap::HorizontalLayout* typesLayout;
+    yap::HorizontalLayout* typesLayout_;
 
     yap::VerticalLayout* secondLine_;
 

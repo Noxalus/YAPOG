@@ -235,7 +235,7 @@ namespace yse
     yap::String content = packet.ReadString ();
 
     yap::GameMessage gameMessage;
-    gameMessage.SetSenderName (login_);
+    gameMessage.SetSenderName (senderName);
     gameMessage.SetContent (content);
 
     SendGameMessage (gameMessage);
@@ -275,7 +275,7 @@ namespace yse
       packet.Write (currentPokemon->GetNickname ());
       packet.Write (currentPokemon->GetShiny ());
       packet.Write (currentPokemon->GetLoyalty ());
-      packet.Write (currentPokemon->GetNature ());
+      packet.Write (currentPokemon->GetNatureID ());
       packet.Write (currentPokemon->GetTotalExperience ());
       packet.Write (currentPokemon->GetBoxNumber ());
       packet.Write (currentPokemon->GetBoxIndex ());

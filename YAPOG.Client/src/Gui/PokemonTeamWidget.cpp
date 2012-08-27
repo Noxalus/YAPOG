@@ -9,7 +9,7 @@
 
 #include "Gui/PokemonTeamWidget.hpp"
 #include "Gui/PokemonInfoBox.hpp"
-#include "Gui/PokemonInfoWidget.hpp"
+
 #include "Pokemon/PokemonTeam.hpp"
 
 namespace ycl
@@ -20,10 +20,8 @@ namespace ycl
     , menu_ (nullptr)
     , team_ (team)
     , pokemonInfoBoxes_ ()
-    , normalBackground_ (nullptr)
-    , selectedBackground_ (nullptr)
     , index_ (0)
-    , pokemonInfoWidgets_ ()
+    , pokemonInfoWidget_ ()
   {
 
   }
@@ -36,12 +34,6 @@ namespace ycl
   {
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/Partyfond.png", true));
-
-    normalBackground_ = new yap::WidgetBackground (
-      "Pictures/TeamManager/ItemBox.png", true);
-
-    selectedBackground_ = new yap::WidgetBackground (
-      "Pictures/TeamManager/ItemBoxSelected.png", true);
 
     yap::Label* state_ = new yap::Label ("Choisir un POKÈMON.");
 
@@ -76,7 +68,8 @@ namespace ycl
 
     for (int i = 0; i < team_.GetPokemonCount (); i++)
     {
-      PokemonInfoBox* box = nullptr;
+      PokemonInfoBox* box = nullptr; 
+
       if (i == 0)
       {
         box = new PokemonInfoBox (true, team_.GetPokemon (i));
@@ -88,20 +81,15 @@ namespace ycl
         box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
       }
 
-      PokemonInfoWidget * pokemonInfoWidget = 
-        new PokemonInfoWidget (team_.GetPokemon (i));
-
-      pokemonInfoWidget->Init ();
-
       pokemonInfoBoxes_.Add (box);
-      pokemonInfoWidgets_.Add (pokemonInfoWidget);
 
       AddChild (*box);
-      AddChild (*pokemonInfoWidget);
-      pokemonInfoWidget->Close ();
     }
 
-    pokemonInfoBoxes_[index_]->SetBackground (*selectedBackground_);
+    AddChild (pokemonInfoWidget_);
+    pokemonInfoWidget_.Close ();
+
+    pokemonInfoBoxes_[index_]->SetIsSelected (true);
   }
 
   bool PokemonTeamWidget::IsFocusable () const
@@ -118,25 +106,25 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
-        pokemonInfoBoxes_[index_]->SetBackground (*normalBackground_);
+        pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
         if (index_ == 0)
           index_ = pokemonInfoBoxes_.Count () - 1;
         else
           index_--;
 
-        pokemonInfoBoxes_[index_]->SetBackground (*selectedBackground_);
+        pokemonInfoBoxes_[index_]->SetIsSelected (true);
 
         return true;
       }
 
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
-        pokemonInfoBoxes_[index_]->SetBackground (*normalBackground_);
+        pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
         index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
 
-        pokemonInfoBoxes_[index_]->SetBackground (*selectedBackground_);
+        pokemonInfoBoxes_[index_]->SetIsSelected (true);
 
         return true;
       }
@@ -153,13 +141,11 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
-        if (index_ < pokemonInfoWidgets_.Count () - 1)
-        {
-          for (PokemonInfoBox* pokemonInfoBox : pokemonInfoBoxes_)
-            pokemonInfoBox->Close ();
+        for (PokemonInfoBox* pokemonInfoBox : pokemonInfoBoxes_)
+          pokemonInfoBox->Close ();
 
-          pokemonInfoWidgets_[index_]->Open ();
-        }
+        pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
+        pokemonInfoWidget_.Open ();
 
         return true;
       }
@@ -177,6 +163,7 @@ namespace ycl
   {
     return yap::Vector2 (800, 600);
   }
+
   void PokemonTeamWidget::HandleMove (const yap::Vector2& offset)
   {
 
@@ -185,23 +172,17 @@ namespace ycl
   {
 
   }
+
   void PokemonTeamWidget::HandleDraw (yap::IDrawingContext& context)
   {
-    /*
-    for (PokemonInfoBox* pokemonInfoBox : pokemonInfoBoxes_)
-    pokemonInfoBox->Draw (context);
-
-    if (index_ < pokemonInfoWidgets_.Count () - 1)
-    pokemonInfoWidgets_[index_]->Draw (context);
-    */
   }
+
   void PokemonTeamWidget::HandleShow (bool isVisible)
   {
-
   }
+
   void PokemonTeamWidget::HandleChangeColor (const sf::Color& color)
   {
-
   }
   void PokemonTeamWidget::HandleUpdate (const yap::Time& dt)
   {

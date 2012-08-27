@@ -24,7 +24,9 @@ namespace yse
     bool Select (PokemonTable& pokemonTable);
     PokemonTable* SelectPokemon (const yap::ID& pokemonID);
     */
-    PokemonTeam* SelectPokemonTeam (const yap::ID& accountID);
+    PokemonTeam* SelectPokemonTeam (
+      const yap::String& trainerName,
+      const yap::ID& accountID);
 
   private:
     yap::DatabaseManager& databaseManager_;

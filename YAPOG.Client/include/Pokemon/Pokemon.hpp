@@ -29,6 +29,7 @@ namespace ycl
     Pokemon (
       const yap::ID& uniqueID,
       const yap::ID& staticID,
+      const yap::String& trainerName,
       const yap::String& nickname,
       const yap::PokemonStat& stats,
       const yap::Gender& gender,
@@ -49,6 +50,8 @@ namespace ycl
     yap::ISprite& GetGenderIcon () const;
     yap::ISprite& GetBattleBack () const;
     yap::ISprite& GetBattleFront () const;
+    yap::ISprite& GetType1Icon () const;
+    yap::ISprite& GetType2Icon () const;
 
   private:
     void Init ();
@@ -58,6 +61,8 @@ namespace ycl
     yap::ISprite* genderIcon_;
     yap::ISprite* battleBack_;
     yap::ISprite* battleFront_;
+    yap::ISprite* type1Icon_;
+    yap::ISprite* type2Icon_;
 
     PokemonInfo* graphicPokemonInfo_;
 

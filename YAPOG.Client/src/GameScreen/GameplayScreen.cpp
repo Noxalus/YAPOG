@@ -103,7 +103,7 @@ namespace ycl
       const User& sender,
       const yap::GameMessage& message)
     {
-      chat_->AddMessage (message.GetContent ());
+      chat_->AddMessage (message);
     };
 
     session_.GetUser ().OnBattleTriggered += [this] (
@@ -151,7 +151,7 @@ namespace ycl
 #ifdef YAPOG_WIN
     /// @warning Temporary disabled ==> issue on regex under Linux
     // Chat
-    chat_ = new ChatWidget ();
+    chat_ = new ChatWidget (session_.GetUser ().GetLogin ());
     chat_->Init ();
     chat_->Close ();
 

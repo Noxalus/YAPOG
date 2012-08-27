@@ -21,7 +21,7 @@ namespace yap
   typedef std::pair<
     std::pair<bool, UInt32>,
     std::pair<UInt32, BufferType>>    DisplayType;
-  
+
   typedef struct  Response
   {
     Response () : Clean (false), Command (false), Channb (), Message () {};

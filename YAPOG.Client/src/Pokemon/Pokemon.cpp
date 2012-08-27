@@ -16,6 +16,8 @@ namespace ycl
     , genderIcon_ (nullptr)
     , battleBack_ (nullptr)
     , battleFront_ (nullptr)
+    , type1Icon_ (nullptr)
+    , type2Icon_ (nullptr)
   {
     Init ();
   }
@@ -29,6 +31,8 @@ namespace ycl
     , genderIcon_ (nullptr)
     , battleBack_ (nullptr)
     , battleFront_ (nullptr)
+    , type1Icon_ (nullptr)
+    , type2Icon_ (nullptr)
   {
     Init ();
   }
@@ -36,6 +40,7 @@ namespace ycl
   Pokemon::Pokemon (
     const yap::ID& uniqueID,
     const yap::ID& staticID,
+    const yap::String& trainerName,
     const yap::String& nickname,
     const yap::PokemonStat& stats,
     const yap::Gender& gender,
@@ -51,6 +56,7 @@ namespace ycl
     : yap::Pokemon (
     uniqueID,
     staticID,
+    trainerName,
     nickname,
     stats,
     gender,
@@ -67,6 +73,8 @@ namespace ycl
     , genderIcon_ (nullptr)
     , battleBack_ (nullptr)
     , battleFront_ (nullptr)
+    , type1Icon_ (nullptr)
+    , type2Icon_ (nullptr)
   {
     Init ();
   }
@@ -86,6 +94,16 @@ namespace ycl
   void Pokemon::LoadSprites ()
   {
     icon_ = new yap::Sprite (graphicPokemonInfo_->GetIconPath ());
+
+    type1Icon_ = new yap::Sprite (
+      "Pictures/Types/" +
+      yap::StringHelper::ToString (
+      GetType1 ().GetID ().GetValue ()) + ".png");
+
+    type2Icon_ = new yap::Sprite (
+      "Pictures/Types/" +
+      yap::StringHelper::ToString (
+      GetType2 ().GetID ().GetValue ()) + ".png");
 
     if (gender_ == yap::Gender::Female)
     {
@@ -140,5 +158,9 @@ namespace ycl
   { return *battleBack_; }
   yap::ISprite& Pokemon::GetBattleFront () const
   { return *battleFront_; }
+  yap::ISprite& Pokemon::GetType1Icon () const
+  { return *type1Icon_; }
+  yap::ISprite& Pokemon::GetType2Icon () const
+  { return *type2Icon_; }
 
 } // namespace ycl

@@ -102,12 +102,16 @@ namespace yap
     }
     return false;
   }
-  
-  void MultiLabelWidget::AddText (const String& contentArg, uint charSize, sf::Color color, LayoutBox::Align align)
+
+  void MultiLabelWidget::AddText (
+    const String& contentArg, 
+    uint charSize, 
+    sf::Color color, 
+    LayoutBox::Align align)
   {
     if (contentArg.empty())
       return;
-    
+
     String txt = contentArg;
     Label charWidth ("Test");
     charWidth.SetTextSize (charSize);
@@ -116,7 +120,7 @@ namespace yap
     uint previousPos = 0;
     uint subPos = charNumb;
     sf::Text width (txt.substr (0, subPos));
-    
+
     collection::Array<uint> pos;
     pos.Add (0);
     while (true)
@@ -125,17 +129,20 @@ namespace yap
       {
         if (previousPos + subPos + 1 >= txt.length ())
           break;
+
         width.setString (txt.substr (previousPos, ++subPos));
       }
+
       if (previousPos + subPos + 1 >= txt.length ())
         break;
+
       pos.Add (previousPos + subPos - 1);
       txt.insert (previousPos + subPos - 1, "\n");
       previousPos += subPos;
       subPos = 1;
       width.setString (txt.substr (previousPos, subPos));
     }
-        
+
     for (int i = 0; i < pos.Count (); ++i)
     {
       Label* lb = new Label ();      
@@ -146,7 +153,7 @@ namespace yap
         lb->SetText (contentArg.substr (pos[i], pos[i + 1] - pos[i]));
       else
         lb->SetText (contentArg.substr (pos[i]));
-      
+
       labels_.Add (lb);
       layout_->AddChild (*lb, align);
       layoutManager_->AddItem (lb);

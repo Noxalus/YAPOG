@@ -33,6 +33,7 @@ namespace yap
     Pokemon (
       const ID& uniqueID,
       const ID& staticID,
+      const String& trainerName,
       const String& nickname,
       const PokemonStat& stats,
       const Gender& gender,
@@ -49,6 +50,7 @@ namespace yap
     /// Getters
     const ID& GetUniqueID () const;
     const ID& GetStaticID () const;
+    const String& GetTrainerName () const;
     const String& GetName () const;
     const String& GetNickname () const;
     const TypeInfo& GetType1 () const;
@@ -59,7 +61,8 @@ namespace yap
     const UInt16& GetLevel () const;
     const bool GetShiny () const;
     const Int16& GetLoyalty () const;
-    const yap::ID& GetNature () const;
+    const yap::NatureInfo& GetNature () const;
+    const yap::ID& GetNatureID () const;
     const PokemonStat& GetStats () const;
     const Gender& GetGender () const;
     const PokemonStatus& GetStatus () const;
@@ -89,6 +92,7 @@ namespace yap
   protected:
     ID uniqueID_;
     ID staticID_;
+    String trainerName_;
     String nickname_;
     PokemonStat stats_;
     PokemonType type_;

@@ -6,8 +6,8 @@
 
 namespace ycl
 {
-  PokemonInfoWidget::PokemonInfoWidget (const Pokemon& pokemon)
-    : pokemon_ (pokemon)
+  PokemonInfoWidget::PokemonInfoWidget ()
+    : pokemon_ (nullptr)
     , pageNumber_ (0)
     , pokemonInfoPages_ ()
   {
@@ -24,7 +24,7 @@ namespace ycl
     SetSize (yap::Vector2 (800, 600));
 
     PokemonBasicInfoWidget* pokemonBasicInfoWidget = 
-      new PokemonBasicInfoWidget (pokemon_);
+      new PokemonBasicInfoWidget (*pokemon_);
 
 
     pokemonInfoPages_.Add (pokemonBasicInfoWidget);
@@ -38,6 +38,13 @@ namespace ycl
     }
 
     pokemonBasicInfoWidget->Init ();
+  }
+
+  void PokemonInfoWidget::SetPokemon (Pokemon* pokemon)
+  {
+    pokemon_ = pokemon;
+
+    Init ();
   }
 
   bool PokemonInfoWidget::IsFocusable () const

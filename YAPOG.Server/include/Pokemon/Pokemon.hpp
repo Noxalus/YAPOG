@@ -29,6 +29,7 @@ namespace yse
     Pokemon (
       const yap::ID& uniqueID,
       const yap::ID& staticID,
+      const yap::String& trainerName,
       const yap::String& nickname,
       const yap::PokemonStat& stats,
       const yap::Gender& gender,

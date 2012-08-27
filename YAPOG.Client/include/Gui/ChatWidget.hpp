@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/Chat/ChatHeader.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 # include "YAPOG/Graphics/Gui/GuiEvent.hpp"
@@ -31,13 +32,13 @@ namespace ycl
     DISALLOW_COPY(ChatWidget);
 
   public:
-    ChatWidget ();
+    ChatWidget (const yap::String& userLogin);
     virtual                 ~ChatWidget();
 
     void                    Init ();
     virtual bool            IsFocusable () const;
 
-    void AddMessage (const yap::String& message);
+    void AddMessage (const yap::GameMessage& message);
 
     /// Event raised each time a message is entered by the player.
     yap::Event<ChatWidget&, yap::GameMessage&> OnMessageSent;
@@ -65,6 +66,7 @@ namespace ycl
     bool                    TestSwitchTab (const yap::GuiEvent& guiEvent);
     bool                    TabAndChanHandler (bool chan, bool add, int i);
 
+    const yap::String&      userLogin_;
     yap::Chat*              chat_;
     yap::String             line_;
     yap::TextBoxWidget*     lineCatcher_;

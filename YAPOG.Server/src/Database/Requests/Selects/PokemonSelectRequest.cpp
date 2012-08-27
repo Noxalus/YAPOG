@@ -117,6 +117,7 @@ namespace yse
   */
 
   PokemonTeam* PokemonSelectRequest::SelectPokemonTeam (
+    const yap::String& trainerName,
     const yap::ID& accountID)
   {
     yap::String queryString = 
@@ -230,7 +231,8 @@ namespace yse
       const yap::PokemonMoveSet& moveSet = 
         *selectPokemonMoves.SelectPokemonMoves (pokemonTable->id_);
 
-      pokemonTeam->AddPokemon (pokemonTable->CreatePokemon (stats, moveSet));
+      pokemonTeam->AddPokemon (pokemonTable->CreatePokemon (
+        trainerName, stats, moveSet));
 
       counter++;
 

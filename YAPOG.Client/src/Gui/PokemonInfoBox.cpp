@@ -13,7 +13,12 @@
 namespace ycl
 {
   PokemonInfoBox::PokemonInfoBox (bool isMainPokemon, const Pokemon& pokemon)
-    : icon_ (nullptr)
+    : pokemon_ (pokemon) 
+    , isMainPokemon_ (isMainPokemon)
+    , isSelected_ (false)
+    , normalBackground_ (nullptr)
+    , selectedBackground_ (nullptr)
+    , icon_ (nullptr)
     , name_ (new yap::Label (pokemon.GetName ()))
     , level_ (new yap::Label ())
     , gender_ (nullptr)
@@ -23,9 +28,16 @@ namespace ycl
     yap::StringHelper::ToString (
     pokemon.GetCurrentHP ()) + " / " + 
     yap::StringHelper::ToString (pokemon.GetMaxHP ())))
-    , vlayout_ (nullptr)
-    , isMainPokemon_ (isMainPokemon)
   {
+
+    normalBackground_ = new yap::WidgetBackground (
+      "Pictures/TeamManager/ItemBox.png", true);
+
+    selectedBackground_ = new yap::WidgetBackground (
+      "Pictures/TeamManager/ItemBoxSelected.png", true);
+
+    SetBackground (*normalBackground_);
+
     icon_ = new yap::PictureBox ();
     gender_ = new yap::PictureBox ();
     hpBarContent_ = new yap::PictureBox ();
@@ -63,7 +75,6 @@ namespace ycl
     if (isMainPokemon)
     {
       SetSize (yap::Vector2 (276, 173));
-      SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/ItemBox.png", true));
 
       yap::VerticalLayout* mainLayout = 
         new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
@@ -113,21 +124,20 @@ namespace ycl
       mainLayout->AddChild (*firstLine);
       mainLayout->AddChild (*secondLine);
 
+      /*
       mainLayout->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
       firstLine->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
       secondLine->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
       firstLineInfo->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
       firstLineIcon->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
       levelAndGender->SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
+      */
 
       AddChild (*mainLayout);
     }
     else
     {
       SetSize (yap::Vector2 (425, 75));
-
-      SetBackground (*new yap::WidgetBackground (
-        "Pictures/TeamManager/ItemBox.png", true));
 
       yap::HorizontalLayout* hor1 = 
         new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);
@@ -159,22 +169,33 @@ namespace ycl
       ver3->AddChild (*hpBar_, yap::LayoutBox::Align::RIGHT);
       ver3->AddChild (*hpLabel_, yap::LayoutBox::Align::RIGHT);
 
-
+      /*
       ver1->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
       ver2->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
       ver3->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
       hor1->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+      */
 
-      yap::HorizontalLayout* hlayout = 
+      yap::HorizontalLayout* mainLayout = 
         new yap::HorizontalLayout (yap::Padding (), yap::Padding (), false);
-      hlayout->SetSize (GetSize ());
-      hlayout->SetDefaultColor (sf::Color::White);
-      hlayout->AddChild (*ver1);
-      hlayout->AddChild (*ver2);
-      hlayout->AddChild (*ver3);
+      mainLayout->SetSize (GetSize ());
+      mainLayout->SetDefaultColor (sf::Color::White);
+      mainLayout->AddChild (*ver1);
+      mainLayout->AddChild (*ver2);
+      mainLayout->AddChild (*ver3);
 
-      AddChild (*hlayout);
+      AddChild (*mainLayout);
     }
+  }
+
+  void PokemonInfoBox::SetIsSelected (bool value)
+  {
+    isSelected_ = value;
+
+    if (isSelected_)
+      SetBackground (*selectedBackground_);
+    else
+      SetBackground (*normalBackground_);
   }
 
   bool PokemonInfoBox::IsFocusable () const

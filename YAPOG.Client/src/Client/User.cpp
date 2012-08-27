@@ -382,6 +382,7 @@ namespace ycl
       Pokemon* currentPokemon = new Pokemon (
         uniqueID,
         staticID,
+        login_,
         nickname,
         stats,
         gender,

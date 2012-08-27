@@ -28,6 +28,7 @@ namespace yse
     void LoadFromPokemon (const Pokemon& pokemon);
 
     Pokemon* CreatePokemon (
+      const yap::String& trainerName,
       const yap::PokemonStat& stats, 
       const yap::PokemonMoveSet& moveSet);
 

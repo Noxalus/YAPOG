@@ -22,6 +22,8 @@ namespace ycl
       bool isMainPokemon, 
       const Pokemon& pokemon);
 
+    void SetIsSelected (bool value);
+
     virtual bool IsFocusable () const;
 
   protected:
@@ -33,6 +35,11 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
+    const Pokemon& pokemon_;
+    bool isMainPokemon_;
+    bool isSelected_;
+    yap::WidgetBackground* normalBackground_;
+    yap::WidgetBackground* selectedBackground_;
     yap::PictureBox* icon_;
     yap::Label* name_;
     yap::Label* level_;
@@ -40,8 +47,6 @@ namespace ycl
     yap::PictureBox* hpBar_;
     yap::PictureBox* hpBarContent_;
     yap::Label* hpLabel_;
-    yap::VerticalLayout* vlayout_;
-    bool isMainPokemon_;
 
   };
 } // namespace ycl

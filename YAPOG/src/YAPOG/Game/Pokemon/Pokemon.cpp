@@ -21,6 +21,7 @@ namespace yap
   Pokemon::Pokemon (const ID& staticID)
     : uniqueID_ (ID ())
     , staticID_ (staticID)
+    , trainerName_ ()
     , nickname_ ()
     , stats_ ()
     , type_ ()
@@ -62,6 +63,7 @@ namespace yap
     const bool& shiny)
     : uniqueID_ (ID ())
     , staticID_ (staticID)
+    , trainerName_ ()
     , nickname_ ()
     , stats_ ()
     , type_ ()
@@ -102,6 +104,7 @@ namespace yap
   Pokemon::Pokemon (
     const ID& uniqueID,
     const ID& staticID,
+    const String& trainerName,
     const String& nickname,
     const PokemonStat& stats,
     const Gender& gender,
@@ -116,6 +119,7 @@ namespace yap
     const String& catchDate) 
     : uniqueID_ (uniqueID)
     , staticID_ (staticID)
+    , trainerName_ (trainerName)
     , nickname_ (nickname)
     , stats_ (stats)
     , type_ ()
@@ -197,6 +201,11 @@ namespace yap
   const ID& Pokemon::GetStaticID () const
   {
     return staticID_;
+  }
+
+  const String& Pokemon::GetTrainerName () const
+  {
+    return trainerName_;
   }
 
   const String& Pokemon::GetName () const
@@ -291,7 +300,15 @@ namespace yap
     return loyalty_;
   }
 
-  const yap::ID& Pokemon::GetNature () const
+  const yap::NatureInfo& Pokemon::GetNature () const
+  {
+    if (nature_ == nullptr)
+      throw yap::Exception ("The nature of this Pokemon is null !");
+
+    return *nature_;
+  }
+
+  const yap::ID& Pokemon::GetNatureID () const
   {
     if (nature_ == nullptr)
       throw yap::Exception ("The nature of this Pokemon is null !");

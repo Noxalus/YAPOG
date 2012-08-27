@@ -92,7 +92,7 @@ namespace yse
           std::cout << "Player data have been created !" << std::endl;
 
           // Add first Pokemon
-          for (int i = 1; i <= 6; i++)
+          for (int i = 1; i <= 5; i++)
           {
             Pokemon* p = GenerateRandomPokemon ();
 
@@ -209,7 +209,8 @@ namespace yse
 
     PokemonTeam* pokemonTeam;
     PokemonSelectRequest selectPokemon (databaseManager_);
-    pokemonTeam = selectPokemon.SelectPokemonTeam (account->GetID ());
+    pokemonTeam = selectPokemon.SelectPokemonTeam (
+      account->GetName (), account->GetID ());
 
     account->SetTeam (pokemonTeam);
 
