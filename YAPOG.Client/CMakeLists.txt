@@ -146,6 +146,14 @@ ${inc_root}/Gui/MapPlayerInfoPanel.hpp
 ${src_root}/Gui/MapPlayerInfoPanel.cpp
 ${inc_root}/Gui/PokemonInfoBox.hpp
 ${src_root}/Gui/PokemonInfoBox.cpp
+${inc_root}/Gui/PokemonInfoWidget.hpp
+${src_root}/Gui/PokemonInfoWidget.cpp
+${inc_root}/Gui/PokemonBasicInfoWidget.hpp
+${src_root}/Gui/PokemonBasicInfoWidget.cpp
+${inc_root}/Gui/PokemonStatsInfoWidget.hpp
+${src_root}/Gui/PokemonStatsInfoWidget.cpp
+${inc_root}/Gui/PokemonMoveInfoWidget.hpp
+${src_root}/Gui/PokemonMoveInfoWidget.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

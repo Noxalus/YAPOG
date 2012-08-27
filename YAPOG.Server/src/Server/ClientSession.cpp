@@ -1,3 +1,5 @@
+#include <boost/exception/all.hpp>
+
 #include "YAPOG/System/Error/Exception.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
@@ -166,6 +168,16 @@ namespace yse
 
       SendPacket (loginErrorPacket);
     }
+    catch (boost::exception& ex)
+    {
+      std::cout << boost::diagnostic_information (ex) << std::endl;
+
+      yap::Packet loginErrorPacket;
+      loginErrorPacket.CreateFromType (
+        yap::PacketType::ServerInfoLoginError);
+
+      SendPacket (loginErrorPacket);
+    }
   }
 
   void ClientSession::HandleClientRequestRegistration (yap::IPacket& packet)
@@ -205,8 +217,20 @@ namespace yse
         SendPacket (registrationErrorPacket);
       }
     }
-    catch (...)
+    catch (const yap::Exception& e)
     {
+      e.GetMessage (std::cerr);
+
+      yap::Packet registrationErrorPacket;
+      registrationErrorPacket.CreateFromType (
+        yap::PacketType::ServerInfoRegistrationError);
+
+      SendPacket (registrationErrorPacket);
+    }
+    catch (boost::exception& ex)
+    {
+      std::cout << boost::diagnostic_information (ex) << std::endl;
+
       yap::Packet registrationErrorPacket;
       registrationErrorPacket.CreateFromType (
         yap::PacketType::ServerInfoRegistrationError);

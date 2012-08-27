@@ -9,21 +9,21 @@
 
 #include "Gui/PokemonTeamWidget.hpp"
 #include "Gui/PokemonInfoBox.hpp"
+#include "Gui/PokemonInfoWidget.hpp"
 #include "Pokemon/PokemonTeam.hpp"
-
-#include "Game.hpp"
 
 namespace ycl
 {
 
   PokemonTeamWidget::PokemonTeamWidget (const PokemonTeam& team)
     : state_ (nullptr)
-    , current_ (nullptr)
     , menu_ (nullptr)
-    , vlayoutMenu_ (nullptr)
     , team_ (team)
-    , pokemons ()
-    , ite_ (0)
+    , pokemonInfoBoxes_ ()
+    , normalBackground_ (nullptr)
+    , selectedBackground_ (nullptr)
+    , index_ (0)
+    , pokemonInfoWidgets_ ()
   {
 
   }
@@ -34,7 +34,15 @@ namespace ycl
 
   void PokemonTeamWidget::Init ()
   {
-    SetBackground (*new yap::WidgetBackground ("Pictures/TeamManager/Partyfond.png", true));
+    SetBackground (*new yap::WidgetBackground (
+      "Pictures/TeamManager/Partyfond.png", true));
+
+    normalBackground_ = new yap::WidgetBackground (
+      "Pictures/TeamManager/ItemBox.png", true);
+
+    selectedBackground_ = new yap::WidgetBackground (
+      "Pictures/TeamManager/ItemBoxSelected.png", true);
+
     yap::Label* state_ = new yap::Label ("Choisir un POKéMON.");
 
     yap::Texture* t = new yap::Texture ();
@@ -65,28 +73,35 @@ namespace ycl
     state_->SetPosition (GetSize () - state_->GetSize () - yap::Vector2 (15, 15));
     state_->SetBorder (*stateBorder);
 
-    PokemonInfoBox* box = new PokemonInfoBox (true, team_.GetPokemon (0));
-    box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
-    pokemons.Add (box);
 
-    for (int i = 1; i < team_.GetPokemonCount (); i++)
+    for (int i = 0; i < team_.GetPokemonCount (); i++)
     {
-      PokemonInfoBox* box = new PokemonInfoBox (false, team_.GetPokemon (i));
-      box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
-      pokemons.Add (box);
+      PokemonInfoBox* box = nullptr;
+      if (i == 0)
+      {
+        box = new PokemonInfoBox (true, team_.GetPokemon (i));
+        box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
+      }
+      else
+      {
+        box = new PokemonInfoBox (false, team_.GetPokemon (i));
+        box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
+      }
+
+      PokemonInfoWidget * pokemonInfoWidget = 
+        new PokemonInfoWidget (team_.GetPokemon (i));
+
+      pokemonInfoWidget->Init ();
+
+      pokemonInfoBoxes_.Add (box);
+      pokemonInfoWidgets_.Add (pokemonInfoWidget);
+
+      AddChild (*box);
+      AddChild (*pokemonInfoWidget);
+      pokemonInfoWidget->Close ();
     }
 
-    vlayoutMenu_ = new yap::VerticalLayout (yap::Padding (), yap::Padding (), true);
-
-    for (int i = 1; i < 1; i++) // iterate over team.
-    {
-      PokemonInfoBox* box = new PokemonInfoBox (false, team_.GetPokemon (i));
-      vlayoutMenu_->AddChild (*box);
-      pokemons.Add (box);
-    }
-
-    AddChild (*vlayoutMenu_);
-
+    pokemonInfoBoxes_[index_]->SetBackground (*selectedBackground_);
   }
 
   bool PokemonTeamWidget::IsFocusable () const
@@ -96,33 +111,55 @@ namespace ycl
 
   bool PokemonTeamWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
-    if (pokemons.Count () == 0)
+    if (pokemonInfoBoxes_.Count () == 0)
       return false;
 
     if (guiEvent.type == sf::Event::KeyPressed)
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
+        pokemonInfoBoxes_[index_]->SetBackground (*normalBackground_);
+
+        if (index_ == 0)
+          index_ = pokemonInfoBoxes_.Count () - 1;
+        else
+          index_--;
+
+        pokemonInfoBoxes_[index_]->SetBackground (*selectedBackground_);
 
         return true;
       }
+
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
+        pokemonInfoBoxes_[index_]->SetBackground (*normalBackground_);
+
+        index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
+
+        pokemonInfoBoxes_[index_]->SetBackground (*selectedBackground_);
 
         return true;
       }
+
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
-
         return true;
       }
+
       if (guiEvent.key.code == sf::Keyboard::Right)
       {
-
         return true;
       }
+
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
+        if (index_ < pokemonInfoWidgets_.Count () - 1)
+        {
+          for (PokemonInfoBox* pokemonInfoBox : pokemonInfoBoxes_)
+            pokemonInfoBox->Close ();
+
+          pokemonInfoWidgets_[index_]->Open ();
+        }
 
         return true;
       }
@@ -150,10 +187,13 @@ namespace ycl
   }
   void PokemonTeamWidget::HandleDraw (yap::IDrawingContext& context)
   {
-    for (PokemonInfoBox* b : pokemons)
-    {
-      b->Draw (context);
-    }
+    /*
+    for (PokemonInfoBox* pokemonInfoBox : pokemonInfoBoxes_)
+    pokemonInfoBox->Draw (context);
+
+    if (index_ < pokemonInfoWidgets_.Count () - 1)
+    pokemonInfoWidgets_[index_]->Draw (context);
+    */
   }
   void PokemonTeamWidget::HandleShow (bool isVisible)
   {
@@ -165,6 +205,6 @@ namespace ycl
   }
   void PokemonTeamWidget::HandleUpdate (const yap::Time& dt)
   {
-
   }
+
 } // namespace ycl

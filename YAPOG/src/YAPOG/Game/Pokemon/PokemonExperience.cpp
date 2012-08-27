@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
+#include "YAPOG/System/MathHelper.hpp"
 
 namespace yap
 {
@@ -70,7 +71,10 @@ namespace yap
       }
     }
 
-    return currentLevel_;
+    return MathHelper::Clamp(
+      currentLevel_, 
+      INITIAL_LEVEL_VALUE, 
+      MAX_LEVEL_VALUE);
   }
 
   int PokemonExperience::AddExperience (const UInt32& value)

@@ -34,9 +34,9 @@ namespace yse
 {
   Pokemon* GenerateRandomPokemon ()
   {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 5));
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 10));
 
-    if (staticID == yap::ID (5))
+    if (staticID == yap::ID (10))
       staticID = yap::ID (16);
 
     int level = yap::RandomHelper::GetNext (1, 100);
@@ -92,7 +92,7 @@ namespace yse
           std::cout << "Player data have been created !" << std::endl;
 
           // Add first Pokemon
-          for (int i = 1; i <= 2; i++)
+          for (int i = 1; i <= 6; i++)
           {
             Pokemon* p = GenerateRandomPokemon ();
 

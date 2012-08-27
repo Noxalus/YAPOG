@@ -6,7 +6,7 @@
 
 namespace yap
 {
-  class ISprite;
+  struct ISprite;
   class PokemonMoveSet;
 }
 

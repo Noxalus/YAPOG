@@ -15,14 +15,14 @@ namespace ycl
   PokemonInfoBox::PokemonInfoBox (bool isMainPokemon, const Pokemon& pokemon)
     : icon_ (nullptr)
     , name_ (new yap::Label (pokemon.GetName ()))
-    , level_ (
-    new yap::Label (
-    "N. " + yap::StringHelper::ToString (
-    static_cast<int>(pokemon.GetLevel ()))))
+    , level_ (new yap::Label ())
     , gender_ (nullptr)
     , hpBar_ (nullptr)
     , hpBarContent_ (nullptr)
-    , hpLabel_ (new yap::Label (yap::StringHelper::ToString (pokemon.GetCurrentHP ()) + " / " + yap::StringHelper::ToString (pokemon.GetMaxHP ())))
+    , hpLabel_ (new yap::Label (
+    yap::StringHelper::ToString (
+    pokemon.GetCurrentHP ()) + " / " + 
+    yap::StringHelper::ToString (pokemon.GetMaxHP ())))
     , vlayout_ (nullptr)
     , isMainPokemon_ (isMainPokemon)
   {
@@ -33,6 +33,9 @@ namespace ycl
 
     icon_->SetPicture (&pokemon.GetIcon ());
     gender_->SetPicture (&pokemon.GetGenderIcon ());
+    level_->SetText ( 
+      "N. " + yap::StringHelper::ToString (
+      static_cast<int>(pokemon.GetLevel ())));
 
     // HP Bar
     hpBar_->SetPicture (
@@ -110,14 +113,12 @@ namespace ycl
       mainLayout->AddChild (*firstLine);
       mainLayout->AddChild (*secondLine);
 
-      /*
       mainLayout->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
       firstLine->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
       secondLine->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
       firstLineInfo->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
       firstLineIcon->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
       levelAndGender->SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
-      */
 
       AddChild (*mainLayout);
     }
@@ -158,12 +159,11 @@ namespace ycl
       ver3->AddChild (*hpBar_, yap::LayoutBox::Align::RIGHT);
       ver3->AddChild (*hpLabel_, yap::LayoutBox::Align::RIGHT);
 
-      /*
+
       ver1->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
       ver2->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
       ver3->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
       hor1->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-      */
 
       yap::HorizontalLayout* hlayout = 
         new yap::HorizontalLayout (yap::Padding (), yap::Padding (), false);

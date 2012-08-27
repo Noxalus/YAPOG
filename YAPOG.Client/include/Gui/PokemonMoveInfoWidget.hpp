@@ -1,5 +1,5 @@
-#ifndef YAPOG_CLIENT_INFOBOX_HPP
-# define YAPOG_CLIENT_INFOBOX_HPP
+#ifndef YAPOG_CLIENT_POKEMONMOVEINFOWIDGET_HPP
+# define YAPOG_CLIENT_POKEMONMOVEINFOWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
@@ -15,14 +15,15 @@ namespace ycl
 {
   class Pokemon;
 
-  class PokemonInfoBox : public yap::BaseWidget
+  class PokemonMoveInfoWidget : public yap::BaseWidget
   {
   public:
-    PokemonInfoBox (
-      bool isMainPokemon, 
-      const Pokemon& pokemon);
+    PokemonMoveInfoWidget (const Pokemon& pokemon);
 
     virtual bool IsFocusable () const;
+
+  private:
+    const Pokemon& pokemon_;
 
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -32,18 +33,7 @@ namespace ycl
     virtual void HandleChangeColor (const sf::Color& color);
     virtual void HandleUpdate (const yap::Time& dt);
 
-  private:
-    yap::PictureBox* icon_;
-    yap::Label* name_;
-    yap::Label* level_;
-    yap::PictureBox* gender_;
-    yap::PictureBox* hpBar_;
-    yap::PictureBox* hpBarContent_;
-    yap::Label* hpLabel_;
-    yap::VerticalLayout* vlayout_;
-    bool isMainPokemon_;
-
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_INFOBOX_HPP
+#endif // YAPOG_CLIENT_POKEMONMOVEINFOWIDGET_HPP

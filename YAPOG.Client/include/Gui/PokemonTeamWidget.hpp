@@ -27,10 +27,10 @@ namespace ycl
 {
   class PokemonTeam;
   class PokemonInfoBox;
+  class PokemonInfoWidget;
 
   class PokemonTeamWidget : public yap::BaseWidget
   {
-
     DISALLOW_COPY(PokemonTeamWidget);
 
   public:
@@ -54,14 +54,13 @@ namespace ycl
     virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
   private:
     yap::Label* state_;
-    Pokemon* current_;
     yap::GridMenu* menu_;
-    yap::VerticalLayout* vlayoutMenu_;
     const PokemonTeam& team_;
-    yap::collection::Array<PokemonInfoBox*> pokemons;
-    PokemonInfoBox* currentBox_;
-    yap::WidgetBackground* selecBckgrd_;
-    yap::uint ite_;
+    yap::collection::Array<PokemonInfoBox*> pokemonInfoBoxes_;
+    yap::WidgetBackground* normalBackground_;
+    yap::WidgetBackground* selectedBackground_;
+    yap::uint index_;
+    yap::collection::Array<PokemonInfoWidget*> pokemonInfoWidgets_;
 
   };
 } // namespace ycl

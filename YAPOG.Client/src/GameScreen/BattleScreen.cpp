@@ -19,9 +19,9 @@ namespace debug
 {
   ycl::Pokemon* GenerateRandomPokemon ()
   {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 5));
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 10));
 
-    if (staticID == yap::ID (5))
+    if (staticID == yap::ID (10))
       staticID = yap::ID (16);
 
     int level = yap::RandomHelper::GetNext (1, 100);
