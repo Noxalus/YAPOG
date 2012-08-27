@@ -26,6 +26,8 @@ namespace yse
     yap::BaseDynamicWorldObjectConstVisitor::VisitCharacter (visitable);
 
     WriteAddObject (visitable);
+
+    packet_.Write (static_cast<yap::uchar> (visitable.GetDirection ()));
   }
 
   void ServerInfoAddObjectVisitor::VisitPlayer (const yap::IPlayer& visitable)
@@ -80,4 +82,4 @@ namespace yse
     packet_.Write (object.GetPosition ());
     packet_.Write (object.GetState ());
   }
-} // namespace yap
+} // namespace yse

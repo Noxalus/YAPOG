@@ -32,11 +32,15 @@ namespace yap
 
   void Teleporter::Accept (IDynamicWorldObjectVisitor& visitor)
   {
+    DynamicWorldObject::Accept (visitor);
+
     visitor.VisitTeleporter (*this);
   }
 
   void Teleporter::Accept (IDynamicWorldObjectConstVisitor& visitor) const
   {
+    DynamicWorldObject::Accept (visitor);
+
     visitor.VisitTeleporter (*this);
   }
 

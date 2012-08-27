@@ -15,6 +15,8 @@ namespace yap
 
       virtual ~BaseDynamicWorldObjectConstVisitor ();
 
+      virtual void VisitDynamicWorldObject (
+        const DynamicWorldObject& visitable);
       virtual void VisitCharacter (const Character& visitable);
       virtual void VisitPlayer (const IPlayer& visitable);
       virtual void VisitTeleporter (const Teleporter& visitable);

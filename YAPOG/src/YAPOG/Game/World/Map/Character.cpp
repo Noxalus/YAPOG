@@ -24,17 +24,26 @@ namespace yap
 
   void Character::Accept (IDynamicWorldObjectVisitor& visitor)
   {
+    DynamicWorldObject::Accept (visitor);
+
     visitor.VisitCharacter (*this);
   }
 
   void Character::Accept (IDynamicWorldObjectConstVisitor& visitor) const
   {
+    DynamicWorldObject::Accept (visitor);
+
     visitor.VisitCharacter (*this);
   }
 
   const Direction& Character::GetDirection () const
   {
     return direction_;
+  }
+
+  void Character::RawSetDirection (Direction direction)
+  {
+    SetDirection (direction);
   }
 
   void Character::SetDirection (Direction direction)

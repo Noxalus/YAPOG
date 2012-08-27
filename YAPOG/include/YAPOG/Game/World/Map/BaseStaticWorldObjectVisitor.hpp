@@ -16,7 +16,8 @@ namespace yap
 
       virtual ~BaseStaticWorldObjectVisitor ();
 
-      virtual void Visit (MapElement& visitable);
+      virtual void VisitStaticWorldObject (StaticWorldObject& visitable);
+      virtual void VisitMapElement (MapElement& visitable);
 
     protected:
 

@@ -5,13 +5,16 @@
 
 namespace yap
 {
+  class StaticWorldObject;
   class MapElement;
 
   struct IStaticWorldObjectConstVisitor
   {
       virtual ~IStaticWorldObjectConstVisitor () {}
 
-      virtual void Visit (const MapElement& visitable) = 0;
+      virtual void VisitStaticWorldObject (
+        const StaticWorldObject& visitable) = 0;
+      virtual void VisitMapElement (const MapElement& visitable) = 0;
   };
 } // namespace yap
 

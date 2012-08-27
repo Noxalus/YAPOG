@@ -30,12 +30,16 @@ namespace yap
   void OpenBattleSpawnerArea::Accept (
     IDynamicWorldObjectVisitor& visitor)
   {
+    BattleSpawnerArea::Accept (visitor);
+
     visitor.VisitBattleSpawnerArea (*this);
   }
 
   void OpenBattleSpawnerArea::Accept (
     IDynamicWorldObjectConstVisitor& visitor) const
   {
+    BattleSpawnerArea::Accept (visitor);
+
     visitor.VisitBattleSpawnerArea (*this);
   }
 

@@ -10,6 +10,11 @@ namespace yap
   {
   }
 
+  void BaseDynamicWorldObjectVisitor::VisitDynamicWorldObject (
+    DynamicWorldObject& visitable)
+  {
+  }
+
   void BaseDynamicWorldObjectVisitor::VisitCharacter (Character& visitable)
   {
   }
