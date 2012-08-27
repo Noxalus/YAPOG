@@ -105,6 +105,25 @@ namespace yap
     screenManager_->Run (dt, context);
   }
 
+  bool Game::HandleOnEvent (const GuiEvent& guiEvent)
+  {
+    switch (guiEvent.type)
+    {
+      case sf::Event::Resized:
+
+        drawingContext_->ChangeSize (
+          Vector2 (
+            guiEvent.size.width,
+            guiEvent.size.height));
+
+        break;
+
+      default: break;
+    }
+
+    return false;
+  }
+
   void Game::HandleDispose ()
   {
   }

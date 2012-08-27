@@ -123,4 +123,10 @@ namespace yap
   {
     return window_;
   }
+
+  void DrawingContext::ChangeSize (const Vector2& size)
+  {
+    for (auto& modeCameraPair : cameras_)
+      modeCameraPair.second->SetSize (size);
+  }
 } // namespace yap

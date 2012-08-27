@@ -137,7 +137,7 @@ namespace ycl
         break;
     }
 
-    return false;
+    return yap::Game::HandleOnEvent (guiEvent);
   }
 
   void Game::HandleRun (

@@ -42,7 +42,7 @@ namespace yap
 
       virtual void HandleInit () = 0;
       virtual void HandleRun (const Time& dt, IDrawingContext& context);
-      virtual bool HandleOnEvent (const GuiEvent& guiEvent) = 0;
+      virtual bool HandleOnEvent (const GuiEvent& guiEvent);
       virtual void HandleDispose ();
 
       IDrawingContext* drawingContext_;
