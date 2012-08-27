@@ -76,6 +76,9 @@ namespace yap
   {
     hitPoint_.ComputeValue (pokeInfo.GetHitPoint (), level);
 
+    if (hitPoint_.GetCurrentValue () > hitPoint_.GetValue ())
+      hitPoint_.SetCurrentValue (hitPoint_.GetValue ());
+
     attack_.ComputeValue (
       pokeInfo.GetAttack (), 
       level, 

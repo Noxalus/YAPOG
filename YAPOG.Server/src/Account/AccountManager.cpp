@@ -42,6 +42,7 @@ namespace yse
     int level = yap::RandomHelper::GetNext (1, 100);
 
     Pokemon* p = new Pokemon (staticID, level, false);
+    p->AddExperience (yap::RandomHelper::GetNext (1, 100));
 
     return p;
   }

@@ -4,6 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 
+# include "Gui/PokemonExperienceBarWidget.hpp"
+
 namespace ycl
 {
   class Pokemon;
@@ -73,6 +75,13 @@ namespace ycl
     yap::HorizontalLayout* nextLevelPointLayout_;
     yap::VerticalLayout* nextLevelPointLabelLayout_;
     yap::VerticalLayout* nextLevelPointNumberLayout_;
+
+    yap::VerticalLayout* capacityAndExperienceGlobalLayout_;
+    yap::HorizontalLayout* capacityAndExperienceLayout_;
+    yap::VerticalLayout* capacityLayout_;
+    yap::VerticalLayout* experienceBarLayout_;
+
+    PokemonExperienceBarWidget experienceBar_;
   };
 } // namespace ycl
 

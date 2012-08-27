@@ -62,8 +62,10 @@ namespace yap
 
   float PokemonExperience::GetExperiencePercentage ()
   {
-    return static_cast<float>(value_) / 
-      static_cast<float>(totalExperienceToNextLevel_);
+    UInt32 base = ComputeExperienceFromLevel (GetLevel ());
+
+    return static_cast<float>(value_ - base) / 
+      static_cast<float>(totalExperienceToNextLevel_ - base);
   }
 
   UInt16 PokemonExperience::GetLevel ()

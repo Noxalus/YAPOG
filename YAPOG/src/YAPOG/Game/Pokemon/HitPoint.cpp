@@ -6,8 +6,8 @@ namespace yap
   const UInt16 HitPoint::INITIAL_CURRENT_VALUE = 0;
 
   HitPoint::HitPoint ()
+    : currentValue_ (INITIAL_CURRENT_VALUE)
   {
-    currentValue_ = INITIAL_CURRENT_VALUE;
   }
 
   HitPoint::HitPoint (
@@ -17,9 +17,7 @@ namespace yap
     : BaseStat (ev, iv)
     , currentValue_ (currentValue)
   {
-    value_ = currentValue_;
   }
-
   const UInt16& HitPoint::GetCurrentValue () const
   {
     return currentValue_;
