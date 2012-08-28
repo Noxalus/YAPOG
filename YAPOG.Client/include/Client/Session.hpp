@@ -17,75 +17,76 @@ namespace ycl
 {
   class Session : public yap::IPacketHandler
   {
-    DISALLOW_COPY(Session);
+      DISALLOW_COPY(Session);
 
-  public:
+    public:
 
-    static Session& Instance ();
+      static Session& Instance ();
 
-    void Refresh ();
+      void Refresh ();
 
-    void Login (const yap::String& login, const yap::String& password);
-    void Register (
-      const yap::String& login, 
-      const yap::String& password,
-      const yap::String& email);
-    void Disconnect ();
+      void Login (const yap::String& login, const yap::String& password);
+      void Register (
+        const yap::String& login,
+        const yap::String& password,
+        const yap::String& email);
+      void Disconnect ();
 
-    User& GetUser ();
+      User& GetUser ();
 
-    /// @name IPacketHandler members.
-    /// @{
-    virtual bool HandlePacket (yap::IPacket& packet);
-    virtual bool SendPacket (yap::IPacket& packet);
+      /// @name IPacketHandler members.
+      /// @{
+      virtual bool HandlePacket (yap::IPacket& packet);
+      virtual bool SendPacket (yap::IPacket& packet);
 
-    virtual void AddRelay (yap::IPacketHandler* relay);
-    virtual void RemoveRelay (yap::IPacketHandler* relay);
-    virtual void SetParent (yap::IPacketHandler* parent);
-    /// @}
+      virtual void AddRelay (yap::IPacketHandler* relay);
+      virtual void RemoveRelay (yap::IPacketHandler* relay);
+      virtual void SetParent (yap::IPacketHandler* parent);
+      /// @}
 
-    /// @Events.
-    /// @{
-    yap::Event<Session&, yap::EmptyEventArgs> OnLoginValidation;
-    yap::Event<Session&, yap::EmptyEventArgs> OnRegistrationValidation;
-    yap::Event<Session&, yap::EmptyEventArgs> OnLoginError;
-    yap::Event<Session&, yap::EmptyEventArgs> OnRegistrationError;
-    /// @}
+      /// @Events.
+      /// @{
+      yap::Event<Session&, yap::EmptyEventArgs> OnLoginValidation;
+      yap::Event<Session&, yap::EmptyEventArgs> OnRegistrationValidation;
+      yap::Event<Session&, yap::EmptyEventArgs> OnLoginError;
+      yap::Event<Session&, yap::EmptyEventArgs> OnRegistrationError;
+      /// @}
 
-  private:
+    private:
 
-    Session ();
-    virtual ~Session ();
+      Session ();
+      virtual ~Session ();
 
-    bool Connect ();
-    void HandleReception ();
+      bool Connect ();
+      void HandleReception ();
 
-    void HandleServerInfoLoginValidation (yap::IPacket& packet);
-    void HandleServerInfoRegistrationValidation (yap::IPacket& packet);
-    void HandleServerInfoLoginError (yap::IPacket& packet);
-    void HandleServerInfoRegistrationError (yap::IPacket& packet);
+      void HandleServerInfoLoginValidation (yap::IPacket& packet);
+      void HandleServerInfoRegistrationValidation (yap::IPacket& packet);
+      void HandleServerInfoLoginError (yap::IPacket& packet);
+      void HandleServerInfoRegistrationError (yap::IPacket& packet);
 
-    void HandleServerInfoPrimaryData (yap::IPacket& packet);
-    void UpdateObjectFactory (
-      yap::IPacket& packet,
-      yap::ObjectFactory& objectFactory);
+      void HandleServerInfoPrimaryData (yap::IPacket& packet);
+      void UpdateObjectFactory (
+        yap::IPacket& packet,
+        yap::ObjectFactory& objectFactory);
 
-    static const yap::String DEFAULT_REMOTE_IP;
-    static const yap::Int16 DEFAULT_REMOTE_PORT;
+      static const yap::String DEFAULT_REMOTE_IP;
+      static const yap::Int16 DEFAULT_REMOTE_PORT;
 
-    static const yap::Time DEFAULT_RECEPTION_SLEEP_DELAY;
+      static const yap::Time DEFAULT_RECEPTION_SLEEP_DELAY;
 
-    yap::PacketHandler packetHandler_;
+      yap::PacketHandler packetHandler_;
 
-    yap::Thread receptionThread_;
-    bool receptionIsActive_;
+      yap::Thread receptionThread_;
+      bool receptionIsActive_;
 
-    yap::ClientSocket socket_;
-    yap::NetworkHandler networkHandler_;
+      yap::ClientSocket socket_;
+      yap::NetworkHandler networkHandler_;
+      yap::Mutex networkHandlerMutex_;
 
-    User user_;
+      User user_;
 
-    bool isConnected_;
+      bool isConnected_;
   };
 }
 

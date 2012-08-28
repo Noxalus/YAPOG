@@ -18,6 +18,7 @@ namespace ycl
     , receptionIsActive_ (false)
     , socket_ ()
     , networkHandler_ (socket_)
+    , networkHandlerMutex_ ()
     , user_ ()
     , isConnected_ (false)
   {
@@ -30,9 +31,9 @@ namespace ycl
       Session::HandleServerInfoRegistrationValidation);
 
     ADD_HANDLER(ServerInfoLoginError, Session::HandleServerInfoLoginError);
-    
+
     ADD_HANDLER(
-      ServerInfoRegistrationError, 
+      ServerInfoRegistrationError,
       Session::HandleServerInfoRegistrationError);
 
     ADD_HANDLER(ServerInfoPrimaryData, Session::HandleServerInfoPrimaryData);
@@ -51,16 +52,20 @@ namespace ycl
 
   void Session::Refresh ()
   {
-    while (!networkHandler_.IsEmpty ())
     {
-      yap::PacketPtrType packet (networkHandler_.GetPacket ());
-      yap::DebugLogger::Instance ().LogLine (
-        "Packet: " +
-        yap::StringHelper::ToString (static_cast<int> (packet->GetType ())));
-      if (!HandlePacket (*packet))
+      yap::Lock lock (networkHandlerMutex_);
+
+      while (!networkHandler_.IsEmpty ())
       {
-        Disconnect ();
-        YAPOG_THROW("Wrong packet received.");
+        yap::PacketPtrType packet (networkHandler_.GetPacket ());
+        yap::DebugLogger::Instance ().LogLine (
+          "Packet: " +
+          yap::StringHelper::ToString (static_cast<int> (packet->GetType ())));
+        if (!HandlePacket (*packet))
+        {
+          Disconnect ();
+          YAPOG_THROW("Wrong packet received.");
+        }
       }
     }
   }
@@ -173,7 +178,11 @@ namespace ycl
     {
       yap::Thread::Sleep (DEFAULT_RECEPTION_SLEEP_DELAY);
 
-      networkHandler_.Refresh ();
+      {
+        yap::Lock lock (networkHandlerMutex_);
+
+        networkHandler_.Refresh ();
+      }
     }
   }
 

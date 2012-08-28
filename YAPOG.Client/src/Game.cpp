@@ -116,23 +116,6 @@ namespace ycl
 
         return true;
 
-      case yap::GuiEventType::KeyPressed:
-
-        switch (guiEvent.key.code)
-        {
-          case yap::Key::Escape:
-
-//            window_->close ();
-
-//            return true;
-
-            break;
-          default:
-            break;
-        }
-
-        break;
-
       default:
         break;
     }

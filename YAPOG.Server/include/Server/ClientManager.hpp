@@ -35,6 +35,7 @@ namespace yse
       static const yap::Time DEFAULT_RECEPTION_SLEEP_DELAY;
 
       yap::collection::List<ClientSession*> clients_;
+      yap::Mutex clientsMutex_;
 
       yap::Thread receptionThread_;
       bool receptionIsActive_;

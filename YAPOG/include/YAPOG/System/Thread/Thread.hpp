@@ -13,6 +13,9 @@
 
 namespace yap
 {
+  typedef sf::Mutex Mutex;
+  typedef sf::Lock Lock;
+
   class YAPOG_LIB Thread
   {
       DISALLOW_COPY(Thread);

@@ -62,13 +62,16 @@ namespace yse
 
       bool isRunning_;
       yap::ServerSocket socket_;
+      yap::Mutex socketMutex_;
       yap::Thread listeningThread_;
 
       yap::Int16 port_;
 
       ClientManager clients_;
+      yap::Mutex clientsMutex_;
 
       World world_;
+      yap::Mutex worldMutex_;
       yap::Timer worldUpdateTimer_;
 
       yap::ContentManager& contentManager_;
@@ -78,6 +81,7 @@ namespace yse
 
       yap::Logger& logger_;
       yap::DatabaseManager databaseManager_;
+      yap::Mutex databaseManagerMutex_;
   };
 } // namespace yse
 

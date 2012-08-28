@@ -10,6 +10,7 @@ namespace yse
 
   ClientManager::ClientManager ()
     : clients_ ()
+    , clientsMutex_ ()
     , receptionThread_ ([this] () { HandleReception (); })
     , receptionIsActive_ (false)
   {
@@ -23,12 +24,18 @@ namespace yse
 
   void ClientManager::AddClient (ClientSession* client)
   {
-    clients_.Add (client);
+    {
+      yap::Lock lock (clientsMutex_);
+      clients_.Add (client);
+    }
   }
 
   void ClientManager::RemoveClient (ClientSession* client)
   {
-    clients_.Remove (client);
+    {
+      yap::Lock lock (clientsMutex_);
+      clients_.Remove (client);
+    }
   }
 
   void ClientManager::LaunchReception ()
@@ -39,8 +46,12 @@ namespace yse
 
   void ClientManager::Refresh ()
   {
-    for (ClientSession* client : clients_)
-      client->Refresh ();
+    {
+      yap::Lock lock (clientsMutex_);
+
+      for (ClientSession* client : clients_)
+        client->Refresh ();
+    }
   }
 
   void ClientManager::Dispose ()
@@ -54,8 +65,12 @@ namespace yse
     {
       yap::Thread::Sleep (DEFAULT_RECEPTION_SLEEP_DELAY);
 
-      for (ClientSession* client : clients_)
-        client->HandleReception ();
+      {
+        yap::Lock lock (clientsMutex_);
+
+        for (ClientSession* client : clients_)
+          client->HandleReception ();
+      }
     }
   }
 } // namespace yse

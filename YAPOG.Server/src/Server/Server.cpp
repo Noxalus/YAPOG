@@ -48,16 +48,20 @@ namespace yse
   Server::Server ()
     : isRunning_ (DEFAULT_RUNNING_STATE)
     , socket_ ()
+    , socketMutex_ ()
     , listeningThread_ ([&] () { HandleListening (); })
     , port_ (DEFAULT_PORT)
     , clients_ ()
+    , clientsMutex_ ()
     , world_ ()
+    , worldMutex_ ()
     , worldUpdateTimer_ ()
     , contentManager_ (yap::ContentManager::Instance ())
     , objectFactory_ (yap::ObjectFactory::Instance ())
     , worldObjectStateFactory_ (yap::WorldObjectStateFactory::Instance ())
     , logger_ (yap::DebugLogger::Instance ())
     , databaseManager_ ()
+    , databaseManagerMutex_ ()
   {
   }
 
@@ -126,13 +130,22 @@ namespace yse
 
   void Server::AddClient (ClientSession* client)
   {
-    client->GetUser ().SetWorld (&world_);
+    {
+      yap::Lock lock (worldMutex_);
+      client->GetUser ().SetWorld (&world_);
+    }
 
-    client->GetUser ().SetDatabaseManager (&databaseManager_);
+    {
+      yap::Lock lock (databaseManagerMutex_);
+      client->GetUser ().SetDatabaseManager (&databaseManager_);
+    }
 
     client->Init ();
 
-    clients_.AddClient (client);
+    {
+      yap::Lock lock (clientsMutex_);
+      clients_.AddClient (client);
+    }
   }
 
   void Server::HandleListening ()
