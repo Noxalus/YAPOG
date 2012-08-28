@@ -154,6 +154,8 @@ ${inc_root}/Gui/PokemonStatsInfoWidget.hpp
 ${src_root}/Gui/PokemonStatsInfoWidget.cpp
 ${inc_root}/Gui/PokemonMoveInfoWidget.hpp
 ${src_root}/Gui/PokemonMoveInfoWidget.cpp
+${inc_root}/Gui/PokemonExperienceBarWidget.hpp
+${src_root}/Gui/PokemonExperienceBarWidget.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

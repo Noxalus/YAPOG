@@ -50,6 +50,11 @@ namespace ycl
     , nextLevelPointLayout_ (nullptr)
     , nextLevelPointLabelLayout_ (nullptr)
     , nextLevelPointNumberLayout_ (nullptr)
+    , capacityAndExperienceGlobalLayout_ (nullptr)
+    , capacityAndExperienceLayout_ (nullptr)
+    , capacityLayout_ (nullptr)
+    , experienceBarLayout_ (nullptr)
+    , experienceBar_ (pokemon)
   {
   }
 
@@ -94,10 +99,20 @@ namespace ycl
 
     experiencePointLabel_ = new yap::Label ("Points:");
     experiencePoint_ = new yap::Label (
-      yap::StringHelper::ToString (pokemon_.GetTotalExperience ()));
+      yap::StringHelper::ToString (
+      static_cast<int>(pokemon_.GetTotalExperience ())));
     nextLevelPointLabel_ = new yap::Label ("N. suivant:");
     nextLevelPoint_ = new yap::Label (
-      yap::StringHelper::ToString (pokemon_.GetExperienceToNextLevel ()));
+      yap::StringHelper::ToString (
+      static_cast<int>(pokemon_.GetExperienceToNextLevel ()))
+      /*
+      + "(" + 
+      yap::StringHelper::ToString (
+      static_cast<int>(pokemon_.GetTotalExperienceToNextLevel ()))
+      + " | " +
+       yap::StringHelper::ToString (pokemon_.GetExperiencePercentage ())
+       + ")"
+       */);
 
     // PictureBoxes
     gender_ = new yap::PictureBox ();
@@ -153,6 +168,15 @@ namespace ycl
     nextLevelPointNumberLayout_ = 
       new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
 
+    capacityAndExperienceGlobalLayout_ = 
+      new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
+    capacityAndExperienceLayout_ = 
+      new yap::HorizontalLayout (yap::Padding (), yap::Padding (), false);
+    capacityLayout_ = 
+      new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
+    experienceBarLayout_ = 
+      new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
+
     mainLayout_->SetSize (GetSize ());
     firstLine_->SetSize (yap::Vector2 (800, 328));
     firstLinePartLeft_->SetSize (yap::Vector2 (392, 315));
@@ -165,13 +189,18 @@ namespace ycl
     hpLayout_->SetSize (yap::Vector2 (238, 41));
     statsLayout_->SetSize (yap::Vector2 (135, 236));
 
-    experienceLayout_->SetSize (yap::Vector2 (792, 93));
+    experienceLayout_->SetSize (yap::Vector2 (792, 100));
     experiencePointLayout_->SetSize (yap::Vector2 (546, 48));
     experiencePointLabelLayout_->SetSize (yap::Vector2 (273, 48));
     experiencePointNumberLayout_->SetSize (yap::Vector2 (273, 48));
     nextLevelPointLayout_->SetSize (yap::Vector2 (546, 48));
     nextLevelPointLabelLayout_->SetSize (yap::Vector2 (273, 48));
     nextLevelPointNumberLayout_->SetSize (yap::Vector2 (273, 48));
+
+    capacityAndExperienceGlobalLayout_->SetSize (yap::Vector2 (792, 46));
+    capacityAndExperienceLayout_->SetSize (yap::Vector2 (546, 46));
+    capacityLayout_ ->SetSize (yap::Vector2 (284, 46));
+    experienceBarLayout_->SetSize (yap::Vector2 (262, 46));
 
     // Set the labels text size
     nameLeft_->SetTextSize (40);
@@ -251,8 +280,17 @@ namespace ycl
     experienceLayout_->AddChild (
       *nextLevelPointLayout_, yap::LayoutBox::Align::RIGHT);
 
+    experienceBarLayout_->AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
+
+    capacityAndExperienceLayout_->AddChild (*capacityLayout_, yap::LayoutBox::Align::RIGHT);
+    capacityAndExperienceLayout_->AddChild (*experienceBarLayout_, yap::LayoutBox::Align::RIGHT);
+
+    capacityAndExperienceGlobalLayout_->AddChild (
+      *capacityAndExperienceLayout_, yap::LayoutBox::Align::RIGHT);
+
     mainLayout_->AddChild (*firstLine_, yap::LayoutBox::Align::LEFT);
     mainLayout_->AddChild (*experienceLayout_, yap::LayoutBox::Align::LEFT);
+    mainLayout_->AddChild (*capacityAndExperienceGlobalLayout_, yap::LayoutBox::Align::LEFT);
 
     /*
     mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
@@ -273,6 +311,11 @@ namespace ycl
     experiencePointLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     experiencePointNumberLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     experiencePointLabelLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+
+    capacityAndExperienceGlobalLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    capacityAndExperienceLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
+    capacityLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    experienceBarLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     */
 
     AddChild (*mainLayout_);
