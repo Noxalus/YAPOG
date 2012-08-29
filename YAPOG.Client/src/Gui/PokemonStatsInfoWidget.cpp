@@ -17,13 +17,13 @@ namespace ycl
   PokemonStatsInfoWidget::PokemonStatsInfoWidget (const Pokemon& pokemon)
     : pokemon_ (pokemon)
     , nameLeft_ (nullptr)
+    , level_ (nullptr)
     , hp_ (nullptr)
     , attack_ (nullptr)
     , defense_ (nullptr)
     , specialAttack_ (nullptr)
     , specialDefense_ (nullptr)
     , speed_ (nullptr)
-    , level_ (nullptr)
     , experiencePointLabel_ (nullptr)
     , experiencePoint_ (nullptr)
     , nextLevelPointLabel_ (nullptr)
@@ -66,6 +66,10 @@ namespace ycl
     // Labels
     nameLeft_ = new yap::Label (pokemon_.GetName ());
 
+    level_ = new yap::Label ("N." +
+      yap::StringHelper::ToString 
+      (static_cast<int>(pokemon_.GetLevel ())) + " ");
+
     hp_ = new yap::Label (
       yap::StringHelper::ToString 
       (pokemon_.GetStats ().GetHitPoint ().GetCurrentValue ())
@@ -93,10 +97,6 @@ namespace ycl
       yap::StringHelper::ToString 
       (pokemon_.GetStats ().GetSpeed ().GetValue ()));
 
-    level_ = new yap::Label ("N." +
-      yap::StringHelper::ToString 
-      (static_cast<int>(pokemon_.GetLevel ())) + " ");
-
     experiencePointLabel_ = new yap::Label ("Points:");
     experiencePoint_ = new yap::Label (
       yap::StringHelper::ToString (
@@ -110,9 +110,9 @@ namespace ycl
       yap::StringHelper::ToString (
       static_cast<int>(pokemon_.GetTotalExperienceToNextLevel ()))
       + " | " +
-       yap::StringHelper::ToString (pokemon_.GetExperiencePercentage ())
-       + ")"
-       */);
+      yap::StringHelper::ToString (pokemon_.GetExperiencePercentage ())
+      + ")"
+      */);
 
     // PictureBoxes
     gender_ = new yap::PictureBox ();
@@ -120,6 +120,7 @@ namespace ycl
     type1_ = new yap::PictureBox ();
     type2_ = new yap::PictureBox ();
 
+    // Layouts
     mainLayout_ = new yap::VerticalLayout (
       yap::Padding (), yap::Padding (), false);
 
@@ -186,6 +187,7 @@ namespace ycl
     levelNameGenderLayout_->SetSize (yap::Vector2 (379, 53));
     spriteFrontLayout_->SetSize (yap::Vector2 (363, 233));
     firstLinePartRight_->SetSize (yap::Vector2 (408, 328));
+
     hpLayout_->SetSize (yap::Vector2 (238, 41));
     statsLayout_->SetSize (yap::Vector2 (135, 236));
 
@@ -204,13 +206,13 @@ namespace ycl
 
     // Set the labels text size
     nameLeft_->SetTextSize (40);
+    level_->SetTextSize (40);
     hp_->SetTextSize (40);
     attack_->SetTextSize (40);
     defense_->SetTextSize (40);
     specialAttack_->SetTextSize (40);
     specialDefense_->SetTextSize (40);
     speed_->SetTextSize (40);
-    level_->SetTextSize (40);
 
     experiencePointLabel_->SetTextSize (40);
     experiencePoint_->SetTextSize (40);

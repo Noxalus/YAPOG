@@ -30,6 +30,22 @@
 		<type2>2</type2>
 	</types>
 	<baseSkills>
+	<skill level="1">33</skill>
+		<skill level="1">45</skill>
+		<skill level="1">73</skill>
+		<skill level="3">45</skill>
+		<skill level="7">73</skill>
+		<skill level="9">22</skill>
+		<skill level="13">77</skill>
+		<skill level="13">79</skill>
+		<skill level="15">36</skill>
+		<skill level="20">75</skill>
+		<skill level="23">230</skill>
+		<skill level="28">74</skill>
+		<skill level="31">38</skill>
+		<skill level="36">388</skill>
+		<skill level="39">235</skill>
+		<skill level="44">76</skill>
 	</baseSkills>
 	<learnableSkills>
 	</learnableSkills>

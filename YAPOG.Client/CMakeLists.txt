@@ -156,6 +156,10 @@ ${inc_root}/Gui/PokemonMoveInfoWidget.hpp
 ${src_root}/Gui/PokemonMoveInfoWidget.cpp
 ${inc_root}/Gui/PokemonExperienceBarWidget.hpp
 ${src_root}/Gui/PokemonExperienceBarWidget.cpp
+${inc_root}/Gui/PokemonFrontInfoWidget.hpp
+${src_root}/Gui/PokemonFrontInfoWidget.cpp
+${inc_root}/Gui/PokemonSingleMoveInfoWidget.hpp
+${src_root}/Gui/PokemonSingleMoveInfoWidget.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

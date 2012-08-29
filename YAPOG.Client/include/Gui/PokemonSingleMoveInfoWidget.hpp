@@ -1,28 +1,26 @@
-#ifndef YAPOG_CLIENT_POKEMONMOVEINFOWIDGET_HPP
-# define YAPOG_CLIENT_POKEMONMOVEINFOWIDGET_HPP
+#ifndef YAPOG_CLIENT_POKEMONSINGLEMOVENFOWIDGET_HPP
+# define YAPOG_CLIENT_POKEMONSINGLEMOVENFOWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
-
-# include "Gui/PokemonFrontInfoWidget.hpp"
-# include "Gui/PokemonSingleMoveInfoWidget.hpp"
 
 namespace yap
 {
   class PictureBox;
   class Label;
+  class HorizontalLayout;
   class VerticalLayout;
+  class PokemonMove;
 }
 
 namespace ycl
 {
   class Pokemon;
-  class PokemonSingleMoveInfoWidget;
 
-  class PokemonMoveInfoWidget : public yap::BaseWidget
+  class PokemonSingleMoveInfoWidget : public yap::BaseWidget
   {
   public:
-    PokemonMoveInfoWidget (const Pokemon& pokemon);
+    PokemonSingleMoveInfoWidget (const yap::PokemonMove& move);
 
     void Init ();
 
@@ -37,27 +35,20 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    const Pokemon& pokemon_;
+    const yap::PokemonMove& move_;
 
     // Labels
     yap::Label* name_;
-    yap::Label* level_;
+    yap::Label* pp_;
 
     // PictureBoxes
-    yap::PictureBox* gender_;
-    yap::PictureBox* spriteFront_;
+    yap::PictureBox* type_;
 
     // Layouts
     yap::VerticalLayout* mainLayout_;
-
-    yap::HorizontalLayout* firstLine_;
-    yap::VerticalLayout* firstLinePartRight_;
-
-    PokemonFrontInfoWidget pokemonFrontInfoWidget_;
-    yap::collection::Array<PokemonSingleMoveInfoWidget*> 
-      pokemonSingleMoveInfoWidgets_;
-
+    yap::HorizontalLayout* nameAndTypeLayout_;
+    yap::VerticalLayout* ppLayout_;
   };
 } // namespace ycl
 
-#endif // YAPOG_CLIENT_POKEMONMOVEINFOWIDGET_HPP
+#endif // YAPOG_CLIENT_POKEMONSINGLEMOVENFOWIDGET_HPP

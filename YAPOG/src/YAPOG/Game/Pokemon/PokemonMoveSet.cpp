@@ -43,6 +43,7 @@ namespace yap
   const UInt8 PokemonMoveSet::GetMoveNumber () const
   { return moveNumber_; }
 
+  // Return a pointeur to check if there is a move or not
   const PokemonMove* PokemonMoveSet::GetMove (const UInt8& index) const
   { return moveSet_[index]; }
 

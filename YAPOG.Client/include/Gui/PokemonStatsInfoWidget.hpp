@@ -32,13 +32,13 @@ namespace ycl
 
     // Labels
     yap::Label* nameLeft_;
+    yap::Label* level_;
     yap::Label* hp_;
     yap::Label* attack_;
     yap::Label* defense_;
     yap::Label* specialAttack_;
     yap::Label* specialDefense_;
     yap::Label* speed_;
-    yap::Label* level_;
     yap::Label* experiencePointLabel_;
     yap::Label* experiencePoint_;
     yap::Label* nextLevelPointLabel_;
@@ -61,7 +61,6 @@ namespace ycl
     yap::VerticalLayout* nameLayout_;
     yap::HorizontalLayout* genderLayout_;
     yap::HorizontalLayout* levelNameGenderLayout_;
-
     yap::VerticalLayout* spriteFrontLayout_;
 
     yap::VerticalLayout* firstLinePartRight_;
