@@ -14,9 +14,8 @@
 
 namespace ycl
 {
-  PokemonFrontInfoWidget::PokemonFrontInfoWidget (const Pokemon& pokemon)
-    : pokemon_ (pokemon)
-    , name_ (nullptr)
+  PokemonFrontInfoWidget::PokemonFrontInfoWidget ()
+    : name_ (nullptr)
     , level_ (nullptr)
     , gender_ (nullptr)
     , spriteFront_ (nullptr)
@@ -26,36 +25,25 @@ namespace ycl
     , genderLayout_ (nullptr)
     , levelNameGenderLayout_ (nullptr)
     , spriteFrontLayout_ (nullptr)
-  {
-  }
-
-  void PokemonFrontInfoWidget::Init ()
+    , genderMaleIcon_ (nullptr)
+    , genderFemaleIcon_ (nullptr)
   {
     SetSize (yap::Vector2 (392, 315));
 
     // Labels
-    name_ = new yap::Label (pokemon_.GetName ());
+    name_ = new yap::Label ();
 
-    level_ = new yap::Label ("N." +
-      yap::StringHelper::ToString 
-      (static_cast<int>(pokemon_.GetLevel ())) + " ");
+    level_ = new yap::Label ();
 
     // PictureBoxes
     gender_ = new yap::PictureBox ();
     spriteFront_ = new yap::PictureBox ();
 
-    if (pokemon_.GetGender () == yap::Gender::Female)
-    {
-      gender_->SetPicture (
-        new yap::Sprite ("Pictures/TeamManager/Female.png"));
-    }
-    else
-    {
-      gender_->SetPicture (
-        new yap::Sprite ("Pictures/TeamManager/Male.png"));
-    }
+    // Sprites
+    genderMaleIcon_ = new yap::Sprite ("Pictures/TeamManager/Male.png");
+    genderFemaleIcon_ = new yap::Sprite ("Pictures/TeamManager/Female.png");
 
-    spriteFront_->SetPicture (pokemon_.GetBattleFront ().Clone ());
+    gender_->SetPicture (genderFemaleIcon_);
 
     // Layouts
     mainLayout_ = new yap::VerticalLayout (
@@ -87,6 +75,25 @@ namespace ycl
     // Set the labels text size
     name_->SetTextSize (40);
     level_->SetTextSize (40);
+  }
+
+  void PokemonFrontInfoWidget::Init (const Pokemon& pokemon)
+  {
+    // Labels
+    name_->SetText (pokemon.GetName ());
+    level_->SetText ("N." +
+      yap::StringHelper::ToString 
+      (static_cast<int>(pokemon.GetLevel ())) + " ");
+
+    // PictureBoxes
+    /*
+    if (pokemon.GetGender () == yap::Gender::Female)
+      gender_->SetPicture (genderFemaleIcon_);
+    else
+      gender_->SetPicture (genderMaleIcon_);
+    */
+
+    spriteFront_->SetPicture (pokemon.GetBattleFront ().Clone ());
 
     // Hierarchy construction
     spriteFrontLayout_->AddChild (*spriteFront_);

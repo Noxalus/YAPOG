@@ -2,7 +2,8 @@
 # define YAPOG_CLIENT_POKEMONBASICINFOWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+
+# include "Gui/IPokemonSummaryWidget.hpp"
 
 namespace yap
 {
@@ -17,11 +18,12 @@ namespace ycl
 {
   class Pokemon;
 
-  class PokemonBasicInfoWidget : public yap::BaseWidget
+  class PokemonBasicInfoWidget : public IPokemonSummaryWidget
   {
   public:
-    PokemonBasicInfoWidget (const Pokemon& pokemon);
-    void Init ();
+    PokemonBasicInfoWidget ();
+
+    void Init (const Pokemon& pokemon);
 
     virtual bool IsFocusable () const;
 
@@ -34,8 +36,6 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    const Pokemon& pokemon_;
-
     // Labels
     yap::Label* nameLeft_;
     yap::Label* nameRight_;

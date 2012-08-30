@@ -26,12 +26,16 @@ namespace ycl
     , levelLabel_ ()
     , battleInfoBox_ (
     widgetPadding,
-    yap::Padding (0, 0, 0, 0),
-    true)
+    yap::Padding (),
+    false)
+    , firstLine_ (yap::Padding (0, 0, 0, 2), yap::Padding (), false)
     , nameBox_ (
     yap::Padding (0, 0, 7, 0),
-    yap::Padding (0, 0, 0, 0),
-    true)
+    yap::Padding (),
+    false)
+    , levelAndGenderBox_ (yap::Padding (), yap::Padding (0, 10, 0, 0), false)
+    , levelBox_ (yap::Padding (), yap::Padding (), false)
+    , genderBox_ (yap::Padding (0, 0, 4, 0), yap::Padding (), false)
     , hpBarPictureBox_ (new yap::PictureBox ())
     , hpBarContent_ (new yap::PictureBox ())
     , genderPictureBox_ (new yap::PictureBox ())
@@ -53,17 +57,32 @@ namespace ycl
 
     SetGender (yap::Gender::Genderless);
 
+    // Sizes
+    firstLine_.SetSize (yap::Vector2 (253, 35));
+    nameBox_.SetSize (yap::Vector2 (175, 35));
+    nameLabel_.SetSize (nameBox_.GetSize ());
+    levelAndGenderBox_.SetSize (yap::Vector2 (65, 35));
+    levelBox_.SetSize (yap::Vector2 (53, 35));
+    levelLabel_.SetSize (levelBox_.GetSize ());
+    genderBox_.SetSize (yap::Vector2 (12, 35));
+
     // First line
     nameBox_.AddChild (nameLabel_);
-    nameBox_.AddChild (*genderPictureBox_);
-    nameBox_.AddChild (levelLabel_);
+    levelBox_.AddChild (levelLabel_, yap::LayoutBox::Align::RIGHT);
+    genderBox_.AddChild (*genderPictureBox_, yap::LayoutBox::Align::BOTTOM);
+
+    levelAndGenderBox_.AddChild (genderBox_);
+    levelAndGenderBox_.AddChild (levelBox_);
+
+    firstLine_.AddChild (nameBox_);
+    firstLine_.AddChild (levelAndGenderBox_);
 
     // Second line
     hpBarPictureBox_->AddChild (*hpBarContent_);
     hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
 
     // Add to the global box
-    battleInfoBox_.AddChild (nameBox_, yap::LayoutBox::Align::LEFT);
+    battleInfoBox_.AddChild (firstLine_, yap::LayoutBox::Align::LEFT);
     battleInfoBox_.AddChild (*hpBarPictureBox_, yap::LayoutBox::Align::RIGHT); 
 
     /// @debug Borders.
@@ -74,6 +93,7 @@ namespace ycl
     levelLabel_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     hpBarPictureBox_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    levelAndGenderBox_.SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
     */
     /// @}
 

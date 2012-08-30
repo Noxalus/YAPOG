@@ -19,9 +19,9 @@ namespace ycl
   class PokemonFrontInfoWidget : public yap::BaseWidget
   {
   public:
-    PokemonFrontInfoWidget (const Pokemon& pokemon);
+    PokemonFrontInfoWidget ();
 
-    void Init ();
+    void Init (const Pokemon& pokemon);
 
     virtual bool IsFocusable () const;
 
@@ -34,8 +34,6 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    const Pokemon& pokemon_;
-
     // Labels
     yap::Label* name_;
     yap::Label* level_;
@@ -51,6 +49,10 @@ namespace ycl
     yap::HorizontalLayout* genderLayout_;
     yap::HorizontalLayout* levelNameGenderLayout_;
     yap::VerticalLayout* spriteFrontLayout_;
+
+    // Sprite
+    yap::ISprite* genderMaleIcon_;
+    yap::ISprite* genderFemaleIcon_;
 
   };
 } // namespace ycl

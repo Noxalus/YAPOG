@@ -62,6 +62,7 @@ namespace ycl
 
   bool GameGuiManager::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
+    /*
     switch (guiEvent.type)
     {
       case sf::Event::KeyPressed:
@@ -82,7 +83,7 @@ namespace ycl
 
       default: break;
     }
-
+    */
     return false;
   }
 } // namespace ycl

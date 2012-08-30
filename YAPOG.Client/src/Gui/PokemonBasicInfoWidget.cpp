@@ -15,9 +15,8 @@
 
 namespace ycl
 {
-  PokemonBasicInfoWidget::PokemonBasicInfoWidget (const Pokemon& pokemon)
-    : pokemon_ (pokemon)
-    , nameLeft_ (nullptr)
+  PokemonBasicInfoWidget::PokemonBasicInfoWidget ()
+    : nameLeft_ (nullptr)
     , nameRight_ (nullptr)
     , staticID_ (nullptr)
     , trainerName_ (nullptr)
@@ -41,41 +40,36 @@ namespace ycl
     , typesLayout_ (nullptr)
     , secondLine_ (nullptr)
   {
-  }
-
-  void PokemonBasicInfoWidget::Init ()
-  {
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/PokemonBasicInfoBackground.png", true));
 
-    nameLeft_ = new yap::Label (pokemon_.GetName ());
-
-    nameRight_ = new yap::Label (pokemon_.GetName ());
-
-    staticID_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStaticID ().GetValue ()));
-
-    trainerName_ = new yap::Label (pokemon_.GetTrainerName ());
-
-    uniqueID_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetUniqueID ().GetValue ()));
-
+    // Labels
+    nameLeft_ = new yap::Label ();
+    nameRight_ = new yap::Label ();
+    staticID_ = new yap::Label ();
+    trainerName_ = new yap::Label ();
+    uniqueID_ = new yap::Label ();
     item_ = new yap::Label ("Aucun");
-
-    level_ = new yap::Label ("N." +
-      yap::StringHelper::ToString 
-      (static_cast<int>(pokemon_.GetLevel ())) + " ");
-
+    level_ = new yap::Label ();
     nature_ = new yap::MultiLabelWidget (
       yap::Padding (20, 0, 0, 0), yap::Padding (), false);
 
+    // PictureBoxes
     gender_ = new yap::PictureBox ();
     spriteFront_ = new yap::PictureBox ();
     type1_ = new yap::PictureBox ();
     type2_ = new yap::PictureBox ();
 
+    gender_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+    spriteFront_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+    type1_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+    type2_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+
+    // Layout
     mainLayout_ = new yap::VerticalLayout (
       yap::Padding (), yap::Padding (), false);
 
@@ -109,6 +103,7 @@ namespace ycl
     secondLine_ = new yap::VerticalLayout (
       yap::Padding (50, 0, 0, 30), yap::Padding (), false);
 
+    // Sizes
     mainLayout_->SetSize (GetSize ());
     firstLine_->SetSize (yap::Vector2 (800, 355));
     firstLinePartLeft_->SetSize (yap::Vector2 (392, 315));
@@ -129,8 +124,30 @@ namespace ycl
     uniqueID_->SetTextSize (40);
     item_->SetTextSize (40);
     level_->SetTextSize (40);
+  }
 
-    if (pokemon_.GetGender () == yap::Gender::Female)
+  void PokemonBasicInfoWidget::Init (const Pokemon& pokemon)
+  {
+    // Labels
+    nameLeft_->SetText (pokemon.GetName ());
+
+    nameRight_->SetText (pokemon.GetName ());
+
+    staticID_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStaticID ().GetValue ()));
+
+    trainerName_->SetText (pokemon.GetTrainerName ());
+
+    uniqueID_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetUniqueID ().GetValue ()));
+
+    level_->SetText ("N." +
+      yap::StringHelper::ToString 
+      (static_cast<int>(pokemon.GetLevel ())) + " ");
+
+    if (pokemon.GetGender () == yap::Gender::Female)
     {
       gender_->SetPicture (
         new yap::Sprite ("Pictures/TeamManager/Female.png"));
@@ -141,8 +158,16 @@ namespace ycl
         new yap::Sprite ("Pictures/TeamManager/Male.png"));
     }
 
-    spriteFront_->SetPicture (pokemon_.GetBattleFront ().Clone ());
+    spriteFront_->SetPicture (pokemon.GetBattleFront ().Clone ());
 
+    type1_->SetPicture (pokemon.GetType1Icon ().Clone ());
+    type2_->SetPicture (pokemon.GetType2Icon ().Clone ());
+
+    nature_->AddText (
+      pokemon.GetNature ().GetName () + " de nature.", 50);
+    secondLine_->AddChild (*nature_);
+
+    // Hierarchy construction
     spriteFrontLayout_->AddChild (*spriteFront_);
 
     firstLinePartLeft_->AddChild (*levelNameGenderLayout_);
@@ -155,9 +180,6 @@ namespace ycl
     levelNameGenderLayout_->AddChild (*levelLayout_);
     levelNameGenderLayout_->AddChild (*nameLayout_);
     levelNameGenderLayout_->AddChild (*genderLayout_);
-
-    type1_->SetPicture (&pokemon_.GetType1Icon ());
-    type2_->SetPicture (&pokemon_.GetType2Icon ());
 
     typesLayout_->AddChild (*type1_);
     typesLayout_->AddChild (*type2_);
@@ -172,13 +194,8 @@ namespace ycl
     firstLine_->AddChild (*firstLinePartLeft_, yap::LayoutBox::Align::TOP);
     firstLine_->AddChild (*firstLinePartRight_, yap::LayoutBox::Align::TOP);
 
-    nature_->AddText (
-      pokemon_.GetNature ().GetName () + " de nature.", 50);
-    secondLine_->AddChild (*nature_);
-
     mainLayout_->AddChild (*firstLine_, yap::LayoutBox::Align::LEFT);
     mainLayout_->AddChild (*secondLine_, yap::LayoutBox::Align::LEFT);
-
     /*
     mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
     firstLine_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
@@ -193,7 +210,6 @@ namespace ycl
     nameLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     genderLayout_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
     */
-
     AddChild (*mainLayout_);
 
     mainLayout_->SetPosition (yap::Vector2 (1, 60));

@@ -49,7 +49,11 @@ namespace ycl
     /// @name Layouts.
     /// @{
     yap::VerticalLayout battleInfoBox_;
+    yap::HorizontalLayout firstLine_;
     yap::HorizontalLayout nameBox_;
+    yap::HorizontalLayout levelAndGenderBox_;
+    yap::VerticalLayout levelBox_;
+    yap::HorizontalLayout genderBox_;
     /// @}
 
     /// @name Picture boxes.

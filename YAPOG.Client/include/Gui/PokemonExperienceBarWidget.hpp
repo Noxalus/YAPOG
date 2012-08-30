@@ -17,7 +17,9 @@ namespace ycl
   class PokemonExperienceBarWidget : public yap::BaseWidget
   {
   public:
-    PokemonExperienceBarWidget (const Pokemon& pokemon);
+    PokemonExperienceBarWidget ();
+
+    void Init (const Pokemon& pokemon);
 
     virtual bool IsFocusable () const;
 
@@ -30,7 +32,6 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    const Pokemon& pokemon_;
     yap::PictureBox* experienceBarContent_;
     yap::HorizontalLayout* mainLayout_;
 

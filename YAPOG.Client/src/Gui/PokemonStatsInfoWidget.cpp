@@ -14,9 +14,8 @@
 
 namespace ycl
 {
-  PokemonStatsInfoWidget::PokemonStatsInfoWidget (const Pokemon& pokemon)
-    : pokemon_ (pokemon)
-    , nameLeft_ (nullptr)
+  PokemonStatsInfoWidget::PokemonStatsInfoWidget ()
+    : nameLeft_ (nullptr)
     , level_ (nullptr)
     , hp_ (nullptr)
     , attack_ (nullptr)
@@ -54,71 +53,40 @@ namespace ycl
     , capacityAndExperienceLayout_ (nullptr)
     , capacityLayout_ (nullptr)
     , experienceBarLayout_ (nullptr)
-    , experienceBar_ (pokemon)
+    , experienceBar_ ()
   {
-  }
-
-  void PokemonStatsInfoWidget::Init ()
-  {
-    SetBackground (*new yap::WidgetBackground (
-      "Pictures/TeamManager/PokemonStatsInfoBackground.png", true));
-
     // Labels
-    nameLeft_ = new yap::Label (pokemon_.GetName ());
-
-    level_ = new yap::Label ("N." +
-      yap::StringHelper::ToString 
-      (static_cast<int>(pokemon_.GetLevel ())) + " ");
-
-    hp_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetHitPoint ().GetCurrentValue ())
-      + "/" +
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetHitPoint ().GetValue ()));
-
-    attack_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetAttack ().GetValue ()));
-
-    defense_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetDefense ().GetValue ()));
-
-    specialAttack_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetSpecialAttack ().GetValue ()));
-
-    specialDefense_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetSpecialDefense ().GetValue ()));
-
-    speed_ = new yap::Label (
-      yap::StringHelper::ToString 
-      (pokemon_.GetStats ().GetSpeed ().GetValue ()));
+    nameLeft_ = new yap::Label ();
+    level_ = new yap::Label ();
+    hp_ = new yap::Label ();
+    attack_ = new yap::Label ();
+    defense_ = new yap::Label ();
+    specialAttack_ = new yap::Label ();
+    specialDefense_ = new yap::Label ();
+    speed_ = new yap::Label ();
 
     experiencePointLabel_ = new yap::Label ("Points:");
-    experiencePoint_ = new yap::Label (
-      yap::StringHelper::ToString (
-      static_cast<int>(pokemon_.GetTotalExperience ())));
+    experiencePoint_ = new yap::Label ();
     nextLevelPointLabel_ = new yap::Label ("N. suivant:");
-    nextLevelPoint_ = new yap::Label (
-      yap::StringHelper::ToString (
-      static_cast<int>(pokemon_.GetExperienceToNextLevel ()))
-      /*
-      + "(" + 
-      yap::StringHelper::ToString (
-      static_cast<int>(pokemon_.GetTotalExperienceToNextLevel ()))
-      + " | " +
-      yap::StringHelper::ToString (pokemon_.GetExperiencePercentage ())
-      + ")"
-      */);
+    nextLevelPoint_ = new yap::Label ();
 
     // PictureBoxes
     gender_ = new yap::PictureBox ();
     spriteFront_ = new yap::PictureBox ();
     type1_ = new yap::PictureBox ();
     type2_ = new yap::PictureBox ();
+
+    gender_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+
+    spriteFront_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+
+    type1_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
+
+    type2_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
 
     // Layouts
     mainLayout_ = new yap::VerticalLayout (
@@ -218,8 +186,58 @@ namespace ycl
     experiencePoint_->SetTextSize (40);
     nextLevelPointLabel_->SetTextSize (40);
     nextLevelPoint_->SetTextSize (40);
+  }
 
-    if (pokemon_.GetGender () == yap::Gender::Female)
+  void PokemonStatsInfoWidget::Init (const Pokemon& pokemon)
+  {
+    SetBackground (*new yap::WidgetBackground (
+      "Pictures/TeamManager/PokemonStatsInfoBackground.png", true));
+
+    experienceBar_.Init (pokemon);
+
+    // Labels
+    nameLeft_->SetText (pokemon.GetName ());
+
+    level_ ->SetText ("N." +
+      yap::StringHelper::ToString 
+      (static_cast<int>(pokemon.GetLevel ())) + " ");
+
+    hp_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetHitPoint ().GetCurrentValue ())
+      + "/" +
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetHitPoint ().GetValue ()));
+
+    attack_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetAttack ().GetValue ()));
+
+    defense_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetDefense ().GetValue ()));
+
+    specialAttack_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetSpecialAttack ().GetValue ()));
+
+    specialDefense_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetSpecialDefense ().GetValue ()));
+
+    speed_->SetText (
+      yap::StringHelper::ToString 
+      (pokemon.GetStats ().GetSpeed ().GetValue ()));
+
+    experiencePoint_->SetText (
+      yap::StringHelper::ToString (
+      static_cast<int>(pokemon.GetTotalExperience ())));
+
+    nextLevelPoint_->SetText (
+      yap::StringHelper::ToString (
+      static_cast<int>(pokemon.GetExperienceToNextLevel ())));
+
+    if (pokemon.GetGender () == yap::Gender::Female)
     {
       gender_->SetPicture (
         new yap::Sprite ("Pictures/TeamManager/Female.png"));
@@ -230,8 +248,12 @@ namespace ycl
         new yap::Sprite ("Pictures/TeamManager/Male.png"));
     }
 
-    spriteFront_->SetPicture (pokemon_.GetBattleFront ().Clone ());
+    spriteFront_->SetPicture (pokemon.GetBattleFront ().Clone ());
 
+    type1_->SetPicture (pokemon.GetType1Icon ().Clone ());
+    type2_->SetPicture (pokemon.GetType2Icon ().Clone ());
+
+    // Hierarchy construction
     spriteFrontLayout_->AddChild (*spriteFront_);
 
     firstLinePartLeft_->AddChild (*levelNameGenderLayout_);
@@ -244,9 +266,6 @@ namespace ycl
     levelNameGenderLayout_->AddChild (*levelLayout_);
     levelNameGenderLayout_->AddChild (*nameLayout_);
     levelNameGenderLayout_->AddChild (*genderLayout_);
-
-    type1_->SetPicture (&pokemon_.GetType1Icon ());
-    type2_->SetPicture (&pokemon_.GetType2Icon ());
 
     hpLayout_->AddChild (*hp_);
     statsLayout_->AddChild (*attack_);
@@ -301,7 +320,6 @@ namespace ycl
     levelNameGenderLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     spriteFrontLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     firstLinePartRight_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
-    secondLine_->SetBorder (*new yap::WidgetBorder ("Test/orange.png"));
     hpLayout_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
     statsLayout_->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
 

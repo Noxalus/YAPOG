@@ -11,6 +11,27 @@ namespace ycl
     , pageNumber_ (0)
     , pokemonInfoPages_ ()
   {
+    SetSize (yap::Vector2 (800, 600));
+
+    PokemonBasicInfoWidget* pokemonBasicInfoWidget = 
+      new PokemonBasicInfoWidget ();
+
+    PokemonStatsInfoWidget* pokemonStatsInfoWidget = 
+      new PokemonStatsInfoWidget ();
+
+    PokemonMoveInfoWidget* pokemonMoveInfoWidget = 
+      new PokemonMoveInfoWidget ();
+
+    pokemonInfoPages_.Add (pokemonBasicInfoWidget);
+    pokemonInfoPages_.Add (pokemonStatsInfoWidget);
+    pokemonInfoPages_.Add (pokemonMoveInfoWidget);
+
+    for (yap::BaseWidget* widget : pokemonInfoPages_)
+    {
+      widget->SetSize (GetSize ());
+      widget->Close ();
+      AddChild (*widget);
+    }
   }
 
   PokemonInfoWidget::~PokemonInfoWidget ()
@@ -19,39 +40,11 @@ namespace ycl
       delete widget;
   }
 
-  void PokemonInfoWidget::Init ()
-  {
-    SetSize (yap::Vector2 (800, 600));
-
-    PokemonBasicInfoWidget* pokemonBasicInfoWidget = 
-      new PokemonBasicInfoWidget (*pokemon_);
-
-    PokemonStatsInfoWidget* pokemonStatsInfoWidget = 
-      new PokemonStatsInfoWidget (*pokemon_);
-
-    PokemonMoveInfoWidget* pokemonMoveInfoWidget = 
-      new PokemonMoveInfoWidget (*pokemon_);
-
-    //pokemonInfoPages_.Add (pokemonBasicInfoWidget);
-    //pokemonInfoPages_.Add (pokemonStatsInfoWidget);
-    pokemonInfoPages_.Add (pokemonMoveInfoWidget);
-
-    for (yap::BaseWidget* widget : pokemonInfoPages_)
-    {
-      widget->SetSize (GetSize ());
-      AddChild (*widget);
-    }
-
-    //pokemonBasicInfoWidget->Init ();
-    //pokemonStatsInfoWidget->Init ();
-    pokemonMoveInfoWidget->Init ();
-  }
-
-  void PokemonInfoWidget::SetPokemon (Pokemon* pokemon)
+  void PokemonInfoWidget::Init (Pokemon* pokemon)
   {
     pokemon_ = pokemon;
-
-    Init ();
+    pokemonInfoPages_[pageNumber_]->Init (*pokemon_);
+    pokemonInfoPages_[pageNumber_]->Open ();
   }
 
   bool PokemonInfoWidget::IsFocusable () const
@@ -63,28 +56,28 @@ namespace ycl
   {
     if (guiEvent.type == sf::Event::KeyPressed)
     {
-      if (guiEvent.key.code == sf::Keyboard::Up)
-      {
-        return true;
-      }
-      if (guiEvent.key.code == sf::Keyboard::Down)
-      {
-        return true;
-      }
-
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
+        pokemonInfoPages_[pageNumber_]->Close ();
+
         if (pageNumber_ == 0)
           pageNumber_ = pokemonInfoPages_.Count () - 1;
         else
           pageNumber_--;
+
+        pokemonInfoPages_[pageNumber_]->Open ();
 
         return true;
       }
 
       if (guiEvent.key.code == sf::Keyboard::Right)
       {
+        pokemonInfoPages_[pageNumber_]->Close ();
+
         pageNumber_ = (pageNumber_ + 1) % pokemonInfoPages_.Count ();
+
+        pokemonInfoPages_[pageNumber_]->Init (*pokemon_);
+        pokemonInfoPages_[pageNumber_]->Open ();
 
         return true;
       }
@@ -93,8 +86,11 @@ namespace ycl
       {
         return true;
       }
+
       if (guiEvent.key.code == sf::Keyboard::Escape)
       {
+        Close ();
+
         return true;
       }
     }

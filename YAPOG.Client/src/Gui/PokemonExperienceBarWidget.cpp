@@ -8,9 +8,8 @@
 
 namespace ycl
 {
-  PokemonExperienceBarWidget::PokemonExperienceBarWidget (const Pokemon& pokemon)
-    : pokemon_ (pokemon)
-    , experienceBarContent_ (nullptr)
+  PokemonExperienceBarWidget::PokemonExperienceBarWidget ()
+    : experienceBarContent_ (nullptr)
     , mainLayout_ (nullptr)
   {
     SetSize (yap::Vector2 (258, 26));
@@ -23,8 +22,6 @@ namespace ycl
       "Pictures/TeamManager/ExperienceBarContent.png"));
 
     mainLayout_->SetSize (GetSize ());
-    experienceBarContent_->SetSize (yap::Vector2 (
-      137 * pokemon.GetExperiencePercentage (), 8));
 
     mainLayout_->AddChild (*experienceBarContent_, yap::LayoutBox::Align::TOP);
 
@@ -32,6 +29,12 @@ namespace ycl
 
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/ExperienceBarContainer.png", true));
+  }
+
+  void PokemonExperienceBarWidget::Init (const Pokemon& pokemon)
+  {
+    experienceBarContent_->SetSize (yap::Vector2 (
+      137 * pokemon.GetExperiencePercentage (), 8));
   }
 
   bool PokemonExperienceBarWidget::IsFocusable () const

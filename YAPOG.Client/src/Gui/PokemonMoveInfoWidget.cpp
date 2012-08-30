@@ -14,22 +14,15 @@
 
 namespace ycl
 {
-  PokemonMoveInfoWidget::PokemonMoveInfoWidget (const Pokemon& pokemon)
-    : pokemon_ (pokemon)
-    , mainLayout_ (nullptr)
+  PokemonMoveInfoWidget::PokemonMoveInfoWidget ()
+    : mainLayout_ (nullptr)
     , firstLine_ (nullptr)
     , firstLinePartRight_ (nullptr)
-    , pokemonFrontInfoWidget_ (pokemon)
+    , pokemonFrontInfoWidget_ ()
     , pokemonSingleMoveInfoWidgets_ (4, nullptr)
-  {
-  }
-
-  void PokemonMoveInfoWidget::Init ()
   {
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/PokemonMoveInfoBackground.png", true));
-
-    pokemonFrontInfoWidget_.Init ();
 
     // Layouts
     mainLayout_ = new yap::VerticalLayout (
@@ -45,13 +38,18 @@ namespace ycl
     mainLayout_->SetSize (GetSize ());
     firstLine_->SetSize (yap::Vector2 (800, 328));
     firstLinePartRight_->SetSize (yap::Vector2 (408, 410));
+  }
+
+  void PokemonMoveInfoWidget::Init (const Pokemon& pokemon)
+  {
+    pokemonFrontInfoWidget_.Init (pokemon);
 
     for (int i = 0; i < 4; i++)
     {
-      if (pokemon_.GetMoveSet ().GetMove (i) != nullptr)
+      if (pokemon.GetMoveSet ().GetMove (i) != nullptr)
       {
         PokemonSingleMoveInfoWidget* pokemonSingleMoveInfoWidget = 
-          new PokemonSingleMoveInfoWidget (*pokemon_.GetMoveSet ().GetMove (i));
+          new PokemonSingleMoveInfoWidget (*pokemon.GetMoveSet ().GetMove (i));
 
         pokemonSingleMoveInfoWidget->Init ();
 
@@ -61,6 +59,7 @@ namespace ycl
       }
     }
 
+    // Hierarchy construction
     firstLine_->AddChild (pokemonFrontInfoWidget_, yap::LayoutBox::Align::TOP);
     firstLine_->AddChild (*firstLinePartRight_, yap::LayoutBox::Align::TOP);
 

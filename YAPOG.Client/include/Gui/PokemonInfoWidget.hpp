@@ -4,6 +4,8 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
 
+# include "Gui/IPokemonSummaryWidget.hpp"
+
 namespace ycl
 {
   class Pokemon;
@@ -14,17 +16,15 @@ namespace ycl
   public:
     PokemonInfoWidget ();
     ~PokemonInfoWidget ();
-
-    void SetPokemon (Pokemon* pokemon);
+    
+    void Init (Pokemon* pokemon);
 
     virtual bool IsFocusable () const;
 
   private:
-    void Init ();
-
     Pokemon* pokemon_;
     yap::UInt8 pageNumber_;
-    yap::collection::Array<yap::BaseWidget*> pokemonInfoPages_;
+    yap::collection::Array<IPokemonSummaryWidget*> pokemonInfoPages_;
 
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
