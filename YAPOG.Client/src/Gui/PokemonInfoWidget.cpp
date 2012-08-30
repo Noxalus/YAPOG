@@ -13,13 +13,13 @@ namespace ycl
   {
     SetSize (yap::Vector2 (800, 600));
 
-    PokemonBasicInfoWidget* pokemonBasicInfoWidget = 
+    PokemonBasicInfoWidget* pokemonBasicInfoWidget =
       new PokemonBasicInfoWidget ();
 
-    PokemonStatsInfoWidget* pokemonStatsInfoWidget = 
+    PokemonStatsInfoWidget* pokemonStatsInfoWidget =
       new PokemonStatsInfoWidget ();
 
-    PokemonMoveInfoWidget* pokemonMoveInfoWidget = 
+    PokemonMoveInfoWidget* pokemonMoveInfoWidget =
       new PokemonMoveInfoWidget ();
 
     pokemonInfoPages_.Add (pokemonBasicInfoWidget);
@@ -95,7 +95,7 @@ namespace ycl
       }
     }
 
-    return false;
+    return yap::BaseWidget::HandleOnEvent (guiEvent);
   }
 
   void PokemonInfoWidget::HandleMove (const yap::Vector2& offset)

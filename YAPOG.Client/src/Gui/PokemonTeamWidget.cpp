@@ -68,7 +68,7 @@ namespace ycl
 
     for (int i = 0; i < team_.GetPokemonCount (); i++)
     {
-      PokemonInfoBox* box = nullptr; 
+      PokemonInfoBox* box = nullptr;
 
       if (i == 0)
       {

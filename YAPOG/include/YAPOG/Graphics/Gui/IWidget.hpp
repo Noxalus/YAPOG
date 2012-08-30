@@ -25,6 +25,8 @@ namespace yap
     virtual void SetDefaultColor (const sf::Color& color) = 0;
     virtual void AddDrawable (IDrawable& drawable) = 0;
     virtual void AddChild (IWidget& child) = 0;
+    virtual void FrontAddChild (IWidget& child) = 0;
+    virtual void RemoveChild (IWidget& child) = 0;
     virtual IWidget& GetRoot () const = 0;
     virtual WidgetBorder* GetBorder () const = 0;
     virtual void SetParent (IWidget& parent) = 0;
@@ -37,6 +39,7 @@ namespace yap
     virtual void SetEnable (bool enable) = 0;
     virtual void Open () = 0;
     virtual void Close () = 0;
+    virtual void SetToTop () = 0;
   };
 } // namespace yap
 
