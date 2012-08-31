@@ -67,7 +67,7 @@ namespace ycl
 
     for (int i = 0; i < team_.GetPokemonCount (); i++)
     {
-      PokemonInfoBox* box = nullptr; 
+      PokemonInfoBox* box = nullptr;
 
       if (i == 0)
       {
@@ -107,60 +107,76 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
+        pokemonInfoBoxes_[index_]->SetIsSelected (false);
+
+        if (index_ == 0)
+          index_ = pokemonInfoBoxes_.Count () - 1;
+        else
+          index_--;
+
         if (pokemonInfoWidget_.IsVisible ())
         {
           pokemonInfoWidget_.Close ();
-          
-          if (index_ == 0)
-            index_ = pokemonInfoBoxes_.Count () - 1;
-          else
-            index_--;
-
           pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
-        else
-        {
-          pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
-          if (index_ == 0)
-            index_ = pokemonInfoBoxes_.Count () - 1;
-          else
-            index_--;
+        pokemonInfoBoxes_[index_]->SetIsSelected (true);
 
-          pokemonInfoBoxes_[index_]->SetIsSelected (true);
-        }
         return true;
       }
 
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
+        pokemonInfoBoxes_[index_]->SetIsSelected (false);
+
+        index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
+
         if (pokemonInfoWidget_.IsVisible ())
         {
           pokemonInfoWidget_.Close ();
-          index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
           pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
-        else
-        {
-          pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
-          index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
-
-          pokemonInfoBoxes_[index_]->SetIsSelected (true);
-        }
+        pokemonInfoBoxes_[index_]->SetIsSelected (true);
 
         return true;
       }
 
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
+        if (index_ == 0)
+        {
+          pokemonInfoBoxes_[index_]->SetIsSelected (false);
+          index_++;
+          pokemonInfoBoxes_[index_]->SetIsSelected (true);
+        }
+        else
+        {
+          pokemonInfoBoxes_[index_]->SetIsSelected (false);
+          index_ = 0;
+          pokemonInfoBoxes_[index_]->SetIsSelected (true);
+        }
+
         return true;
       }
 
       if (guiEvent.key.code == sf::Keyboard::Right)
       {
+        if (index_ == 0)
+        {
+          pokemonInfoBoxes_[index_]->SetIsSelected (false);
+          index_++;
+          pokemonInfoBoxes_[index_]->SetIsSelected (true);
+        }
+        else
+        {
+          pokemonInfoBoxes_[index_]->SetIsSelected (false);
+          index_ = 0;
+          pokemonInfoBoxes_[index_]->SetIsSelected (true);
+        }
+
         return true;
       }
 

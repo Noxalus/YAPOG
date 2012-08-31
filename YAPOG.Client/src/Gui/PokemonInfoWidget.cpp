@@ -100,7 +100,7 @@ namespace ycl
       }
     }
 
-    return false;
+    return yap::BaseWidget::HandleOnEvent (guiEvent);
   }
 
   void PokemonInfoWidget::HandleMove (const yap::Vector2& offset)

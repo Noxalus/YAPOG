@@ -110,6 +110,7 @@ namespace yap
 
     virtual void AddDrawable (IDrawable& drawable);
     virtual void AddChild (IWidget& child);
+    virtual void FrontAddChild (IWidget& child);
     virtual void RemoveChild (IWidget& child);
     virtual IWidget& GetRoot () const;
     virtual void SetDefaultColor (const sf::Color& color);
@@ -122,6 +123,8 @@ namespace yap
     virtual void UnsetBorder ();
     virtual bool IsFocusable () const = 0;
     Vector2 GetUserSize () const;
+
+    virtual void SetToTop();
 
     virtual void SetEnable (bool enable);
     virtual void Open ();

@@ -175,6 +175,17 @@ namespace yap
     return userSize_;
   }
 
+  void BaseWidget::SetToTop()
+  {
+    if (parent_ == nullptr)
+      return;
+
+    parent_->RemoveChild (*this);
+    parent_->FrontAddChild (*this);
+
+    parent_->SetToTop ();
+  }
+
   bool BaseWidget::IsVisible () const
   {
     return isVisible_;
@@ -292,6 +303,20 @@ namespace yap
 
     //child.SetPosition (GetPosition ());
     child.SetParent (*this);
+    OnChildAdded (*this, EventArgsIWidget (child));
+  }
+
+  void BaseWidget::FrontAddChild (IWidget& child)
+  {
+    child.SetParent (*this);
+
+    child.SetDefaultColor (userColor_);
+
+    childen_.AddFront (&child);
+    drawables_.AddFront (&child);
+    updatables_.AddFront (&child);
+    eventHandlers_.AddFront (&child);
+
     OnChildAdded (*this, EventArgsIWidget (child));
   }
 
