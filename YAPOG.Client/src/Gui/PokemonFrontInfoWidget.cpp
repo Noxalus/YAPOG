@@ -28,16 +28,16 @@ namespace ycl
     , genderMaleIcon_ (nullptr)
     , genderFemaleIcon_ (nullptr)
   {
-    SetSize (yap::Vector2 (392, 315));
-
     // Labels
     name_ = new yap::Label ();
-
     level_ = new yap::Label ();
 
     // PictureBoxes
     gender_ = new yap::PictureBox ();
     spriteFront_ = new yap::PictureBox ();
+
+    spriteFront_->SetPicture (
+      new yap::Sprite ("Test/white.png"));
 
     // Sprites
     genderMaleIcon_ = new yap::Sprite ("Pictures/TeamManager/Male.png");
@@ -63,6 +63,11 @@ namespace ycl
 
     spriteFrontLayout_ = new yap::VerticalLayout (
       yap::Padding (0, 0, 0, 50), yap::Padding (), false);
+  }
+
+  void PokemonFrontInfoWidget::Init ()
+  {
+    SetSize (yap::Vector2 (392, 315));
 
     // Set layouts size
     mainLayout_->SetSize (GetSize ());
@@ -75,25 +80,6 @@ namespace ycl
     // Set the labels text size
     name_->SetTextSize (40);
     level_->SetTextSize (40);
-  }
-
-  void PokemonFrontInfoWidget::Init (const Pokemon& pokemon)
-  {
-    // Labels
-    name_->SetText (pokemon.GetName ());
-    level_->SetText ("N." +
-      yap::StringHelper::ToString 
-      (static_cast<int>(pokemon.GetLevel ())) + " ");
-
-    // PictureBoxes
-    /*
-    if (pokemon.GetGender () == yap::Gender::Female)
-      gender_->SetPicture (genderFemaleIcon_);
-    else
-      gender_->SetPicture (genderMaleIcon_);
-    */
-
-    spriteFront_->SetPicture (pokemon.GetBattleFront ().Clone ());
 
     // Hierarchy construction
     spriteFrontLayout_->AddChild (*spriteFront_);
@@ -109,7 +95,42 @@ namespace ycl
     mainLayout_->AddChild (*levelNameGenderLayout_);
     mainLayout_->AddChild (*spriteFrontLayout_);
 
+    // Borders
+    /*
+    mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
+    levelLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    nameLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
+    genderLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    levelNameGenderLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    spriteFrontLayout_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
+    */
+
     AddChild (*mainLayout_);
+  }
+
+  void PokemonFrontInfoWidget::SetPokemon (const Pokemon& pokemon)
+  {
+    // Labels
+    name_->SetText (pokemon.GetName ());
+    level_->SetText ("N." +
+      yap::StringHelper::ToString 
+      (static_cast<int>(pokemon.GetLevel ())) + " ");
+
+    // PictureBoxes
+    // @todo Debug this part
+    /*
+    if (pokemon.GetGender () == yap::Gender::Female)
+      gender_->SetPicture (genderFemaleIcon_);
+    else
+      gender_->SetPicture (genderMaleIcon_);
+    */
+
+    spriteFront_->SetPicture (pokemon.GetBattleFront ().Clone ());
+
+    // Refresh layouts to center labels
+    levelLayout_->Refresh ();
+    nameLayout_->Refresh ();
+    genderLayout_->Refresh ();
   }
 
   bool PokemonFrontInfoWidget::IsFocusable () const

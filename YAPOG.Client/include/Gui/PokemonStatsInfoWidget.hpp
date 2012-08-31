@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 
+# include "Gui/PokemonFrontInfoWidget.hpp"
 # include "Gui/PokemonExperienceBarWidget.hpp"
 # include "Gui/IPokemonSummaryWidget.hpp"
 
@@ -15,9 +16,32 @@ namespace ycl
   public:
     PokemonStatsInfoWidget ();
 
-    void Init (const Pokemon& pokemon);
+    virtual void Init ();
 
+    virtual void SetPokemon (const Pokemon& pokemon);
+
+    /// @name IWidget members.
+    /// {
+    /*
+    virtual void SetDefaultColor (const sf::Color& color);
+    virtual void AddDrawable (yap::IDrawable& drawable);
+    virtual void AddChild (yap::IWidget& child);
+    virtual yap::IWidget& GetRoot () const;
+    virtual yap::WidgetBorder* GetBorder () const;
+    virtual void SetParent (yap::IWidget& parent);
+    virtual void SetPadding (const yap::Padding& padding);
+    virtual void SetBackground (yap::WidgetBackground& background);
+    virtual void SetBorder  (yap::WidgetBorder& border, yap::uint width);
+    virtual void Refresh ();
+    */
     virtual bool IsFocusable () const;
+    /*
+    virtual void SetFocused (bool state);
+    virtual void SetEnable (bool enable);
+    virtual void Open ();
+    virtual void Close ();
+    */
+    /// }
 
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -29,8 +53,6 @@ namespace ycl
 
   private:
     // Labels
-    yap::Label* nameLeft_;
-    yap::Label* level_;
     yap::Label* hp_;
     yap::Label* attack_;
     yap::Label* defense_;
@@ -42,10 +64,7 @@ namespace ycl
     yap::Label* nextLevelPointLabel_;
     yap::Label* nextLevelPoint_;
 
-
     // PictureBoxes
-    yap::PictureBox* gender_;
-    yap::PictureBox* spriteFront_;
     yap::PictureBox* type1_;
     yap::PictureBox* type2_;
 
@@ -53,13 +72,6 @@ namespace ycl
     yap::VerticalLayout* mainLayout_;
 
     yap::HorizontalLayout* firstLine_;
-
-    yap::VerticalLayout* firstLinePartLeft_;
-    yap::VerticalLayout* levelLayout_;
-    yap::VerticalLayout* nameLayout_;
-    yap::HorizontalLayout* genderLayout_;
-    yap::HorizontalLayout* levelNameGenderLayout_;
-    yap::VerticalLayout* spriteFrontLayout_;
 
     yap::VerticalLayout* firstLinePartRight_;
     yap::VerticalLayout* hpLayout_;
@@ -78,7 +90,8 @@ namespace ycl
     yap::VerticalLayout* capacityLayout_;
     yap::VerticalLayout* experienceBarLayout_;
 
-    PokemonExperienceBarWidget experienceBar_;
+    PokemonFrontInfoWidget pokemonFrontInfoWidget_;
+    PokemonExperienceBarWidget experienceBarWidget_;
   };
 } // namespace ycl
 

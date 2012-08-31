@@ -19,7 +19,9 @@ namespace ycl
   public:
     PokemonExperienceBarWidget ();
 
-    void Init (const Pokemon& pokemon);
+    void Init ();
+
+    void SetPokemon (const Pokemon& pokemon);
 
     virtual bool IsFocusable () const;
 

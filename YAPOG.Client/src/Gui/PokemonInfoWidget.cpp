@@ -13,25 +13,18 @@ namespace ycl
   {
     SetSize (yap::Vector2 (800, 600));
 
-    PokemonBasicInfoWidget* pokemonBasicInfoWidget = 
+    IPokemonSummaryWidget* pokemonBasicInfoWidget = 
       new PokemonBasicInfoWidget ();
 
-    PokemonStatsInfoWidget* pokemonStatsInfoWidget = 
+    IPokemonSummaryWidget* pokemonStatsInfoWidget = 
       new PokemonStatsInfoWidget ();
 
-    PokemonMoveInfoWidget* pokemonMoveInfoWidget = 
+    IPokemonSummaryWidget* pokemonMoveInfoWidget = 
       new PokemonMoveInfoWidget ();
 
     pokemonInfoPages_.Add (pokemonBasicInfoWidget);
     pokemonInfoPages_.Add (pokemonStatsInfoWidget);
     pokemonInfoPages_.Add (pokemonMoveInfoWidget);
-
-    for (yap::BaseWidget* widget : pokemonInfoPages_)
-    {
-      widget->SetSize (GetSize ());
-      widget->Close ();
-      AddChild (*widget);
-    }
   }
 
   PokemonInfoWidget::~PokemonInfoWidget ()
@@ -40,10 +33,22 @@ namespace ycl
       delete widget;
   }
 
-  void PokemonInfoWidget::Init (Pokemon* pokemon)
+  void PokemonInfoWidget::Init ()
+  {
+    for (IPokemonSummaryWidget* widget : pokemonInfoPages_)
+    {
+      widget->SetSize (GetSize ());
+      widget->Init ();
+      widget->Close ();
+
+      AddChild (*widget);
+    }
+  }
+
+  void PokemonInfoWidget::SetPokemon (Pokemon* pokemon)
   {
     pokemon_ = pokemon;
-    pokemonInfoPages_[pageNumber_]->Init (*pokemon_);
+    pokemonInfoPages_[pageNumber_]->SetPokemon (*pokemon_);
     pokemonInfoPages_[pageNumber_]->Open ();
   }
 
@@ -76,7 +81,7 @@ namespace ycl
 
         pageNumber_ = (pageNumber_ + 1) % pokemonInfoPages_.Count ();
 
-        pokemonInfoPages_[pageNumber_]->Init (*pokemon_);
+        pokemonInfoPages_[pageNumber_]->SetPokemon (*pokemon_);
         pokemonInfoPages_[pageNumber_]->Open ();
 
         return true;

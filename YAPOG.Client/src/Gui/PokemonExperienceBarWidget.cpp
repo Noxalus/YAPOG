@@ -12,11 +12,17 @@ namespace ycl
     : experienceBarContent_ (nullptr)
     , mainLayout_ (nullptr)
   {
-    SetSize (yap::Vector2 (258, 26));
-
     mainLayout_ = new yap::HorizontalLayout (
       yap::Padding (60, 0, 0, 11), yap::Padding (), false);
     experienceBarContent_ = new yap::PictureBox ();
+  }
+
+  void PokemonExperienceBarWidget::Init ()
+  {
+    SetSize (yap::Vector2 (258, 26));
+
+    SetBackground (*new yap::WidgetBackground (
+      "Pictures/TeamManager/ExperienceBarContainer.png", true));
 
     experienceBarContent_->SetPicture (new yap::Sprite (
       "Pictures/TeamManager/ExperienceBarContent.png"));
@@ -26,12 +32,9 @@ namespace ycl
     mainLayout_->AddChild (*experienceBarContent_, yap::LayoutBox::Align::TOP);
 
     AddChild (*mainLayout_);
-
-    SetBackground (*new yap::WidgetBackground (
-      "Pictures/TeamManager/ExperienceBarContainer.png", true));
   }
 
-  void PokemonExperienceBarWidget::Init (const Pokemon& pokemon)
+  void PokemonExperienceBarWidget::SetPokemon (const Pokemon& pokemon)
   {
     experienceBarContent_->SetSize (yap::Vector2 (
       137 * pokemon.GetExperiencePercentage (), 8));

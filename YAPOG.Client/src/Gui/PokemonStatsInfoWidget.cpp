@@ -15,9 +15,7 @@
 namespace ycl
 {
   PokemonStatsInfoWidget::PokemonStatsInfoWidget ()
-    : nameLeft_ (nullptr)
-    , level_ (nullptr)
-    , hp_ (nullptr)
+    : hp_ (nullptr)
     , attack_ (nullptr)
     , defense_ (nullptr)
     , specialAttack_ (nullptr)
@@ -27,18 +25,10 @@ namespace ycl
     , experiencePoint_ (nullptr)
     , nextLevelPointLabel_ (nullptr)
     , nextLevelPoint_ (nullptr)
-    , gender_ (nullptr)
-    , spriteFront_ (nullptr)
     , type1_ (nullptr)
     , type2_ (nullptr)
     , mainLayout_ (nullptr)
     , firstLine_ (nullptr)
-    , firstLinePartLeft_ (nullptr)
-    , levelLayout_ (nullptr)
-    , nameLayout_ (nullptr)
-    , genderLayout_ (nullptr)
-    , levelNameGenderLayout_ (nullptr)
-    , spriteFrontLayout_ (nullptr)
     , firstLinePartRight_ (nullptr)
     , hpLayout_ (nullptr)
     , statsLayout_ (nullptr)
@@ -53,11 +43,10 @@ namespace ycl
     , capacityAndExperienceLayout_ (nullptr)
     , capacityLayout_ (nullptr)
     , experienceBarLayout_ (nullptr)
-    , experienceBar_ ()
+    , pokemonFrontInfoWidget_ ()
+    , experienceBarWidget_ ()
   {
     // Labels
-    nameLeft_ = new yap::Label ();
-    level_ = new yap::Label ();
     hp_ = new yap::Label ();
     attack_ = new yap::Label ();
     defense_ = new yap::Label ();
@@ -71,22 +60,14 @@ namespace ycl
     nextLevelPoint_ = new yap::Label ();
 
     // PictureBoxes
-    gender_ = new yap::PictureBox ();
-    spriteFront_ = new yap::PictureBox ();
     type1_ = new yap::PictureBox ();
     type2_ = new yap::PictureBox ();
 
-    gender_->SetPicture (
-      new yap::Sprite ("Test/white.png"));
-
-    spriteFront_->SetPicture (
-      new yap::Sprite ("Test/white.png"));
-
     type1_->SetPicture (
-      new yap::Sprite ("Test/white.png"));
+      new yap::Sprite ("Pictures/Types/0.png"));
 
     type2_->SetPicture (
-      new yap::Sprite ("Test/white.png"));
+      new yap::Sprite ("Pictures/Types/0.png"));
 
     // Layouts
     mainLayout_ = new yap::VerticalLayout (
@@ -95,32 +76,14 @@ namespace ycl
     firstLine_ = new yap::HorizontalLayout (
       yap::Padding (), yap::Padding (), false);
 
-    firstLinePartLeft_ = new yap::VerticalLayout (
-      yap::Padding (0, 0, 0, 7), yap::Padding (), false);
-
-    levelLayout_ = new yap::VerticalLayout (
-      yap::Padding (), yap::Padding (), false);
-
-    nameLayout_ = new yap::VerticalLayout (
-      yap::Padding (), yap::Padding (), false);
-
-    genderLayout_ = new yap::HorizontalLayout (
-      yap::Padding (), yap::Padding (), false);
-
-    levelNameGenderLayout_ = new yap::HorizontalLayout (
-      yap::Padding (), yap::Padding (), false);
-
-    spriteFrontLayout_ = new yap::VerticalLayout (
-      yap::Padding (0, 0, 0, 50), yap::Padding (), false);
-
     firstLinePartRight_ = new yap::VerticalLayout (
       yap::Padding (0, 8, 0, 20), yap::Padding (0, 0, 26, 0), false);
 
     hpLayout_ = new yap::VerticalLayout (
-      yap::Padding (0, 5, 0, 0), yap::Padding (), false);
+      yap::Padding (), yap::Padding (), false);
 
     statsLayout_ = new yap::VerticalLayout (
-      yap::Padding (0, 5, 0, 0), yap::Padding (0, 0, 9, 0), false);
+      yap::Padding (), yap::Padding (0, 0, 9, 0), false);
 
     experienceLayout_ = 
       new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
@@ -145,15 +108,19 @@ namespace ycl
       new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
     experienceBarLayout_ = 
       new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
+  }
+
+  void PokemonStatsInfoWidget::Init ()
+  {
+    // Init widgets
+    pokemonFrontInfoWidget_.Init ();
+    experienceBarWidget_.Init ();
+
+    SetBackground (*new yap::WidgetBackground (
+      "Pictures/TeamManager/PokemonStatsInfoBackground.png", true));
 
     mainLayout_->SetSize (GetSize ());
     firstLine_->SetSize (yap::Vector2 (800, 328));
-    firstLinePartLeft_->SetSize (yap::Vector2 (392, 315));
-    levelLayout_->SetSize (yap::Vector2 (88, 53));
-    nameLayout_->SetSize (yap::Vector2 (240, 53));
-    genderLayout_->SetSize (yap::Vector2 (40, 53));
-    levelNameGenderLayout_->SetSize (yap::Vector2 (379, 53));
-    spriteFrontLayout_->SetSize (yap::Vector2 (363, 233));
     firstLinePartRight_->SetSize (yap::Vector2 (408, 328));
 
     hpLayout_->SetSize (yap::Vector2 (238, 41));
@@ -173,8 +140,6 @@ namespace ycl
     experienceBarLayout_->SetSize (yap::Vector2 (262, 46));
 
     // Set the labels text size
-    nameLeft_->SetTextSize (40);
-    level_->SetTextSize (40);
     hp_->SetTextSize (40);
     attack_->SetTextSize (40);
     defense_->SetTextSize (40);
@@ -186,22 +151,85 @@ namespace ycl
     experiencePoint_->SetTextSize (40);
     nextLevelPointLabel_->SetTextSize (40);
     nextLevelPoint_->SetTextSize (40);
+
+    // Hierarchy construction
+    hpLayout_->AddChild (*hp_);
+
+    statsLayout_->AddChild (*attack_);
+    statsLayout_->AddChild (*defense_);
+    statsLayout_->AddChild (*specialAttack_);
+    statsLayout_->AddChild (*specialDefense_);
+    statsLayout_->AddChild (*speed_);
+
+    firstLinePartRight_->AddChild (*hpLayout_, yap::LayoutBox::Align::RIGHT);
+    firstLinePartRight_->AddChild (*statsLayout_, yap::LayoutBox::Align::RIGHT);
+
+    firstLine_->AddChild (pokemonFrontInfoWidget_, yap::LayoutBox::Align::TOP);
+    firstLine_->AddChild (*firstLinePartRight_, yap::LayoutBox::Align::TOP);
+
+    experiencePointNumberLayout_->AddChild (*experiencePoint_);
+    experiencePointLabelLayout_->AddChild (*experiencePointLabel_);
+
+    nextLevelPointNumberLayout_->AddChild (*nextLevelPoint_);
+    nextLevelPointLabelLayout_->AddChild (*nextLevelPointLabel_);
+
+    experiencePointLayout_->AddChild (
+      *experiencePointLabelLayout_, yap::LayoutBox::Align::LEFT);
+    experiencePointLayout_->AddChild (
+      *experiencePointNumberLayout_, yap::LayoutBox::Align::RIGHT);
+
+    nextLevelPointLayout_->AddChild (
+      *nextLevelPointLabelLayout_, yap::LayoutBox::Align::LEFT);
+    nextLevelPointLayout_->AddChild (
+      *nextLevelPointNumberLayout_, yap::LayoutBox::Align::RIGHT);
+
+    experienceLayout_->AddChild (
+      *experiencePointLayout_, yap::LayoutBox::Align::RIGHT);
+    experienceLayout_->AddChild (
+      *nextLevelPointLayout_, yap::LayoutBox::Align::RIGHT);
+
+    experienceBarLayout_->AddChild (experienceBarWidget_, yap::LayoutBox::Align::RIGHT);
+
+    capacityAndExperienceLayout_->AddChild (*capacityLayout_, yap::LayoutBox::Align::RIGHT);
+    capacityAndExperienceLayout_->AddChild (*experienceBarLayout_, yap::LayoutBox::Align::RIGHT);
+
+    capacityAndExperienceGlobalLayout_->AddChild (
+      *capacityAndExperienceLayout_, yap::LayoutBox::Align::RIGHT);
+
+    mainLayout_->AddChild (*firstLine_, yap::LayoutBox::Align::LEFT);
+    mainLayout_->AddChild (*experienceLayout_, yap::LayoutBox::Align::LEFT);
+    mainLayout_->AddChild (*capacityAndExperienceGlobalLayout_, yap::LayoutBox::Align::LEFT);
+
+    // Borders
+    /*
+    mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
+    firstLine_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    firstLinePartRight_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
+    hpLayout_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
+    statsLayout_->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+
+    experienceLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
+    experiencePointLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    experiencePointNumberLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
+    experiencePointLabelLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+
+    capacityAndExperienceGlobalLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    capacityAndExperienceLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
+    capacityLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    experienceBarLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
+    */
+
+    AddChild (*mainLayout_);
+
+    mainLayout_->SetPosition (yap::Vector2 (1, 60));
   }
 
-  void PokemonStatsInfoWidget::Init (const Pokemon& pokemon)
+  void PokemonStatsInfoWidget::SetPokemon (const Pokemon& pokemon)
   {
-    SetBackground (*new yap::WidgetBackground (
-      "Pictures/TeamManager/PokemonStatsInfoBackground.png", true));
-
-    experienceBar_.Init (pokemon);
+    pokemonFrontInfoWidget_.SetPokemon (pokemon);
+    experienceBarWidget_.SetPokemon (pokemon);
 
     // Labels
-    nameLeft_->SetText (pokemon.GetName ());
-
-    level_ ->SetText ("N." +
-      yap::StringHelper::ToString 
-      (static_cast<int>(pokemon.GetLevel ())) + " ");
-
     hp_->SetText (
       yap::StringHelper::ToString 
       (pokemon.GetStats ().GetHitPoint ().GetCurrentValue ())
@@ -237,135 +265,76 @@ namespace ycl
       yap::StringHelper::ToString (
       static_cast<int>(pokemon.GetExperienceToNextLevel ())));
 
-    if (pokemon.GetGender () == yap::Gender::Female)
-    {
-      gender_->SetPicture (
-        new yap::Sprite ("Pictures/TeamManager/Female.png"));
-    }
-    else
-    {
-      gender_->SetPicture (
-        new yap::Sprite ("Pictures/TeamManager/Male.png"));
-    }
-
-    spriteFront_->SetPicture (pokemon.GetBattleFront ().Clone ());
-
     type1_->SetPicture (pokemon.GetType1Icon ().Clone ());
     type2_->SetPicture (pokemon.GetType2Icon ().Clone ());
 
-    // Hierarchy construction
-    spriteFrontLayout_->AddChild (*spriteFront_);
-
-    firstLinePartLeft_->AddChild (*levelNameGenderLayout_);
-    firstLinePartLeft_->AddChild (*spriteFrontLayout_);
-
-    levelLayout_->AddChild (*level_);
-    nameLayout_->AddChild (*nameLeft_);
-    genderLayout_->AddChild (*gender_);
-
-    levelNameGenderLayout_->AddChild (*levelLayout_);
-    levelNameGenderLayout_->AddChild (*nameLayout_);
-    levelNameGenderLayout_->AddChild (*genderLayout_);
-
-    hpLayout_->AddChild (*hp_);
-    statsLayout_->AddChild (*attack_);
-    statsLayout_->AddChild (*defense_);
-    statsLayout_->AddChild (*specialAttack_);
-    statsLayout_->AddChild (*specialDefense_);
-    statsLayout_->AddChild (*speed_);
-
-    firstLinePartRight_->AddChild (*hpLayout_, yap::LayoutBox::Align::RIGHT);
-    firstLinePartRight_->AddChild (*statsLayout_, yap::LayoutBox::Align::RIGHT);
-
-    firstLine_->AddChild (*firstLinePartLeft_, yap::LayoutBox::Align::TOP);
-    firstLine_->AddChild (*firstLinePartRight_, yap::LayoutBox::Align::TOP);
-
-    experiencePointNumberLayout_->AddChild (*experiencePoint_);
-    experiencePointLabelLayout_->AddChild (*experiencePointLabel_);
-
-    nextLevelPointNumberLayout_->AddChild (*nextLevelPoint_);
-    nextLevelPointLabelLayout_->AddChild (*nextLevelPointLabel_);
-
-    experiencePointLayout_->AddChild (
-      *experiencePointLabelLayout_, yap::LayoutBox::Align::LEFT);
-    experiencePointLayout_->AddChild (
-      *experiencePointNumberLayout_, yap::LayoutBox::Align::RIGHT);
-
-    nextLevelPointLayout_->AddChild (
-      *nextLevelPointLabelLayout_, yap::LayoutBox::Align::LEFT);
-    nextLevelPointLayout_->AddChild (
-      *nextLevelPointNumberLayout_, yap::LayoutBox::Align::RIGHT);
-
-    experienceLayout_->AddChild (
-      *experiencePointLayout_, yap::LayoutBox::Align::RIGHT);
-    experienceLayout_->AddChild (
-      *nextLevelPointLayout_, yap::LayoutBox::Align::RIGHT);
-
-    experienceBarLayout_->AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
-
-    capacityAndExperienceLayout_->AddChild (*capacityLayout_, yap::LayoutBox::Align::RIGHT);
-    capacityAndExperienceLayout_->AddChild (*experienceBarLayout_, yap::LayoutBox::Align::RIGHT);
-
-    capacityAndExperienceGlobalLayout_->AddChild (
-      *capacityAndExperienceLayout_, yap::LayoutBox::Align::RIGHT);
-
-    mainLayout_->AddChild (*firstLine_, yap::LayoutBox::Align::LEFT);
-    mainLayout_->AddChild (*experienceLayout_, yap::LayoutBox::Align::LEFT);
-    mainLayout_->AddChild (*capacityAndExperienceGlobalLayout_, yap::LayoutBox::Align::LEFT);
-
-    /*
-    mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
-    firstLine_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    firstLinePartLeft_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
-    levelNameGenderLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
-    spriteFrontLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    firstLinePartRight_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
-    hpLayout_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
-    statsLayout_->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
-
-    levelLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
-    nameLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    genderLayout_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
-
-    experienceLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
-    experiencePointLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    experiencePointNumberLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
-    experiencePointLabelLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
-
-    capacityAndExperienceGlobalLayout_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
-    capacityAndExperienceLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
-    capacityLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    experienceBarLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
-    */
-
-    AddChild (*mainLayout_);
-
-    mainLayout_->SetPosition (yap::Vector2 (1, 60));
+    // Refresh layouts to center labels
+    hpLayout_->Refresh ();
+    statsLayout_->Refresh ();
+    experiencePointNumberLayout_->Refresh ();
+    nextLevelPointNumberLayout_->Refresh ();
   }
 
+  /// @name IWidget members.
+  /// {
+  /*
+  void PokemonStatsInfoWidget::SetDefaultColor (const sf::Color& color)
+  {}
+  void PokemonStatsInfoWidget::AddDrawable (yap::IDrawable& drawable)
+  {}
+  void PokemonStatsInfoWidget::AddChild (yap::IWidget& child)
+  {}
+  yap::IWidget& PokemonStatsInfoWidget::GetRoot () const
+  { return GetRoot (); }
+  yap::WidgetBorder* PokemonStatsInfoWidget::GetBorder () const
+  { return GetBorder (); }
+  void PokemonStatsInfoWidget::SetParent (yap::IWidget& parent)
+  {}
+  void PokemonStatsInfoWidget::SetPadding (const yap::Padding& padding)
+  {}
+  void PokemonStatsInfoWidget::SetBackground (yap::WidgetBackground& background)
+  {}
+  void PokemonStatsInfoWidget::SetBorder  (yap::WidgetBorder& border, yap::uint width)
+  {}
+  void PokemonStatsInfoWidget::Refresh ()
+  {}
+  */
   bool PokemonStatsInfoWidget::IsFocusable () const
   {
     return false;
   }
+  /*
+  void PokemonStatsInfoWidget::SetFocused (bool state)
+  {}
+  void PokemonStatsInfoWidget::SetEnable (bool enable)
+  {}
+  void PokemonStatsInfoWidget::Open ()
+  {}
+  void PokemonStatsInfoWidget::Close ()
+  {}
+  */
+  /// }
 
   void PokemonStatsInfoWidget::HandleMove (const yap::Vector2& offset)
   {
-
   }
+
   void PokemonStatsInfoWidget::HandleScale (const yap::Vector2& factor)
   {
-
   }
+
   void PokemonStatsInfoWidget::HandleDraw (yap::IDrawingContext& offset)
   {
-
   }
+
   void PokemonStatsInfoWidget::HandleShow (bool isVisible)
   {
   }
+
   void PokemonStatsInfoWidget::HandleChangeColor (const sf::Color& color)
   {
   }
+
   void PokemonStatsInfoWidget::HandleUpdate (const yap::Time& dt)
   {
   }

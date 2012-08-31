@@ -8,12 +8,14 @@
 
 namespace ycl
 {
-  struct IPokemonSummaryWidget : yap::BaseWidget
+  struct IPokemonSummaryWidget : public yap::BaseWidget
   {
   public:
     virtual ~IPokemonSummaryWidget() {}
 
-    virtual void Init (const Pokemon& pokemon) = 0;
+    virtual void Init () = 0;
+
+    virtual void SetPokemon (const Pokemon& pokemon) = 0;
   };
 } // namespace yap
 

@@ -60,6 +60,7 @@ namespace ycl
     return currentWidget_->OnEvent (guiEvent);
   }
 
+  /*
   bool GameGuiManager::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
     /*
@@ -83,7 +84,8 @@ namespace ycl
 
       default: break;
     }
-    */
+
     return false;
   }
+  */
 } // namespace ycl

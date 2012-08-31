@@ -175,14 +175,16 @@ namespace yap
         return true;
       }
 
+      /*
       if (guiEvent.key.code == sf::Keyboard::Escape)
       {
         OnDesactivated (*this, EmptyEventArgs ());
         return true;
       }
+      */
 
       // Menu captures every key pressed
-      return true;
+      //return true;
     }
 
     // Menu captures every key released

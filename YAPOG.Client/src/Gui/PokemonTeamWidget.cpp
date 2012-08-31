@@ -14,7 +14,6 @@
 
 namespace ycl
 {
-
   PokemonTeamWidget::PokemonTeamWidget (const PokemonTeam& team)
     : state_ (nullptr)
     , menu_ (nullptr)
@@ -88,9 +87,9 @@ namespace ycl
 
     AddChild (pokemonInfoWidget_);
 
-    //pokemonInfoWidget_.Init (&team_.GetPokemon (index_));
+    pokemonInfoWidget_.Init ();
     pokemonInfoWidget_.Close ();
-    
+
     pokemonInfoBoxes_[index_]->SetIsSelected (true);
   }
 
@@ -108,15 +107,29 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
-        pokemonInfoBoxes_[index_]->SetIsSelected (false);
+        if (pokemonInfoWidget_.IsVisible ())
+        {
+          pokemonInfoWidget_.Close ();
+          
+          if (index_ == 0)
+            index_ = pokemonInfoBoxes_.Count () - 1;
+          else
+            index_--;
 
-        if (index_ == 0)
-          index_ = pokemonInfoBoxes_.Count () - 1;
+          pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
+          pokemonInfoWidget_.Open ();
+        }
         else
-          index_--;
+        {
+          pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
-        pokemonInfoBoxes_[index_]->SetIsSelected (true);
+          if (index_ == 0)
+            index_ = pokemonInfoBoxes_.Count () - 1;
+          else
+            index_--;
 
+          pokemonInfoBoxes_[index_]->SetIsSelected (true);
+        }
         return true;
       }
 
@@ -126,7 +139,7 @@ namespace ycl
         {
           pokemonInfoWidget_.Close ();
           index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
-          pokemonInfoWidget_.Init (&team_.GetPokemon (index_));
+          pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
         else
@@ -153,7 +166,7 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
-        pokemonInfoWidget_.Init (&team_.GetPokemon (index_));
+        pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
         pokemonInfoWidget_.Open ();
 
         return true;

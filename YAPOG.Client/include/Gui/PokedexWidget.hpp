@@ -16,6 +16,7 @@ namespace yap
 namespace ycl
 {
   class PokedexCompositeWidget;
+
   class PokedexWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(PokedexWidget);
@@ -39,6 +40,8 @@ namespace ycl
     virtual void HandleChangeColor (const sf::Color& color);
 
     virtual void HandleUpdate (const yap::Time& dt);
+
+    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
 
   private:
     void RefreshAfterAdd ();

@@ -9,7 +9,7 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonInfo.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
-
+  
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 
@@ -47,10 +47,12 @@ namespace ycl
   void PokedexWidget::Init ()
   {
     SetSize (yap::Vector2 (800, 600));
-    yap::WidgetBackground* background = new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/Background.png", true);    
+    yap::WidgetBackground* background = 
+      new yap::WidgetBackground ("WindowSkins/BasicSkin/Pokedex/Background.png", true);    
     SetBackground (*background);
 
-    firstHLayout_ = new yap::HorizontalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), false);
+    firstHLayout_ = new yap::HorizontalLayout (
+      yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), false);
     firstHLayout_->SetSize (yap::Vector2 (600, 400));
     yap::HorizontalLayout* secondHLayout = new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5), yap::Padding (5, 5, 5, 5), true);
     yap::VerticalLayout* firstVLayout_ = new yap::VerticalLayout (yap::Padding (10, 10, 10, 10), yap::Padding (10, 10, 10, 10), true);
@@ -123,7 +125,6 @@ namespace ycl
     pokSeen_->ChangeColor (sf::Color::White);
     pokCaught_->ChangeColor (sf::Color::White);
 
-    
     secondVLayout->AddChild (*pokSeen_);
     secondVLayout->AddChild (*pokCaught_);
 
@@ -196,28 +197,43 @@ namespace ycl
   {
     return yap::Vector2 (800, 600);
   }
+
   void PokedexWidget::HandleMove (const yap::Vector2& offset)
   {
-
   }
+
   void PokedexWidget::HandleScale (const yap::Vector2& factor)
   {
-
   }
+
   void PokedexWidget::HandleDraw (yap::IDrawingContext& context)
   {
-
   }
+
   void PokedexWidget::HandleShow (bool isVisible)
   {
-
   }
+
   void PokedexWidget::HandleChangeColor (const sf::Color& color)
   {
-
   }
+
   void PokedexWidget::HandleUpdate (const yap::Time& dt)
   {
+  }
 
+  bool PokedexWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    if (guiEvent.type == sf::Event::KeyPressed)
+    {
+      if (guiEvent.key.code == sf::Keyboard::Escape)
+      {
+        Close ();
+
+        return true;
+      }
+    }
+
+    return false;
   }
 } // namespace ycl

@@ -24,9 +24,32 @@ namespace ycl
   public:
     PokemonMoveInfoWidget ();
 
-    void Init (const Pokemon& pokemon);
+    virtual void Init ();
 
+    virtual void SetPokemon (const Pokemon& pokemon);
+
+    /// @name IWidget members.
+    /// {
+    /*
+    virtual void SetDefaultColor (const sf::Color& color);
+    virtual void AddDrawable (yap::IDrawable& drawable);
+    virtual void AddChild (yap::IWidget& child);
+    virtual yap::IWidget& GetRoot () const;
+    virtual yap::WidgetBorder* GetBorder () const;
+    virtual void SetParent (yap::IWidget& parent);
+    virtual void SetPadding (const yap::Padding& padding);
+    virtual void SetBackground (yap::WidgetBackground& background);
+    virtual void SetBorder  (yap::WidgetBorder& border, yap::uint width);
+    virtual void Refresh ();
+    */
     virtual bool IsFocusable () const;
+    /*
+    virtual void SetFocused (bool state);
+    virtual void SetEnable (bool enable);
+    virtual void Open ();
+    virtual void Close ();
+    */
+    /// }
 
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -52,6 +75,7 @@ namespace ycl
     yap::VerticalLayout* firstLinePartRight_;
 
     PokemonFrontInfoWidget pokemonFrontInfoWidget_;
+
     yap::collection::Array<PokemonSingleMoveInfoWidget*> 
       pokemonSingleMoveInfoWidgets_;
 

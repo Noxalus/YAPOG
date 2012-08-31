@@ -27,7 +27,7 @@
 	<rarity>45</rarity>
 	<types>
 		<type1>2</type1>
-		<type2>2</type2>
+		<type2>0</type2>
 	</types>
 	<baseSkills>
 		<skill level="1">33</skill>

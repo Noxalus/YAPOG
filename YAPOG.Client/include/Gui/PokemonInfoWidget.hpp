@@ -17,7 +17,9 @@ namespace ycl
     PokemonInfoWidget ();
     ~PokemonInfoWidget ();
     
-    void Init (Pokemon* pokemon);
+    void Init ();
+
+    void SetPokemon (Pokemon* pokemon);
 
     virtual bool IsFocusable () const;
 

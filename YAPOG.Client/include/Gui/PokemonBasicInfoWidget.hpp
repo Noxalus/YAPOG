@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 
+# include "Gui/PokemonFrontInfoWidget.hpp"
 # include "Gui/IPokemonSummaryWidget.hpp"
 
 namespace yap
@@ -23,9 +24,32 @@ namespace ycl
   public:
     PokemonBasicInfoWidget ();
 
-    void Init (const Pokemon& pokemon);
+    virtual void Init ();
 
+    virtual void SetPokemon (const Pokemon& pokemon);
+
+    /// @name IWidget members.
+    /// {
+    /*
+    virtual void SetDefaultColor (const sf::Color& color);
+    virtual void AddDrawable (yap::IDrawable& drawable);
+    virtual void AddChild (yap::IWidget& child);
+    virtual yap::IWidget& GetRoot () const;
+    virtual yap::WidgetBorder* GetBorder () const;
+    virtual void SetParent (yap::IWidget& parent);
+    virtual void SetPadding (const yap::Padding& padding);
+    virtual void SetBackground (yap::WidgetBackground& background);
+    virtual void SetBorder  (yap::WidgetBorder& border, yap::uint width);
+    virtual void Refresh ();
+    */
     virtual bool IsFocusable () const;
+    /*
+    virtual void SetFocused (bool state);
+    virtual void SetEnable (bool enable);
+    virtual void Open ();
+    virtual void Close ();
+    */
+    /// }
 
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
@@ -37,18 +61,14 @@ namespace ycl
 
   private:
     // Labels
-    yap::Label* nameLeft_;
-    yap::Label* nameRight_;
+    yap::Label* name_;
     yap::Label* staticID_;
     yap::Label* trainerName_;
     yap::Label* uniqueID_;
     yap::Label* item_;
-    yap::Label* level_;
     yap::MultiLabelWidget* nature_;
 
     // PictureBoxes
-    yap::PictureBox* gender_;
-    yap::PictureBox* spriteFront_;
     yap::PictureBox* type1_;
     yap::PictureBox* type2_;
 
@@ -57,18 +77,12 @@ namespace ycl
 
     yap::HorizontalLayout* firstLine_;
 
-    yap::VerticalLayout* firstLinePartLeft_;
-    yap::VerticalLayout* levelLayout_;
-    yap::VerticalLayout* nameLayout_;
-    yap::HorizontalLayout* genderLayout_;
-    yap::HorizontalLayout* levelNameGenderLayout_;
-
-    yap::VerticalLayout* spriteFrontLayout_;
-
     yap::VerticalLayout* firstLinePartRight_;
     yap::HorizontalLayout* typesLayout_;
 
     yap::VerticalLayout* secondLine_;
+
+    PokemonFrontInfoWidget pokemonFrontInfoWidget_;
   };
 } // namespace ycl
 
