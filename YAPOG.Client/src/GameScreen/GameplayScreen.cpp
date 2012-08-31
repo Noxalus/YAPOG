@@ -33,6 +33,7 @@
 #include "GameScreen/GameplayScreen.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/Map.hpp"
+#include "Client/User.hpp"
 #include "Client/Session.hpp"
 #include "Gui/GameGuiManager.hpp"
 #include "Gui/MapRootWidget.hpp"
@@ -41,11 +42,10 @@
 #include "Gui/PokedexWidget.hpp"
 #include "Gui/PokedexCompositeWidget.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
-#include "Client/Session.hpp"
-#include "Client/User.hpp"
-#include "Battle/PlayerTrainer.hpp"
+#include "Gui/TrainerCardWidget.hpp"
 #include "Pokemon/Pokemon.hpp"
 #include "Pokemon/PokemonTeam.hpp"
+#include "Battle/PlayerTrainer.hpp"
 #include "Battle/PokemonFighter.hpp"
 #include "Battle/PokemonFighterTeam.hpp"
 #include "Battle/Battle.hpp"
@@ -72,6 +72,7 @@ namespace ycl
     , mainMenu_ (nullptr)
     , pokedex_ (nullptr)
     , pokemonTeamWidget_ (nullptr)
+    , trainerCardWidget_ (nullptr)
     , chat_ (nullptr)
     , fpsLabel_ (nullptr)
   {
@@ -147,6 +148,13 @@ namespace ycl
     mapRootWidget_ = new MapRootWidget ();
 
     gameWorldGuiManager_->AddGameWorldWidget (mapRootWidget_);
+
+    // Trainer Card
+    trainerCardWidget_ = new TrainerCardWidget (session_.GetUser ());
+    trainerCardWidget_->Init ();
+    trainerCardWidget_->Close ();
+
+    gameGuiManager_->AddGameWidget ("TrainerCard", trainerCardWidget_);
 
 #ifdef YAPOG_WIN
     /// @warning Temporary disabled ==> issue on regex under Linux
@@ -418,6 +426,13 @@ namespace ycl
       const yap::EmptyEventArgs& args)
     {
       gameGuiManager_->SetCurrentWidget ("PokemonTeam");
+    };
+
+    mainMenu_->OnTrainerCardItemActivated += [this] (
+      GameMainMenu& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      gameGuiManager_->SetCurrentWidget ("TrainerCard");
     };
 
     gameGuiManager_->AddGameWidget ("Menu", mainMenu_);

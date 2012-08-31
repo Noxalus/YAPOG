@@ -25,6 +25,12 @@ namespace ycl
       yap::Event<
         GameMainMenu&,
         const yap::EmptyEventArgs&> OnPokemonItemActivated;
+      yap::Event<
+        GameMainMenu&,
+        const yap::EmptyEventArgs&> OnTrainerCardItemActivated;
+      yap::Event<
+        GameMainMenu&,
+        const yap::EmptyEventArgs&> OnOptionItemActivated;
 
     private:
 

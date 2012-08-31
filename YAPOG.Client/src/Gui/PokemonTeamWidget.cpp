@@ -6,6 +6,7 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Texture.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "Gui/PokemonTeamWidget.hpp"
 #include "Gui/PokemonInfoBox.hpp"
@@ -107,6 +108,9 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Up)
       {
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
+
         pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
         if (index_ == 0)
@@ -117,6 +121,7 @@ namespace ycl
         if (pokemonInfoWidget_.IsVisible ())
         {
           pokemonInfoWidget_.Close ();
+          team_.GetPokemon (index_).PlayCry ();
           pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
@@ -128,6 +133,9 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Down)
       {
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
+
         pokemonInfoBoxes_[index_]->SetIsSelected (false);
 
         index_ = (index_ + 1) % pokemonInfoBoxes_.Count ();
@@ -135,6 +143,7 @@ namespace ycl
         if (pokemonInfoWidget_.IsVisible ())
         {
           pokemonInfoWidget_.Close ();
+          team_.GetPokemon (index_).PlayCry ();
           pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
@@ -146,13 +155,10 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
-        if (index_ == 0)
-        {
-          pokemonInfoBoxes_[index_]->SetIsSelected (false);
-          index_++;
-          pokemonInfoBoxes_[index_]->SetIsSelected (true);
-        }
-        else
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
+
+        if (index_ != 0)
         {
           pokemonInfoBoxes_[index_]->SetIsSelected (false);
           index_ = 0;
@@ -164,16 +170,13 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Right)
       {
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
+
         if (index_ == 0)
         {
           pokemonInfoBoxes_[index_]->SetIsSelected (false);
           index_++;
-          pokemonInfoBoxes_[index_]->SetIsSelected (true);
-        }
-        else
-        {
-          pokemonInfoBoxes_[index_]->SetIsSelected (false);
-          index_ = 0;
           pokemonInfoBoxes_[index_]->SetIsSelected (true);
         }
 
@@ -182,6 +185,9 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Return)
       {
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Choose.wav");
+        team_.GetPokemon (index_).PlayCry ();
         pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
         pokemonInfoWidget_.Open ();
 

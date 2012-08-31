@@ -79,6 +79,8 @@ ${inc_root}/Client/Session.hpp
 ${src_root}/Client/Session.cpp
 ${inc_root}/Client/User.hpp
 ${src_root}/Client/User.cpp
+${inc_root}/Client/PlayerData.hpp
+${src_root}/Client/PlayerData.cpp
 
 ${inc_root}/Configuration/ConfigurationReader.hpp
 ${src_root}/Configuration/ConfigurationReader.cpp
@@ -161,6 +163,8 @@ ${inc_root}/Gui/PokemonFrontInfoWidget.hpp
 ${src_root}/Gui/PokemonFrontInfoWidget.cpp
 ${inc_root}/Gui/PokemonSingleMoveInfoWidget.hpp
 ${src_root}/Gui/PokemonSingleMoveInfoWidget.cpp
+${inc_root}/Gui/TrainerCardWidget.hpp
+${src_root}/Gui/TrainerCardWidget.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp

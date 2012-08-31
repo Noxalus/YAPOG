@@ -227,53 +227,53 @@ namespace ycl
 
   void PokemonStatsInfoWidget::SetPokemon (const Pokemon& pokemon)
   {
-    pokemonFrontInfoWidget_.SetPokemon (pokemon);
-    experienceBarWidget_.SetPokemon (pokemon);
+      pokemonFrontInfoWidget_.SetPokemon (pokemon);
+      experienceBarWidget_.SetPokemon (pokemon);
 
-    // Labels
-    hp_->SetText (
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetHitPoint ().GetCurrentValue ())
-      + "/" +
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetHitPoint ().GetValue ()));
+      // Labels
+      hp_->SetText (
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetHitPoint ().GetCurrentValue ())
+        + "/" +
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetHitPoint ().GetValue ()));
 
-    attack_->SetText (
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetAttack ().GetValue ()));
+      attack_->SetText (
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetAttack ().GetValue ()));
 
-    defense_->SetText (
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetDefense ().GetValue ()));
+      defense_->SetText (
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetDefense ().GetValue ()));
 
-    specialAttack_->SetText (
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetSpecialAttack ().GetValue ()));
+      specialAttack_->SetText (
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetSpecialAttack ().GetValue ()));
 
-    specialDefense_->SetText (
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetSpecialDefense ().GetValue ()));
+      specialDefense_->SetText (
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetSpecialDefense ().GetValue ()));
 
-    speed_->SetText (
-      yap::StringHelper::ToString 
-      (pokemon.GetStats ().GetSpeed ().GetValue ()));
+      speed_->SetText (
+        yap::StringHelper::ToString 
+        (pokemon.GetStats ().GetSpeed ().GetValue ()));
 
-    experiencePoint_->SetText (
-      yap::StringHelper::ToString (
-      static_cast<int>(pokemon.GetTotalExperience ())));
+      experiencePoint_->SetText (
+        yap::StringHelper::ToString (
+        static_cast<int>(pokemon.GetTotalExperience ())));
 
-    nextLevelPoint_->SetText (
-      yap::StringHelper::ToString (
-      static_cast<int>(pokemon.GetExperienceToNextLevel ())));
+      nextLevelPoint_->SetText (
+        yap::StringHelper::ToString (
+        static_cast<int>(pokemon.GetExperienceToNextLevel ())));
 
-    type1_->SetPicture (pokemon.GetType1Icon ().Clone ());
-    type2_->SetPicture (pokemon.GetType2Icon ().Clone ());
+      type1_->SetPicture (pokemon.GetType1Icon ().Clone ());
+      type2_->SetPicture (pokemon.GetType2Icon ().Clone ());
 
-    // Refresh layouts to center labels
-    hpLayout_->Refresh ();
-    statsLayout_->Refresh ();
-    experiencePointNumberLayout_->Refresh ();
-    nextLevelPointNumberLayout_->Refresh ();
+      // Refresh layouts to center labels
+      hpLayout_->Refresh ();
+      statsLayout_->Refresh ();
+      experiencePointNumberLayout_->Refresh ();
+      nextLevelPointNumberLayout_->Refresh ();
   }
 
   /// @name IWidget members.

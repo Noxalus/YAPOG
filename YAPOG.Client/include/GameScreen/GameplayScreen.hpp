@@ -26,6 +26,7 @@ namespace ycl
   class PokemonTeamWidget;
   class ChatWidget;
   class MapRootWidget;
+  class TrainerCardWidget;
 
   class GameplayScreen : public BaseScreen
   {
@@ -91,6 +92,8 @@ namespace ycl
 
       PokedexWidget* pokedex_;
       PokemonTeamWidget* pokemonTeamWidget_;
+
+      TrainerCardWidget* trainerCardWidget_;
 
       ChatWidget* chat_;
 

@@ -84,8 +84,20 @@ namespace ycl
     yap::MenuItem& bagItem = AddItem ("SAC");
 
     yap::MenuItem& playerItem = AddItem (playerName);
+    playerItem.OnActivated += [this] (
+      yap::MenuItem& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      OnTrainerCardItemActivated (*this, yap::EmptyEventArgs ());
+    };
 
     yap::MenuItem& optionItem = AddItem ("OPTIONS");
+    optionItem.OnActivated += [this] (
+      yap::MenuItem& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      OnOptionItemActivated (*this, yap::EmptyEventArgs ());
+    };
 
     yap::MenuItem& exitItem = AddItem ("RETOUR");
     exitItem.OnActivated += [this] (

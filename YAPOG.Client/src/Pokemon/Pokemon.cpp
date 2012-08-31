@@ -4,6 +4,7 @@
 #include "YAPOG/Game/Factory/XmlObjectIDLoader.hpp"
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
+#include "YAPOG/Audio/AudioManager.hpp"
 
 #include "Pokemon/Pokemon.hpp"
 #include "Pokemon/PokemonInfo.hpp"
@@ -81,6 +82,13 @@ namespace ycl
 
   Pokemon::~Pokemon ()
   {
+  }
+
+  void Pokemon::PlayCry ()
+  {
+    yap::AudioManager::Instance ().PlaySound ("Cries/" + 
+      yap::StringHelper::ToString (staticID_.GetValue ())
+      + ".wav");
   }
 
   void Pokemon::Init ()

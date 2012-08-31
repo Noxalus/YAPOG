@@ -1,3 +1,5 @@
+#include "YAPOG/Audio/AudioManager.hpp"
+
 #include "Gui/PokemonInfoWidget.hpp"
 #include "Gui/PokemonBasicInfoWidget.hpp"
 #include "Gui/PokemonStatsInfoWidget.hpp"
@@ -48,6 +50,7 @@ namespace ycl
   void PokemonInfoWidget::SetPokemon (Pokemon* pokemon)
   {
     pokemon_ = pokemon;
+
     pokemonInfoPages_[pageNumber_]->SetPokemon (*pokemon_);
     pokemonInfoPages_[pageNumber_]->Open ();
   }
@@ -63,6 +66,9 @@ namespace ycl
     {
       if (guiEvent.key.code == sf::Keyboard::Left)
       {
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
+
         pokemonInfoPages_[pageNumber_]->Close ();
 
         if (pageNumber_ == 0)
@@ -70,6 +76,7 @@ namespace ycl
         else
           pageNumber_--;
 
+        pokemonInfoPages_[pageNumber_]->SetPokemon (*pokemon_);
         pokemonInfoPages_[pageNumber_]->Open ();
 
         return true;
@@ -77,6 +84,9 @@ namespace ycl
 
       if (guiEvent.key.code == sf::Keyboard::Right)
       {
+        // Play a sound
+        yap::AudioManager::Instance ().PlaySound ("SE/Select.wav");
+
         pokemonInfoPages_[pageNumber_]->Close ();
 
         pageNumber_ = (pageNumber_ + 1) % pokemonInfoPages_.Count ();
@@ -84,11 +94,6 @@ namespace ycl
         pokemonInfoPages_[pageNumber_]->SetPokemon (*pokemon_);
         pokemonInfoPages_[pageNumber_]->Open ();
 
-        return true;
-      }
-
-      if (guiEvent.key.code == sf::Keyboard::Return)
-      {
         return true;
       }
 
