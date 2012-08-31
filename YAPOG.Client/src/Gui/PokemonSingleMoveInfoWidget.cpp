@@ -15,39 +15,20 @@
 
 namespace ycl
 {
-  PokemonSingleMoveInfoWidget::PokemonSingleMoveInfoWidget (
-    const yap::PokemonMove& move)
-    : move_ (move)
-    , name_ (nullptr)
+  PokemonSingleMoveInfoWidget::PokemonSingleMoveInfoWidget ()
+    : name_ (nullptr)
     , pp_ (nullptr)
     , type_ (nullptr)
-    , mainLayout_ (nullptr)
+    , mainLayout_ ()
     , nameAndTypeLayout_ (nullptr)
     , ppLayout_ (nullptr)
   {
-  }
-
-  void PokemonSingleMoveInfoWidget::Init ()
-  {
-    SetSize (yap::Vector2 (393, 94));
-
     // Labels
-    name_ = new yap::Label (move_.GetName ());
+    name_ = new yap::Label ();
+    pp_ = new yap::Label ();
 
-    pp_ = new yap::Label ("PP " +
-      yap::StringHelper::ToString 
-      (static_cast<int>(move_.GetCurrentPP ()))
-      + "/" + 
-      yap::StringHelper::ToString 
-      (static_cast<int>(move_.GetMaxPP ())));
-
-    // PictureBoxes
+    // PictureBox
     type_ = new yap::PictureBox ();
-
-    type_->SetPicture (new yap::Sprite (
-      "Pictures/Types/" + 
-      yap::StringHelper::ToString (
-      move_.GetType ().GetID ().GetValue ()) + ".png"));
 
     // Layouts
     mainLayout_ = new yap::VerticalLayout (
@@ -58,6 +39,11 @@ namespace ycl
 
     ppLayout_ = new yap::VerticalLayout (
       yap::Padding (), yap::Padding (), false);
+  }
+
+  void PokemonSingleMoveInfoWidget::Init ()
+  {
+    SetSize (yap::Vector2 (393, 94));
 
     // Set layouts size
     mainLayout_->SetSize (GetSize ());
@@ -68,6 +54,8 @@ namespace ycl
     name_->SetTextSize (40);
     pp_->SetTextSize (40);
 
+    type_->SetPicture (new yap::Sprite ("Pictures/Types/0.png"));
+
     // Hierarchy construction
     nameAndTypeLayout_->AddChild (*type_);
     nameAndTypeLayout_->AddChild (*name_);
@@ -77,7 +65,37 @@ namespace ycl
     mainLayout_->AddChild (*nameAndTypeLayout_);
     mainLayout_->AddChild (*ppLayout_);
 
+    // Borders
+    /*
+    mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    nameAndTypeLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
+    ppLayout_->SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
+    */
+
     AddChild (*mainLayout_);
+  }
+
+  void PokemonSingleMoveInfoWidget::SetPokemonMove (
+    const yap::PokemonMove& move)
+  {
+    // Labels
+    name_->SetText (move.GetName ());
+
+    pp_->SetText ("PP " +
+      yap::StringHelper::ToString 
+      (static_cast<int>(move.GetCurrentPP ()))
+      + "/" + 
+      yap::StringHelper::ToString 
+      (static_cast<int>(move.GetMaxPP ())));
+
+    // PictureBoxes
+    type_->SetPicture (new yap::Sprite (
+      "Pictures/Types/" + 
+      yap::StringHelper::ToString (
+      move.GetType ().GetID ().GetValue ()) + ".png"));
+
+    // Refresh
+    ppLayout_->Refresh ();
   }
 
   bool PokemonSingleMoveInfoWidget::IsFocusable () const

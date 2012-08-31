@@ -63,12 +63,6 @@ namespace ycl
     type1_ = new yap::PictureBox ();
     type2_ = new yap::PictureBox ();
 
-    type1_->SetPicture (
-      new yap::Sprite ("Pictures/Types/0.png"));
-
-    type2_->SetPicture (
-      new yap::Sprite ("Pictures/Types/0.png"));
-
     // Layouts
     mainLayout_ = new yap::VerticalLayout (
       yap::Padding (), yap::Padding (), false);
@@ -119,6 +113,13 @@ namespace ycl
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/PokemonStatsInfoBackground.png", true));
 
+    type1_->SetPicture (
+      new yap::Sprite ("Pictures/Types/0.png"));
+
+    type2_->SetPicture (
+      new yap::Sprite ("Pictures/Types/0.png"));
+
+    // Sizes
     mainLayout_->SetSize (GetSize ());
     firstLine_->SetSize (yap::Vector2 (800, 328));
     firstLinePartRight_->SetSize (yap::Vector2 (408, 328));

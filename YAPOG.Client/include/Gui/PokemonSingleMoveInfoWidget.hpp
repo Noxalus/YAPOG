@@ -20,9 +20,11 @@ namespace ycl
   class PokemonSingleMoveInfoWidget : public yap::BaseWidget
   {
   public:
-    PokemonSingleMoveInfoWidget (const yap::PokemonMove& move);
+    PokemonSingleMoveInfoWidget ();
 
     void Init ();
+
+    void SetPokemonMove (const yap::PokemonMove& move);
 
     virtual bool IsFocusable () const;
 
@@ -35,8 +37,6 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    const yap::PokemonMove& move_;
-
     // Labels
     yap::Label* name_;
     yap::Label* pp_;
