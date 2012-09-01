@@ -35,10 +35,10 @@ namespace yap
     uint GetCurrentSelect () const;
     void SetFixed (bool state);
     void Clear ();
-
+    protected:
     virtual void HandleItemActivated ();
     virtual void HandleItemSelected ();
-  private:
+
     virtual Vector2 HandleGetSize () const;
     virtual void HandleMove (const Vector2& offset);
     virtual void HandleScale (const Vector2& factor);
@@ -50,11 +50,11 @@ namespace yap
 
     virtual void HandleUpdate (const Time& dt);
     bool HandleOnEvent (const GuiEvent& guiEvent);
-
+  private:
     void SetFormItem ();
     void SetUnformItem ();
 
-    collection::Array<MenuItem*> itemz_;    
+    collection::Array<MenuItem*> itemz_;
     uint currentSelec_;
     LayoutBox* layout_;
 

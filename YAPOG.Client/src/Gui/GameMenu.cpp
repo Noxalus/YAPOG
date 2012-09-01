@@ -6,7 +6,7 @@ namespace ycl
 {
 
   GameMenu::GameMenu (
-    yap::Menu::Type menuType, 
+    yap::Menu::Type menuType,
         const yap::Padding& ext,
         const yap::Padding& in,
         bool fixed)
@@ -16,6 +16,17 @@ namespace ycl
 
   GameMenu::~GameMenu ()
   {
+  }
+
+  bool GameMenu::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    if (yap::Menu::HandleOnEvent (guiEvent))
+      return true;
+
+    if (guiEvent.type == sf::Event::KeyPressed)
+      return true;
+
+    return false;
   }
 
   void GameMenu::HandleItemActivated ()

@@ -13,13 +13,16 @@ namespace ycl
     public:
 
       GameMenu(
-        yap::Menu::Type menuType, 
+        yap::Menu::Type menuType,
         const yap::Padding& ext,
         const yap::Padding& in,
         bool fixed);
       virtual ~GameMenu ();
 
   protected:
+
+      virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+
     virtual void HandleItemActivated ();
     virtual void HandleItemSelected ();
   };

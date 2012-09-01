@@ -1,4 +1,7 @@
 #include "Gui/MapRootWidget.hpp"
+
+#include "YAPOG/Collection/Queue.hpp"
+
 #include "World/Map/Map.hpp"
 #include "Gui/MapPlayerInfoPanel.hpp"
 
@@ -79,7 +82,15 @@ namespace ycl
 
   void MapRootWidget::Clear ()
   {
+    yap::collection::Queue<Player*> playerInfoPanelsToRemove;
     for (auto& playerPlayerInfoPanelPair : playerInfoPanels_)
-      RemovePlayerInfoPanel (playerPlayerInfoPanelPair.first);
+      playerInfoPanelsToRemove.Enqueue (playerPlayerInfoPanelPair.first);
+
+    while (!playerInfoPanelsToRemove.IsEmpty ())
+    {
+      Player* player = playerInfoPanelsToRemove.Dequeue (player);
+
+      RemovePlayerInfoPanel (player);
+    }
   }
 } // namespace ycl
