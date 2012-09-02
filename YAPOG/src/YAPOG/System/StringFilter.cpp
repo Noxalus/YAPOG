@@ -1,35 +1,26 @@
-#include <regex>
 #include "YAPOG/System/StringFilter.hpp"
+
+#include <boost/regex.hpp>
 
 namespace yap
 {
-  bool StringFilter::IsAlpha (String& str)
+  bool StringFilter::IsAlpha (const String& str)
   {
-    std::regex rx("[^[:alpha:]]");
-    return !regex_search (str.begin(), str.end(), rx);
+    return CheckRegex (str, "[:alpha:]");
   }
 
-  bool StringFilter::IsNumeric (String& str)
+  bool StringFilter::IsNumeric (const String& str)
   {
-    std::regex rx("[^[:digit:]]");
-    return !regex_search (str.begin(), str.end(), rx);
+    return CheckRegex (str, "\\d");
   }
 
-  bool StringFilter::ContainSpecial (String& str)
+  bool StringFilter::IsAlphaNumeric (const String& str)
   {
-    std::regex rx("[^[:digit:]^[:alpha:]]");
-    return regex_search (str.begin(), str.end(), rx);
+    return CheckRegex (str, "[:alnum:]");
   }
 
-  bool StringFilter::ContainNumeric (String& str)
+  bool StringFilter::CheckRegex (const String& str, const String& regexExp)
   {
-    std::regex rx("[:digit:]");
-    return regex_search (str.begin(), str.end(), rx);
-  }
-
-  bool StringFilter::ContainAlpha (String& str)
-  {
-    std::regex rx("[:alpha:]");
-    return regex_search (str.begin(), str.end(), rx);
+    return boost::regex_match (str, boost::regex (regexExp));
   }
 } // !namespace yap

@@ -156,8 +156,6 @@ namespace ycl
 
     gameGuiManager_->AddGameWidget ("TrainerCard", trainerCardWidget_);
 
-#ifdef YAPOG_WIN
-    /// @warning Temporary disabled ==> issue on regex under Linux
     // Chat
     chat_ = new ChatWidget (session_.GetUser ().GetLogin ());
     chat_->Init ();
@@ -170,7 +168,6 @@ namespace ycl
     };
 
     gameGuiManager_->AddGameWidget ("Chat", chat_);
-#endif // YAPOG_WIN
 
     /*
     team->AddPokemon (new Pokemon (yap::ID (2), 100, false));

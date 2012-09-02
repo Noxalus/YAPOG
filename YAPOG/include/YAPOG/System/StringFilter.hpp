@@ -8,15 +8,20 @@ namespace yap
 {
   class YAPOG_LIB StringFilter
   {
-    DISALLOW_COPY(StringFilter);
+      DISALLOW_COPY(StringFilter);
 
-  public:
-    static bool IsAlpha (String& str);
-    static bool IsNumeric (String& str);
-    static bool ContainSpecial (String& str);
-    static bool ContainNumeric (String& str);
-    static bool ContainAlpha (String& str);
+    public:
 
+      static bool IsAlpha (const String& str);
+      static bool IsNumeric (const String& str);
+      static bool IsAlphaNumeric (const String& str);
+
+    private:
+
+      static bool CheckRegex (const String& str, const String& regexExp);
+
+      StringFilter ();
+      ~StringFilter ();
   };
 } // namespace yap
 
