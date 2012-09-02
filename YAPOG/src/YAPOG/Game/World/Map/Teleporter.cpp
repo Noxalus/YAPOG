@@ -75,11 +75,7 @@ namespace yap
 
     MapEvent* warpEvent = new MapEvent ();
 
-    warpEvent->AddAction (
-      new WarpMapEventAction (
-        MapEventActionType::Enter,
-        mapWorldID_,
-        mapPoint_));
+    warpEvent->AddAction (new WarpMapEventAction (mapWorldID_, mapPoint_));
 
     warpEvent->AddBoundingBox (
       new BoundingBox (

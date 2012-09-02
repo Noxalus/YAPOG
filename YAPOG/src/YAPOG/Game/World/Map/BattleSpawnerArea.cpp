@@ -83,14 +83,7 @@ namespace yap
         DEFAULT_BATTLE_SPAWNING_AREA_Z,
         DEFAULT_BATTLE_SPAWNING_AREA_H));
 
-    battleSpawningEvent->AddAction (
-      new TriggerBattleMapEventAction (
-        MapEventActionType::Enter,
-        *this));
-    battleSpawningEvent->AddAction (
-      new TriggerBattleMapEventAction (
-        MapEventActionType::Leave,
-        *this));
+    battleSpawningEvent->AddAction (new TriggerBattleMapEventAction (*this));
 
     AddEvent (battleSpawningEvent);
   }

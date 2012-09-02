@@ -2,10 +2,8 @@
 
 namespace yap
 {
-  AnyMapEventAction::AnyMapEventAction (
-    MapEventActionType type,
-    CallbackType callback)
-    : BaseMapEventAction (type)
+  AnyMapEventAction::AnyMapEventAction (CallbackType callback)
+    : BaseMapEventAction ()
     , callback_ (callback)
   {
   }
@@ -27,6 +25,6 @@ namespace yap
 
   bool AnyMapEventAction::HandleExecute (MapEventArgs& args)
   {
-    return callback_ (args);
+    return callback_ (GetContextType (), args);
   }
 } // namespace yap

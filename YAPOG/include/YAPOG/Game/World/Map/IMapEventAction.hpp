@@ -24,16 +24,9 @@ namespace yap
       /// @return False if conditions are not fulfilled or if the execution
       /// fails.
       virtual bool Execute (
+        MapEventActionType contextType,
         DynamicWorldObject& trigger,
         MapEventArgs& args) = 0;
-
-      /// @brief Gets the type of this action.
-      /// @li Enter: Executed once when the trigger enters the source area.
-      /// @li In: Executed every frame when the trigger
-      /// is inside the source area.
-      /// @li Leave: Executed once when the trigger leaves the source area.
-      /// @return The type of this action.
-      virtual const MapEventActionType& GetType () const = 0;
 
       virtual IMapEventAction* Clone () const { return nullptr; }
   };

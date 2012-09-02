@@ -16,9 +16,7 @@ namespace yap
 
     public:
 
-      explicit TriggerBattleMapEventAction (
-        MapEventActionType type,
-        BattleSpawnerArea& source);
+      explicit TriggerBattleMapEventAction (BattleSpawnerArea& source);
       virtual ~TriggerBattleMapEventAction ();
 
       virtual void VisitPlayer (IPlayer& visitable);

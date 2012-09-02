@@ -3,8 +3,11 @@
 
 namespace yap
 {
-  BaseMapEventAction::BaseMapEventAction (MapEventActionType type)
-    : type_ (type)
+  const MapEventActionType BaseMapEventAction::DEFAULT_CONTEXT_TYPE =
+    MapEventActionType::In;
+
+  BaseMapEventAction::BaseMapEventAction ()
+    : contextType_ (DEFAULT_CONTEXT_TYPE)
     , args_ (nullptr)
   {
   }
@@ -14,25 +17,23 @@ namespace yap
   }
 
   BaseMapEventAction::BaseMapEventAction (const BaseMapEventAction& copy)
-    : type_ (copy.type_)
+    : contextType_ (copy.contextType_)
     , args_ (nullptr)
   {
   }
 
   bool BaseMapEventAction::Execute (
+    MapEventActionType contextType,
     DynamicWorldObject& trigger,
     MapEventArgs& args)
   {
+    contextType_ = contextType;
+
     args_ = &args;
 
     trigger.Accept (*this);
 
     return HandleExecute (args);
-  }
-
-  const MapEventActionType& BaseMapEventAction::GetType () const
-  {
-    return type_;
   }
 
   void BaseMapEventAction::VisitDynamicWorldObject (
@@ -60,6 +61,11 @@ namespace yap
   void BaseMapEventAction::VisitBattleSpawnerArea (
     BattleSpawnerArea& visitable)
   {
+  }
+
+  MapEventActionType BaseMapEventAction::GetContextType () const
+  {
+    return contextType_;
   }
 
   MapEventArgs& BaseMapEventAction::GetArgs ()

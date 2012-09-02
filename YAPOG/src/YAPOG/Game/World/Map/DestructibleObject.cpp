@@ -55,8 +55,7 @@ namespace yap
 
     MapEvent* destructionEvent = new MapEvent ();
 
-    destructionEventAction_ = new DestroyObjectMapEventAction (
-      MapEventActionType::In);
+    destructionEventAction_ = new DestroyObjectMapEventAction ();
     destructionEvent->AddAction (destructionEventAction_);
 
     destructionEvent->AddBoundingBox (destructionBox_);

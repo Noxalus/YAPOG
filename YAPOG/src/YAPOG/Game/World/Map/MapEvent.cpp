@@ -64,6 +64,8 @@ namespace yap
   void MapEvent::RemoveBoundingBox (BoundingBox* boundingBox)
   {
     boundingBoxes_.Remove (boundingBox);
+
+    delete  boundingBox;
   }
 
   void MapEvent::AddCondition (IMapEventCondition* condition)
@@ -74,6 +76,8 @@ namespace yap
   void MapEvent::RemoveCondition (IMapEventCondition* condition)
   {
     conditions_.Remove (condition);
+
+    delete condition;
   }
 
   void MapEvent::AddAction (IMapEventAction* action)
@@ -84,6 +88,8 @@ namespace yap
   void MapEvent::RemoveAction (IMapEventAction* action)
   {
     actions_.Remove (action);
+
+    delete action;
   }
 
   void MapEvent::AddToEventBoundingBoxCollection (
@@ -119,10 +125,7 @@ namespace yap
 
     for (IMapEventAction* action : actions_)
     {
-      if (action->GetType () != actionType)
-        continue;
-
-      if (!action->Execute (args.GetTrigger (), args))
+      if (!action->Execute (actionType, args.GetTrigger (), args))
         successful = false;
     }
 

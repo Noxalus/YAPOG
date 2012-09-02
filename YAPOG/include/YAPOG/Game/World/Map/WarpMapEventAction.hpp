@@ -14,10 +14,7 @@ namespace yap
 
     public:
 
-      WarpMapEventAction (
-        MapEventActionType type,
-        const ID& mapWorldID,
-        const Vector2& mapPoint);
+      WarpMapEventAction (const ID& mapWorldID, const Vector2& mapPoint);
       virtual ~WarpMapEventAction ();
 
       virtual void VisitPlayer (IPlayer& visitable);

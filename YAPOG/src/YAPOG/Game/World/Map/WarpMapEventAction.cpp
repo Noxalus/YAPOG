@@ -6,10 +6,9 @@
 namespace yap
 {
   WarpMapEventAction::WarpMapEventAction (
-    MapEventActionType type,
     const ID& mapWorldID,
     const Vector2& mapPoint)
-    : BaseMapEventAction (type)
+    : BaseMapEventAction ()
     , mapWorldID_ (mapWorldID)
     , mapPoint_ (mapPoint)
   {
@@ -33,9 +32,16 @@ namespace yap
 
   void WarpMapEventAction::VisitPlayer (IPlayer& visitable)
   {
-    DebugLogger::Instance ().LogLine ("TP!");
+    switch (GetContextType ())
+    {
+      case MapEventActionType::Enter:
 
-    GetArgs ().AbortEvents (true);
-    visitable.Warp (mapWorldID_, mapPoint_);
+        GetArgs ().AbortEvents (true);
+        visitable.Warp (mapWorldID_, mapPoint_);
+
+        break;
+
+      default: break;
+    }
   }
 } // namespace yap

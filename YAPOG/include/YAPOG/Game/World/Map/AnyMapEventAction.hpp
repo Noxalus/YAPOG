@@ -16,9 +16,10 @@ namespace yap
 
     public:
 
-      typedef std::function<bool (MapEventArgs&)> CallbackType;
+      typedef std::function<
+        bool (MapEventActionType, MapEventArgs&)> CallbackType;
 
-      AnyMapEventAction (MapEventActionType type, CallbackType callback);
+      explicit AnyMapEventAction (CallbackType callback);
       virtual ~AnyMapEventAction ();
 
       /// @name ICloneable members.

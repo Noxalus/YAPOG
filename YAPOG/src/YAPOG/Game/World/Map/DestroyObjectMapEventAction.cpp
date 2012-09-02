@@ -4,9 +4,8 @@
 
 namespace yap
 {
-  DestroyObjectMapEventAction::DestroyObjectMapEventAction (
-    MapEventActionType type)
-    : BaseMapEventAction (type)
+  DestroyObjectMapEventAction::DestroyObjectMapEventAction ()
+    : BaseMapEventAction ()
     , targetWorldID_ ()
   {
   }
@@ -36,11 +35,20 @@ namespace yap
   {
     BaseMapEventAction::VisitPlayer (visitable);
 
-    /// @todo Make `GameInputIsActivatedMapEventCondition' class.
-    if (visitable.HasInput (GameInputType::MapAction))
+    switch (GetContextType ())
     {
-      visitable.DestroyObject (targetWorldID_);
-      GetArgs ().AbortEvents (true);
+      case MapEventActionType::In:
+
+        /// @todo Make `GameInputIsActivatedMapEventCondition' class.
+        if (visitable.HasInput (GameInputType::MapAction))
+        {
+          visitable.DestroyObject (targetWorldID_);
+          GetArgs ().AbortEvents (true);
+        }
+
+        break;
+
+      default: break;
     }
   }
 } // namespace yap

@@ -17,9 +17,10 @@ namespace yap
 
       /// @name IMapEventAction members.
       /// @{
-      virtual bool Execute (DynamicWorldObject& trigger, MapEventArgs& args);
-
-      virtual const MapEventActionType& GetType () const;
+      virtual bool Execute (
+        MapEventActionType contextType,
+        DynamicWorldObject& trigger,
+        MapEventArgs& args);
       /// @}
 
       /// @name IDynamicWorldObjectVisitor
@@ -34,9 +35,11 @@ namespace yap
 
     protected:
 
-      explicit BaseMapEventAction (MapEventActionType type);
+      BaseMapEventAction ();
 
       BaseMapEventAction (const BaseMapEventAction& copy);
+
+      MapEventActionType GetContextType () const;
 
       MapEventArgs& GetArgs ();
 
@@ -44,7 +47,9 @@ namespace yap
 
       virtual bool HandleExecute (MapEventArgs& args);
 
-      MapEventActionType type_;
+      static const MapEventActionType DEFAULT_CONTEXT_TYPE;
+
+      MapEventActionType contextType_;
 
       MapEventArgs* args_;
   };

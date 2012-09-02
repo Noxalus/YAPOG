@@ -12,9 +12,8 @@ namespace yap
     "ObjectEntering";
 
   TriggerBattleMapEventAction::TriggerBattleMapEventAction (
-    MapEventActionType type,
     BattleSpawnerArea& source)
-    : BaseMapEventAction (type)
+    : BaseMapEventAction ()
     , source_ (source)
   {
   }
@@ -39,7 +38,7 @@ namespace yap
   {
     yap::BaseMapEventAction::VisitPlayer (visitable);
 
-    switch (GetType ())
+    switch (GetContextType ())
     {
       case MapEventActionType::Enter:
 
@@ -74,6 +73,8 @@ namespace yap
             source_.GetWorldID ().GetValue ()));
 
         break;
+
+      default: break;
     }
   }
 

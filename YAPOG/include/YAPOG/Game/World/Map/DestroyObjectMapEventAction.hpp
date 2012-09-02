@@ -14,7 +14,7 @@ namespace yap
 
     public:
 
-      explicit DestroyObjectMapEventAction (MapEventActionType type);
+      DestroyObjectMapEventAction ();
       virtual ~DestroyObjectMapEventAction ();
 
       void SetTargetWorldID (const ID& targetWorldID);
