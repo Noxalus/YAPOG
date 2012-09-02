@@ -12,9 +12,7 @@ namespace yap
 
     public:
 
-      static bool IsAlpha (const String& str);
       static bool IsNumeric (const String& str);
-      static bool IsAlphaNumeric (const String& str);
 
     private:
 
