@@ -24,6 +24,8 @@ namespace yap
       /// @param force Force to apply on the core.
       void ApplyForce (const Vector2& force);
 
+      void ResetForces ();
+
       /// @brief Gets the resulting move of this PhysicsCore
       /// from the applied forces on it.
       /// @return The resulting move of this PhysicsCore.

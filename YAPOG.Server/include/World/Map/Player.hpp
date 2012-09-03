@@ -54,7 +54,7 @@ namespace yse
 
       virtual const yap::String& GetName () const;
 
-      virtual bool HasInput (const yap::GameInputType gameInputType) const;
+      virtual bool HasInput (yap::GameInputType gameInputType) const;
 
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
 
@@ -71,7 +71,7 @@ namespace yse
 
       Player (const Player& copy);
 
-      const yap::String& GetObjectFactoryTypeName () const;
+      virtual const yap::String& GetObjectFactoryTypeName () const;
 
     private:
 

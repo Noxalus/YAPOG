@@ -175,6 +175,8 @@ namespace yap
   void DynamicWorldObject::SetInactive ()
   {
     SetState (DEFAULT_INACTIVE_STATE);
+
+    physicsCore_->ResetForces ();
   }
 
   void DynamicWorldObject::RawSetState (const String& state)

@@ -59,6 +59,8 @@ namespace ycl
       void UpdatePlayer (const yap::Time& dt);
       void HandleOnPlayerWarped ();
 
+      void ResetMoveController ();
+
       void SendApplyForce (const yap::Vector2& force);
       void SendGameInput (yap::GameInputType gameInputType, bool state);
 

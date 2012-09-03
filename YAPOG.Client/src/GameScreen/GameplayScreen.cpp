@@ -393,6 +393,14 @@ namespace ycl
     player_ = player;
     SetPlayerName ();
 
+    player_->OnStateChanged += [this] (
+      yap::DynamicWorldObject& sender,
+      const yap::ChangeEventArgs<const yap::String&>& args)
+    {
+      if (!sender.IsActive ())
+        ResetMoveController ();
+    };
+
     moveController_.SetValue (player_->GetMaxVelocity ());
 
     cameraController_.SetTarget (*player);
@@ -435,6 +443,14 @@ namespace ycl
     gameGuiManager_->AddGameWidget ("Menu", mainMenu_);
 
     mainMenu_->Close ();
+  }
+
+  void GameplayScreen::ResetMoveController ()
+  {
+    moveController_.DisableDirection (yap::Direction::North);
+    moveController_.DisableDirection (yap::Direction::East);
+    moveController_.DisableDirection (yap::Direction::South);
+    moveController_.DisableDirection (yap::Direction::West);
   }
 
   void GameplayScreen::UpdatePlayer (const yap::Time& dt)

@@ -43,6 +43,14 @@ namespace yap
     HandleApplyForce (force);
   }
 
+  void PhysicsCore::ResetForces ()
+  {
+    velocity_ = VECTOR2_ZERO;
+    lastVelocity_ = VECTOR2_ZERO;
+
+    move_ = VECTOR2_ZERO;
+  }
+
   const Vector2& PhysicsCore::GetMove () const
   {
     return move_;

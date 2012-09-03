@@ -99,7 +99,7 @@ namespace yse
     return name_;
   }
 
-  bool Player::HasInput (const yap::GameInputType gameInputType) const
+  bool Player::HasInput (yap::GameInputType gameInputType) const
   {
     return inputManager_.InputIsActive (gameInputType);
   }
