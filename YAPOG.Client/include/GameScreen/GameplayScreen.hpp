@@ -47,6 +47,7 @@ namespace ycl
 
       virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
       virtual void HandleActivate ();
+      virtual void HandleDeactivate ();
 
     private:
 

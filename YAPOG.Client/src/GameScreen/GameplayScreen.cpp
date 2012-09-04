@@ -373,6 +373,11 @@ namespace ycl
     yap::AudioManager::Instance ().PlayMusic ("BGM/City2.ogg", false);
   }
 
+  void GameplayScreen::HandleDeactivate ()
+  {
+    ResetMoveController ();
+  }
+
   Map& GameplayScreen::GetCurrentMap ()
   {
     return world_.GetCurrentMap ();
@@ -392,14 +397,6 @@ namespace ycl
   {
     player_ = player;
     SetPlayerName ();
-
-    player_->OnStateChanged += [this] (
-      yap::DynamicWorldObject& sender,
-      const yap::ChangeEventArgs<const yap::String&>& args)
-    {
-      if (!sender.IsActive ())
-        ResetMoveController ();
-    };
 
     moveController_.SetValue (player_->GetMaxVelocity ());
 
