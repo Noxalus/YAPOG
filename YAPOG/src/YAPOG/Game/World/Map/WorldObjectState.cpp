@@ -45,7 +45,7 @@ namespace yap
 
   bool WorldObjectState::operator== (const WorldObjectState& right) const
   {
-    return this == &right;
+    return info_ == right.info_;
   }
 
   bool WorldObjectState::operator!= (const WorldObjectState& right) const
