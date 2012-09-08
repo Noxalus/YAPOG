@@ -24,8 +24,10 @@ namespace ycl
   User::User ()
     : packetHandler_ ()
     , login_ ()
+    , id_ (0)
     , world_ (nullptr)
     , player_ (nullptr)
+    , playerData_ ()
     , trainer_ (nullptr)
   {
     ADD_HANDLER(ServerInfoSetUserPlayer, User::HandleServerInfoSetUserPlayer);
@@ -35,13 +37,14 @@ namespace ycl
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
     ADD_HANDLER(ServerInfoTriggerBattle, User::HandleServerInfoTriggerBattle);
     ADD_HANDLER(ServerInfoPokemonTeam, User::HandlerServerInfoPokemonTeam);
+    ADD_HANDLER(ServerInfoChangeMoney, User::HandlerServerInfoChangeMoney);
   }
 
   User::~User ()
   {
   }
 
-  PlayerTrainer& User::GetTrainer ()
+  PlayerTrainer& User::GetTrainer () const
   {
     return *trainer_;
   }
@@ -54,6 +57,11 @@ namespace ycl
   const yap::String& User::GetLogin () const
   {
     return login_;
+  }
+
+  const yap::ID& User::GetID () const
+  {
+    return id_;
   }
 
   void User::SetLogin (const yap::String& login)
@@ -78,6 +86,16 @@ namespace ycl
     packet.Write (message.GetContent ());
 
     SendPacket (packet);
+  }
+
+  void User::ChangeMoney (int value)
+  {
+    playerData_.ChangeMoney (value);
+  }
+
+  void User::UpdatePlayTime (const yap::Time& dt)
+  {
+    playerData_.UpdatePlayTime (dt);
   }
 
   bool User::HandlePacket (yap::IPacket& packet)
@@ -121,6 +139,11 @@ namespace ycl
     return *player_;
   }
 
+  const PlayerData& User::GetPlayerData () const
+  {
+    return playerData_;
+  }
+
   // Setters.
   void User::SetPlayer (Player* player)
   {
@@ -131,12 +154,24 @@ namespace ycl
 
   void User::HandleServerInfoSetUserPlayer (yap::IPacket& packet)
   {
+    yap::ID accountID = packet.ReadID ();
     yap::ID playerWorldID = packet.ReadID ();
+
+    id_ = accountID;
 
     Player* player =
       &GetWorld ().GetCurrentMap ().GetPlayer (playerWorldID);
 
     SetPlayer (player);
+
+    // Get player's data
+    yap::UInt32 money = packet.ReadUInt ();
+    yap::UInt32 playTime = packet.ReadUInt ();
+
+    playerData_.RawSetMoney (money);
+    playerData_.RawSetPlayTime (yap::Time (playTime));
+
+    OnPlayerDataReceived (*this, yap::EmptyEventArgs ());
   }
 
   void User::HandleServerInfoChangeMap (yap::IPacket& packet)
@@ -187,7 +222,7 @@ namespace ycl
 
         player->RawSetDirection (
           static_cast<yap::Direction> (
-            packet.ReadUChar ()));
+          packet.ReadUChar ()));
 
         packet.ReadString (); // name is read
       }
@@ -201,7 +236,7 @@ namespace ycl
 
         player->RawSetDirection (
           static_cast<yap::Direction> (
-            packet.ReadUChar ()));
+          packet.ReadUChar ()));
 
         yap::String playerName = packet.ReadString ();
         player->SetName (playerName);
@@ -219,7 +254,7 @@ namespace ycl
 
       npc->RawSetDirection (
         static_cast<yap::Direction> (
-          packet.ReadUChar ()));
+        packet.ReadUChar ()));
 
       map.AddDrawableDynamicObject (npc);
     }
@@ -402,6 +437,13 @@ namespace ycl
     trainer_->SetTeam (pokemonTeam);
 
     OnPokemonTeamReceived (*this, yap::EmptyEventArgs ());
+  }
+
+  void User::HandlerServerInfoChangeMoney (yap::IPacket& packet)
+  {
+    int amount = packet.ReadInt ();
+
+    ChangeMoney (amount);
   }
 
 } // namespace ycl

@@ -2,6 +2,7 @@
 # define YAPOG_CLIENT_PLAYERTRAINER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Game/Battle/PlayerTrainer.hpp"
 
 namespace yap
@@ -25,6 +26,7 @@ namespace ycl
     /// @{
     //PokemonFighterTeam& GetTeam ();
     PokemonTeam& GetTeam ();
+    yap::UInt32 GetPokemonCaughtCount () const;
     /// @}
 
     /// @name Setters.

@@ -97,6 +97,11 @@ namespace ycl
         return true;
       }
 
+      if (guiEvent.key.code == sf::Keyboard::Return)
+      {
+        return true;
+      }
+
       if (guiEvent.key.code == sf::Keyboard::Escape)
       {
         Close ();

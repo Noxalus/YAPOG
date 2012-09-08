@@ -1,11 +1,18 @@
+#include "YAPOG/Game/ID.hpp"
+#include "YAPOG/System/IntTypes.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/Label.hpp"
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 
 #include "Client/User.hpp"
+#include "Client/PlayerData.hpp"
 #include "Gui/TrainerCardWidget.hpp"
+#include "Battle/PlayerTrainer.hpp"
 
 namespace ycl
 {
@@ -35,15 +42,17 @@ namespace ycl
     , playerSpriteLayout_ (nullptr)
   {
     // Labels
-    uniqueIDLabel_ = new yap::Label ("ID");
-    uniqueID_ = new yap::Label ();
+    uniqueIDLabel_ = new yap::Label ("ID Unique:");
     nameLabel_ = new yap::Label ("Nom:");
-    name_ = new yap::Label ();
     moneyLabel_ = new yap::Label ("Argent:");
-    money_ = new yap::Label ();
     pokedexLabel_ = new yap::Label ("Pokédex:");
+    gameTimeLabel_ = new yap::Label ("Temps de jeu:");
+
+    uniqueID_ = new yap::Label (
+      yap::StringHelper::ToString (user_.GetID ().GetValue ()));
+    name_ = new yap::Label (user_.GetLogin ());
+    money_ = new yap::Label ();
     pokedex_ = new yap::Label ();
-    gameTimeLabel_ = new yap::Label ("Durée de jeu:");
     gameTime_ = new yap::Label ();
 
     // PïctureBoxes
@@ -57,25 +66,27 @@ namespace ycl
       yap::Padding (0, 0, 21, 0), yap::Padding (), false);
 
     uniqueIDLayout_ = new yap::HorizontalLayout (
-      yap::Padding (), yap::Padding (), false);
+      yap::Padding (40, 0, 10, 0), 
+      yap::Padding (0, 50, 0, 0), 
+      false);
 
     secondLine_ = new yap::HorizontalLayout (
       yap::Padding (), yap::Padding (), false);
 
     secondLinePartLeft_ = new yap::VerticalLayout (
-      yap::Padding (), yap::Padding (), false);
+      yap::Padding (42, 0, 0, 28), yap::Padding (), false);
 
-    nameLayout_ = new yap::VerticalLayout (
+    nameLayout_ = new yap::HorizontalLayout (
       yap::Padding (), yap::Padding (), false);
     playerDataLayout_ = new yap::HorizontalLayout (
-      yap::Padding (), yap::Padding (), false);
+      yap::Padding (0, 0, 0, 50), yap::Padding (), false);
     playerDataLabelsLayout_ = new yap::VerticalLayout (
-      yap::Padding (), yap::Padding (), false);
+      yap::Padding (), yap::Padding (0, 0, 21, 0), false);
     playerDataValuesLayout_ = new yap::VerticalLayout (
-      yap::Padding (), yap::Padding (), false);
+      yap::Padding (), yap::Padding (0, 0, 21, 0), false);
 
     secondLinePartRight_ = new yap::VerticalLayout (
-      yap::Padding (), yap::Padding (), false);
+      yap::Padding (0, 0, 0, 82), yap::Padding (), false);
 
     playerSpriteLayout_ = new yap::HorizontalLayout (
       yap::Padding (), yap::Padding (), false);
@@ -91,7 +102,7 @@ namespace ycl
       "Pictures/TrainerCard/Front.png", true));
 
     playerSprite_->SetPicture (
-      new yap::Sprite ("Test/white.png"));
+      new yap::Sprite ("Pictures/PlayerBattlers/Girl0.png"));
 
     // Set layouts size
     mainLayout_->SetSize (yap::Vector2 (750, 465));
@@ -101,14 +112,14 @@ namespace ycl
     secondLinePartLeft_->SetSize (yap::Vector2 (436, 293));
     secondLinePartRight_->SetSize (yap::Vector2 (315, 293));
     nameLayout_->SetSize (yap::Vector2 (360, 45));
-    playerDataLayout_->SetSize (yap::Vector2 (375, 176));
+    playerDataLayout_->SetSize (yap::Vector2 (375, 211));
     playerDataLabelsLayout_->SetSize (yap::Vector2 (187, 176));
     playerDataValuesLayout_->SetSize (yap::Vector2 (188, 176));
 
     // Set the labels text size
-    name_->SetTextSize (40);
     uniqueID_->SetTextSize (40);
     uniqueIDLabel_->SetTextSize (40);
+    name_->SetTextSize (40);
     nameLabel_->SetTextSize (40);
     name_->SetTextSize (40);
     moneyLabel_->SetTextSize (40);
@@ -126,11 +137,14 @@ namespace ycl
     nameLayout_->AddChild (*nameLabel_, yap::LayoutBox::Align::LEFT);
     nameLayout_->AddChild (*name_);
 
-    secondLinePartLeft_->AddChild (*nameLayout_);
+    secondLinePartLeft_->AddChild (*nameLayout_, yap::LayoutBox::Align::LEFT);
 
-    playerDataLabelsLayout_->AddChild (*moneyLabel_);
-    playerDataLabelsLayout_->AddChild (*pokedexLabel_);
-    playerDataLabelsLayout_->AddChild (*gameTimeLabel_);
+    playerDataLabelsLayout_->AddChild (
+      *moneyLabel_, yap::LayoutBox::Align::LEFT);
+    playerDataLabelsLayout_->AddChild (
+      *pokedexLabel_, yap::LayoutBox::Align::LEFT);
+    playerDataLabelsLayout_->AddChild (
+      *gameTimeLabel_, yap::LayoutBox::Align::LEFT);
 
     playerDataValuesLayout_->AddChild (*money_);
     playerDataValuesLayout_->AddChild (*pokedex_);
@@ -139,7 +153,10 @@ namespace ycl
     playerDataLayout_->AddChild (*playerDataLabelsLayout_);
     playerDataLayout_->AddChild (*playerDataValuesLayout_);
 
-    secondLinePartLeft_->AddChild (*playerDataLayout_);
+    secondLinePartLeft_->AddChild (
+      *playerDataLayout_, yap::LayoutBox::Align::LEFT);
+
+    secondLinePartRight_->AddChild (*playerSprite_);
 
     secondLine_->AddChild (*secondLinePartLeft_);
     secondLine_->AddChild (*secondLinePartRight_);
@@ -150,6 +167,7 @@ namespace ycl
     AddChild (*mainLayout_);
 
     // Borders
+    /*
     mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
     firstLine_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     uniqueIDLayout_->SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
@@ -161,6 +179,7 @@ namespace ycl
     playerDataValuesLayout_->SetBorder (*new yap::WidgetBorder ("Test/white.png"));
     secondLinePartRight_->SetBorder (*new yap::WidgetBorder ("Test/brown.png"));
     playerSpriteLayout_->SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    */
 
     mainLayout_->SetPosition (yap::Vector2 (26, 67));
   }
@@ -168,6 +187,24 @@ namespace ycl
   bool TrainerCardWidget::IsFocusable () const
   {
     return true;
+  }
+
+  void TrainerCardWidget::Open ()
+  {
+    money_->SetText (
+      yap::StringHelper::ToString (
+      user_.GetPlayerData ().GetMoney ()) + "$");
+    pokedex_->SetText (
+      yap::StringHelper::ToString (
+      user_.GetTrainer ().GetPokemonCaughtCount ()));
+    gameTime_->SetText (
+      yap::StringHelper::ToString (
+      user_.GetPlayerData ().GetPlayTime ().GetValue ()));
+
+    // Refresh layouts
+    playerDataValuesLayout_->Refresh ();
+
+    BaseWidget::Open ();
   }
 
   bool TrainerCardWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
@@ -219,6 +256,7 @@ namespace ycl
   {
 
   }
+
   void TrainerCardWidget::HandleScale (const yap::Vector2& factor)
   {
 
@@ -235,8 +273,15 @@ namespace ycl
   void TrainerCardWidget::HandleChangeColor (const sf::Color& color)
   {
   }
+
   void TrainerCardWidget::HandleUpdate (const yap::Time& dt)
   {
+    gameTime_->SetText (
+      yap::StringHelper::ToString (
+      user_.GetPlayerData ().GetPlayTime ()));
+
+    // Refresh layouts
+    playerDataValuesLayout_->Refresh ();
   }
 
 } // namespace ycl

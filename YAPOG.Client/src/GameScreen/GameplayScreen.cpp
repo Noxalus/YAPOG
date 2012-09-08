@@ -70,7 +70,7 @@ namespace ycl
     , gameWorldGuiManager_ (nullptr)
     , mapRootWidget_ (nullptr)
     , mainMenu_ (nullptr)
-    , pokedex_ (nullptr)
+    , pokedexWidget_ (nullptr)
     , pokemonTeamWidget_ (nullptr)
     , trainerCardWidget_ (nullptr)
     , chat_ (nullptr)
@@ -123,7 +123,48 @@ namespace ycl
         session_.GetUser ().GetTrainer ().GetTeam ());
       pokemonTeamWidget_->Init ();
       pokemonTeamWidget_->Close ();
+
       gameGuiManager_->AddGameWidget ("PokemonTeam", pokemonTeamWidget_);
+    };
+
+    session_.GetUser ().OnPlayerDataReceived += [this] (
+      const User& sender,
+      const yap::EmptyEventArgs& args)
+    {
+      // Pokedex
+      yap::Pokedex* pokedex = new yap::Pokedex ();
+
+      for (int i = 1; i < 4; i++)
+      {
+        yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+          Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (i));
+
+        pokedex->AddPokemon (pok);
+        pokedex->AddPokemonSeen (pok);
+        pokedex->AddPokemonCaught (pok);
+      }
+
+      yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
+        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (16));
+
+      pokedex->AddPokemon (pok);
+      pokedex->AddPokemonSeen (pok);
+      pokedex->AddPokemonCaught (pok);
+
+      pokedexWidget_ = new PokedexWidget (pokedex);
+      pokedexWidget_->Close ();
+      pokedexWidget_->Init ();
+
+      session_.GetUser ().GetTrainer ().SetPokedex (pokedex);
+
+      gameGuiManager_->AddGameWidget ("Pokedex", pokedexWidget_);
+
+      // Trainer Card
+      trainerCardWidget_ = new TrainerCardWidget (session_.GetUser ());
+      trainerCardWidget_->Init ();
+      trainerCardWidget_->Close ();
+
+      gameGuiManager_->AddGameWidget ("TrainerCard", trainerCardWidget_);
     };
 
     CreateWorldDrawingPolicy ();
@@ -149,13 +190,6 @@ namespace ycl
 
     gameWorldGuiManager_->AddGameWorldWidget (mapRootWidget_);
 
-    // Trainer Card
-    trainerCardWidget_ = new TrainerCardWidget (session_.GetUser ());
-    trainerCardWidget_->Init ();
-    trainerCardWidget_->Close ();
-
-    gameGuiManager_->AddGameWidget ("TrainerCard", trainerCardWidget_);
-
     // Chat
     chat_ = new ChatWidget (session_.GetUser ().GetLogin ());
     chat_->Init ();
@@ -168,45 +202,6 @@ namespace ycl
     };
 
     gameGuiManager_->AddGameWidget ("Chat", chat_);
-
-    /*
-    team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
-    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
-
-    PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
-    playerFighterTeam->AddPokemon (
-    new PokemonFighter (team->GetPokemon (0), false));
-    playerFighterTeam->AddPokemon (
-    new PokemonFighter (team->GetPokemon (1), false));
-
-    session_.GetUser ().GetTrainer ().SetTeam (playerFighterTeam);
-    */
-
-    // Pokedex
-    yap::Pokedex* pokedexInfo = new yap::Pokedex ();
-
-    for (int i = 1; i < 4; i++)
-    {
-      yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-        Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (i));
-
-      pokedexInfo->AddPokemon (pok);
-      pokedexInfo->AddPokemonSeen (pok);
-      pokedexInfo->AddPokemonCaught (pok);
-    }
-
-    yap::PokemonInfo* pok = yap::ObjectFactory::Instance ().
-      Create<yap::PokemonInfo> ("PokemonInfo", yap::ID (16));
-
-    pokedexInfo->AddPokemon (pok);
-    pokedexInfo->AddPokemonSeen (pok);
-    pokedexInfo->AddPokemonCaught (pok);
-
-    pokedex_ = new PokedexWidget (pokedexInfo);
-    pokedex_->Close ();
-    pokedex_->Init ();
-
-    gameGuiManager_->AddGameWidget ("Pokedex", pokedex_);
 
     // FPS
     fpsLabel_ = new yap::Label ();
@@ -407,7 +402,7 @@ namespace ycl
   /// @todo Remove
   void GameplayScreen::SetPlayerName ()
   {
-//    player_->SetName (session_.GetUser ().GetLogin ());
+    //    player_->SetName (session_.GetUser ().GetLogin ());
 
     mainMenu_ = new GameMainMenu ();
     mainMenu_->Init (player_->GetName ());

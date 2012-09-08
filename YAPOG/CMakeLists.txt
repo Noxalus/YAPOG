@@ -317,6 +317,9 @@ ${inc_root}/Game/Battle/Phase/RunPhase.hpp
 ${src_root}/Game/Battle/Phase/RunWildBattlePhase.cpp
 ${inc_root}/Game/Battle/Phase/RunWildBattlePhase.hpp
 
+${inc_root}/Game/Player/PlayerTime.hpp
+${src_root}/Game/Player/PlayerTime.cpp
+
 ${inc_root}/Graphics/Camera.hpp
 ${src_root}/Graphics/Camera.cpp
 ${inc_root}/Graphics/CameraController.hpp

@@ -202,11 +202,16 @@ namespace yse
     setUserPlayerPacket.CreateFromType (
       yap::PacketType::ServerInfoSetUserPlayer);
 
+    setUserPlayerPacket.Write (account_->GetID ());
     setUserPlayerPacket.Write (player_->GetWorldID ());
 
-    SendPacket (setUserPlayerPacket);
+    // Write player's data here
+    setUserPlayerPacket.Write (account_->GetPlayerData ().GetMoney ());
+    setUserPlayerPacket.Write (account_->GetPlayerData ().GetPlayTime ().GetValue ());
 
     SendPokemonTeam (account_->GetTeam ());
+
+    SendPacket (setUserPlayerPacket);
   }
 
   void User::HandleClientInfoApplyForce (yap::IPacket& packet)
@@ -250,6 +255,9 @@ namespace yse
     packet.Write (message.GetContent ());
 
     GetWorld ().SendPacket (packet);
+
+    // @todelete
+    SendChangeMoney (42);
   }
 
   void User::SendPokemonTeam (PokemonTeam& pokemonTeam)
@@ -321,6 +329,19 @@ namespace yse
       }
 
     }
+
+    SendPacket (packet);
+  }
+
+  void User::SendChangeMoney (int value)
+  {
+    // Change the money of player in the server
+    account_->ChangeMoney (value);
+
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoChangeMoney);
+
+    packet.Write (value);
 
     SendPacket (packet);
   }

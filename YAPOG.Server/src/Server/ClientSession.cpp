@@ -38,7 +38,7 @@ namespace yse
       ClientSession::HandleClientRequestRegistration);
     ADD_HANDLER(
       ClientInfoDeconnection,
-      ClientSession::HandleClientInfoDeconnection);
+      ClientSession::HandleClientInfoDisconnection);
   }
 
   void ClientSession::Refresh ()
@@ -239,7 +239,7 @@ namespace yse
     }
   }
 
-  void ClientSession::HandleClientInfoDeconnection (yap::IPacket& packet)
+  void ClientSession::HandleClientInfoDisconnection (yap::IPacket& packet)
   {
     // Copy some data to prepare update of the database
     yap::Vector2 currentPosition = user_.GetPlayer ().GetPosition ();

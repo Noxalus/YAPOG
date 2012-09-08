@@ -71,6 +71,11 @@ namespace yse
     pdUpdateRequest.Update (dm);
   }
 
+  void Account::ChangeMoney (int value)
+  {
+    playerData_->ChangeMoney (value);
+  }
+
   /// Getters
   const yap::ID& Account::GetID () const
   { return id_; }

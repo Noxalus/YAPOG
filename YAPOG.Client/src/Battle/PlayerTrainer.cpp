@@ -25,6 +25,11 @@ namespace ycl
   PokemonTeam& PlayerTrainer::GetTeam ()
   { return *team_; }
 
+  yap::UInt32 PlayerTrainer::GetPokemonCaughtCount () const
+  {
+    return pokedex_->GetPokemonCaughtCount ();
+  }
+
   /// Setters.
   /*
   void PlayerTrainer::SetTeam (PokemonFighterTeam* value)

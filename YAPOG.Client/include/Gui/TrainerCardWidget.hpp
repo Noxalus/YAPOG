@@ -3,28 +3,19 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
-# include "YAPOG/Graphics/Vector2.hpp"
-# include "YAPOG/Graphics/Gui/PictureBox.hpp"
-# include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
-# include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
-# include "YAPOG/Graphics/Gui/Label.hpp"
-# include "YAPOG/System/StringHelper.hpp"
-# include "YAPOG/Game/Pokemon/Gender.hpp"
-# include "YAPOG/Collection/Array.hpp"
-# include "YAPOG/Graphics/Gui/GuiEvent.hpp"
-# include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
-# include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
-# include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 
 namespace yap
 {
-  class GridMenu;
+  class Label;
+  class PictureBox;
+  class VerticalLayout;
+  class HorizontalLayout;
 }
 
 namespace ycl
 {
   class User;
-  
+
   class TrainerCardWidget : public yap::BaseWidget
   {
     DISALLOW_COPY(TrainerCardWidget);
@@ -32,12 +23,13 @@ namespace ycl
   public:
     TrainerCardWidget (const User& user);
     virtual ~TrainerCardWidget();
-    
+
     void Init ();
 
     virtual bool IsFocusable () const;
 
   protected:
+    void Open ();
     virtual yap::Vector2 HandleGetSize () const;
     virtual void HandleMove (const yap::Vector2& offset);
     virtual void HandleScale (const yap::Vector2& factor);
@@ -79,8 +71,8 @@ namespace ycl
     yap::HorizontalLayout* secondLine_;
 
     yap::VerticalLayout* secondLinePartLeft_;
-    
-    yap::VerticalLayout* nameLayout_;
+
+    yap::HorizontalLayout* nameLayout_;
     yap::HorizontalLayout* playerDataLayout_;
     yap::VerticalLayout* playerDataLabelsLayout_;
     yap::VerticalLayout* playerDataValuesLayout_;
