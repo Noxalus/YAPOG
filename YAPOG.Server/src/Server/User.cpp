@@ -255,9 +255,6 @@ namespace yse
     packet.Write (message.GetContent ());
 
     GetWorld ().SendPacket (packet);
-
-    // @todelete
-    SendChangeMoney (42);
   }
 
   void User::SendPokemonTeam (PokemonTeam& pokemonTeam)
