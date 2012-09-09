@@ -10,6 +10,7 @@
 namespace yap
 {
   class DatabaseManager;
+  class Time;
 }
 
 namespace yse
@@ -28,6 +29,7 @@ namespace yse
     void LoadFromTable (const AccountTable& at, const PlayerDataTable& pdt);
     void SaveAccountData (yap::DatabaseManager& dm);
 
+    void UpdatePlayTime (const yap::Time& dt);
     void ChangeMoney (int value);
 
     /// Getters

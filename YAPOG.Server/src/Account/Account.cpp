@@ -1,4 +1,5 @@
 #include "YAPOG/Database/DatabaseManager.hpp"
+#include "YAPOG/System/Time/Time.hpp"
 
 #include "Account/Account.hpp"
 #include "Account/PlayerData.hpp"
@@ -69,6 +70,11 @@ namespace yse
 
     PlayerDataUpdateRequest pdUpdateRequest (playerDataTable);
     pdUpdateRequest.Update (dm);
+  }
+
+  void Account::UpdatePlayTime (const yap::Time& dt)
+  {
+    playerData_->UpdatePlayTime (dt);
   }
 
   void Account::ChangeMoney (int value)

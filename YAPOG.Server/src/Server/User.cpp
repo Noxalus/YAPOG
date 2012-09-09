@@ -175,7 +175,8 @@ namespace yse
 
   void User::ServerTick (const yap::Time& dt)
   {
-
+    if (account_)
+      account_->UpdatePlayTime (dt);
   }
 
   void User::HandleClientRequestStartInfo (yap::IPacket& packet)
@@ -212,7 +213,9 @@ namespace yse
 
     // Write player's data here
     setUserPlayerPacket.Write (account_->GetPlayerData ().GetMoney ());
-    setUserPlayerPacket.Write (account_->GetPlayerData ().GetPlayTime ().GetValue ());
+    setUserPlayerPacket.Write (
+      static_cast<yap::UInt32>(
+      account_->GetPlayerData ().GetPlayTime ().GetValue ()));
 
     SendPokemonTeam (account_->GetTeam ());
 
