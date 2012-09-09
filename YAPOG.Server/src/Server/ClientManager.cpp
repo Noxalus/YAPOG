@@ -59,6 +59,16 @@ namespace yse
     receptionIsActive_ = false;
   }
 
+  void ClientManager::ServerTick (const yap::Time& dt)
+  {
+    {
+      yap::Lock lock (clientsMutex_);
+
+      for (ClientSession* client : clients_)
+        client->ServerTick (dt);
+    }
+  }
+
   void ClientManager::HandleReception ()
   {
     while (receptionIsActive_)

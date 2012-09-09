@@ -84,6 +84,11 @@ namespace yse
     databaseManager_ = databaseManager;
   }
 
+  void ClientSession::ServerTick (const yap::Time& dt)
+  {
+    user_.ServerTick (dt);
+  }
+
   bool ClientSession::HandlePacket (yap::IPacket& packet)
   {
     return packetHandler_.HandlePacket (packet);

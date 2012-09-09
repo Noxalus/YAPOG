@@ -13,7 +13,7 @@ namespace yap
     public:
 
       UpdateableTimer ();
-      UpdateableTimer (const Time& initTime);
+      explicit UpdateableTimer (const Time& initTime);
 
       void Update (const Time& dt);
 

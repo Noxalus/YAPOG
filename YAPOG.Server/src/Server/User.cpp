@@ -173,6 +173,11 @@ namespace yse
     databaseManager_ = databaseManager;
   }
 
+  void User::ServerTick (const yap::Time& dt)
+  {
+
+  }
+
   void User::HandleClientRequestStartInfo (yap::IPacket& packet)
   {
     /// @todo load user info from DB from its login

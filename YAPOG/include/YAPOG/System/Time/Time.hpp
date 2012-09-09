@@ -13,7 +13,7 @@ namespace yap
 
       Time ();
       explicit Time (float seconds);
-      explicit Time (const sf::Time& copy);
+      Time (const sf::Time& copy);
 
       Time (const Time& copy);
       Time& operator= (const Time& copy);

@@ -5,6 +5,7 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/System/Network/IPacketHandler.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
+# include "YAPOG/System/Time/Time.hpp"
 # include "Account/Account.hpp"
 
 namespace yap
@@ -45,16 +46,18 @@ namespace yse
 
       const yap::String& GetLogin () const;
       bool Login (
-        const yap::String& login, 
-        const yap::String& password, 
+        const yap::String& login,
+        const yap::String& password,
         const yap::String& ip);
       bool Register (
-        const yap::String& login, 
-        const yap::String& password, 
-        const yap::String& email, 
+        const yap::String& login,
+        const yap::String& password,
+        const yap::String& email,
         const yap::String& ip);
 
       void SetDatabaseManager (yap::DatabaseManager* databaseManager);
+
+      void ServerTick (const yap::Time& dt);
 
       /// @name IPacketHandler members.
       /// @{

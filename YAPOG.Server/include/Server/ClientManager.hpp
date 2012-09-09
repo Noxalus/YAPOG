@@ -28,6 +28,8 @@ namespace yse
       void Refresh ();
       void Dispose ();
 
+      void ServerTick (const yap::Time& dt);
+
     private:
 
       void HandleReception ();
