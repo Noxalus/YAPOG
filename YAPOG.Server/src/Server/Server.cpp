@@ -104,9 +104,18 @@ namespace yse
       yap::Time dt = worldUpdateTimer_.GetCurrentTime ();
       worldUpdateTimer_.Reset ();
 
-      clients_.Refresh ();
+      {
+        yap::Lock lock (clientsMutex_);
 
-      world_.Update (dt);
+        clients_.Refresh ();
+        clients_.ServerTick (dt);
+      }
+
+      {
+        yap::Lock lock (worldMutex_);
+
+        world_.Update (dt);
+      }
 
       yap::Time sleepTime = yap::Time (1.0f / DEFAULT_WORLD_UPDATE_RATE) - dt;
       if (sleepTime.GetValue () > 0.0f)

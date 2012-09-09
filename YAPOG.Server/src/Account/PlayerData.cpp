@@ -1,3 +1,5 @@
+#include "YAPOG/System/MathHelper.hpp"
+
 #include "Account/PlayerData.hpp"
 #include "Database/Tables/PlayerDataTable.hpp"
 
@@ -29,13 +31,26 @@ namespace yse
     SetAccountID (at.GetAccountID ());
     SetPosition (at.GetPosition ());
     SetMapID (at.GetMapID ());
-    SetPlayTime (at.GetPlayTime ());
+    SetPlayTime (yap::Time  (at.GetPlayTime ()));
     SetStepCount (at.GetStepCount ());
     SetRespawnSpot (at.GetRespawnSpot ());
     SetFleeCount (at.GetFleeCount ());
     SetBoxNumber (at.GetBoxNumber ());
     SetBattleCount (at.GetBattleCount ());
     SetMoney (at.GetMoney ());
+  }
+
+  void PlayerData::UpdatePlayTime (const yap::Time& dt)
+  {
+    playTime_ += dt;
+  }
+
+  void PlayerData::ChangeMoney (int value)
+  {
+     money_ = yap::MathHelper::Clamp (
+      money_ + value, 
+      static_cast<yap::UInt32>(0), 
+      money_);
   }
 
   /// Getters
@@ -45,7 +60,7 @@ namespace yse
   { return position_; }
   const yap::ID& PlayerData::GetMapID () const
   { return mapID_; }
-  int PlayerData::GetPlayTime () const
+  const yap::Time& PlayerData::GetPlayTime () const
   { return playTime_; }
   int PlayerData::GetStepCount () const
   { return stepCount_; }
@@ -57,7 +72,7 @@ namespace yse
   { return boxNumber_; }
   int PlayerData::GetBattleCount () const
   { return battleCount_; }
-  int PlayerData::GetMoney () const
+  yap::UInt32 PlayerData::GetMoney () const
   { return money_; }
 
   /// Setters
@@ -67,7 +82,7 @@ namespace yse
   { position_ = value; }
   void PlayerData::SetMapID (const yap::ID& value)
   { mapID_ = value; }
-  void PlayerData::SetPlayTime (int value)
+  void PlayerData::SetPlayTime (const yap::Time& value)
   { playTime_ = value; }
   void PlayerData::SetStepCount (int value)
   { stepCount_ = value; }
@@ -79,7 +94,7 @@ namespace yse
   { boxNumber_ = value; }
   void PlayerData::SetBattleCount (int value)
   { battleCount_ = value; }
-  void PlayerData::SetMoney (int value)
+  void PlayerData::SetMoney (yap::UInt32 value)
   { money_ = value; }
 
 } // namespace yse

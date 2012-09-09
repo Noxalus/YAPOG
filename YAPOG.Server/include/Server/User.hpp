@@ -84,6 +84,7 @@ namespace yse
 
       void SendGameMessage (const yap::GameMessage& message);
       void SendPokemonTeam (PokemonTeam& pokemonTeam);
+      void SendChangeMoney (int value);
 
       yap::PacketHandler packetHandler_;
 

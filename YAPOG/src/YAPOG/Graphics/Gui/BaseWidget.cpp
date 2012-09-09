@@ -313,7 +313,7 @@ namespace yap
     child.SetDefaultColor (userColor_);
 
     childen_.AddFront (&child);
-    drawables_.AddFront (&child);
+    drawables_.Add (&child);
     updatables_.AddFront (&child);
     eventHandlers_.AddFront (&child);
 

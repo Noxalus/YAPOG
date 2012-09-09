@@ -23,7 +23,7 @@ namespace yse
     SetAccountID (playerData.GetAccountID ());
     SetPosition (playerData.GetPosition ());
     SetMapID (playerData.GetMapID ());
-    SetPlayTime (playerData.GetPlayTime ());
+    SetPlayTime (playerData.GetPlayTime ().GetValue ());
     SetStepCount (playerData.GetStepCount ());
     SetRespawnSpot (playerData.GetRespawnSpot ());
     SetFleeCount (playerData.GetFleeCount ());

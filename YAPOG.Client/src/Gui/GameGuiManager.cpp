@@ -31,11 +31,8 @@ namespace ycl
 
     currentWidget_ = gameWidgets_[currentWidgetName_];
 
-    eventHandlers_.Remove (currentWidget_);
-    eventHandlers_.AddFront (currentWidget_);
-
-    drawables_.Remove (currentWidget_);
-    drawables_.Add (currentWidget_);
+    RemoveChild (*currentWidget_);
+    FrontAddChild (*currentWidget_);
 
     currentWidget_->Open ();
   }
@@ -63,29 +60,29 @@ namespace ycl
   /*
   bool GameGuiManager::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
-    /*
-    switch (guiEvent.type)
-    {
-      case sf::Event::KeyPressed:
+  /*
+  switch (guiEvent.type)
+  {
+  case sf::Event::KeyPressed:
 
-        switch (guiEvent.key.code)
-        {
-          case sf::Keyboard::Escape:
+  switch (guiEvent.key.code)
+  {
+  case sf::Keyboard::Escape:
 
-            if (!UnsetCurrentWidget ())
-              break;
+  if (!UnsetCurrentWidget ())
+  break;
 
-            return true;
+  return true;
 
-          default: break;
-        }
+  default: break;
+  }
 
-        break;
+  break;
 
-      default: break;
-    }
+  default: break;
+  }
 
-    return false;
+  return false;
   }
   */
 } // namespace ycl

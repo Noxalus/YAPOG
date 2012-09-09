@@ -28,6 +28,8 @@ namespace yse
     void LoadFromTable (const AccountTable& at, const PlayerDataTable& pdt);
     void SaveAccountData (yap::DatabaseManager& dm);
 
+    void ChangeMoney (int value);
+
     /// Getters
     const yap::ID& GetID () const;
     const yap::String& GetName () const;

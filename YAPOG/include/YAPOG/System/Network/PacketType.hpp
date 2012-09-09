@@ -46,7 +46,9 @@ namespace yap
 
     ServerInfoTriggerBattle,
 
-    ServerInfoPokemonTeam
+    ServerInfoPokemonTeam,
+
+    ServerInfoChangeMoney
   };
 } // namespace yap
 

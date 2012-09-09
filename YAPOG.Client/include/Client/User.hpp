@@ -6,6 +6,8 @@
 # include "YAPOG/System/Network/PacketHandler.hpp"
 # include "YAPOG/System/Event/Event.hpp"
 
+#include  "Client/PlayerData.hpp"
+
 namespace yap
 {
   class GameMessage;
@@ -27,16 +29,22 @@ namespace ycl
     User ();
     virtual ~User ();
 
-
-    PlayerTrainer& GetTrainer ();
+    PlayerTrainer& GetTrainer () const;
     void SetTrainer (PlayerTrainer* trainer);
 
     const yap::String& GetLogin () const;
+    const yap::ID& GetID () const;
+
+    const PlayerData& GetPlayerData () const;
+
     void SetLogin (const yap::String& login);
 
     void SetWorld (World* world);
 
     void SendGameMessage (const yap::GameMessage& message);
+
+    void ChangeMoney (int value);
+    void UpdatePlayTime (const yap::Time& dt);
 
     /// @name IPacketHandler members.
     /// @{
@@ -54,6 +62,7 @@ namespace ycl
 
     yap::Event<const User&> OnBattleTriggered;
     yap::Event<const User&> OnPokemonTeamReceived;
+    yap::Event<const User&> OnPlayerDataReceived;
 
   private:
     /// @name Getters.
@@ -62,6 +71,7 @@ namespace ycl
     Map& GetMap ();
 
     Player& GetPlayer ();
+
     /// @}
 
     /// @name Setters.
@@ -81,13 +91,17 @@ namespace ycl
 
     void HandlerServerInfoPokemonTeam (yap::IPacket& packet);
 
+    void HandlerServerInfoChangeMoney (yap::IPacket& packet);
+
     yap::PacketHandler packetHandler_;
 
     yap::String login_;
+    yap::ID id_;
 
     World* world_;
 
     Player* player_;
+    PlayerData playerData_;
 
     PlayerTrainer* trainer_;
   };

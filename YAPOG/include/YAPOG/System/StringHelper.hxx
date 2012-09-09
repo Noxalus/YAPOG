@@ -6,6 +6,7 @@
 # include <boost/lexical_cast.hpp>
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/System/Time/Time.hpp"
 # include "YAPOG/Game/World/Map/Direction.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
 # include "YAPOG/Game/World/Map/Direction.hpp"
@@ -102,7 +103,7 @@ namespace yap
     String str = s;
     return Ltrim(str);
   }
-  
+
   template <typename T>
   inline T StringHelper::Parse (const String& str)
   {
@@ -151,6 +152,49 @@ namespace yap
     if (str == "Erratic") return ExperienceType::Erratic;
     YAPOG_THROW("Not a valid experience type: " + str);
   }
+
+  template <>
+  inline String StringHelper::ToString<Time> (const Time& value)
+  {
+    uint s = 0;
+    uint m = 0;
+    uint h = 0;
+    String result = "";
+
+    if (value.GetValue () > 59)
+    {
+      m = static_cast<uint>(value.GetValue () / 60);
+      s = static_cast<uint>(value.GetValue ()) % 60;
+
+      if (m > 59)
+      {
+        h = m / 60;
+        m = m % 60;
+      }
+    }
+    else
+    {
+      s = static_cast<uint>(value.GetValue ());
+    }
+
+    if (h < 10)
+      result += "0";
+
+    result += ToString (h) + ":";
+
+    if (m < 10)
+      result += "0";
+
+    result += ToString (m) + ":";
+
+    if (s < 10)
+      result += "0";
+
+    result += ToString (s);
+
+    return result;
+  }
+
 } // namespace yap
 
 #endif // YAPOG_STRINGHELPER_HXX
