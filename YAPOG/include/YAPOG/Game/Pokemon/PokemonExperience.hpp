@@ -16,9 +16,9 @@ namespace yap
     void Init (UInt32 experience);
     void InitFromLevel (UInt16 level);
 
-    const UInt32& GetValue () const;
-    const UInt32& GetExperienceToNextLevel () const;
-    const UInt32& GetTotalExperienceToNextLevel () const;
+    UInt32 GetValue () const;
+    UInt32 GetExperienceToNextLevel () const;
+    UInt32 GetTotalExperienceToNextLevel () const;
     float GetExperiencePercentage ();
 
     int AddExperience (const UInt32& value);
