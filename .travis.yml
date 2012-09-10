@@ -1,9 +1,6 @@
 language: cpp
 compiler:
   - gcc
-  - clang
-
-install: make get-deps
 
 before_script:
   - mkdir _build
