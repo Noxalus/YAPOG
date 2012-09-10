@@ -50,7 +50,7 @@ namespace yap
     return value_;
   }
 
-  const UInt32& PokemonExperience::GetExperienceToNextLevel () const
+  UInt32 PokemonExperience::GetExperienceToNextLevel () const
   {
     return totalExperienceToNextLevel_ - value_;
   }
