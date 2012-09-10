@@ -2,7 +2,9 @@ language: cpp
 compiler:
   - gcc
   - clang
-# Change this to your needs
+
+install: make get-deps
+
 before_script:
   - mkdir _build
   - cd _build
