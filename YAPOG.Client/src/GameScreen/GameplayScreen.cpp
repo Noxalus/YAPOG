@@ -53,6 +53,23 @@
 #include "Battle/BattleInterface.hpp"
 #include "Configuration/GameData.hpp"
 
+namespace debug
+{
+  ycl::Pokemon* GenerateRandomPokemon ()
+  {
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 10));
+
+    if (staticID == yap::ID (10))
+      staticID = yap::ID (16);
+
+    int level = yap::RandomHelper::GetNext (1, 100);
+
+    ycl::Pokemon* p = new ycl::Pokemon (staticID, level, false);
+
+    return p;
+  }
+}
+
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -108,9 +125,18 @@ namespace ycl
     };
 
     session_.GetUser ().OnBattleTriggered += [this] (
-      const User& sender,
+      User& sender,
       const yap::EmptyEventArgs& args)
     {
+      BattleParameters* battleParameters = new BattleParameters ();
+
+      yap::IBattleEntity* battleEntity = 
+        new PokemonFighter (debug::GenerateRandomPokemon (), true);
+
+      battleParameters->SetOpponent (battleEntity);
+
+      sender.SetBattleParameters (battleParameters);
+
       nextScreen_ = "Battle";
     };
 
@@ -128,7 +154,7 @@ namespace ycl
     };
 
     session_.GetUser ().OnPlayerDataReceived += [this] (
-      const User& sender,
+      User& sender,
       const yap::EmptyEventArgs& args)
     {
       // Pokedex
@@ -155,7 +181,7 @@ namespace ycl
       pokedexWidget_->Close ();
       pokedexWidget_->Init ();
 
-      session_.GetUser ().GetTrainer ().SetPokedex (pokedex);
+      sender.GetTrainer ().SetPokedex (pokedex);
 
       gameGuiManager_->AddGameWidget ("Pokedex", pokedexWidget_);
 
