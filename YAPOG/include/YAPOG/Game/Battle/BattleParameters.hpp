@@ -35,7 +35,7 @@ namespace yap
     static const ID DEFAULT_GROUND_TYPE;
     static const ID DEFAULT_WEATHER;
 
-  protected:
+  private:
     BattleType battleType_;
     ID groundType_;
     ID weather_;

@@ -53,8 +53,7 @@ namespace ycl
     /// @name Setters.
     /// @{
     void SetPlayerTeam (PokemonFighterTeam* playerTeam);
-    void SetOpponent (PokemonFighterTeam* opponent);
-    void SetOpponent (PokemonFighter* opponent);
+    void SetOpponent (IDrawableBattleEntity* opponent);
     /// @}
 
     static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;

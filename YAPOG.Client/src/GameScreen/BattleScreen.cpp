@@ -55,7 +55,7 @@ namespace ycl
 
   void BattleScreen::HandleActivate ()
   {
-    yap::BattleParameters& parameters = 
+    BattleParameters& parameters = 
       session_.GetUser ().GetBattleParameters ();
 
     // Create a PokemonTeamFighter from the player's PokemonTeam
@@ -71,7 +71,7 @@ namespace ycl
       battle_ = new WildBattle (*battleInterface_);
 
       battle_->SetPlayerTeam (playerFighterTeam);
-      //battle_->SetOpponent (&parameters.GetOpponent ());
+      battle_->SetOpponent (&parameters.GetOpponent ());
       battle_->Init ();
 
       battle_->OnBattleEnd +=

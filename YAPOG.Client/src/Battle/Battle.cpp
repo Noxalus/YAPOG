@@ -128,16 +128,10 @@ namespace ycl
     playerTeam_ = playerTeam;
   }
 
-  void Battle::SetOpponent (PokemonFighterTeam* opponent)
+  void Battle::SetOpponent (IDrawableBattleEntity* opponent)
   {
     opponent_ = opponent;
   }
-
-  void Battle::SetOpponent (PokemonFighter* opponent)
-  {
-    opponent_ = opponent;
-  }
-
   void Battle::Draw (yap::IDrawingContext& context)
   {
     if (!IsVisible ())

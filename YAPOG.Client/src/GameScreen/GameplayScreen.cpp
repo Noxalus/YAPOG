@@ -130,7 +130,7 @@ namespace ycl
     {
       BattleParameters* battleParameters = new BattleParameters ();
 
-      yap::IBattleEntity* battleEntity = 
+      IDrawableBattleEntity* battleEntity = 
         new PokemonFighter (debug::GenerateRandomPokemon (), true);
 
       battleParameters->SetOpponent (battleEntity);
