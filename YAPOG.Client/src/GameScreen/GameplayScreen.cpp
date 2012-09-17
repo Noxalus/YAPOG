@@ -264,11 +264,6 @@ namespace ycl
 
       switch (guiEvent.key.code)
       {
-      case sf::Keyboard::B:
-        /// @warning Battle Test
-        nextScreen_ = "Battle";
-        break;
-
       case sf::Keyboard::Space:
 
         if (player_ != nullptr && player_->IsActive ())

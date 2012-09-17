@@ -167,6 +167,8 @@ ${inc_root}/Gui/PokemonSingleMoveInfoWidget.hpp
 ${src_root}/Gui/PokemonSingleMoveInfoWidget.cpp
 ${inc_root}/Gui/TrainerCardWidget.hpp
 ${src_root}/Gui/TrainerCardWidget.cpp
+${inc_root}/Gui/PokemonHPBarWidget.hpp
+${src_root}/Gui/PokemonHPBarWidget.cpp
 
 ${inc_root}/World/Map/Character.hpp
 ${src_root}/World/Map/Character.cpp
