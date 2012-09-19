@@ -55,7 +55,21 @@ namespace ycl
     return name_;
   }
 
-  bool Player::HasInput (yap::GameInputType gameInputType) const
+  bool Player::HasInputActivated (yap::GameInputType gameInputType) const
+  {
+    // Does nothing, server side only.
+
+    return false;
+  }
+
+  bool Player::HasInputDeactivated (yap::GameInputType gameInputType) const
+  {
+    // Does nothing, server side only.
+
+    return false;
+  }
+
+  bool Player::HasInputActive (yap::GameInputType gameInputType) const
   {
     // Does nothing, server side only.
 
@@ -73,6 +87,11 @@ namespace ycl
   }
 
   void Player::TriggerBattle ()
+  {
+    // Does nothing, server side only.
+  }
+
+  void Player::Talk (const yap::IDialogActor& dialogActor)
   {
     // Does nothing, server side only.
   }

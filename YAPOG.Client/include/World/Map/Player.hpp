@@ -33,13 +33,18 @@ namespace ycl
 
       virtual const yap::String& GetName () const;
 
-      virtual bool HasInput (yap::GameInputType gameInputType) const;
+      virtual bool HasInputActivated (yap::GameInputType gameInputType) const;
+      virtual bool HasInputDeactivated (
+        yap::GameInputType gameInputType) const;
+      virtual bool HasInputActive (yap::GameInputType gameInputType) const;
 
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
 
       virtual void DestroyObject (const yap::ID& objectWorldID);
 
       virtual void TriggerBattle ();
+
+      virtual void Talk (const yap::IDialogActor& dialogActor);
 
       virtual yap::Event<
         yap::DynamicWorldObject&,

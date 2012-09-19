@@ -1,0 +1,10 @@
+#ifndef YAPOG_RESPONSEHANDLERDIALOGNODE_HPP
+# define YAPOG_RESPONSEHANDLERDIALOGNODE_HPP
+
+# include "YAPOG/Macros.hpp"
+
+namespace yap
+{
+} // namespace yap
+
+#endif // YAPOG_RESPONSEHANDLERDIALOGNODE_HPP

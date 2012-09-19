@@ -13,6 +13,8 @@ namespace yap
 
   class DynamicWorldObject;
 
+  struct IDialogActor;
+
   /// @brief Interface representing the actions that a player can perform.
   struct IPlayer
   {
@@ -24,7 +26,9 @@ namespace yap
 
       virtual const String& GetName () const = 0;
 
-      virtual bool HasInput (GameInputType gameInputType) const = 0;
+      virtual bool HasInputActivated (GameInputType gameInputType) const = 0;
+      virtual bool HasInputDeactivated (GameInputType gameInputType) const = 0;
+      virtual bool HasInputActive (GameInputType gameInputType) const = 0;
 
       virtual void Warp (const ID& mapWorldID, const Vector2& point) = 0;
 
@@ -32,6 +36,8 @@ namespace yap
 
       /// @todo Battle triggering management.
       virtual void TriggerBattle () = 0;
+
+      virtual void Talk (const IDialogActor& dialogActor) = 0;
 
       virtual Event<DynamicWorldObject&, const Vector2&>& OnMovedEvent () = 0;
   };

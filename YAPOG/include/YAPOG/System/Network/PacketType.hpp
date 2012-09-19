@@ -46,6 +46,8 @@ namespace yap
 
     ServerInfoTriggerBattle,
 
+    ServerInfoTalk,
+
     ServerInfoPokemonTeam,
 
     ServerInfoChangeMoney

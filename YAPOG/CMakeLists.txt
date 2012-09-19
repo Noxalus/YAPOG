@@ -129,6 +129,8 @@ ${src_root}/Game/World/Map/AnyMapEventAction.cpp
 ${inc_root}/Game/World/Map/DestroyObjectMapEventAction.hpp
 ${src_root}/Game/World/Map/DestroyObjectMapEventAction.cpp
 ${inc_root}/Game/World/Map/TriggerBattleMapEventAction.hpp
+${inc_root}/Game/World/Map/TalkMapEventAction.hpp
+${src_root}/Game/World/Map/TalkMapEventAction.cpp
 ${src_root}/Game/World/Map/TriggerBattleMapEventAction.cpp
 ${inc_root}/Game/World/Map/WarpMapEventAction.hpp
 ${src_root}/Game/World/Map/WarpMapEventAction.cpp
@@ -178,6 +180,8 @@ ${src_root}/Game/World/Map/Physics/PersistentPhysicsCore.cpp
 ${inc_root}/Game/World/Map/Physics/PersistentPhysicsCore.hpp
 ${inc_root}/Game/World/Map/Physics/WorldObjectMoveController.hpp
 ${src_root}/Game/World/Map/Physics/WorldObjectMoveController.cpp
+${inc_root}/Game/World/Map/Physics/ICollisionChecker.hpp
+${inc_root}/Game/World/Map/Physics/ICollisionResponse.hpp
 
 ${inc_root}/Game/World/Map/StaticWorldObject.hpp
 ${src_root}/Game/World/Map/StaticWorldObject.cpp
@@ -210,6 +214,27 @@ ${src_root}/Game/World/Spatial3Info.cpp
 ${inc_root}/Game/World/World.hpp
 ${src_root}/Game/World/World.cpp
 ${inc_root}/Game/World/World.hpp
+
+${inc_root}/Game/IGameAction.hpp
+${inc_root}/Game/IGameRequirement.hpp
+
+${inc_root}/Game/World/Map/Dialog/IDialogMessage.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogResponse.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogNode.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogNodeVisitor.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogNodeConstVisitor.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogDisplay.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogActor.hpp
+${inc_root}/Game/World/Map/Dialog/DialogNodeEntry.hpp
+${src_root}/Game/World/Map/Dialog/DialogNodeEntry.cpp
+${inc_root}/Game/World/Map/Dialog/DialogNode.hpp
+${src_root}/Game/World/Map/Dialog/DialogNode.cpp
+${inc_root}/Game/World/Map/Dialog/ResponseHandlerDialogNode.hpp
+${src_root}/Game/World/Map/Dialog/ResponseHandlerDialogNode.cpp
+${inc_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.hpp
+${src_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.cpp
+${inc_root}/Game/World/Map/Dialog/DialogMessage.hpp
+${src_root}/Game/World/Map/Dialog/DialogMessage.cpp
 
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp

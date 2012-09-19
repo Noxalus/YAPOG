@@ -16,12 +16,55 @@ namespace yse
       PlayerInputManager ();
       ~PlayerInputManager ();
 
+      bool InputIsActivated (yap::GameInputType gameInputType) const;
+      bool InputIsDeactivated (yap::GameInputType gameInputType) const;
+
       bool InputIsActive (yap::GameInputType gameInputType) const;
+
       void SetInputState (yap::GameInputType gameInputType, bool isActive);
+
+      void Refresh ();
 
     private:
 
-      yap::collection::Map<yap::GameInputType, bool> gameInputs_;
+      class Entry
+      {
+        public:
+
+          enum class State
+          {
+              Activated,
+              Deactivated,
+              Active,
+              Inactive
+          };
+
+          Entry ();
+
+          State GetState () const;
+
+          void Activate (bool isActive);
+
+          void Refresh ();
+
+        private:
+
+          static const State DEFAULT_STATE;
+
+          State currentState_;
+
+          State newState_;
+
+          bool isRefreshed_;
+      };
+
+      typedef yap::collection::Map<yap::GameInputType, Entry> GameInputMap;
+
+      void AddInput (yap::GameInputType gameInputType);
+
+      Entry::State GetInputState (yap::GameInputType gameInputType) const;
+
+      GameInputMap gameInputs_;
   };
 } // namespace yse
 

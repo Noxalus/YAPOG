@@ -40,7 +40,7 @@ namespace yap
       case MapEventActionType::In:
 
         /// @todo Make `GameInputIsActivatedMapEventCondition' class.
-        if (visitable.HasInput (GameInputType::MapAction))
+        if (visitable.HasInputActivated (GameInputType::MapAction))
         {
           visitable.DestroyObject (targetWorldID_);
           GetArgs ().AbortEvents (true);

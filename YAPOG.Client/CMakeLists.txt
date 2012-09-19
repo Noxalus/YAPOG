@@ -87,6 +87,9 @@ ${src_root}/Configuration/ConfigurationReader.cpp
 ${inc_root}/Configuration/GameData.hpp
 ${src_root}/Configuration/GameData.cpp
 
+${inc_root}/Dialog/ConsoleDialogDisplay.hpp
+${src_root}/Dialog/ConsoleDialogDisplay.cpp
+
 ${inc_root}/GameInput/GameInputReader.hpp
 ${src_root}/GameInput/GameInputReader.cpp
 ${inc_root}/GameScreen/BaseScreen.hpp

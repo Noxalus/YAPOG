@@ -99,7 +99,17 @@ namespace yse
     return name_;
   }
 
-  bool Player::HasInput (yap::GameInputType gameInputType) const
+  bool Player::HasInputActivated (yap::GameInputType gameInputType) const
+  {
+    return inputManager_.InputIsActivated (gameInputType);
+  }
+
+  bool Player::HasInputDeactivated (yap::GameInputType gameInputType) const
+  {
+    return inputManager_.InputIsDeactivated (gameInputType);
+  }
+
+  bool Player::HasInputActive (yap::GameInputType gameInputType) const
   {
     return inputManager_.InputIsActive (gameInputType);
   }
@@ -124,6 +134,16 @@ namespace yse
     SendPacket (packet);
   }
 
+  void Player::Talk (const yap::IDialogActor& dialogActor)
+  {
+    TryChangeState ("Talking");
+
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoTalk);
+
+    SendPacket (packet);
+  }
+
   yap::Event<
     yap::DynamicWorldObject&,
     const yap::Vector2&>& Player::OnMovedEvent ()
@@ -134,6 +154,13 @@ namespace yse
   const yap::String& Player::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;
+  }
+
+  void Player::HandleUpdate (const yap::Time& dt)
+  {
+    Character::HandleUpdate (dt);
+
+    inputManager_.Refresh ();
   }
 
   void Player::InitHandlers ()
