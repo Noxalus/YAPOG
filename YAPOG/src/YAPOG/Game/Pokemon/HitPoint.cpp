@@ -22,6 +22,11 @@ namespace yap
   UInt16 HitPoint::GetCurrentValue () const
   { return currentValue_; }
 
+  float HitPoint::GetHPPercentage () const
+  {
+    return (static_cast<float>(currentValue_) / static_cast<float>(value_));
+  }
+
   void HitPoint::SetCurrentValue (const UInt16& value)
   {
     currentValue_ = MathHelper::Clamp 

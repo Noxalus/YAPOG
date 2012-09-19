@@ -38,7 +38,8 @@ namespace ycl
       yap::Vector2 (Game::SCREEN_SIZE.x, Game::SCREEN_SIZE.y / 4));
 
     battleInfoDialogBox_->SetPosition (
-      yap::Vector2 (0, Game::SCREEN_SIZE.y - battleInfoDialogBox_->GetSize ().y));
+      yap::Vector2 (0, Game::SCREEN_SIZE.y - 
+      battleInfoDialogBox_->GetSize ().y));
 
     battleInfoDialogBox_->SetPadding (yap::Padding (35, 35, 25, 25));
     battleInfoDialogBox_->SetBackground (
@@ -100,7 +101,9 @@ namespace ycl
     const yap::String& name,
     yap::IWidget* battleWidget)
   {
-    DEFAULT_ADDED_WIDGET_STATE ? battleWidget->Open () : battleWidget->Close ();
+    DEFAULT_ADDED_WIDGET_STATE ? 
+      battleWidget->Open () : 
+      battleWidget->Close ();
 
     AddChild (*battleWidget);
     battleWidgets_.Add (name, battleWidget);

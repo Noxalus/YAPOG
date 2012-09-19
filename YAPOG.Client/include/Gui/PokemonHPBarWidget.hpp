@@ -8,6 +8,7 @@ namespace yap
 {
   class PictureBox;
   class HorizontalLayout;
+  class HitPoint;
 }
 
 namespace ycl
@@ -16,12 +17,16 @@ namespace ycl
 
   class PokemonHPBarWidget : public yap::BaseWidget
   {
+    DISALLOW_COPY(PokemonHPBarWidget);
+
   public:
     PokemonHPBarWidget ();
 
     void Init ();
 
-    void SetPokemon (const Pokemon& pokemon);
+    void SetHitPoint (const yap::HitPoint& hp);
+
+    void Update ();
 
     virtual bool IsFocusable () const;
 
@@ -34,9 +39,14 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    yap::PictureBox* experienceBarContent_;
+    const yap::HitPoint* hp_;
+    yap::PictureBox* hpBarContent_;
     yap::HorizontalLayout* mainLayout_;
 
+    static const sf::Color DEFAULT_HP_COLOR_GOOD;
+    static const sf::Color DEFAULT_HP_COLOR_MEDIUM;
+    static const sf::Color DEFAULT_HP_COLOR_BAD;
+    static const float MAX_HP_BAR_SIZE;
   };
 } // namespace ycl
 

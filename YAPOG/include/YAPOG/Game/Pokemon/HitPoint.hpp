@@ -13,6 +13,7 @@ namespace yap
       HitPoint (const UInt16& currentValue, const UInt16& ev, const UInt16& iv);
 
       UInt16 GetCurrentValue () const;
+      float GetHPPercentage () const;
 
       void SetCurrentValue (const UInt16& value);
 

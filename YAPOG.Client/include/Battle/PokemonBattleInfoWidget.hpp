@@ -26,12 +26,15 @@ namespace ycl
 
     virtual void Init ();
 
+    virtual void UpdateHPBar ();
+
     /// @name Setters.
     /// @{
-    void SetHPValue (const yap::HitPoint& hp);
+    virtual void SetHitPoint (const yap::HitPoint& hp);
     /// @}
 
   private:
+    const yap::HitPoint* hp_;
     yap::Label hpValue_;
     yap::ISprite* experienceBar_;
   };

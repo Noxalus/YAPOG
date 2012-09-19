@@ -486,6 +486,8 @@ ${inc_root}/Graphics/Gui/IGuiManager.hpp
 ${inc_root}/Graphics/Gui/IWidget.hpp
 ${inc_root}/Graphics/Gui/GridMenu.hpp
 ${src_root}/Graphics/Gui/GridMenu.cpp
+${inc_root}/Graphics/Gui/ProgressBarWidget.hpp
+${src_root}/Graphics/Gui/ProgressBarWidget.cpp
 
 ${inc_root}/Graphics/Gui/Game/GameWidget.hpp
 ${src_root}/Graphics/Gui/Game/GameWidget.cpp

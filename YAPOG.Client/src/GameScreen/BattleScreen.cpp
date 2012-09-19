@@ -53,6 +53,38 @@ namespace ycl
     BaseScreen::HandleRun (dt, context);
   }
 
+  bool BattleScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    switch (guiEvent.type)
+    {
+    case sf::Event::KeyPressed:
+
+      switch (guiEvent.key.code)
+      {
+      case sf::Keyboard::PageDown:
+        battle_->GetOpponent ().TakeDamage (1);
+        return true;
+         case sf::Keyboard::PageUp:
+        battle_->GetOpponent ().TakeDamage (-1);
+        return true;
+
+         case sf::Keyboard::W:
+           battle_->GetPlayerTeam ().TakeDamage (1);
+        return true;
+        case sf::Keyboard::A:
+        battle_->GetPlayerTeam ().TakeDamage (-1);
+        return true;
+      default: break;
+      }
+
+      break;
+
+    default: break;
+    }
+
+    return false;
+  }
+
   void BattleScreen::HandleActivate ()
   {
     BattleParameters& parameters = 
