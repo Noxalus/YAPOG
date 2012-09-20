@@ -1,7 +1,7 @@
 Yet Another Pokemon Online Game
 ===============================
 
-[![Build Status](https://secure.travis-ci.org/Noxalus/YAPOG.png?branch=travis)](http://travis-ci.org/Noxalus/YAPOG)
+Travis: [![Build Status](https://secure.travis-ci.org/Noxalus/YAPOG.png?branch=travis)](http://travis-ci.org/Noxalus/YAPOG)
 
 What is YAPOG?
 --------------
