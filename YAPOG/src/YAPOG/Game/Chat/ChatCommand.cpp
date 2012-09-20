@@ -226,7 +226,7 @@ namespace yap
         std::istringstream buf (chanNb);
         UInt32 tmp = 0;
         buf >> tmp;
-        if (tmp >= 0 && tmp < cm->Count)
+        if (tmp < cm->Count)
         {
           cm->TabNb = tmp;
           b->RemoveBack ();
@@ -259,7 +259,7 @@ namespace yap
         std::istringstream buf (chanNb);
         UInt32 tmp = 0;
         buf >> tmp;
-        if (tmp >= 0 && tmp < cd->GetChanNb ())
+        if (tmp < cd->GetChanNb ())
         {
           (*channb) = 0;
           cm->ChanNb = tmp;
@@ -293,7 +293,7 @@ namespace yap
         std::istringstream buf (chanNb);
         UInt32 tmp = 0;
         buf >> tmp;
-        if (tmp >= 0 && tmp < cd->GetChanNb())
+        if (tmp < cd->GetChanNb())
         {
           cd->AddChan (tmp);
           b->RemoveBack ();
@@ -327,7 +327,7 @@ namespace yap
         std::istringstream buf (chanNb);
         UInt32 tmp = 0;
         buf >> tmp;
-        if (tmp >= 0 && tmp < cd->GetChanNb())
+        if (tmp < cd->GetChanNb())
         {
           cd->RmChan (tmp);
           b->RemoveBack ();

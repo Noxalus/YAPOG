@@ -80,8 +80,9 @@ namespace ycl
     {
       OnPokemonItemActivated (*this, yap::EmptyEventArgs ());
     };
-
-    yap::MenuItem& bagItem = AddItem ("SAC");
+    
+    /// @todo Add a Bag entry in the main menu
+    //yap::MenuItem& bagItem = AddItem ("SAC");
 
     yap::MenuItem& playerItem = AddItem (playerName);
     playerItem.OnActivated += [this] (

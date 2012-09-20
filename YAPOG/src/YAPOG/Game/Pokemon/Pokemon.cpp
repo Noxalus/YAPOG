@@ -242,7 +242,7 @@ namespace yap
       type.GetTypeEffect (type_.GetType2 ().GetID ());
   }
 
-  const UInt32& Pokemon::GetTotalExperience () const
+  UInt32 Pokemon::GetTotalExperience () const
   {
     if (exp_ != nullptr)
       return exp_->GetValue ();
@@ -253,12 +253,12 @@ namespace yap
     }
   }
 
-  const UInt32& Pokemon::GetExperienceToNextLevel () const
+  UInt32 Pokemon::GetExperienceToNextLevel () const
   {
     return exp_->GetExperienceToNextLevel ();
   }
 
-  const UInt32& Pokemon::GetTotalExperienceToNextLevel () const
+  UInt32 Pokemon::GetTotalExperienceToNextLevel () const
   {
     if (exp_ != nullptr)
       return exp_->GetTotalExperienceToNextLevel ();
@@ -295,17 +295,17 @@ namespace yap
   }
 
 
-  const UInt16& Pokemon::GetLevel () const
+  UInt16 Pokemon::GetLevel () const
   {
     return exp_->GetLevel ();
   }
 
-  const bool Pokemon::GetShiny () const
+  bool Pokemon::GetShiny () const
   {
     return shiny_;
   }
 
-  const Int16& Pokemon::GetLoyalty () const
+  Int16 Pokemon::GetLoyalty () const
   {
     return loyalty_;
   }
@@ -461,43 +461,5 @@ namespace yap
       YAPOG_THROW("A Pokemon cannot take negative damages !");
 
     stats_.ModifyHitPoint (damage);
-  }
-
-  static String GetStringFromExperienceType (
-    const ExperienceType& experienceType)
-  {
-    switch (experienceType)
-    {
-    case ExperienceType::Slow:
-      return "Slow";
-    case ExperienceType::MediumSlow:
-      return "MediumSlow";
-    case ExperienceType::MediumFast:
-      return "MediumFast";
-    case ExperienceType::Fast:
-      return "Fast";
-    case ExperienceType::Fluctuating:
-      return "Fluctuating";
-    case ExperienceType::Erratic:
-      return "Erratic";
-    default:
-      return "Error";
-    }
-  }
-
-  static String GetStringFromGender (
-    const Gender& gender)
-  {
-    switch (gender)
-    {
-    case Gender::Genderless:
-      return "G";
-    case Gender::Female:
-      return "F";
-    case Gender::Male:
-      return "M";
-    default:
-      return "Error";
-    }
   }
 }

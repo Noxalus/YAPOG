@@ -18,11 +18,11 @@ namespace ycl
     , lastlength_ (0)
     , fc_ (nullptr)
     , fileName_ ()
-    , backgroundbox_ (new yap::PictureBox ())
-    , foregroundbox_ (new yap::PictureBox ())
     , filePercentage_ ()
     , fileDownloaded_ ()
     , totalFile_ ()
+    , backgroundbox_ (new yap::PictureBox ())
+    , foregroundbox_ (new yap::PictureBox ())
     , firstLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5),
     yap::Padding (5, 5, 5, 5), false))
     , secondLayout_ (new yap::HorizontalLayout (yap::Padding (5, 5, 5, 5),

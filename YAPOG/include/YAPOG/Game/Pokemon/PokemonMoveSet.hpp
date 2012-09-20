@@ -20,7 +20,7 @@ namespace yap
 
     /// Getters
     const collection::Array<PokemonMove*>& GetMoves () const;
-    const UInt8 GetMoveNumber () const;
+    UInt8 GetMoveNumber () const;
     const PokemonMove* GetMove (const UInt8& index) const;
 
     void AddMove (PokemonMove* move, const UInt8& index);

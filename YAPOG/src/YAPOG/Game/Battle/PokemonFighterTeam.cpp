@@ -16,22 +16,22 @@ namespace yap
     return GetCurrentFighter ().GetName ();
   }
 
-  const UInt16& PokemonFighterTeam::GetLevel () const
+  UInt16 PokemonFighterTeam::GetLevel () const
   {
     return GetCurrentFighter ().GetLevel ();
   }
 
-  const Gender& PokemonFighterTeam::GetGender () const
+  Gender PokemonFighterTeam::GetGender () const
   {
     return GetCurrentFighter ().GetGender ();
   }
 
-  const UInt16& PokemonFighterTeam::GetCurrentHP () const
+  UInt16 PokemonFighterTeam::GetCurrentHP () const
   {
     return GetCurrentFighter ().GetCurrentHP ();
   }
 
-  const UInt16& PokemonFighterTeam::GetMaxHP () const
+  UInt16 PokemonFighterTeam::GetMaxHP () const
   {
     return GetCurrentFighter ().GetMaxHP ();
   }

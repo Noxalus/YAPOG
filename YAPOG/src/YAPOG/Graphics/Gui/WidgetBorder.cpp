@@ -203,7 +203,7 @@ namespace yap
   {
     uint maxWidth = 0;
     uint currentSize = 0;
-    for (int i = 0; i < textures_.Count (); ++i)    
+    for (uint i = 0; i < textures_.Count (); ++i)    
     {
 
       if (i == 0 || i == 4)

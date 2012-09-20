@@ -105,13 +105,13 @@ namespace yap
 
   void                ChatDisplayer::AddChan (UInt32 c)
   {
-    if (c >= 0 && c <= NBCHAN)
+    if (c <= NBCHAN)
       chanbooltab_[c] = true;
   }
 
   void                ChatDisplayer::RmChan (UInt32 c)
   {
-    if (c >= 0 && c <= NBCHAN)
+    if (c <= NBCHAN)
       chanbooltab_[c] = false;
   }
 

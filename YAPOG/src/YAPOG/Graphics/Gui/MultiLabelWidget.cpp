@@ -127,6 +127,7 @@ namespace yap
 
     collection::Array<uint> pos;
     pos.Add (0);
+    
     while (true)
     {
       while (width.getLocalBounds ().width < LabelMaxSize)
@@ -147,7 +148,7 @@ namespace yap
       width.setString (txt.substr (previousPos, subPos));
     }
 
-    for (int i = 0; i < pos.Count (); ++i)
+    for (uint i = 0; i < pos.Count (); ++i)
     {
       Label* lb = new Label ();      
       lb->ChangeColor (color);
@@ -167,7 +168,9 @@ namespace yap
       currentSelec_++;
       layoutManager_->SetCurrentSel (currentSelec_);
     }
+
     layout_->SetPosition (GetPosition () - Vector2 (0, charWidth.GetCharHeight () / 2));
+
     Refresh ();
   }
 

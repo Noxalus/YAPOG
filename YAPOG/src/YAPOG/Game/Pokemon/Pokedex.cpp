@@ -3,9 +3,9 @@
 namespace yap
 {
   Pokedex::Pokedex ()
-    : pokCaught_ ()
+    : pokSeen_ ()
+    , pokCaught_ ()
     , pokList_ ()
-    , pokSeen_ ()
   {
 
   }

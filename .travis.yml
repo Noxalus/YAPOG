@@ -1,11 +1,12 @@
 language: cpp
 compiler:
+  - clang
   - gcc
 
 before_script:
   - sudo apt-get install -qq libpthread-stubs0-dev freeglut3-dev libxrandr-dev libfreetype6-dev libglew1.6-dev libjpeg8-dev libsndfile1-dev libopenal-dev
 
-script: ./build_script
+script: ./build
 
 notifications:
   email: false

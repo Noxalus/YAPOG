@@ -24,9 +24,12 @@ namespace ycl
 
     yap::XmlReaderCollection entryReaders;
     reader->ReadNodes ("entry", entryReaders);
+    
+    /// @todo read inputs entries
+    /*
     for (auto& entryReader : entryReaders)
     {
-      /// @todo read inputs entries
     }
+    */
   }
 } // namespace ycl

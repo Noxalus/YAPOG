@@ -8,8 +8,8 @@ namespace yse
 {
   PokemonInsertRequest::PokemonInsertRequest 
     (const PokemonTable& pokemonTable)
-    : pokemonTable_ (pokemonTable)
-    , id_ ()
+    : id_ ()
+    , pokemonTable_ (pokemonTable)
   {
   }
 
@@ -83,6 +83,7 @@ namespace yse
     catch (const pgs::pg_excpt& e)
     {
       std::cerr << e.errmsg () << std::endl;
+      return false;
     }
   }
 

@@ -22,10 +22,10 @@ namespace yap
     /// @name Getters.
     /// @{
     virtual const String& GetName () const = 0;
-    virtual const UInt16& GetLevel () const = 0;
-    virtual const Gender& GetGender () const = 0;
-    virtual const UInt16& GetCurrentHP () const = 0;
-    virtual const UInt16& GetMaxHP () const = 0;
+    virtual UInt16 GetLevel () const = 0;
+    virtual Gender GetGender () const = 0;
+    virtual UInt16 GetCurrentHP () const = 0;
+    virtual UInt16 GetMaxHP () const = 0;
     virtual float GetHPPercentage () const = 0;
     virtual const collection::Array<PokemonMove*>& GetMoves () const = 0;
     virtual const PokemonMove& GetMove (int index) const = 0;

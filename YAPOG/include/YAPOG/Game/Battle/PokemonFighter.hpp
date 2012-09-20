@@ -22,10 +22,10 @@ namespace yap
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;
-    virtual const UInt16& GetLevel () const;
-    virtual const Gender& GetGender () const;
-    virtual const UInt16& GetCurrentHP () const;
-    virtual const UInt16& GetMaxHP () const;
+    virtual UInt16 GetLevel () const;
+    virtual Gender GetGender () const;
+    virtual UInt16 GetCurrentHP () const;
+    virtual UInt16 GetMaxHP () const;
     virtual float GetHPPercentage () const;
     virtual const collection::Array<PokemonMove*>& GetMoves () const;
     virtual const PokemonMove& GetMove (int index) const;

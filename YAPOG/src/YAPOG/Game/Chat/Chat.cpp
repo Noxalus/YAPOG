@@ -131,7 +131,7 @@ namespace yap
     if (--index_ >= size)
       index_ = size - 1;
  
-    return std::make_pair (true, (index_ >= 0) ? history_[index_] : "");
+    return std::make_pair (true, history_[index_]);
   }
 
   std::pair<bool, String>   Chat::GetDownHistory ()

@@ -60,7 +60,6 @@ namespace ycl
   /*
   bool GameGuiManager::HandleOnPriorityEvent (const yap::GuiEvent& guiEvent)
   {
-  /*
   switch (guiEvent.type)
   {
   case sf::Event::KeyPressed:

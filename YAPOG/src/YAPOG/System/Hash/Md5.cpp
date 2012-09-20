@@ -87,7 +87,6 @@ namespace yap
     return mrawHash_;
   }
 
-#pragma region Definition
 #define S11 7
 #define S12 12
 #define S13 17
@@ -157,7 +156,6 @@ namespace yap
 	(a) = ROTATE_LEFT ((a), (s)); \
 	(a) += (b); \
 		}
-#pragma endregion
 
 	/* MD5 initialization. Begins an MD5 operation, writing a new context. */
 	void                  MD5Init (sMd5CTX *context)

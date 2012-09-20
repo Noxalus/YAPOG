@@ -93,7 +93,7 @@ namespace ycl
     };
 
     // Pokemon moves
-    for (int i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
+    for (uint i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
     {
       if (battle_.GetPlayerTeam ().GetMoves ()[i] != nullptr)
       {

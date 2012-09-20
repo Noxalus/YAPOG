@@ -11,6 +11,7 @@
 #include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 
+/*
 static void test_db ()
 {
   int selection = 0;
@@ -148,6 +149,7 @@ void math_test ()
 
   getchar ();
 }
+*/
 
 int main ()
 {

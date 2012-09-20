@@ -408,13 +408,17 @@ namespace yap
       border_->SetBorder (GetSize ());
     else
       border_->SetBorder (GetUserSize ());
+
+    /*
     uint paddingBorder = border_->GetSize ().y > 0
       ? border_->GetSize ().y : border_->GetSize ().x;
-    /*  if (border_->GetSize ().y == 0)
+    if (border_->GetSize ().y == 0)
     SetPosAfterBorder (paddingBorder, 0, false);
     else
-    SetPosAfterBorder (paddingBorder, paddingBorder, false);*/
+    SetPosAfterBorder (paddingBorder, paddingBorder, false);
+    */
   }
+  
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
 

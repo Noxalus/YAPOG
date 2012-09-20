@@ -13,26 +13,9 @@ namespace yap
       YAPOG_THROW("The original Pokemon doesn't exist !");
   }
 
-  const Gender& PokemonFighter::GetGender () const
+  Gender PokemonFighter::GetGender () const
   {
     return originalPokemon_->GetGender ();
-  }
-
-  /// statics method
-  static String GetStringFromGender (
-    const Gender& gender)
-  {
-    switch (gender)
-    {
-    case Gender::Genderless:
-      return "G";
-    case Gender::Female:
-      return "F";
-    case Gender::Male:
-      return "M";
-    default:
-      return "Error";
-    }
   }
 
   const TypeInfo& PokemonFighter::GetType1 () const
@@ -81,17 +64,17 @@ namespace yap
     return originalPokemon_->GetName ();
   }
 
-  const UInt16& PokemonFighter::GetLevel () const
+  UInt16 PokemonFighter::GetLevel () const
   {
     return originalPokemon_->GetLevel ();
   }
 
-  const UInt16& PokemonFighter::GetCurrentHP () const
+  UInt16 PokemonFighter::GetCurrentHP () const
   {
     return stats_.GetHitPoint ().GetCurrentValue ();
   }
 
-  const UInt16& PokemonFighter::GetMaxHP () const
+  UInt16 PokemonFighter::GetMaxHP () const
   {
     return stats_.GetHitPoint ().GetValue ();
   }

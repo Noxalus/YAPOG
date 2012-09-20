@@ -195,7 +195,9 @@ namespace yap
     for (; it != it_end; it++)
     {
       name = (*it)->GetFilename ();
+
       if (name == elt->GetFilename ())
+      {
         if ((*it)->GetMd5 () != elt->GetMd5 ())
         {
           std::replace(name.begin (), name.end (), '\\', '/');
@@ -203,6 +205,7 @@ namespace yap
         }
         else
           return "";
+      }
     }
 
     name = elt->GetFilename ();
@@ -275,7 +278,7 @@ namespace yap
           std::replace (n.begin (), n.end (), '\\', '/');
           String newpath = "";
 
-          int i = n.rfind ('/');
+          uint i = n.rfind ('/');
           bool dl = true;
           String name = n;
           server.keepAlive ();
@@ -319,7 +322,7 @@ namespace yap
     {
       boost::asio::io_service io_service;
       FileChecker::VFileType& vs = fc->GetVFileToDl ();
-      size_t vectorSize = vs.Count ();
+      //size_t vectorSize = vs.Count ();
 
       // Get a list of endpoints corresponding to the server name.
       // Try each endpoint until we successfully establish a connection.
@@ -342,7 +345,7 @@ namespace yap
         String path = path_.string ();
         String newpath = "";
 
-        int i = n.rfind ('/');
+        uint i = n.rfind ('/');
         bool dl = true;
         String name = n;
         if (n[n.size () - 1] == '0')
@@ -434,7 +437,7 @@ namespace yap
   bool FileChecker::LocalUpdate (FileChecker* fc)
   {
     FileChecker::VFileType& vs = fc->GetVFileToDl ();
-    size_t vectorSize = vs.Count ();
+    //size_t vectorSize = vs.Count ();
 
     // Get a list of endpoints corresponding to the server name.
     // Try each endpoint until we successfully establish a connection.
@@ -449,7 +452,7 @@ namespace yap
       String path = path_.string ();
       String newpath = "";
 
-      int i = n.rfind ('/');
+      uint i = n.rfind ('/');
       bool dl = true;
       String name = n;
       if (n[n.size () - 1] == '0')

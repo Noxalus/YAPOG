@@ -80,7 +80,7 @@ namespace ycl
     menu_->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x, firstHLayout_->GetSize ().y));
     menu_->SetBackground (*menuBackground);
 
-    for (int i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
+    for (uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
     {
       yap::MenuItem* item = new yap::MenuItem (false);
       item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
@@ -118,8 +118,8 @@ namespace ycl
       item->ChangeColor (sf::Color (0, 0, 0));
       /*item->SetBorder (*new yap::WidgetBorder ("Test/red.png"));*/
       menu_->AddChild (*item, yap::LayoutBox::Align::LEFT);
-
     }
+
     pokSeen_ = new yap::Label ("Vus : "  + yap::StringHelper::ToString (pokedex_->GetPokemonSeenCount ()));
     pokCaught_ = new yap::Label ("Pris : "  + yap::StringHelper::ToString (pokedex_->GetPokemonCaughtCount ()));
     pokSeen_->ChangeColor (sf::Color::White);
@@ -148,7 +148,7 @@ namespace ycl
       return;
 
     if (pokedex_ != nullptr)
-      for (int i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
+      for (uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
       {
         yap::MenuItem* item = new yap::MenuItem (false);
         item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
