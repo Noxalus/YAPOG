@@ -151,7 +151,8 @@ namespace ycl
       for (yap::uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
       {
         yap::MenuItem* item = new yap::MenuItem (false);
-        item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
+        item->SetSize (yap::Vector2 (
+          firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
         const yap::PokemonInfo* current = pokedex_->GetPokemonSeenID (i);
 
         if (current == nullptr)
