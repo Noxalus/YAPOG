@@ -7,6 +7,7 @@
 #include "YAPOG/Graphics/Gui/MultiLabelWidget.hpp"
 #include "YAPOG/Graphics/Gui/PartialLayoutManager.hpp"
 #include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
+#include "YAPOG/Content/ContentManager.hpp"
 
 namespace yap
 {
@@ -119,7 +120,10 @@ namespace yap
     uint charNumb = (LabelMaxSize / charWidth.GetCharWidth () * 1.5);
     uint previousPos = 0;
     uint subPos = charNumb;
-    sf::Text width (txt.substr (0, subPos));
+    sf::Text width (
+      txt.substr (0, subPos),
+      ContentManager::Instance ().LoadFont (Label::DEFAULT_FONT),
+      Label::DEFAULT_SIZE);
 
     collection::Array<uint> pos;
     pos.Add (0);

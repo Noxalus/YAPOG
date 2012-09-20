@@ -5,6 +5,7 @@
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Graphics/Gui/GuiEvent.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
+#include "YAPOG/Content/ContentManager.hpp"
 
 namespace yap
 {
@@ -123,7 +124,10 @@ namespace yap
 
     uint previousPos = 0;
     uint subPos = charNumb;
-    sf::Text width (txt.substr (0, subPos));
+    sf::Text width (
+      txt.substr (0, subPos), 
+      ContentManager::Instance ().LoadFont (Label::DEFAULT_FONT),
+      Label::DEFAULT_SIZE);
 
     while (true)
     {

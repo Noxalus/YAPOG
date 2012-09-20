@@ -42,6 +42,9 @@ namespace yap
     uint Length () const;
     virtual void SetDefaultColor (const sf::Color& color);
     virtual void SetBackground (WidgetBackground& background);
+
+    static const String DEFAULT_FONT;        
+    static const UInt32 DEFAULT_SIZE;
   private:
     virtual void Refresh ();
     virtual Vector2 HandleGetSize () const;
@@ -60,8 +63,6 @@ namespace yap
     String textContent_;
     sf::Text drawableText_;
     bool isPosSet_;
-
-    static const String DEFAULT_FONT;
   };
 } // namespace yap
 

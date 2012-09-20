@@ -138,7 +138,7 @@ namespace yap
       && !(guiEvent.key.code >= sf::Keyboard::F1
       && guiEvent.key.code <= sf::Keyboard::F12))
     {
-      if (guiEvent.key.code == sf::Keyboard::Back)
+      if (guiEvent.key.code == sf::Keyboard::BackSpace)
       {
         if (label_->Length () - curserRelPos_ == 0)
           return true;

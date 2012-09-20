@@ -10,6 +10,7 @@
 namespace yap
 {
   const String Label::DEFAULT_FONT = "pkmnemn.ttf";
+  const UInt32 Label::DEFAULT_SIZE = 30;
 
   Label::Label ()
     : textContent_ ()
@@ -23,7 +24,10 @@ namespace yap
 
   Label::Label (String content)
     : textContent_ (content)
-    , drawableText_ (content)
+    , drawableText_ (
+      content, 
+      ContentManager::Instance ().LoadFont (DEFAULT_FONT),
+      DEFAULT_SIZE)
     , isPosSet_ (false)
   {
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
@@ -33,9 +37,6 @@ namespace yap
       GetPosition ().y);
 
     isPosSet_ = true;
-
-    drawableText_.setFont 
-      (ContentManager::Instance ().LoadFont (DEFAULT_FONT));
   }
 
   Label::~Label ()
