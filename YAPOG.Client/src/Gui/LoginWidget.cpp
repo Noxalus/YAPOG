@@ -37,20 +37,6 @@ namespace ycl
       new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/WindowBackgroundTexture.png", true);
 
-    /*
-    yap::Texture* ti = new yap::Texture ();
-    yap::Texture* tri = new yap::Texture ();
-    yap::Texture* ri = new yap::Texture ();
-    yap::Texture* bri = new yap::Texture ();
-    yap::Texture* bi = new yap::Texture ();
-    yap::Texture* bli = new yap::Texture ();
-    yap::Texture* li = new yap::Texture ();
-    li->LoadFromFile ("WindowSkins/BasicSkin/Global/Cursor.png");
-    yap::Texture* tli = new yap::Texture ();
-    yap::WidgetBorder* menuItemBrd =
-      new yap::WidgetBorder (*ti, *tri, *ri, *bri, *bi, *bli, *li, *tli, false);
-    */
-
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("WindowSkins/BasicSkin/Global/TopBorder.png");
     yap::Texture* tr = new yap::Texture ();
