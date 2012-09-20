@@ -1,5 +1,3 @@
-#include "YAPOG/System/Error/Exception.hpp"
-#include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
@@ -49,13 +47,9 @@ namespace ycl
 
   void PokemonHPBarWidget::SetHitPoint (const yap::HitPoint& hp)
   {
-    if (hp_ == nullptr)
-    {
-      hp_ = &hp;
-      Update ();
-    }
-    else
-      YAPOG_THROW("HP have already been set !");
+    hp_ = &hp;
+
+    Update ();
   }
 
   void PokemonHPBarWidget::Update ()
