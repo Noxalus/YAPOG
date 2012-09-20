@@ -1,3 +1,4 @@
+#include "YAPOG/System/IntTypes.hpp"
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 #include "YAPOG/Game/Battle/Phase/ActionPhaseArgs.hpp"
@@ -93,7 +94,7 @@ namespace ycl
     };
 
     // Pokemon moves
-    for (uint i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
+    for (yap::uint i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
     {
       if (battle_.GetPlayerTeam ().GetMoves ()[i] != nullptr)
       {

@@ -80,7 +80,7 @@ namespace ycl
     menu_->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x, firstHLayout_->GetSize ().y));
     menu_->SetBackground (*menuBackground);
 
-    for (uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
+    for (yap::uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
     {
       yap::MenuItem* item = new yap::MenuItem (false);
       item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
@@ -148,7 +148,7 @@ namespace ycl
       return;
 
     if (pokedex_ != nullptr)
-      for (uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
+      for (yap::uint i = 1; i <= pokedex_->GetMaxIDSeen (); i++)
       {
         yap::MenuItem* item = new yap::MenuItem (false);
         item->SetSize (yap::Vector2 (firstHLayout_->GetSize ().x - firstVLayout_->GetSize ().x - 10, 28));
