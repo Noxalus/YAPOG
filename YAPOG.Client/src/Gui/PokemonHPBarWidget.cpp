@@ -3,6 +3,7 @@
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Game/Pokemon/HitPoint.hpp"
+#include "YAPOG/System/Time/Time.hpp"
 
 #include "Gui/PokemonHPBarWidget.hpp"
 #include "Pokemon/Pokemon.hpp"
@@ -20,8 +21,11 @@ namespace ycl
 
   PokemonHPBarWidget::PokemonHPBarWidget ()
     : hp_ (nullptr)
+    , previousHPValue_ (0)
+    , hpValueVariance_ (0)
     , hpBarContent_ (nullptr)
     , mainLayout_ (nullptr)
+    , hpTimer_ ()
   {
     mainLayout_ = new yap::HorizontalLayout (
       yap::Padding (45, 0, 0, 6), yap::Padding (), false);
@@ -48,11 +52,18 @@ namespace ycl
   void PokemonHPBarWidget::SetHitPoint (const yap::HitPoint& hp)
   {
     hp_ = &hp;
+    previousHPValue_ = hp_->GetCurrentValue ();
 
-    Update ();
+    RealUpdate ();
   }
 
   void PokemonHPBarWidget::Update ()
+  {
+    hpValueVariance_ = previousHPValue_ - hp_->GetCurrentValue ();
+    hpTimer_.Reset ();
+  }
+
+  void PokemonHPBarWidget::RealUpdate ()
   {
     // Update the color
     /*
@@ -110,6 +121,12 @@ namespace ycl
 
   void PokemonHPBarWidget::HandleUpdate (const yap::Time& dt)
   {
+    if (hpValueVariance_ > 0 && hpTimer_.GetCurrentTime ().GetValue () >= 1.f)
+    {
+      hpValueVariance_--;
+      RealUpdate ();
+      hpTimer_.Reset ();
+    }
   }
 
 } // namespace ycl

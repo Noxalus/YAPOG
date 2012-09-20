@@ -3,6 +3,8 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/System/Time/UpdateableTimer.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -39,9 +41,16 @@ namespace ycl
     virtual void HandleUpdate (const yap::Time& dt);
 
   private:
+    void RealUpdate ();
+
     const yap::HitPoint* hp_;
+    yap::UInt16 previousHPValue_;
+    yap::UInt16 hpValueVariance_;
+
     yap::PictureBox* hpBarContent_;
     yap::HorizontalLayout* mainLayout_;
+    yap::UpdateableTimer hpTimer_;
+
 
     static const sf::Color DEFAULT_HP_COLOR_GOOD;
     static const sf::Color DEFAULT_HP_COLOR_MEDIUM;

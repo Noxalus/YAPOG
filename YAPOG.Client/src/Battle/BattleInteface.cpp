@@ -115,11 +115,8 @@ namespace ycl
 
     currentWidget_ = battleWidgets_[currentWidgetName_];
 
-    eventHandlers_.Remove (currentWidget_);
-    eventHandlers_.AddFront (currentWidget_);
-
-    drawables_.Remove (currentWidget_);
-    drawables_.Add (currentWidget_);
+    RemoveChild (*currentWidget_);
+    FrontAddChild (*currentWidget_);
 
     currentWidget_->Open ();
   }
