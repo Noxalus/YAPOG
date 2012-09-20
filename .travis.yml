@@ -4,8 +4,6 @@ compiler:
 
 before_script:
   - sudo apt-get install -qq libpthread-stubs0-dev freeglut3-dev libxrandr-dev libfreetype6-dev libglew1.6-dev libjpeg8-dev libsndfile1-dev libopenal-dev
-  - cmake .
-  - make
 
 notifications:
   email: false
