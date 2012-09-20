@@ -216,7 +216,7 @@ private :
 /// // Create a new render-texture
 /// sf::RenderTexture texture;
 /// if (!texture.create(500, 500))
-///     return -1
+///     return -1;
 ///
 /// // The main loop
 /// while (window.isOpen())
@@ -250,7 +250,7 @@ private :
 /// Like sf::RenderWindow, sf::RenderTexture is still able to render direct
 /// OpenGL stuff. It is even possible to mix together OpenGL calls
 /// and regular SFML drawing commands. If you need a depth buffer for
-/// 3D rendering, don't forget to request it when calling RenderTexture::Create.
+/// 3D rendering, don't forget to request it when calling RenderTexture::create.
 ///
 /// \see sf::RenderTarget, sf::RenderWindow, sf::View, sf::Texture
 ///

@@ -120,8 +120,9 @@ public :
     ////////////////////////////////////////////////////////////
     /// \brief Set the thickness of the shape's outline
     ///
-    /// This number cannot be negative. Using zero disables
-    /// the outline.
+    /// Note that negative values are allowed (so that the outline
+    /// expands towards the center of the shape), and using zero
+    /// disables the outline.
     /// By default, the outline thickness is 0.
     ///
     /// \param thickness New outline thickness
@@ -200,7 +201,7 @@ public :
     ///
     /// The result is undefined if \a index is out of the valid range.
     ///
-    /// \param index Index of the point to get, in range [0 .. GetPointCount() - 1]
+    /// \param index Index of the point to get, in range [0 .. getPointCount() - 1]
     ///
     /// \return Index-th point of the shape
     ///

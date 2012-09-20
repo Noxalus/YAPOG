@@ -116,7 +116,7 @@ public :
     /// This function gracefully closes the connection. If the
     /// socket is not connected, this function has no effect.
     ///
-    /// \see Connect
+    /// \see connect
     ///
     ////////////////////////////////////////////////////////////
     void disconnect();
@@ -227,7 +227,7 @@ private:
 ///
 /// When a socket is connected to a remote host, you can
 /// retrieve informations about this host with the
-/// getRemoteAddress and GetRemotePort functions. You can
+/// getRemoteAddress and getRemotePort functions. You can
 /// also get the local port to which the socket is bound
 /// (which is automatically chosen when the socket is connected),
 /// with the getLocalPort function.

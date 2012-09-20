@@ -1,0 +1,3 @@
+/home/martial/Documents/YAPOGBIS/YAPOG/_build/YAPOG/CMakeFiles/YAPOG.dir
+/home/martial/Documents/YAPOGBIS/YAPOG/_build/YAPOG.Client/CMakeFiles/YAPOG.Client.dir
+/home/martial/Documents/YAPOGBIS/YAPOG/_build/YAPOG.Server/CMakeFiles/YAPOG.Server.dir
