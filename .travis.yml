@@ -3,6 +3,7 @@ compiler:
   - gcc
 
 before_script:
+  - sudo apt-get install -qq pthread opengl xlib xrandr freetype glew jpeg sndfile openal
   - cmake .
   - make
 
