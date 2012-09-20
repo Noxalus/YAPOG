@@ -134,16 +134,6 @@ namespace yse
     SendPacket (packet);
   }
 
-  void Player::Talk (const yap::IDialogActor& dialogActor)
-  {
-    TryChangeState ("Talking");
-
-    yap::Packet packet;
-    packet.CreateFromType (yap::PacketType::ServerInfoTalk);
-
-    SendPacket (packet);
-  }
-
   yap::Event<
     yap::DynamicWorldObject&,
     const yap::Vector2&>& Player::OnMovedEvent ()

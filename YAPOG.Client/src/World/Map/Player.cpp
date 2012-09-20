@@ -91,11 +91,6 @@ namespace ycl
     // Does nothing, server side only.
   }
 
-  void Player::Talk (const yap::IDialogActor& dialogActor)
-  {
-    // Does nothing, server side only.
-  }
-
   yap::Event<
     yap::DynamicWorldObject&,
     const yap::Vector2&>& Player::OnMovedEvent ()

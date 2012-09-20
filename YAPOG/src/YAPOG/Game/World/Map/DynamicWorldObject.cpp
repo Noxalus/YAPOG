@@ -24,6 +24,7 @@ namespace yap
     , events_ ()
     , triggerBoundingBoxes_ ()
     , sourceBoundingBoxes_ ()
+    , actions_ ()
   {
   }
 
@@ -45,6 +46,7 @@ namespace yap
     , events_ ()
     , triggerBoundingBoxes_ (copy.triggerBoundingBoxes_)
     , sourceBoundingBoxes_ (copy.sourceBoundingBoxes_)
+    , actions_ ()
   {
     if (copy.physicsCore_ != nullptr)
       SetPhysicsCore (copy.physicsCore_->Clone ());
@@ -231,9 +233,25 @@ namespace yap
     triggerBoundingBoxes_.GetEventsCollidingWith (collidableArea, events);
   }
 
+  void DynamicWorldObject::PerformAction (const String& name)
+  {
+    actions_.PerformAction (name);
+  }
+
   void DynamicWorldObject::Update (const Time& dt)
   {
     HandleUpdate (dt);
+  }
+
+  void DynamicWorldObject::AddAction (
+    const String& name, IWorldObjectAction* action)
+  {
+    actions_.AddAction (name, action);
+  }
+
+  void DynamicWorldObject::RemoveAction (const String& name)
+  {
+    actions_.RemoveAction (name);
   }
 
   void DynamicWorldObject::HandleSetWorldID (const ID& worldID)

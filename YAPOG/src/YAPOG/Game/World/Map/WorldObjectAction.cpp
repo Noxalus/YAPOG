@@ -16,6 +16,11 @@ namespace yap
     HandlePerform ();
   }
 
+  DynamicWorldObject& WorldObjectAction::GetParent ()
+  {
+    return parent_;
+  }
+
   void WorldObjectAction::HandlePerform ()
   {
   }

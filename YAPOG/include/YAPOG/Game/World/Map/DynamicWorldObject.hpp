@@ -9,6 +9,7 @@
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/Game/World/Map/Physics/EventTriggerBoundingBoxCollection.hpp"
 # include "YAPOG/Game/World/Map/Physics/EventBoundingBoxCollection.hpp"
+# include "YAPOG/Game/World/Map/WorldObjectActionCollection.hpp"
 
 namespace yap
 {
@@ -68,6 +69,8 @@ namespace yap
         const CollidableArea& collidableArea,
         MapEventQueue& events) const;
 
+      void PerformAction (const String& name);
+
       /// @name IUpdateable members.
       /// @{
       virtual void Update (const Time& dt);
@@ -91,6 +94,9 @@ namespace yap
       explicit DynamicWorldObject (const ID& id);
 
       DynamicWorldObject (const DynamicWorldObject& copy);
+
+      void AddAction (const String& name, IWorldObjectAction* action);
+      void RemoveAction (const String& name);
 
       virtual const String& GetObjectFactoryTypeName () const = 0;
 
@@ -130,6 +136,8 @@ namespace yap
       EventTriggerBoundingBoxCollection triggerBoundingBoxes_;
       /// Boxes that belong to an event and can be triggered.
       EventBoundingBoxCollection sourceBoundingBoxes_;
+
+      WorldObjectActionCollection actions_;
   };
 } // namespace yap
 

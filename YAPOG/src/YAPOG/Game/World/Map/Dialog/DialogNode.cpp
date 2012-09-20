@@ -38,7 +38,7 @@ namespace yap
         continue;
 
       executionContext = DialogNodeExecutionContext (
-        entry->Message,
+        *entry->Message,
         entry->Action,
         entry->NextNode);
 

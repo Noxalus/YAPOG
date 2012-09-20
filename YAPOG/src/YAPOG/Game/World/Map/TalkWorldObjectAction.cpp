@@ -1,9 +1,11 @@
-#include "TalkWorldObjectAction.cpp"
+#include "YAPOG/Game/World/Map/TalkWorldObjectAction.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
 
 namespace yap
 {
   TalkWorldObjectAction::TalkWorldObjectAction (
-    DynamicWorldObject& parent
+    DynamicWorldObject& parent,
     IDialogActor& dialogActor,
     IDialogManager& dialogManager)
     : WorldObjectAction (parent)
@@ -19,6 +21,9 @@ namespace yap
   void TalkWorldObjectAction::HandlePerform ()
   {
     WorldObjectAction::HandlePerform ();
+
+    if (!GetParent ().TryChangeState ("Talking"))
+      return;
 
     dialogManager_.StartDialog (dialogActor_);
   }

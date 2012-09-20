@@ -205,6 +205,15 @@ ${inc_root}/Game/World/Map/WorldObjectState.hpp
 ${src_root}/Game/World/Map/WorldObjectState.cpp
 ${inc_root}/Game/World/Map/WorldObjectStateFactory.hpp
 ${src_root}/Game/World/Map/WorldObjectStateFactory.cpp
+${inc_root}/Game/World/Map/IWorldObjectAction.hpp
+${inc_root}/Game/World/Map/WorldObjectAction.hpp
+${src_root}/Game/World/Map/WorldObjectAction.cpp
+${inc_root}/Game/World/Map/WorldObjectState.hpp
+${inc_root}/Game/World/Map/TalkWorldObjectAction.hpp
+${src_root}/Game/World/Map/TalkWorldObjectAction.cpp
+${src_root}/Game/World/Map/WorldObjectState.cpp
+${inc_root}/Game/World/Map/WorldObjectActionCollection.hpp
+${src_root}/Game/World/Map/WorldObjectActionCollection.cpp
 ${inc_root}/Game/World/Map/WorldObjectReader.hpp
 ${src_root}/Game/World/Map/WorldObjectReader.cpp
 ${inc_root}/Game/World/Map/MapEventActionType.hpp

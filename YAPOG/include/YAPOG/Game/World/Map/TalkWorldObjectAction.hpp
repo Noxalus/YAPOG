@@ -6,6 +6,9 @@
 
 namespace yap
 {
+  struct IDialogActor;
+  struct IDialogManager;
+
   class TalkWorldObjectAction : public WorldObjectAction
   {
       DISALLOW_COPY(TalkWorldObjectAction);
@@ -17,7 +20,7 @@ namespace yap
     protected:
 
       TalkWorldObjectAction (
-        DynamicWorldObject& parent
+        DynamicWorldObject& parent,
         IDialogActor& dialogActor,
         IDialogManager& dialogManager);
 
@@ -25,7 +28,7 @@ namespace yap
 
     private:
 
-      const IDialogActor& dialogActor_;
+      IDialogActor& dialogActor_;
       IDialogManager& dialogManager_;
   };
 } // namespace yap

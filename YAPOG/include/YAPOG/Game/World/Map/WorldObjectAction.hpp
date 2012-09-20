@@ -25,6 +25,8 @@ namespace yap
 
       explicit WorldObjectAction (DynamicWorldObject& parent);
 
+      virtual DynamicWorldObject& GetParent ();
+
       virtual void HandlePerform ();
 
     private:

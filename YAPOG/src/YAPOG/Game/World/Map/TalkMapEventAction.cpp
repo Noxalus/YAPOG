@@ -1,6 +1,8 @@
 #include "YAPOG/Game/World/Map/TalkMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/IPlayer.hpp"
 #include "YAPOG/Game/World/Map/MapEventArgs.hpp"
+#include "YAPOG/Game/World/Map/Physics/MapEventInfo.hpp"
+#include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
 namespace yap
 {
@@ -42,7 +44,9 @@ namespace yap
         /// @todo Add all conditions (state, facing...)
         if (visitable.HasInputActivated (yap::GameInputType::MapAction))
         {
-          visitable.Talk (*sourceDialogActor_);
+          GetArgs ().GetMapContext ().GetParent ().PerformAction ("Talk");
+
+//          visitable.Talk (*sourceDialogActor_);
           GetArgs ().AbortEvents (true);
         }
 

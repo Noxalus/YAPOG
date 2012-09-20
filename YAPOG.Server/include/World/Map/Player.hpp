@@ -65,8 +65,6 @@ namespace yse
 
       virtual void TriggerBattle ();
 
-      virtual void Talk (const yap::IDialogActor& dialogActor);
-
       virtual yap::Event<
         yap::DynamicWorldObject&,
         const yap::Vector2&>& OnMovedEvent ();
