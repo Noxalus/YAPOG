@@ -24,10 +24,7 @@ namespace yap
 
   Label::Label (String content)
     : textContent_ (content)
-    , drawableText_ (
-      content, 
-      ContentManager::Instance ().LoadFont (DEFAULT_FONT),
-      DEFAULT_SIZE)
+    , drawableText_ ()
     , isPosSet_ (false)
   {
     /*drawableText_.setPosition (Vector2 (GetPosition ().x + padding_.left,
@@ -36,12 +33,18 @@ namespace yap
     drawableText_.setPosition (GetPosition ().x,
       GetPosition ().y);
 
+    drawableText_.setString (content);
+    drawableText_.setFont (
+      ContentManager::Instance ().LoadFont (DEFAULT_FONT));
+    drawableText_.setCharacterSize (DEFAULT_SIZE);
+
     isPosSet_ = true;
   }
 
   Label::~Label ()
   {
   }
+
   bool Label::IsFocusable () const
   {
     return false;
@@ -68,7 +71,7 @@ namespace yap
   void Label::SetDefaultColor (const sf::Color& color)
   {
     if (!isChangeColorCall_)
-    drawableText_.setColor (color);
+      drawableText_.setColor (color);
   }
   uint Label::Length () const
   {
