@@ -1,7 +1,7 @@
+#include "World/Map/Player.hpp"
+
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
-
-#include "World/Map/Player.hpp"
 
 namespace ycl
 {
@@ -35,6 +35,15 @@ namespace ycl
     name_ = name;
   }
 
+  const yap::String& Player::GetName () const
+  {
+    return name_;
+  }
+
+  void Player::Talk (yap::IDialogActor& dialogActor)
+  {
+  }
+
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
   {
     Character::Accept (visitor);
@@ -48,11 +57,6 @@ namespace ycl
     Character::Accept (visitor);
 
     visitor.VisitPlayer (*this);
-  }
-
-  const yap::String& Player::GetName () const
-  {
-    return name_;
   }
 
   bool Player::HasInputActivated (yap::GameInputType gameInputType) const

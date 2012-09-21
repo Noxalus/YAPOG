@@ -1,6 +1,7 @@
 #ifndef YAPOG_IPLAYER_HPP
 # define YAPOG_IPLAYER_HPP
 
+# include "YAPOG/Game/World/Map/Dialog/IDialogActor.hpp"
 # include "YAPOG/Game/ID.hpp"
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Graphics/Gui/GameInput/GameInputType.hpp"
@@ -14,15 +15,12 @@ namespace yap
   class DynamicWorldObject;
 
   /// @brief Interface representing the actions that a player can perform.
-  struct IPlayer
+  struct IPlayer : public IDialogActor
   {
       virtual ~IPlayer () { }
 
       virtual void Accept (IDynamicWorldObjectVisitor& visitor) = 0;
-      virtual void Accept (
-        IDynamicWorldObjectConstVisitor& visitor) const = 0;
-
-      virtual const String& GetName () const = 0;
+      virtual void Accept (IDynamicWorldObjectConstVisitor& visitor) const = 0;
 
       virtual bool HasInputActivated (GameInputType gameInputType) const = 0;
       virtual bool HasInputDeactivated (GameInputType gameInputType) const = 0;

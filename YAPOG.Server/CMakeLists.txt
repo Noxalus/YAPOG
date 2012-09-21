@@ -125,9 +125,6 @@ ${src_root}/World/Map/PlayerReader.cpp
 ${inc_root}/World/Map/Teleporter.hpp
 ${src_root}/World/Map/Teleporter.cpp
 
-${inc_root}/World/Map/TalkWorldObjectAction.hpp
-${src_root}/World/Map/TalkWorldObjectAction.cpp
-
 ${inc_root}/World/Map/ServerInfoAddObjectVisitor.hpp
 ${src_root}/World/Map/ServerInfoAddObjectVisitor.cpp
 ${inc_root}/World/Map/ObjectMoveInfoSender.hpp

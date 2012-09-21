@@ -42,8 +42,6 @@ namespace yap
     ServerInfoAddObject,
     ServerInfoRemoveObject,
 
-    ServerInfoPerformObjectAction,
-
     ServerInfoGameMessage,
 
     ServerInfoTriggerBattle,

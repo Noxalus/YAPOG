@@ -1,6 +1,7 @@
 #include "World/Map/NPC.hpp"
 
-#include "World/Map/TalkWorldObjectAction.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
+#include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 
 namespace yse
 {
@@ -32,15 +33,29 @@ namespace yse
   void NPC::SetDialogManager (yap::IDialogManager& dialogManager)
   {
     dialogManager_ = &dialogManager;
-
-    AddAction (
-      "Talk",
-      new TalkWorldObjectAction (*this, *this, *dialogManager_));
   }
 
   const yap::String& NPC::GetName () const
   {
     return name_;
+  }
+
+  void NPC::Talk (yap::IDialogActor& dialogActor)
+  {
+  }
+
+  void NPC::Accept (yap::IDynamicWorldObjectVisitor& visitor)
+  {
+    Character::Accept (visitor);
+
+    visitor.VisitNPC (*this);
+  }
+
+  void NPC::Accept (yap::IDynamicWorldObjectConstVisitor& visitor) const
+  {
+    Character::Accept (visitor);
+
+    visitor.VisitNPC (*this);
   }
 
   const yap::String& NPC::GetObjectFactoryTypeName () const

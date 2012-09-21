@@ -83,7 +83,6 @@ namespace ycl
     void HandleServerInfoChangeMap (yap::IPacket& packet);
 
     void HandleServerInfoAddObject (yap::IPacket& packet);
-    void HandleServerInfoRemoveObject (yap::IPacket& packet);
 
     void HandleServerInfoGameMessage (yap::IPacket& packet);
 

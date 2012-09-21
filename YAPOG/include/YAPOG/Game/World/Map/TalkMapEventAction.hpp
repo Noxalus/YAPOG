@@ -18,7 +18,7 @@ namespace yap
 
       virtual ~TalkMapEventAction ();
 
-      void SetSourceDialogActor (const IDialogActor& dialogActor);
+      void SetSourceDialogActor (IDialogActor& dialogActor);
 
       virtual void VisitPlayer (IPlayer& visitable);
 
@@ -33,7 +33,7 @@ namespace yap
 
     private:
 
-      const IDialogActor* sourceDialogActor_;
+      IDialogActor* sourceDialogActor_;
   };
 } // namespace yap
 

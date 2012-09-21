@@ -46,13 +46,18 @@ namespace yse
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
 
+      /// @name IDialogActor members.
+      /// @{
+      virtual const yap::String& GetName () const;
+
+      virtual void Talk (yap::IDialogActor& dialogActor);
+      /// @}
+
       /// @name IPlayer members.
       /// @{
       virtual void Accept (yap::IDynamicWorldObjectVisitor& visitor);
       virtual void Accept (
         yap::IDynamicWorldObjectConstVisitor& visitor) const;
-
-      virtual const yap::String& GetName () const;
 
       virtual bool HasInputActivated (yap::GameInputType gameInputType) const;
       virtual bool HasInputDeactivated (

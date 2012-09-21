@@ -10,6 +10,8 @@ namespace yap
       virtual ~IDialogActor () { }
 
       virtual const String& GetName () const = 0;
+
+      virtual void Talk (IDialogActor& dialogActor) = 0;
   };
 } // namespace yap
 

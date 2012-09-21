@@ -2,7 +2,7 @@
 # define YAPOG_SERVER_NPC_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Game/World/Map/Dialog/IDialogActor.hpp"
+# include "YAPOG/Game/World/Map/INPC.hpp"
 
 # include "World/Map/Character.hpp"
 
@@ -14,7 +14,7 @@ namespace yap
 namespace yse
 {
   class NPC : public Character
-            , public yap::IDialogActor
+            , public yap::INPC
   {
       DISALLOW_ASSIGN(NPC);
 
@@ -33,6 +33,15 @@ namespace yse
       /// @name IDialogActor members.
       /// @{
       virtual const yap::String& GetName () const;
+
+      virtual void Talk (yap::IDialogActor& dialogActor);
+      /// @}
+
+      /// @name INPC members.
+      /// @{
+      virtual void Accept (yap::IDynamicWorldObjectVisitor& visitor);
+      virtual void Accept (
+        yap::IDynamicWorldObjectConstVisitor& visitor) const;
       /// @}
 
     protected:

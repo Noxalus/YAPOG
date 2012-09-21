@@ -31,12 +31,17 @@ namespace ycl
     , trainer_ (nullptr)
   {
     ADD_HANDLER(ServerInfoSetUserPlayer, User::HandleServerInfoSetUserPlayer);
+
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
+
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
-    ADD_HANDLER(ServerInfoRemoveObject, User::HandleServerInfoRemoveObject);
+
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
+
     ADD_HANDLER(ServerInfoTriggerBattle, User::HandleServerInfoTriggerBattle);
+
     ADD_HANDLER(ServerInfoPokemonTeam, User::HandlerServerInfoPokemonTeam);
+
     ADD_HANDLER(ServerInfoChangeMoney, User::HandlerServerInfoChangeMoney);
   }
 
@@ -307,21 +312,6 @@ namespace ycl
 
     if (playerIsWarped)
       OnPlayerWarped (*this, *player_);
-  }
-
-  void User::HandleServerInfoRemoveObject (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-
-    Map& map = GetMap ();
-
-    if (map.ContainsPlayer (worldID))
-    {
-      map.RemovePlayer (worldID);
-      return;
-    }
-
-    map.RemoveDrawableDynamicObject (worldID);
   }
 
   void User::HandleServerInfoGameMessage (yap::IPacket& packet)

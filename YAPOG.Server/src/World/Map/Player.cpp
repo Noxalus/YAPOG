@@ -1,10 +1,11 @@
+#include "World/Map/Player.hpp"
+
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
 
-#include "World/Map/Player.hpp"
 #include "Server/User.hpp"
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
@@ -79,6 +80,15 @@ namespace yse
     packetHandler_.SetParent (parent);
   }
 
+  const yap::String& Player::GetName () const
+  {
+    return name_;
+  }
+
+  void Player::Talk (yap::IDialogActor& dialogActor)
+  {
+  }
+
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
   {
     Character::Accept (visitor);
@@ -92,11 +102,6 @@ namespace yse
     Character::Accept (visitor);
 
     visitor.VisitPlayer (*this);
-  }
-
-  const yap::String& Player::GetName () const
-  {
-    return name_;
   }
 
   bool Player::HasInputActivated (yap::GameInputType gameInputType) const

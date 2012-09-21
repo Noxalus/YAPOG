@@ -27,8 +27,7 @@ namespace yap
     return new TalkMapEventAction (*this);
   }
 
-  void TalkMapEventAction::SetSourceDialogActor (
-    const IDialogActor& dialogActor)
+  void TalkMapEventAction::SetSourceDialogActor (IDialogActor& dialogActor)
   {
     sourceDialogActor_ = &dialogActor;
   }
@@ -44,9 +43,8 @@ namespace yap
         /// @todo Add all conditions (state, facing...)
         if (visitable.HasInputActivated (yap::GameInputType::MapAction))
         {
-          GetArgs ().GetMapContext ().GetParent ().PerformAction ("Talk");
+          visitable.Talk (*sourceDialogActor_);
 
-//          visitable.Talk (*sourceDialogActor_);
           GetArgs ().AbortEvents (true);
         }
 
