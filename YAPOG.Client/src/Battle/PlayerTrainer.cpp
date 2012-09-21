@@ -10,6 +10,7 @@ namespace ycl
     : yap::PlayerTrainer ()
     , team_ (nullptr)
     , pokedex_ (nullptr)
+    , battleParameters_ (nullptr)
   {
   }
 
@@ -30,6 +31,10 @@ namespace ycl
     return pokedex_->GetPokemonCaughtCount ();
   }
 
+  BattleParameters& 
+    PlayerTrainer::GetBattleParameters () const
+  { return *battleParameters_; }
+
   /// Setters.
   /*
   void PlayerTrainer::SetTeam (PokemonFighterTeam* value)
@@ -41,5 +46,8 @@ namespace ycl
 
   void PlayerTrainer::SetPokedex (yap::Pokedex* value)
   { pokedex_ = value; }
+
+  void PlayerTrainer::SetBattleParameters (BattleParameters* value)
+  { battleParameters_ = value; }
 
 } // namespace yap

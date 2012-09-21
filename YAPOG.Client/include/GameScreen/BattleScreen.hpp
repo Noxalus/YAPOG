@@ -27,7 +27,8 @@ namespace ycl
       virtual void HandleRun (
         const yap::Time& dt,
         yap::IDrawingContext& context);
-
+                                     
+    virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
     virtual void HandleActivate ();
     virtual void HandleDeactivate ();
 

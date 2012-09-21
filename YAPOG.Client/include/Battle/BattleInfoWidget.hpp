@@ -9,6 +9,7 @@
 # include "YAPOG/Game/Pokemon/Gender.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
+# include "Gui/PokemonHPBarWidget.hpp"
 
 namespace yap
 {
@@ -26,8 +27,9 @@ namespace ycl
 
     virtual void Init ();
 
-    void UpdateHPColor (int value);
-    void UpdateHPSize (int value);
+    virtual void UpdateHPBar ();
+
+    virtual void SetHitPoint (const yap::HitPoint& hp);
 
     /// @name Setters.
     /// @{
@@ -58,15 +60,11 @@ namespace ycl
 
     /// @name Picture boxes.
     /// @{
-    yap::PictureBox* hpBarPictureBox_;
-    yap::PictureBox* hpBarContent_;
     yap::PictureBox* genderPictureBox_;
     /// @}
 
-    static const sf::Color DEFAULT_HP_COLOR_GOOD;
-    static const sf::Color DEFAULT_HP_COLOR_MEDIUM;
-    static const sf::Color DEFAULT_HP_COLOR_BAD;
-    static const float MAX_HP_BAR_SIZE;
+    // HP Bar
+    PokemonHPBarWidget hpBar_;
   };
 } // namespace ycl
 

@@ -32,11 +32,7 @@ namespace ycl
       [&] (const yap::IBattleEntity& sender, 
       const yap::ChangeEventArgs<const yap::HitPoint&>& args)
     {
-      battleInterface_.GetOpponentInfoWidget ().UpdateHPColor (
-        battle_.GetOpponent ().GetHPPercentage ());
-
-      battleInterface_.GetOpponentInfoWidget ().UpdateHPSize (
-        battle_.GetOpponent ().GetHPPercentage ());
+      battleInterface_.GetOpponentInfoWidget ().UpdateHPBar ();
     };
 
     battleInterface_.GetBattleInfoDialogBox ().OnTextChanged +=
@@ -98,6 +94,8 @@ namespace ycl
     battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
       -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
       battle_.GetOpponentInfoPosition ().y));
+    battleInterface_.GetOpponentInfoWidget ().SetHitPoint (
+      battle_.GetOpponent ().GetStats ().GetHitPoint ());
     /// @}
 
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);

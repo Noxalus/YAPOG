@@ -58,7 +58,7 @@ namespace ycl
       battle_.GetPlayerTeam ().GetLevel ());
 
     // Pokemon HP
-    battleInterface_.GetPokemonInfoWidget ().SetHPValue (
+    battleInterface_.GetPokemonInfoWidget ().SetHitPoint (
       battle_.GetPlayerTeam ().GetStats ().GetHitPoint ());
 
     /* Pokemon sprite */
@@ -83,14 +83,7 @@ namespace ycl
       [&] (const yap::IBattleEntity& sender, 
       const yap::ChangeEventArgs<const yap::HitPoint&>& args)
     {
-      battleInterface_.GetPokemonInfoWidget ().UpdateHPColor (
-        battle_.GetPlayerTeam ().GetHPPercentage ());
-
-      battleInterface_.GetPokemonInfoWidget ().UpdateHPSize (
-        battle_.GetPlayerTeam ().GetHPPercentage ());
-
-      battleInterface_.GetPokemonInfoWidget ().SetHPValue
-        (args.Current);
+      battleInterface_.GetPokemonInfoWidget ().UpdateHPBar ();
     };
 
     // Pokemon moves

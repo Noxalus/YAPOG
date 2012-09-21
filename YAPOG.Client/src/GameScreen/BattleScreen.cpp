@@ -15,23 +15,6 @@
 #include "Battle/PlayerTrainer.hpp"
 #include "Gui/PokemonTeamWidget.hpp"
 
-namespace debug
-{
-  ycl::Pokemon* GenerateRandomPokemon ()
-  {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 10));
-
-    if (staticID == yap::ID (10))
-      staticID = yap::ID (16);
-
-    int level = yap::RandomHelper::GetNext (1, 100);
-
-    ycl::Pokemon* p = new ycl::Pokemon (staticID, level, false);
-
-    return p;
-  }
-}
-
 namespace ycl
 {
   const yap::ScreenType BattleScreen::DEFAULT_NAME = "Battle";
@@ -70,41 +53,73 @@ namespace ycl
     BaseScreen::HandleRun (dt, context);
   }
 
+  bool BattleScreen::HandleOnEvent (const yap::GuiEvent& guiEvent)
+  {
+    switch (guiEvent.type)
+    {
+    case sf::Event::KeyPressed:
+
+      switch (guiEvent.key.code)
+      {
+      case sf::Keyboard::PageDown:
+        battle_->GetOpponent ().TakeDamage (1);
+        return true;
+         case sf::Keyboard::PageUp:
+        battle_->GetOpponent ().TakeDamage (-1);
+        return true;
+
+         case sf::Keyboard::W:
+           battle_->GetPlayerTeam ().TakeDamage (1);
+        return true;
+        case sf::Keyboard::A:
+        battle_->GetPlayerTeam ().TakeDamage (-1);
+        return true;
+      default: break;
+      }
+
+      break;
+
+    default: break;
+    }
+
+    return false;
+  }
+
   void BattleScreen::HandleActivate ()
   {
-    /*
-    PokemonTeam* team = new PokemonTeam ();
-    team->AddPokemon (new Pokemon (yap::ID (2), 100, false));
-    team->AddPokemon (new Pokemon (yap::ID (16), 32, true));
-    */
+    BattleParameters& parameters = 
+      session_.GetUser ().GetBattleParameters ();
 
+    // Create a PokemonTeamFighter from the player's PokemonTeam
     PokemonTeam& playerTeam = session_.GetUser ().GetTrainer ().GetTeam ();
 
     PokemonFighterTeam* playerFighterTeam = new PokemonFighterTeam ();
     playerFighterTeam->LoadFromPokemonTeam (playerTeam, false);
 
-    PokemonFighter* wildPokemon =
-      new PokemonFighter (debug::GenerateRandomPokemon (), true);
-
-    battle_ = new WildBattle (*battleInterface_);
-
-    battle_->SetPlayerTeam (playerFighterTeam);
-    battle_->SetOpponent (wildPokemon);
-    battle_->Init ();
-
-    battle_->OnBattleEnd +=
-      [&] (const yap::Battle& sender, const yap::EmptyEventArgs& args)
+    switch (parameters.GetBattleType ())
     {
-      yap::AudioManager::Instance ().ResumePreviousMusic ();
-      nextScreen_ = "Gameplay";
-    };
+    case yap::BattleType::SingleWild:
 
-    // Team Manager Widget
-    PokemonTeamWidget* pokemonTeamWidget = new PokemonTeamWidget (
-      session_.GetUser ().GetTrainer ().GetTeam ());
-    battleInterface_->AddBattleWidget ("PokemonTeam", pokemonTeamWidget);
+      battle_ = new WildBattle (*battleInterface_);
 
-    yap::AudioManager::Instance ().PlayMusic ("BGM/WildPokemonBattleShort.ogg");
+      battle_->SetPlayerTeam (playerFighterTeam);
+      battle_->SetOpponent (&parameters.GetOpponent ());
+      battle_->Init ();
+
+      battle_->OnBattleEnd +=
+        [&] (const yap::Battle& sender, const yap::EmptyEventArgs& args)
+      {
+        yap::AudioManager::Instance ().ResumePreviousMusic ();
+        nextScreen_ = "Gameplay";
+      };
+
+      // Team Manager Widget
+      PokemonTeamWidget* pokemonTeamWidget = new PokemonTeamWidget (
+        session_.GetUser ().GetTrainer ().GetTeam ());
+      battleInterface_->AddBattleWidget ("PokemonTeam", pokemonTeamWidget);
+
+      yap::AudioManager::Instance ().PlayMusic ("BGM/WildPokemonBattleShort.ogg");
+    }
   }
 
   void BattleScreen::HandleDeactivate ()

@@ -5,6 +5,8 @@
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Game/Battle/PlayerTrainer.hpp"
 
+# include "Battle/BattleParameters.hpp"
+
 namespace yap
 {
   class Pokedex;
@@ -27,6 +29,7 @@ namespace ycl
     //PokemonFighterTeam& GetTeam ();
     PokemonTeam& GetTeam ();
     yap::UInt32 GetPokemonCaughtCount () const;
+    BattleParameters& GetBattleParameters () const;
     /// @}
 
     /// @name Setters.
@@ -34,12 +37,14 @@ namespace ycl
     //void SetTeam (PokemonFighterTeam* value);
     void SetTeam (PokemonTeam* value);
     void SetPokedex (yap::Pokedex* value);
-
+    void SetBattleParameters (BattleParameters* value);
     /// @}
 
+  private:
     //PokemonFighterTeam* team_;
     PokemonTeam* team_;
     yap::Pokedex* pokedex_;
+    BattleParameters* battleParameters_;
   };
 } // namespace ycl
 

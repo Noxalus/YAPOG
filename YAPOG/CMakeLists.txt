@@ -275,6 +275,7 @@ ${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
 ${src_root}/Game/Pokemon/PokemonTeam.cpp
 ${inc_root}/Game/Pokemon/PokemonTeam.hpp
 
+${inc_root}/Game/Battle/BattleType.hpp
 ${src_root}/Game/Battle/BattleCore.cpp
 ${inc_root}/Game/Battle/BattleCore.hpp
 ${src_root}/Game/Battle/TrainerBattle.cpp
@@ -288,6 +289,8 @@ ${inc_root}/Game/Battle/PlayerTrainer.hpp
 ${inc_root}/Game/Battle/IBattleEntity.hpp
 ${src_root}/Game/Battle/PokemonFighterTeam.cpp
 ${inc_root}/Game/Battle/PokemonFighterTeam.hpp
+${src_root}/Game/Battle/BattleParameters.cpp
+${inc_root}/Game/Battle/BattleParameters.hpp
 
 ${src_root}/Game/Battle/Phase/ActionPhase.cpp
 ${inc_root}/Game/Battle/Phase/ActionPhase.hpp
@@ -483,6 +486,8 @@ ${inc_root}/Graphics/Gui/IGuiManager.hpp
 ${inc_root}/Graphics/Gui/IWidget.hpp
 ${inc_root}/Graphics/Gui/GridMenu.hpp
 ${src_root}/Graphics/Gui/GridMenu.cpp
+${inc_root}/Graphics/Gui/ProgressBarWidget.hpp
+${src_root}/Graphics/Gui/ProgressBarWidget.cpp
 
 ${inc_root}/Graphics/Gui/Game/GameWidget.hpp
 ${src_root}/Graphics/Gui/Game/GameWidget.cpp

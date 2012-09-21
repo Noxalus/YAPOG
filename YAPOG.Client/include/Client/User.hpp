@@ -19,6 +19,7 @@ namespace ycl
   class Map;
   class Player;
   class PlayerTrainer;
+  class BattleParameters;
 
   class User : public yap::IPacketHandler
   {
@@ -29,6 +30,8 @@ namespace ycl
     User ();
     virtual ~User ();
 
+    /// @name Public getters.
+    /// @{
     PlayerTrainer& GetTrainer () const;
     void SetTrainer (PlayerTrainer* trainer);
 
@@ -37,11 +40,19 @@ namespace ycl
 
     const PlayerData& GetPlayerData () const;
 
+    BattleParameters& GetBattleParameters () const;
+    /// @}
+
+    /// @name Public setters.
+    /// @{
     void SetLogin (const yap::String& login);
 
     void SetWorld (World* world);
 
     void SendGameMessage (const yap::GameMessage& message);
+
+     void SetBattleParameters (BattleParameters* value);
+     /// @}
 
     void ChangeMoney (int value);
     void UpdatePlayTime (const yap::Time& dt);
@@ -60,21 +71,20 @@ namespace ycl
     yap::Event<const User&, Player&> OnPlayerWarped;
     yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
 
-    yap::Event<const User&> OnBattleTriggered;
+    yap::Event<User&> OnBattleTriggered;
     yap::Event<const User&> OnPokemonTeamReceived;
-    yap::Event<const User&> OnPlayerDataReceived;
+    yap::Event<User&> OnPlayerDataReceived;
 
   private:
-    /// @name Getters.
+    /// @name Private getters.
     /// @{
     World& GetWorld ();
     Map& GetMap ();
 
     Player& GetPlayer ();
-
     /// @}
 
-    /// @name Setters.
+    /// @name Private setters.
     /// @{
     void SetPlayer (Player* player);
     /// @}

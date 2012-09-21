@@ -6,6 +6,7 @@
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/Game/Pokemon/PokemonMove.hpp"
 #include "YAPOG/Game/Pokemon/PokemonMoveSet.hpp"
+#include "YAPOG/Game/Battle/BattleParameters.hpp"
 
 #include "Client/User.hpp"
 #include "World/World.hpp"
@@ -144,6 +145,9 @@ namespace ycl
     return playerData_;
   }
 
+  BattleParameters& User::GetBattleParameters () const
+  { return trainer_->GetBattleParameters (); }
+
   // Setters.
   void User::SetPlayer (Player* player)
   {
@@ -151,6 +155,9 @@ namespace ycl
 
     OnPlayerCreated (*this, player_);
   }
+
+  void User::SetBattleParameters (BattleParameters* value)
+  { trainer_->SetBattleParameters (value); }
 
   void User::HandleServerInfoSetUserPlayer (yap::IPacket& packet)
   {
