@@ -15,6 +15,7 @@ LINK_DIRECTORIES(
 
 SET( inc_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include )
 SET( src_root ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/src )
+
 SET(
 source_files
 ${inc_root}/Battle/Battle.hpp
