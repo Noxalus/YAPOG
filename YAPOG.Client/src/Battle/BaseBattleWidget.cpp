@@ -33,6 +33,5 @@ namespace ycl
 
   void BaseBattleWidget::HandleUpdate (const yap::Time& dt)
   {
-    int test = 0;
   }
 }

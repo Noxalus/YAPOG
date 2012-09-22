@@ -2,7 +2,7 @@
 # define YAPOG_CLIENT_POKEMONEXPERIENCEBARWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Graphics/Gui/ProgressBarWidget.hpp"
 
 namespace yap
 {
@@ -14,7 +14,7 @@ namespace ycl
 {
   class Pokemon;
 
-  class PokemonExperienceBarWidget : public yap::BaseWidget
+  class PokemonExperienceBarWidget : public yap::ProgressBarWidget
   {
   public:
     PokemonExperienceBarWidget ();

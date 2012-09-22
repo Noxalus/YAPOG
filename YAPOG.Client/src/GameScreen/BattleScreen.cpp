@@ -64,15 +64,15 @@ namespace ycl
       case sf::Keyboard::PageDown:
         battle_->GetOpponent ().TakeDamage (50);
         return true;
-         case sf::Keyboard::PageUp:
+      case sf::Keyboard::PageUp:
         battle_->GetOpponent ().TakeDamage (-50);
         return true;
 
-         case sf::Keyboard::W:
-           battle_->GetPlayerTeam ().TakeDamage (1);
+      case sf::Keyboard::W:
+        battle_->GetPlayerTeam ().TakeDamage (10);
         return true;
-        case sf::Keyboard::A:
-        battle_->GetPlayerTeam ().TakeDamage (-1);
+      case sf::Keyboard::A:
+        battle_->GetPlayerTeam ().TakeDamage (-10);
         return true;
       default: break;
       }
@@ -99,7 +99,6 @@ namespace ycl
     switch (parameters.GetBattleType ())
     {
     case yap::BattleType::SingleWild:
-
       battle_ = new WildBattle (*battleInterface_);
 
       battle_->SetPlayerTeam (playerFighterTeam);
@@ -113,13 +112,22 @@ namespace ycl
         nextScreen_ = "Gameplay";
       };
 
-      // Team Manager Widget
-      PokemonTeamWidget* pokemonTeamWidget = new PokemonTeamWidget (
-        session_.GetUser ().GetTrainer ().GetTeam ());
-      battleInterface_->AddBattleWidget ("PokemonTeam", pokemonTeamWidget);
-
       yap::AudioManager::Instance ().PlayMusic ("BGM/WildPokemonBattleShort.ogg");
+      break;
+    case yap::BattleType::DoubleWild:
+      break;
+    case yap::BattleType::SingleTrainer:
+      break;
+    case yap::BattleType::DoubleTrainer:
+      break;
+    default:
+      break;
     }
+
+    // Team Manager Widget
+    PokemonTeamWidget* pokemonTeamWidget = new PokemonTeamWidget (
+      session_.GetUser ().GetTrainer ().GetTeam ());
+    battleInterface_->AddBattleWidget ("PokemonTeam", pokemonTeamWidget);
   }
 
   void BattleScreen::HandleDeactivate ()

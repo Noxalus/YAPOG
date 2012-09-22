@@ -9,7 +9,8 @@
 namespace ycl
 {
   PokemonExperienceBarWidget::PokemonExperienceBarWidget ()
-    : experienceBarContent_ (nullptr)
+    : yap::ProgressBarWidget ()
+    , experienceBarContent_ (nullptr)
     , mainLayout_ (nullptr)
   {
     mainLayout_ = new yap::HorizontalLayout (
