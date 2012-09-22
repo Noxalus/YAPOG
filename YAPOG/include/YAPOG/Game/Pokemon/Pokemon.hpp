@@ -47,6 +47,15 @@ namespace yap
       const ID& boxIndex,
       const String& catchDate);
 
+    Pokemon (
+      const ID& staticID,
+      const PokemonStat& stats,
+      const Gender& gender,
+      const bool shiny,
+      const PokemonMoveSet& moveSet,
+      const ID& natureID,
+      const uint& exp);
+
     /// Getters
     const ID& GetUniqueID () const;
     const ID& GetStaticID () const;

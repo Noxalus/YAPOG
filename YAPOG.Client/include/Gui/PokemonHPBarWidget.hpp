@@ -2,7 +2,7 @@
 # define YAPOG_CLIENT_POKEMONHPBARWIDGET_HPP
 
 # include "YAPOG/Macros.hpp"
-# include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "YAPOG/Graphics/Gui/ProgressBarWidget.hpp"
 # include "YAPOG/System/Time/UpdateableTimer.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 
@@ -17,7 +17,7 @@ namespace ycl
 {
   class Pokemon;
 
-  class PokemonHPBarWidget : public yap::BaseWidget
+  class PokemonHPBarWidget : public yap::ProgressBarWidget
   {
     DISALLOW_COPY(PokemonHPBarWidget);
 
@@ -45,7 +45,7 @@ namespace ycl
 
     const yap::HitPoint* hp_;
     yap::UInt16 previousHPValue_;
-    yap::UInt16 hpValueVariance_;
+    int hpValueVariance_;
 
     yap::PictureBox* hpBarContent_;
     yap::HorizontalLayout* mainLayout_;

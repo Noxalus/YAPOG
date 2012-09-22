@@ -99,6 +99,147 @@ namespace ycl
     playerData_.UpdatePlayTime (dt);
   }
 
+  Pokemon* User::GetPlayerPokemonFromServer (yap::IPacket& packet)
+  {
+    yap::ID staticID = packet.ReadID ();
+    yap::ID uniqueID = packet.ReadID ();
+    yap::Gender gender =
+      static_cast<yap::Gender>(packet.ReadUChar ());
+    yap::PokemonStatus status =
+      static_cast<yap::PokemonStatus>(packet.ReadUChar ());
+    yap::String nickname = packet.ReadString ();
+    bool shiny = packet.ReadBool ();
+    yap::Int16 loyalty = packet.ReadInt16 ();
+    yap::ID nature = packet.ReadID ();
+    yap::uint experience = packet.ReadUInt ();
+    yap::UInt8 boxNumber = packet.ReadUChar ();
+    yap::ID boxIndex = packet.ReadID ();
+    yap::String catchDate = packet.ReadString ();
+    yap::UInt16 currentHP = packet.ReadUInt16 ();
+
+    // Read the Pokemon's EV value
+    yap::UInt16 hpEV = packet.ReadUInt16 ();
+    yap::UInt16 attackEV = packet.ReadUInt16 ();
+    yap::UInt16 defenseEV = packet.ReadUInt16 ();
+    yap::UInt16 specialAttackEV = packet.ReadUInt16 ();
+    yap::UInt16 specialDefenseEV = packet.ReadUInt16 ();
+    yap::UInt16 speedEV = packet.ReadUInt16 ();
+
+    // Read the Pokemon's IV value
+    yap::UInt16 hpIV = packet.ReadUInt16 ();
+    yap::UInt16 attackIV = packet.ReadUInt16 ();
+    yap::UInt16 defenseIV = packet.ReadUInt16 ();
+    yap::UInt16 specialAttackIV = packet.ReadUInt16 ();
+    yap::UInt16 specialDefenseIV = packet.ReadUInt16 ();
+    yap::UInt16 speedIV = packet.ReadUInt16 ();
+
+    // Set the stats with EV and IV
+    yap::HitPoint hp (currentHP, hpEV, hpIV);
+    yap::Attack attack (attackEV, attackIV);
+    yap::Defense defense (defenseEV, defenseIV);
+    yap::SpecialAttack specialAttack (specialAttackEV, specialAttackIV);
+    yap::SpecialDefense specialDefense (specialDefenseEV, specialDefenseIV);
+    yap::Speed speed (speedEV, speedIV);
+
+    yap::PokemonStat stats (
+      hp,
+      attack,
+      defense,
+      specialAttack,
+      specialDefense,
+      speed);
+
+    // Read the Pokemon's move
+    yap::PokemonMoveSet moveSet;
+    yap::UInt8 moveNumber = packet.ReadUChar ();
+
+    for (int index = 0; index < moveNumber; index++)
+    {
+      yap::PokemonMove* move = new yap::PokemonMove (packet.ReadID ());
+      yap::UInt8 moveIndex = packet.ReadUChar ();
+
+      move->SetPP (packet.ReadUInt16 ());
+      move->SetMaxPP (packet.ReadUInt16 ());
+
+      moveSet.AddMove (move, moveIndex);
+    }
+
+    return new Pokemon (
+      uniqueID,
+      staticID,
+      login_,
+      nickname,
+      stats,
+      gender,
+      status,
+      shiny,
+      loyalty,
+      moveSet,
+      nature,
+      experience,
+      boxNumber,
+      boxIndex,
+      catchDate);
+  }
+
+  Pokemon* User::GetOpponentPokemonFromServer (yap::IPacket& packet)
+  {
+    yap::ID staticID = packet.ReadID ();
+    yap::Gender gender =
+      static_cast<yap::Gender>(packet.ReadUChar ());
+    bool shiny = packet.ReadBool ();
+    yap::ID nature = packet.ReadID ();
+    yap::uint experience = packet.ReadUInt ();
+
+    // Read the Pokemon's IV value
+    yap::UInt16 hpIV = packet.ReadUInt16 ();
+    yap::UInt16 attackIV = packet.ReadUInt16 ();
+    yap::UInt16 defenseIV = packet.ReadUInt16 ();
+    yap::UInt16 specialAttackIV = packet.ReadUInt16 ();
+    yap::UInt16 specialDefenseIV = packet.ReadUInt16 ();
+    yap::UInt16 speedIV = packet.ReadUInt16 ();
+
+    // Set the stats with EV and IV
+    yap::HitPoint hp (hpIV);
+    yap::Attack attack (attackIV);
+    yap::Defense defense (defenseIV);
+    yap::SpecialAttack specialAttack (specialAttackIV);
+    yap::SpecialDefense specialDefense (specialDefenseIV);
+    yap::Speed speed (speedIV);
+
+    yap::PokemonStat stats (
+      hp,
+      attack,
+      defense,
+      specialAttack,
+      specialDefense,
+      speed);
+
+    // Read the Pokemon's move
+    yap::PokemonMoveSet moveSet;
+    yap::UInt8 moveNumber = packet.ReadUChar ();
+
+    for (int index = 0; index < moveNumber; index++)
+    {
+      yap::PokemonMove* move = new yap::PokemonMove (packet.ReadID ());
+      yap::UInt8 moveIndex = packet.ReadUChar ();
+
+      move->SetPP (packet.ReadUInt16 ());
+      move->SetMaxPP (packet.ReadUInt16 ());
+
+      moveSet.AddMove (move, moveIndex);
+    }
+
+    return new Pokemon (
+      staticID,
+      stats,
+      gender,
+      shiny,
+      moveSet,
+      nature,
+      experience);
+  }
+
   bool User::HandlePacket (yap::IPacket& packet)
   {
     return packetHandler_.HandlePacket (packet);
@@ -345,7 +486,7 @@ namespace ycl
 
   void User::HandleServerInfoTriggerBattle (yap::IPacket& packet)
   {
-    OnBattleTriggered (*this, yap::EmptyEventArgs ());
+    OnBattleTriggered (*this, packet);
   }
 
   void User::HandlerServerInfoPokemonTeam (yap::IPacket& packet)
@@ -358,85 +499,8 @@ namespace ycl
 
     for (int i = 0; i < pokemonCount; i++)
     {
-      yap::ID staticID = packet.ReadID ();
-      yap::ID uniqueID = packet.ReadID ();
-      yap::Gender gender =
-        static_cast<yap::Gender>(packet.ReadUChar ());
-      yap::PokemonStatus status =
-        static_cast<yap::PokemonStatus>(packet.ReadUChar ());
-      yap::String nickname = packet.ReadString ();
-      bool shiny = packet.ReadBool ();
-      yap::Int16 loyalty = packet.ReadInt16 ();
-      yap::ID nature = packet.ReadID ();
-      yap::uint experience = packet.ReadUInt ();
-      yap::UInt8 boxNumber = packet.ReadUChar ();
-      yap::ID boxIndex = packet.ReadID ();
-      yap::String catchDate = packet.ReadString ();
-      yap::UInt16 currentHP = packet.ReadUInt16 ();
-
-      // Read the Pokemon's EV value
-      yap::UInt16 hpEV = packet.ReadUInt16 ();
-      yap::UInt16 attackEV = packet.ReadUInt16 ();
-      yap::UInt16 defenseEV = packet.ReadUInt16 ();
-      yap::UInt16 specialAttackEV = packet.ReadUInt16 ();
-      yap::UInt16 specialDefenseEV = packet.ReadUInt16 ();
-      yap::UInt16 speedEV = packet.ReadUInt16 ();
-
-      // Read the Pokemon's IV value
-      yap::UInt16 hpIV = packet.ReadUInt16 ();
-      yap::UInt16 attackIV = packet.ReadUInt16 ();
-      yap::UInt16 defenseIV = packet.ReadUInt16 ();
-      yap::UInt16 specialAttackIV = packet.ReadUInt16 ();
-      yap::UInt16 specialDefenseIV = packet.ReadUInt16 ();
-      yap::UInt16 speedIV = packet.ReadUInt16 ();
-
-      // Set the stats with EV and IV
-      yap::HitPoint hp (currentHP, hpEV, hpIV);
-      yap::Attack attack (attackEV, attackIV);
-      yap::Defense defense (defenseEV, defenseIV);
-      yap::SpecialAttack specialAttack (specialAttackEV, specialAttackIV);
-      yap::SpecialDefense specialDefense (specialDefenseEV, specialDefenseIV);
-      yap::Speed speed (speedEV, speedIV);
-
-      yap::PokemonStat stats (
-        hp,
-        attack,
-        defense,
-        specialAttack,
-        specialDefense,
-        speed);
-
-      // Read the Pokemon's move
-      yap::PokemonMoveSet moveSet;
-      yap::UInt8 moveNumber = packet.ReadUChar ();
-
-      for (int index = 0; index < moveNumber; index++)
-      {
-        yap::PokemonMove* move = new yap::PokemonMove (packet.ReadID ());
-        yap::UInt8 moveIndex = packet.ReadUChar ();
-
-        move->SetPP (packet.ReadUInt16 ());
-        move->SetMaxPP (packet.ReadUInt16 ());
-
-        moveSet.AddMove (move, moveIndex);
-      }
-
-      Pokemon* currentPokemon = new Pokemon (
-        uniqueID,
-        staticID,
-        login_,
-        nickname,
-        stats,
-        gender,
-        status,
-        shiny,
-        loyalty,
-        moveSet,
-        nature,
-        experience,
-        boxNumber,
-        boxIndex,
-        catchDate);
+      // Get Pokemon from server
+      Pokemon* currentPokemon = GetPlayerPokemonFromServer (packet);
 
       pokemonTeam->AddPokemon (currentPokemon);
     }

@@ -11,6 +11,7 @@ namespace yap
     public:
       Defense ();
       Defense (const UInt16& ev, const UInt16& iv);
+      Defense (const UInt16& iv);
   };
 } // namespace yap
 

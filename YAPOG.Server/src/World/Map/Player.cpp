@@ -1,3 +1,4 @@
+#include "YAPOG/System/RandomHelper.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
@@ -8,6 +9,7 @@
 #include "Server/User.hpp"
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
+#include "Pokemon/Pokemon.hpp"
 
 namespace yse
 {
@@ -121,6 +123,12 @@ namespace yse
     yap::Packet packet;
     packet.CreateFromType (yap::PacketType::ServerInfoTriggerBattle);
 
+    // Create a random wild Pokemon
+    Pokemon* pokemon = GenerateRandomPokemon ();
+
+    // Write the Pokemon's basic information in the packet
+    WriteOpponentPokemon (packet, pokemon);
+
     SendPacket (packet);
   }
 
@@ -155,4 +163,58 @@ namespace yse
 
     inputManager_.SetInputState (gameInputType, state);
   }
+
+  Pokemon* Player::GenerateRandomPokemon ()
+  {
+    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 10));
+
+    if (staticID == yap::ID (10))
+      staticID = yap::ID (16);
+
+    int level = yap::RandomHelper::GetNext (1, 100);
+    Pokemon* p = new Pokemon (staticID, level, false);
+
+    return p;
+  }
+
+  void Player::WriteOpponentPokemon (yap::Packet& packet, Pokemon* pokemon)
+  {
+    // Write the Pokemon's basic information in the packet
+    packet.Write (pokemon->GetStaticID ());
+    packet.Write (static_cast<yap::UInt8>(pokemon->GetGender ()));
+    packet.Write (pokemon->GetShiny ());
+    packet.Write (pokemon->GetNatureID ());
+    packet.Write (pokemon->GetTotalExperience ());
+
+    // Write the current Pokemon's stats
+    const yap::PokemonStat& stats = pokemon->GetStats ();
+
+    // Send IV
+    packet.Write (stats.GetHitPoint ().GetIndividualValue ());
+    packet.Write (stats.GetAttack ().GetIndividualValue ());
+    packet.Write (stats.GetDefense ().GetIndividualValue ());
+    packet.Write (stats.GetSpecialAttack ().GetIndividualValue ());
+    packet.Write (stats.GetSpecialDefense ().GetIndividualValue ());
+    packet.Write (stats.GetSpeed ().GetIndividualValue ());
+
+    // Send Pokemon's moves
+    const yap::PokemonMoveSet& moveSet =
+      pokemon->GetMoveSet ();
+    yap::UInt8 moveNumber = pokemon->GetMoveSet ().GetMoveNumber ();
+
+    // Send the move number of the Pokemon
+    packet.Write (moveNumber);
+
+    for (yap::UInt8 index = 0; index < 4; index++)
+    {
+      if (moveSet.GetMove (index) != nullptr)
+      {
+        packet.Write (moveSet.GetMove (index)->GetStaticID ());
+        packet.Write (index);
+        packet.Write (moveSet.GetMove (index)->GetCurrentPP ());
+        packet.Write (moveSet.GetMove (index)->GetMaxPP ());
+      }
+    }
+  }
+
 } // namespace yse

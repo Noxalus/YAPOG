@@ -10,4 +10,10 @@ namespace yap
     : BaseStat (ev, iv)
   {
   }
+
+  SpecialAttack::SpecialAttack (const UInt16& iv)
+    : BaseStat (iv)
+  {
+  }
+
 } // namespace yap

@@ -11,6 +11,7 @@ namespace yap
     public:
       SpecialAttack ();
       SpecialAttack (const UInt16& ev, const UInt16& iv);
+      SpecialAttack (const UInt16& iv);
   };
 } // namespace yap
 

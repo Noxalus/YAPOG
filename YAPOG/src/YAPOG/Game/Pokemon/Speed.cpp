@@ -10,4 +10,10 @@ namespace yap
     : BaseStat (ev, iv)
   {
   }
+
+  Speed::Speed (const UInt16& iv)
+    : BaseStat (iv)
+  {
+  }
+
 } // namespace yap

@@ -116,7 +116,7 @@ namespace yap
     const uint& exp,
     const UInt8& boxNumber,
     const ID& boxIndex,
-    const String& catchDate) 
+    const String& catchDate)
     : uniqueID_ (uniqueID)
     , staticID_ (staticID)
     , trainerName_ (trainerName)
@@ -147,6 +147,50 @@ namespace yap
     UInt16 level = GetLevel ();
 
     stats_.ComputeStats (*pokemonInfo_, level, *nature_);
+
+    type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
+    type_.SetType2 (ID (pokemonInfo_->GetType2 ()));
+  }
+
+  Pokemon::Pokemon (
+      const ID& staticID,
+      const PokemonStat& stats,
+      const Gender& gender,
+      const bool shiny,
+      const PokemonMoveSet& moveSet,
+      const ID& natureID,
+      const uint& exp)
+    : uniqueID_ (ID ())
+    , staticID_ (staticID)
+    , trainerName_ ()
+    , nickname_ ()
+    , stats_ (stats)
+    , type_ ()
+    , gender_ (gender)
+    , status_ (PokemonStatus::Normal)
+    , shiny_ (shiny)
+    , loyalty_ (0)
+    , moveSet_ (moveSet)
+    , pokemonInfo_ (nullptr)
+    , nature_ (nullptr)
+    , exp_ (nullptr)
+    , boxNumber_ (0)
+    , boxIndex_ (1)
+    , catchDate_ ()
+  {
+    pokemonInfo_ = ObjectFactory::Instance ().
+      Create<PokemonInfo> ("PokemonInfo", staticID_);
+
+    nature_ = ObjectFactory::Instance ().
+      Create<NatureInfo> ("NatureInfo",  ID (natureID));
+
+    InitExperience ();
+    exp_->Init (exp);
+
+    UInt16 level = GetLevel ();
+
+    stats_.ComputeStats (*pokemonInfo_, level, *nature_);
+    stats_.SetCurrentHP (stats_.GetHitPoint ().GetValue ());
 
     type_.SetType1 (ID (pokemonInfo_->GetType1 ()));
     type_.SetType2 (ID (pokemonInfo_->GetType2 ()));

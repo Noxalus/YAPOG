@@ -53,23 +53,6 @@
 #include "Battle/BattleInterface.hpp"
 #include "Configuration/GameData.hpp"
 
-namespace debug
-{
-  ycl::Pokemon* GenerateRandomPokemon ()
-  {
-    yap::ID staticID = yap::ID (yap::RandomHelper::GetNext (1, 10));
-
-    if (staticID == yap::ID (10))
-      staticID = yap::ID (16);
-
-    int level = yap::RandomHelper::GetNext (1, 100);
-
-    ycl::Pokemon* p = new ycl::Pokemon (staticID, level, false);
-
-    return p;
-  }
-}
-
 namespace ycl
 {
   const yap::ScreenType GameplayScreen::DEFAULT_NAME = "Gameplay";
@@ -126,12 +109,15 @@ namespace ycl
 
     session_.GetUser ().OnBattleTriggered += [this] (
       User& sender,
-      const yap::EmptyEventArgs& args)
+      yap::IPacket& packet)
     {
       BattleParameters* battleParameters = new BattleParameters ();
 
+      // Get Pokemon sended by the server
+      Pokemon* pokemon = sender.GetOpponentPokemonFromServer (packet);
+
       IDrawableBattleEntity* battleEntity = 
-        new PokemonFighter (debug::GenerateRandomPokemon (), true);
+        new PokemonFighter (pokemon, true);
 
       battleParameters->SetOpponent (battleEntity);
 

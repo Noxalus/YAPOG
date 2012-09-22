@@ -62,10 +62,10 @@ namespace ycl
       switch (guiEvent.key.code)
       {
       case sf::Keyboard::PageDown:
-        battle_->GetOpponent ().TakeDamage (1);
+        battle_->GetOpponent ().TakeDamage (50);
         return true;
          case sf::Keyboard::PageUp:
-        battle_->GetOpponent ().TakeDamage (-1);
+        battle_->GetOpponent ().TakeDamage (-50);
         return true;
 
          case sf::Keyboard::W:

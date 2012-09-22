@@ -20,6 +20,7 @@ namespace ycl
   class Player;
   class PlayerTrainer;
   class BattleParameters;
+  class Pokemon;
 
   class User : public yap::IPacketHandler
   {
@@ -57,6 +58,9 @@ namespace ycl
     void ChangeMoney (int value);
     void UpdatePlayTime (const yap::Time& dt);
 
+    Pokemon* GetPlayerPokemonFromServer (yap::IPacket& packet);
+    Pokemon* GetOpponentPokemonFromServer (yap::IPacket& packet);
+
     /// @name IPacketHandler members.
     /// @{
     virtual bool HandlePacket (yap::IPacket& packet);
@@ -71,7 +75,7 @@ namespace ycl
     yap::Event<const User&, Player&> OnPlayerWarped;
     yap::Event<const User&, const yap::GameMessage&> OnMessageReceived;
 
-    yap::Event<User&> OnBattleTriggered;
+    yap::Event<User&, yap::IPacket&> OnBattleTriggered;
     yap::Event<const User&> OnPokemonTeamReceived;
     yap::Event<User&> OnPlayerDataReceived;
 

@@ -9,10 +9,16 @@
 # include "World/Map/Character.hpp"
 # include "World/Map/PlayerInputManager.hpp"
 
+namespace yap
+{
+  class Packet;
+}
+
 namespace yse
 {
   struct IDynamicWorldObjectVisitor;
   struct IDynamicWorldObjectConstVisitor;
+  class Pokemon;
 
   class User;
 
@@ -80,6 +86,10 @@ namespace yse
       User& GetParent ();
 
       void HandleClientInfoGameInput (yap::IPacket& packet);
+
+      Pokemon* GenerateRandomPokemon ();
+
+      void WriteOpponentPokemon (yap::Packet& packet, Pokemon* pokemon);
 
       static const yap::String OBJECT_FACTORY_TYPE_NAME;
 

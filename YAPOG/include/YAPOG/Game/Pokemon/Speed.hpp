@@ -11,6 +11,7 @@ namespace yap
     public:
       Speed ();
       Speed (const UInt16& ev, const UInt16& iv);
+      Speed (const UInt16& iv);
   };
 } // namespace yap
 

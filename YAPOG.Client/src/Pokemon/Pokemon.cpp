@@ -80,6 +80,32 @@ namespace ycl
     Init ();
   }
 
+  Pokemon::Pokemon (
+    const yap::ID& staticID,
+    const yap::PokemonStat& stats,
+    const yap::Gender& gender,
+    const bool shiny,
+    const yap::PokemonMoveSet& moveSet,
+    const yap::ID& natureID,
+    const yap::uint& exp)
+    : yap::Pokemon (
+    staticID,
+    stats,
+    gender,
+    shiny,
+    moveSet,
+    natureID,
+    exp)
+    , icon_ (nullptr)
+    , genderIcon_ (nullptr)
+    , battleBack_ (nullptr)
+    , battleFront_ (nullptr)
+    , type1Icon_ (nullptr)
+    , type2Icon_ (nullptr)
+  {
+    Init ();
+  }
+
   Pokemon::~Pokemon ()
   {
   }

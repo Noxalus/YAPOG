@@ -13,6 +13,7 @@ namespace yap
       BaseStat ();
 
       BaseStat (const UInt16& ev, const UInt16& iv);
+      BaseStat (const UInt16& iv);
 
       /// Getters
       const UInt16& GetValue () const;

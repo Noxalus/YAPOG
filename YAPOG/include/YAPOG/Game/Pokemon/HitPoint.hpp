@@ -10,7 +10,12 @@ namespace yap
   {
     public:
       HitPoint ();
-      HitPoint (const UInt16& currentValue, const UInt16& ev, const UInt16& iv);
+      HitPoint (
+        const UInt16& currentValue, 
+        const UInt16& ev, 
+        const UInt16& iv);
+
+      HitPoint (const UInt16& iv);
 
       UInt16 GetCurrentValue () const;
       float GetHPPercentage () const;

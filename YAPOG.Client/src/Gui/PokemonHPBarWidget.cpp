@@ -20,7 +20,8 @@ namespace ycl
   const float PokemonHPBarWidget::MAX_HP_BAR_SIZE = 144.f;
 
   PokemonHPBarWidget::PokemonHPBarWidget ()
-    : hp_ (nullptr)
+    : yap::ProgressBarWidget ()
+    , hp_ (nullptr)
     , previousHPValue_ (0)
     , hpValueVariance_ (0)
     , hpBarContent_ (nullptr)
@@ -60,6 +61,7 @@ namespace ycl
   void PokemonHPBarWidget::Update ()
   {
     hpValueVariance_ = previousHPValue_ - hp_->GetCurrentValue ();
+    previousHPValue_ = hp_->GetCurrentValue ();
     hpTimer_.Reset ();
   }
 
@@ -80,19 +82,23 @@ namespace ycl
     yap::MathHelper::Clamp (blue, 0, 255)));
     */
 
-    if (hp_->GetHPPercentage () * 100 <= 25)
-      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_BAD);
-    else if (hp_->GetHPPercentage () * 100 <= 50)
-      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_MEDIUM);
-    else
-      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
+    float hpPercentage = 
+      static_cast<float>(hp_->GetCurrentValue () + hpValueVariance_) / 
+      static_cast<float>(hp_->GetValue ());
+
+    float size = MAX_HP_BAR_SIZE * hpPercentage;
 
     // Update the size
-    float size =  MAX_HP_BAR_SIZE * hp_->GetHPPercentage ();
-
     hpBarContent_->SetSize (yap::Vector2 (
       size,
       hpBarContent_->GetSize ().y));
+
+    if (hpPercentage * 100 <= 25)
+      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_BAD);
+    else if (hpPercentage * 100 <= 50)
+      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_MEDIUM);
+    else
+      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
   }
 
   bool PokemonHPBarWidget::IsFocusable () const
@@ -121,12 +127,24 @@ namespace ycl
 
   void PokemonHPBarWidget::HandleUpdate (const yap::Time& dt)
   {
-    if (hpValueVariance_ > 0 && hpTimer_.GetCurrentTime ().GetValue () >= 1.f)
+    if (hpValueVariance_ != 0 && 
+      hpTimer_.GetCurrentTime ().GetValue () >= 0.02f)
     {
-      hpValueVariance_--;
+      if (hpValueVariance_ > 0)
+        hpValueVariance_--;
+      else
+        hpValueVariance_++;
+
       RealUpdate ();
       hpTimer_.Reset ();
+
+      if (hpValueVariance_ == 0)
+      {
+        // Call an event to notify that HP Bar have finished to update
+      }
     }
+
+    hpTimer_.Update (dt);
   }
 
 } // namespace ycl

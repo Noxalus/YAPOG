@@ -23,6 +23,12 @@ namespace yap
   {
   }
 
+  BaseStat::BaseStat (const UInt16& iv)
+    : value_ (INITIAL_STAT_VALUE)
+    , individualValue_ (iv)
+  {
+  }
+
   const UInt16& BaseStat::GetValue () const
   {
     return value_;

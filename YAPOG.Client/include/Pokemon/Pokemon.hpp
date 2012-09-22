@@ -43,6 +43,15 @@ namespace ycl
       const yap::ID& boxIndex,
       const yap::String& catchDate);
 
+    Pokemon (
+      const yap::ID& staticID,
+      const yap::PokemonStat& stats,
+      const yap::Gender& gender,
+      const bool shiny,
+      const yap::PokemonMoveSet& moveSet,
+      const yap::ID& natureID,
+      const yap::uint& exp);
+
     virtual ~Pokemon ();
 
     /// Getters

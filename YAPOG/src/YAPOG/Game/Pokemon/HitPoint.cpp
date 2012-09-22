@@ -19,6 +19,12 @@ namespace yap
   {
   }
 
+  HitPoint::HitPoint (const UInt16& iv)
+    : BaseStat (iv)
+    , currentValue_ (INITIAL_CURRENT_VALUE)
+  {
+  }
+
   UInt16 HitPoint::GetCurrentValue () const
   { return currentValue_; }
 
