@@ -10,7 +10,7 @@
 namespace ycl
 {
   PokemonBattleInfoWidget::PokemonBattleInfoWidget ()
-    : BattleInfoWidget (yap::Padding (40, 30, 0, 0))
+    : BattleInfoWidget (yap::Padding (40, 24, 0, 0))
     , hp_ (nullptr)
     , hpValue_ ()
     , experienceBar_ (true)
@@ -34,10 +34,8 @@ namespace ycl
     battleInfoBox_.AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
 
     // Debug borders
-    /*
     hpValue_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
     experienceBar_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
-    */
   }
 
   void PokemonBattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)
