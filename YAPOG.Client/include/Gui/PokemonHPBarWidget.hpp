@@ -3,13 +3,10 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/ProgressBarWidget.hpp"
-# include "YAPOG/System/Time/UpdateableTimer.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
-  class PictureBox;
-  class HorizontalLayout;
   class HitPoint;
 }
 
@@ -24,11 +21,11 @@ namespace ycl
   public:
     PokemonHPBarWidget ();
 
-    void Init ();
+    virtual void Init ();
 
     void SetHitPoint (const yap::HitPoint& hp);
 
-    void Update ();
+    virtual void UpdateProgressBar ();
 
     virtual bool IsFocusable () const;
 
@@ -38,19 +35,11 @@ namespace ycl
     virtual void HandleDraw (yap::IDrawingContext& offset);
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
-    virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    void RealUpdate ();
+    virtual void RealUpdate ();
 
     const yap::HitPoint* hp_;
-    yap::UInt16 previousHPValue_;
-    int hpValueVariance_;
-
-    yap::PictureBox* hpBarContent_;
-    yap::HorizontalLayout* mainLayout_;
-    yap::UpdateableTimer hpTimer_;
-
 
     static const sf::Color DEFAULT_HP_COLOR_GOOD;
     static const sf::Color DEFAULT_HP_COLOR_MEDIUM;

@@ -1,21 +1,23 @@
+#include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
 #include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
+#include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 
 #include "Gui/PokemonExperienceBarWidget.hpp"
-#include "Pokemon/Pokemon.hpp"
 
 namespace ycl
 {
+  const float PokemonExperienceBarWidget::MAX_EXP_BAR_SIZE = 137.f;
+
   PokemonExperienceBarWidget::PokemonExperienceBarWidget ()
     : yap::ProgressBarWidget ()
-    , experienceBarContent_ (nullptr)
-    , mainLayout_ (nullptr)
+    , experience_ (nullptr)
   {
     mainLayout_ = new yap::HorizontalLayout (
       yap::Padding (60, 0, 0, 11), yap::Padding (), false);
-    experienceBarContent_ = new yap::PictureBox ();
+    barContent_ = new yap::PictureBox ();
   }
 
   void PokemonExperienceBarWidget::Init ()
@@ -25,20 +27,43 @@ namespace ycl
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/ExperienceBarContainer.png", true));
 
-    experienceBarContent_->SetPicture (new yap::Sprite (
+    barContent_->SetPicture (new yap::Sprite (
       "Pictures/TeamManager/ExperienceBarContent.png"));
 
     mainLayout_->SetSize (GetSize ());
 
-    mainLayout_->AddChild (*experienceBarContent_, yap::LayoutBox::Align::TOP);
+    mainLayout_->AddChild (*barContent_, yap::LayoutBox::Align::TOP);
 
     AddChild (*mainLayout_);
   }
 
-  void PokemonExperienceBarWidget::SetPokemon (const Pokemon& pokemon)
+  void PokemonExperienceBarWidget::SetExperience (
+    const yap::PokemonExperience& experience)
   {
-    experienceBarContent_->SetSize (yap::Vector2 (
-      137 * pokemon.GetExperiencePercentage (), 8));
+    experience_ = &experience;
+    previousValue_ = experience_->GetValue ();
+
+    RealUpdate ();
+  }
+
+  void PokemonExperienceBarWidget::UpdateProgressBar ()
+  {
+    variance_ = previousValue_ - experience_->GetValue ();
+    previousValue_ = experience_->GetValue ();
+    timer_.Reset ();
+  }
+
+  void PokemonExperienceBarWidget::RealUpdate ()
+  {
+    float percentage = experience_->GetExperiencePercentage (variance_);
+
+    float size = MAX_EXP_BAR_SIZE * 
+      experience_->GetExperiencePercentage (variance_);
+
+    // Update the size
+    barContent_->SetSize (yap::Vector2 (
+      size,
+      barContent_->GetSize ().y));
   }
 
   bool PokemonExperienceBarWidget::IsFocusable () const
@@ -62,10 +87,6 @@ namespace ycl
   }
 
   void PokemonExperienceBarWidget::HandleChangeColor (const sf::Color& color)
-  {
-  }
-
-  void PokemonExperienceBarWidget::HandleUpdate (const yap::Time& dt)
   {
   }
 

@@ -10,6 +10,7 @@
 # include "YAPOG/System/Event/Event.hpp"
 # include "YAPOG/Game/Pokemon/PokemonMove.hpp"
 # include "YAPOG/Game/Pokemon/PokemonStat.hpp"
+# include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 
 namespace yap
 {
@@ -22,6 +23,7 @@ namespace yap
     /// @name Getters.
     /// @{
     virtual const String& GetName () const = 0;
+    virtual const PokemonExperience& GetExperience () const = 0;
     virtual UInt16 GetLevel () const = 0;
     virtual Gender GetGender () const = 0;
     virtual UInt16 GetCurrentHP () const = 0;
@@ -44,6 +46,7 @@ namespace yap
 
     /// @name Setters.
     /// @{
+    virtual void AddExperience (int value) = 0;
     virtual void TakeDamage (int value) = 0;
     /// @}
 
@@ -53,6 +56,11 @@ namespace yap
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 
       OnHPChangedEvent () = 0;
+
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const PokemonExperience&>&>& 
+      OnExperienceChangedEvent () = 0;
     /// @}
   };
 } // namespace yap

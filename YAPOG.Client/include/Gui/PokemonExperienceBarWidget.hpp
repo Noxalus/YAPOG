@@ -8,12 +8,11 @@ namespace yap
 {
   class PictureBox;
   class HorizontalLayout;
+  class PokemonExperience;
 }
 
 namespace ycl
 {
-  class Pokemon;
-
   class PokemonExperienceBarWidget : public yap::ProgressBarWidget
   {
   public:
@@ -21,7 +20,9 @@ namespace ycl
 
     void Init ();
 
-    void SetPokemon (const Pokemon& pokemon);
+    void SetExperience (const yap::PokemonExperience& experience);
+
+    virtual void UpdateProgressBar ();
 
     virtual bool IsFocusable () const;
 
@@ -31,11 +32,13 @@ namespace ycl
     virtual void HandleDraw (yap::IDrawingContext& offset);
     virtual void HandleShow (bool isVisible);
     virtual void HandleChangeColor (const sf::Color& color);
-    virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    yap::PictureBox* experienceBarContent_;
-    yap::HorizontalLayout* mainLayout_;
+    virtual void RealUpdate ();
+
+    const yap::PokemonExperience* experience_;
+
+    static const float MAX_EXP_BAR_SIZE;
 
   };
 } // namespace ycl

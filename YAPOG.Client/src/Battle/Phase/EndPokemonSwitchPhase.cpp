@@ -62,6 +62,10 @@ namespace ycl
     battleInterface_.GetPokemonInfoWidget ().SetHitPoint (
       battle_.GetPlayerTeam ().GetStats ().GetHitPoint ());
 
+    // Pokemon Experience
+    battleInterface_.GetPokemonInfoWidget ().SetExperience (
+      battle_.GetPlayerTeam ().GetExperience ());
+
     /* Pokemon sprite */
 
     // Visibility
@@ -85,6 +89,14 @@ namespace ycl
       const yap::ChangeEventArgs<const yap::HitPoint&>& args)
     {
       battleInterface_.GetPokemonInfoWidget ().UpdateHPBar ();
+    };
+
+     // Pokemon experience
+    battle_.GetPlayerTeam ().OnExperienceChangedEvent () +=
+      [&] (const yap::IBattleEntity& sender, 
+      const yap::ChangeEventArgs<const yap::PokemonExperience&>& args)
+    {
+      battleInterface_.GetPokemonInfoWidget ().UpdateExperienceBar ();
     };
 
     // Pokemon moves

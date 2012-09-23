@@ -15,9 +15,14 @@ namespace yap
 
   /// @name IBattleEntity members
   /// @{
-  const yap::String& PokemonFighter::GetName () const
+  const String& PokemonFighter::GetName () const
   {
     return originalPokemon_->GetName ();
+  }
+
+  const PokemonExperience& PokemonFighter::GetExperience () const
+  {
+    return originalPokemon_->GetExperience ();
   }
 
   UInt16 PokemonFighter::GetLevel () const
@@ -89,12 +94,22 @@ namespace yap
     return stats_.GetSpeed ();
   }
 
+  void PokemonFighter::AddExperience (int value)
+  {
+    const PokemonExperience& oldValue = originalPokemon_->GetExperience ();
+
+    originalPokemon_->AddExperience (value);
+
+    OnExperienceChanged (*this, yap::ChangeEventArgs<const PokemonExperience&> 
+      (oldValue, originalPokemon_->GetExperience ()));
+  }
+
   void PokemonFighter::TakeDamage (int value)
   {
     SetCurrentHP (GetCurrentHP () - value);
   }
 
-  const const PokemonMoveSet& PokemonFighter::GetMoveSet () const
+  const PokemonMoveSet& PokemonFighter::GetMoveSet () const
   {
     return originalPokemon_->GetMoveSet ();
   }
@@ -110,6 +125,14 @@ namespace yap
     PokemonFighter::OnHPChangedEvent ()
   {
     return OnHPChanged;
+  }
+
+  Event<
+    const IBattleEntity&, 
+    const ChangeEventArgs<const PokemonExperience&>&>& 
+    PokemonFighter::OnExperienceChangedEvent ()
+  {
+    return OnExperienceChanged;
   }
   /// @}
 

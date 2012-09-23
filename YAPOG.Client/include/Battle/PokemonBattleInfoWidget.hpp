@@ -7,6 +7,7 @@
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 
 # include "Battle/BattleInfoWidget.hpp"
+# include "Gui/PokemonExperienceBarWidget.hpp"
 
 namespace yap
 {
@@ -17,6 +18,8 @@ namespace yap
 
 namespace ycl
 {
+  class PokemonExperience;
+
   class PokemonBattleInfoWidget : public BattleInfoWidget
   {
     DISALLOW_COPY (PokemonBattleInfoWidget);
@@ -27,16 +30,19 @@ namespace ycl
     virtual void Init ();
 
     virtual void UpdateHPBar ();
+    virtual void UpdateExperienceBar ();
+
 
     /// @name Setters.
     /// @{
     virtual void SetHitPoint (const yap::HitPoint& hp);
+    virtual void SetExperience (const yap::PokemonExperience& experience);
     /// @}
 
   private:
     const yap::HitPoint* hp_;
     yap::Label hpValue_;
-    yap::ISprite* experienceBar_;
+    PokemonExperienceBarWidget experienceBar_;
   };
 } // namespace ycl
 

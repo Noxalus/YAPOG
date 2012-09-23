@@ -1,9 +1,10 @@
+#include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Game/Sprite/Sprite.hpp"
-#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 #include "YAPOG/Game/Pokemon/HitPoint.hpp"
 #include "YAPOG/System/Time/Time.hpp"
+#include "YAPOG/Graphics/Gui/HorizontalLayout.hpp"
 
 #include "Gui/PokemonHPBarWidget.hpp"
 #include "Pokemon/Pokemon.hpp"
@@ -22,15 +23,10 @@ namespace ycl
   PokemonHPBarWidget::PokemonHPBarWidget ()
     : yap::ProgressBarWidget ()
     , hp_ (nullptr)
-    , previousHPValue_ (0)
-    , hpValueVariance_ (0)
-    , hpBarContent_ (nullptr)
-    , mainLayout_ (nullptr)
-    , hpTimer_ ()
   {
     mainLayout_ = new yap::HorizontalLayout (
       yap::Padding (45, 0, 0, 6), yap::Padding (), false);
-    hpBarContent_ = new yap::PictureBox ();
+    barContent_ = new yap::PictureBox ();
   }
 
   void PokemonHPBarWidget::Init ()
@@ -40,12 +36,12 @@ namespace ycl
     SetBackground (*new yap::WidgetBackground (
       "Pictures/Battle/HPBattleBar.png", true));
 
-    hpBarContent_->SetPicture (new yap::Sprite (
+    barContent_->SetPicture (new yap::Sprite (
       "Pictures/Battle/HPBarContent.png"));
 
     mainLayout_->SetSize (GetSize ());
 
-    mainLayout_->AddChild (*hpBarContent_, yap::LayoutBox::Align::TOP);
+    mainLayout_->AddChild (*barContent_, yap::LayoutBox::Align::TOP);
 
     AddChild (*mainLayout_);
   }
@@ -53,16 +49,16 @@ namespace ycl
   void PokemonHPBarWidget::SetHitPoint (const yap::HitPoint& hp)
   {
     hp_ = &hp;
-    previousHPValue_ = hp_->GetCurrentValue ();
+    previousValue_ = hp_->GetCurrentValue ();
 
     RealUpdate ();
   }
 
-  void PokemonHPBarWidget::Update ()
+  void PokemonHPBarWidget::UpdateProgressBar ()
   {
-    hpValueVariance_ = previousHPValue_ - hp_->GetCurrentValue ();
-    previousHPValue_ = hp_->GetCurrentValue ();
-    hpTimer_.Reset ();
+    variance_ = previousValue_ - hp_->GetCurrentValue ();
+    previousValue_ = hp_->GetCurrentValue ();
+    timer_.Reset ();
   }
 
   void PokemonHPBarWidget::RealUpdate ()
@@ -83,22 +79,23 @@ namespace ycl
     */
 
     float hpPercentage = 
-      static_cast<float>(hp_->GetCurrentValue () + hpValueVariance_) / 
-      static_cast<float>(hp_->GetValue ());
+      yap::MathHelper::Clamp (
+      static_cast<float>(hp_->GetCurrentValue () + variance_) / 
+      static_cast<float>(hp_->GetValue ()), 0.f, 1.f);
 
     float size = MAX_HP_BAR_SIZE * hpPercentage;
 
     // Update the size
-    hpBarContent_->SetSize (yap::Vector2 (
+    barContent_->SetSize (yap::Vector2 (
       size,
-      hpBarContent_->GetSize ().y));
+      barContent_->GetSize ().y));
 
     if (hpPercentage * 100 <= 25)
-      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_BAD);
+      barContent_->ChangeColor (DEFAULT_HP_COLOR_BAD);
     else if (hpPercentage * 100 <= 50)
-      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_MEDIUM);
+      barContent_->ChangeColor (DEFAULT_HP_COLOR_MEDIUM);
     else
-      hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
+      barContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
   }
 
   bool PokemonHPBarWidget::IsFocusable () const
@@ -123,28 +120,6 @@ namespace ycl
 
   void PokemonHPBarWidget::HandleChangeColor (const sf::Color& color)
   {
-  }
-
-  void PokemonHPBarWidget::HandleUpdate (const yap::Time& dt)
-  {
-    if (hpValueVariance_ != 0 && 
-      hpTimer_.GetCurrentTime ().GetValue () >= 0.02f)
-    {
-      if (hpValueVariance_ > 0)
-        hpValueVariance_--;
-      else
-        hpValueVariance_++;
-
-      RealUpdate ();
-      hpTimer_.Reset ();
-
-      if (hpValueVariance_ == 0)
-      {
-        // Call an event to notify that HP Bar have finished to update
-      }
-    }
-
-    hpTimer_.Update (dt);
   }
 
 } // namespace ycl

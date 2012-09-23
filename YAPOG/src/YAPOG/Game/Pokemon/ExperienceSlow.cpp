@@ -7,7 +7,7 @@ namespace yap
   {
   }
 
-  UInt32 ExperienceSlow::ComputeExperienceFromLevel (const UInt16& level)
+  UInt32 ExperienceSlow::ComputeExperienceFromLevel (const UInt16& level) const
   {
     return (5 * MathHelper::Pow (level, 3)) / 4;
   }

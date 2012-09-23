@@ -2,6 +2,7 @@
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Game/Pokemon/HitPoint.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 
 #include "Battle/PokemonBattleInfoWidget.hpp"
 
@@ -25,9 +26,11 @@ namespace ycl
     battleInfoBox_.SetBackground (*background);
 
     BattleInfoWidget::Init ();
+    experienceBar_.Init ();
 
     hpValue_.ChangeColor (sf::Color::Black);
     battleInfoBox_.AddChild (hpValue_, yap::LayoutBox::Align::RIGHT);
+    battleInfoBox_.AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
   }
 
   void PokemonBattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)
@@ -37,6 +40,14 @@ namespace ycl
     hp_ = &hp;
 
     UpdateHPBar ();
+  }
+
+  void PokemonBattleInfoWidget::SetExperience (
+    const yap::PokemonExperience& experience)
+  {
+    experienceBar_.SetExperience (experience);
+
+    UpdateExperienceBar ();
   }
 
   void PokemonBattleInfoWidget::UpdateHPBar ()
@@ -49,5 +60,10 @@ namespace ycl
       yap::StringHelper::ToString (hp_->GetValue ()));
 
     battleInfoBox_.Refresh ();
+  }
+
+  void PokemonBattleInfoWidget::UpdateExperienceBar ()
+  {
+    experienceBar_.UpdateProgressBar ();
   }
 }

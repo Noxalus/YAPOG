@@ -228,7 +228,7 @@ namespace ycl
   void PokemonStatsInfoWidget::SetPokemon (const Pokemon& pokemon)
   {
       pokemonFrontInfoWidget_.SetPokemon (pokemon);
-      experienceBarWidget_.SetPokemon (pokemon);
+      experienceBarWidget_.SetExperience (pokemon.GetExperience ());
 
       // Labels
       hp_->SetText (

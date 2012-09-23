@@ -19,7 +19,7 @@ namespace yap
     UInt32 GetValue () const;
     UInt32 GetExperienceToNextLevel () const;
     UInt32 GetTotalExperienceToNextLevel () const;
-    float GetExperiencePercentage ();
+    float GetExperiencePercentage (int variance = 0) const;
 
     int AddExperience (const UInt32& value);
 
@@ -30,7 +30,8 @@ namespace yap
     static const UInt16 MAX_LEVEL_VALUE;
 
   private:
-    virtual UInt32 ComputeExperienceFromLevel (const UInt16& level) = 0;
+    UInt32 GetCurrentBase () const;
+    virtual UInt32 ComputeExperienceFromLevel (const UInt16& level) const = 0;
 
     UInt32 value_;
     UInt32 totalExperienceToNextLevel_;

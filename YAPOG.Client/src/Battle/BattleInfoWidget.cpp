@@ -104,7 +104,7 @@ namespace ycl
 
   void BattleInfoWidget::UpdateHPBar ()
   {
-    hpBar_.Update ();
+    hpBar_.UpdateProgressBar ();
   }
 
   void BattleInfoWidget::SetName (const yap::String& value)

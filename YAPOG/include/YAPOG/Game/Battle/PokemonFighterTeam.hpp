@@ -17,6 +17,7 @@ namespace yap
     /// @name IBattleEntity members
     /// @{
     virtual const String& GetName () const;
+    virtual const PokemonExperience& GetExperience () const;
     virtual UInt16 GetLevel () const;
     virtual Gender GetGender () const;
     virtual UInt16 GetCurrentHP () const;
@@ -37,12 +38,18 @@ namespace yap
     virtual const TypeInfo& GetType2 () const;
     virtual float GetTypeEffectFactor (const TypeInfo& type) const;
 
+    virtual void AddExperience (int value);
     virtual void TakeDamage (int value);
 
     virtual Event<
       const IBattleEntity&, 
       const ChangeEventArgs<const HitPoint&>&>& 
       OnHPChangedEvent ();
+
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const PokemonExperience&>&>& 
+      OnExperienceChangedEvent ();
     /// @}
 
     /// @name IUpdateable members.

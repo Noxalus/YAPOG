@@ -7,7 +7,8 @@ namespace yap
   {
   }
 
-  UInt32 ExperienceFluctuating::ComputeExperienceFromLevel (const UInt16& level)
+  UInt32 ExperienceFluctuating::ComputeExperienceFromLevel (
+    const UInt16& level) const
   {
     float value = 0;
 

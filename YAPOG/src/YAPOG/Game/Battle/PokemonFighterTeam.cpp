@@ -16,6 +16,11 @@ namespace yap
     return GetCurrentFighter ().GetName ();
   }
 
+  const PokemonExperience& PokemonFighterTeam::GetExperience () const
+  {
+    return GetCurrentFighter ().GetExperience ();
+  }
+
   UInt16 PokemonFighterTeam::GetLevel () const
   {
     return GetCurrentFighter ().GetLevel ();
@@ -75,6 +80,11 @@ namespace yap
     return GetCurrentFighter ().GetStats ().GetSpeed ();
   }
 
+   void PokemonFighterTeam::AddExperience (int value)
+  {
+    GetCurrentFighter ().AddExperience (value);
+  }
+
   void PokemonFighterTeam::TakeDamage (int value)
   {
     GetCurrentFighter ().TakeDamage (value);
@@ -106,6 +116,14 @@ namespace yap
       PokemonFighterTeam::OnHPChangedEvent ()
   {
     return GetCurrentFighter ().OnHPChangedEvent ();
+  }
+
+  Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const PokemonExperience&>&>& 
+      PokemonFighterTeam::OnExperienceChangedEvent ()
+  {
+    return GetCurrentFighter ().OnExperienceChangedEvent ();
   }
   /// @}
 

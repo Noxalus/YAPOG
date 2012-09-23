@@ -65,6 +65,7 @@ namespace yap
     const TypeInfo& GetType1 () const;
     const TypeInfo& GetType2 () const;
     float GetTypeEffectFactor (const TypeInfo& type) const;
+    const PokemonExperience& GetExperience () const;
     UInt32 GetTotalExperience () const;
     UInt32 GetExperienceToNextLevel () const;
     UInt32 GetTotalExperienceToNextLevel () const;
@@ -96,7 +97,7 @@ namespace yap
 
     void AddExperience (const Int32& value);
 
-    static const int MAX_POKEMON_MOVE_NUMBER;
+    static const uchar MAX_POKEMON_MOVE_NUMBER;
     static const ID DEFAULT_NATURE_ID;
     static const UInt32 DEFAULT_EXPERIENCE_AMOUNT;
 

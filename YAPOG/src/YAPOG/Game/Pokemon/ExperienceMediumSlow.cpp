@@ -7,7 +7,8 @@ namespace yap
   {
   }
 
-  UInt32 ExperienceMediumSlow::ComputeExperienceFromLevel (const UInt16& level)
+  UInt32 ExperienceMediumSlow::ComputeExperienceFromLevel (
+    const UInt16& level) const
   {
     float value = (6.f/5.f) * MathHelper::Pow (level, 3);
     value -= 15 * MathHelper::Pow (level, 2);

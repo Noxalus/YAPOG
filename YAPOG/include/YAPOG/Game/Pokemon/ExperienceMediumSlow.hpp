@@ -14,7 +14,7 @@ namespace yap
     ExperienceMediumSlow ();
 
   private:
-    virtual UInt32 ComputeExperienceFromLevel (const UInt16& level);
+    virtual UInt32 ComputeExperienceFromLevel (const UInt16& level) const;
   };
 } // namespace yap
 

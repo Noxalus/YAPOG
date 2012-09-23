@@ -14,7 +14,7 @@
 
 namespace yap
 {
-  const int Pokemon::MAX_POKEMON_MOVE_NUMBER = 4;
+  const uchar Pokemon::MAX_POKEMON_MOVE_NUMBER = 4;
   const ID Pokemon::DEFAULT_NATURE_ID (2);
   const UInt32 Pokemon::DEFAULT_EXPERIENCE_AMOUNT = 0;
 
@@ -284,6 +284,11 @@ namespace yap
   {
     return type.GetTypeEffect (type_.GetType1 ().GetID ()) *
       type.GetTypeEffect (type_.GetType2 ().GetID ());
+  }
+
+  const PokemonExperience& Pokemon::GetExperience () const
+  {
+    return *exp_;
   }
 
   UInt32 Pokemon::GetTotalExperience () const

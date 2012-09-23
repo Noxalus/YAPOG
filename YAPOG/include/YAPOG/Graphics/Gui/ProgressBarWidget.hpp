@@ -6,9 +6,13 @@
 # include "YAPOG/Graphics/Gui/TextureManager.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 # include "YAPOG/Collection/Array.hpp"
+# include "YAPOG/System/Time/UpdateableTimer.hpp"
 
 namespace yap
 {
+  class PictureBox;
+  class HorizontalLayout;
+
   class YAPOG_LIB ProgressBarWidget : public BaseWidget
   {
     DISALLOW_COPY(ProgressBarWidget);
@@ -18,6 +22,21 @@ namespace yap
     ProgressBarWidget ();
 
     virtual ~ProgressBarWidget ();
+
+    virtual void Init () = 0;
+    virtual void UpdateProgressBar () = 0;
+
+  protected:
+    virtual void RealUpdate () = 0;
+    virtual void HandleUpdate (const yap::Time& dt);
+
+    int variance_;
+    yap::UpdateableTimer timer_;
+
+    yap::UInt16 previousValue_;
+
+    yap::PictureBox* barContent_;
+    yap::HorizontalLayout* mainLayout_;
 
   };
 } // namespace yap

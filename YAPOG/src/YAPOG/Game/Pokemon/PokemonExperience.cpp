@@ -60,12 +60,19 @@ namespace yap
     return totalExperienceToNextLevel_;
   }
 
-  float PokemonExperience::GetExperiencePercentage ()
+  UInt32 PokemonExperience::GetCurrentBase () const
   {
-    UInt32 base = ComputeExperienceFromLevel (GetLevel ());
+    return ComputeExperienceFromLevel (currentLevel_);
+  }
 
-    return static_cast<float>(value_ - base) / 
-      static_cast<float>(totalExperienceToNextLevel_ - base);
+  float PokemonExperience::GetExperiencePercentage (int variance) const
+  {
+    UInt32 base = GetCurrentBase ();
+
+    return MathHelper::Clamp (
+      static_cast<float>(value_ - base + variance) / 
+      static_cast<float>(totalExperienceToNextLevel_ - base),
+      0.f, 1.f);
   }
 
   UInt16 PokemonExperience::GetLevel ()
