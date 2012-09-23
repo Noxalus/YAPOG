@@ -25,8 +25,8 @@ namespace yse
 
     npc_.SetTalkEventArea (
       new yap::BoundingBox (
-        yap::Vector2 (-60, -60),
-        yap::Vector2 (120, 120),
+        yap::Vector2 (-600, -600),
+        yap::Vector2 (1200, 1200),
         0,
         1));
   }

@@ -8,7 +8,7 @@ namespace yap
 {
   struct IWriter;
 
-  class WriterDialogDisplay : public IDialogDisplay
+  class YAPOG_LIB WriterDialogDisplay : public IDialogDisplay
   {
       DISALLOW_COPY(WriterDialogDisplay);
 

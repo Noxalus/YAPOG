@@ -8,7 +8,7 @@ namespace yap
 {
   struct IDialogActor;
 
-  class TalkMapEventAction : public BaseMapEventAction
+  class YAPOG_LIB TalkMapEventAction : public BaseMapEventAction
   {
       DISALLOW_ASSIGN(TalkMapEventAction);
 

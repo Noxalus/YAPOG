@@ -1,13 +1,15 @@
 #ifndef YAPOG_DIALOGNODEEXECUTIONCONTEXT_HPP
 # define YAPOG_DIALOGNODEEXECUTIONCONTEXT_HPP
 
+# include "YAPOG/Macros.hpp"
+
 namespace yap
 {
   struct IDialogMessage;
   struct IDialogNode;
   struct IGameAction;
 
-  class DialogNodeExecutionContext
+  class YAPOG_LIB DialogNodeExecutionContext
   {
     public:
 
