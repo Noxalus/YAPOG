@@ -54,7 +54,7 @@ namespace yap
     
     // We save the former values
     BattlePhaseState previousState = currentPhaseState_;
-    PhaseArgs* previousArgs = currentBattlePhase_->GetPhaseArgs ();
+    PhaseArgs previousArgs = currentBattlePhase_->GetPhaseArgs ();
 
     SetCurrentPhaseState (battlePhaseState);
 
@@ -81,7 +81,7 @@ namespace yap
     if (wasEmpty)
     {
       SetCurrentPhaseState (battlePhaseState);
-      currentBattlePhase_->Start (nullptr);
+      currentBattlePhase_->Start (yap::PhaseArgs ());
     }
   }
 }

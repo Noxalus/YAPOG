@@ -34,6 +34,8 @@ namespace ycl
     void SetCurrentWidget (const yap::String& name);
     bool UnsetCurrentWidget ();
 
+    void CloseBattleMoveMenu ();
+
     /// @name Getters.
     /// @{
     yap::DialogBoxWidget& GetBattleInfoDialogBox ();

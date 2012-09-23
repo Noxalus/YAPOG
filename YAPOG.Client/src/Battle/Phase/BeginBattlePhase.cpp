@@ -24,7 +24,7 @@ namespace ycl
   {
   }
 
-  void BeginBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void BeginBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::BeginBattlePhase::HandleStart (args);
   }

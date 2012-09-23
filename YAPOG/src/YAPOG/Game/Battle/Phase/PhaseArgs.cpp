@@ -4,6 +4,8 @@
 namespace yap
 {
   PhaseArgs::PhaseArgs ()
+    : choice_ (BattleChoice::None)
+    , index_ (0)
   {
   }
 }

@@ -98,7 +98,6 @@ namespace yap
     child.UnsetBorder ();
 
     SetFormItem ();
-
   }
 
   Vector2 GridMenu::GetCurrentSelect () const

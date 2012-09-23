@@ -49,7 +49,7 @@ namespace ycl
     };
   }
 
-  void BeginWildBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void BeginWildBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     BeginBattlePhase::HandleStart (args);
 

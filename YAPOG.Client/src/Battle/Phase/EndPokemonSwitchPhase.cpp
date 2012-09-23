@@ -3,6 +3,7 @@
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 #include "YAPOG/Game/Battle/Phase/ActionPhaseArgs.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
+#include "YAPOG/Game/Pokemon/Pokemon.hpp"
 
 #include "Game.hpp"
 
@@ -30,7 +31,7 @@ namespace ycl
   {
   }
 
-  void EndPokemonSwitchPhase::HandleStart (yap::PhaseArgs* args)
+  void EndPokemonSwitchPhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::EndPokemonSwitchPhase::HandleStart (args);
 
@@ -87,9 +88,9 @@ namespace ycl
     };
 
     // Pokemon moves
-    for (yap::uint i = 0; i < battle_.GetPlayerTeam ().GetMoves ().Count (); i++)
+    for (yap::uint i = 0; i < yap::Pokemon::MAX_POKEMON_MOVE_NUMBER; i++)
     {
-      if (battle_.GetPlayerTeam ().GetMoves ()[i] != nullptr)
+      if (battle_.GetPlayerTeam ().GetMoveSet ().GetMove (i) != nullptr)
       {
         battleInterface_.GetBattleMoveMenu ().SetItemContent (
           i, battle_.GetPlayerTeam ().GetMove (i).GetName ());
@@ -102,15 +103,9 @@ namespace ycl
             battleInterface_.GetBattleMoveMenu ().GetIndex (sender)));
 
           battleInterface_.GetBattleMoveInfoMenu ().SetType (
-            battle_.GetPlayerTeam ().GetMoves ()
-            [battleInterface_.GetBattleMoveMenu ().
-            GetIndex (sender)]->GetType ());
-        };
-
-        battleInterface_.GetBattleMoveMenu ().GetItem (i).OnActivated +=
-          [&] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
-        {
-          yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::BeginBattle);
+            battle_.GetPlayerTeam ().GetMoveSet ().
+            GetMove (battleInterface_.GetBattleMoveMenu ().
+            GetIndex (sender))->GetType ());
         };
       }
       else

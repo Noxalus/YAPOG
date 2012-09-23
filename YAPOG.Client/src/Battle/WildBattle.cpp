@@ -3,8 +3,12 @@
 #include "Battle/WildBattle.hpp"
 #include "Battle/Phase/BeginWildBattlePhase.hpp"
 #include "Battle/Phase/SelectionPhase.hpp"
+#include "Battle/Phase/BeginTurnPhase.hpp"
+#include "Battle/Phase/ActionPhase.hpp"
+#include "Battle/Phase/EndTurnPhase.hpp"
 #include "Battle/Phase/EndPokemonSwitchPhase.hpp"
 #include "Battle/Phase/RunWildBattlePhase.hpp"
+#include "Battle/Phase/EndWildBattlePhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
 
@@ -26,9 +30,17 @@ namespace ycl
 
     BeginWildBattlePhase* beginWildBattlePhase = 
       new BeginWildBattlePhase (*this, battleInterface_);
-    EndPokemonSwitchPhase* switchPhase = new EndPokemonSwitchPhase (*this, battleInterface_);
-    SelectionPhase* selectionPhase = new SelectionPhase (*this, battleInterface_);
+    EndPokemonSwitchPhase* switchPhase = 
+      new EndPokemonSwitchPhase (*this, battleInterface_);
+    SelectionPhase* selectionPhase = 
+      new SelectionPhase (*this, battleInterface_);
+    BeginTurnPhase* beginTurnPhase = 
+      new BeginTurnPhase (*this, battleInterface_);
+    ActionPhase* actionPhase = new ActionPhase (*this, battleInterface_);
+    EndTurnPhase* endTurnPhase = new EndTurnPhase (*this, battleInterface_);
     RunWildBattlePhase* runPhase = new RunWildBattlePhase (*this, battleInterface_);
+    EndWildBattlePhase* endBattlePhase = 
+      new EndWildBattlePhase (*this, battleInterface_);
 
     beginWildBattlePhase->Init ();
     selectionPhase->Init ();
@@ -36,7 +48,11 @@ namespace ycl
     AddPhase (yap::BattlePhaseState::BeginBattle, beginWildBattlePhase);
     AddPhase (yap::BattlePhaseState::Switch, switchPhase);
     AddPhase (yap::BattlePhaseState::Selection, selectionPhase);
+    AddPhase (yap::BattlePhaseState::BeginTurn, beginTurnPhase);
+    AddPhase (yap::BattlePhaseState::Action, actionPhase);
+    AddPhase (yap::BattlePhaseState::EndTurn, endTurnPhase);
     AddPhase (yap::BattlePhaseState::Run, runPhase);
+    AddPhase (yap::BattlePhaseState::EndBattle, endBattlePhase);
   }
 
   void WildBattle::HandleUpdate (const yap::Time& dt)

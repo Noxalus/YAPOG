@@ -170,6 +170,12 @@ namespace ycl
     battleMoveInfoMenu_.Open ();
   }
 
+  void BattleInterface::CloseBattleMoveMenu ()
+  {
+    battleMoveMenu_.Close ();
+    battleMoveInfoMenu_.Close ();
+  }
+
   void BattleInterface::Reset ()
   {
     battleMoveMenu_.Close ();

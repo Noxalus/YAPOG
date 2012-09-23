@@ -2,15 +2,19 @@
 
 #include "Battle/Phase/BeginTurnPhase.hpp"
 #include "Battle/Battle.hpp"
+#include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   const bool BeginTurnPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color BeginTurnPhase::DEFAULT_COLOR = sf::Color ();
 
-  BeginTurnPhase::BeginTurnPhase (Battle& battle)
+  BeginTurnPhase::BeginTurnPhase (
+    Battle& battle, 
+    BattleInterface& battleInterface)
     : yap::BeginTurnPhase (battle)
     , battle_ (battle)
+    , battleInterface_ (battleInterface)
   {
   }
 
@@ -18,18 +22,21 @@ namespace ycl
   {
   }
 
-  void BeginTurnPhase::HandleStart (yap::PhaseArgs* args)
+  void BeginTurnPhase::HandleStart (const yap::PhaseArgs& args)
   {
-    BattlePhase::HandleStart (args);
+    yap::BeginTurnPhase::HandleStart (args);
   }
 
   void BeginTurnPhase::HandleUpdate (const yap::Time& dt)
   {
+     yap::BeginTurnPhase::HandleUpdate (dt);
+
+     yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Action, phaseArgs_);
   }
 
   void BeginTurnPhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::BeginTurnPhase::HandleEnd ();
   }
 
   void BeginTurnPhase::Draw (yap::IDrawingContext& context)

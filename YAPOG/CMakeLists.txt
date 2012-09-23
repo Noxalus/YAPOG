@@ -275,6 +275,7 @@ ${inc_root}/Game/Pokemon/ExperienceMediumFast.hpp
 ${src_root}/Game/Pokemon/PokemonTeam.cpp
 ${inc_root}/Game/Pokemon/PokemonTeam.hpp
 
+${inc_root}/Game/Battle/BattleChoice.hpp
 ${inc_root}/Game/Battle/BattleType.hpp
 ${src_root}/Game/Battle/BattleCore.cpp
 ${inc_root}/Game/Battle/BattleCore.hpp

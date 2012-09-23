@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/IUpdateable.hpp"
 # include "YAPOG/Game/Battle/Phase/BattlePhaseState.hpp"
+# include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 
 namespace yap
 {
@@ -19,12 +20,12 @@ namespace yap
     /// Getters
     const BattlePhaseState& GetNext () const;
 
-    void Start (PhaseArgs* args);
+    void Start (const PhaseArgs& args);
     void End ();
     
     /// @name Getters.
     /// @{
-    PhaseArgs* GetPhaseArgs ();
+    PhaseArgs GetPhaseArgs ();
     /// @}
 
     /// @name Setters.
@@ -37,16 +38,11 @@ namespace yap
     virtual void Update (const Time& dt);
     /// @}
 
-    /// @name Visitor's methods.
-    /// @{
-    virtual void Visit (const ActionPhaseArgs& visitable);
-    /// @}
-
     void SwitchPhase (BattlePhaseState nextPhase);
-    void SwitchPhase (BattlePhaseState nextPhase, PhaseArgs* args);
+    void SwitchPhase (BattlePhaseState nextPhase, const PhaseArgs& args);
 
   protected:
-    virtual void HandleStart (PhaseArgs* args);
+    virtual void HandleStart (const PhaseArgs& args);
     virtual void HandleEnd ();
     virtual void HandleUpdate (const Time& dt);
 
@@ -55,9 +51,11 @@ namespace yap
     BattlePhaseState state_;
     BattlePhaseState previousPhase_;
 
+  protected:
+    PhaseArgs phaseArgs_;
+
   private:
     BattlePhaseState nextPhase_;
-    PhaseArgs* phaseArgs_;
     Battle& battle_;
   };
 } // namespace yap

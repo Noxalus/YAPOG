@@ -8,7 +8,7 @@ namespace yap
   {
   }
 
-  void RunWildBattlePhase::HandleStart (PhaseArgs* args)
+  void RunWildBattlePhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN RUN WILD BATTLE PHASE !" << std::endl;

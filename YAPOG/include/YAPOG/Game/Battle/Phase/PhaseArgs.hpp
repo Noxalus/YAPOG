@@ -2,6 +2,8 @@
 # define YAPOG_PHASEARGS_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/Battle/BattleChoice.hpp"
+# include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
 {
@@ -12,7 +14,8 @@ namespace yap
   public:
     PhaseArgs ();
 
-    virtual void Accept (BattlePhase& visitor) = 0;
+    BattleChoice choice_; 
+    uint index_;
   };
 } // namespace yap
 

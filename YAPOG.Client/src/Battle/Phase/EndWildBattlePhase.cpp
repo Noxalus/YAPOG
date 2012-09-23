@@ -2,14 +2,17 @@
 
 #include "Battle/Phase/EndWildBattlePhase.hpp"
 #include "Battle/Battle.hpp"
+#include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   const bool EndWildBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color EndWildBattlePhase::DEFAULT_COLOR = sf::Color ();
 
-  EndWildBattlePhase::EndWildBattlePhase (Battle& battle)
-    : EndBattlePhase (battle)
+  EndWildBattlePhase::EndWildBattlePhase (
+    Battle& battle, 
+    BattleInterface& battleInterface)
+    : EndBattlePhase (battle, battleInterface)
   {
   }
 
@@ -17,18 +20,19 @@ namespace ycl
   {
   }
 
-  void EndWildBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void EndWildBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
-    BattlePhase::HandleStart (args);
+     ycl::EndBattlePhase::HandleStart (args);
   }
 
   void EndWildBattlePhase::HandleUpdate (const yap::Time& dt)
   {
+    ycl::EndBattlePhase::HandleUpdate (dt);
   }
 
   void EndWildBattlePhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    ycl::EndBattlePhase::HandleEnd ();
   }
 
   void EndWildBattlePhase::HandleDraw (yap::IDrawingContext& context)

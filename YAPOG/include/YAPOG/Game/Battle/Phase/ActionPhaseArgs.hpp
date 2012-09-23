@@ -10,8 +10,6 @@ namespace yap
   {
   public:
     ActionPhaseArgs ();
-
-    virtual void Accept (BattlePhase& visitor);
   };
 } // namespace yap
 

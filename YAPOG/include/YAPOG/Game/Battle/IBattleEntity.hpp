@@ -27,9 +27,19 @@ namespace yap
     virtual UInt16 GetCurrentHP () const = 0;
     virtual UInt16 GetMaxHP () const = 0;
     virtual float GetHPPercentage () const = 0;
-    virtual const collection::Array<PokemonMove*>& GetMoves () const = 0;
+    virtual const PokemonMoveSet& GetMoveSet () const = 0;
     virtual const PokemonMove& GetMove (int index) const = 0;
     virtual const PokemonStat& GetStats () const = 0;
+
+    virtual const Attack& GetAttack () const = 0;
+    virtual const Defense& GetDefense () const = 0;
+    virtual const SpecialAttack& GetSpecialAttack () const = 0;
+    virtual const SpecialDefense& GetSpecialDefense () const = 0;
+    virtual const Speed& GetSpeed () const = 0;
+
+    virtual const TypeInfo& GetType1 () const = 0;
+    virtual const TypeInfo& GetType2 () const = 0;
+    virtual float GetTypeEffectFactor (const TypeInfo& type) const = 0;
     /// @}
 
     /// @name Setters.

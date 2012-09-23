@@ -28,12 +28,12 @@ namespace yap
 
     void ReplaceMove (const ID& moveID, UInt8 index);
     void ReplaceMove (PokemonMove* move, UInt8 index);
+    
+    static const UInt8 DEFAULT_MOVE_NUMBER;
 
   private:
     collection::Array<PokemonMove*> moveSet_;
     UInt8 moveNumber_;
-
-    static const UInt8 DEFAULT_MOVE_NUMBER;
   };
 
 } // namespace yap

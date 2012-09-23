@@ -19,12 +19,12 @@ namespace ycl
     : public EndBattlePhase
   {
   public:
-    EndWildBattlePhase (Battle& battle);
+    EndWildBattlePhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~EndWildBattlePhase ();
 
     /// @name BattlePhase members.
     /// @{
-    virtual void HandleStart (yap::PhaseArgs* args);
+    virtual void HandleStart (const yap::PhaseArgs& args);
     virtual void HandleUpdate (const yap::Time& dt);
     virtual void HandleEnd ();
     /// @}

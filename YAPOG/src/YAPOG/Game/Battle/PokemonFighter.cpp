@@ -13,9 +13,41 @@ namespace yap
       YAPOG_THROW("The original Pokemon doesn't exist !");
   }
 
+  /// @name IBattleEntity members
+  /// @{
+  const yap::String& PokemonFighter::GetName () const
+  {
+    return originalPokemon_->GetName ();
+  }
+
+  UInt16 PokemonFighter::GetLevel () const
+  {
+    return originalPokemon_->GetLevel ();
+  }
+
   Gender PokemonFighter::GetGender () const
   {
     return originalPokemon_->GetGender ();
+  }
+
+  UInt16 PokemonFighter::GetCurrentHP () const
+  {
+    return stats_.GetHitPoint ().GetCurrentValue ();
+  }
+
+  UInt16 PokemonFighter::GetMaxHP () const
+  {
+    return stats_.GetHitPoint ().GetValue ();
+  }
+
+  float PokemonFighter::GetHPPercentage () const
+  {
+    return  ((float)GetCurrentHP () / (float)GetMaxHP ()) * 100;
+  }
+
+  const PokemonStat& PokemonFighter::GetStats () const
+  {
+    return stats_;
   }
 
   const TypeInfo& PokemonFighter::GetType1 () const
@@ -57,51 +89,19 @@ namespace yap
     return stats_.GetSpeed ();
   }
 
-  /// @name IBattleEntity members
-  /// @{
-  const yap::String& PokemonFighter::GetName () const
-  {
-    return originalPokemon_->GetName ();
-  }
-
-  UInt16 PokemonFighter::GetLevel () const
-  {
-    return originalPokemon_->GetLevel ();
-  }
-
-  UInt16 PokemonFighter::GetCurrentHP () const
-  {
-    return stats_.GetHitPoint ().GetCurrentValue ();
-  }
-
-  UInt16 PokemonFighter::GetMaxHP () const
-  {
-    return stats_.GetHitPoint ().GetValue ();
-  }
-
-  float PokemonFighter::GetHPPercentage () const
-  {
-    return  ((float)GetCurrentHP () / (float)GetMaxHP ()) * 100;
-  }
-
-  const PokemonStat& PokemonFighter::GetStats () const
-  {
-    return stats_;
-  }
-
   void PokemonFighter::TakeDamage (int value)
   {
     SetCurrentHP (GetCurrentHP () - value);
   }
 
-  const collection::Array<PokemonMove*>& PokemonFighter::GetMoves () const
+  const const PokemonMoveSet& PokemonFighter::GetMoveSet () const
   {
-    return originalPokemon_->GetMoveSet ().GetMoves ();
+    return originalPokemon_->GetMoveSet ();
   }
 
   const PokemonMove& PokemonFighter::GetMove (int index) const
   {
-    return *GetMoves ()[index];
+    return *originalPokemon_->GetMoveSet ().GetMove (index);
   }
 
   Event<

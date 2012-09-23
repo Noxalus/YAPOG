@@ -171,8 +171,13 @@ namespace yse
     if (staticID == yap::ID (10))
       staticID = yap::ID (16);
 
-    int level = yap::RandomHelper::GetNext (1, 100);
-    Pokemon* p = new Pokemon (staticID, level, false);
+    bool shiny = false;
+
+    if (yap::RandomHelper::GetNext (1, 10000) == 42)
+      shiny = true;
+
+    int level = 5;//yap::RandomHelper::GetNext (1, 100);
+    Pokemon* p = new Pokemon (staticID, level, shiny);
 
     return p;
   }

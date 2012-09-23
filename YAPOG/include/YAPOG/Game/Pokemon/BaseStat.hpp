@@ -41,6 +41,7 @@ namespace yap
     void SetValue (const UInt16& value);
 
     static const UInt16 INITIAL_STAT_VALUE;
+    static const UInt16 INITIAL_INDIVIDUAL_VALUE;
     static const UInt16 INITIAL_EFFORT_VALUE;
   };
 } // namespace yap

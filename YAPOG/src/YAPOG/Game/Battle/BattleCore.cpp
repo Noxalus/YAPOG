@@ -1,5 +1,6 @@
 #include "YAPOG/Game/Battle/BattleCore.hpp"
 #include "YAPOG/System/RandomHelper.hpp"
+#include "YAPOG/Game/Battle/IBattleEntity.hpp"
 
 namespace yap
 {
@@ -9,8 +10,8 @@ namespace yap
 
   int BattleCore::ComputeDamage (
     const PokemonMove& move, 
-    const PokemonFighter& attacker, 
-    const PokemonFighter& defender)
+    const IBattleEntity& attacker, 
+    const IBattleEntity& defender)
   {
     float stab = 1.f;
 

@@ -36,6 +36,45 @@ namespace yap
     return GetCurrentFighter ().GetMaxHP ();
   }
 
+  const TypeInfo& PokemonFighterTeam::GetType1 () const
+  {
+    return GetCurrentFighter ().GetType1 ();
+  }
+
+  const TypeInfo& PokemonFighterTeam::GetType2 () const
+  {
+    return GetCurrentFighter ().GetType2 ();
+  }
+
+  float PokemonFighterTeam::GetTypeEffectFactor (const TypeInfo& type) const
+  {
+    return GetCurrentFighter ().GetTypeEffectFactor (type);
+  }
+
+  const Attack& PokemonFighterTeam::GetAttack () const
+  {
+    return GetCurrentFighter ().GetStats ().GetAttack ();
+  }
+
+  const Defense& PokemonFighterTeam::GetDefense () const
+  {
+    return GetCurrentFighter ().GetStats ().GetDefense ();
+  }
+
+  const SpecialAttack& PokemonFighterTeam::GetSpecialAttack () const
+  {
+    return GetCurrentFighter ().GetStats ().GetSpecialAttack ();
+  }
+  const SpecialDefense& PokemonFighterTeam::GetSpecialDefense () const
+  {
+    return GetCurrentFighter ().GetStats ().GetSpecialDefense ();
+  }
+
+  const Speed& PokemonFighterTeam::GetSpeed () const
+  {
+    return GetCurrentFighter ().GetStats ().GetSpeed ();
+  }
+
   void PokemonFighterTeam::TakeDamage (int value)
   {
     GetCurrentFighter ().TakeDamage (value);
@@ -46,9 +85,9 @@ namespace yap
     return GetCurrentFighter ().GetHPPercentage ();
   }
 
-  const collection::Array<PokemonMove*>& PokemonFighterTeam::GetMoves () const
+  const const PokemonMoveSet& PokemonFighterTeam::GetMoveSet () const
   {
-    return GetCurrentFighter ().GetMoves ();
+    return GetCurrentFighter ().GetMoveSet ();
   }
 
   const PokemonMove& PokemonFighterTeam::GetMove (int index) const

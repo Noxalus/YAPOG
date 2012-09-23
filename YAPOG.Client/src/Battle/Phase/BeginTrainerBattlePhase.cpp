@@ -23,7 +23,7 @@ namespace ycl
   {
   }
 
-  void BeginTrainerBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void BeginTrainerBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     BeginBattlePhase::HandleStart (args);
   }

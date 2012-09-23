@@ -8,8 +8,10 @@ namespace ycl
   const bool EndTrainerBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color EndTrainerBattlePhase::DEFAULT_COLOR = sf::Color ();
 
-  EndTrainerBattlePhase::EndTrainerBattlePhase (Battle& battle)
-    : EndBattlePhase (battle)
+  EndTrainerBattlePhase::EndTrainerBattlePhase (
+    Battle& battle,
+    BattleInterface& battleInterface)
+    : EndBattlePhase (battle, battleInterface)
   {
   }
 
@@ -17,7 +19,7 @@ namespace ycl
   {
   }
 
-  void EndTrainerBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void EndTrainerBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     EndTrainerBattlePhase::HandleStart (args);
   }

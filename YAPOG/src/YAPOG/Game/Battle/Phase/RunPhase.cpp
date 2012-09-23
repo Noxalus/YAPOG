@@ -8,7 +8,7 @@ namespace yap
   {
   }
 
-  void RunPhase::HandleStart (PhaseArgs* args)
+  void RunPhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN END RUN PHASE !" << std::endl;

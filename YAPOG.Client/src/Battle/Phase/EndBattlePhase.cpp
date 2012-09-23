@@ -2,15 +2,19 @@
 
 #include "Battle/Phase/EndBattlePhase.hpp"
 #include "Battle/Battle.hpp"
+#include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   const bool EndBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color EndBattlePhase::DEFAULT_COLOR = sf::Color ();
 
-  EndBattlePhase::EndBattlePhase (Battle& battle)
+  EndBattlePhase::EndBattlePhase (
+    Battle& battle, 
+    BattleInterface& battleInterface)
     : yap::EndBattlePhase (battle)
     , battle_ (battle)
+    , battleInterface_  (battleInterface)
   {
   }
 
@@ -18,18 +22,21 @@ namespace ycl
   {
   }
 
-  void EndBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void EndBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
-    BattlePhase::HandleStart (args);
+    yap::EndBattlePhase::HandleStart (args);
   }
 
   void EndBattlePhase::HandleUpdate (const yap::Time& dt)
   {
+    yap::EndBattlePhase::HandleUpdate (dt);
+
+    battle_.OnBattleEnd (battle_, yap::EmptyEventArgs ());
   }
 
   void EndBattlePhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::EndBattlePhase::HandleEnd ();
   }
 
   void EndBattlePhase::Draw (yap::IDrawingContext& context)

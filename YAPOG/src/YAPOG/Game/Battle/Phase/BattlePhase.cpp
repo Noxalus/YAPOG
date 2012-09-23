@@ -7,18 +7,18 @@ namespace yap
   BattlePhase::BattlePhase (
     Battle& battle, 
     const BattlePhaseState& battlePhaseState)
-    : state_ (battlePhaseState)
-    , phaseArgs_ (nullptr)
+    : phaseArgs_ () 
+    , state_ (battlePhaseState)
     , battle_ (battle)
   {
   }
 
-  PhaseArgs* BattlePhase::GetPhaseArgs ()
+  PhaseArgs BattlePhase::GetPhaseArgs ()
   {
     return phaseArgs_;
   }
 
-  void BattlePhase::Start (PhaseArgs* args)
+  void BattlePhase::Start (const PhaseArgs& args)
   {
     HandleStart (args);
   }
@@ -34,10 +34,9 @@ namespace yap
     HandleUpdate (dt);
   }
 
-  void BattlePhase::HandleStart (PhaseArgs* args)
+  void BattlePhase::HandleStart (const PhaseArgs& args)
   {
-    if (args != nullptr)
-      args->Accept (*this);
+    phaseArgs_ = args;
   }
 
   void BattlePhase::HandleEnd ()
@@ -64,17 +63,15 @@ namespace yap
   void BattlePhase::SwitchPhase (BattlePhaseState nextPhase)
   {
     nextPhase_ = nextPhase;
-    phaseArgs_ = nullptr;
+    phaseArgs_.choice_ = BattleChoice::None;
+    phaseArgs_.index_ = 0;
   }
 
-  void BattlePhase::SwitchPhase (BattlePhaseState nextPhase, PhaseArgs* args)
+  void BattlePhase::SwitchPhase (
+    BattlePhaseState nextPhase, 
+    const PhaseArgs& args)
   {
     nextPhase_ = nextPhase;
     phaseArgs_ = args;
-  }
-
-  //Visitor's methods
-  void BattlePhase::Visit (const ActionPhaseArgs& visitable)
-  {
   }
 }

@@ -28,13 +28,14 @@ namespace ycl
   {
   }
 
-  void BattlePhase::HandleStart (yap::PhaseArgs* args)
+  void BattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::BattlePhase::HandleStart (args);
   }
 
   void BattlePhase::HandleUpdate (const yap::Time& dt)
   {
+     yap::BattlePhase::HandleUpdate (dt);
   }
 
   void BattlePhase::HandleEnd ()

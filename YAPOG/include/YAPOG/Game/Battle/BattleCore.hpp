@@ -15,8 +15,8 @@ namespace yap
 
     int ComputeDamage (
       const PokemonMove& move, 
-      const PokemonFighter& attacker, 
-      const PokemonFighter& defender);
+      const IBattleEntity& attacker, 
+      const IBattleEntity& defender);
   };
 } // namespace yap
 

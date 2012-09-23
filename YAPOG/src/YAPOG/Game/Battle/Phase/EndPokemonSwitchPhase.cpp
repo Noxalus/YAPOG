@@ -8,7 +8,7 @@ namespace yap
   {
   }
 
-  void EndPokemonSwitchPhase::HandleStart (PhaseArgs* args)
+  void EndPokemonSwitchPhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN SWITCH !" << std::endl;

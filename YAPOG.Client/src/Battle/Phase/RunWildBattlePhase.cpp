@@ -26,7 +26,7 @@ namespace ycl
   {
   }
 
-  void RunWildBattlePhase::HandleStart (yap::PhaseArgs* args)
+  void RunWildBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::RunWildBattlePhase::HandleStart (args);
 
@@ -45,13 +45,17 @@ namespace ycl
       battleInterface_.GetBattleInfoDialogBox ().
         OnTextChanged.RemoveHandler ("SKIP_RUN_TEXT_EVENT_HANDLER");
 
-      battle_.OnBattleEnd (battle_, yap::EmptyEventArgs ());
+      flagEndBattle_ = true;
     });
   }
 
   void RunWildBattlePhase::HandleUpdate (const yap::Time& dt)
   {
+    /// @todo Change to yap::RunBattlePhase
     yap::RunWildBattlePhase::HandleUpdate (dt);
+
+    if (flagEndBattle_)
+      BattlePhase::SwitchPhase (yap::BattlePhaseState::EndBattle);
   }
 
   void RunWildBattlePhase::HandleEnd ()

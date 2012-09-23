@@ -27,7 +27,7 @@ namespace ycl
 
     /// @name BattlePhase members.
     /// @{
-    virtual void HandleStart (yap::PhaseArgs* args);
+    virtual void HandleStart (const yap::PhaseArgs& args);
     virtual void HandleUpdate (const yap::Time& dt);
     virtual void HandleEnd ();
     /// @}

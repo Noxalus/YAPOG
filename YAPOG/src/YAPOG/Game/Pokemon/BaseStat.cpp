@@ -5,10 +5,12 @@
 namespace yap
 {
   const UInt16 BaseStat::INITIAL_STAT_VALUE = 0;
-  const UInt16 BaseStat::INITIAL_EFFORT_VALUE = 1;
+  const UInt16 BaseStat::INITIAL_INDIVIDUAL_VALUE = 0;
+  const UInt16 BaseStat::INITIAL_EFFORT_VALUE = 0;
 
   BaseStat::BaseStat ()
     : value_ (INITIAL_STAT_VALUE)
+    , individualValue_ (INITIAL_INDIVIDUAL_VALUE)
     , effortValue_ (INITIAL_EFFORT_VALUE)
   {   
     individualValue_ = RandomHelper::GetNext (0, 32);
@@ -26,6 +28,7 @@ namespace yap
   BaseStat::BaseStat (const UInt16& iv)
     : value_ (INITIAL_STAT_VALUE)
     , individualValue_ (iv)
+    , effortValue_ (INITIAL_EFFORT_VALUE)
   {
   }
 

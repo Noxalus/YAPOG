@@ -8,7 +8,7 @@ namespace yap
   {
   }
 
-  void EndBattlePhase::HandleStart (PhaseArgs* args)
+  void EndBattlePhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN END BATTLE PHASE !" << std::endl;
@@ -16,7 +16,6 @@ namespace yap
 
   void EndBattlePhase::HandleUpdate (const Time& dt)
   {
-    yap::BattlePhase::SwitchPhase (BattlePhaseState::BeginBattle);
   }
 
   void EndBattlePhase::HandleEnd ()

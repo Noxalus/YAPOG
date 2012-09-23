@@ -6,9 +6,4 @@ namespace yap
   ActionPhaseArgs::ActionPhaseArgs ()
   {
   }
-
-  void ActionPhaseArgs::Accept (BattlePhase& visitor)
-  {
-    visitor.Visit (*this);
-  }
 }

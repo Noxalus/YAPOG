@@ -13,18 +13,19 @@ namespace yap
 namespace ycl
 {
   class Battle;
+  class BattleInterface;
 
   class EndBattlePhase
     : public yap::EndBattlePhase
     , public yap::IDrawable
   {
   public:
-    EndBattlePhase (Battle& battle);
+    EndBattlePhase (Battle& battle, BattleInterface& battleInterface);
     virtual ~EndBattlePhase ();
 
     /// @name BattlePhase members.
     /// @{
-    virtual void HandleStart (yap::PhaseArgs* args);
+    virtual void HandleStart (const yap::PhaseArgs& args);
     virtual void HandleUpdate (const yap::Time& dt);
     virtual void HandleEnd ();
     /// @}
@@ -50,8 +51,9 @@ namespace ycl
     bool isVisible_;
     sf::Color color_;
 
-  private:
+  protected:
     Battle& battle_;
+    BattleInterface& battleInterface_;
   };
 } // namespace ycl
 

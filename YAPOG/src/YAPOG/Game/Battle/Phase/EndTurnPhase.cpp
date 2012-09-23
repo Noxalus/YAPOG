@@ -8,7 +8,7 @@ namespace yap
   {
   }
 
-  void EndTurnPhase::HandleStart (PhaseArgs* args)
+  void EndTurnPhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN END TURN PHASE !" << std::endl;
@@ -22,6 +22,8 @@ namespace yap
   void EndTurnPhase::HandleEnd ()
   {
     BattlePhase::HandleEnd ();
-    std::cout << "END END TURN PHASE !" << std::endl;
+    std::cout 
+      << "END END TURN PHASE !" << std::endl
+      << "---------------------" << std::endl;
   }
 }

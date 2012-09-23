@@ -1,14 +1,18 @@
 #include "Battle/Phase/EndTurnPhase.hpp"
 #include "Battle/Battle.hpp"
+#include "Battle/BattleInterface.hpp"
 
 namespace ycl
 {
   const bool EndTurnPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color EndTurnPhase::DEFAULT_COLOR = sf::Color ();
 
-  EndTurnPhase::EndTurnPhase (Battle& battle)
+  EndTurnPhase::EndTurnPhase (
+    Battle& battle, 
+    BattleInterface& battleInterface)
     : yap::EndTurnPhase (battle)
     , battle_ (battle)
+    , battleInterface_  (battleInterface)
   {
   }
 
@@ -16,18 +20,25 @@ namespace ycl
   {
   }
 
-  void EndTurnPhase::HandleStart (yap::PhaseArgs* args)
+  void EndTurnPhase::HandleStart (const yap::PhaseArgs& args)
   {
-    BattlePhase::HandleStart (args);
+    yap::EndTurnPhase::HandleStart (args);
   }
 
   void EndTurnPhase::HandleUpdate (const yap::Time& dt)
   {
+     yap::EndTurnPhase::HandleUpdate (dt);
+
+     if (battle_.GetPlayerTeam ().GetCurrentHP () == 0 ||
+       battle_.GetOpponent ().GetCurrentHP () == 0)
+      BattlePhase::SwitchPhase (yap::BattlePhaseState::EndBattle);
+     else
+      yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Selection);
   }
 
   void EndTurnPhase::HandleEnd ()
   {
-    BattlePhase::HandleEnd ();
+    yap::EndTurnPhase::HandleEnd ();
   }
 
   void EndTurnPhase::Draw (yap::IDrawingContext& context)

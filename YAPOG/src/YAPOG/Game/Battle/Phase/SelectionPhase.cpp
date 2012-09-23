@@ -8,7 +8,7 @@ namespace yap
   {
   }
 
-  void SelectionPhase::HandleStart (PhaseArgs* args)
+  void SelectionPhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN SELECTION !" << std::endl;

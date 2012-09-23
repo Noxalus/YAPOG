@@ -4,18 +4,20 @@ namespace yap
 {
   ActionPhase::ActionPhase (Battle& battle)
     : BattlePhase (battle, BattlePhaseState::Action)
+    , playerIsFirst_ (true)
   {
   }
 
-  void ActionPhase::HandleStart (PhaseArgs* args)
+  void ActionPhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN ACTION !" << std::endl;
+
+    playerIsFirst_ = true;
   }
 
   void ActionPhase::HandleUpdate (const Time& dt)
   {
-    yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::EndTurn);
   }
 
   void ActionPhase::HandleEnd ()

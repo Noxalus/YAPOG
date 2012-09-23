@@ -1,5 +1,6 @@
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 
 #include "Battle/Phase/SelectionPhase.hpp"
 #include "Battle/Battle.hpp"
@@ -10,11 +11,14 @@ namespace ycl
   const bool SelectionPhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color SelectionPhase::DEFAULT_COLOR = sf::Color ();
 
-  SelectionPhase::SelectionPhase (Battle& battle, BattleInterface& battleInterface)
+  SelectionPhase::SelectionPhase (
+    Battle& battle, 
+    BattleInterface& battleInterface)
     : yap::SelectionPhase (battle)
     , battle_ (battle)
     , battleInterface_  (battleInterface)
     , runFlag_ (false)
+    , actionFlag_ (false)
   {
   }
 
@@ -37,7 +41,7 @@ namespace ycl
     };
   }
 
-  void SelectionPhase::HandleStart (yap::PhaseArgs* args)
+  void SelectionPhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::SelectionPhase::HandleStart (args);
 
@@ -49,6 +53,26 @@ namespace ycl
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
 
     battleInterface_.GetBattleMenu ().Open ();
+
+    // BattleMoveMenu events
+    for (yap::uint i = 0; 
+      i < battle_.GetPlayerTeam ().GetMoveSet ().GetMoveNumber (); 
+      i++)
+    {
+      battleInterface_.GetBattleMoveMenu ().GetItem (i).OnActivated.
+        AddHandler ("BattleMoveMenuItem" + yap::StringHelper::ToString (i),
+        [this, i] (yap::MenuItem& sender, const yap::EmptyEventArgs& args)
+      {
+        actionFlag_ = true;
+        phaseArgs_.choice_ = yap::BattleChoice::Move;
+        phaseArgs_.index_ = i;
+        battleInterface_.CloseBattleMoveMenu ();
+      });
+    }
+
+    // Reset flags
+    runFlag_ = false;
+    actionFlag_ = false;
   }
 
   void SelectionPhase::HandleUpdate (const yap::Time& dt)
@@ -57,14 +81,30 @@ namespace ycl
 
     if (runFlag_)
     {
-      battleInterface_.GetBattleInfoDialogBox ().SkipText ();
       yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Run);
+    }
+    else if (actionFlag_)
+    {
+      yap::BattlePhase::SwitchPhase (
+        yap::BattlePhaseState::BeginTurn,
+        phaseArgs_);
     }
   }
 
   void SelectionPhase::HandleEnd ()
   {
     yap::SelectionPhase::HandleEnd ();
+
+    battleInterface_.GetBattleInfoDialogBox ().SkipText ();
+
+    for (yap::uint i = 0; 
+      i < battle_.GetPlayerTeam ().GetMoveSet ().GetMoveNumber (); 
+      i++)
+    {
+        battleInterface_.GetBattleMoveMenu ().GetItem (i).OnActivated.
+          RemoveHandler (
+          "BattleMoveMenuItem" + yap::StringHelper::ToString (i));
+    }
   }
 
   void SelectionPhase::Draw (yap::IDrawingContext& context)

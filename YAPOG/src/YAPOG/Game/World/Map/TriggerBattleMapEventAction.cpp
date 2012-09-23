@@ -89,6 +89,10 @@ namespace yap
 
     gRange *= offset.x + offset.y;
 
+    /// @todo Delete theses lines
+    if (gRange == 0)
+      gRange = 2;
+
     return
       RandomHelper::GetNext (1, gRange) ==
       RandomHelper::GetNext (1, gRange);

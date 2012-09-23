@@ -12,7 +12,7 @@ namespace yap
    {
    }
 
-  void BeginBattlePhase::HandleStart (PhaseArgs* args)
+  void BeginBattlePhase::HandleStart (const PhaseArgs& args)
   {
     BattlePhase::HandleStart (args);
     std::cout << "BEGIN !" << std::endl;
