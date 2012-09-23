@@ -69,12 +69,14 @@ namespace ycl
 
     /// @debug Borders.
     /// @{
+    /*
     nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     nameLabel_.SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
     levelLabel_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
     hpBar_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
     levelAndGenderBox_.SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
+    */
     /// @}
 
     this->AddChild (battleInfoBox_);

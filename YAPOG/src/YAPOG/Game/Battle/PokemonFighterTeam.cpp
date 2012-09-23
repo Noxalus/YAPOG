@@ -95,7 +95,7 @@ namespace yap
     return GetCurrentFighter ().GetHPPercentage ();
   }
 
-  const const PokemonMoveSet& PokemonFighterTeam::GetMoveSet () const
+  const PokemonMoveSet& PokemonFighterTeam::GetMoveSet () const
   {
     return GetCurrentFighter ().GetMoveSet ();
   }

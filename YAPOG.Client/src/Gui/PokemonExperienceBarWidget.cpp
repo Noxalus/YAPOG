@@ -51,7 +51,7 @@ namespace ycl
 
     mainLayout_->AddChild (*barContent_, yap::LayoutBox::Align::TOP);
 
-    mainLayout_->Move (yap::Vector2 (5, 10));
+    mainLayout_->Move (yap::Vector2 (4, 9));
 
     AddChild (*mainLayout_);
   }
@@ -97,6 +97,7 @@ namespace ycl
   void PokemonExperienceBarWidget::HandleScale (const yap::Vector2& factor)
   {
   }
+
   void PokemonExperienceBarWidget::HandleDraw (yap::IDrawingContext& offset)
   {
   }
