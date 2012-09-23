@@ -50,8 +50,6 @@ namespace yap
 
     BattlePhaseState state_;
     BattlePhaseState previousPhase_;
-
-  protected:
     PhaseArgs phaseArgs_;
 
   private:

@@ -7,8 +7,10 @@ namespace yap
   BattlePhase::BattlePhase (
     Battle& battle, 
     const BattlePhaseState& battlePhaseState)
-    : phaseArgs_ () 
-    , state_ (battlePhaseState)
+    : state_ (battlePhaseState)
+    , previousPhase_ (battlePhaseState)
+    , phaseArgs_ ()
+    , nextPhase_ (battlePhaseState)
     , battle_ (battle)
   {
   }

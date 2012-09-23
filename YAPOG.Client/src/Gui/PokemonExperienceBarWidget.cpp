@@ -51,7 +51,7 @@ namespace ycl
 
     mainLayout_->AddChild (*barContent_, yap::LayoutBox::Align::TOP);
 
-    mainLayout_->Move (yap::Vector2 (4, 9));
+    mainLayout_->Move (yap::Vector2 (5, 10));
 
     AddChild (*mainLayout_);
   }
@@ -74,6 +74,7 @@ namespace ycl
 
   void PokemonExperienceBarWidget::RealUpdate ()
   {
+    /// @todo Fix the bug when a Pokemon level up
     float size = MAX_EXP_BAR_SIZE * 
       experience_->GetExperiencePercentage (variance_);
 

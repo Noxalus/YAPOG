@@ -31,13 +31,10 @@ namespace yap
     virtual void HandleUpdate (const yap::Time& dt);
 
     int variance_;
-    yap::UpdateableTimer timer_;
-
     yap::UInt16 previousValue_;
-
+    yap::UpdateableTimer timer_;
     yap::PictureBox* barContent_;
     yap::HorizontalLayout* mainLayout_;
-
   };
 } // namespace yap
 

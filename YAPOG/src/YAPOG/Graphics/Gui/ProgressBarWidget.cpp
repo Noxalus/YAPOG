@@ -9,11 +9,11 @@ namespace yap
 {
   ProgressBarWidget::ProgressBarWidget ()
     : BaseWidget ()
-    , previousValue_ (0)
     , variance_ (0)
+    , previousValue_ (0)
+    , timer_ ()
     , barContent_ (nullptr)
     , mainLayout_ (nullptr)
-    , timer_ ()
   {
   }
 
