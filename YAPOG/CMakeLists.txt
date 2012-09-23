@@ -46,6 +46,7 @@ ${inc_root}/Content/ContentManager.hpp
 ${src_root}/Content/ContentManager.cpp
 
 ${inc_root}/Game/Factory/ICloneable.hpp
+${inc_root}/Game/Factory/ICloner.hpp
 ${inc_root}/Game/Factory/ILoadable.hpp
 ${inc_root}/Game/Factory/IIDLoadable.hpp
 ${inc_root}/Game/Factory/IObjectIDLoader.hpp
@@ -57,6 +58,8 @@ ${inc_root}/Game/Factory/XmlObjectIDLoader.hpp
 ${inc_root}/Game/Factory/XmlObjectIDLoader.hxx
 ${inc_root}/Game/Factory/XmlObjectLoader.hpp
 ${inc_root}/Game/Factory/XmlObjectLoader.hxx
+${inc_root}/Game/Factory/DefaultCloner.hpp
+${inc_root}/Game/Factory/DefaultCloner.hxx
 
 ${inc_root}/Game/ID.hpp
 ${src_root}/Game/ID.cpp
@@ -220,6 +223,7 @@ ${inc_root}/Game/World/World.hpp
 ${inc_root}/Game/IGameAction.hpp
 ${inc_root}/Game/IGameRequirement.hpp
 
+${inc_root}/Game/World/Map/Dialog/IDialogManager.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogMessage.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogResponse.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogNode.hpp
@@ -237,6 +241,8 @@ ${inc_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.hpp
 ${src_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.cpp
 ${inc_root}/Game/World/Map/Dialog/DialogMessage.hpp
 ${src_root}/Game/World/Map/Dialog/DialogMessage.cpp
+${inc_root}/Game/World/Map/Dialog/WriterDialogDisplay.hpp
+${src_root}/Game/World/Map/Dialog/WriterDialogDisplay.cpp
 
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp

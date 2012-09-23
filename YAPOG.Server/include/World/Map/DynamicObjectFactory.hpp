@@ -5,6 +5,12 @@
 # include "YAPOG/System/String.hpp"
 # include "YAPOG/Game/ID.hpp"
 
+namespace yap
+{
+  template <typename>
+  struct ICloner;
+} // namespace yap
+
 namespace yse
 {
   class DynamicObjectFactory
@@ -14,6 +20,12 @@ namespace yse
     public:
 
       static DynamicObjectFactory& Instance ();
+
+      template <typename T>
+      T* Create (
+        const yap::String& typeName,
+        const yap::ID& id,
+        const yap::ICloner<T>& cloner) const;
 
       template <typename T>
       T* Create (const yap::String& typeName, const yap::ID& id) const;

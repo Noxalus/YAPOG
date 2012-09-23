@@ -12,6 +12,7 @@ namespace ycl
   Player::Player (const yap::ID& id)
     : Character (id)
     , name_ (DEFAULT_NAME)
+    , dialogManager_ (nullptr)
   {
   }
 
@@ -22,6 +23,7 @@ namespace ycl
   Player::Player (const Player& copy)
     : Character (copy)
     , name_ (copy.name_)
+    , dialogManager_ (nullptr)
   {
   }
 
@@ -35,13 +37,34 @@ namespace ycl
     name_ = name;
   }
 
+  void Player::SetDialogManager (yap::IDialogManager& dialogManager)
+  {
+    dialogManager_ = &dialogManager;
+  }
+
   const yap::String& Player::GetName () const
   {
     return name_;
   }
 
+  const yap::ID& Player::GetWorldID () const
+  {
+    return Character::GetWorldID ();
+  }
+
+  bool Player::CanTalk (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
   void Player::Talk (yap::IDialogActor& dialogActor)
   {
+    // Does nothing, server side only.
+  }
+
+  bool Player::TryStartDialog (yap::IDialogManager& dialogManager)
+  {
+    return false;
   }
 
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)

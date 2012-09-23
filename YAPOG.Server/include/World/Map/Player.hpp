@@ -8,12 +8,10 @@
 
 # include "World/Map/Character.hpp"
 # include "World/Map/PlayerInputManager.hpp"
+# include "World/Map/Dialog/DialogManager.hpp"
 
 namespace yse
 {
-  struct IDynamicWorldObjectVisitor;
-  struct IDynamicWorldObjectConstVisitor;
-
   class User;
 
   class Player : public Character
@@ -30,6 +28,8 @@ namespace yse
       void SetParentUser (User* parent);
 
       void SetName (const yap::String& name);
+
+      void InitDialogManager ();
 
       /// @name ICloneable members.
       /// @{
@@ -50,7 +50,13 @@ namespace yse
       /// @{
       virtual const yap::String& GetName () const;
 
+      virtual const yap::ID& GetWorldID () const;
+
+      virtual bool CanTalk (yap::IDialogActor& dialogActor) const;
+
       virtual void Talk (yap::IDialogActor& dialogActor);
+
+      virtual bool TryStartDialog (yap::IDialogManager& dialogManager);
       /// @}
 
       /// @name IPlayer members.
@@ -102,6 +108,8 @@ namespace yse
       yap::PacketHandler packetHandler_;
 
       PlayerInputManager inputManager_;
+
+      DialogManager dialogManager_;
   };
 } // namespace yse
 

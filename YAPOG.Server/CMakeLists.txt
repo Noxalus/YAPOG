@@ -130,6 +130,9 @@ ${src_root}/World/Map/ServerInfoAddObjectVisitor.cpp
 ${inc_root}/World/Map/ObjectMoveInfoSender.hpp
 ${src_root}/World/Map/ObjectMoveInfoSender.cpp
 
+${inc_root}/World/Map/Dialog/DialogManager.hpp
+${src_root}/World/Map/Dialog/DialogManager.cpp
+
 )
 
 ADD_EXECUTABLE(

@@ -87,9 +87,6 @@ ${src_root}/Configuration/ConfigurationReader.cpp
 ${inc_root}/Configuration/GameData.hpp
 ${src_root}/Configuration/GameData.cpp
 
-${inc_root}/Dialog/ConsoleDialogDisplay.hpp
-${src_root}/Dialog/ConsoleDialogDisplay.cpp
-
 ${inc_root}/GameInput/GameInputReader.hpp
 ${src_root}/GameInput/GameInputReader.cpp
 ${inc_root}/GameScreen/BaseScreen.hpp
@@ -201,6 +198,8 @@ ${inc_root}/World/Map/OpenBattleSpawnerAreaReader.hpp
 ${src_root}/World/Map/OpenBattleSpawnerAreaReader.cpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
+${inc_root}/World/Map/MapCloner.hpp
+${src_root}/World/Map/MapCloner.cpp
 
 ${inc_root}/World/Map/ObjectMoveInfoHandler.hpp
 ${src_root}/World/Map/ObjectMoveInfoHandler.cpp

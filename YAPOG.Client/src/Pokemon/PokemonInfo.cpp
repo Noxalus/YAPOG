@@ -16,4 +16,13 @@ namespace ycl
   {
   }
 
+  PokemonInfo::PokemonInfo (const PokemonInfo& copy)
+    : yap::PokemonInfo (copy)
+  {
+  }
+
+  PokemonInfo* PokemonInfo::Clone () const
+  {
+    return new PokemonInfo (*this);
+  }
 } // namespace ycl

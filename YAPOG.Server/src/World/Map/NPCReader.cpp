@@ -1,6 +1,8 @@
 #include "World/Map/NPCReader.hpp"
 #include "World/Map/NPC.hpp"
 
+/// @warning [TMP]
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 namespace yse
 {
   NPCReader::NPCReader (
@@ -18,5 +20,14 @@ namespace yse
   void NPCReader::Visit (yap::XmlReader& visitable)
   {
     CharacterReader::Visit (visitable);
+
+    /// @warning [TMP]
+
+    npc_.SetTalkEventArea (
+      new yap::BoundingBox (
+        yap::Vector2 (-60, -60),
+        yap::Vector2 (120, 120),
+        0,
+        1));
   }
 } // namespace yse

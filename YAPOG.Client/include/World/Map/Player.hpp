@@ -20,6 +20,8 @@ namespace ycl
 
       void SetName (const yap::String& name);
 
+      void SetDialogManager (yap::IDialogManager& dialogManager);
+
       /// @name ICloneable members.
       /// @{
       virtual Player* Clone () const;
@@ -29,7 +31,13 @@ namespace ycl
       /// @{
       virtual const yap::String& GetName () const;
 
+      virtual const yap::ID& GetWorldID () const;
+
+      virtual bool CanTalk (yap::IDialogActor& dialogActor) const;
+
       virtual void Talk (yap::IDialogActor& dialogActor);
+
+      virtual bool TryStartDialog (yap::IDialogManager& dialogManager);
       /// @}
 
       /// @name IPlayer members.
@@ -67,6 +75,8 @@ namespace ycl
       static const yap::String DEFAULT_NAME;
 
       yap::String name_;
+
+      yap::IDialogManager* dialogManager_;
   };
 } // namespace ycl
 

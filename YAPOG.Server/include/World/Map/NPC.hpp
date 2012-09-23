@@ -8,7 +8,7 @@
 
 namespace yap
 {
-  struct IDialogManager;
+  struct IDialogNode;
 } // namespace yap
 
 namespace yse
@@ -23,7 +23,7 @@ namespace yse
       explicit NPC (const yap::ID& id);
       virtual ~NPC ();
 
-      void SetDialogManager (yap::IDialogManager& dialogManager);
+      void SetTalkEventArea (yap::BoundingBox* boundingBox);
 
       /// @name ICloneable members.
       /// @{
@@ -34,7 +34,13 @@ namespace yse
       /// @{
       virtual const yap::String& GetName () const;
 
+      virtual const yap::ID& GetWorldID () const;
+
+      virtual bool CanTalk (yap::IDialogActor& dialogActor) const;
+
       virtual void Talk (yap::IDialogActor& dialogActor);
+
+      virtual bool TryStartDialog (yap::IDialogManager& dialogManager);
       /// @}
 
       /// @name INPC members.
@@ -58,7 +64,9 @@ namespace yse
 
       yap::String name_;
 
-      yap::IDialogManager* dialogManager_;
+      yap::IDialogNode* dialogNode_;
+
+      yap::BoundingBox* talkEventArea_;
   };
 } // namespace yse
 

@@ -5,6 +5,9 @@
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
+#include "YAPOG/Game/World/Map/Dialog/WriterDialogDisplay.hpp"
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 
 #include "Server/User.hpp"
 #include "World/World.hpp"
@@ -22,6 +25,7 @@ namespace yse
     , name_ (DEFAULT_NAME)
     , packetHandler_ ()
     , inputManager_ ()
+    , dialogManager_ ()
   {
     InitHandlers ();
   }
@@ -36,6 +40,7 @@ namespace yse
     , name_ (copy.name_)
     , packetHandler_ ()
     , inputManager_ ()
+    , dialogManager_ ()
   {
     InitHandlers ();
   }
@@ -53,6 +58,16 @@ namespace yse
   void Player::SetName (const yap::String& name)
   {
     name_ = name;
+  }
+
+  void Player::InitDialogManager ()
+  {
+    AddRelay (&dialogManager_);
+    dialogManager_.SetParent (this);
+
+    dialogManager_.SetDisplay (
+      *new yap::WriterDialogDisplay (
+        yap::DebugLogger::Instance ()));
   }
 
   bool Player::HandlePacket (yap::IPacket& packet)
@@ -85,8 +100,29 @@ namespace yse
     return name_;
   }
 
+  const yap::ID& Player::GetWorldID () const
+  {
+    return Character::GetWorldID ();
+  }
+
+  bool Player::CanTalk (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
   void Player::Talk (yap::IDialogActor& dialogActor)
   {
+    if (!TryChangeState ("Listening"))
+      return;
+
+    dialogActor.Talk (*this);
+
+    dialogActor.TryStartDialog (dialogManager_);
+  }
+
+  bool Player::TryStartDialog (yap::IDialogManager& dialogManager)
+  {
+    return false;
   }
 
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)

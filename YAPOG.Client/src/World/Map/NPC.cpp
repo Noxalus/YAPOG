@@ -2,6 +2,7 @@
 
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
 
 namespace ycl
 {
@@ -12,6 +13,7 @@ namespace ycl
   NPC::NPC (const yap::ID& id)
     : Character (id)
     , name_ (DEFAULT_NAME)
+    , dialogNode_ (nullptr)
   {
   }
 
@@ -22,6 +24,7 @@ namespace ycl
   NPC::NPC (const NPC& copy)
     : Character (copy)
     , name_ (copy.name_)
+    , dialogNode_ (nullptr)
   {
   }
 
@@ -35,8 +38,29 @@ namespace ycl
     return name_;
   }
 
+  const yap::ID& NPC::GetWorldID () const
+  {
+    return Character::GetWorldID ();
+  }
+
+  bool NPC::CanTalk (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
   void NPC::Talk (yap::IDialogActor& dialogActor)
   {
+    /// @todo
+  }
+
+  bool NPC::TryStartDialog (yap::IDialogManager& dialogManager)
+  {
+    if (dialogNode_ == nullptr)
+      return false;
+
+    dialogManager.StartDialog (*this, *dialogNode_);
+
+    return true;
   }
 
   void NPC::Accept (yap::IDynamicWorldObjectVisitor& visitor)

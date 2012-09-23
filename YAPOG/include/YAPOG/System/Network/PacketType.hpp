@@ -44,6 +44,8 @@ namespace yap
 
     ServerInfoGameMessage,
 
+    ServerInfoStartDialog,
+
     ServerInfoTriggerBattle,
 
     ServerInfoPokemonTeam,

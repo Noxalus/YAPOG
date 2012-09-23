@@ -6,6 +6,11 @@
 
 # include "World/Map/Character.hpp"
 
+namespace yap
+{
+  struct IDialogNode;
+} // namespace yap
+
 namespace ycl
 {
   class NPC : public Character
@@ -27,7 +32,13 @@ namespace ycl
       /// @{
       virtual const yap::String& GetName () const;
 
+      virtual const yap::ID& GetWorldID () const;
+
+      virtual bool CanTalk (yap::IDialogActor& dialogActor) const;
+
       virtual void Talk (yap::IDialogActor& dialogActor);
+
+      virtual bool TryStartDialog (yap::IDialogManager& dialogManager);
       /// @}
 
       /// @name INPC members.
@@ -50,6 +61,8 @@ namespace ycl
       static const yap::String DEFAULT_NAME;
 
       yap::String name_;
+
+      yap::IDialogNode* dialogNode_;
   };
 } // namespace ycl
 

@@ -8,6 +8,8 @@
 
 namespace yap
 {
+  template <typename>
+  class ICloner;
   struct IObjectIDLoader;
   struct IObjectLoader;
   struct IReader;
@@ -22,6 +24,12 @@ namespace yap
 
       template <typename T>
       T* Get (const String& typeName, const ID& id);
+
+      template <typename T>
+      T* Create (
+        const String& typeName,
+        const ID& id,
+        const ICloner<T>& cloner);
 
       template <typename T>
       T* Create (const String& typeName, const ID& id);

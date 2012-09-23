@@ -2,6 +2,10 @@
 
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
+#include "YAPOG/Game/World/Map/MapEvent.hpp"
+#include "YAPOG/Game/World/Map/TalkMapEventAction.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 
 namespace yse
 {
@@ -12,6 +16,8 @@ namespace yse
   NPC::NPC (const yap::ID& id)
     : Character (id)
     , name_ (DEFAULT_NAME)
+    , dialogNode_ (nullptr)
+    , talkEventArea_ (nullptr)
   {
   }
 
@@ -22,7 +28,10 @@ namespace yse
   NPC::NPC (const NPC& copy)
     : Character (copy)
     , name_ (copy.name_)
+    , dialogNode_ (nullptr)
+    , talkEventArea_ (nullptr)
   {
+    SetTalkEventArea (new yap::BoundingBox (*copy.talkEventArea_));
   }
 
   NPC* NPC::Clone () const
@@ -30,9 +39,19 @@ namespace yse
     return new NPC (*this);
   }
 
-  void NPC::SetDialogManager (yap::IDialogManager& dialogManager)
+  void NPC::SetTalkEventArea (yap::BoundingBox* boundingBox)
   {
-    dialogManager_ = &dialogManager;
+    talkEventArea_ = boundingBox;
+
+    yap::MapEvent* talkEvent = new yap::MapEvent ();
+
+    talkEvent->AddBoundingBox (talkEventArea_);
+
+    yap::TalkMapEventAction* talkAction = new yap::TalkMapEventAction ();
+
+    talkAction->SetSourceDialogActor (*this);
+
+    talkEvent->AddAction (talkAction);
   }
 
   const yap::String& NPC::GetName () const
@@ -40,8 +59,29 @@ namespace yse
     return name_;
   }
 
+  const yap::ID& NPC::GetWorldID () const
+  {
+    return Character::GetWorldID ();
+  }
+
+  bool NPC::CanTalk (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
   void NPC::Talk (yap::IDialogActor& dialogActor)
   {
+    TryChangeState ("Talking");
+  }
+
+  bool NPC::TryStartDialog (yap::IDialogManager& dialogManager)
+  {
+    if (dialogNode_ == nullptr)
+      return false;
+
+    dialogManager.StartDialog (*this, *dialogNode_);
+
+    return true;
   }
 
   void NPC::Accept (yap::IDynamicWorldObjectVisitor& visitor)

@@ -3,11 +3,16 @@
 
 namespace yap
 {
+  struct IDialogActor;
+  struct IDialogNode;
+
   struct IDialogManager
   {
       virtual ~IDialogManager () { }
 
-      virtual void StartDialog (IDialogActor& dialogActor) = 0;
+      virtual void StartDialog (
+        IDialogActor& dialogActor,
+        IDialogNode& dialogNode) = 0;
   };
 } // namespace yap
 
