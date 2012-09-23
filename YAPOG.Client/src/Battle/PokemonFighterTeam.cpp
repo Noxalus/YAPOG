@@ -125,4 +125,29 @@ namespace ycl
   }
   /// @}
 
+  void PokemonFighterTeam::AddExperience (int value)
+  {
+    GetCurrentFighter ().AddExperience (value);
+  }
+
+  void PokemonFighterTeam::TakeDamage (int value)
+  {
+    GetCurrentFighter ().TakeDamage (value);
+  }
+
+  yap::Event<
+    const yap::IBattleEntity&, 
+    const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
+    PokemonFighterTeam::OnHPChangedEvent ()
+  {
+    return GetCurrentFighter ().OnHPChangedEvent ();
+  }
+
+  yap::Event<
+    const yap::IBattleEntity&, 
+    const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
+    PokemonFighterTeam::OnExperienceChangedEvent ()
+  {
+    return GetCurrentFighter ().OnExperienceChangedEvent ();
+  }
 } // namespace yap

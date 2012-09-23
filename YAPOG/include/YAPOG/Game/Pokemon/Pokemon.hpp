@@ -93,7 +93,7 @@ namespace yap
 
     /// @brief Restore all the hp of the Pokemon
     void RestoreHP ();
-    void TakeDamage (int damage);
+    void SetCurrentHP (int value);
 
     void AddExperience (const Int32& value);
 

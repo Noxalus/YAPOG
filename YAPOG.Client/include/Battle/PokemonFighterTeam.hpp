@@ -39,6 +39,22 @@ namespace ycl
     virtual yap::ISprite& GetBattleSprite ();
     /// @}
 
+    /// @name IBattleEntity members
+    /// @{
+    virtual void AddExperience (int value);
+    virtual void TakeDamage (int value);
+
+    virtual yap::Event<
+      const yap::IBattleEntity&, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
+      OnHPChangedEvent ();
+
+    virtual yap::Event<
+      const yap::IBattleEntity&, 
+      const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
+      OnExperienceChangedEvent ();
+    /// @}
+
   protected:
     virtual void HandleInit ();
     virtual void HandleUpdate (const yap::Time& dt);

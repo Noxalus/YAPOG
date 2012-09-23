@@ -94,21 +94,6 @@ namespace yap
     return stats_.GetSpeed ();
   }
 
-  void PokemonFighter::AddExperience (int value)
-  {
-    const PokemonExperience& oldValue = originalPokemon_->GetExperience ();
-
-    originalPokemon_->AddExperience (value);
-
-    OnExperienceChanged (*this, yap::ChangeEventArgs<const PokemonExperience&> 
-      (oldValue, originalPokemon_->GetExperience ()));
-  }
-
-  void PokemonFighter::TakeDamage (int value)
-  {
-    SetCurrentHP (GetCurrentHP () - value);
-  }
-
   const PokemonMoveSet& PokemonFighter::GetMoveSet () const
   {
     return originalPokemon_->GetMoveSet ();
@@ -119,35 +104,12 @@ namespace yap
     return *originalPokemon_->GetMoveSet ().GetMove (index);
   }
 
-  Event<
-    const IBattleEntity&, 
-    const ChangeEventArgs<const HitPoint&>&>& 
-    PokemonFighter::OnHPChangedEvent ()
+  void PokemonFighter::TakeDamage (int value)
   {
-    return OnHPChanged;
+    SetCurrentHP (GetCurrentHP () - value);
   }
 
-  Event<
-    const IBattleEntity&, 
-    const ChangeEventArgs<const PokemonExperience&>&>& 
-    PokemonFighter::OnExperienceChangedEvent ()
-  {
-    return OnExperienceChanged;
-  }
   /// @}
-
-  // Private setters.
-  void PokemonFighter::SetCurrentHP (int value)
-  {
-    if (value < 0)
-      value = 0;
-
-    const HitPoint& oldValue = stats_.GetHitPoint ();
-    stats_.SetCurrentHP (value);
-
-    OnHPChanged (*this, yap::ChangeEventArgs<const HitPoint&> 
-      (oldValue, stats_.GetHitPoint ()));
-  }
 
   void PokemonFighter::Update (const Time& dt)
   {
@@ -156,6 +118,12 @@ namespace yap
 
   void PokemonFighter::HandleUpdate (const Time& dt)
   {
+  }
+
+  // Private setters.
+  void PokemonFighter::SetCurrentHP (int value)
+  {
+    stats_.SetCurrentHP (value);
   }
 
 } // namespace yap

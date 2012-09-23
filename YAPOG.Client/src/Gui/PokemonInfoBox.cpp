@@ -19,16 +19,17 @@ namespace ycl
     , normalBackground_ (nullptr)
     , selectedBackground_ (nullptr)
     , icon_ (nullptr)
-    , name_ (new yap::Label (pokemon.GetName ()))
-    , level_ (new yap::Label ())
+    , name_ (nullptr)
+    , level_ (nullptr)
     , gender_ (nullptr)
-    , hpBar_ (nullptr)
-    , hpBarContent_ (nullptr)
-    , hpLabel_ (new yap::Label (
-    yap::StringHelper::ToString (
-    pokemon.GetCurrentHP ()) + " / " + 
-    yap::StringHelper::ToString (pokemon.GetMaxHP ())))
+    , hpBar_ ()
+    , hpLabel_ (nullptr)
   {
+    name_ = new yap::Label (pokemon.GetName ());
+
+    level_ = new yap::Label ();
+
+    hpLabel_ = new yap::Label ();
 
     normalBackground_ = new yap::WidgetBackground (
       "Pictures/TeamManager/ItemBox.png", true);
@@ -36,43 +37,28 @@ namespace ycl
     selectedBackground_ = new yap::WidgetBackground (
       "Pictures/TeamManager/ItemBoxSelected.png", true);
 
-    SetBackground (*normalBackground_);
-
     icon_ = new yap::PictureBox ();
     gender_ = new yap::PictureBox ();
-    hpBarContent_ = new yap::PictureBox ();
-    hpBar_ = new yap::PictureBox ();
+  }
 
-    icon_->SetPicture (&pokemon.GetIcon ());
-    gender_->SetPicture (&pokemon.GetGenderIcon ());
+  void PokemonInfoBox::Init ()
+  {
+    SetBackground (*normalBackground_);
+
+    hpLabel_->SetText (yap::StringHelper::ToString (
+      pokemon_.GetCurrentHP ()) + " / " + 
+      yap::StringHelper::ToString (pokemon_.GetMaxHP ()));
+
+    hpBar_.Init ();
+    hpBar_.SetHitPoint (pokemon_.GetStats ().GetHitPoint ());
+
+    icon_->SetPicture (&pokemon_.GetIcon ());
+    gender_->SetPicture (&pokemon_.GetGenderIcon ());
     level_->SetText ( 
       "N. " + yap::StringHelper::ToString (
-      static_cast<int>(pokemon.GetLevel ())));
+      static_cast<int>(pokemon_.GetLevel ())));
 
-    // HP Bar
-    hpBar_->SetPicture (
-      new yap::Sprite ("Pictures/Battle/HPTeamManagerBar.png"));
-    hpBarContent_->SetPicture (
-      new yap::Sprite ("Pictures/Battle/HPBarContent.png"));
-
-    yap::Vector2 hpBarSize = 
-      yap::Vector2 (130 * ((float)pokemon.GetCurrentHP () / 
-      (float)pokemon.GetMaxHP ()), hpBarContent_->GetSize ().y);
-
-    hpBarContent_->SetSize (hpBarSize);
-    hpBar_->AddChild (*hpBarContent_);
-    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
-
-    if (static_cast<float> (pokemon.GetCurrentHP ()) / 
-      static_cast<float> (pokemon.GetMaxHP ())  <= 0.25)
-      hpBarContent_->ChangeColor (sf::Color (250, 90, 60));
-    else if (static_cast<float> (pokemon.GetCurrentHP ()) / 
-      static_cast<float> (pokemon.GetMaxHP ())  <= 0.5)
-      hpBarContent_->ChangeColor (sf::Color (250, 225, 50));
-    else
-      hpBarContent_->ChangeColor (sf::Color (110, 250, 170));
-
-    if (isMainPokemon)
+    if (isMainPokemon_)
     {
       SetSize (yap::Vector2 (276, 173));
 
@@ -86,13 +72,16 @@ namespace ycl
         new yap::VerticalLayout (yap::Padding (), yap::Padding (), false);
 
       yap::VerticalLayout* firstLineInfo = 
-        new yap::VerticalLayout (yap::Padding (0, 0, 0, 20), yap::Padding (), false);
+        new yap::VerticalLayout (
+        yap::Padding (0, 0, 0, 20), yap::Padding (), false);
 
       yap::HorizontalLayout* levelAndGender = 
-        new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);
+        new yap::HorizontalLayout (
+        yap::Padding (), yap::Padding (), true);
 
       yap::VerticalLayout* secondLine = 
-        new yap::VerticalLayout (yap::Padding (0, 20, 0, 10), yap::Padding (), false);
+        new yap::VerticalLayout (
+        yap::Padding (0, 20, 0, 10), yap::Padding (), false);
 
       mainLayout->SetSize (GetSize ());
 
@@ -118,7 +107,7 @@ namespace ycl
       firstLine->AddChild (*firstLineInfo);
 
       secondLine->SetSize (yap::Vector2 (GetSize ().x, GetSize ().y / 2));
-      secondLine->AddChild (*hpBar_, yap::LayoutBox::Align::RIGHT);
+      secondLine->AddChild (hpBar_, yap::LayoutBox::Align::RIGHT);
       secondLine->AddChild (*hpLabel_, yap::LayoutBox::Align::RIGHT);
 
       mainLayout->AddChild (*firstLine);
@@ -138,6 +127,9 @@ namespace ycl
     else
     {
       SetSize (yap::Vector2 (425, 75));
+
+      yap::HorizontalLayout* mainLayout = 
+        new yap::HorizontalLayout (yap::Padding (), yap::Padding (), false);
 
       yap::HorizontalLayout* hor1 = 
         new yap::HorizontalLayout (yap::Padding (), yap::Padding (), true);
@@ -166,7 +158,7 @@ namespace ycl
       ver2->AddChild (*hor1, yap::LayoutBox::Align::CENTER);
 
       ver3->SetSize (yap::Vector2 (200, 64));
-      ver3->AddChild (*hpBar_, yap::LayoutBox::Align::RIGHT);
+      ver3->AddChild (hpBar_, yap::LayoutBox::Align::RIGHT);
       ver3->AddChild (*hpLabel_, yap::LayoutBox::Align::RIGHT);
 
       /*
@@ -175,9 +167,6 @@ namespace ycl
       ver3->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
       hor1->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
       */
-
-      yap::HorizontalLayout* mainLayout = 
-        new yap::HorizontalLayout (yap::Padding (), yap::Padding (), false);
       mainLayout->SetSize (GetSize ());
       mainLayout->SetDefaultColor (sf::Color::White);
       mainLayout->AddChild (*ver1);
@@ -201,28 +190,6 @@ namespace ycl
   bool PokemonInfoBox::IsFocusable () const
   {
     return false;
-  }
-
-  void PokemonInfoBox::HandleMove (const yap::Vector2& offset)
-  {
-
-  }
-  void PokemonInfoBox::HandleScale (const yap::Vector2& factor)
-  {
-
-  }
-  void PokemonInfoBox::HandleDraw (yap::IDrawingContext& offset)
-  {
-
-  }
-  void PokemonInfoBox::HandleShow (bool isVisible)
-  {
-  }
-  void PokemonInfoBox::HandleChangeColor (const sf::Color& color)
-  {
-  }
-  void PokemonInfoBox::HandleUpdate (const yap::Time& dt)
-  {
   }
 
 } // namespace ycl

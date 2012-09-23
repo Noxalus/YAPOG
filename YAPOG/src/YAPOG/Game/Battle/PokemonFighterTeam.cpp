@@ -80,16 +80,6 @@ namespace yap
     return GetCurrentFighter ().GetStats ().GetSpeed ();
   }
 
-   void PokemonFighterTeam::AddExperience (int value)
-  {
-    GetCurrentFighter ().AddExperience (value);
-  }
-
-  void PokemonFighterTeam::TakeDamage (int value)
-  {
-    GetCurrentFighter ().TakeDamage (value);
-  }
-
   float PokemonFighterTeam::GetHPPercentage () const
   {
     return GetCurrentFighter ().GetHPPercentage ();
@@ -108,22 +98,6 @@ namespace yap
   const PokemonStat& PokemonFighterTeam::GetStats () const
   {
     return GetCurrentFighter ().GetStats ();
-  }
-
-  Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const HitPoint&>&>& 
-      PokemonFighterTeam::OnHPChangedEvent ()
-  {
-    return GetCurrentFighter ().OnHPChangedEvent ();
-  }
-
-  Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const PokemonExperience&>&>& 
-      PokemonFighterTeam::OnExperienceChangedEvent ()
-  {
-    return GetCurrentFighter ().OnExperienceChangedEvent ();
   }
   /// @}
 

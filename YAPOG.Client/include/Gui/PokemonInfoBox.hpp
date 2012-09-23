@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/Gui/BaseWidget.hpp"
+# include "Gui/PokemonHPBarWidget.hpp"
 
 namespace yap
 {
@@ -22,17 +23,11 @@ namespace ycl
       bool isMainPokemon, 
       const Pokemon& pokemon);
 
+    void Init ();
+
     void SetIsSelected (bool value);
 
     virtual bool IsFocusable () const;
-
-  protected:
-    virtual void HandleMove (const yap::Vector2& offset);
-    virtual void HandleScale (const yap::Vector2& factor);
-    virtual void HandleDraw (yap::IDrawingContext& offset);
-    virtual void HandleShow (bool isVisible);
-    virtual void HandleChangeColor (const sf::Color& color);
-    virtual void HandleUpdate (const yap::Time& dt);
 
   private:
     const Pokemon& pokemon_;
@@ -44,8 +39,7 @@ namespace ycl
     yap::Label* name_;
     yap::Label* level_;
     yap::PictureBox* gender_;
-    yap::PictureBox* hpBar_;
-    yap::PictureBox* hpBarContent_;
+    PokemonHPBarWidget hpBar_;
     yap::Label* hpLabel_;
 
   };

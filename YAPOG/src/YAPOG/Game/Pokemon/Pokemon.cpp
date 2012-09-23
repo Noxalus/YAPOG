@@ -504,11 +504,8 @@ namespace yap
     stats_.RestoreHP ();
   }
 
-  void Pokemon::TakeDamage (int damage)
+  void Pokemon::SetCurrentHP (int value)
   {
-    if (damage < 0)
-      YAPOG_THROW("A Pokemon cannot take negative damages !");
-
-    stats_.ModifyHitPoint (damage);
+    stats_.SetCurrentHP (value);
   }
 }

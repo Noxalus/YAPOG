@@ -85,6 +85,40 @@ namespace ycl
   }
   /// @}
 
+  void PokemonFighter::AddExperience (int value)
+  {
+    const yap::PokemonExperience& oldValue = 
+      originalPokemon_->GetExperience ();
+
+    originalPokemon_->AddExperience (value);
+
+    OnExperienceChanged (
+      *this, yap::ChangeEventArgs<const yap::PokemonExperience&> 
+      (oldValue, originalPokemon_->GetExperience ()));
+  }
+
+  void PokemonFighter::TakeDamage (int value)
+  {
+    yap::PokemonFighter::TakeDamage (value);
+    SetCurrentHP (originalPokemon_->GetCurrentHP () - value);
+  }
+
+  yap::Event<
+    const yap::IBattleEntity&, 
+    const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
+    PokemonFighter::OnHPChangedEvent ()
+  {
+    return OnHPChanged;
+  }
+
+  yap::Event<
+    const yap::IBattleEntity&, 
+    const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
+    PokemonFighter::OnExperienceChangedEvent ()
+  {
+    return OnExperienceChanged;
+  }
+
   void PokemonFighter::SetBattleSprite (
     const BattleSpriteType& battleSpriteType)
   {
@@ -100,6 +134,21 @@ namespace ycl
       SetBattleSprite (DEFAULT_BATTLE_SPRITE_TYPE);
       break;
     }
+  }
+
+  // Private setters.
+  void PokemonFighter::SetCurrentHP (int value)
+  {
+    if (value < 0)
+      value = 0;
+
+    const yap::HitPoint& oldValue = 
+      originalPokemon_->GetStats ().GetHitPoint ();
+    
+    originalPokemon_->SetCurrentHP (value);
+
+    OnHPChanged (*this, yap::ChangeEventArgs<const yap::HitPoint&> 
+      (oldValue, originalPokemon_->GetStats ().GetHitPoint ()));
   }
 
 } // namespace yap

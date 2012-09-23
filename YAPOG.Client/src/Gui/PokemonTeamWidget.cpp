@@ -73,11 +73,13 @@ namespace ycl
       if (i == 0)
       {
         box = new PokemonInfoBox (true, team_.GetPokemon (i));
+        box->Init ();
         box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
       }
       else
       {
         box = new PokemonInfoBox (false, team_.GetPokemon (i));
+        box->Init ();
         box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
       }
 
