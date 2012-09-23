@@ -74,8 +74,6 @@ namespace ycl
 
   void PokemonExperienceBarWidget::RealUpdate ()
   {
-    float percentage = experience_->GetExperiencePercentage (variance_);
-
     float size = MAX_EXP_BAR_SIZE * 
       experience_->GetExperiencePercentage (variance_);
 
