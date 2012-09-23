@@ -56,37 +56,6 @@ namespace ycl
     }
   }
 
-  /// @name IBattleEntity members
-  /// @{
-
-  void PokemonFighterTeam::AddExperience (int value)
-  {
-    GetCurrentFighter ().AddExperience (value);
-  }
-
-  void PokemonFighterTeam::TakeDamage (int value)
-  {
-    GetCurrentFighter ().TakeDamage (value);
-  }
-
-  yap::Event<
-    const yap::IBattleEntity&, 
-    const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
-    PokemonFighterTeam::OnHPChangedEvent ()
-  {
-    return GetCurrentFighter ().OnHPChangedEvent ();
-  }
-
-  yap::Event<
-    const yap::IBattleEntity&, 
-    const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
-    PokemonFighterTeam::OnExperienceChangedEvent ()
-  {
-    return GetCurrentFighter ().OnExperienceChangedEvent ();
-  }
-
-  /// @}
-
   PokemonFighter& PokemonFighterTeam::GetCurrentFighter ()
   {
     return *fighters_[currentFighterIndex_];

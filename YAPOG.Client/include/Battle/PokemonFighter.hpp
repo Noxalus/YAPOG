@@ -32,22 +32,6 @@ namespace ycl
     PokemonFighter (Pokemon* originalPokemon, bool isOpponent);
     virtual ~PokemonFighter ();
 
-    /// @name IBattleEntity members
-    /// @{
-    virtual void AddExperience (int value);
-    virtual void TakeDamage (int value);
-
-    virtual yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
-      OnHPChangedEvent ();
-
-    virtual yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
-      OnExperienceChangedEvent ();
-    /// @}
-
     /// @name IDrawable members.
     /// @{
     virtual void Draw (yap::IDrawingContext& context);
@@ -68,14 +52,6 @@ namespace ycl
     void SetBattleSprite (const BattleSpriteType& battleSpriteType);
     /// @}
 
-    yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>&> OnHPChanged;
-
-    yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::PokemonExperience&>&> OnExperienceChanged;
-
   protected:
     virtual void HandleInit ();
     virtual void HandleUpdate (const yap::Time& dt);
@@ -90,11 +66,6 @@ namespace ycl
     sf::Color color_;
 
   private:
-    /// @name Private setters.
-    /// @{
-    void SetCurrentHP (int value);
-    /// @}
-
     Pokemon* originalPokemon_;
     yap::ISprite* battleSprite_;
     bool isOpponent_;
