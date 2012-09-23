@@ -39,17 +39,6 @@ namespace yap
 
     virtual void AddExperience (int value);
     virtual void TakeDamage (int value);
-
-    virtual Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const HitPoint&>&>& 
-      OnHPChangedEvent ();
-
-    virtual Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const PokemonExperience&>&>& 
-      OnExperienceChangedEvent ();
-
     /// @}
 
     /// @name IUpdateable members.
@@ -57,19 +46,12 @@ namespace yap
     virtual void Update (const Time& dt);
     /// @}
 
-    Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const HitPoint&>&> OnHPChanged;
-
-    Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const PokemonExperience&>&> OnExperienceChanged;
   protected:
     virtual void HandleUpdate (const Time& dt);
+    PokemonStat stats_;
 
   private:
     Pokemon* originalPokemon_;
-    PokemonStat stats_;
 
     /// @name Private setters.
     /// @{

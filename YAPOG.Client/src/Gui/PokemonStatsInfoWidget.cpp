@@ -44,7 +44,7 @@ namespace ycl
     , capacityLayout_ (nullptr)
     , experienceBarLayout_ (nullptr)
     , pokemonFrontInfoWidget_ ()
-    , experienceBarWidget_ ()
+    , experienceBarWidget_ (false)
   {
     // Labels
     hp_ = new yap::Label ();
@@ -201,7 +201,7 @@ namespace ycl
     mainLayout_->AddChild (*experienceLayout_, yap::LayoutBox::Align::LEFT);
     mainLayout_->AddChild (*capacityAndExperienceGlobalLayout_, yap::LayoutBox::Align::LEFT);
 
-    // Borders
+    // Debug borders
     /*
     mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
     firstLine_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));

@@ -40,14 +40,6 @@ namespace ycl
     levelLabel_.ChangeColor (sf::Color::Black);
 
     hpBar_.Init ();
-    /*
-    hpBarContent_->SetPicture (new yap::Sprite ("Pictures/Battle/HPBarContent.png"));
-    hpBarPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/HPBattleBar.png"));
-    hpBarContent_->SetSize (yap::Vector2 (
-    MAX_HP_BAR_SIZE,
-    hpBarContent_->GetSize ().y));
-    hpBarContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
-    */
 
     SetGender (yap::Gender::Genderless);
 
@@ -71,27 +63,18 @@ namespace ycl
     firstLine_.AddChild (nameBox_);
     firstLine_.AddChild (levelAndGenderBox_);
 
-    // Second line
-    /*
-    hpBarPictureBox_->AddChild (*hpBarContent_);
-    hpBarContent_->Move (yap::Vector2 (45.f, 6.f));
-    */
-    //hpBar_.Move (yap::Vector2 (45.f, 6.f));
-
     // Add to the global box
     battleInfoBox_.AddChild (firstLine_, yap::LayoutBox::Align::LEFT);
     battleInfoBox_.AddChild (hpBar_, yap::LayoutBox::Align::RIGHT); 
 
     /// @debug Borders.
     /// @{
-    /*
     nameBox_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     nameLabel_.SetBorder (*new yap::WidgetBorder ("Test/blue.png"));
     levelLabel_.SetBorder (*new yap::WidgetBorder ("Test/yellow.png"));
-    hpBarPictureBox_->SetBorder (*new yap::WidgetBorder ("Test/green.png"));
+    hpBar_.SetBorder (*new yap::WidgetBorder ("Test/green.png"));
     battleInfoBox_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
     levelAndGenderBox_.SetBorder (*new yap::WidgetBorder ("Test/grey.png"));
-    */
     /// @}
 
     this->AddChild (battleInfoBox_);

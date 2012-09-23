@@ -24,6 +24,22 @@ namespace ycl
 
     void LoadFromPokemonTeam (PokemonTeam& pokemonTeam, bool isOpponent);
 
+    /// @name IBattleEntity members
+    /// @{
+    virtual void AddExperience (int value);
+    virtual void TakeDamage (int value);
+
+    virtual yap::Event<
+      const yap::IBattleEntity&, 
+      const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
+      OnHPChangedEvent ();
+
+    virtual yap::Event<
+      const yap::IBattleEntity&, 
+      const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
+      OnExperienceChangedEvent ();
+    /// @}
+
     /// @name IDrawable members.
     /// @{
     virtual void Draw (yap::IDrawingContext& context);

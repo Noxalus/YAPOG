@@ -1,5 +1,6 @@
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
+#include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
 #include "YAPOG/Game/Pokemon/HitPoint.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
@@ -12,7 +13,7 @@ namespace ycl
     : BattleInfoWidget (yap::Padding (40, 30, 0, 0))
     , hp_ (nullptr)
     , hpValue_ ()
-    , experienceBar_ ()
+    , experienceBar_ (true)
   {
   }
 
@@ -31,6 +32,10 @@ namespace ycl
     hpValue_.ChangeColor (sf::Color::Black);
     battleInfoBox_.AddChild (hpValue_, yap::LayoutBox::Align::RIGHT);
     battleInfoBox_.AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
+
+    // Debug borders
+    hpValue_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
+    experienceBar_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
   }
 
   void PokemonBattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)

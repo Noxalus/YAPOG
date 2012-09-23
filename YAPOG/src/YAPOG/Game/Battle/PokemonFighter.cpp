@@ -99,9 +99,6 @@ namespace yap
     const PokemonExperience& oldValue = originalPokemon_->GetExperience ();
 
     originalPokemon_->AddExperience (value);
-
-    OnExperienceChanged (*this, yap::ChangeEventArgs<const PokemonExperience&> 
-      (oldValue, originalPokemon_->GetExperience ()));
   }
 
   void PokemonFighter::TakeDamage (int value)
@@ -119,21 +116,6 @@ namespace yap
     return *originalPokemon_->GetMoveSet ().GetMove (index);
   }
 
-  Event<
-    const IBattleEntity&, 
-    const ChangeEventArgs<const HitPoint&>&>& 
-    PokemonFighter::OnHPChangedEvent ()
-  {
-    return OnHPChanged;
-  }
-
-  Event<
-    const IBattleEntity&, 
-    const ChangeEventArgs<const PokemonExperience&>&>& 
-    PokemonFighter::OnExperienceChangedEvent ()
-  {
-    return OnExperienceChanged;
-  }
   /// @}
 
   // Private setters.
@@ -144,9 +126,6 @@ namespace yap
 
     const HitPoint& oldValue = stats_.GetHitPoint ();
     stats_.SetCurrentHP (value);
-
-    OnHPChanged (*this, yap::ChangeEventArgs<const HitPoint&> 
-      (oldValue, stats_.GetHitPoint ()));
   }
 
   void PokemonFighter::Update (const Time& dt)

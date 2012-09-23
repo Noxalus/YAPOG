@@ -40,16 +40,6 @@ namespace yap
 
     virtual void AddExperience (int value);
     virtual void TakeDamage (int value);
-
-    virtual Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const HitPoint&>&>& 
-      OnHPChangedEvent ();
-
-    virtual Event<
-      const IBattleEntity&, 
-      const ChangeEventArgs<const PokemonExperience&>&>& 
-      OnExperienceChangedEvent ();
     /// @}
 
     /// @name IUpdateable members.

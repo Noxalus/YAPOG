@@ -16,7 +16,7 @@ namespace ycl
   class PokemonExperienceBarWidget : public yap::ProgressBarWidget
   {
   public:
-    PokemonExperienceBarWidget ();
+    PokemonExperienceBarWidget (bool inBattle);
 
     void Init ();
 
@@ -37,6 +37,7 @@ namespace ycl
     virtual void RealUpdate ();
 
     const yap::PokemonExperience* experience_;
+    bool inBattle_;
 
     static const float MAX_EXP_BAR_SIZE;
 

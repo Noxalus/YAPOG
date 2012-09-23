@@ -11,28 +11,47 @@ namespace ycl
 {
   const float PokemonExperienceBarWidget::MAX_EXP_BAR_SIZE = 137.f;
 
-  PokemonExperienceBarWidget::PokemonExperienceBarWidget ()
+  PokemonExperienceBarWidget::PokemonExperienceBarWidget (bool inBattle_)
     : yap::ProgressBarWidget ()
     , experience_ (nullptr)
+    , inBattle_ (inBattle_)
   {
-    mainLayout_ = new yap::HorizontalLayout (
-      yap::Padding (60, 0, 0, 11), yap::Padding (), false);
+    if (!inBattle_)
+    {
+      mainLayout_ = new yap::HorizontalLayout (
+        yap::Padding (60, 0, 0, 11), yap::Padding (), false);
+    }
+    else
+    {
+      mainLayout_ = new yap::HorizontalLayout (
+        yap::Padding (), yap::Padding (), false);
+    }
+
     barContent_ = new yap::PictureBox ();
   }
 
   void PokemonExperienceBarWidget::Init ()
   {
-    SetSize (yap::Vector2 (258, 26));
+    if (!inBattle_)
+    {
+      SetSize (yap::Vector2 (258, 26));
 
-    SetBackground (*new yap::WidgetBackground (
-      "Pictures/TeamManager/ExperienceBarContainer.png", true));
+      SetBackground (*new yap::WidgetBackground (
+        "Pictures/TeamManager/ExperienceBarContainer.png", true));
+    }
+    else
+      SetSize (yap::Vector2 (192, 6));
 
     barContent_->SetPicture (new yap::Sprite (
       "Pictures/TeamManager/ExperienceBarContent.png"));
 
+    barContent_->SetSize (yap::Vector2 (1, 6)); 
+
     mainLayout_->SetSize (GetSize ());
 
     mainLayout_->AddChild (*barContent_, yap::LayoutBox::Align::TOP);
+
+    mainLayout_->Move (yap::Vector2 (5, 10));
 
     AddChild (*mainLayout_);
   }
