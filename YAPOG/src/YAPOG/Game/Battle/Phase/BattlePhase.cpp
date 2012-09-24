@@ -10,8 +10,8 @@ namespace yap
     : state_ (battlePhaseState)
     , previousPhase_ (battlePhaseState)
     , phaseArgs_ ()
-    , nextPhase_ (battlePhaseState)
     , battle_ (battle)
+    , nextPhase_ (battlePhaseState)
   {
   }
 

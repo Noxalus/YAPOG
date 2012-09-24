@@ -60,9 +60,8 @@ namespace yap
       playerAttack_ = false;
     }
 
-    if (opponentAttack_)
+    if (opponentAttack_ && battle_.GetOpponent ().GetCurrentHP () > 0)
     {
-
       if (battle_.GetOpponent ().GetMove (
         opponentMoveIndex_).GetCategory () == 1)
       {
