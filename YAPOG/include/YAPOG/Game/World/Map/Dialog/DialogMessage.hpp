@@ -19,6 +19,15 @@ namespace yap
       virtual const String& GetContent () const;
       /// @}
 
+      /// @name ICloneable members.
+      /// @{
+      virtual DialogMessage* Clone () const;
+      /// @}
+
+    protected:
+
+      DialogMessage (const DialogMessage& copy);
+
     private:
 
       String content_;

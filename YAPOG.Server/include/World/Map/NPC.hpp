@@ -25,6 +25,8 @@ namespace yse
 
       void SetTalkEventArea (yap::BoundingBox* boundingBox);
 
+      void SetDialogNode (yap::IDialogNode* dialogNode);
+
       /// @name ICloneable members.
       /// @{
       virtual NPC* Clone () const;

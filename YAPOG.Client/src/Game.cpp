@@ -280,6 +280,8 @@ namespace ycl
   {
     worldObjectStateFactory_.AddState ("Inactive", "Inactive");
     worldObjectStateFactory_.AddState ("Moving", "Moving");
+    worldObjectStateFactory_.AddState ("Listening", "Listening");
+    worldObjectStateFactory_.AddState ("Talking", "Talking");
   }
 
   void Game::InitGameInputManager ()

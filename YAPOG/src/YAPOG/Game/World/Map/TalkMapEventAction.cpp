@@ -41,7 +41,7 @@ namespace yap
     {
       case MapEventActionType::In:
 
-        DLOGGER.LogLine ("IN DIALOG AREA!!");
+//        DLOGGER.LogLine ("IN DIALOG AREA!!");
 
         /// @todo Add all conditions (state, facing...)
         if (visitable.HasInputActivated (yap::GameInputType::MapAction))
@@ -51,7 +51,7 @@ namespace yap
 
           visitable.Talk (*sourceDialogActor_);
 
-          GetArgs ().AbortEvents (true);
+//          GetArgs ().AbortEvents (true);
         }
 
         break;

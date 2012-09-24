@@ -12,7 +12,7 @@ namespace yap
 
   class DialogNodeEntry
   {
-      DISALLOW_COPY(DialogNodeEntry);
+      DISALLOW_ASSIGN(DialogNodeEntry);
 
     public:
 
@@ -23,6 +23,8 @@ namespace yap
         IDialogNode* next);
 
       ~DialogNodeEntry ();
+
+      DialogNodeEntry (const DialogNodeEntry& copy);
 
       bool RequirementIsFulfilled ();
 

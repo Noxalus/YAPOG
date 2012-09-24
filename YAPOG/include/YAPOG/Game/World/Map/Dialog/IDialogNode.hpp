@@ -1,6 +1,7 @@
 #ifndef YAPOG_IDIALOGNODE_HPP
 # define YAPOG_IDIALOGNODE_HPP
 
+# include "YAPOG/Game/Factory/ICloneable.hpp"
 # include "YAPOG/Game/World/Map/Dialog/DialogNodeExecutionContext.hpp"
 
 namespace yap
@@ -10,7 +11,7 @@ namespace yap
   template <typename ReturnType>
   struct IDialogNodeConstVisitor;
 
-  struct IDialogNode
+  struct IDialogNode : public ICloneable
   {
       virtual ~IDialogNode () { }
 
@@ -18,6 +19,11 @@ namespace yap
       virtual bool Accept (IDialogNodeConstVisitor<bool>& visitor) const = 0;
 
       virtual bool Execute (DialogNodeExecutionContext& executionContext) = 0;
+
+      /// @name ICloneable members.
+      /// @{
+      virtual IDialogNode* Clone () const { return nullptr; }
+      /// @}
   };
 } // namespace yap
 

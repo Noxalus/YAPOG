@@ -11,7 +11,7 @@ namespace yap
 
   class DialogNode : public IDialogNode
   {
-      DISALLOW_COPY(DialogNode);
+      DISALLOW_ASSIGN(DialogNode);
 
     public:
 
@@ -27,6 +27,15 @@ namespace yap
 
       virtual bool Execute (DialogNodeExecutionContext& executionContext);
       /// @}
+
+      /// @name ICloneable members.
+      /// @{
+      virtual DialogNode* Clone () const;
+      /// @}
+
+    protected:
+
+      DialogNode (const DialogNode& copy);
 
     private:
 

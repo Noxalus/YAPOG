@@ -6,11 +6,26 @@
 namespace yap
 {
   DialogNode::DialogNode ()
+    : entries_ ()
   {
   }
 
   DialogNode::~DialogNode ()
   {
+    for (DialogNodeEntry* entry : entries_)
+      delete entry;
+  }
+
+  DialogNode::DialogNode (const DialogNode& copy)
+    : entries_ ()
+  {
+    for (DialogNodeEntry* entry : copy.entries_)
+      AddEntry (new DialogNodeEntry (*entry));
+  }
+
+  DialogNode* DialogNode::Clone () const
+  {
+    return new DialogNode (*this);
   }
 
   DialogNode& DialogNode::AddEntry (DialogNodeEntry* entry)

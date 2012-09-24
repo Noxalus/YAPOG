@@ -263,6 +263,8 @@ namespace yse
   {
     worldObjectStateFactory_.AddState ("Inactive", "Inactive");
     worldObjectStateFactory_.AddState ("Moving", "Moving");
+    worldObjectStateFactory_.AddState ("Listening", "Listening");
+    worldObjectStateFactory_.AddState ("Talking", "Talking");
   }
 
   void Server::InitLoggerManager ()

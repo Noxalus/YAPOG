@@ -3,6 +3,9 @@
 
 /// @warning [TMP]
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNodeEntry.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogMessage.hpp"
 namespace yse
 {
   NPCReader::NPCReader (
@@ -25,9 +28,17 @@ namespace yse
 
     npc_.SetTalkEventArea (
       new yap::BoundingBox (
-        yap::Vector2 (-600, -600),
-        yap::Vector2 (1200, 1200),
+        yap::Vector2 (-60, -60),
+        yap::Vector2 (120, 120),
         0,
         1));
+
+    npc_.SetDialogNode (
+      &(new yap::DialogNode ())->AddEntry (
+        new yap::DialogNodeEntry (
+          new yap::DialogMessage ("Salut !"),
+          nullptr,
+          nullptr,
+          nullptr)));
   }
 } // namespace yse

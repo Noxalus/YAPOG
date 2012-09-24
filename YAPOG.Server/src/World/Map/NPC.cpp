@@ -5,6 +5,7 @@
 #include "YAPOG/Game/World/Map/MapEvent.hpp"
 #include "YAPOG/Game/World/Map/TalkMapEventAction.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogNode.hpp"
 #include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
 
 namespace yse
@@ -28,7 +29,7 @@ namespace yse
   NPC::NPC (const NPC& copy)
     : Character (copy)
     , name_ (copy.name_)
-    , dialogNode_ (nullptr)
+    , dialogNode_ (copy.dialogNode_->Clone ())
     , talkEventArea_ (nullptr)
   {
     SetTalkEventArea (new yap::BoundingBox (*copy.talkEventArea_));
@@ -52,6 +53,13 @@ namespace yse
     talkAction->SetSourceDialogActor (*this);
 
     talkEvent->AddAction (talkAction);
+
+    AddEvent (talkEvent);
+  }
+
+  void NPC::SetDialogNode (yap::IDialogNode* dialogNode)
+  {
+    dialogNode_ = dialogNode;
   }
 
   const yap::String& NPC::GetName () const
