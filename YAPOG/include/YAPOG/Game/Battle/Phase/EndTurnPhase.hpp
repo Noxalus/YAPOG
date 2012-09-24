@@ -19,6 +19,11 @@ namespace yap
     virtual void HandleUpdate (const Time& dt);
     virtual void HandleEnd ();
     /// @}
+
+  protected:
+    bool addExperience_;
+    uint experienceAmount_;
+    bool textSkipped_;
   };
 } // namespace yap
 

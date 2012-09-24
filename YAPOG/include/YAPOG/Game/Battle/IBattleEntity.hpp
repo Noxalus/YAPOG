@@ -50,6 +50,8 @@ namespace yap
     virtual void TakeDamage (int value) = 0;
     /// @}
 
+    virtual void TransfertHP () = 0;
+
     /// @name Events.
     /// @{
     virtual Event<

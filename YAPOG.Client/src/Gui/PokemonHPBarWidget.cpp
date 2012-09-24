@@ -87,7 +87,7 @@ namespace ycl
 
     // Update the size
     barContent_->SetSize (yap::Vector2 (
-      size,
+      size + 1,
       barContent_->GetSize ().y));
 
     if (hpPercentage * 100 <= 25)

@@ -104,9 +104,42 @@ namespace yap
     return *originalPokemon_->GetMoveSet ().GetMove (index);
   }
 
+  void PokemonFighter::AddExperience (int value)
+  {
+    const PokemonExperience& oldValue = 
+      originalPokemon_->GetExperience ();
+
+    originalPokemon_->AddExperience (value);
+
+    OnExperienceChanged (
+      *this, ChangeEventArgs<const PokemonExperience&> 
+      (oldValue, originalPokemon_->GetExperience ()));
+  }
+
   void PokemonFighter::TakeDamage (int value)
   {
     SetCurrentHP (GetCurrentHP () - value);
+  }
+
+  void PokemonFighter::TransfertHP ()
+  {
+    originalPokemon_->SetCurrentHP (stats_.GetHitPoint ().GetCurrentValue ());
+  }
+
+  Event<
+    const IBattleEntity&, 
+    const ChangeEventArgs<const HitPoint&>&>& 
+    PokemonFighter::OnHPChangedEvent ()
+  {
+    return OnHPChanged;
+  }
+
+  Event<
+    const IBattleEntity&, 
+    const ChangeEventArgs<const PokemonExperience&>&>& 
+    PokemonFighter::OnExperienceChangedEvent ()
+  {
+    return OnExperienceChanged;
   }
 
   /// @}
@@ -124,6 +157,16 @@ namespace yap
   void PokemonFighter::SetCurrentHP (int value)
   {
     stats_.SetCurrentHP (value);
+
+    if (value < 0)
+      value = 0;
+
+    const HitPoint& oldValue = stats_.GetHitPoint ();
+
+    stats_.SetCurrentHP (value);
+
+    OnHPChanged (*this, ChangeEventArgs<const HitPoint&> 
+      (oldValue, stats_.GetHitPoint ()));
   }
 
 } // namespace yap

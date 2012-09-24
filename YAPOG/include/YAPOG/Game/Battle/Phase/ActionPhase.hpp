@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/Battle/Phase/BattlePhase.hpp"
+# include "YAPOG/Game/Battle/BattleCore.hpp"
 
 namespace yap
 {
@@ -20,6 +21,12 @@ namespace yap
 
   protected:
     bool playerIsFirst_;
+    BattleCore battleCore_;
+    yap::uchar opponentMoveIndex_;
+    yap::uint textSkippedNumber_;
+    bool playerAttack_;
+    bool opponentAttack_;
+    bool nextPhase_;
   };
 } // namespace yap
 

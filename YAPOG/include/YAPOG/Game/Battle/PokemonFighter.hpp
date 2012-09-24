@@ -32,18 +32,40 @@ namespace yap
     virtual const SpecialDefense& GetSpecialDefense () const;
     virtual const Speed& GetSpeed () const;
 
+    virtual void AddExperience (int value);
     virtual void TakeDamage (int value);
 
     /// Specifics to the Original Pokemon
     virtual const TypeInfo& GetType1 () const;
     virtual const TypeInfo& GetType2 () const;
     virtual float GetTypeEffectFactor (const TypeInfo& type) const;
+
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&>& 
+      OnHPChangedEvent ();
+
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const PokemonExperience&>&>& 
+      OnExperienceChangedEvent ();
     /// @}
+
+    virtual void TransfertHP ();
 
     /// @name IUpdateable members.
     /// @{
     virtual void Update (const Time& dt);
     /// @}
+
+    Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&> OnHPChanged;
+
+    Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const PokemonExperience&>&> 
+      OnExperienceChanged;
 
   protected:
     virtual void HandleUpdate (const Time& dt);

@@ -4,7 +4,6 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 # include "YAPOG/Game/Battle/Phase/ActionPhase.hpp"
-# include "YAPOG/Game/Battle/BattleCore.hpp"
 # include "YAPOG/System/IntTypes.hpp"
 
 namespace yap
@@ -57,12 +56,6 @@ namespace ycl
   private:
     Battle& battle_;
     BattleInterface& battleInterface_;
-    yap::BattleCore battleCore_;
-    yap::uchar opponentMoveIndex_;
-    yap::uint textSkippedNumber_;
-    bool playerAttack_;
-    bool opponentAttack_;
-    bool nextPhase_;
   };
 } // namespace ycl
 

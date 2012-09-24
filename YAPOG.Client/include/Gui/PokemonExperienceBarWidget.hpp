@@ -39,7 +39,8 @@ namespace ycl
     const yap::PokemonExperience* experience_;
     bool inBattle_;
 
-    static const float MAX_EXP_BAR_SIZE;
+    static const float MAX_BATTLE_EXP_BAR_SIZE;
+    static const float MAX_TEAM_MANAGER_EXP_BAR_SIZE;
 
   };
 } // namespace ycl

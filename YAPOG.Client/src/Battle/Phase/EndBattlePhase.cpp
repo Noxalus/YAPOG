@@ -25,12 +25,14 @@ namespace ycl
   void EndBattlePhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::EndBattlePhase::HandleStart (args);
+
+    // Transfert HP from PokemonFighter to Pokemon
+    battle_.GetPlayerTeam ().TransfertHP ();
   }
 
   void EndBattlePhase::HandleUpdate (const yap::Time& dt)
   {
     yap::EndBattlePhase::HandleUpdate (dt);
-
     battle_.OnBattleEnd (battle_, yap::EmptyEventArgs ());
   }
 

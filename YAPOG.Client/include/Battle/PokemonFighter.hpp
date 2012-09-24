@@ -12,12 +12,6 @@ namespace yap
   struct ISprite;
 } // namespace yap
 
-enum BattleSpriteType
-{
-  FRONT,
-  BACK
-};
-
 namespace ycl
 {
   class Pokemon;
@@ -42,41 +36,10 @@ namespace ycl
     virtual void ChangeColor (const sf::Color& color);
     /// @}
 
-    /// @name IBattleEntity members
-    /// @{
-    virtual void AddExperience (int value);
-
-    virtual void TakeDamage (int value);
-
-    virtual yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>&>& 
-      OnHPChangedEvent ();
-
-    virtual yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::PokemonExperience&>&>& 
-      OnExperienceChangedEvent ();
-    /// @}
-
     /// @name IDrawableBattleEntity members
     /// @{
     virtual yap::ISprite& GetBattleSprite ();
     /// @}
-
-    /// @name Setters.
-    /// @{
-    void SetBattleSprite (const BattleSpriteType& battleSpriteType);
-    /// @}
-
-    yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::HitPoint&>&> OnHPChanged;
-
-    yap::Event<
-      const yap::IBattleEntity&, 
-      const yap::ChangeEventArgs<const yap::PokemonExperience&>&> 
-      OnExperienceChanged;
 
   protected:
     virtual void HandleInit ();
@@ -97,11 +60,8 @@ namespace ycl
     void SetCurrentHP (int value);
     /// @}
 
-    Pokemon* originalPokemon_;
     yap::ISprite* battleSprite_;
     bool isOpponent_;
-
-    static const BattleSpriteType DEFAULT_BATTLE_SPRITE_TYPE;
   };
 } // namespace ycl
 

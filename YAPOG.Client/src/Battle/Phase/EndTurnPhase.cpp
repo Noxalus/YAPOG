@@ -1,3 +1,6 @@
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
+#include "YAPOG/System/StringHelper.hpp"
+
 #include "Battle/Phase/EndTurnPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
@@ -23,17 +26,30 @@ namespace ycl
   void EndTurnPhase::HandleStart (const yap::PhaseArgs& args)
   {
     yap::EndTurnPhase::HandleStart (args);
+
+    // Add message in dialog box to notice the experience amount earned
+    if (addExperience_)
+    {
+      battleInterface_.GetBattleInfoDialogBox ().Show (true);
+      battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+
+      battleInterface_.GetBattleInfoDialogBox ().AddText (
+        battle_.GetPlayerTeam ().GetName () + " gagne "
+        + yap::StringHelper::ToString (experienceAmount_) +
+        " point(s) d'expérience !");
+
+      battleInterface_.GetBattleInfoDialogBox ().OnTextChanged.AddHandler (
+        "EXPERIENCE_TEXT_SKIPPED",
+        [&] (const yap::BaseWidget& sender, const yap::EmptyEventArgs& args)
+      {
+        textSkipped_ = true;
+      });
+    }
   }
 
   void EndTurnPhase::HandleUpdate (const yap::Time& dt)
   {
-     yap::EndTurnPhase::HandleUpdate (dt);
-
-     if (battle_.GetPlayerTeam ().GetCurrentHP () == 0 ||
-       battle_.GetOpponent ().GetCurrentHP () == 0)
-      BattlePhase::SwitchPhase (yap::BattlePhaseState::EndBattle);
-     else
-      yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Selection);
+    yap::EndTurnPhase::HandleUpdate (dt);
   }
 
   void EndTurnPhase::HandleEnd ()

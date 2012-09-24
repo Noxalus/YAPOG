@@ -17,10 +17,14 @@ namespace yap
 
   Vector2 PictureBox::HandleGetSize () const
   {
-    return Vector2 (
+    Vector2 getSize = picture_->GetSize ();
+
+    Vector2 size = Vector2 (
       padding_.left + picture_->GetSize ().x + padding_.right,
       padding_.top + picture_->GetSize ().y + padding_.bottom)
       + ((border_ != nullptr) ? border_->GetSize () : Vector2 ());
+
+    return size;
   }
 
   bool PictureBox::IsFocusable () const

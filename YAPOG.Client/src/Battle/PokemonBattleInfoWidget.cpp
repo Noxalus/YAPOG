@@ -36,7 +36,6 @@ namespace ycl
     // Debug borders
     /*
     hpValue_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
-    experienceBar_.SetBorder (*new yap::WidgetBorder ("Test/red.png"));
     */
   }
 

@@ -9,7 +9,10 @@
 
 namespace ycl
 {
-  const float PokemonExperienceBarWidget::MAX_EXP_BAR_SIZE = 192.f;
+  const float PokemonExperienceBarWidget::
+    MAX_BATTLE_EXP_BAR_SIZE = 192.f;
+  const float PokemonExperienceBarWidget::
+    MAX_TEAM_MANAGER_EXP_BAR_SIZE = 187.f;
 
   PokemonExperienceBarWidget::PokemonExperienceBarWidget (bool inBattle_)
     : yap::ProgressBarWidget ()
@@ -49,7 +52,7 @@ namespace ycl
     }
     else
     {
-      SetSize (yap::Vector2 (193, 15));
+      SetSize (yap::Vector2 (192, 19));
       barContent_->SetSize (yap::Vector2 (1, 6)); 
 
       mainLayout_->SetSize (GetSize ());
@@ -57,6 +60,8 @@ namespace ycl
     }
 
     AddChild (*mainLayout_);
+
+    //mainLayout_->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
   }
 
   void PokemonExperienceBarWidget::SetExperience (
@@ -78,12 +83,22 @@ namespace ycl
   void PokemonExperienceBarWidget::RealUpdate ()
   {
     /// @todo Fix the bug when a Pokemon level up
-    float size = MAX_EXP_BAR_SIZE * 
-      experience_->GetExperiencePercentage (variance_);
+    float size = 0;
+
+    if (inBattle_)
+    {
+      size = MAX_BATTLE_EXP_BAR_SIZE * 
+        experience_->GetExperiencePercentage (variance_);
+    }
+    else
+    {
+      size = MAX_TEAM_MANAGER_EXP_BAR_SIZE * 
+        experience_->GetExperiencePercentage (variance_);
+    }
 
     // Update the size
     barContent_->SetSize (yap::Vector2 (
-      size,
+      size + 1,
       barContent_->GetSize ().y));
   }
 

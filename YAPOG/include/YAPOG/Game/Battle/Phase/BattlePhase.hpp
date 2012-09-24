@@ -51,10 +51,10 @@ namespace yap
     BattlePhaseState state_;
     BattlePhaseState previousPhase_;
     PhaseArgs phaseArgs_;
+    Battle& battle_;
 
   private:
     BattlePhaseState nextPhase_;
-    Battle& battle_;
   };
 } // namespace yap
 

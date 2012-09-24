@@ -69,10 +69,10 @@ namespace ycl
         return true;
 
       case sf::Keyboard::W:
-        battle_->GetPlayerTeam ().AddExperience (10);
+        battle_->GetPlayerTeam ().AddExperience (1);
         return true;
       case sf::Keyboard::A:
-        battle_->GetPlayerTeam ().AddExperience (-10);
+        battle_->GetPlayerTeam ().AddExperience (-1);
         return true;
       default: break;
       }

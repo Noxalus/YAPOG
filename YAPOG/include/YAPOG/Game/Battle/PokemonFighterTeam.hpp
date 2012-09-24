@@ -37,6 +37,21 @@ namespace yap
     virtual const TypeInfo& GetType1 () const;
     virtual const TypeInfo& GetType2 () const;
     virtual float GetTypeEffectFactor (const TypeInfo& type) const;
+
+    virtual void AddExperience (int value);
+    virtual void TakeDamage (int value);
+
+    virtual void TransfertHP ();
+
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const HitPoint&>&>& 
+      OnHPChangedEvent ();
+
+    virtual Event<
+      const IBattleEntity&, 
+      const ChangeEventArgs<const PokemonExperience&>&>& 
+      OnExperienceChangedEvent ();
     /// @}
 
     /// @name IUpdateable members.

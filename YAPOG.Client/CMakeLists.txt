@@ -60,8 +60,6 @@ ${inc_root}/Battle/Phase/BeginTrainerBattlePhase.hpp
 ${src_root}/Battle/Phase/BeginTrainerBattlePhase.cpp
 ${inc_root}/Battle/Phase/BeginTurnPhase.hpp
 ${src_root}/Battle/Phase/BeginTurnPhase.cpp
-${inc_root}/Battle/Phase/BattlePhase.hpp
-${src_root}/Battle/Phase/BattlePhase.cpp
 ${inc_root}/Battle/Phase/EndBattlePhase.hpp
 ${src_root}/Battle/Phase/EndBattlePhase.cpp
 ${inc_root}/Battle/Phase/EndTrainerBattlePhase.hpp

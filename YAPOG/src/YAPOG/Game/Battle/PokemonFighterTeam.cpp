@@ -99,6 +99,38 @@ namespace yap
   {
     return GetCurrentFighter ().GetStats ();
   }
+
+  void PokemonFighterTeam::AddExperience (int value)
+  {
+    GetCurrentFighter ().AddExperience (value);
+  }
+
+  void PokemonFighterTeam::TakeDamage (int value)
+  {
+    GetCurrentFighter ().TakeDamage (value);
+  }
+
+  void PokemonFighterTeam::TransfertHP ()
+  {
+    GetCurrentFighter ().TransfertHP ();
+  }
+
+  Event<
+    const IBattleEntity&, 
+    const ChangeEventArgs<const HitPoint&>&>& 
+    PokemonFighterTeam::OnHPChangedEvent ()
+  {
+    return GetCurrentFighter ().OnHPChangedEvent ();
+  }
+
+  Event<
+    const IBattleEntity&, 
+    const ChangeEventArgs<const PokemonExperience&>&>& 
+    PokemonFighterTeam::OnExperienceChangedEvent ()
+  {
+    return GetCurrentFighter ().OnExperienceChangedEvent ();
+  }
+
   /// @}
 
   void PokemonFighterTeam::Update (const Time& dt)
