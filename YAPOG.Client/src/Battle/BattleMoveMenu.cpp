@@ -48,7 +48,7 @@ namespace ycl
     for (int i = 0; i < 4; i++)
     {
       yap::MenuItem* menuItem = new yap::MenuItem ();
-      menuItem ->ChangeColor (sf::Color (128, 128, 128));
+      menuItem ->ChangeColor (sf::Color::Black);
       menuItem ->SetSize (yap::Vector2 (800 / 2 - 150, 45));
       Add (*menuItem, i);
 

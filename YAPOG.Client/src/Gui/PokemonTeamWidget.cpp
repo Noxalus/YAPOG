@@ -232,7 +232,7 @@ namespace ycl
   void PokemonTeamWidget::RefreshWidget ()
   {
     // Refresh Pokemon info boxes
-    for (int i = 0; i < pokemonInfoBoxes_.Count (); i++)
+    for (yap::uint i = 0; i < pokemonInfoBoxes_.Count (); i++)
       pokemonInfoBoxes_[i]->RefreshWidget ();
   }
 

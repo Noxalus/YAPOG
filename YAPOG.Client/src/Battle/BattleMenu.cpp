@@ -53,7 +53,7 @@ namespace ycl
     {
       items_[i] = new yap::MenuItem ();
       items_[i]->SetContent (DEFAULT_LABELS[i]);
-      items_[i]->ChangeColor (sf::Color (128, 128, 128));
+      items_[i]->ChangeColor (sf::Color::Black);
       items_[i]->SetSize (yap::Vector2 (150, 45));
       this->AddChild (*items_[i], yap::LayoutBox::Align::LEFT);
     }

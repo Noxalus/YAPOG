@@ -55,6 +55,12 @@ namespace ycl
   void EndTurnPhase::HandleEnd ()
   {
     yap::EndTurnPhase::HandleEnd ();
+
+    if (addExperience_)
+    {
+      battleInterface_.GetBattleInfoDialogBox ().OnTextChanged.RemoveHandler (
+        "EXPERIENCE_TEXT_SKIPPED");
+    }
   }
 
   void EndTurnPhase::Draw (yap::IDrawingContext& context)
