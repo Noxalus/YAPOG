@@ -51,7 +51,7 @@ namespace ycl
     hp_ = &hp;
     previousValue_ = hp_->GetCurrentValue ();
 
-    RealUpdate ();
+    RefreshWidget ();
   }
 
   void PokemonHPBarWidget::UpdateProgressBar ()
@@ -61,7 +61,7 @@ namespace ycl
     timer_.Reset ();
   }
 
-  void PokemonHPBarWidget::RealUpdate ()
+  void PokemonHPBarWidget::RefreshWidget ()
   {
     // Update the color
     /*
@@ -98,28 +98,19 @@ namespace ycl
       barContent_->ChangeColor (DEFAULT_HP_COLOR_GOOD);
   }
 
+  void PokemonHPBarWidget::HandleUpdate (const yap::Time& dt)
+  {
+    ProgressBarWidget::HandleUpdate (dt);
+
+    if (variance_ == 0)
+    {
+      ///@todo Call an event to notify that HP Bar have finished to update
+    }
+  }
+
   bool PokemonHPBarWidget::IsFocusable () const
   {
     return false;
-  }
-
-  void PokemonHPBarWidget::HandleMove (const yap::Vector2& offset)
-  {
-  }
-
-  void PokemonHPBarWidget::HandleScale (const yap::Vector2& factor)
-  {
-  }
-  void PokemonHPBarWidget::HandleDraw (yap::IDrawingContext& offset)
-  {
-  }
-
-  void PokemonHPBarWidget::HandleShow (bool isVisible)
-  {
-  }
-
-  void PokemonHPBarWidget::HandleChangeColor (const sf::Color& color)
-  {
   }
 
 } // namespace ycl

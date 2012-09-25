@@ -33,13 +33,8 @@ namespace yap
       else
         variance_++;
 
-      RealUpdate ();
+      RefreshWidget ();
       timer_.Reset ();
-
-      if (variance_ == 0)
-      {
-        // Call an event to notify that HP Bar have finished to update
-      }
     }
 
     timer_.Update (dt);

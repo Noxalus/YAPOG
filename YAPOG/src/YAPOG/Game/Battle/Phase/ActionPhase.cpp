@@ -60,17 +60,21 @@ namespace yap
       playerAttack_ = false;
     }
 
-    if (opponentAttack_ && battle_.GetOpponent ().GetCurrentHP () > 0)
+    if (opponentAttack_)
     {
-      if (battle_.GetOpponent ().GetMove (
-        opponentMoveIndex_).GetCategory () == 1)
+      if (battle_.GetOpponent ().GetCurrentHP () > 0)
       {
-        // Compute damage for player
-        battle_.GetPlayerTeam ().TakeDamage (battleCore_.ComputeDamage (
-          battle_.GetOpponent ().GetMove (opponentMoveIndex_),
-          battle_.GetOpponent (),
-          battle_.GetPlayerTeam ()));
+        if (battle_.GetOpponent ().GetMove (
+          opponentMoveIndex_).GetCategory () == 1)
+        {
+          // Compute damage for player
+          battle_.GetPlayerTeam ().TakeDamage (battleCore_.ComputeDamage (
+            battle_.GetOpponent ().GetMove (opponentMoveIndex_),
+            battle_.GetOpponent (),
+            battle_.GetPlayerTeam ()));
+        }
       }
+
       opponentAttack_ = false;
     }
 

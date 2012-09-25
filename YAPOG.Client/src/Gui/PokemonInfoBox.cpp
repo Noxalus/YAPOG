@@ -12,51 +12,52 @@
 
 namespace ycl
 {
-  PokemonInfoBox::PokemonInfoBox (bool isMainPokemon, const Pokemon& pokemon)
-    : pokemon_ (pokemon) 
+  const yap::String PokemonInfoBox::
+    DEFAULT_ICON_FILE = "Pokemon/Icons/0.png";
+  const yap::String PokemonInfoBox::
+    DEFAULT_GENDER_FILE = "Pictures/Battle/MaleIcon.png";
+
+  PokemonInfoBox::PokemonInfoBox (const Pokemon& pokemon, bool isMainPokemon)
+    : initialized_ (false)
+    , pokemon_ (pokemon) 
     , isMainPokemon_ (isMainPokemon)
     , isSelected_ (false)
     , normalBackground_ (nullptr)
     , selectedBackground_ (nullptr)
-    , icon_ (nullptr)
     , name_ (nullptr)
     , level_ (nullptr)
-    , gender_ (nullptr)
-    , hpBar_ ()
     , hpLabel_ (nullptr)
+    , gender_ (nullptr)
+    , icon_ (nullptr)
+    , hpBar_ ()
   {
-    name_ = new yap::Label (pokemon.GetName ());
-
+    name_ = new yap::Label ();
     level_ = new yap::Label ();
-
     hpLabel_ = new yap::Label ();
 
     normalBackground_ = new yap::WidgetBackground (
       "Pictures/TeamManager/ItemBox.png", true);
-
     selectedBackground_ = new yap::WidgetBackground (
       "Pictures/TeamManager/ItemBoxSelected.png", true);
 
-    icon_ = new yap::PictureBox ();
     gender_ = new yap::PictureBox ();
+    icon_ = new yap::PictureBox ();
   }
 
   void PokemonInfoBox::Init ()
   {
     SetBackground (*normalBackground_);
 
-    hpLabel_->SetText (yap::StringHelper::ToString (
-      pokemon_.GetCurrentHP ()) + " / " + 
-      yap::StringHelper::ToString (pokemon_.GetMaxHP ()));
+    icon_->SetPicture (new yap::Sprite (DEFAULT_ICON_FILE));
+    gender_->SetPicture (new yap::Sprite (DEFAULT_GENDER_FILE));
 
+    // HP Bar
     hpBar_.Init ();
     hpBar_.SetHitPoint (pokemon_.GetStats ().GetHitPoint ());
 
-    icon_->SetPicture (&pokemon_.GetIcon ());
-    gender_->SetPicture (&pokemon_.GetGenderIcon ());
-    level_->SetText ( 
-      "N. " + yap::StringHelper::ToString (
-      static_cast<int>(pokemon_.GetLevel ())));
+    name_->SetDefaultColor (sf::Color::White);
+    level_->SetDefaultColor (sf::Color::White);
+    hpLabel_->SetDefaultColor (sf::Color::White);
 
     if (isMainPokemon_)
     {
@@ -84,10 +85,6 @@ namespace ycl
         yap::Padding (0, 20, 0, 10), yap::Padding (), false);
 
       mainLayout->SetSize (GetSize ());
-
-      firstLineInfo->SetDefaultColor (sf::Color::White);
-      levelAndGender->SetDefaultColor (sf::Color::White);
-      secondLine->SetDefaultColor (sf::Color::White);
 
       firstLine->SetSize (yap::Vector2 (GetSize ().x, GetSize ().y / 2));
 
@@ -141,12 +138,6 @@ namespace ycl
       yap::VerticalLayout* ver3 = 
         new yap::VerticalLayout (yap::Padding (), yap::Padding (), false); 
 
-      hor1->SetDefaultColor (sf::Color::White);
-
-      ver1->SetDefaultColor (sf::Color::White);
-      ver2->SetDefaultColor (sf::Color::White);
-      ver3->SetDefaultColor (sf::Color::White);
-
       ver1->SetSize (yap::Vector2 (64, 64));
       ver1->AddChild (*icon_);
 
@@ -168,13 +159,14 @@ namespace ycl
       hor1->SetBorder (*new yap::WidgetBorder ("Test/red.png"));
       */
       mainLayout->SetSize (GetSize ());
-      mainLayout->SetDefaultColor (sf::Color::White);
       mainLayout->AddChild (*ver1);
       mainLayout->AddChild (*ver2);
       mainLayout->AddChild (*ver3);
 
       AddChild (*mainLayout);
     }
+
+    initialized_ = true;
   }
 
   void PokemonInfoBox::SetIsSelected (bool value)
@@ -190,6 +182,30 @@ namespace ycl
   bool PokemonInfoBox::IsFocusable () const
   {
     return false;
+  }
+
+  void PokemonInfoBox::RefreshWidget ()
+  {
+    if (initialized_)
+    {
+      // Labels
+      name_->SetText (pokemon_.GetName ());
+
+      level_->SetText ( 
+        "N. " + yap::StringHelper::ToString (
+        static_cast<int>(pokemon_.GetLevel ())));
+
+      hpLabel_->SetText (yap::StringHelper::ToString (
+        pokemon_.GetCurrentHP ()) + " / " + 
+        yap::StringHelper::ToString (pokemon_.GetMaxHP ()));
+
+      // HP bar
+      hpBar_.RefreshWidget ();
+
+      // Picture boxes
+      gender_->SetPicture (pokemon_.GetGenderIcon ().Clone ());
+      icon_->SetPicture (pokemon_.GetIcon ().Clone ());
+    }
   }
 
 } // namespace ycl

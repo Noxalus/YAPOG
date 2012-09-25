@@ -71,7 +71,10 @@ namespace yap
   void Label::SetDefaultColor (const sf::Color& color)
   {
     if (!isChangeColorCall_)
+    {
       drawableText_.setColor (color);
+      isChangeColorCall_ = true;
+    }
   }
   uint Label::Length () const
   {

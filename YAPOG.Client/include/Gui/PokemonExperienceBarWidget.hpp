@@ -27,14 +27,10 @@ namespace ycl
     virtual bool IsFocusable () const;
 
   protected:
-    virtual void HandleMove (const yap::Vector2& offset);
-    virtual void HandleScale (const yap::Vector2& factor);
-    virtual void HandleDraw (yap::IDrawingContext& offset);
-    virtual void HandleShow (bool isVisible);
-    virtual void HandleChangeColor (const sf::Color& color);
+    virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    virtual void RealUpdate ();
+    virtual void RefreshWidget ();
 
     const yap::PokemonExperience* experience_;
     bool inBattle_;

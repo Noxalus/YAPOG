@@ -110,7 +110,7 @@ namespace ycl
   {
   }
 
-  void Pokemon::PlayCry ()
+  void Pokemon::PlayCry () const
   {
     yap::AudioManager::Instance ().PlaySound ("Cries/" + 
       yap::StringHelper::ToString (staticID_.GetValue ())

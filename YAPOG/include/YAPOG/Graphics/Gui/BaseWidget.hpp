@@ -143,6 +143,9 @@ namespace yap
     virtual void HandleChangeColor (const sf::Color& color);
     virtual void HandleUpdate (const Time& dt);
 
+    virtual void HandleOpen ();
+    virtual void HandleClose ();
+
     virtual bool HandleOnEvent (const GuiEvent& guiEvent);
     virtual bool HandleOnPriorityEvent (const GuiEvent& guiEvent);
 

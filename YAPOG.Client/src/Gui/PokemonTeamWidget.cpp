@@ -23,7 +23,19 @@ namespace ycl
     , index_ (0)
     , pokemonInfoWidget_ ()
   {
+    state_ = new yap::Label ();
 
+    for (int i = 0; i < team_.GetPokemonCount (); i++)
+    {
+      PokemonInfoBox* box = nullptr;
+
+      if (i == 0)
+        box = new PokemonInfoBox (team_.GetPokemon (i), true);
+      else
+        box = new PokemonInfoBox (team_.GetPokemon (i), false);
+
+      pokemonInfoBoxes_.Add (box);
+    }
   }
 
   PokemonTeamWidget::~PokemonTeamWidget ()
@@ -35,7 +47,9 @@ namespace ycl
     SetBackground (*new yap::WidgetBackground (
       "Pictures/TeamManager/Partyfond.png", true));
 
-    yap::Label* state_ = new yap::Label ("Choisir un POKéMON.");
+    // State
+    state_->SetText ("Choisir un POKéMON.");
+    state_->SetSize (yap::Vector2 (250, 64));
 
     yap::Texture* t = new yap::Texture ();
     t->LoadFromFile ("WindowSkins/BasicSkin/Global/TopBorder.png");
@@ -57,43 +71,41 @@ namespace ycl
     yap::WidgetBorder* stateBorder =
       new yap::WidgetBorder (*t, *tr, *r, *br, *b, *bl, *l, *tl, true);
 
-    state_->SetSize (yap::Vector2 (250, 64));
-
     state_->SetBackground (*new yap::WidgetBackground ("Test/White.png", true));
     state_->SetPadding (yap::Padding (32, 0, 5, 32));
-    AddChild (*state_);
-    state_->SetPosition (GetSize () - state_->GetSize () - yap::Vector2 (15, 15));
+
+    state_->SetPosition (GetSize () - state_->GetSize () - 
+      yap::Vector2 (15, 15));
     state_->SetBorder (*stateBorder);
 
+    AddChild (*state_);
 
-    for (int i = 0; i < team_.GetPokemonCount (); i++)
+    // Pokemon info boxes
+    for (int i = 0; i < pokemonInfoBoxes_.Count (); i++)
     {
-      PokemonInfoBox* box = nullptr;
+      pokemonInfoBoxes_[i]->Init ();
 
       if (i == 0)
       {
-        box = new PokemonInfoBox (true, team_.GetPokemon (i));
-        box->Init ();
-        box->SetPosition (GetPosition () + yap::Vector2 (39, 101));
+        pokemonInfoBoxes_[i]->SetPosition (
+          GetPosition () + yap::Vector2 (39, 101));
       }
       else
       {
-        box = new PokemonInfoBox (false, team_.GetPokemon (i));
-        box->Init ();
-        box->SetPosition (GetPosition () + yap::Vector2 (364, 41 + 90 * (i - 1)));
+        pokemonInfoBoxes_[i]->SetPosition (GetPosition () + 
+          yap::Vector2 (364, 41 + 90 * (i - 1)));
       }
 
-      pokemonInfoBoxes_.Add (box);
-
-      AddChild (*box);
+      AddChild (*pokemonInfoBoxes_[i]);
     }
 
+    pokemonInfoBoxes_[index_]->SetIsSelected (true);
+
+    // Pokemon info widget (summary)
     AddChild (pokemonInfoWidget_);
 
     pokemonInfoWidget_.Init ();
     pokemonInfoWidget_.Close ();
-
-    pokemonInfoBoxes_[index_]->SetIsSelected (true);
   }
 
   bool PokemonTeamWidget::IsFocusable () const
@@ -124,7 +136,7 @@ namespace ycl
         {
           pokemonInfoWidget_.Close ();
           team_.GetPokemon (index_).PlayCry ();
-          pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
+          pokemonInfoWidget_.SetPokemon (team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
 
@@ -146,7 +158,7 @@ namespace ycl
         {
           pokemonInfoWidget_.Close ();
           team_.GetPokemon (index_).PlayCry ();
-          pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
+          pokemonInfoWidget_.SetPokemon (team_.GetPokemon (index_));
           pokemonInfoWidget_.Open ();
         }
 
@@ -190,7 +202,7 @@ namespace ycl
         // Play a sound
         yap::AudioManager::Instance ().PlaySound ("SE/Choose.wav");
         team_.GetPokemon (index_).PlayCry ();
-        pokemonInfoWidget_.SetPokemon (&team_.GetPokemon (index_));
+        pokemonInfoWidget_.SetPokemon (team_.GetPokemon (index_));
         pokemonInfoWidget_.Open ();
 
         return true;
@@ -212,28 +224,16 @@ namespace ycl
     return yap::Vector2 (800, 600);
   }
 
-  void PokemonTeamWidget::HandleMove (const yap::Vector2& offset)
+ void PokemonTeamWidget::HandleOpen ()
   {
-
-  }
-  void PokemonTeamWidget::HandleScale (const yap::Vector2& factor)
-  {
-
+    RefreshWidget ();
   }
 
-  void PokemonTeamWidget::HandleDraw (yap::IDrawingContext& context)
+  void PokemonTeamWidget::RefreshWidget ()
   {
-  }
-
-  void PokemonTeamWidget::HandleShow (bool isVisible)
-  {
-  }
-
-  void PokemonTeamWidget::HandleChangeColor (const sf::Color& color)
-  {
-  }
-  void PokemonTeamWidget::HandleUpdate (const yap::Time& dt)
-  {
+    // Refresh Pokemon info boxes
+    for (int i = 0; i < pokemonInfoBoxes_.Count (); i++)
+      pokemonInfoBoxes_[i]->RefreshWidget ();
   }
 
 } // namespace ycl

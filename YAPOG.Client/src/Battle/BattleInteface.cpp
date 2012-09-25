@@ -46,8 +46,6 @@ namespace ycl
       *(new yap::WidgetBackground (
       "WindowSkins/BasicSkin/Global/DialogBoxBackground.png", true)));
 
-    battleInfoDialogBox_->SetDefaultColor (sf::Color::White);
-
     pokemonInfoWidget_ = new PokemonBattleInfoWidget ();
     opponentInfoWidget_ = new OpponentBattleInfoWidget ();
 
@@ -95,6 +93,8 @@ namespace ycl
     this->AddBattleWidget ("Menu", &battleMenu_);
     this->AddBattleWidget ("MoveMenu", &battleMoveMenu_);
     this->AddBattleWidget ("MoveInfo", &battleMoveInfoMenu_);
+
+    battleInfoDialogBox_->SetDefaultColor (sf::Color::White);
   }
 
   void BattleInterface::AddBattleWidget (

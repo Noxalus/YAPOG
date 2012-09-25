@@ -42,18 +42,12 @@ namespace ycl
 
   protected:
     virtual yap::Vector2 HandleGetSize () const;
-    virtual void HandleMove (const yap::Vector2& offset);
-    virtual void HandleScale (const yap::Vector2& factor);
-
-    virtual void HandleDraw (yap::IDrawingContext& context);
-
-    virtual void HandleShow (bool isVisible);
-    virtual void HandleChangeColor (const sf::Color& color);
-
-    virtual void HandleUpdate (const yap::Time& dt);
-
     virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
+    virtual void HandleOpen ();
+
   private:
+    void RefreshWidget ();
+
     yap::Label* state_;
     yap::GridMenu* menu_;
     const PokemonTeam& team_;

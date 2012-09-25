@@ -13,20 +13,9 @@ namespace ycl
     , pageNumber_ (0)
     , pokemonInfoPages_ ()
   {
-    SetSize (yap::Vector2 (800, 600));
-
-    IPokemonSummaryWidget* pokemonBasicInfoWidget = 
-      new PokemonBasicInfoWidget ();
-
-    IPokemonSummaryWidget* pokemonStatsInfoWidget = 
-      new PokemonStatsInfoWidget ();
-
-    IPokemonSummaryWidget* pokemonMoveInfoWidget = 
-      new PokemonMoveInfoWidget ();
-
-    pokemonInfoPages_.Add (pokemonBasicInfoWidget);
-    pokemonInfoPages_.Add (pokemonStatsInfoWidget);
-    pokemonInfoPages_.Add (pokemonMoveInfoWidget);
+    pokemonInfoPages_.Add (new PokemonBasicInfoWidget ());
+    pokemonInfoPages_.Add (new PokemonStatsInfoWidget ());
+    pokemonInfoPages_.Add (new PokemonMoveInfoWidget ());
   }
 
   PokemonInfoWidget::~PokemonInfoWidget ()
@@ -37,6 +26,8 @@ namespace ycl
 
   void PokemonInfoWidget::Init ()
   {
+    SetSize (yap::Vector2 (800, 600));
+
     for (IPokemonSummaryWidget* widget : pokemonInfoPages_)
     {
       widget->SetSize (GetSize ());
@@ -47,9 +38,9 @@ namespace ycl
     }
   }
 
-  void PokemonInfoWidget::SetPokemon (Pokemon* pokemon)
+  void PokemonInfoWidget::SetPokemon (const Pokemon& pokemon)
   {
-    pokemon_ = pokemon;
+    pokemon_ = &pokemon;
 
     pokemonInfoPages_[pageNumber_]->SetPokemon (*pokemon_);
     pokemonInfoPages_[pageNumber_]->Open ();
@@ -111,32 +102,6 @@ namespace ycl
     }
 
     return yap::BaseWidget::HandleOnEvent (guiEvent);
-  }
-
-  void PokemonInfoWidget::HandleMove (const yap::Vector2& offset)
-  {
-
-  }
-
-  void PokemonInfoWidget::HandleScale (const yap::Vector2& factor)
-  {
-
-  }
-
-  void PokemonInfoWidget::HandleDraw (yap::IDrawingContext& context)
-  {
-  }
-
-  void PokemonInfoWidget::HandleShow (bool isVisible)
-  {
-  }
-
-  void PokemonInfoWidget::HandleChangeColor (const sf::Color& color)
-  {
-  }
-
-  void PokemonInfoWidget::HandleUpdate (const yap::Time& dt)
-  {
   }
 
 } // namespace ycl

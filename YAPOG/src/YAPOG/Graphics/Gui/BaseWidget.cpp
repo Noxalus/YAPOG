@@ -411,14 +411,14 @@ namespace yap
 
     /*
     uint paddingBorder = border_->GetSize ().y > 0
-      ? border_->GetSize ().y : border_->GetSize ().x;
+    ? border_->GetSize ().y : border_->GetSize ().x;
     if (border_->GetSize ().y == 0)
     SetPosAfterBorder (paddingBorder, 0, false);
     else
     SetPosAfterBorder (paddingBorder, paddingBorder, false);
     */
   }
-  
+
   void BaseWidget::SetBorder (WidgetBorder& border)
   {
 
@@ -455,12 +455,16 @@ namespace yap
   {
     SetEnable (true);
     Show (true);
+
+    HandleOpen ();
   }
 
   void BaseWidget::Close ()
   {
     SetEnable (false);
     Show (false);
+
+    HandleClose ();
   }
 
   void BaseWidget::HandleMove (const Vector2& offset)
@@ -486,4 +490,13 @@ namespace yap
   void BaseWidget::HandleUpdate (const Time& dt)
   {
   }
+
+  void BaseWidget::HandleOpen ()
+  {
+  }
+
+  void BaseWidget::HandleClose ()
+  {
+  }
+
 } // namespace yap

@@ -62,7 +62,7 @@ namespace ycl
     yap::ISprite& GetType1Icon () const;
     yap::ISprite& GetType2Icon () const;
 
-    void PlayCry ();
+    void PlayCry () const;
 
   private:
     void Init ();

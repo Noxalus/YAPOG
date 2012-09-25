@@ -47,7 +47,7 @@ namespace ycl
       try
       {
         AddPokemon (new PokemonFighter (
-          &(pokemonTeam.GetPokemon (i)), isOpponent));
+          &pokemonTeam.GetPokemon (i), isOpponent));
       }
       catch (yap::Exception)
       {

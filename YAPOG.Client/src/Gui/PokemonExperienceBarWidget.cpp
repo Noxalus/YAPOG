@@ -70,7 +70,7 @@ namespace ycl
     experience_ = &experience;
     previousValue_ = experience_->GetValue ();
 
-    RealUpdate ();
+    RefreshWidget ();
   }
 
   void PokemonExperienceBarWidget::UpdateProgressBar ()
@@ -80,7 +80,7 @@ namespace ycl
     timer_.Reset ();
   }
 
-  void PokemonExperienceBarWidget::RealUpdate ()
+  void PokemonExperienceBarWidget::RefreshWidget ()
   {
     /// @todo Fix the bug when a Pokemon level up
     float size = 0;
@@ -102,29 +102,19 @@ namespace ycl
       barContent_->GetSize ().y));
   }
 
+  void PokemonExperienceBarWidget::HandleUpdate (const yap::Time& dt)
+  {
+    ProgressBarWidget::HandleUpdate (dt);
+
+    if (variance_ == 0)
+    {
+      ///@todo Call an event to notify that XP Bar have finished to update
+    }
+  }
+
   bool PokemonExperienceBarWidget::IsFocusable () const
   {
     return false;
-  }
-
-  void PokemonExperienceBarWidget::HandleMove (const yap::Vector2& offset)
-  {
-  }
-
-  void PokemonExperienceBarWidget::HandleScale (const yap::Vector2& factor)
-  {
-  }
-
-  void PokemonExperienceBarWidget::HandleDraw (yap::IDrawingContext& offset)
-  {
-  }
-
-  void PokemonExperienceBarWidget::HandleShow (bool isVisible)
-  {
-  }
-
-  void PokemonExperienceBarWidget::HandleChangeColor (const sf::Color& color)
-  {
   }
 
 } // namespace ycl

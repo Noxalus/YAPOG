@@ -25,9 +25,10 @@ namespace yap
 
     virtual void Init () = 0;
     virtual void UpdateProgressBar () = 0;
+    
+    virtual void RefreshWidget () = 0;
 
   protected:
-    virtual void RealUpdate () = 0;
     virtual void HandleUpdate (const yap::Time& dt);
 
     int variance_;

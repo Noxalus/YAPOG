@@ -28,17 +28,13 @@ namespace ycl
     virtual void UpdateProgressBar ();
 
     virtual bool IsFocusable () const;
+    
+    virtual void RefreshWidget ();
 
   protected:
-    virtual void HandleMove (const yap::Vector2& offset);
-    virtual void HandleScale (const yap::Vector2& factor);
-    virtual void HandleDraw (yap::IDrawingContext& offset);
-    virtual void HandleShow (bool isVisible);
-    virtual void HandleChangeColor (const sf::Color& color);
+    virtual void HandleUpdate (const yap::Time& dt);
 
   private:
-    virtual void RealUpdate ();
-
     const yap::HitPoint* hp_;
 
     static const sf::Color DEFAULT_HP_COLOR_GOOD;
