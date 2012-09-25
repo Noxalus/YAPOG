@@ -54,12 +54,28 @@ namespace ycl
 
   bool Player::CanTalk (yap::IDialogActor& dialogActor) const
   {
-    return true;
+    return false;
   }
 
   void Player::Talk (yap::IDialogActor& dialogActor)
   {
-    // Does nothing, server side only.
+  }
+
+  void Player::StopTalking ()
+  {
+  }
+
+  bool Player::CanListen (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
+  void Player::Listen (yap::IDialogActor& dialogActor)
+  {
+  }
+
+  void Player::StopListening ()
+  {
   }
 
   bool Player::TryStartDialog (yap::IDialogManager& dialogManager)

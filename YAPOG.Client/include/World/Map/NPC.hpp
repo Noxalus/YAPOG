@@ -38,6 +38,14 @@ namespace ycl
 
       virtual void Talk (yap::IDialogActor& dialogActor);
 
+      virtual void StopTalking ();
+
+      virtual bool CanListen (yap::IDialogActor& dialogActor) const;
+
+      virtual void Listen (yap::IDialogActor& dialogActor);
+
+      virtual void StopListening ();
+
       virtual bool TryStartDialog (yap::IDialogManager& dialogManager);
       /// @}
 

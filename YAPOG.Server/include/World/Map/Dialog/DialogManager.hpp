@@ -25,6 +25,8 @@ namespace yse
 
       void SetDisplay (yap::IDialogDisplay& dialogDisplay);
 
+      void AddListener (yap::IDialogActor& dialogActor);
+
       /// @name IDialogManager members.
       /// @{
       virtual void StartDialog (
@@ -44,9 +46,17 @@ namespace yse
 
     private:
 
+      typedef yap::collection::List<yap::IDialogActor*> DialogActorCollection;
+
+      void HandleStartDialog ();
+      void HandleStopDialog ();
+
       yap::PacketHandler packetHandler_;
 
       yap::IDialogDisplay* dialogDisplay_;
+
+      yap::IDialogActor* speaker_;
+      DialogActorCollection listeners_;
   };
 } // namespace yse
 

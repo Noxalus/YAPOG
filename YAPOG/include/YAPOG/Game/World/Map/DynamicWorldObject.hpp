@@ -49,7 +49,7 @@ namespace yap
       const String& GetLogicalState () const;
       bool TryChangeState (const String& state);
 
-      bool TrySetInactive (const String& state);
+      bool TrySetInactiveFrom (const String& state);
       void SetInactive ();
 
       /// @brief Directly changes this DynamicWorldObject state.

@@ -82,6 +82,24 @@ namespace yse
     TryChangeState ("Talking");
   }
 
+  void NPC::StopTalking ()
+  {
+    TrySetInactiveFrom ("Talking");
+  }
+
+  bool NPC::CanListen (yap::IDialogActor& dialogActor) const
+  {
+    return false;
+  }
+
+  void NPC::Listen (yap::IDialogActor& dialogActor)
+  {
+  }
+
+  void NPC::StopListening ()
+  {
+  }
+
   bool NPC::TryStartDialog (yap::IDialogManager& dialogManager)
   {
     if (dialogNode_ == nullptr)

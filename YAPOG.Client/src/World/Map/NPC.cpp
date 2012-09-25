@@ -50,17 +50,28 @@ namespace ycl
 
   void NPC::Talk (yap::IDialogActor& dialogActor)
   {
-    /// @todo
+  }
+
+  void NPC::StopTalking ()
+  {
+  }
+
+  bool NPC::CanListen (yap::IDialogActor& dialogActor) const
+  {
+    return false;
+  }
+
+  void NPC::Listen (yap::IDialogActor& dialogActor)
+  {
+  }
+
+  void NPC::StopListening ()
+  {
   }
 
   bool NPC::TryStartDialog (yap::IDialogManager& dialogManager)
   {
-    if (dialogNode_ == nullptr)
-      return false;
-
-    dialogManager.StartDialog (*this, *dialogNode_);
-
-    return true;
+    return false;
   }
 
   void NPC::Accept (yap::IDynamicWorldObjectVisitor& visitor)

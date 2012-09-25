@@ -107,17 +107,38 @@ namespace yse
 
   bool Player::CanTalk (yap::IDialogActor& dialogActor) const
   {
-    return true;
+    return false;
   }
 
   void Player::Talk (yap::IDialogActor& dialogActor)
   {
+  }
+
+  void Player::StopTalking ()
+  {
+  }
+
+  bool Player::CanListen (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
+  void Player::Listen (yap::IDialogActor& dialogActor)
+  {
     if (!TryChangeState ("Listening"))
       return;
 
-    dialogActor.Talk (*this);
+    if (dialogActor.CanTalk (*this))
+      dialogActor.Talk (*this);
+
+    dialogManager_.AddListener (*this);
 
     dialogActor.TryStartDialog (dialogManager_);
+  }
+
+  void Player::StopListening ()
+  {
+    TrySetInactiveFrom ("Listening");
   }
 
   bool Player::TryStartDialog (yap::IDialogManager& dialogManager)

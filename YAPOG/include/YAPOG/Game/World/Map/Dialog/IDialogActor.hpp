@@ -17,8 +17,12 @@ namespace yap
       virtual const ID& GetWorldID () const = 0;
 
       virtual bool CanTalk (IDialogActor& dialogActor) const = 0;
-
       virtual void Talk (IDialogActor& dialogActor) = 0;
+      virtual void StopTalking () = 0;
+
+      virtual bool CanListen (IDialogActor& dialogActor) const = 0;
+      virtual void Listen (IDialogActor& dialogActor) = 0;
+      virtual void StopListening () = 0;
 
       virtual bool TryStartDialog (IDialogManager& dialogManager) = 0;
   };

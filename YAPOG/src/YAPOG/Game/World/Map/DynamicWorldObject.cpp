@@ -100,7 +100,7 @@ namespace yap
     physicsCore_->OnStopped +=
       [this] (const PhysicsCore& sender, const EmptyEventArgs& args)
     {
-      TrySetInactive ("Moving");
+      TrySetInactiveFrom ("Moving");
     };
 
     physicsCore_->OnVelocityChanged +=
@@ -156,7 +156,7 @@ namespace yap
     return true;
   }
 
-  bool DynamicWorldObject::TrySetInactive (const String& state)
+  bool DynamicWorldObject::TrySetInactiveFrom (const String& state)
   {
     if (GetState () != state)
       return false;

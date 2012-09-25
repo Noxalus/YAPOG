@@ -4,7 +4,6 @@
 #include "YAPOG/Game/World/Map/Physics/MapEventInfo.hpp"
 #include "YAPOG/Game/World/Map/DynamicWorldObject.hpp"
 
-#include "YAPOG/Log.hpp"
 namespace yap
 {
   TalkMapEventAction::TalkMapEventAction ()
@@ -41,15 +40,13 @@ namespace yap
     {
       case MapEventActionType::In:
 
-//        DLOGGER.LogLine ("IN DIALOG AREA!!");
-
         /// @todo Add all conditions (state, facing...)
         if (visitable.HasInputActivated (yap::GameInputType::MapAction))
         {
-          if (!visitable.CanTalk (*sourceDialogActor_))
+          if (!visitable.CanListen (*sourceDialogActor_))
             break;
 
-          visitable.Talk (*sourceDialogActor_);
+          visitable.Listen (*sourceDialogActor_);
 
 //          GetArgs ().AbortEvents (true);
         }
