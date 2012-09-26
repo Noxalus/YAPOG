@@ -106,14 +106,15 @@ namespace yap
 
   void PokemonFighter::AddExperience (int value)
   {
-    const PokemonExperience& oldValue = 
-      originalPokemon_->GetExperience ();
+    UInt32 oldValue = originalPokemon_->GetExperience ().GetValue ();
 
     originalPokemon_->AddExperience (value);
 
+    UInt32 newValue = originalPokemon_->GetExperience ().GetValue ();
+
     OnExperienceChanged (
-      *this, ChangeEventArgs<const PokemonExperience&> 
-      (oldValue, originalPokemon_->GetExperience ()));
+      *this, ChangeEventArgs<UInt32> 
+      (oldValue, newValue));
   }
 
   void PokemonFighter::TakeDamage (int value)
@@ -136,7 +137,7 @@ namespace yap
 
   Event<
     const IBattleEntity&, 
-    const ChangeEventArgs<const PokemonExperience&>&>& 
+    const ChangeEventArgs<UInt32>&>& 
     PokemonFighter::OnExperienceChangedEvent ()
   {
     return OnExperienceChanged;

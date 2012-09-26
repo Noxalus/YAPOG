@@ -53,7 +53,7 @@ namespace ycl
   {
     experienceBar_.SetExperience (experience);
 
-    UpdateExperienceBar ();
+    UpdateExperienceBar (0);
   }
 
   void PokemonBattleInfoWidget::UpdateHPBar ()
@@ -68,8 +68,8 @@ namespace ycl
     battleInfoBox_.Refresh ();
   }
 
-  void PokemonBattleInfoWidget::UpdateExperienceBar ()
+  void PokemonBattleInfoWidget::UpdateExperienceBar (yap::UInt16 levelEarned)
   {
-    experienceBar_.UpdateProgressBar ();
+    experienceBar_.UpdateExperienceBar (levelEarned);
   }
 }

@@ -35,6 +35,12 @@ namespace yap
 
       RefreshWidget ();
       timer_.Reset ();
+
+      if (variance_ == 0)
+      {
+        ///@todo Call an event to notify that the progress Bar 
+        /// have finished to update
+      }
     }
 
     timer_.Update (dt);

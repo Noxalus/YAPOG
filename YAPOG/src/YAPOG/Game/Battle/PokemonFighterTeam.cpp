@@ -125,7 +125,7 @@ namespace yap
 
   Event<
     const IBattleEntity&, 
-    const ChangeEventArgs<const PokemonExperience&>&>& 
+    const ChangeEventArgs<UInt32>&>& 
     PokemonFighterTeam::OnExperienceChangedEvent ()
   {
     return GetCurrentFighter ().OnExperienceChangedEvent ();

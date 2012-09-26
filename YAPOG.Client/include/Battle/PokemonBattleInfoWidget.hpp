@@ -30,8 +30,7 @@ namespace ycl
     virtual void Init ();
 
     virtual void UpdateHPBar ();
-    virtual void UpdateExperienceBar ();
-
+    void UpdateExperienceBar (yap::UInt16 levelEarned);
 
     /// @name Setters.
     /// @{

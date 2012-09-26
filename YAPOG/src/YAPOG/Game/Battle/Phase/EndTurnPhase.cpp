@@ -32,7 +32,7 @@ namespace yap
       addExperience_ = true;
 
       /// @todo Compute experience amount
-      experienceAmount_ = 42;
+      experienceAmount_ = 4242;
 
       battle_.GetPlayerTeam ().AddExperience (experienceAmount_);
     }

@@ -24,7 +24,6 @@ namespace yap
     virtual ~ProgressBarWidget ();
 
     virtual void Init () = 0;
-    virtual void UpdateProgressBar () = 0;
     
     virtual void RefreshWidget () = 0;
 

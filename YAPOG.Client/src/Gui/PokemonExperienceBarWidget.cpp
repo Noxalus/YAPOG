@@ -18,6 +18,7 @@ namespace ycl
     : yap::ProgressBarWidget ()
     , experience_ (nullptr)
     , inBattle_ (inBattle_)
+    , levelEarned_ (0)
   {
     if (!inBattle_)
     {
@@ -73,9 +74,11 @@ namespace ycl
     RefreshWidget ();
   }
 
-  void PokemonExperienceBarWidget::UpdateProgressBar ()
+  void PokemonExperienceBarWidget::UpdateExperienceBar (
+    yap::UInt16 levelEarned)
   {
-    variance_ = previousValue_ - experience_->GetValue ();
+    variance_ = experience_->GetValue () - previousValue_;
+    levelEarned_ = levelEarned;
     previousValue_ = experience_->GetValue ();
     timer_.Reset ();
   }
@@ -84,17 +87,17 @@ namespace ycl
   {
     /// @todo Fix the bug when a Pokemon level up
     float size = 0;
+    float percentage = experience_->GetExperiencePercentage (
+      experience_->GetValue () - variance_, 
+      experience_->GetLevel () - levelEarned_);
+
+    if (levelEarned_ > 0 && percentage == 1)
+      levelEarned_--;
 
     if (inBattle_)
-    {
-      size = MAX_BATTLE_EXP_BAR_SIZE * 
-        experience_->GetExperiencePercentage (variance_);
-    }
+      size = MAX_BATTLE_EXP_BAR_SIZE * percentage;
     else
-    {
-      size = MAX_TEAM_MANAGER_EXP_BAR_SIZE * 
-        experience_->GetExperiencePercentage (variance_);
-    }
+      size = MAX_TEAM_MANAGER_EXP_BAR_SIZE * percentage;
 
     // Update the size
     barContent_->SetSize (yap::Vector2 (
@@ -105,11 +108,6 @@ namespace ycl
   void PokemonExperienceBarWidget::HandleUpdate (const yap::Time& dt)
   {
     ProgressBarWidget::HandleUpdate (dt);
-
-    if (variance_ == 0)
-    {
-      ///@todo Call an event to notify that XP Bar have finished to update
-    }
   }
 
   bool PokemonExperienceBarWidget::IsFocusable () const

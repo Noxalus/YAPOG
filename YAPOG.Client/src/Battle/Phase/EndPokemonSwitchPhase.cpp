@@ -94,9 +94,12 @@ namespace ycl
      // Pokemon experience
     battle_.GetPlayerTeam ().OnExperienceChangedEvent () +=
       [&] (const yap::IBattleEntity& sender, 
-      const yap::ChangeEventArgs<const yap::PokemonExperience&>& args)
+      const yap::ChangeEventArgs<yap::UInt32>& args)
     {
-      battleInterface_.GetPokemonInfoWidget ().UpdateExperienceBar ();
+      battleInterface_.GetPokemonInfoWidget ().
+        UpdateExperienceBar (sender.GetExperience ().
+        ComputeLevelDifference (
+        args.Old, args.Current));
     };
 
     // Pokemon moves

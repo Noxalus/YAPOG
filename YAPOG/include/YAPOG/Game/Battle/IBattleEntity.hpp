@@ -61,7 +61,7 @@ namespace yap
 
     virtual Event<
       const IBattleEntity&, 
-      const ChangeEventArgs<const PokemonExperience&>&>& 
+      const ChangeEventArgs<UInt32>&>& 
       OnExperienceChangedEvent () = 0;
     /// @}
   };

@@ -1,3 +1,5 @@
+#include "YAPOG/System/Error/Exception.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 
@@ -60,41 +62,71 @@ namespace yap
     return totalExperienceToNextLevel_;
   }
 
-  UInt32 PokemonExperience::GetCurrentBase () const
+  UInt32 PokemonExperience::GetCurrentBase (UInt16 level) const
   {
-    return ComputeExperienceFromLevel (currentLevel_);
+    return ComputeExperienceFromLevel (level);
   }
 
-  float PokemonExperience::GetExperiencePercentage (int variance) const
+  float PokemonExperience::GetExperiencePercentage (
+    UInt32 value,
+    UInt16 level) const
   {
-    UInt32 base = GetCurrentBase ();
+    if (value == INITIAL_EXPERIENCE_VALUE)
+      value = value_;
+    if (level == INITIAL_LEVEL_VALUE)
+      level = GetLevel ();
+
+    UInt32 base = GetCurrentBase (level);
 
     return MathHelper::Clamp (
-      static_cast<float>(value_ - base + variance) / 
-      static_cast<float>(totalExperienceToNextLevel_ - base),
+      static_cast<float>(value - base) / 
+      static_cast<float>(ComputeExperienceFromLevel (level + 1) - base),
       0.f, 1.f);
   }
 
-  UInt16 PokemonExperience::GetLevel ()
+  UInt16 PokemonExperience::GetLevel () const
   {
     if (previousValue_ != value_)
     {
       previousValue_ = value_;
-
-      for (int level = currentLevel_ + 1; level <= MAX_LEVEL_VALUE; level++)
-      {
-        if (ComputeExperienceFromLevel (level) > value_)
-        {
-          currentLevel_ = level - 1;
-          break;
-        }
-      }
+      currentLevel_ = GetLevelFromExperience (value_, currentLevel_);
     }
 
     return MathHelper::Clamp(
       currentLevel_, 
       INITIAL_LEVEL_VALUE, 
       MAX_LEVEL_VALUE);
+  }
+
+  UInt16 PokemonExperience::GetLevelFromExperience (
+    UInt32 experience, 
+    UInt16 baseLevel) const
+  {
+    for (int level = baseLevel + 1; level <= MAX_LEVEL_VALUE; level++)
+    {
+      if (ComputeExperienceFromLevel (level) > experience)
+        return (level - 1);
+    }
+
+    return INITIAL_LEVEL_VALUE;
+  }
+
+  UInt16 PokemonExperience::ComputeLevelDifference (
+    UInt32 oldValue, 
+    UInt32 newValue) const
+  {
+    if (oldValue < newValue)
+    {
+      UInt16 oldLevel = GetLevelFromExperience (oldValue);
+      UInt16 newLevel = GetLevelFromExperience (newValue, oldLevel);
+
+      return (newLevel - oldLevel);
+    }
+    else
+    {
+      YAPOG_THROW("WARNING: the old experience value is greater "
+        "than or equal to the new value !");
+    }
   }
 
   int PokemonExperience::AddExperience (const UInt32& value)

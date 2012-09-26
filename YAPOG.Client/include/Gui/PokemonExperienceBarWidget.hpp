@@ -22,7 +22,7 @@ namespace ycl
 
     void SetExperience (const yap::PokemonExperience& experience);
 
-    virtual void UpdateProgressBar ();
+    void UpdateExperienceBar (yap::UInt16 levelEarned);
 
     virtual bool IsFocusable () const;
 
@@ -34,6 +34,7 @@ namespace ycl
 
     const yap::PokemonExperience* experience_;
     bool inBattle_;
+    yap::UInt16 levelEarned_;
 
     static const float MAX_BATTLE_EXP_BAR_SIZE;
     static const float MAX_TEAM_MANAGER_EXP_BAR_SIZE;
