@@ -142,6 +142,8 @@ namespace ycl
       else
         nextPhase_ = yap::BattlePhaseState::Action;
     });
+
+    battle_.GetPlayerTeam ().PlayCry ();
   }
 
   void EndPokemonSwitchPhase::HandleUpdate (const yap::Time& dt)

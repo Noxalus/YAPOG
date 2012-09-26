@@ -1,4 +1,7 @@
+#include "YAPOG/Audio/AudioManager.hpp"
+#include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
+
 #include "Battle/PokemonFighter.hpp"
 #include "Pokemon/Pokemon.hpp"
 
@@ -79,6 +82,13 @@ namespace ycl
   yap::ISprite& PokemonFighter::GetBattleSprite ()
   {
     return *battleSprite_;
+  }
+
+  void PokemonFighter::PlayCry () const
+  {
+    yap::AudioManager::Instance ().PlaySound ("Cries/" + 
+      yap::StringHelper::ToString (
+      originalPokemon_->GetStaticID ().GetValue ()) + ".wav");
   }
   /// @}
 } // namespace yap

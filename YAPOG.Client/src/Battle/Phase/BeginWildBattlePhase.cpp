@@ -140,6 +140,8 @@ namespace ycl
         battle_.GetOpponentGround ().SetPosition (
           battle_.GetOpponentGroundPosition ());
 
+        battle_.GetOpponent ().PlayCry ();
+
         UpdateOpponentFront ();
       }
 

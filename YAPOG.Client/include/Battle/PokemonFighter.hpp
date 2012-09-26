@@ -39,6 +39,7 @@ namespace ycl
     /// @name IDrawableBattleEntity members
     /// @{
     virtual yap::ISprite& GetBattleSprite ();
+    virtual void PlayCry () const;
     /// @}
 
   protected:

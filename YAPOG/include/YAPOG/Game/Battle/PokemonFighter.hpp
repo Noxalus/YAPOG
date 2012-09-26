@@ -70,15 +70,15 @@ namespace yap
   protected:
     virtual void HandleUpdate (const Time& dt);
 
+    Pokemon* originalPokemon_;
+
   private:
     /// @name Private setters.
     /// @{
     void SetCurrentHP (int value);
     /// @}
 
-    Pokemon* originalPokemon_;
     PokemonStat stats_;
-
   };
 } // namespace yap
 

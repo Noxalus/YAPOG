@@ -123,6 +123,11 @@ namespace ycl
   {
     return GetCurrentFighter ().GetBattleSprite ();
   }
+
+  void PokemonFighterTeam::PlayCry () const
+  {
+    GetCurrentFighter ().PlayCry ();
+  }
   /// @}
 
 } // namespace yap
