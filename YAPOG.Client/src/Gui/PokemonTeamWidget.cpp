@@ -81,7 +81,7 @@ namespace ycl
     AddChild (*state_);
 
     // Pokemon info boxes
-    for (int i = 0; i < pokemonInfoBoxes_.Count (); i++)
+    for (yap::uint i = 0; i < pokemonInfoBoxes_.Count (); i++)
     {
       pokemonInfoBoxes_[i]->Init ();
 
