@@ -45,6 +45,8 @@ namespace yap
     ServerInfoGameMessage,
 
     ServerInfoStartDialog,
+    ServerInfoStopDialog,
+    ServerInfoChangeDialogNode,
 
     ServerInfoTriggerBattle,
 

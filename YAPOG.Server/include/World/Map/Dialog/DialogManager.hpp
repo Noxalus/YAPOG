@@ -4,6 +4,7 @@
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
 # include "YAPOG/System/Network/PacketHandler.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
@@ -50,6 +51,10 @@ namespace yse
 
       void HandleStartDialog ();
       void HandleStopDialog ();
+
+      void SendStartDialog ();
+      void SendStopDialog ();
+      void SendChangeDialogNode (const yap::ID& dialogNodeID);
 
       yap::PacketHandler packetHandler_;
 

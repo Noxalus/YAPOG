@@ -2,6 +2,7 @@
 # define YAPOG_DIALOGNODEEXECUTIONCONTEXT_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Game/ID.hpp"
 
 namespace yap
 {
@@ -16,9 +17,12 @@ namespace yap
       DialogNodeExecutionContext ();
 
       DialogNodeExecutionContext (
+        const ID& id,
         const IDialogMessage& message,
         IGameAction* action,
         IDialogNode* nextNode);
+
+      const ID& GetNodeID () const;
 
       const IDialogMessage& GetMessage () const;
 
@@ -29,6 +33,8 @@ namespace yap
       IDialogNode& GetNextNode ();
 
     private:
+
+      ID id_;
 
       const IDialogMessage* message_;
 

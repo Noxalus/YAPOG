@@ -4,20 +4,28 @@
 namespace yap
 {
   DialogNodeExecutionContext::DialogNodeExecutionContext ()
-    : message_ (nullptr)
+    : id_ ()
+    , message_ (nullptr)
     , action_ (nullptr)
     , nextNode_ (nullptr)
   {
   }
 
   DialogNodeExecutionContext::DialogNodeExecutionContext (
+    const ID& id,
     const IDialogMessage& message,
     IGameAction* action,
     IDialogNode* nextNode)
-    : message_ (&message)
+    : id_ (id)
+    , message_ (&message)
     , action_ (action)
     , nextNode_ (nextNode)
   {
+  }
+
+  const ID& DialogNodeExecutionContext::GetNodeID () const
+  {
+    return id_;
   }
 
   const IDialogMessage& DialogNodeExecutionContext::GetMessage () const

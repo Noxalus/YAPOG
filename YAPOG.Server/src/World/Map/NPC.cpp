@@ -24,6 +24,8 @@ namespace yse
 
   NPC::~NPC ()
   {
+    delete dialogNode_;
+    dialogNode_ = nullptr;
   }
 
   NPC::NPC (const NPC& copy)

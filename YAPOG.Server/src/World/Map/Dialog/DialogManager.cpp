@@ -3,6 +3,7 @@
 #include "YAPOG/Game/World/Map/Dialog/IDialogDisplay.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogNode.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogActor.hpp"
+#include "YAPOG/System/Network/Packet.hpp"
 
 namespace yse
 {
@@ -31,8 +32,6 @@ namespace yse
     yap::IDialogActor& dialogActor,
     yap::IDialogNode& dialogNode)
   {
-    /// @todo
-
     speaker_ = &dialogActor;
 
     HandleStartDialog ();
@@ -45,6 +44,8 @@ namespace yse
       dialogDisplay_->Display (
         dialogActor,
         dialogNodeExecutionContext.GetMessage ());
+
+      SendChangeDialogNode (dialogNodeExecutionContext.GetNodeID ());
 
       if (dialogNodeExecutionContext.IsTerminal ())
         break;
@@ -82,13 +83,44 @@ namespace yse
 
   void DialogManager::HandleStartDialog ()
   {
+    SendStartDialog ();
   }
 
   void DialogManager::HandleStopDialog ()
   {
+    SendStopDialog ();
+
     speaker_->StopTalking ();
 
     for (yap::IDialogActor* listener : listeners_)
       listener->StopListening ();
+  }
+
+  void DialogManager::SendStartDialog ()
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoStartDialog);
+
+    packet.Write (speaker_->GetWorldID ());
+
+    SendPacket (packet);
+  }
+
+  void DialogManager::SendStopDialog ()
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoStopDialog);
+
+    SendPacket (packet);
+  }
+
+  void DialogManager::SendChangeDialogNode (const yap::ID& dialogNodeID)
+  {
+    yap::Packet packet;
+    packet.CreateFromType (yap::PacketType::ServerInfoChangeDialogNode);
+
+    packet.Write (dialogNodeID);
+
+    SendPacket (packet);
   }
 } // namespace yse

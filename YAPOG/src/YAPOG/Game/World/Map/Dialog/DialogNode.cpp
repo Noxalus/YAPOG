@@ -47,18 +47,24 @@ namespace yap
 
   bool DialogNode::Execute (DialogNodeExecutionContext& executionContext)
   {
-    for (DialogNodeEntry* entry : entries_)
+    for (EntryCollection::SizeType count = 0;
+         count < entries_.Count ();
+         ++count)
     {
+      DialogNodeEntry* entry = entries_[count];
+
       if (!entry->RequirementIsFulfilled ())
         continue;
 
       executionContext = DialogNodeExecutionContext (
+        ID (count),
         *entry->Message,
         entry->Action,
         entry->NextNode);
 
       return true;
     }
+
 
     return false;
   }
