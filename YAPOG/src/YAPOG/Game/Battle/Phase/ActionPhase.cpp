@@ -7,7 +7,6 @@ namespace yap
   ActionPhase::ActionPhase (Battle& battle)
     : BattlePhase (battle, BattlePhaseState::Action)
     , playerIsFirst_ (true)
-    , battleCore_ ()
     , opponentMoveIndex_ (0)
     , textSkippedNumber_ (0)
     , playerAttack_ (false)
@@ -51,8 +50,8 @@ namespace yap
         phaseArgs_.index_).GetCategory () == 1)
       {
         // Compute damage for opponent
-        battle_.GetOpponent ().TakeDamage (battleCore_.ComputeDamage (
-          battle_.GetPlayerTeam ().GetMove (phaseArgs_.index_),
+        battle_.GetOpponent ().TakeDamage (battle_.GetBattleCore ().
+          ComputeDamage (battle_.GetPlayerTeam ().GetMove (phaseArgs_.index_),
           battle_.GetPlayerTeam (),
           battle_.GetOpponent ()));
       }
@@ -68,8 +67,8 @@ namespace yap
           opponentMoveIndex_).GetCategory () == 1)
         {
           // Compute damage for player
-          battle_.GetPlayerTeam ().TakeDamage (battleCore_.ComputeDamage (
-            battle_.GetOpponent ().GetMove (opponentMoveIndex_),
+          battle_.GetPlayerTeam ().TakeDamage (battle_.GetBattleCore ().
+            ComputeDamage (battle_.GetOpponent ().GetMove (opponentMoveIndex_),
             battle_.GetOpponent (),
             battle_.GetPlayerTeam ()));
         }

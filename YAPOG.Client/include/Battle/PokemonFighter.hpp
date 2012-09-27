@@ -38,7 +38,13 @@ namespace ycl
 
     /// @name IDrawableBattleEntity members
     /// @{
-    virtual yap::ISprite& GetBattleSprite ();
+    virtual const yap::ISprite& GetBattleSprite () const;
+    virtual const yap::ISprite& GetIcon () const;
+    virtual const yap::ISprite& GetGenderIcon () const;
+    virtual const yap::ISprite& GetBattleBack () const;
+    virtual const yap::ISprite& GetBattleFront () const;
+    virtual const yap::ISprite& GetType1Icon () const;
+    virtual const yap::ISprite& GetType2Icon () const;
     virtual void PlayCry () const;
     /// @}
 
@@ -63,6 +69,7 @@ namespace ycl
 
     yap::ISprite* battleSprite_;
     bool isOpponent_;
+    Pokemon* originalPokemon_;
   };
 } // namespace ycl
 

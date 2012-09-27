@@ -6,7 +6,8 @@
 namespace yap
 {
   Battle::Battle ()
-    : turnCount_ (0)
+    : battleCore_ ()
+    , turnCount_ (0)
     , battlePhaseManager_ ()
   {
   }
@@ -45,4 +46,10 @@ namespace yap
   void Battle::DisplayTeam ()
   {
   }
+
+  const BattleCore& Battle::GetBattleCore () const
+  {
+    return battleCore_;
+  }
+
 } // namespace yap

@@ -120,14 +120,28 @@ namespace ycl
   /// @name IDrawableBattleEntity members
   /// @{
   yap::ISprite& PokemonFighterTeam::GetBattleSprite ()
-  {
-    return GetCurrentFighter ().GetBattleSprite ();
-  }
+  { return GetCurrentFighter ().GetBattleSprite (); }
+
+  yap::ISprite& PokemonFighter::GetIcon ()
+  { return GetCurrentFighter ().GetIcon (); }
+
+  yap::ISprite& PokemonFighter::GetGenderIcon ()
+  { return GetCurrentFighter ().GetGenderIcon (); }
+
+  yap::ISprite& PokemonFighter::GetBattleBack ()
+  { return GetCurrentFighter ().GetBattleBack (); }
+
+  yap::ISprite& PokemonFighter::GetBattleFront ()
+  { return GetCurrentFighter ().GetBattleBack (); }
+
+  yap::ISprite& PokemonFighter::GetType1Icon ()
+  { return GetCurrentFighter ().GetType1Icon (); }
+
+  yap::ISprite& PokemonFighter::GetType2Icon ()
+  { return GetCurrentFighter ().GetType2Icon (); }
 
   void PokemonFighterTeam::PlayCry () const
-  {
-    GetCurrentFighter ().PlayCry ();
-  }
+  { GetCurrentFighter ().PlayCry (); }
   /// @}
 
 } // namespace yap

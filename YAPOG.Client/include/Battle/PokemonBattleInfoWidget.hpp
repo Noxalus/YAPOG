@@ -32,6 +32,7 @@ namespace ycl
     virtual void UpdateHPBar ();
     void UpdateExperienceBar (yap::UInt16 levelEarned);
 
+  protected:
     /// @name Setters.
     /// @{
     virtual void SetHitPoint (const yap::HitPoint& hp);

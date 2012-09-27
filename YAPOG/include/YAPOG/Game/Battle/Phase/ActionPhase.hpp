@@ -21,7 +21,6 @@ namespace yap
 
   protected:
     bool playerIsFirst_;
-    BattleCore battleCore_;
     yap::uchar opponentMoveIndex_;
     yap::uint textSkippedNumber_;
     bool playerAttack_;

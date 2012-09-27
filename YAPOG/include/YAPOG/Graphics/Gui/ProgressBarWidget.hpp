@@ -24,8 +24,10 @@ namespace yap
     virtual ~ProgressBarWidget ();
 
     virtual void Init () = 0;
-    
+
     virtual void RefreshWidget () = 0;
+
+    Event<const ProgressBarWidget&> OnProgressBarFinished;
 
   protected:
     virtual void HandleUpdate (const yap::Time& dt);

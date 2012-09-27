@@ -70,7 +70,7 @@ namespace yap
   protected:
     virtual void HandleUpdate (const Time& dt);
 
-    Pokemon* originalPokemon_;
+    const Pokemon& GetOriginalPokemon () const;
 
   private:
     /// @name Private setters.
@@ -78,6 +78,7 @@ namespace yap
     void SetCurrentHP (int value);
     /// @}
 
+    Pokemon* originalPokemon_;
     PokemonStat stats_;
   };
 } // namespace yap

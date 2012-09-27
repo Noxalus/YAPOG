@@ -15,6 +15,7 @@ namespace ycl
     , isVisible_ (DEFAULT_VISIBLE_STATE)
     , battleSprite_ (nullptr)
     , isOpponent_ (isOpponent)
+    , originalPokemon_ (originalPokemon) // IDrawableEntity
   {
     if (isOpponent_)
       battleSprite_ = &originalPokemon->GetBattleFront ();
@@ -79,16 +80,34 @@ namespace ycl
 
   /// @name IDrawableBattleEntity members
   /// @{
-  yap::ISprite& PokemonFighter::GetBattleSprite ()
+  const yap::ISprite& PokemonFighter::GetBattleSprite () const
   {
     return *battleSprite_;
   }
+
+  const yap::ISprite& PokemonFighter::GetIcon () const
+  { return originalPokemon_->GetIcon (); }
+
+  const yap::ISprite& PokemonFighter::GetGenderIcon () const
+  { return originalPokemon_->GetGenderIcon (); }
+
+  const yap::ISprite& PokemonFighter::GetBattleBack () const
+  { return originalPokemon_->GetBattleBack (); }
+
+  const yap::ISprite& PokemonFighter::GetBattleFront () const
+  { return originalPokemon_->GetBattleBack (); }
+
+  const yap::ISprite& PokemonFighter::GetType1Icon () const
+  { return originalPokemon_->GetType1Icon (); }
+
+  const yap::ISprite& PokemonFighter::GetType2Icon () const
+  { return originalPokemon_->GetType2Icon (); }
 
   void PokemonFighter::PlayCry () const
   {
     yap::AudioManager::Instance ().PlaySound ("Cries/" + 
       yap::StringHelper::ToString (
-      originalPokemon_->GetStaticID ().GetValue ()) + ".wav");
+      GetOriginalPokemon ().GetStaticID ().GetValue ()) + ".wav");
   }
   /// @}
 } // namespace yap

@@ -170,4 +170,9 @@ namespace yap
       (oldValue, stats_.GetHitPoint ()));
   }
 
+   const Pokemon& PokemonFighter::GetOriginalPokemon () const
+   {
+     return *originalPokemon_;
+   }
+
 } // namespace yap

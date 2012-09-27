@@ -7,10 +7,11 @@
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/Graphics/Gui/Label.hpp"
-
 #include "YAPOG/Game/Pokemon/HitPoint.hpp"
+#include "YAPOG/Game/Pokemon/PokemonExperience.hpp"
 
 #include "Battle/BattleInfoWidget.hpp"
+#include "Battle/IDrawableBattleEntity.hpp"
 
 namespace ycl
 {
@@ -31,6 +32,7 @@ namespace ycl
     , genderBox_ (yap::Padding (0, 0, 4, 0), yap::Padding (), false)
     , genderPictureBox_ (new yap::PictureBox ())
     , hpBar_ ()
+    , pokemon_ (nullptr)
   {
   }
 
@@ -40,8 +42,6 @@ namespace ycl
     levelLabel_.ChangeColor (sf::Color::Black);
 
     hpBar_.Init ();
-
-    SetGender (yap::Gender::Genderless);
 
     // Sizes
     firstLine_.SetSize (yap::Vector2 (253, 35));
@@ -82,40 +82,17 @@ namespace ycl
     this->AddChild (battleInfoBox_);
   }
 
- void BattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)
+  // Setters
+  void BattleInfoWidget::SetPokemon (const IDrawableBattleEntity& pokemon)
   {
-    hpBar_.SetHitPoint (hp);
-  }
+    pokemon_ = &pokemon;
+    hpBar_.SetHitPoint (pokemon_->GetStats ().GetHitPoint ());
+    nameLabel_.SetText (pokemon_->GetName ());
+    genderPictureBox_->SetPicture (pokemon_->GetGenderIcon ().Clone ());
+    SetHitPoint (pokemon_->GetStats ().GetHitPoint ());
+    SetExperience (pokemon_->GetExperience ());
 
-  void BattleInfoWidget::UpdateHPBar ()
-  {
-    hpBar_.UpdateProgressBar ();
-  }
-
-  void BattleInfoWidget::SetName (const yap::String& value)
-  {
-    nameLabel_.SetText (value);
-  }
-
-  void BattleInfoWidget::SetLevel (int value)
-  {
-    levelLabel_.SetText ("N." + yap::StringHelper::ToString (value));
-  }
-
-  void BattleInfoWidget::SetGender (const yap::Gender& value)
-  {
-    switch (value)
-    {
-    case yap::Gender::Female:
-      genderPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/FemaleIcon.png"));
-      break;
-    case yap::Gender::Male:
-      genderPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/MaleIcon.png"));
-      break;
-    default:
-      genderPictureBox_->SetPicture (new yap::Sprite ("Pictures/Battle/MaleIcon.png"));
-      break;
-    }
+    RefreshWidget ();
   }
 
   void BattleInfoWidget::HandleDraw (yap::IDrawingContext& context)
@@ -125,5 +102,12 @@ namespace ycl
   yap::Vector2 BattleInfoWidget::HandleGetSize () const
   {
     return battleInfoBox_.GetSize ();
+  }
+
+  void BattleInfoWidget::BattleInfoWidget::RefreshWidget ()
+  {
+    hpBar_.UpdateProgressBar ();
+    levelLabel_.SetText ("N." + yap::StringHelper::ToString (
+      pokemon_->GetLevel ()));
   }
 }

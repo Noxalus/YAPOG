@@ -18,7 +18,13 @@ namespace ycl
   {
     virtual ~IDrawableBattleEntity () {}
 
-    virtual yap::ISprite& GetBattleSprite () = 0;
+    virtual const yap::ISprite& GetBattleSprite () const = 0;
+    virtual const yap::ISprite& GetIcon () const = 0;
+    virtual const yap::ISprite& GetGenderIcon () const = 0;
+    virtual const yap::ISprite& GetBattleBack () const = 0;
+    virtual const yap::ISprite& GetBattleFront () const = 0;
+    virtual const yap::ISprite& GetType1Icon () const = 0;
+    virtual const yap::ISprite& GetType2Icon () const = 0;
     virtual void PlayCry () const = 0;
   };
 } // namespace ycl

@@ -46,13 +46,13 @@ namespace yse
     query.Write (pokemonTable_.boxNumber_);
     query.Write (pokemonTable_.boxIndex_);
     query.Write (pokemonTable_.catchDate_);
-
+    
     if (query.AffectedRows () == 1)
       return true;
     else
       throw yap::DatabaseException (
       "An error occurs during the update of a Pokemon's tuple."
-      "Any tuple seems to be concerned by this update !");
+      "Any or too much tuple(s) seem(s) to be concerned by this update !");
   }
 
 } // namespace yse

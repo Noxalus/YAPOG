@@ -16,10 +16,15 @@ namespace yap
 
 namespace ycl
 {
+  class IDrawableBattleEntity;
+
   class BaseBattleWidget : public yap::BaseWidget
   {
   public:
     BaseBattleWidget ();
+
+    virtual void SetPokemon (const IDrawableBattleEntity& pokemon) = 0;
+    virtual void Init () = 0;
 
     virtual bool IsFocusable () const;
   protected:

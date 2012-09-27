@@ -33,6 +33,12 @@ namespace ycl
     battleInfoBox_.AddChild (hpValue_, yap::LayoutBox::Align::RIGHT);
     battleInfoBox_.AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
 
+    experienceBar_.OnProgressBarFinished +=
+      [&] (const yap::ProgressBarWidget& sender)
+    {
+
+    };
+
     // Debug borders
     /*
     hpValue_.SetBorder (*new yap::WidgetBorder ("Test/black.png"));
@@ -41,8 +47,6 @@ namespace ycl
 
   void PokemonBattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)
   {
-    BattleInfoWidget::SetHitPoint (hp);
-
     hp_ = &hp;
 
     UpdateHPBar ();

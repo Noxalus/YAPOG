@@ -6,12 +6,13 @@
 # include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/Battle/IBattleEntity.hpp"
 # include "YAPOG/Game/Battle/Phase/BattlePhaseManager.hpp"
+# include "YAPOG/Game/Battle/BattleCore.hpp"
 
 namespace yap
 {
   class PokemonFighter;
   class PokemonFighterTeam;
-
+  
   class YAPOG_LIB Battle : public  IUpdateable
   {
   public:
@@ -26,9 +27,12 @@ namespace yap
     virtual void Update (const Time& dt);
     /// @}
 
-    /// Getters
+    /// @name Getters.
+    /// @{
     virtual IBattleEntity& GetPlayerTeam () = 0;
     virtual IBattleEntity& GetOpponent () = 0;
+    const BattleCore& GetBattleCore () const;
+    /// @]
 
   protected:
     virtual void HandleUpdate (const Time& dt);
@@ -40,6 +44,7 @@ namespace yap
   private:
     int turnCount_;
     BattlePhaseManager battlePhaseManager_;
+    BattleCore battleCore_;
   };
 } // namespace yap
 

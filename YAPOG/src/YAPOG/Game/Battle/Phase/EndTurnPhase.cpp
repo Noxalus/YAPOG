@@ -1,6 +1,7 @@
 #include "YAPOG/Game/Battle/Phase/EndTurnPhase.hpp"
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
 #include "YAPOG/Game/Battle/Battle.hpp"
+#include "YAPOG/Game/Battle/BattleCore.hpp"
 
 namespace yap
 {
@@ -31,10 +32,8 @@ namespace yap
     {
       addExperience_ = true;
 
-      /// @todo Compute experience amount
-      experienceAmount_ = 4242;
-
-      battle_.GetPlayerTeam ().AddExperience (experienceAmount_);
+      battle_.GetPlayerTeam ().AddExperience (
+        battle_.GetBattleCore ().ComputeExperienceGain ());
     }
   }
 

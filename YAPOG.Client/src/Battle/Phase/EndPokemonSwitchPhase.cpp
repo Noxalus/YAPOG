@@ -47,24 +47,8 @@ namespace ycl
     battleInterface_.GetPokemonInfoWidget ().Show (true);
 
     // Pokemon name
-    battleInterface_.GetPokemonInfoWidget ().SetName (
-      battle_.GetPlayerTeam ().GetName ());
-
-    // Pokemon gender
-    battleInterface_.GetPokemonInfoWidget ().SetGender (
-      battle_.GetPlayerTeam ().GetGender ());
-
-    // Pokemon level
-    battleInterface_.GetPokemonInfoWidget ().SetLevel (
-      battle_.GetPlayerTeam ().GetLevel ());
-
-    // Pokemon HP
-    battleInterface_.GetPokemonInfoWidget ().SetHitPoint (
-      battle_.GetPlayerTeam ().GetStats ().GetHitPoint ());
-
-    // Pokemon Experience
-    battleInterface_.GetPokemonInfoWidget ().SetExperience (
-      battle_.GetPlayerTeam ().GetExperience ());
+    battleInterface_.GetPokemonInfoWidget ().SetPokemon (
+      battle_.GetPlayerTeam ());
 
     /* Pokemon sprite */
 

@@ -85,17 +85,12 @@ namespace ycl
 
     // Opponent's side.
     battleInterface_.GetOpponentInfoWidget ().Show (true);
-    battleInterface_.GetOpponentInfoWidget ().SetName (opponentName);
-    battleInterface_.GetOpponentInfoWidget ().SetLevel (
-      battle_.GetOpponent ().GetLevel ());
-    battleInterface_.GetOpponentInfoWidget ().SetGender (
-      battle_.GetOpponent ().GetGender ());
+    battleInterface_.GetOpponentInfoWidget ().SetPokemon (
+      battle_.GetOpponent ());
 
     battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
       -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
       battle_.GetOpponentInfoPosition ().y));
-    battleInterface_.GetOpponentInfoWidget ().SetHitPoint (
-      battle_.GetOpponent ().GetStats ().GetHitPoint ());
     /// @}
 
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);

@@ -40,6 +40,7 @@ namespace yap
       {
         ///@todo Call an event to notify that the progress Bar 
         /// have finished to update
+        OnProgressBarFinished;
       }
     }
 

@@ -14,10 +14,13 @@
 namespace yap
 {
   class PictureBox;
+  class PokemonExperience;
 } // namespace yap
 
 namespace ycl
 {
+  class IDrawableBattleEntity;
+
   class BattleInfoWidget : public BaseBattleWidget
   {
     DISALLOW_COPY (BattleInfoWidget);
@@ -29,19 +32,23 @@ namespace ycl
 
     virtual void UpdateHPBar ();
 
-    virtual void SetHitPoint (const yap::HitPoint& hp);
+    void RefreshWidget ();
 
     /// @name Setters.
     /// @{
-    void SetName (const yap::String& value);
-    void SetLevel (int value);
-    void SetGender (const yap::Gender& value);
+    virtual void SetPokemon (const IDrawableBattleEntity& pokemon);
     /// @}
 
     virtual void HandleDraw (yap::IDrawingContext& context);
     virtual yap::Vector2 HandleGetSize () const;
 
   protected:
+     /// @name Setters.
+    /// @{
+    virtual void SetHitPoint (const yap::HitPoint& hp) = 0;
+    virtual void SetExperience (const yap::PokemonExperience& experience) = 0;
+    /// @}
+
     /// @name Labels.
     /// @{
     yap::Label nameLabel_;
@@ -65,6 +72,8 @@ namespace ycl
 
     // HP Bar
     PokemonHPBarWidget hpBar_;
+
+    const IDrawableBattleEntity* pokemon_;
   };
 } // namespace ycl
 

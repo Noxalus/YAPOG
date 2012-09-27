@@ -11,7 +11,7 @@ namespace yap
   int BattleCore::ComputeDamage (
     const PokemonMove& move, 
     const IBattleEntity& attacker, 
-    const IBattleEntity& defender)
+    const IBattleEntity& defender) const
   {
     float stab = 1.f;
 
@@ -57,4 +57,11 @@ namespace yap
 
     return damage;
   }
+
+  UInt32 BattleCore::ComputeExperienceGain () const
+  {
+    /// @todo Compute experience amount
+    return 42;
+  }
+
 } // namespace yap
