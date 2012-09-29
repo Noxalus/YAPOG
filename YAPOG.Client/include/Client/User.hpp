@@ -80,8 +80,8 @@ namespace ycl
     /// @}
 
     void HandleServerInfoSetUserPlayer (yap::IPacket& packet);
-    void HandleServerInfoChangeMap (yap::IPacket& packet);
 
+    void HandleServerInfoChangeMap (yap::IPacket& packet);
     void HandleServerInfoAddObject (yap::IPacket& packet);
 
     void HandleServerInfoGameMessage (yap::IPacket& packet);
@@ -91,6 +91,8 @@ namespace ycl
     void HandlerServerInfoPokemonTeam (yap::IPacket& packet);
 
     void HandlerServerInfoChangeMoney (yap::IPacket& packet);
+
+    void HandleServerInfoStartDialog (yap::IPacket& packet);
 
     yap::PacketHandler packetHandler_;
 

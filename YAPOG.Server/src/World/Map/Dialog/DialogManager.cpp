@@ -18,9 +18,9 @@ namespace yse
   {
   }
 
-  void DialogManager::SetDisplay (yap::IDialogDisplay& dialogDisplay)
+  void DialogManager::SetDisplay (yap::IDialogDisplay* dialogDisplay)
   {
-    dialogDisplay_ = &dialogDisplay;
+    dialogDisplay_ = dialogDisplay;
   }
 
   void DialogManager::AddListener (yap::IDialogActor& dialogActor)
@@ -42,7 +42,7 @@ namespace yse
     while (currentNode->Execute (dialogNodeExecutionContext))
     {
       dialogDisplay_->Display (
-        dialogActor,
+        *speaker_,
         dialogNodeExecutionContext.GetMessage ());
 
       SendChangeDialogNode (dialogNodeExecutionContext.GetNodeID ());
@@ -94,6 +94,9 @@ namespace yse
 
     for (yap::IDialogActor* listener : listeners_)
       listener->StopListening ();
+
+    speaker_ = nullptr;
+    listeners_.Clear ();
   }
 
   void DialogManager::SendStartDialog ()

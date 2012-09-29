@@ -23,6 +23,8 @@ namespace ycl
       NPC (const yap::ID& id);
       virtual ~NPC ();
 
+      void SetDialogNode (yap::IDialogNode* dialogNode);
+
       /// @name ICloneable members.
       /// @{
       virtual NPC* Clone () const;

@@ -66,7 +66,7 @@ namespace yse
     dialogManager_.SetParent (this);
 
     dialogManager_.SetDisplay (
-      *new yap::WriterDialogDisplay (
+      new yap::WriterDialogDisplay (
         yap::DebugLogger::Instance ()));
   }
 

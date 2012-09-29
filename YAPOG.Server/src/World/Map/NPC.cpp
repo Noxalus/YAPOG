@@ -31,7 +31,8 @@ namespace yse
   NPC::NPC (const NPC& copy)
     : Character (copy)
     , name_ (copy.name_)
-    , dialogNode_ (copy.dialogNode_->Clone ())
+    , dialogNode_ (
+        copy.dialogNode_ == nullptr ? nullptr : copy.dialogNode_->Clone ())
     , talkEventArea_ (nullptr)
   {
     SetTalkEventArea (new yap::BoundingBox (*copy.talkEventArea_));

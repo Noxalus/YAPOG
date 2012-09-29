@@ -1,5 +1,5 @@
-#ifndef YAPOG_SERVER_DIALOGMANAGER_HPP
-# define YAPOG_SERVER_DIALOGMANAGER_HPP
+#ifndef YAPOG_CLIENT_DIALOGMANAGER_HPP
+# define YAPOG_CLIENT_DIALOGMANAGER_HPP
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
@@ -12,7 +12,7 @@ namespace yap
   struct IDialogDisplay;
 } // namespace yap
 
-namespace yse
+namespace ycl
 {
   class DialogManager : public yap::IDialogManager
                       , public yap::IPacketHandler
@@ -27,7 +27,7 @@ namespace yse
 
       void SetDisplay (yap::IDialogDisplay* dialogDisplay);
 
-      void AddListener (yap::IDialogActor& dialogActor);
+      void AddListener (yap::IDialogActor& listener);
 
       /// @name IDialogManager members.
       /// @{
@@ -50,20 +50,24 @@ namespace yse
 
       typedef yap::collection::List<yap::IDialogActor*> DialogActorCollection;
 
-      void HandleStartDialog ();
-      void HandleStopDialog ();
+      void ExecuteCurrentNode ();
+      void ChangeNode (const yap::ID& nodeID);
 
-      void SendStartDialog ();
-      void SendStopDialog ();
-      void SendChangeDialogNode (const yap::ID& dialogNodeID);
+      void StopDialog ();
+
+      void HandleServerInfoStopDialog (yap::IPacket& packet);
+      void HandleServerInfoChangeDialogNode (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 
       yap::IDialogDisplay* dialogDisplay_;
 
+      yap::IDialogNode* currentNode_;
+      yap::ID currentNodeID_;
+
       yap::IDialogActor* speaker_;
       DialogActorCollection listeners_;
   };
-} // namespace yse
+} // namespace ycl
 
-#endif // YAPOG_SERVER_DIALOGMANAGER_HPP
+#endif // YAPOG_CLIENT_DIALOGMANAGER_HPP

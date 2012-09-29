@@ -33,7 +33,6 @@ namespace ycl
     ADD_HANDLER(ServerInfoSetUserPlayer, User::HandleServerInfoSetUserPlayer);
 
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
-
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
 
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
@@ -43,6 +42,8 @@ namespace ycl
     ADD_HANDLER(ServerInfoPokemonTeam, User::HandlerServerInfoPokemonTeam);
 
     ADD_HANDLER(ServerInfoChangeMoney, User::HandlerServerInfoChangeMoney);
+
+    ADD_HANDLER(ServerInfoStartDialog, User::HandleServerInfoStartDialog);
   }
 
   User::~User ()
@@ -154,6 +155,11 @@ namespace ycl
   {
     player_ = player;
 
+    AddRelay (player_);
+    player_->SetParent (this);
+
+    player_->InitDialogManager ();
+
     OnPlayerCreated (*this, player_);
   }
 
@@ -261,7 +267,7 @@ namespace ycl
         static_cast<yap::Direction> (
         packet.ReadUChar ()));
 
-      map.AddDrawableDynamicObject (npc);
+      map.AddNPC (npc);
     }
     if (objectTypeName == "Teleporter")
     {
@@ -436,4 +442,13 @@ namespace ycl
     ChangeMoney (amount);
   }
 
+  void User::HandleServerInfoStartDialog (yap::IPacket& packet)
+  {
+    yap::ID speakerWorldID = packet.ReadID ();
+
+    NPC& npc = GetMap ().GetNPC (speakerWorldID);
+
+    if (GetPlayer ().CanListen (npc))
+      GetPlayer ().Listen (npc);
+  }
 } // namespace ycl

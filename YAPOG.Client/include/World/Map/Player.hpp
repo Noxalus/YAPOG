@@ -3,24 +3,28 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/IPlayer.hpp"
+# include "YAPOG/System/Network/PacketHandler.hpp"
 
 # include "World/Map/Character.hpp"
+# include "World/Map/Dialog/DialogManager.hpp"
 
 namespace ycl
 {
   class Player : public Character
                , public yap::IPlayer
+               , public yap::IPacketHandler
   {
       DISALLOW_ASSIGN(Player);
 
     public:
 
-      Player (const yap::ID& id);
+      explicit Player (const yap::ID& id);
+
       virtual ~Player ();
 
       void SetName (const yap::String& name);
 
-      void SetDialogManager (yap::IDialogManager& dialogManager);
+      void InitDialogManager ();
 
       /// @name ICloneable members.
       /// @{
@@ -70,6 +74,16 @@ namespace ycl
         const yap::Vector2&>& OnMovedEvent ();
       /// @}
 
+      /// @name IPacketHandler members.
+      /// @{
+      virtual bool HandlePacket (yap::IPacket& packet);
+      virtual bool SendPacket (yap::IPacket& packet);
+
+      virtual void AddRelay (yap::IPacketHandler* relay);
+      virtual void RemoveRelay (yap::IPacketHandler* relay);
+      virtual void SetParent (yap::IPacketHandler* parent);
+      /// @}
+
     protected:
 
       Player (const Player& copy);
@@ -82,9 +96,11 @@ namespace ycl
 
       static const yap::String DEFAULT_NAME;
 
+      yap::PacketHandler packetHandler_;
+
       yap::String name_;
 
-      yap::IDialogManager* dialogManager_;
+      DialogManager dialogManager_;
   };
 } // namespace ycl
 
