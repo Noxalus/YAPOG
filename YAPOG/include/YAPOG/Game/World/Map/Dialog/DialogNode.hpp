@@ -18,7 +18,7 @@ namespace yap
       DialogNode ();
       virtual ~DialogNode ();
 
-      DialogNode& AddEntry (DialogNodeEntry* entry);
+      void AddEntry (DialogNodeEntry* entry);
 
       /// @name IDialogNode members.
       /// @{

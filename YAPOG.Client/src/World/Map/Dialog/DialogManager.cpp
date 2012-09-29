@@ -81,9 +81,10 @@ namespace ycl
     if (dialogNodeExecutionContext.GetNodeID () != currentNodeID_)
       return;
 
-    dialogDisplay_->Display (
-      *speaker_,
-      dialogNodeExecutionContext.GetMessage ());
+    for (auto message : dialogNodeExecutionContext.GetMessages ())
+      dialogDisplay_->Display (
+        *speaker_,
+        *message);
 
     currentNode_ = &dialogNodeExecutionContext.GetNextNode ();
   }

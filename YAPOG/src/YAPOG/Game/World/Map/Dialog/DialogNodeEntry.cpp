@@ -7,21 +7,18 @@
 namespace yap
 {
   DialogNodeEntry::DialogNodeEntry (
-    const IDialogMessage* const message,
     IGameRequirement* requirement,
     IGameAction* action,
     IDialogNode* next)
-    : Message (message)
-    , Action (action)
+    : Action (action)
     , NextNode (next)
     , requirement_ (requirement)
+    , messages_ ()
   {
   }
 
   DialogNodeEntry::~DialogNodeEntry ()
   {
-    delete Message;
-
     delete Action;
     Action = nullptr;
 
@@ -30,19 +27,35 @@ namespace yap
 
     delete requirement_;
     requirement_ = nullptr;
+
+    for (auto message : messages_)
+      delete message;
   }
 
   DialogNodeEntry::DialogNodeEntry (const DialogNodeEntry& copy)
-    : Message (copy.Message->Clone ())
-    , Action (copy.Action == nullptr ? nullptr : copy.Action->Clone ())
+    : Action (copy.Action == nullptr ? nullptr : copy.Action->Clone ())
     , NextNode (copy.NextNode == nullptr ? nullptr : copy.NextNode->Clone ())
     , requirement_ (
         copy.requirement_ == nullptr ? nullptr : copy.requirement_->Clone ())
+    , messages_ ()
   {
+    for (auto message : copy.messages_)
+      AddMessage (message->Clone ());
   }
 
   bool DialogNodeEntry::RequirementIsFulfilled ()
   {
     return requirement_ == nullptr ? true : requirement_->IsFulfilled ();
+  }
+
+  void DialogNodeEntry::AddMessage (const IDialogMessage* message)
+  {
+    messages_.Add (message);
+  }
+
+  const DialogNodeEntry::MessageCollectionType&
+  DialogNodeEntry::GetMessages () const
+  {
+    return messages_;
   }
 } // namespace yap

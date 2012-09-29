@@ -2,6 +2,7 @@
 # define YAPOG_DIALOGNODEENTRY_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Collection/Array.hpp"
 
 namespace yap
 {
@@ -16,8 +17,9 @@ namespace yap
 
     public:
 
+      typedef collection::Array<const IDialogMessage*> MessageCollectionType;
+
       DialogNodeEntry (
-        const IDialogMessage* const message,
         IGameRequirement* requirement,
         IGameAction* action,
         IDialogNode* next);
@@ -28,7 +30,8 @@ namespace yap
 
       bool RequirementIsFulfilled ();
 
-      const IDialogMessage* const Message;
+      void AddMessage (const IDialogMessage* message);
+      const MessageCollectionType& GetMessages () const;
 
       IGameAction* Action;
 
@@ -37,6 +40,8 @@ namespace yap
     private:
 
       IGameRequirement* requirement_;
+
+      MessageCollectionType messages_;
   };
 } // namespace yap
 

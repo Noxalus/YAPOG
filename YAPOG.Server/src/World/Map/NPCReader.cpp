@@ -33,12 +33,13 @@ namespace yse
         0,
         1));
 
-    npc_.SetDialogNode (
-      &(new yap::DialogNode ())->AddEntry (
-        new yap::DialogNodeEntry (
-          new yap::DialogMessage ("Salut !"),
-          nullptr,
-          nullptr,
-          nullptr)));
+    yap::DialogNode* d1 = new yap::DialogNode ();
+    yap::DialogNodeEntry* d1_e1 = new yap::DialogNodeEntry (
+      nullptr, nullptr, nullptr);
+    d1->AddEntry (d1_e1);
+    d1_e1->AddMessage (new yap::DialogMessage ("Salut !"));
+    d1_e1->AddMessage (new yap::DialogMessage ("Second message ........"));
+
+    npc_.SetDialogNode (d1);
   }
 } // namespace yse

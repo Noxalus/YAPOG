@@ -41,9 +41,10 @@ namespace yse
 
     while (currentNode->Execute (dialogNodeExecutionContext))
     {
-      dialogDisplay_->Display (
-        *speaker_,
-        dialogNodeExecutionContext.GetMessage ());
+      for (auto message : dialogNodeExecutionContext.GetMessages ())
+        dialogDisplay_->Display (
+          *speaker_,
+          *message);
 
       SendChangeDialogNode (dialogNodeExecutionContext.GetNodeID ());
 

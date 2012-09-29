@@ -5,7 +5,7 @@ namespace yap
 {
   DialogNodeExecutionContext::DialogNodeExecutionContext ()
     : id_ ()
-    , message_ (nullptr)
+    , messages_ ()
     , action_ (nullptr)
     , nextNode_ (nullptr)
   {
@@ -13,11 +13,11 @@ namespace yap
 
   DialogNodeExecutionContext::DialogNodeExecutionContext (
     const ID& id,
-    const IDialogMessage& message,
+    const MessageCollectionType& messages,
     IGameAction* action,
     IDialogNode* nextNode)
     : id_ (id)
-    , message_ (&message)
+    , messages_ (messages)
     , action_ (action)
     , nextNode_ (nextNode)
   {
@@ -28,9 +28,10 @@ namespace yap
     return id_;
   }
 
-  const IDialogMessage& DialogNodeExecutionContext::GetMessage () const
+  const DialogNodeExecutionContext::MessageCollectionType&
+  DialogNodeExecutionContext::GetMessages () const
   {
-    return *message_;
+    return messages_;
   }
 
   bool DialogNodeExecutionContext::IsTerminal () const

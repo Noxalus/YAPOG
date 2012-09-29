@@ -3,6 +3,7 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/ID.hpp"
+# include "YAPOG/Collection/Array.hpp"
 
 namespace yap
 {
@@ -14,17 +15,19 @@ namespace yap
   {
     public:
 
+      typedef collection::Array<const IDialogMessage*> MessageCollectionType;
+
       DialogNodeExecutionContext ();
 
       DialogNodeExecutionContext (
         const ID& id,
-        const IDialogMessage& message,
+        const MessageCollectionType& messages,
         IGameAction* action,
         IDialogNode* nextNode);
 
       const ID& GetNodeID () const;
 
-      const IDialogMessage& GetMessage () const;
+      const MessageCollectionType& GetMessages () const;
 
       bool IsTerminal () const;
 
@@ -36,7 +39,7 @@ namespace yap
 
       ID id_;
 
-      const IDialogMessage* message_;
+      MessageCollectionType messages_;
 
       IGameAction* action_;
 

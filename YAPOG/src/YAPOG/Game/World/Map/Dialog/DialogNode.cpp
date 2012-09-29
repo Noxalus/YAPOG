@@ -28,11 +28,9 @@ namespace yap
     return new DialogNode (*this);
   }
 
-  DialogNode& DialogNode::AddEntry (DialogNodeEntry* entry)
+  void DialogNode::AddEntry (DialogNodeEntry* entry)
   {
     entries_.Add (entry);
-
-    return *this;
   }
 
   bool DialogNode::Accept (IDialogNodeVisitor<bool>& visitor)
@@ -58,7 +56,7 @@ namespace yap
 
       executionContext = DialogNodeExecutionContext (
         ID (count),
-        *entry->Message,
+        entry->GetMessages (),
         entry->Action,
         entry->NextNode);
 
