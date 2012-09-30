@@ -2,6 +2,7 @@
 # define YAPOG_IDIALOGNODE_HPP
 
 # include "YAPOG/Game/Factory/ICloneable.hpp"
+# include "YAPOG/Game/Factory/ILoadable.hpp"
 # include "YAPOG/Game/World/Map/Dialog/DialogNodeExecutionContext.hpp"
 
 namespace yap
@@ -12,6 +13,7 @@ namespace yap
   struct IDialogNodeConstVisitor;
 
   struct IDialogNode : public ICloneable
+                     , public ILoadable
   {
       virtual ~IDialogNode () { }
 

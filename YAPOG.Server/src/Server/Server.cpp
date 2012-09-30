@@ -27,6 +27,8 @@
 #include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNodeReader.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -189,6 +191,10 @@ namespace yse
 
   void Server::InitObjectFactory ()
   {
+    objectFactory_.RegisterLoader (
+      "DialogNode",
+      new yap::XmlObjectLoader<yap::DialogNode, yap::DialogNodeReader> ());
+
     objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (

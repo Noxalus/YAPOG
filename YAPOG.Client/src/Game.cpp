@@ -40,6 +40,8 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 #include "YAPOG/Game/World/Map/TeleporterReader.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNodeReader.hpp"
 
 #include "Client/Session.hpp"
 #include "Game.hpp"
@@ -172,6 +174,12 @@ namespace ycl
         DestructibleObjectReader> (
           yap::Path ("DestructibleObject"),
           "DestructibleObject"));
+
+    objectFactory_.RegisterLoader (
+      "DialogNode",
+      new yap::XmlObjectLoader<
+        yap::DialogNode,
+        yap::DialogNodeReader> ());
 
     objectFactory_.RegisterLoader (
       "DirectionSpriteSet",

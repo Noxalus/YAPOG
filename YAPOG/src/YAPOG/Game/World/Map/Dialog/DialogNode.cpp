@@ -45,7 +45,7 @@ namespace yap
 
   bool DialogNode::Execute (DialogNodeExecutionContext& executionContext)
   {
-    for (EntryCollection::SizeType count = 0;
+    for (EntryCollectionType::SizeType count = 0;
          count < entries_.Count ();
          ++count)
     {

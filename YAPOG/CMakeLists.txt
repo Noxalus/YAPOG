@@ -235,6 +235,8 @@ ${inc_root}/Game/World/Map/Dialog/DialogNodeEntry.hpp
 ${src_root}/Game/World/Map/Dialog/DialogNodeEntry.cpp
 ${inc_root}/Game/World/Map/Dialog/DialogNode.hpp
 ${src_root}/Game/World/Map/Dialog/DialogNode.cpp
+${inc_root}/Game/World/Map/Dialog/DialogNodeReader.hpp
+${src_root}/Game/World/Map/Dialog/DialogNodeReader.cpp
 ${inc_root}/Game/World/Map/Dialog/ResponseHandlerDialogNode.hpp
 ${src_root}/Game/World/Map/Dialog/ResponseHandlerDialogNode.cpp
 ${inc_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.hpp

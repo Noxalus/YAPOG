@@ -39,9 +39,9 @@ namespace yap
 
     private:
 
-      typedef yap::collection::Array<DialogNodeEntry*> EntryCollection;
+      typedef yap::collection::Array<DialogNodeEntry*> EntryCollectionType;
 
-      EntryCollection entries_;
+      EntryCollectionType entries_;
   };
 } // namespace yap
 

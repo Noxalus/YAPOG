@@ -1,11 +1,12 @@
 #include "World/Map/NPCReader.hpp"
+
+#include "YAPOG/Game/World/Map/Dialog/IDialogNode.hpp"
+#include "YAPOG/System/IO/Xml/XmlReader.hpp"
+#include "YAPOG/Game/Factory/ObjectFactory.hpp"
+#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
+
 #include "World/Map/NPC.hpp"
 
-/// @warning [TMP]
-#include "YAPOG/Game/World/Map/Physics/BoundingBox.hpp"
-#include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
-#include "YAPOG/Game/World/Map/Dialog/DialogNodeEntry.hpp"
-#include "YAPOG/Game/World/Map/Dialog/DialogMessage.hpp"
 namespace yse
 {
   NPCReader::NPCReader (
@@ -25,7 +26,6 @@ namespace yse
     CharacterReader::Visit (visitable);
 
     /// @warning [TMP]
-
     npc_.SetTalkEventArea (
       new yap::BoundingBox (
         yap::Vector2 (-60, -60),
@@ -33,13 +33,16 @@ namespace yse
         0,
         1));
 
-    yap::DialogNode* d1 = new yap::DialogNode ();
-    yap::DialogNodeEntry* d1_e1 = new yap::DialogNodeEntry (
-      nullptr, nullptr, nullptr);
-    d1->AddEntry (d1_e1);
-    d1_e1->AddMessage (new yap::DialogMessage ("Salut !"));
-    d1_e1->AddMessage (new yap::DialogMessage ("Second message ........"));
+    auto reader = visitable.ChangeRoot (xmlRootNodeName_);
 
-    npc_.SetDialogNode (d1);
+    auto dialogReader = reader->ChangeRoot ("dialog");
+
+    yap::String dialogNodeType = dialogReader->ReadString ("dialogNodeType");
+
+    npc_.SetDialogNode (
+      yap::ObjectFactory::Instance ().Create <yap::IDialogNode> (
+        dialogNodeType,
+        *dialogReader,
+        dialogNodeType));
   }
 } // namespace yse
