@@ -2,6 +2,7 @@
 # define YAPOG_CLIENT_IDRAWABLEBATTLEENTITYE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/Battle/IBattleEntity.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 
@@ -25,6 +26,7 @@ namespace ycl
     virtual const yap::ISprite& GetBattleFront () const = 0;
     virtual const yap::ISprite& GetType1Icon () const = 0;
     virtual const yap::ISprite& GetType2Icon () const = 0;
+    virtual void SetPosition (const yap::Vector2& value) = 0;
     virtual void PlayCry () const = 0;
   };
 } // namespace ycl

@@ -36,7 +36,7 @@ namespace ycl
 
     /// @name Setters.
     /// @{
-    virtual void SetPokemon (const IDrawableBattleEntity& pokemon);
+    void SetPokemon (const IDrawableBattleEntity& pokemon);
     /// @}
 
     virtual void HandleDraw (yap::IDrawingContext& context);
@@ -45,8 +45,8 @@ namespace ycl
   protected:
      /// @name Setters.
     /// @{
-    virtual void SetHitPoint (const yap::HitPoint& hp) = 0;
-    virtual void SetExperience (const yap::PokemonExperience& experience) = 0;
+    virtual void SetHitPoint (const yap::HitPoint& hp);
+    virtual void SetExperience (const yap::PokemonExperience& experience);
     /// @}
 
     /// @name Labels.

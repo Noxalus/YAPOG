@@ -5,6 +5,7 @@
 # include "YAPOG/Game/World/Map/Physics/CharacterMoveController.hpp"
 # include "YAPOG/Graphics/ProgressiveCameraController.hpp"
 # include "YAPOG/System/Time/Timer.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 
 # include "GameScreen/BaseScreen.hpp"
 # include "World/World.hpp"

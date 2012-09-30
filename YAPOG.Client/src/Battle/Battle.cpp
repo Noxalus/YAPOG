@@ -88,7 +88,7 @@ namespace ycl
       battleInterface_.GetPokemonInfoWidget ().GetSize ().y);
 
     // Hide some sprites
-    playerTeam_->GetBattleSprite ().Show (false);
+    playerTeam_->Show (false);
   }
 
   /// Getters
@@ -124,14 +124,23 @@ namespace ycl
 
   /// Setters
   void Battle::SetPlayerTeam (PokemonFighterTeam* playerTeam)
-  {
-    playerTeam_ = playerTeam;
-  }
+  { playerTeam_ = playerTeam; }
 
   void Battle::SetOpponent (IDrawableBattleEntity* opponent)
-  {
-    opponent_ = opponent;
-  }
+  { opponent_ = opponent; }
+
+  void Battle::SetPlayerTeamPosition (const yap::Vector2& value)
+  { playerTeam_->SetPosition (value); }
+
+  void Battle::SetOpponentPosition (const yap::Vector2& value)
+  { opponent_->SetPosition (value); }
+
+  void Battle::ShowPlayerTeam (bool isVisible)
+  { playerTeam_->Show (isVisible); }
+
+  void Battle::ShowOpponent (bool isVisible)
+  { opponent_->Show (isVisible); }
+
   void Battle::Draw (yap::IDrawingContext& context)
   {
     if (!IsVisible ())

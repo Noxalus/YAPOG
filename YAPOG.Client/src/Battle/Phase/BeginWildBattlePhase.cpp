@@ -218,7 +218,7 @@ namespace ycl
 
   void BeginWildBattlePhase::UpdateOpponentFront ()
   {
-    battle_.GetOpponent ().GetBattleSprite ().SetPosition (
+    battle_.GetOpponent ().SetPosition (
       yap::Vector2 (
       battle_.GetOpponentGround ().GetPosition ().x + 
       battle_.GetOpponentGround ().GetSize ().x / 2 - 

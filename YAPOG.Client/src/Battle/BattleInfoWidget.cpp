@@ -82,6 +82,10 @@ namespace ycl
     this->AddChild (battleInfoBox_);
   }
 
+  void BattleInfoWidget::UpdateHPBar ()
+  {
+  }
+
   // Setters
   void BattleInfoWidget::SetPokemon (const IDrawableBattleEntity& pokemon)
   {
@@ -95,6 +99,13 @@ namespace ycl
     RefreshWidget ();
   }
 
+  void BattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)
+  {}
+
+  void BattleInfoWidget::SetExperience (const yap::PokemonExperience& experience)
+  {}
+
+
   void BattleInfoWidget::HandleDraw (yap::IDrawingContext& context)
   {
   }
@@ -104,7 +115,7 @@ namespace ycl
     return battleInfoBox_.GetSize ();
   }
 
-  void BattleInfoWidget::BattleInfoWidget::RefreshWidget ()
+  void BattleInfoWidget::RefreshWidget ()
   {
     hpBar_.UpdateProgressBar ();
     levelLabel_.SetText ("N." + yap::StringHelper::ToString (

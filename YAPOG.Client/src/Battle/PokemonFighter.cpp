@@ -103,6 +103,9 @@ namespace ycl
   const yap::ISprite& PokemonFighter::GetType2Icon () const
   { return originalPokemon_->GetType2Icon (); }
 
+  void PokemonFighter::SetPosition (const yap::Vector2& value)
+  { battleSprite_->SetPosition (value); }
+
   void PokemonFighter::PlayCry () const
   {
     yap::AudioManager::Instance ().PlaySound ("Cries/" + 

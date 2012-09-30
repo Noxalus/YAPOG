@@ -16,6 +16,8 @@ namespace ycl
 
     virtual void Init ();
 
+    virtual void UpdateHPBar ();
+
   protected:
     virtual bool HandleOnEvent (const yap::GuiEvent& guiEvent);
   };

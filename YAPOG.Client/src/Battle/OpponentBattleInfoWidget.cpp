@@ -23,6 +23,11 @@ namespace ycl
     BattleInfoWidget::Init ();
   }
 
+  void OpponentBattleInfoWidget::UpdateHPBar ()
+  {
+    BattleInfoWidget::UpdateHPBar ();
+  }
+
   bool OpponentBattleInfoWidget::HandleOnEvent (const yap::GuiEvent& guiEvent)
   {
     return false;

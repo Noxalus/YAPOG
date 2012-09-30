@@ -33,11 +33,13 @@ namespace ycl
     battleInfoBox_.AddChild (hpValue_, yap::LayoutBox::Align::RIGHT);
     battleInfoBox_.AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
 
+    /*
     experienceBar_.OnProgressBarFinished +=
       [&] (const yap::ProgressBarWidget& sender)
     {
 
     };
+    */
 
     // Debug borders
     /*

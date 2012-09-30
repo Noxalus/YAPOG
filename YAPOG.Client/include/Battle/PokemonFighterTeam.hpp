@@ -43,6 +43,7 @@ namespace ycl
     virtual const yap::ISprite& GetBattleFront () const;
     virtual const yap::ISprite& GetType1Icon () const;
     virtual const yap::ISprite& GetType2Icon () const;
+    virtual void SetPosition (const yap::Vector2& value);
     virtual void PlayCry () const;
     /// @}
 

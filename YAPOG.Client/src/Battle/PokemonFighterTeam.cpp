@@ -119,26 +119,29 @@ namespace ycl
 
   /// @name IDrawableBattleEntity members
   /// @{
-  yap::ISprite& PokemonFighterTeam::GetBattleSprite ()
+  const yap::ISprite& PokemonFighterTeam::GetBattleSprite () const
   { return GetCurrentFighter ().GetBattleSprite (); }
 
-  yap::ISprite& PokemonFighter::GetIcon ()
+  const yap::ISprite& PokemonFighterTeam::GetIcon () const
   { return GetCurrentFighter ().GetIcon (); }
 
-  yap::ISprite& PokemonFighter::GetGenderIcon ()
+  const yap::ISprite& PokemonFighterTeam::GetGenderIcon () const
   { return GetCurrentFighter ().GetGenderIcon (); }
 
-  yap::ISprite& PokemonFighter::GetBattleBack ()
+  const yap::ISprite& PokemonFighterTeam::GetBattleBack () const
   { return GetCurrentFighter ().GetBattleBack (); }
 
-  yap::ISprite& PokemonFighter::GetBattleFront ()
+  const yap::ISprite& PokemonFighterTeam::GetBattleFront () const
   { return GetCurrentFighter ().GetBattleBack (); }
 
-  yap::ISprite& PokemonFighter::GetType1Icon ()
+  const yap::ISprite& PokemonFighterTeam::GetType1Icon () const
   { return GetCurrentFighter ().GetType1Icon (); }
 
-  yap::ISprite& PokemonFighter::GetType2Icon ()
+  const yap::ISprite& PokemonFighterTeam::GetType2Icon () const
   { return GetCurrentFighter ().GetType2Icon (); }
+
+  void PokemonFighterTeam::SetPosition (const yap::Vector2& value)
+  { GetCurrentFighter ().SetPosition (value); }
 
   void PokemonFighterTeam::PlayCry () const
   { GetCurrentFighter ().PlayCry (); }

@@ -53,10 +53,10 @@ namespace ycl
     /* Pokemon sprite */
 
     // Visibility
-    battle_.GetPlayerTeam ().GetBattleSprite ().Show (true);
+    battle_.ShowPlayerTeam (true);
 
     // Position
-    battle_.GetPlayerTeam ().GetBattleSprite ().SetPosition (
+    battle_.SetPlayerTeamPosition (
       yap::Vector2 (
       battle_.GetPlayerGroundPosition ().x +
       battle_.GetPlayerGround ().GetSize ().x / 2 -

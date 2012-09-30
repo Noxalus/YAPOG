@@ -2,6 +2,7 @@
 # define YAPOG_CLIENT_BATTLE_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
 # include "YAPOG/Game/Battle/Battle.hpp"
 # include "YAPOG/Graphics/IDrawable.hpp"
 
@@ -54,7 +55,13 @@ namespace ycl
     /// @{
     void SetPlayerTeam (PokemonFighterTeam* playerTeam);
     void SetOpponent (IDrawableBattleEntity* opponent);
+
+    void SetPlayerTeamPosition (const yap::Vector2& value);
+    void SetOpponentPosition (const yap::Vector2& value);
     /// @}
+
+    void ShowPlayerTeam (bool isVisible);
+    void ShowOpponent (bool isVisible);
 
     static const yap::Vector2 DEFAULT_OPPONENT_GROUND_SPRITES_SCALE;
 

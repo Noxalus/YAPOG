@@ -23,9 +23,6 @@ namespace ycl
   public:
     BaseBattleWidget ();
 
-    virtual void SetPokemon (const IDrawableBattleEntity& pokemon) = 0;
-    virtual void Init () = 0;
-
     virtual bool IsFocusable () const;
   protected:
     virtual void HandleMove (const yap::Vector2& offset);
