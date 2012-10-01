@@ -32,8 +32,10 @@ namespace yap
     {
       addExperience_ = true;
 
+      experienceAmount_ = battle_.GetBattleCore ().ComputeExperienceGain ();
+
       battle_.GetPlayerTeam ().AddExperience (
-        battle_.GetBattleCore ().ComputeExperienceGain ());
+        experienceAmount_);
     }
   }
 

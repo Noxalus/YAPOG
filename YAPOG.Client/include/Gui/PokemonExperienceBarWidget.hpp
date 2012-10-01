@@ -26,6 +26,8 @@ namespace ycl
 
     virtual bool IsFocusable () const;
 
+    yap::Event<const PokemonExperienceBarWidget&> OnExperienceBarLevelUp;
+
   protected:
     virtual void HandleUpdate (const yap::Time& dt);
 

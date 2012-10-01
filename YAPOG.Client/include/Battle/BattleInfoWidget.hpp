@@ -7,13 +7,13 @@
 # include "YAPOG/Graphics/Gui/VerticalLayout.hpp"
 # include "YAPOG/Graphics/Texture.hpp"
 # include "YAPOG/Game/Pokemon/Gender.hpp"
+# include "YAPOG/Graphics/Gui/PictureBox.hpp"
 
 # include "Battle/BaseBattleWidget.hpp"
 # include "Gui/PokemonHPBarWidget.hpp"
 
 namespace yap
 {
-  class PictureBox;
   class PokemonExperience;
 } // namespace yap
 
@@ -67,7 +67,7 @@ namespace ycl
 
     /// @name Picture boxes.
     /// @{
-    yap::PictureBox* genderPictureBox_;
+    yap::PictureBox genderPictureBox_;
     /// @}
 
     // HP Bar

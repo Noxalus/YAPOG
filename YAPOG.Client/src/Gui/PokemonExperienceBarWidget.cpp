@@ -92,7 +92,10 @@ namespace ycl
       experience_->GetLevel () - levelEarned_);
 
     if (levelEarned_ > 0 && percentage == 1)
+    {
+      OnExperienceBarLevelUp (*this, yap::EmptyEventArgs ());
       levelEarned_--;
+    }
 
     if (inBattle_)
       size = MAX_BATTLE_EXP_BAR_SIZE * percentage;

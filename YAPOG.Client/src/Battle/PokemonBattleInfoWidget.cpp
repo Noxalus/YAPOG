@@ -29,17 +29,15 @@ namespace ycl
     BattleInfoWidget::Init ();
     experienceBar_.Init ();
 
+    experienceBar_.OnExperienceBarLevelUp += 
+      [&] (const yap::ProgressBarWidget&, const yap::EmptyEventArgs&) 
+    {
+      UpdateHPBar ();
+    };
+
     hpValue_.ChangeColor (sf::Color::Black);
     battleInfoBox_.AddChild (hpValue_, yap::LayoutBox::Align::RIGHT);
     battleInfoBox_.AddChild (experienceBar_, yap::LayoutBox::Align::RIGHT);
-
-    /*
-    experienceBar_.OnProgressBarFinished +=
-      [&] (const yap::ProgressBarWidget& sender)
-    {
-
-    };
-    */
 
     // Debug borders
     /*

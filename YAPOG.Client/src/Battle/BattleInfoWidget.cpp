@@ -3,7 +3,6 @@
 #include "YAPOG/Game/Factory/ObjectFactory.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBorder.hpp"
-#include "YAPOG/Graphics/Gui/PictureBox.hpp"
 #include "YAPOG/System/StringHelper.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/Graphics/Gui/Label.hpp"
@@ -18,19 +17,13 @@ namespace ycl
   BattleInfoWidget::BattleInfoWidget (const yap::Padding& widgetPadding)
     : nameLabel_ ()
     , levelLabel_ ()
-    , battleInfoBox_ (
-    widgetPadding,
-    yap::Padding (),
-    false)
+    , battleInfoBox_ (widgetPadding, yap::Padding (), false)
     , firstLine_ (yap::Padding (0, 0, 0, 2), yap::Padding (), false)
-    , nameBox_ (
-    yap::Padding (0, 0, 7, 0),
-    yap::Padding (),
-    false)
+    , nameBox_ (yap::Padding (0, 0, 7, 0), yap::Padding (), false)
     , levelAndGenderBox_ (yap::Padding (), yap::Padding (0, 10, 0, 0), false)
     , levelBox_ (yap::Padding (), yap::Padding (), false)
     , genderBox_ (yap::Padding (0, 0, 4, 0), yap::Padding (), false)
-    , genderPictureBox_ (new yap::PictureBox ())
+    , genderPictureBox_ ()
     , hpBar_ ()
     , pokemon_ (nullptr)
   {
@@ -42,6 +35,9 @@ namespace ycl
     levelLabel_.ChangeColor (sf::Color::Black);
 
     hpBar_.Init ();
+
+    genderPictureBox_.SetPicture (
+      new yap::Sprite ("Pictures/Battle/MaleIcon.png"));
 
     // Sizes
     firstLine_.SetSize (yap::Vector2 (253, 35));
@@ -55,7 +51,7 @@ namespace ycl
     // First line
     nameBox_.AddChild (nameLabel_);
     levelBox_.AddChild (levelLabel_, yap::LayoutBox::Align::RIGHT);
-    genderBox_.AddChild (*genderPictureBox_, yap::LayoutBox::Align::BOTTOM);
+    genderBox_.AddChild (genderPictureBox_, yap::LayoutBox::Align::BOTTOM);
 
     levelAndGenderBox_.AddChild (genderBox_);
     levelAndGenderBox_.AddChild (levelBox_);
@@ -84,6 +80,7 @@ namespace ycl
 
   void BattleInfoWidget::UpdateHPBar ()
   {
+    RefreshWidget ();
   }
 
   // Setters
@@ -92,7 +89,7 @@ namespace ycl
     pokemon_ = &pokemon;
     hpBar_.SetHitPoint (pokemon_->GetStats ().GetHitPoint ());
     nameLabel_.SetText (pokemon_->GetName ());
-    genderPictureBox_->SetPicture (pokemon_->GetGenderIcon ().Clone ());
+    genderPictureBox_.SetPicture (pokemon_->GetGenderIcon ().Clone ());
     SetHitPoint (pokemon_->GetStats ().GetHitPoint ());
     SetExperience (pokemon_->GetExperience ());
 
