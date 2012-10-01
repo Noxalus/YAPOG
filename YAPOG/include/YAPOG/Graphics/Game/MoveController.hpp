@@ -2,12 +2,12 @@
 # define YAPOG_MOVECONTROLLER_HPP
 
 # include "YAPOG/Macros.hpp"
+# include "YAPOG/Graphics/Vector2.hpp"
+# include "YAPOG/System/Time/Time.hpp"
 
 namespace yap
 {
   struct ISpatial;
-  class Vector2;
-  class Time;
 
   /// @brief A class to move a spatial element from a point A to a point B
   class YAPOG_LIB MoveController

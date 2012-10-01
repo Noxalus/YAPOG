@@ -39,7 +39,7 @@ namespace yap
       static T Sin (const T& angle);
 
       template <typename T>
-      static T Lerp (const T& start, const T& end, float perccent);
+      static T Lerp (const T& start, const T& end, float percent);
 
     private:
 

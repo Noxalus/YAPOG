@@ -65,7 +65,7 @@ namespace yap
   }
 
   template <typename T>
-  static T Lerp (const T& start, const T& end, float perccent)
+  T MathHelper::Lerp (const T& start, const T& end, float percent)
   {
     return (start + percent * (end - start));
   }
