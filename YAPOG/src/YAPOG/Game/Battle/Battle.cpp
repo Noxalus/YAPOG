@@ -6,9 +6,9 @@
 namespace yap
 {
   Battle::Battle ()
-    : battleCore_ ()
-    , turnCount_ (0)
+    : turnCount_ (0)
     , battlePhaseManager_ ()
+    , battleCore_ ()
   {
   }
 

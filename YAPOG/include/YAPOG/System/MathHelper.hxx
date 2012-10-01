@@ -63,6 +63,13 @@ namespace yap
   {
     return std::sin (angle);
   }
+
+  template <typename T>
+  static T Lerp (const T& start, const T& end, float perccent)
+  {
+    return (start + percent * (end - start));
+  }
+
 } // namespace yap
 
 #endif // YAPOG_MATHHELPER_HXX

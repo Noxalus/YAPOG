@@ -365,6 +365,8 @@ ${inc_root}/Graphics/Game/GameScreen.hpp
 ${src_root}/Graphics/Game/GameScreen.cpp
 ${inc_root}/Graphics/Game/GameScreenManager.hpp
 ${src_root}/Graphics/Game/GameScreenManager.cpp
+${inc_root}/Graphics/Game/MoveController.hpp
+${src_root}/Graphics/Game/MoveController.cpp
 ${inc_root}/Graphics/Game/IGame.hpp
 ${inc_root}/Graphics/Game/IGameScreen.hpp
 ${inc_root}/Graphics/Game/IGameScreenManager.hpp

@@ -38,6 +38,9 @@ namespace yap
       template <typename T>
       static T Sin (const T& angle);
 
+      template <typename T>
+      static T Lerp (const T& start, const T& end, float perccent);
+
     private:
 
       MathHelper ();
