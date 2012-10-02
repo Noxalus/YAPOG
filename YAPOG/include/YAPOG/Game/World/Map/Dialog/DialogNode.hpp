@@ -16,6 +16,7 @@ namespace yap
     public:
 
       DialogNode ();
+
       virtual ~DialogNode ();
 
       void AddEntry (DialogNodeEntry* entry);

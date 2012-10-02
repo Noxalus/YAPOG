@@ -63,7 +63,6 @@ namespace yap
       return true;
     }
 
-
     return false;
   }
 } // namespace yap
