@@ -10,6 +10,7 @@
 namespace yap
 {
   class PhaseArgs;
+  class MoveController;
 } // namespace yap
 
 namespace ycl
@@ -49,8 +50,12 @@ namespace ycl
     void UpdateOpponentFront ();
 
     yap::String nextState_;
+    yap::MoveController* opponentMoveController_;
+    yap::MoveController* opponentInfoMoveController_;
+    yap::MoveController* opponentGroundMoveController_;
+    yap::MoveController* playerMoveController_;
+    yap::MoveController* pokemonGroundMoveController_;
 
-    static const float GROUND_SPEED;
     static const yap::String FISRT_STATE;
   };
 } // namespace ycl

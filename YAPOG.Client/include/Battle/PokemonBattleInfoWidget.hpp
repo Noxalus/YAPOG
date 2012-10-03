@@ -29,6 +29,8 @@ namespace ycl
 
     virtual void Init ();
 
+    PokemonExperienceBarWidget& GetExperienceBar ();
+
     virtual void UpdateHPBar ();
     void UpdateExperienceBar (yap::UInt16 levelEarned);
 

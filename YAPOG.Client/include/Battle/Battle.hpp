@@ -24,7 +24,7 @@ namespace ycl
     , public yap::IDrawable
   {
   public:
-    Battle (BattleInterface& battleInterface);
+    explicit Battle (BattleInterface& battleInterface);
     virtual ~Battle ();
 
     /// @name IDrawable members.
@@ -43,6 +43,8 @@ namespace ycl
     yap::ISprite& GetPlayerGround () const;
     yap::ISprite& GetOpponentGround () const;
     yap::ISprite& GetPlayerTrainerBack () const;
+    yap::ISprite& GetPlayerTeamSprite ();
+    yap::ISprite& GetOpponentSprite ();
     const yap::Vector2& GetPlayerGroundPosition () const;
     const yap::Vector2& GetOpponentGroundPosition () const;
     const yap::Vector2& GetOpponentInfoPosition () const;
@@ -69,6 +71,14 @@ namespace ycl
     /// @{
     yap::Event<const Battle&> OnBattleEnd;
     /// @}
+
+    static const yap::Vector2 OPPONENT_POSITION;
+    static const yap::Vector2 OPPONENT_INFO_POSITION;
+    static const yap::Vector2 OPPONENT_GROUND_POSITION;
+    static const yap::Vector2 PLAYER_POSITION;
+    static const yap::Vector2 POKEMON_POSITION;
+    static const yap::Vector2 POKEMON_INFO_POSITION;
+    static const yap::Vector2 POKEMON_GROUND_POSITION;
 
   protected:
     virtual void HandleInit ();

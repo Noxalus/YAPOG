@@ -20,6 +20,7 @@ namespace ycl
     virtual ~IDrawableBattleEntity () {}
 
     virtual const yap::ISprite& GetBattleSprite () const = 0;
+    virtual yap::ISprite& GetBattleSprite () = 0;
     virtual const yap::ISprite& GetIcon () const = 0;
     virtual const yap::ISprite& GetGenderIcon () const = 0;
     virtual const yap::ISprite& GetBattleBack () const = 0;

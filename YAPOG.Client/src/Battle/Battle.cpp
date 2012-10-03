@@ -20,6 +20,15 @@ namespace ycl
   const yap::Vector2 Battle::DEFAULT_OPPONENT_GROUND_SPRITES_SCALE
     = yap::Vector2 (0.75f, 0.75f);
 
+  // Positions
+  const yap::Vector2 Battle::OPPONENT_POSITION (578, 82);
+  const yap::Vector2 Battle::OPPONENT_INFO_POSITION (216, 36);
+  const yap::Vector2 Battle::OPPONENT_GROUND_POSITION (517, 162);
+  const yap::Vector2 Battle::PLAYER_POSITION (117, 301);
+  const yap::Vector2 Battle::POKEMON_POSITION;
+  const yap::Vector2 Battle::POKEMON_INFO_POSITION;
+  const yap::Vector2 Battle::POKEMON_GROUND_POSITION (0, 400);
+
   Battle::Battle (BattleInterface& battleInterface)
     : yap::Battle ()
     , isVisible_ (DEFAULT_VISIBLE_STATE)
@@ -103,6 +112,12 @@ namespace ycl
 
   yap::ISprite& Battle::GetPlayerTrainerBack () const
   { return *playerTrainerBack_; }
+
+  yap::ISprite& Battle::GetPlayerTeamSprite ()
+  { return playerTeam_->GetBattleSprite (); }
+
+  yap::ISprite& Battle::GetOpponentSprite ()
+  { return opponent_->GetBattleSprite (); }
 
   const yap::Vector2& Battle::GetPlayerGroundPosition () const
   { return playerGroundPosition_; }

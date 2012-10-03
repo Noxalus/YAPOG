@@ -122,6 +122,9 @@ namespace ycl
   const yap::ISprite& PokemonFighterTeam::GetBattleSprite () const
   { return GetCurrentFighter ().GetBattleSprite (); }
 
+  yap::ISprite& PokemonFighterTeam::GetBattleSprite ()
+  { return GetCurrentFighter ().GetBattleSprite (); }
+
   const yap::ISprite& PokemonFighterTeam::GetIcon () const
   { return GetCurrentFighter ().GetIcon (); }
 

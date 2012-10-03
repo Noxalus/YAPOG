@@ -45,6 +45,9 @@ namespace ycl
     */
   }
 
+  PokemonExperienceBarWidget& PokemonBattleInfoWidget::GetExperienceBar ()
+  { return experienceBar_; }
+
   void PokemonBattleInfoWidget::SetHitPoint (const yap::HitPoint& hp)
   {
     hp_ = &hp;

@@ -81,9 +81,10 @@ namespace ycl
   /// @name IDrawableBattleEntity members
   /// @{
   const yap::ISprite& PokemonFighter::GetBattleSprite () const
-  {
-    return *battleSprite_;
-  }
+  { return *battleSprite_; }
+
+  yap::ISprite& PokemonFighter::GetBattleSprite ()
+  { return *battleSprite_; }
 
   const yap::ISprite& PokemonFighter::GetIcon () const
   { return originalPokemon_->GetIcon (); }

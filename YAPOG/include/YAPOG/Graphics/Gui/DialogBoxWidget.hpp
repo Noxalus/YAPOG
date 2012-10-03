@@ -29,6 +29,8 @@ namespace yap
 
     void SkipText ();
 
+    bool IsEmpty () const;
+
   protected:
     void Refresh ();
     virtual bool HandleOnEvent (const GuiEvent& guiEvent);

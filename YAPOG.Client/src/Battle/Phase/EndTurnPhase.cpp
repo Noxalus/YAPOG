@@ -1,9 +1,12 @@
+#include "YAPOG/Audio/AudioManager.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 #include "YAPOG/System/StringHelper.hpp"
+#include "YAPOG/Graphics/Gui/ProgressBarWidget.hpp"
 
 #include "Battle/Phase/EndTurnPhase.hpp"
 #include "Battle/Battle.hpp"
 #include "Battle/BattleInterface.hpp"
+#include "Battle/PokemonBattleInfoWidget.hpp"
 
 namespace ycl
 {
@@ -30,8 +33,27 @@ namespace ycl
     // Add message in dialog box to notice the experience amount earned
     if (addExperience_)
     {
+      battleInterface_.GetPokemonInfoWidget ().
+        GetExperienceBar ().OnProgressBarFinished.AddHandler (
+        "ADD_EXPERIENCE_DISABLE_DIALOG_BOX",
+        [&] (const yap::ProgressBarWidget& sender, 
+        const yap::EmptyEventArgs& args)
+      {
+        battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+      });
+
+      battleInterface_.GetPokemonInfoWidget ().
+        GetExperienceBar ().OnExperienceBarLevelUp.AddHandler (
+        "ADD_EXPERIENCE_LEVEL_UP", 
+        [&] (const yap::ProgressBarWidget& sender, 
+        const yap::EmptyEventArgs& args)
+      {
+        yap::AudioManager::Instance ().PlaySound ("SE/LevelUp.ogg");
+      });
+
       battleInterface_.GetBattleInfoDialogBox ().Show (true);
-      battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+      // We disable the dialog box to let the progress bar rise
+      battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
 
       battleInterface_.GetBattleInfoDialogBox ().AddText (
         battle_.GetPlayerTeam ().GetName () + " gagne "
@@ -60,6 +82,14 @@ namespace ycl
     {
       battleInterface_.GetBattleInfoDialogBox ().OnTextChanged.RemoveHandler (
         "EXPERIENCE_TEXT_SKIPPED");
+
+      battleInterface_.GetPokemonInfoWidget ().
+        GetExperienceBar ().OnProgressBarFinished.RemoveHandler (
+        "ADD_EXPERIENCE_DISABLE_DIALOG_BOX");
+
+      battleInterface_.GetPokemonInfoWidget ().
+        GetExperienceBar ().OnExperienceBarLevelUp.RemoveHandler (
+        "ADD_EXPERIENCE_LEVEL_UP");
     }
   }
 

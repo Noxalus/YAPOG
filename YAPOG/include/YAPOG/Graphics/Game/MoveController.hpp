@@ -25,9 +25,23 @@ namespace yap
 
     ~MoveController ();
 
+    /// @name Getters.
+    /// @{
+    ISpatial& GetElement ();
+    /// @}
+
+    /// @name Setters.
+    /// @{
+    void SetStartPosition (const yap::Vector2& value);
+    void SetEndPosition (const yap::Vector2& value);
+    void SetTime (const yap::Time& value);
+    /// @}
+
     bool Update (const yap::Time& dt);
 
   private:
+    void Reset ();
+
     ISpatial& element_;
     Vector2 startPosition_;
     Vector2 endPosition_;

@@ -13,23 +13,46 @@ namespace yap
     , startPosition_ (startPosition)
     , endPosition_ (endPosition)
     , time_ (time)
-    , elapsedTime_ ()
+    , elapsedTime_ (0)
     , progression_ ()
   {
+    Reset ();
   }
 
   MoveController::~MoveController ()
   {
   }
 
+  ISpatial& MoveController::GetElement ()
+  { return element_; }
+
+  void MoveController::SetStartPosition (const yap::Vector2& value)
+  { 
+    startPosition_ = value;
+    Reset ();
+  }
+
+  void MoveController::SetEndPosition (const yap::Vector2& value)
+  {
+    startPosition_ = element_.GetPosition ();
+    endPosition_ = value;
+    Reset ();
+  }
+
+  void MoveController::SetTime (const yap::Time& value)
+  {
+    time_ = value;
+    Reset ();
+  }
+
   bool MoveController::Update (const yap::Time& dt)
   {
-    if (startPosition_ == endPosition_)
+    if (element_.GetPosition () == endPosition_)
       return true;
 
     elapsedTime_ += dt;
 
-    progression_ = time_.GetValue () / elapsedTime_.GetValue ();
+    progression_ = elapsedTime_.GetValue () / time_.GetValue ();
 
     if (progression_ >= 1.0f)
       progression_ = 1.0f;
@@ -38,6 +61,12 @@ namespace yap
       MathHelper::Lerp (startPosition_, endPosition_, progression_));
 
     return false;
+  }
+
+  void MoveController::Reset ()
+  {
+    element_.SetPosition (startPosition_);
+    elapsedTime_ = yap::Time (0);
   }
 
 } // namespace yap

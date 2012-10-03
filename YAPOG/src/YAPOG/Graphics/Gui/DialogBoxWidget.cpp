@@ -137,8 +137,10 @@ namespace yap
           break;
         width.setString (txt.substr (previousPos, ++subPos));
       }
+
       if (previousPos + subPos + 1 >= txt.length ())
         break;
+      
       txt.insert (previousPos + subPos - 1, "\n");
       previousPos += subPos;
       subPos = 1;
@@ -155,14 +157,13 @@ namespace yap
   {
     currentText_++;
     OnTextChanged (*this, EmptyEventArgs ());
-    if (currentText_ == labels_.Count ())
-    {
-      isVisible_ = false;
-    }
-    else
-    {
-      isVisible_ = true;
-    }
+
+    isVisible_ = IsEmpty ();
+  }
+
+  bool DialogBoxWidget::IsEmpty () const
+  {
+    return (currentText_ < labels_.Count ()) ? true : false;
   }
 
 } // namespace yap

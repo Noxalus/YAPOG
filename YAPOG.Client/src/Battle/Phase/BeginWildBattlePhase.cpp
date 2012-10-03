@@ -1,6 +1,7 @@
 #include "YAPOG/Graphics/Game/Sprite/ISprite.hpp"
 #include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+#include "YAPOG/Graphics/Game/MoveController.hpp"
 
 #include "Battle/Phase/BeginWildBattlePhase.hpp"
 #include "Battle/OpponentBattleInfoWidget.hpp"
@@ -12,13 +13,17 @@ namespace ycl
 {
   const bool BeginWildBattlePhase::DEFAULT_VISIBLE_STATE = true;
   const sf::Color BeginWildBattlePhase::DEFAULT_COLOR = sf::Color ();
-  const float BeginWildBattlePhase::GROUND_SPEED = 500.f;
   const yap::String BeginWildBattlePhase::FISRT_STATE = "Init";
 
   BeginWildBattlePhase::BeginWildBattlePhase 
     (Battle& battle, BattleInterface& battleInterface)
     : BeginBattlePhase (battle, battleInterface)
     , nextState_ (FISRT_STATE)
+    , opponentMoveController_ (nullptr)
+    , opponentInfoMoveController_ (nullptr)
+    , opponentGroundMoveController_ (nullptr)
+    , playerMoveController_ (nullptr)
+    , pokemonGroundMoveController_ (nullptr)
   {
   }
 
@@ -40,11 +45,15 @@ namespace ycl
     {
       if (nextState_ == "WaitUser")
       {
-        battleInterface_.GetBattleInfoDialogBox ().
-          AddText (battle_.GetPlayerTeam ().GetName () + "! GO !");
+        playerMoveController_->SetEndPosition (yap::Vector2 (
+          (-1) * playerMoveController_->GetElement ().GetSize ().x,
+          playerMoveController_->GetElement ().GetPosition ().y
+          ));
+        playerMoveController_->SetTime (yap::Time (0.5f));
 
-        nextState_ = "PlayerBack";
         battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
+
+        nextState_ = "SwitchPhase";
       }
     };
   }
@@ -57,18 +66,41 @@ namespace ycl
     nextState_ = FISRT_STATE;
 
     // Player's side init
-    battle_.GetPlayerGround ().SetPosition (
+    pokemonGroundMoveController_ = new yap::MoveController (
+      battle_.GetPlayerGround (),
+      yap::Vector2 (Game::SCREEN_SIZE.x,  Battle::POKEMON_GROUND_POSITION.y),
+      Battle::POKEMON_GROUND_POSITION,
+      yap::Time (1.f)
+      );
+
+    playerMoveController_ = new yap::MoveController (
+      battle_.GetPlayerTrainerBack (),
       yap::Vector2 (
-      Game::SCREEN_SIZE.x, battle_.GetPlayerGroundPosition ().y
-      ));
+      Game::SCREEN_SIZE.x + battle_.GetPlayerGround ().GetSize ().x / 2
+      - battle_.GetPlayerTrainerBack ().GetSize ().x / 2,  
+      Battle::PLAYER_POSITION.y),
+      Battle::PLAYER_POSITION,
+      yap::Time (1.f));
 
     UpdatePlayerTrainerBack ();
 
     // Opponent's side init.
-    battle_.GetOpponentGround ().SetPosition (
+    opponentGroundMoveController_ = new yap::MoveController (
+      battle_.GetOpponentGround (),
       yap::Vector2 (
-      (-1) * battle_.GetOpponentGround ().GetSize ().x,
-      battle_.GetOpponentGroundPosition ().y));
+      (-1) * battle_.GetOpponentGround ().GetSize ().x, 
+      Battle::OPPONENT_GROUND_POSITION.y),
+      Battle::OPPONENT_GROUND_POSITION,
+      yap::Time (1.f));
+
+    opponentMoveController_ = new yap::MoveController (
+      battle_.GetOpponentSprite (),
+      yap::Vector2 (
+      (-1) * (battle_.GetOpponentSprite ().GetSize ().x + 
+      (battle_.GetOpponentGround ().GetSize ().x / 4)), 
+      Battle::OPPONENT_POSITION.y),
+      Battle::OPPONENT_POSITION,
+      yap::Time (1.f));
 
     UpdateOpponentFront ();
 
@@ -88,9 +120,14 @@ namespace ycl
     battleInterface_.GetOpponentInfoWidget ().SetPokemon (
       battle_.GetOpponent ());
 
-    battleInterface_.GetOpponentInfoWidget ().SetPosition (yap::Vector2 (
-      -1 * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
-      battle_.GetOpponentInfoPosition ().y));
+    opponentInfoMoveController_ = new yap::MoveController (
+      battleInterface_.GetOpponentInfoWidget (),
+      yap::Vector2 (
+      (-1) * battleInterface_.GetOpponentInfoWidget ().GetSize ().x,
+      battle_.GetOpponentInfoPosition ().y),
+      Battle::OPPONENT_INFO_POSITION,
+      yap::Time (0.5f)
+      );
     /// @}
 
     battleInterface_.GetBattleInfoDialogBox ().SetEnable (false);
@@ -100,90 +137,33 @@ namespace ycl
   {
     BeginBattlePhase::HandleUpdate (dt);
 
-    if (nextState_ == FISRT_STATE)
+    if (opponentMoveController_->Update (dt) & 
+      opponentGroundMoveController_->Update (dt) &
+      pokemonGroundMoveController_->Update (dt) &
+      playerMoveController_->Update (dt))
     {
-      if (battle_.GetPlayerGround ().GetPosition ().x >
-        battle_.GetPlayerGroundPosition ().x)
+      if (nextState_ == "Init")
       {
-        battle_.GetPlayerGround ().Move (
-          yap::Vector2 (
-          (-1) * (GROUND_SPEED * dt.GetValue ()),
-          0));
-
-        UpdatePlayerTrainerBack ();
-      }
-      else
-      {
-        battle_.GetPlayerGround ().SetPosition (
-          battle_.GetPlayerGroundPosition ());
-
-        UpdatePlayerTrainerBack ();
-      }
-
-      if (battle_.GetOpponentGround ().GetPosition ().x <
-        battle_.GetOpponentGroundPosition ().x)
-      {
-        battle_.GetOpponentGround ().Move (
-          yap::Vector2 (
-          (GROUND_SPEED * dt.GetValue ()),
-          0));
-
-        UpdateOpponentFront ();
-      }
-      else
-      {
-        battle_.GetOpponentGround ().SetPosition (
-          battle_.GetOpponentGroundPosition ());
-
         battle_.GetOpponent ().PlayCry ();
-
-        UpdateOpponentFront ();
+        battleInterface_.GetBattleInfoDialogBox ().SetShowText (true);
+        nextState_ = "EnableDialogBox";
       }
 
-      if (battle_.GetOpponentGround ().GetPosition () ==
-        battle_.GetOpponentGroundPosition () &&
-        battle_.GetPlayerGround ().GetPosition () ==
-        battle_.GetPlayerGroundPosition ())
+      if (opponentInfoMoveController_->Update (dt))
       {
-        nextState_ = "OpponentInfo";
+        if (nextState_ == "EnableDialogBox")
+        {
+          battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
+
+          battleInterface_.GetBattleInfoDialogBox ().
+            AddText (battle_.GetPlayerTeam ().GetName () + "! GO !");
+
+          nextState_ = "WaitUser";
+        }
+        else if (nextState_ == "SwitchPhase")
+          yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Switch);
       }
     }
-
-    if (nextState_ == "OpponentInfo")
-    {
-      battleInterface_.GetBattleInfoDialogBox ().SetShowText (true);
-
-      if (battleInterface_.GetOpponentInfoWidget ().GetPosition ().x <
-        battle_.GetOpponentInfoPosition ().x)
-      {
-        battleInterface_.GetOpponentInfoWidget ().Move (yap::Vector2 (
-          ((GROUND_SPEED * 2) * dt.GetValue ()),
-          0));
-      }
-      else
-      {
-        battleInterface_.GetOpponentInfoWidget ().SetPosition (
-          battle_.GetOpponentInfoPosition ());
-
-        battleInterface_.GetBattleInfoDialogBox ().SetEnable (true);
-        nextState_ = "WaitUser";
-      }
-    }
-
-    if (nextState_ == "PlayerBack")
-    {
-      if (battle_.GetPlayerTrainerBack ().GetPosition ().x >
-        (-1) * battle_.GetPlayerTrainerBack ().GetSize ().x)
-      {
-        battle_.GetPlayerTrainerBack ().Move (
-          yap::Vector2 ((-1) * ((GROUND_SPEED * 2) * dt.GetValue ()), 0));
-      }
-      else
-        nextState_ = "SwitchPhase";
-    }
-
-    if (nextState_ == "SwitchPhase")
-      yap::BattlePhase::SwitchPhase (yap::BattlePhaseState::Switch);
   }
 
   void BeginWildBattlePhase::HandleEnd ()
