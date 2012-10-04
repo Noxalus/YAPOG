@@ -30,6 +30,15 @@ namespace ycl
   {
     yap::EndTurnPhase::HandleStart (args);
 
+    if (battle_.GetOpponent ().GetCurrentHP () == 0)
+    {
+      /*
+      battleInterface_.GetBattleInfoDialogBox ().AddText (
+        battle_.GetOpponent ().GetName () + " ennemi est KO !");
+      */
+      yap::AudioManager::Instance ().PlaySound ("SE/KO.wav");
+    }
+
     // Add message in dialog box to notice the experience amount earned
     if (addExperience_)
     {
@@ -49,6 +58,11 @@ namespace ycl
         const yap::EmptyEventArgs& args)
       {
         yap::AudioManager::Instance ().PlaySound ("SE/LevelUp.ogg");
+
+        battleInterface_.GetBattleInfoDialogBox ().AddText (
+          battle_.GetPlayerTeam ().GetName () + " gagne un niveau !");
+
+        battleInterface_.GetBattleInfoDialogBox ().SkipText ();
       });
 
       battleInterface_.GetBattleInfoDialogBox ().Show (true);

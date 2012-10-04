@@ -158,12 +158,12 @@ namespace yap
     currentText_++;
     OnTextChanged (*this, EmptyEventArgs ());
 
-    isVisible_ = IsEmpty ();
+    isVisible_ = !IsEmpty ();
   }
 
   bool DialogBoxWidget::IsEmpty () const
   {
-    return (currentText_ < labels_.Count ()) ? true : false;
+    return (currentText_ < labels_.Count ()) ? false : true;
   }
 
 } // namespace yap

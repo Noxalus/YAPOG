@@ -61,7 +61,7 @@ namespace yap
   UInt32 BattleCore::ComputeExperienceGain () const
   {
     /// @todo Compute experience amount
-    return 42;
+    return 4242;
   }
 
 } // namespace yap

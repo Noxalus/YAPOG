@@ -1,4 +1,5 @@
 #include "YAPOG/Game/Battle/Phase/PhaseArgs.hpp"
+#include "YAPOG/Graphics/Gui/DialogBoxWidget.hpp"
 
 #include "Battle/Phase/EndBattlePhase.hpp"
 #include "Battle/Battle.hpp"
@@ -33,7 +34,9 @@ namespace ycl
   void EndBattlePhase::HandleUpdate (const yap::Time& dt)
   {
     yap::EndBattlePhase::HandleUpdate (dt);
-    battle_.OnBattleEnd (battle_, yap::EmptyEventArgs ());
+
+    if (battleInterface_.GetBattleInfoDialogBox ().IsEmpty ())
+      battle_.OnBattleEnd (battle_, yap::EmptyEventArgs ());
   }
 
   void EndBattlePhase::HandleEnd ()

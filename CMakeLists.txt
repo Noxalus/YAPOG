@@ -27,14 +27,14 @@ if( WIN32 )
         ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Debug #SFML debug lib directory.
         ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/sfml2/Release #SFML release lib directory.
         ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/postgresql #PostgreSQL lib directory.
-        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Debug #Boost debug lib directory.
-        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_49_0/Release  #Boost release lib directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_51_0/Debug #Boost debug lib directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/libs-msvc/x86/boost_1_51_0/Release  #Boost release lib directory.
 	)
 
 	SET( EXT_INCLUDE_DIR
         ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2 #SFML include directory.
         ${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql #PostgreSQL include directory.
-        ${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0 #Boost include directory.
+        ${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_51_0 #Boost include directory.
 	)
 endif()
 
@@ -47,25 +47,25 @@ if( UNIX )
     SET( EXT_INCLUDE_DIR 
 		 ${CMAKE_SOURCE_DIR}/extlibs/headers/sfml2
          ${CMAKE_SOURCE_DIR}/extlibs/headers/postgresql			 
-		 ${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_49_0 #Boost include directory.
+		 ${CMAKE_SOURCE_DIR}/extlibs/headers/boost_1_51_0 #Boost include directory.
     )
 endif()
 
 if( WIN32 )
-	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_49 )
-	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_49 )
+	SET( boost_signals_lib_debug_name libboost_signals-vc110-mt-gd-1_51 )
+	SET( boost_signals_lib_release_name libboost_signals-vc110-mt-1_51 )
 
-	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_49 )
-	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_49 )
+	SET( boost_date_time_lib_debug_name libboost_date_time-vc110-mt-gd-1_51 )
+	SET( boost_date_time_lib_release_name libboost_date_time-vc110-mt-1_51 )
 
-	SET( boost_filesystem_lib_debug_name libboost_filesystem-vc110-mt-gd-1_49 )
-	SET( boost_filesystem_lib_release_name libboost_filesystem-vc110-mt-1_49 )
+	SET( boost_filesystem_lib_debug_name libboost_filesystem-vc110-mt-gd-1_51 )
+	SET( boost_filesystem_lib_release_name libboost_filesystem-vc110-mt-1_51 )
 
-	SET( boost_regex_lib_debug_name libboost_regex-vc110-mt-gd-1_49 )
-	SET( boost_regex_lib_release_name libboost_regex-vc110-mt-1_49 )
+	SET( boost_regex_lib_debug_name libboost_regex-vc110-mt-gd-1_51 )
+	SET( boost_regex_lib_release_name libboost_regex-vc110-mt-1_51 )
 
-	SET( boost_system_lib_debug_name libboost_system-vc110-mt-gd-1_49 )
-	SET( boost_system_lib_release_name libboost_system-vc110-mt-1_49 )
+	SET( boost_system_lib_debug_name libboost_system-vc110-mt-gd-1_51 )
+	SET( boost_system_lib_release_name libboost_system-vc110-mt-1_51 )
 
     SET( pgsql_lib debug libpq optimized libpq )
 endif()
