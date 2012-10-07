@@ -3,13 +3,14 @@
 
 namespace yap
 {
-  class ResponseHandlerDialogNode;
+  struct IDialogResponseProvider;
 
   struct IDialogResponseAcceptor
   {
       virtual ~IDialogResponseAcceptor () { }
 
-      virtual void TreatNode (ResponseHandlerDialogNode& dialogNode) = 0;
+      virtual void TreatResponseProvider (
+        IDialogResponseProvider& dialogResponseProvider) = 0;
   };
 } // namespace yap
 

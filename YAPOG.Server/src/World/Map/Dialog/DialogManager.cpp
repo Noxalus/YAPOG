@@ -3,15 +3,21 @@
 #include "YAPOG/Game/World/Map/Dialog/IDialogDisplay.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogNode.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogActor.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogResponseProvider.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
 
 namespace yse
 {
   DialogManager::DialogManager ()
     : packetHandler_ ()
+    , dialogDisplay_ (nullptr)
     , speaker_ (nullptr)
     , listeners_ ()
+    , currentResponseProvider_ (nullptr)
   {
+    ADD_HANDLER(
+      ClientInfoDialogResponse,
+      DialogManager::HandleClientInfoDialogResponse);
   }
 
   DialogManager::~DialogManager ()
@@ -28,6 +34,12 @@ namespace yse
     listeners_.Add (&dialogActor);
   }
 
+  void DialogManager::TreatResponseProvider (
+    yap::IDialogResponseProvider& dialogResponseProvider)
+  {
+    currentResponseProvider_ = &dialogResponseProvider;
+  }
+
   void DialogManager::StartDialog (
     yap::IDialogActor& dialogActor,
     yap::IDialogNode& dialogNode)
@@ -36,25 +48,7 @@ namespace yse
 
     HandleStartDialog ();
 
-    yap::IDialogNode* currentNode = &dialogNode;
-    yap::DialogNodeExecutionContext dialogNodeExecutionContext;
-
-    while (currentNode->Execute (dialogNodeExecutionContext))
-    {
-      for (auto message : dialogNodeExecutionContext.GetMessages ())
-        dialogDisplay_->Display (
-          *speaker_,
-          *message);
-
-      SendChangeDialogNode (dialogNodeExecutionContext.GetNodeID ());
-
-      if (dialogNodeExecutionContext.IsTerminal ())
-        break;
-
-      currentNode = &dialogNodeExecutionContext.GetNextNode ();
-    }
-
-    HandleStopDialog ();
+    ExecuteNode (dialogNode);
   }
 
   bool DialogManager::HandlePacket (yap::IPacket& packet)
@@ -98,6 +92,65 @@ namespace yse
 
     speaker_ = nullptr;
     listeners_.Clear ();
+
+    currentResponseProvider_ = nullptr;
+  }
+
+  void DialogManager::ExecuteNode (yap::IDialogNode& dialogNode)
+  {
+    yap::IDialogNode* currentNode = &dialogNode;
+
+    yap::DialogNodeExecutionStatus executionStatus;
+    yap::DialogNodeExecutionContext dialogNodeExecutionContext;
+
+    do
+    {
+      executionStatus = currentNode->Execute (
+        *this,
+        dialogNodeExecutionContext);
+
+      switch (executionStatus)
+      {
+        case yap::DialogNodeExecutionStatus::Running:
+
+          for (auto message : dialogNodeExecutionContext.GetMessages ())
+            dialogDisplay_->Display (
+              *speaker_,
+              *message);
+
+          SendChangeDialogNode (dialogNodeExecutionContext.GetNodeID ());
+
+          if (dialogNodeExecutionContext.IsTerminal ())
+          {
+            HandleStopDialog ();
+
+            return;
+          }
+
+          currentNode = &dialogNodeExecutionContext.GetNextNode ();
+
+          break;
+
+        case yap::DialogNodeExecutionStatus::Waiting:
+
+          for (auto message : dialogNodeExecutionContext.GetMessages ())
+            dialogDisplay_->Display (
+              *speaker_,
+              *message);
+
+          SendChangeDialogNode (dialogNodeExecutionContext.GetNodeID ());
+
+          break;
+
+        case yap::DialogNodeExecutionStatus::Over:
+
+          HandleStopDialog ();
+
+          break;
+
+        default: break;
+      }
+    } while (executionStatus == yap::DialogNodeExecutionStatus::Running);
   }
 
   void DialogManager::SendStartDialog ()
@@ -126,5 +179,12 @@ namespace yse
     packet.Write (dialogNodeID);
 
     SendPacket (packet);
+  }
+
+  void DialogManager::HandleClientInfoDialogResponse (yap::IPacket& packet)
+  {
+    yap::ID responseID = packet.ReadID ();
+
+    ExecuteNode (currentResponseProvider_->GetNextNode (responseID));
   }
 } // namespace yse

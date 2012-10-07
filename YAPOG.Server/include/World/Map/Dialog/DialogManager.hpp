@@ -29,6 +29,12 @@ namespace yse
 
       void AddListener (yap::IDialogActor& dialogActor);
 
+      /// @name IDialogResponseAcceptor members.
+      /// @{
+      virtual void TreatResponseProvider (
+        yap::IDialogResponseProvider& dialogResponseProvider);
+      /// @}
+
       /// @name IDialogManager members.
       /// @{
       virtual void StartDialog (
@@ -52,10 +58,13 @@ namespace yse
 
       void HandleStartDialog ();
       void HandleStopDialog ();
+      void ExecuteNode (yap::IDialogNode& dialogNode);
 
       void SendStartDialog ();
       void SendStopDialog ();
       void SendChangeDialogNode (const yap::ID& dialogNodeID);
+
+      void HandleClientInfoDialogResponse (yap::IPacket& packet);
 
       yap::PacketHandler packetHandler_;
 
@@ -63,6 +72,8 @@ namespace yse
 
       yap::IDialogActor* speaker_;
       DialogActorCollection listeners_;
+
+      yap::IDialogResponseProvider* currentResponseProvider_;
   };
 } // namespace yse
 

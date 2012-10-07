@@ -3,41 +3,50 @@
 
 # include "YAPOG/Macros.hpp"
 # include "YAPOG/Game/World/Map/Dialog/IDialogNode.hpp"
+# include "YAPOG/Game/World/Map/Dialog/IDialogResponseProvider.hpp"
 # include "YAPOG/Collection/Array.hpp"
 # include "YAPOG/Collection/Map.hpp"
 
 namespace yap
 {
   struct IDialogResponse;
-  struct IDialogResponseAcceptor;
+
+  class ResponseHandlerDialogNodeEntry;
 
   class ResponseHandlerDialogNode : public IDialogNode
+                                  , public IDialogResponseProvider
   {
       DISALLOW_ASSIGN(ResponseHandlerDialogNode);
 
     public:
 
-      ResponseHandlerDialogNode (IDialogResponseAcceptor& responseAcceptor);
+      ResponseHandlerDialogNode ();
 
       virtual ~ResponseHandlerDialogNode ();
 
-      bool ExecuteResponse (
-        const ID& responseID,
-        DialogNodeExecutionContext& executionContext);
+      void AddEntry (ResponseHandlerDialogNodeEntry* entry);
 
-      void AddEntry (IDialogResponse* dialogResponse, IDialogNode* dialogNode);
+      /// @name ICloneable members.
+      /// @{
+      virtual ResponseHandlerDialogNode* Clone () const;
+      /// @}
 
       /// @name IDialogNode members.
       /// @{
       virtual bool Accept (IDialogNodeVisitor<bool>& visitor);
       virtual bool Accept (IDialogNodeConstVisitor<bool>& visitor) const;
 
-      virtual bool Execute (DialogNodeExecutionContext& executionContext);
+      virtual DialogNodeExecutionStatus Execute (
+        IDialogManager& dialogManager,
+        DialogNodeExecutionContext& executionContext);
       /// @}
 
-      /// @name ICloneable members.
+      /// @name IDialogResponseProvider members.
       /// @{
-      virtual ResponseHandlerDialogNode* Clone () const;
+      virtual const collection::Array<
+        IDialogResponse*>& GetResponses () const;
+
+      virtual IDialogNode& GetNextNode (const ID& responseID);
       /// @}
 
     protected:
@@ -46,14 +55,14 @@ namespace yap
 
     private:
 
-      typedef collection::Array<IDialogResponse*> ResponseCollectionType;
       typedef
-        collection::Map<IDialogResponse*, IDialogNode*> EntryCollectionType;
+        collection::Array<ResponseHandlerDialogNodeEntry*> EntryCollectionType;
 
-      ResponseCollectionType responses_;
+      void SetCurrentEntry (const ID& entryID);
+
       EntryCollectionType entries_;
 
-      IDialogResponseAcceptor& responseAcceptor_;
+      ResponseHandlerDialogNodeEntry* currentEntry_;
   };
 } // namespace yap
 

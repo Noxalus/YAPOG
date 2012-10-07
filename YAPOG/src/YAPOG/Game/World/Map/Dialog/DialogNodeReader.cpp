@@ -15,7 +15,6 @@ namespace yap
     const String& xmlRootNodeName)
     : xmlRootNodeName_ (xmlRootNodeName)
     , dialogNode_ (dialogNode)
-
   {
   }
 

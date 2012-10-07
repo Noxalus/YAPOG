@@ -226,6 +226,8 @@ ${inc_root}/Game/IGameRequirement.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogManager.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogMessage.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogResponse.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogResponseProvider.hpp
+${inc_root}/Game/World/Map/Dialog/IDialogResponseAcceptor.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogNode.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogNodeVisitor.hpp
 ${inc_root}/Game/World/Map/Dialog/IDialogNodeConstVisitor.hpp
@@ -239,12 +241,18 @@ ${inc_root}/Game/World/Map/Dialog/DialogNodeReader.hpp
 ${src_root}/Game/World/Map/Dialog/DialogNodeReader.cpp
 ${inc_root}/Game/World/Map/Dialog/ResponseHandlerDialogNode.hpp
 ${src_root}/Game/World/Map/Dialog/ResponseHandlerDialogNode.cpp
+${inc_root}/Game/World/Map/Dialog/ResponseHandlerDialogNodeEntry.hpp
+${src_root}/Game/World/Map/Dialog/ResponseHandlerDialogNodeEntry.cpp
+${inc_root}/Game/World/Map/Dialog/ResponseHandlerDialogNodeReader.hpp
+${src_root}/Game/World/Map/Dialog/ResponseHandlerDialogNodeReader.cpp
 ${inc_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.hpp
 ${src_root}/Game/World/Map/Dialog/DialogNodeExecutionContext.cpp
 ${inc_root}/Game/World/Map/Dialog/DialogMessage.hpp
 ${src_root}/Game/World/Map/Dialog/DialogMessage.cpp
 ${inc_root}/Game/World/Map/Dialog/WriterDialogDisplay.hpp
 ${src_root}/Game/World/Map/Dialog/WriterDialogDisplay.cpp
+${inc_root}/Game/World/Map/Dialog/DialogResponse.hpp
+${src_root}/Game/World/Map/Dialog/DialogResponse.cpp
 
 ${src_root}/Game/Pokemon/Pokemon.cpp
 ${inc_root}/Game/Pokemon/Pokemon.hpp

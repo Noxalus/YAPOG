@@ -2,15 +2,14 @@
 #include "YAPOG/Game/World/Map/Dialog/IDialogNodeVisitor.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogNodeConstVisitor.hpp"
 #include "YAPOG/Game/World/Map/Dialog/IDialogResponse.hpp"
-#include "YAPOG/Game/World/Map/Dialog/IDialogResponseAcceptor.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNodeEntry.hpp"
 
 namespace yap
 {
-  ResponseHandlerDialogNode::ResponseHandlerDialogNode (
-    IDialogResponseAcceptor& responseAcceptor)
-    : responses_ ()
-    , entries_ ()
-    , responseAcceptor_ (responseAcceptor)
+  ResponseHandlerDialogNode::ResponseHandlerDialogNode ()
+    : entries_ ()
+    , currentEntry_ (nullptr)
   {
   }
 
@@ -20,12 +19,11 @@ namespace yap
 
   ResponseHandlerDialogNode::ResponseHandlerDialogNode (
     const ResponseHandlerDialogNode& copy)
-    : responses_ ()
-    , entries_ ()
-    , responseAcceptor_ (copy.responseAcceptor_)
+    : entries_ ()
+    , currentEntry_ (nullptr)
   {
-    for (const auto& entry : copy.entries_)
-      AddEntry (entry.first->Clone (), entry.second->Clone ());
+    for (auto entry : copy.entries_)
+      AddEntry (new ResponseHandlerDialogNodeEntry (*entry));
   }
 
   ResponseHandlerDialogNode* ResponseHandlerDialogNode::Clone () const
@@ -33,21 +31,10 @@ namespace yap
     return new ResponseHandlerDialogNode (*this);
   }
 
-  bool ResponseHandlerDialogNode::ExecuteResponse (
-    const ID& responseID,
-    DialogNodeExecutionContext& executionContext)
-  {
-    return entries_[responses_[responseID.GetValue ()]]->Execute (
-      executionContext);
-  }
-
   void ResponseHandlerDialogNode::AddEntry (
-    IDialogResponse* dialogResponse,
-    IDialogNode* dialogNode)
+    ResponseHandlerDialogNodeEntry* entry)
   {
-    responses_.Add (dialogResponse);
-
-    entries_.Add (dialogResponse, dialogNode);
+    entries_.Add (entry);
   }
 
   bool ResponseHandlerDialogNode::Accept (IDialogNodeVisitor<bool>& visitor)
@@ -61,11 +48,50 @@ namespace yap
     return visitor.VisitResponseHandlerDialogNode (*this);
   }
 
-  bool ResponseHandlerDialogNode::Execute (
+  DialogNodeExecutionStatus ResponseHandlerDialogNode::Execute (
+    IDialogManager& dialogManager,
     DialogNodeExecutionContext& executionContext)
   {
-    responseAcceptor_.TreatNode (*this);
+    for (EntryCollectionType::SizeType count = 0;
+         count < entries_.Count ();
+         ++count)
+    {
+      ResponseHandlerDialogNodeEntry* entry = entries_[count];
 
-    return false;
+      if (!entry->RequirementIsFulfilled ())
+        continue;
+
+      ID entryID = ID (count);
+
+      SetCurrentEntry (entryID);
+
+      executionContext = DialogNodeExecutionContext (
+        entryID,
+        entry->GetMessages (),
+        entry->Action,
+        nullptr);
+
+      dialogManager.TreatResponseProvider (*this);
+
+      return DialogNodeExecutionStatus::Waiting;
+    }
+
+    return DialogNodeExecutionStatus::Over;
+  }
+
+  const collection::Array<IDialogResponse*>&
+  ResponseHandlerDialogNode::GetResponses () const
+  {
+    return currentEntry_->GetResponses ();
+  }
+
+  IDialogNode& ResponseHandlerDialogNode::GetNextNode (const ID& responseID)
+  {
+    return currentEntry_->GetNextNode (responseID);
+  }
+
+  void ResponseHandlerDialogNode::SetCurrentEntry (const ID& entryID)
+  {
+    currentEntry_ = entries_[entryID.GetValue ()];
   }
 } // namespace yap

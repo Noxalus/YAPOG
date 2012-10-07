@@ -23,6 +23,17 @@ namespace yap
       virtual void Display (
         const IDialogActor& dialogActor,
         const IDialogMessage& dialogMessage);
+
+      virtual void Display (
+        const IDialogActor& actor,
+        const collection::Array<IDialogResponse*>& responses);
+
+      virtual Event<IDialogDisplay&, const ID&>& OnResponseReceivedEvent ();
+      /// @}
+
+      /// @name Events.
+      /// @{
+      Event<IDialogDisplay&, const ID&> OnResponseReceived;
       /// @}
 
     private:

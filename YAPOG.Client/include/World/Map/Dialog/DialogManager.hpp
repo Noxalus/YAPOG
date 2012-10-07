@@ -29,6 +29,12 @@ namespace ycl
 
       void AddListener (yap::IDialogActor& listener);
 
+      /// @name IDialogResponseAcceptor members.
+      /// @{
+      virtual void TreatResponseProvider (
+        yap::IDialogResponseProvider& dialogResponseProvider);
+      /// @}
+
       /// @name IDialogManager members.
       /// @{
       virtual void StartDialog (
@@ -53,10 +59,16 @@ namespace ycl
       void ExecuteCurrentNode ();
       void ChangeNode (const yap::ID& nodeID);
 
+      void HandleOnResponseReceived (const yap::ID& responseID);
+
       void StopDialog ();
 
       void HandleServerInfoStopDialog (yap::IPacket& packet);
       void HandleServerInfoChangeDialogNode (yap::IPacket& packet);
+
+      void UnsetDisplay ();
+
+      void SendResponseReceived (const yap::ID& responseID);
 
       yap::PacketHandler packetHandler_;
 
@@ -67,6 +79,8 @@ namespace ycl
 
       yap::IDialogActor* speaker_;
       DialogActorCollection listeners_;
+
+      yap::IDialogResponseProvider* currentResponseProvider_;
   };
 } // namespace ycl
 

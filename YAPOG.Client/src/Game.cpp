@@ -42,6 +42,8 @@
 #include "YAPOG/Game/World/Map/TeleporterReader.hpp"
 #include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
 #include "YAPOG/Game/World/Map/Dialog/DialogNodeReader.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNodeReader.hpp"
 
 #include "Client/Session.hpp"
 #include "Game.hpp"
@@ -180,6 +182,12 @@ namespace ycl
       new yap::XmlObjectLoader<
         yap::DialogNode,
         yap::DialogNodeReader> ());
+
+    objectFactory_.RegisterLoader (
+      "ResponseHandlerDialogNode",
+      new yap::XmlObjectLoader<
+        yap::ResponseHandlerDialogNode,
+        yap::ResponseHandlerDialogNodeReader> ());
 
     objectFactory_.RegisterLoader (
       "DirectionSpriteSet",

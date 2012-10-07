@@ -1,12 +1,14 @@
 #ifndef YAPOG_IDIALOGMANAGER_HPP
 # define YAPOG_IDIALOGMANAGER_HPP
 
+# include "YAPOG/Game/World/Map/Dialog/IDialogResponseAcceptor.hpp"
+
 namespace yap
 {
   struct IDialogActor;
   struct IDialogNode;
 
-  struct IDialogManager
+  struct IDialogManager : public IDialogResponseAcceptor
   {
       virtual ~IDialogManager () { }
 

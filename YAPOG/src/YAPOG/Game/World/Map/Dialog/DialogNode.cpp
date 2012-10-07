@@ -43,7 +43,9 @@ namespace yap
     return visitor.VisitDialogNode (*this);
   }
 
-  bool DialogNode::Execute (DialogNodeExecutionContext& executionContext)
+  DialogNodeExecutionStatus DialogNode::Execute (
+    IDialogManager& dialogManager,
+    DialogNodeExecutionContext& executionContext)
   {
     for (EntryCollectionType::SizeType count = 0;
          count < entries_.Count ();
@@ -60,9 +62,9 @@ namespace yap
         entry->Action,
         entry->NextNode);
 
-      return true;
+      return DialogNodeExecutionStatus::Running;
     }
 
-    return false;
+    return DialogNodeExecutionStatus::Over;
   }
 } // namespace yap

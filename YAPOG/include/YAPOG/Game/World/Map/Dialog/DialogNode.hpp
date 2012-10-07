@@ -26,7 +26,9 @@ namespace yap
       virtual bool Accept (IDialogNodeVisitor<bool>& visitor);
       virtual bool Accept (IDialogNodeConstVisitor<bool>& visitor) const;
 
-      virtual bool Execute (DialogNodeExecutionContext& executionContext);
+      virtual DialogNodeExecutionStatus Execute (
+        IDialogManager& dialogManager,
+        DialogNodeExecutionContext& executionContext);
       /// @}
 
       /// @name ICloneable members.

@@ -24,6 +24,8 @@ namespace yap
 
     ClientInfoGameMessage,
 
+    ClientInfoDialogResponse,
+
     // from server to client
     ServerInfoLoginValidation,
     ServerInfoRegistrationValidation,
