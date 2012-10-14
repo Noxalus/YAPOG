@@ -1,3 +1,4 @@
+#include "YAPOG/Audio/AudioManager.hpp"
 #include "YAPOG/System/MathHelper.hpp"
 #include "YAPOG/Graphics/Gui/WidgetBackground.hpp"
 #include "YAPOG/Graphics/Gui/PictureBox.hpp"
@@ -111,6 +112,13 @@ namespace ycl
   void PokemonExperienceBarWidget::HandleUpdate (const yap::Time& dt)
   {
     ProgressBarWidget::HandleUpdate (dt);
+
+    if (variance_ != 0 && 
+      timer_.GetCurrentTime ().GetValue () >= 0.02f)
+    {
+      // Play a sound
+      //yap::AudioManager::Instance ().PlaySound ("SE/KO.wav");
+    }
   }
 
   bool PokemonExperienceBarWidget::IsFocusable () const
