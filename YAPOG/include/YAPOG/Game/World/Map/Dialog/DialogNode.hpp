@@ -9,7 +9,7 @@ namespace yap
 {
   class DialogNodeEntry;
 
-  class DialogNode : public IDialogNode
+  class YAPOG_LIB DialogNode : public IDialogNode
   {
       DISALLOW_ASSIGN(DialogNode);
 

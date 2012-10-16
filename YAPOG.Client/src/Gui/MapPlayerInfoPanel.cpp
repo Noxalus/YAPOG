@@ -35,17 +35,12 @@ namespace ycl
     };
   }
 
-  void MapPlayerInfoPanel::HandleSetGameWorldParent (
-    const GameWorldWidget& gameWorldParent)
+  void MapPlayerInfoPanel::HandleOnWorldCameraChanged (
+    const yap::ICamera& worldCamera)
   {
-    GameWorldWidget::HandleSetGameWorldParent (gameWorldParent);
+    yap::GameWorldWidget::HandleOnWorldCameraChanged (worldCamera);
 
-    GetGameWorldRoot ().GetWorldCamera ().OnMovedEvent () += [this] (
-      yap::ICamera& sender,
-      const yap::Vector2& args)
-    {
-      UpdateLabel (player_->GetPosition ());
-    };
+    UpdateLabel (player_->GetPosition ());
   }
 
   /// [TMP]

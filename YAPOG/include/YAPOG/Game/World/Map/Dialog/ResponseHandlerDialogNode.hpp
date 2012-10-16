@@ -13,8 +13,8 @@ namespace yap
 
   class ResponseHandlerDialogNodeEntry;
 
-  class ResponseHandlerDialogNode : public IDialogNode
-                                  , public IDialogResponseProvider
+  class YAPOG_LIB ResponseHandlerDialogNode : public IDialogNode
+                                            , public IDialogResponseProvider
   {
       DISALLOW_ASSIGN(ResponseHandlerDialogNode);
 

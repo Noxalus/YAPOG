@@ -35,8 +35,6 @@ namespace yap
     const GameWorldWidget& gameWorldParent)
   {
     gameWorldParent_ = &gameWorldParent;
-
-    HandleSetGameWorldParent (gameWorldParent);
   }
 
   bool GameWorldWidget::IsFocusable () const
@@ -44,13 +42,20 @@ namespace yap
     return false;
   }
 
+  void GameWorldWidget::OnWorldCameraChanged (const ICamera& worldCamera)
+  {
+    for (auto child : gameWorldWidgets_)
+      child->OnWorldCameraChanged (worldCamera);
+
+    HandleOnWorldCameraChanged (worldCamera);
+  }
+
+  void GameWorldWidget::HandleOnWorldCameraChanged (const ICamera& worldCamera)
+  {
+  }
+
   const GameWorldGuiManager& GameWorldWidget::GetGameWorldRoot () const
   {
     return gameWorldParent_->GetGameWorldRoot ();
-  }
-
-  void GameWorldWidget::HandleSetGameWorldParent (
-    const GameWorldWidget& gameWorldParent)
-  {
   }
 } // namespace yap
