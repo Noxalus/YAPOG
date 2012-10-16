@@ -1,8 +1,7 @@
 language: cpp
 compiler:
   - gcc
-  - clang
-# Change this to your needs
+
 before_script:
   - mkdir _build
   - cd _build
