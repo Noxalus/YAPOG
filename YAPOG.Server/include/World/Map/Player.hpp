@@ -8,6 +8,7 @@
 
 # include "World/Map/Character.hpp"
 # include "World/Map/PlayerInputManager.hpp"
+# include "World/Map/Dialog/DialogManager.hpp"
 
 namespace yap
 {
@@ -16,8 +17,6 @@ namespace yap
 
 namespace yse
 {
-  struct IDynamicWorldObjectVisitor;
-  struct IDynamicWorldObjectConstVisitor;
   class Pokemon;
 
   class User;
@@ -37,6 +36,8 @@ namespace yse
 
       void SetName (const yap::String& name);
 
+      void InitDialogManager ();
+
       /// @name ICloneable members.
       /// @{
       virtual Player* Clone () const;
@@ -52,15 +53,37 @@ namespace yse
       virtual void SetParent (yap::IPacketHandler* parent);
       /// @}
 
+      /// @name IDialogActor members.
+      /// @{
+      virtual const yap::String& GetName () const;
+
+      virtual const yap::ID& GetWorldID () const;
+
+      virtual bool CanTalk (yap::IDialogActor& dialogActor) const;
+
+      virtual void Talk (yap::IDialogActor& dialogActor);
+
+      virtual void StopTalking ();
+
+      virtual bool CanListen (yap::IDialogActor& dialogActor) const;
+
+      virtual void Listen (yap::IDialogActor& dialogActor);
+
+      virtual void StopListening ();
+
+      virtual bool TryStartDialog (yap::IDialogManager& dialogManager);
+      /// @}
+
       /// @name IPlayer members.
       /// @{
       virtual void Accept (yap::IDynamicWorldObjectVisitor& visitor);
       virtual void Accept (
         yap::IDynamicWorldObjectConstVisitor& visitor) const;
 
-      virtual const yap::String& GetName () const;
-
-      virtual bool HasInput (yap::GameInputType gameInputType) const;
+      virtual bool HasInputActivated (yap::GameInputType gameInputType) const;
+      virtual bool HasInputDeactivated (
+        yap::GameInputType gameInputType) const;
+      virtual bool HasInputActive (yap::GameInputType gameInputType) const;
 
       virtual void Warp (const yap::ID& mapWorldID, const yap::Vector2& point);
 
@@ -78,6 +101,8 @@ namespace yse
       Player (const Player& copy);
 
       virtual const yap::String& GetObjectFactoryTypeName () const;
+
+      virtual void HandleUpdate (const yap::Time& dt);
 
     private:
 
@@ -102,6 +127,8 @@ namespace yse
       yap::PacketHandler packetHandler_;
 
       PlayerInputManager inputManager_;
+
+      DialogManager dialogManager_;
   };
 } // namespace yse
 

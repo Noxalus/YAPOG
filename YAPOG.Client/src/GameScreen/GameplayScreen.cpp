@@ -195,6 +195,7 @@ namespace ycl
       context_.GetCamera ("Gui"),
       context_.GetCamera ("World"),
       *worldDrawingPolicy_);
+    gameWorldGuiManager_->Init ();
     gameWorldGuiManager_->SetWorldDrawingPolicy (*worldDrawingPolicy_);
     guiManager_->AddChild (*gameWorldGuiManager_);
 

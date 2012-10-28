@@ -27,8 +27,8 @@ namespace ycl
 
     protected:
 
-      virtual void HandleSetGameWorldParent (
-        const GameWorldWidget& gameWorldParent);
+      virtual void HandleOnWorldCameraChanged (
+        const yap::ICamera& worldCamera);
 
     private:
 

@@ -27,6 +27,10 @@
 #include "YAPOG/Game/Pokemon/TypeInfo.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfoReader.hpp"
 #include "YAPOG/Game/Pokemon/SkillInfo.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNodeReader.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNodeReader.hpp"
 
 #include "Server/Server.hpp"
 #include "Server/ClientSession.hpp"
@@ -190,6 +194,16 @@ namespace yse
   void Server::InitObjectFactory ()
   {
     objectFactory_.RegisterLoader (
+      "DialogNode",
+      new yap::XmlObjectLoader<yap::DialogNode, yap::DialogNodeReader> ());
+
+    objectFactory_.RegisterLoader (
+      "ResponseHandlerDialogNode",
+      new yap::XmlObjectLoader<
+        yap::ResponseHandlerDialogNode,
+        yap::ResponseHandlerDialogNodeReader> ());
+
+    objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
       yap::Path ("Map"), "Map"));
@@ -263,6 +277,8 @@ namespace yse
   {
     worldObjectStateFactory_.AddState ("Inactive", "Inactive");
     worldObjectStateFactory_.AddState ("Moving", "Moving");
+    worldObjectStateFactory_.AddState ("Listening", "Listening");
+    worldObjectStateFactory_.AddState ("Talking", "Talking");
   }
 
   void Server::InitLoggerManager ()

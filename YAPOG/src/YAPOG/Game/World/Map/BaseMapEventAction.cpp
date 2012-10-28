@@ -49,6 +49,10 @@ namespace yap
   {
   }
 
+  void BaseMapEventAction::VisitNPC (INPC& visitable)
+  {
+  }
+
   void BaseMapEventAction::VisitTeleporter (Teleporter& visitable)
   {
   }

@@ -22,20 +22,19 @@ namespace yap
       typedef TXmlReader XmlReaderType;
 
       XmlObjectIDLoader (const Path& rootPath, const String& rootNodeName);
+
       virtual ~XmlObjectIDLoader ();
 
       virtual T* Load (const ID& id);
 
     private:
 
-      T& GetObject (const ID& id);
+      const T& GetObject (const ID& id) const;
 
       const Path rootPath_;
       const String rootNodeName_;
 
       collection::Map<ID, T*> objects_;
-      ID currentID_;
-      T* currentObject_;
   };
 } // namespace yap
 

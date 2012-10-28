@@ -5,6 +5,7 @@
 # include "YAPOG/Game/Factory/IIDLoadable.hpp"
 # include "YAPOG/Game/Factory/IObjectIDLoader.hpp"
 # include "YAPOG/Game/Factory/IObjectLoader.hpp"
+# include "YAPOG/Game/Factory/DefaultCloner.hpp"
 # include "YAPOG/System/Error/Exception.hpp"
 # include "YAPOG/System/StringHelper.hpp"
 
@@ -13,24 +14,38 @@ namespace yap
   template <typename T>
   T* ObjectFactory::Get (const String& typeName, const ID& id)
   {
-    if (!objectIDLoaders_.Contains (typeName))
+    IObjectIDLoader** loaderPtr = objectIDLoaders_.TryGetValue (typeName);
+
+    if (loaderPtr == nullptr)
       YAPOG_THROW("Loader `" + typeName + "' does not exist.");
 
-    return static_cast<T*> (objectIDLoaders_[typeName]->Load (id));
+    IObjectIDLoader* loader = *loaderPtr;
+
+    return static_cast<T*> (loader->Load (id));
+  }
+
+  template <typename T>
+  inline T* ObjectFactory::Create (
+    const String& typeName,
+    const ID& id,
+    const ICloner<T>& cloner)
+  {
+    IObjectIDLoader** loaderPtr = objectIDLoaders_.TryGetValue (typeName);
+
+    if (loaderPtr == nullptr)
+      YAPOG_THROW("Loader `" + typeName + "' does not exist.");
+
+    IObjectIDLoader* loader = *loaderPtr;
+
+    T* object = static_cast<T*> (loader->Load (id));
+
+    return cloner.Clone (*object);
   }
 
   template <typename T>
   inline T* ObjectFactory::Create (const String& typeName, const ID& id)
   {
-    if (!objectIDLoaders_.Contains (typeName))
-      YAPOG_THROW("Loader `" + typeName + "' does not exist.");
-
-    IObjectIDLoader* loader = objectIDLoaders_[typeName];
-
-    IIDLoadable* object = loader->Load (id);
-    ICloneable* newObject = object->Clone ();
-
-    return static_cast<T*> (newObject);
+    return Create<T> (typeName, id, DefaultCloner<T> ());
   }
 
   template <typename T>
@@ -45,10 +60,12 @@ namespace yap
     IReader& reader,
     const String& rootNodeName)
   {
-    if (!objectLoaders_.Contains (typeName))
+    IObjectLoader** loaderPtr = objectLoaders_.TryGetValue (typeName);
+
+    if (loaderPtr == nullptr)
       YAPOG_THROW("Loader `" + typeName + "' does not exist.");
 
-    IObjectLoader* loader = objectLoaders_[typeName];
+    IObjectLoader* loader = *loaderPtr;
 
     ILoadable* object = loader->Load (reader, rootNodeName);
 

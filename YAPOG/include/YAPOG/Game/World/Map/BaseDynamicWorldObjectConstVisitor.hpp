@@ -15,14 +15,18 @@ namespace yap
 
       virtual ~BaseDynamicWorldObjectConstVisitor ();
 
+      /// @name IDynamicWorldObjectConstVisitor members.
+      /// @{
       virtual void VisitDynamicWorldObject (
         const DynamicWorldObject& visitable);
       virtual void VisitCharacter (const Character& visitable);
       virtual void VisitPlayer (const IPlayer& visitable);
+      virtual void VisitNPC (const INPC& visitable);
       virtual void VisitTeleporter (const Teleporter& visitable);
       virtual void VisitDestructibleObject (
         const DestructibleObject& visitable);
       virtual void VisitBattleSpawnerArea (const BattleSpawnerArea& visitable);
+      /// @}
 
     protected:
 

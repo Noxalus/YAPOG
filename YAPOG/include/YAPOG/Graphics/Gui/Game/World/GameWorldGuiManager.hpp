@@ -22,12 +22,12 @@ namespace yap
 
       virtual ~GameWorldGuiManager ();
 
+      void Init ();
+
       void SetWorldDrawingPolicy (
         const IWorldDrawingPolicy& worldDrawingPolicy);
 
       Vector2 WorldPointToGuiPoint (const Vector3& worldPoint) const;
-
-      const ICamera& GetWorldCamera () const;
 
     protected:
 

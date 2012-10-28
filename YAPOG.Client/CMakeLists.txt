@@ -201,9 +201,16 @@ ${inc_root}/World/Map/OpenBattleSpawnerAreaReader.hpp
 ${src_root}/World/Map/OpenBattleSpawnerAreaReader.cpp
 ${inc_root}/World/World.hpp
 ${src_root}/World/World.cpp
+${inc_root}/World/Map/MapCloner.hpp
+${src_root}/World/Map/MapCloner.cpp
 
 ${inc_root}/World/Map/ObjectMoveInfoHandler.hpp
 ${src_root}/World/Map/ObjectMoveInfoHandler.cpp
+${inc_root}/World/Map/RemoveObjectHandler.hpp
+${src_root}/World/Map/RemoveObjectHandler.cpp
+
+${inc_root}/World/Map/Dialog/DialogManager.hpp
+${src_root}/World/Map/Dialog/DialogManager.cpp
 
 ${inc_root}/Game.hpp
 ${src_root}/Game.cpp

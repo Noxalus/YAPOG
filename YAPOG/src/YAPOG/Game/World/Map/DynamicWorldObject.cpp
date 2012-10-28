@@ -14,9 +14,6 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const ID& id)
     : WorldObject (id)
-    , OnMoved ()
-    , OnVelocityChanged ()
-    , OnStateChanged ()
     , worldID_ ()
     , state_ (DEFAULT_INACTIVE_STATE)
     , physicsCore_ (nullptr)
@@ -35,9 +32,6 @@ namespace yap
 
   DynamicWorldObject::DynamicWorldObject (const DynamicWorldObject& copy)
     : WorldObject (copy)
-    , OnMoved ()
-    , OnVelocityChanged ()
-    , OnStateChanged ()
     , worldID_ (copy.worldID_)
     , state_ (copy.state_)
     , physicsCore_ (nullptr)
@@ -106,7 +100,7 @@ namespace yap
     physicsCore_->OnStopped +=
       [this] (const PhysicsCore& sender, const EmptyEventArgs& args)
     {
-      SetInactive ();
+      TrySetInactiveFrom ("Moving");
     };
 
     physicsCore_->OnVelocityChanged +=
@@ -119,6 +113,9 @@ namespace yap
 
   void DynamicWorldObject::ApplyForce (const Vector2& force)
   {
+    if (!CanChangeState ("Moving"))
+      return;
+
     physicsCore_->ApplyForce (force);
 
     HandleApplyForce (force);
@@ -151,23 +148,20 @@ namespace yap
 
   bool DynamicWorldObject::TryChangeState (const String& state)
   {
-    if (IsActive ())
-    {
-      if (state_.IsJoinedTo (state))
-      {
-        SetState (state);
-        return true;
-      }
-
-      if (state != DEFAULT_INACTIVE_STATE)
-        return GetState () == state;
-
-      SetInactive ();
-
-      return true;
-    }
+    if (!CanChangeState (state))
+      return false;
 
     SetState (state);
+
+    return true;
+  }
+
+  bool DynamicWorldObject::TrySetInactiveFrom (const String& state)
+  {
+    if (GetState () != state)
+      return false;
+
+    SetInactive ();
 
     return true;
   }
@@ -176,7 +170,7 @@ namespace yap
   {
     SetState (DEFAULT_INACTIVE_STATE);
 
-    physicsCore_->ResetForces ();
+    HandleSetInactive ();
   }
 
   void DynamicWorldObject::RawSetState (const String& state)
@@ -236,6 +230,17 @@ namespace yap
     HandleUpdate (dt);
   }
 
+  bool DynamicWorldObject::CanChangeState (const String& state) const
+  {
+    if (GetState () == state)
+      return true;
+
+    if (!IsActive ())
+      return true;
+
+    return state_.IsJoinedTo (state);
+  }
+
   void DynamicWorldObject::HandleSetWorldID (const ID& worldID)
   {
   }
@@ -260,6 +265,11 @@ namespace yap
 
   void DynamicWorldObject::HandleSetState (const String& state)
   {
+  }
+
+  void DynamicWorldObject::HandleSetInactive ()
+  {
+    physicsCore_->ResetForces ();
   }
 
   void DynamicWorldObject::HandleMove (const Vector2& offset)

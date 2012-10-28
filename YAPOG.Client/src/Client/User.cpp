@@ -32,13 +32,19 @@ namespace ycl
     , trainer_ (nullptr)
   {
     ADD_HANDLER(ServerInfoSetUserPlayer, User::HandleServerInfoSetUserPlayer);
+
     ADD_HANDLER(ServerInfoChangeMap, User::HandleServerInfoChangeMap);
     ADD_HANDLER(ServerInfoAddObject, User::HandleServerInfoAddObject);
-    ADD_HANDLER(ServerInfoRemoveObject, User::HandleServerInfoRemoveObject);
+
     ADD_HANDLER(ServerInfoGameMessage, User::HandleServerInfoGameMessage);
+
     ADD_HANDLER(ServerInfoTriggerBattle, User::HandleServerInfoTriggerBattle);
+
     ADD_HANDLER(ServerInfoPokemonTeam, User::HandlerServerInfoPokemonTeam);
+
     ADD_HANDLER(ServerInfoChangeMoney, User::HandlerServerInfoChangeMoney);
+
+    ADD_HANDLER(ServerInfoStartDialog, User::HandleServerInfoStartDialog);
   }
 
   User::~User ()
@@ -294,6 +300,11 @@ namespace ycl
   {
     player_ = player;
 
+    AddRelay (player_);
+    player_->SetParent (this);
+
+    player_->InitDialogManager ();
+
     OnPlayerCreated (*this, player_);
   }
 
@@ -404,7 +415,7 @@ namespace ycl
         static_cast<yap::Direction> (
         packet.ReadUChar ()));
 
-      map.AddDrawableDynamicObject (npc);
+      map.AddNPC (npc);
     }
     if (objectTypeName == "Teleporter")
     {
@@ -457,21 +468,6 @@ namespace ycl
       OnPlayerWarped (*this, *player_);
   }
 
-  void User::HandleServerInfoRemoveObject (yap::IPacket& packet)
-  {
-    yap::ID worldID = packet.ReadID ();
-
-    Map& map = GetMap ();
-
-    if (map.ContainsPlayer (worldID))
-    {
-      map.RemovePlayer (worldID);
-      return;
-    }
-
-    map.RemoveDrawableDynamicObject (worldID);
-  }
-
   void User::HandleServerInfoGameMessage (yap::IPacket& packet)
   {
     yap::String senderName = packet.ReadString ();
@@ -517,4 +513,13 @@ namespace ycl
     ChangeMoney (amount);
   }
 
+  void User::HandleServerInfoStartDialog (yap::IPacket& packet)
+  {
+    yap::ID speakerWorldID = packet.ReadID ();
+
+    NPC& npc = GetMap ().GetNPC (speakerWorldID);
+
+    if (GetPlayer ().CanListen (npc))
+      GetPlayer ().Listen (npc);
+  }
 } // namespace ycl

@@ -24,6 +24,8 @@ namespace yap
 
     ClientInfoGameMessage,
 
+    ClientInfoDialogResponse,
+
     // from server to client
     ServerInfoLoginValidation,
     ServerInfoRegistrationValidation,
@@ -43,6 +45,10 @@ namespace yap
     ServerInfoRemoveObject,
 
     ServerInfoGameMessage,
+
+    ServerInfoStartDialog,
+    ServerInfoStopDialog,
+    ServerInfoChangeDialogNode,
 
     ServerInfoTriggerBattle,
 

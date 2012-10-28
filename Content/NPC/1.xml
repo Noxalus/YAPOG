@@ -9,6 +9,66 @@
     </entry>
   </boundingBoxes>
   <maxVelocity>250,250</maxVelocity>
+  <dialog>
+    <dialogNodeType>DialogNode</dialogNodeType>
+    <DialogNode>
+      <entry>
+        <messages>
+          <entry>Salut !</entry>
+          <entry>Bye !</entry>
+        </messages>
+        <nextNode>
+          <dialogNodeType>DialogNode</dialogNodeType>
+          <DialogNode>
+            <entry>
+              <messages>
+                <entry>On continue...</entry>
+                <entry>Un dernier.</entry>
+              </messages>
+              <nextNode>
+                <dialogNodeType>ResponseHandlerDialogNode</dialogNodeType>
+                <ResponseHandlerDialogNode>
+                  <entry>
+                    <messages>
+                      <entry>Oui ou non ?</entry>
+                    </messages>
+                    <responses>
+                      <entry>
+                        <response>Oui</response>
+                        <nextNode>
+                          <dialogNodeType>DialogNode</dialogNodeType>
+                          <DialogNode>
+                            <entry>
+                              <messages>
+                                <entry>OK</entry>
+                              </messages>
+                            </entry>
+                          </DialogNode>
+                        </nextNode>
+                      </entry>
+                      <entry>
+                        <response>Non</response>
+                        <nextNode>
+                          <dialogNodeType>DialogNode</dialogNodeType>
+                          <DialogNode>
+                            <entry>
+                              <messages>
+                                <entry>KO</entry>
+                              </messages>
+                            </entry>
+                          </DialogNode>
+                        </nextNode>
+                      </entry>
+                    </responses>
+                  </entry>
+                </ResponseHandlerDialogNode>
+              </nextNode>
+            </entry>
+          </DialogNode>
+        </nextNode>
+      </entry>
+    </DialogNode>
+  </dialog>
   <spriteType>StringSpriteSet</spriteType>
   <StringSpriteSet>
     <sprite>

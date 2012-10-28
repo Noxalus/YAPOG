@@ -48,6 +48,8 @@ namespace yap
       const String& GetState () const;
       const String& GetLogicalState () const;
       bool TryChangeState (const String& state);
+
+      bool TrySetInactiveFrom (const String& state);
       void SetInactive ();
 
       /// @brief Directly changes this DynamicWorldObject state.
@@ -76,9 +78,11 @@ namespace yap
       /// @name Events.
       /// @{
       Event<DynamicWorldObject&, const Vector2&> OnMoved;
+
       Event<
         DynamicWorldObject&,
         const ChangeEventArgs<const Vector2&>&> OnVelocityChanged;
+
       Event<
         DynamicWorldObject&,
         const ChangeEventArgs<const String&>&> OnStateChanged;
@@ -92,6 +96,8 @@ namespace yap
 
       DynamicWorldObject (const DynamicWorldObject& copy);
 
+      bool CanChangeState (const String& state) const;
+
       virtual const String& GetObjectFactoryTypeName () const = 0;
 
       virtual void HandleSetWorldID (const ID& worldID);
@@ -100,7 +106,9 @@ namespace yap
       virtual void HandleApplyForce (const Vector2& force);
 
       virtual void HandleUpdate (const Time& dt);
+
       virtual void HandleSetState (const String& state);
+      virtual void HandleSetInactive ();
 
       virtual void HandleMove (const Vector2& offset);
       virtual void HandleScale (const Vector2& factor);

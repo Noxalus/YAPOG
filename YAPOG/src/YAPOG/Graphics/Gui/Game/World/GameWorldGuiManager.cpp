@@ -19,6 +19,16 @@ namespace yap
   {
   }
 
+  void GameWorldGuiManager::Init ()
+  {
+    worldCamera_.OnMovedEvent ().AddHandler (
+      "GameWorldGuiManager",
+      [this] (ICamera& sender, const Vector2& args)
+      {
+        OnWorldCameraChanged (worldCamera_);
+      });
+  }
+
   void GameWorldGuiManager::SetWorldDrawingPolicy (
     const IWorldDrawingPolicy& worldDrawingPolicy)
   {
@@ -32,11 +42,6 @@ namespace yap
       worldCamera_.ToLocal (
         worldDrawingPolicy_->ToScreenPosition (
           worldPoint)));
-  }
-
-  const ICamera& GameWorldGuiManager::GetWorldCamera () const
-  {
-    return worldCamera_;
   }
 
   const GameWorldGuiManager& GameWorldGuiManager::GetGameWorldRoot () const

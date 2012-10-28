@@ -40,6 +40,10 @@
 #include "YAPOG/Game/Battle/PokemonFighter.hpp"
 #include "YAPOG/Game/Battle/PokemonFighterTeam.hpp"
 #include "YAPOG/Game/World/Map/TeleporterReader.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/DialogNodeReader.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNode.hpp"
+#include "YAPOG/Game/World/Map/Dialog/ResponseHandlerDialogNodeReader.hpp"
 
 #include "Client/Session.hpp"
 #include "Game.hpp"
@@ -110,14 +114,14 @@ namespace ycl
   {
     switch (guiEvent.type)
     {
-    case yap::GuiEventType::Closed:
+      case yap::GuiEventType::Closed:
 
-      window_->close ();
+        window_->close ();
 
-      return true;
+        return true;
 
-    default:
-      break;
+      default:
+        break;
     }
 
     return yap::Game::HandleOnEvent (guiEvent);
@@ -162,16 +166,28 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "AnimatedSprite",
       new yap::XmlObjectLoader<
-      yap::RegularAnimatedSprite,
-      yap::AnimatedSpriteReader> ());
+        yap::RegularAnimatedSprite,
+        yap::AnimatedSpriteReader> ());
 
     objectFactory_.RegisterLoader (
       "DestructibleObject",
       new yap::XmlObjectIDLoader<
-      DestructibleObject,
-      DestructibleObjectReader> (
-      yap::Path ("DestructibleObject"),
-      "DestructibleObject"));
+        DestructibleObject,
+        DestructibleObjectReader> (
+          yap::Path ("DestructibleObject"),
+          "DestructibleObject"));
+
+    objectFactory_.RegisterLoader (
+      "DialogNode",
+      new yap::XmlObjectLoader<
+        yap::DialogNode,
+        yap::DialogNodeReader> ());
+
+    objectFactory_.RegisterLoader (
+      "ResponseHandlerDialogNode",
+      new yap::XmlObjectLoader<
+        yap::ResponseHandlerDialogNode,
+        yap::ResponseHandlerDialogNodeReader> ());
 
     objectFactory_.RegisterLoader (
       "DirectionSpriteSet",
@@ -182,40 +198,40 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Map",
       new yap::XmlObjectIDLoader<Map, MapReader> (
-      yap::Path ("Map"),
-      "Map"));
+        yap::Path ("Map"),
+        "Map"));
 
     objectFactory_.RegisterLoader (
       "MapElement",
       new yap::XmlObjectIDLoader<MapElement, MapElementReader> (
-      yap::Path ("MapElement"),
-      "MapElement"));
+        yap::Path ("MapElement"),
+        "MapElement"));
 
     objectFactory_.RegisterLoader (
       "NPC",
       new yap::XmlObjectIDLoader<NPC, NPCReader> (
-      yap::Path ("NPC"),
-      "NPC"));
+        yap::Path ("NPC"),
+        "NPC"));
 
     objectFactory_.RegisterLoader (
       "OpenBattleSpawnerArea",
       new yap::XmlObjectIDLoader<
       OpenBattleSpawnerArea,
       OpenBattleSpawnerAreaReader> (
-      yap::Path ("OpenBattleSpawnerArea"),
-      "OpenBattleSpawnerArea"));
+        yap::Path ("OpenBattleSpawnerArea"),
+        "OpenBattleSpawnerArea"));
 
     objectFactory_.RegisterLoader (
       "Player",
       new yap::XmlObjectIDLoader<Player, PlayerReader> (
-      yap::Path ("Player"),
-      "Player"));
+        yap::Path ("Player"),
+        "Player"));
 
     objectFactory_.RegisterLoader (
       "Teleporter",
       new yap::XmlObjectIDLoader<Teleporter, yap::TeleporterReader> (
-      yap::Path ("Teleporter"),
-      "Teleporter"));
+        yap::Path ("Teleporter"),
+        "Teleporter"));
 
     objectFactory_.RegisterLoader (
       "RandomTileLayoutHandler",
@@ -242,44 +258,46 @@ namespace ycl
     objectFactory_.RegisterLoader (
       "Texture",
       new yap::XmlObjectIDLoader<yap::Texture, yap::TextureReader> (
-      yap::Path ("Texture"),
-      "Texture"));
+        yap::Path ("Texture"),
+        "Texture"));
 
     objectFactory_.RegisterLoader (
       "Tile",
       new yap::XmlObjectIDLoader<yap::Tile, yap::TileReader> (
-      yap::Path ("Tile"),
-      "Tile"));
+        yap::Path ("Tile"),
+        "Tile"));
 
     objectFactory_.RegisterLoader (
       "PokemonInfo",
       new yap::XmlObjectIDLoader<PokemonInfo, PokemonInfoReader> (
-      yap::Path ("Pokemon/Pokemon"),
-      "PokemonInfo"));
+        yap::Path ("Pokemon/Pokemon"),
+        "PokemonInfo"));
 
     objectFactory_.RegisterLoader (
       "NatureInfo",
       new yap::XmlObjectIDLoader<yap::NatureInfo, yap::NatureInfoReader> (
-      yap::Path ("Pokemon/Nature"),
-      "Nature"));
+        yap::Path ("Pokemon/Nature"),
+        "Nature"));
 
     objectFactory_.RegisterLoader (
       "TypeInfo",
       new yap::XmlObjectIDLoader<yap::TypeInfo, yap::TypeInfoReader> (
-      yap::Path ("Pokemon/Types"),
-      "Type"));
+        yap::Path ("Pokemon/Types"),
+        "Type"));
 
     objectFactory_.RegisterLoader (
       "SkillInfo",
       new yap::XmlObjectIDLoader<yap::SkillInfo, yap::SkillInfoReader> (
-      yap::Path ("Pokemon/Skills"),
-      "Skill"));
+        yap::Path ("Pokemon/Skills"),
+        "Skill"));
   }
 
   void Game::InitWorldObjectStateFactory ()
   {
     worldObjectStateFactory_.AddState ("Inactive", "Inactive");
     worldObjectStateFactory_.AddState ("Moving", "Moving");
+    worldObjectStateFactory_.AddState ("Listening", "Listening");
+    worldObjectStateFactory_.AddState ("Talking", "Talking");
   }
 
   void Game::InitGameInputManager ()
@@ -288,32 +306,32 @@ namespace ycl
 
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::MapAction,
-      new yap::KeyboardGameInputEntry (yap::Key::A)));
+        yap::GameInputType::MapAction,
+        new yap::KeyboardGameInputEntry (yap::Key::A)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Action,
-      new yap::KeyboardGameInputEntry (yap::Key::Return)));
+        yap::GameInputType::Action,
+        new yap::KeyboardGameInputEntry (yap::Key::Return)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Misc,
-      new yap::KeyboardGameInputEntry (yap::Key::M)));
+        yap::GameInputType::Misc,
+        new yap::KeyboardGameInputEntry (yap::Key::M)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Up,
-      new yap::KeyboardGameInputEntry (yap::Key::Up)));
+        yap::GameInputType::Up,
+        new yap::KeyboardGameInputEntry (yap::Key::Up)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Down,
-      new yap::KeyboardGameInputEntry (yap::Key::Down)));
+        yap::GameInputType::Down,
+        new yap::KeyboardGameInputEntry (yap::Key::Down)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Left,
-      new yap::KeyboardGameInputEntry (yap::Key::Left)));
+        yap::GameInputType::Left,
+        new yap::KeyboardGameInputEntry (yap::Key::Left)));
     gameInputManager_.AddGameInput (
       new yap::GameInput (
-      yap::GameInputType::Right,
-      new yap::KeyboardGameInputEntry (yap::Key::Right)));
+        yap::GameInputType::Right,
+        new yap::KeyboardGameInputEntry (yap::Key::Right)));
   }
 
   void Game::InitDrawingContext (const yap::Vector2& resolution)
@@ -354,7 +372,7 @@ namespace ycl
     GetScreenManager ().AddGameScreen (new MainMenuScreen (*drawingContext_));
     GetScreenManager ().AddGameScreen (
       new RegistrationScreen (
-      *drawingContext_));
+        *drawingContext_));
     GetScreenManager ().AddGameScreen (new SplashScreen (*drawingContext_));
     GetScreenManager ().AddGameScreen (new CreditScreen (*drawingContext_));
 

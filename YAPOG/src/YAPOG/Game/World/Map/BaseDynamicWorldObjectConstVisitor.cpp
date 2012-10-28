@@ -25,6 +25,10 @@ namespace yap
   {
   }
 
+  void BaseDynamicWorldObjectConstVisitor::VisitNPC (const INPC& visitable)
+  {
+  }
+
   void BaseDynamicWorldObjectConstVisitor::VisitTeleporter (
     const Teleporter& visitable)
   {

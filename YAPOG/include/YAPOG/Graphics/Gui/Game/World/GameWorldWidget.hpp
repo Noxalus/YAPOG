@@ -7,6 +7,7 @@
 namespace yap
 {
   class GameWorldGuiManager;
+  struct ICamera;
 
   class YAPOG_LIB GameWorldWidget : public GameWidget
   {
@@ -25,10 +26,11 @@ namespace yap
 
       GameWorldWidget ();
 
-      virtual const GameWorldGuiManager& GetGameWorldRoot () const;
+      void OnWorldCameraChanged (const ICamera& worldCamera);
 
-      virtual void HandleSetGameWorldParent (
-        const GameWorldWidget& gameWorldParent);
+      virtual void HandleOnWorldCameraChanged (const ICamera& worldCamera);
+
+      virtual const GameWorldGuiManager& GetGameWorldRoot () const;
 
     private:
 

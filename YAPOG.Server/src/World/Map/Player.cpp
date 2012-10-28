@@ -1,11 +1,14 @@
 #include "YAPOG/System/RandomHelper.hpp"
+#include "World/Map/Player.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectVisitor.hpp"
 #include "YAPOG/Game/World/Map/IDynamicWorldObjectConstVisitor.hpp"
 #include "YAPOG/System/Network/IPacket.hpp"
 #include "YAPOG/System/Network/Packet.hpp"
 #include "YAPOG/Game/World/Map/WorldObject.hpp"
+#include "YAPOG/Game/World/Map/Dialog/IDialogManager.hpp"
+#include "YAPOG/Game/World/Map/Dialog/WriterDialogDisplay.hpp"
+#include "YAPOG/System/IO/Log/DebugLogger.hpp"
 
-#include "World/Map/Player.hpp"
 #include "Server/User.hpp"
 #include "World/World.hpp"
 #include "World/Map/Map.hpp"
@@ -23,6 +26,7 @@ namespace yse
     , name_ (DEFAULT_NAME)
     , packetHandler_ ()
     , inputManager_ ()
+    , dialogManager_ ()
   {
     InitHandlers ();
   }
@@ -37,6 +41,7 @@ namespace yse
     , name_ (copy.name_)
     , packetHandler_ ()
     , inputManager_ ()
+    , dialogManager_ ()
   {
     InitHandlers ();
   }
@@ -54,6 +59,16 @@ namespace yse
   void Player::SetName (const yap::String& name)
   {
     name_ = name;
+  }
+
+  void Player::InitDialogManager ()
+  {
+    AddRelay (&dialogManager_);
+    dialogManager_.SetParent (this);
+
+    dialogManager_.SetDisplay (
+      new yap::WriterDialogDisplay (
+        yap::DebugLogger::Instance ()));
   }
 
   bool Player::HandlePacket (yap::IPacket& packet)
@@ -81,6 +96,57 @@ namespace yse
     packetHandler_.SetParent (parent);
   }
 
+  const yap::String& Player::GetName () const
+  {
+    return name_;
+  }
+
+  const yap::ID& Player::GetWorldID () const
+  {
+    return Character::GetWorldID ();
+  }
+
+  bool Player::CanTalk (yap::IDialogActor& dialogActor) const
+  {
+    return false;
+  }
+
+  void Player::Talk (yap::IDialogActor& dialogActor)
+  {
+  }
+
+  void Player::StopTalking ()
+  {
+  }
+
+  bool Player::CanListen (yap::IDialogActor& dialogActor) const
+  {
+    return true;
+  }
+
+  void Player::Listen (yap::IDialogActor& dialogActor)
+  {
+    if (!TryChangeState ("Listening"))
+      return;
+
+    if (dialogActor.CanTalk (*this))
+      dialogActor.Talk (*this);
+
+    dialogManager_.AddListener (*this);
+
+    dialogActor.TryStartDialog (dialogManager_);
+  }
+
+  void Player::StopListening ()
+  {
+    TrySetInactiveFrom ("Listening");
+  }
+
+  bool Player::TryStartDialog (yap::IDialogManager& dialogManager)
+  {
+    return false;
+  }
+
   void Player::Accept (yap::IDynamicWorldObjectVisitor& visitor)
   {
     Character::Accept (visitor);
@@ -96,12 +162,17 @@ namespace yse
     visitor.VisitPlayer (*this);
   }
 
-  const yap::String& Player::GetName () const
+  bool Player::HasInputActivated (yap::GameInputType gameInputType) const
   {
-    return name_;
+    return inputManager_.InputIsActivated (gameInputType);
   }
 
-  bool Player::HasInput (yap::GameInputType gameInputType) const
+  bool Player::HasInputDeactivated (yap::GameInputType gameInputType) const
+  {
+    return inputManager_.InputIsDeactivated (gameInputType);
+  }
+
+  bool Player::HasInputActive (yap::GameInputType gameInputType) const
   {
     return inputManager_.InputIsActive (gameInputType);
   }
@@ -142,6 +213,13 @@ namespace yse
   const yap::String& Player::GetObjectFactoryTypeName () const
   {
     return OBJECT_FACTORY_TYPE_NAME;
+  }
+
+  void Player::HandleUpdate (const yap::Time& dt)
+  {
+    Character::HandleUpdate (dt);
+
+    inputManager_.Refresh ();
   }
 
   void Player::InitHandlers ()

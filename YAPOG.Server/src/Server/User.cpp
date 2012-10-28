@@ -198,6 +198,8 @@ namespace yse
       "Player",
       playerID));
 
+    player_->InitDialogManager ();
+
     // Get the actual position from the database
     player_->SetPosition (
       account_->GetPlayerData ().GetPosition ());

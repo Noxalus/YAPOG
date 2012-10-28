@@ -8,12 +8,21 @@ namespace ycl
 {
   class PokemonInfo : public yap::PokemonInfo
   {
-    DISALLOW_COPY (PokemonInfo);
+    DISALLOW_ASSIGN (PokemonInfo);
 
   public:
     PokemonInfo ();
     PokemonInfo (const yap::ID& id);
     virtual ~PokemonInfo ();
+
+      /// @name ICloneable members.
+      /// @{
+      virtual PokemonInfo* Clone () const;
+      /// @}
+
+    protected:
+
+      PokemonInfo (const PokemonInfo& copy);
   };
 } // namespace ycl
 

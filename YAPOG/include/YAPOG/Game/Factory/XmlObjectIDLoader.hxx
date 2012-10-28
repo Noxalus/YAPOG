@@ -13,8 +13,6 @@ namespace yap
     : rootPath_ (rootPath)
     , rootNodeName_ (rootNodeName)
     , objects_ ()
-    , currentID_ ()
-    , currentObject_ (nullptr)
   {
   }
 
@@ -28,8 +26,10 @@ namespace yap
   template <typename T, typename TXmlReader>
   inline T* XmlObjectIDLoader<T, TXmlReader>::Load (const ID& id)
   {
-    if (objects_.Contains (id))
-      return objects_[id];
+    T** objectPtr = objects_.TryGetValue (id);
+
+    if (objectPtr != nullptr)
+      return *objectPtr;
 
     T* object = new T (id);
     objects_.Add (id, object);
@@ -38,22 +38,17 @@ namespace yap
     ContentManager::Instance ().LoadFile (rootPath_, id, file);
 
     XmlReader xmlReader (file, rootNodeName_);
-    TXmlReader objectReader (GetObject (id), rootNodeName_);
+    TXmlReader objectReader (*object, rootNodeName_);
     xmlReader.Accept (objectReader);
 
     return object;
   }
 
   template <typename T, typename TXmlReader>
-  inline T& XmlObjectIDLoader<T, TXmlReader>::GetObject (const ID& id)
+  inline const T& XmlObjectIDLoader<T, TXmlReader>::GetObject (
+    const ID& id) const
   {
-    if (currentID_ != id)
-    {
-      currentID_ = id;
-      currentObject_ = objects_[currentID_];
-    }
-
-    return *currentObject_;
+    return *objects_[id];
   }
 } // namespace yap
 

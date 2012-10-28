@@ -72,6 +72,10 @@ namespace yse
         const yap::DynamicWorldObject& object,
         const yap::String& state);
 
+      void SendPerformObjectAction (
+        const yap::DynamicWorldObject& object,
+        const yap::String& name);
+
       void SendAddObject (const yap::DynamicWorldObject& object);
       void SendRemoveObject (const yap::DynamicWorldObject& object);
 

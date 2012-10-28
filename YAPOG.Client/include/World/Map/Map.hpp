@@ -20,6 +20,7 @@ namespace yap
 
 namespace ycl
 {
+  class NPC;
   class Player;
 
   class Map : public yap::Map
@@ -41,8 +42,12 @@ namespace ycl
       bool ContainsPlayer (const yap::ID& worldID) const;
 
       void AddPlayer (Player* player);
-      void RemovePlayer (Player* player);
       void RemovePlayer (const yap::ID& worldID);
+
+      NPC& GetNPC (const yap::ID& worldID);
+
+      void AddNPC (NPC* npc);
+      void RemoveNPC (const yap::ID& worldID);
 
       template <typename T>
       void AddDrawableStaticObject (T* object);
@@ -99,6 +104,8 @@ namespace ycl
       void HandleServerInfoObjectMoveInfo (yap::IPacket& packet);
       void HandleServerInfoUpdateObjectState (yap::IPacket& packet);
 
+      void HandleServerInfoRemoveObject (yap::IPacket& packet);
+
       static const yap::String DRAW_ORDER_HANDLER_NAME;
 
       const yap::IWorldDrawingPolicy* worldDrawingPolicy_;
@@ -111,6 +118,7 @@ namespace ycl
         yap::IDrawableDynamicWorldObject*> drawableDynamicObjects_;
 
       yap::collection::Map<yap::ID, Player*> players_;
+      yap::collection::Map<yap::ID, NPC*> npcs_;
 
       yap::PacketHandler packetHandler_;
   };

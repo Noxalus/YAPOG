@@ -2,8 +2,10 @@
 #include "YAPOG/System/Network/IPacket.hpp"
 
 #include "World/Map/Map.hpp"
+#include "World/Map/NPC.hpp"
 #include "World/Map/Player.hpp"
 #include "World/Map/ObjectMoveInfoHandler.hpp"
+#include "World/Map/RemoveObjectHandler.hpp"
 
 namespace ycl
 {
@@ -16,12 +18,15 @@ namespace ycl
     , drawableObjects_ ()
     , drawableDynamicObjects_ ()
     , players_ ()
+    , npcs_ ()
     , packetHandler_ ()
   {
     ADD_HANDLER(ServerInfoObjectMoveInfo, Map::HandleServerInfoObjectMoveInfo);
     ADD_HANDLER(
       ServerInfoUpdateObjectState,
       Map::HandleServerInfoUpdateObjectState);
+
+    ADD_HANDLER(ServerInfoRemoveObject, Map::HandleServerInfoRemoveObject);
   }
 
   Map::~Map ()
@@ -54,18 +59,36 @@ namespace ycl
     OnPlayerAdded (*this, *player);
   }
 
-  void Map::RemovePlayer (Player* player)
-  {
-    players_.Remove (player->GetWorldID ());
-
-    RemoveDrawableDynamicObject (player->GetWorldID ());
-
-    OnPlayerRemoved (*this, *player);
-  }
-
   void Map::RemovePlayer (const yap::ID& worldID)
   {
-    RemovePlayer (&GetPlayer (worldID));
+    Player& player = GetPlayer (worldID);
+
+    players_.Remove (player.GetWorldID ());
+
+    RemoveDrawableDynamicObject (player.GetWorldID ());
+
+    OnPlayerRemoved (*this, player);
+  }
+
+  NPC& Map::GetNPC (const yap::ID& worldID)
+  {
+    return *npcs_[worldID];
+  }
+
+  void Map::AddNPC (NPC* npc)
+  {
+    npcs_.Add (npc->GetWorldID (), npc);
+
+    AddDrawableDynamicObject (npc);
+  }
+
+  void Map::RemoveNPC (const yap::ID& worldID)
+  {
+    NPC& npc = GetNPC (worldID);
+
+    npcs_.Remove (npc.GetWorldID ());
+
+    RemoveDrawableDynamicObject (npc.GetWorldID ());
   }
 
   void Map::ClearDynamicObjects ()
@@ -215,4 +238,15 @@ namespace ycl
     object.SetPosition (objectPosition);
     object.RawSetState (objectState);
   }
+
+  void Map::HandleServerInfoRemoveObject (yap::IPacket& packet)
+  {
+    yap::ID worldID = packet.ReadID ();
+
+    const yap::DynamicWorldObject& object = GetObject (worldID);
+
+    RemoveObjectHandler removeObjectHandler (worldID, *this);
+    object.Accept (removeObjectHandler);
+  }
+
 } // namespace ycl
