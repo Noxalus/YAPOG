@@ -16,7 +16,7 @@ Technical specifications
 YAPOG is developed in C++ and uses the SFML (v2.0) library for multimedia purpose and Boost (v1.49)
 library.
 
-As an MMORPG, this project has a database, and we choose PostgreSQL. We use pg_stream, a C++ wrapper of
+As a MMORPG, this project has a database, and we choose PostgreSQL. We use pg_stream, a C++ wrapper of
 the official C API of PostgreSQL to communicate with the database.
 
 YAPOG is multiplatform, it can run on Windows and Linux,
